@@ -22,44 +22,11 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Date", name: "date", widget: "datetime"}
       - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"} 
-
-  - name: "airflowDoc"
-    label: "Airflow"
-    folder: "/content/airflow"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "apiDoc"
-    label: "API"
-    folder: "/content/api"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Description", name: "description", widget: "string"}
 
   - name: "certifiedDoc"
-    label: "API"
+    label: "Certified"
     folder: "/content/certified"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "cliDoc"
-    label: "CLI"
-    folder: "/content/cli"
     create: true
     slug: "{{slug}}"
     fields:
@@ -79,9 +46,9 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Description", name: "description", widget: "string"}
 
-  - name: "dockerDoc"
-    label: "Docker"
-    folder: "/content/docker"
+  - name: "enterpriseDoc"
+    label: "Enterprise"
+    folder: "/content/enterprise"
     create: true
     slug: "{{slug}}"
     fields:
@@ -90,9 +57,42 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Description", name: "description", widget: "string"}
 
-  - name: "enterpriseDoc"
-    label: "Enterprise"
-    folder: "/content/enterprise"
+  - name: "cliDoc"
+    label: "CLI"
+    folder: "/content/cli"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Description", name: "description", widget: "string"}
+
+  - name: "apiDoc"
+    label: "API"
+    folder: "/content/api"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Description", name: "description", widget: "string"}
+
+  - name: "airflowDoc"
+    label: "Airflow"
+    folder: "/content/airflow"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Description", name: "description", widget: "string"}
+
+  - name: "dockerDoc"
+    label: "Docker"
+    folder: "/content/docker"
     create: true
     slug: "{{slug}}"
     fields:
