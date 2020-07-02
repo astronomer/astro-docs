@@ -1,8 +1,7 @@
 ---
-title: "KubernetesPodOperator on Astronomer"
+title: "Run the KubernetesPodOperator on Astronomer"
+navTitle: "KubernetesPodOperator"
 description: "How to run the KubernetesPodOperator on Astronomer."
-date: 2019-12-27T00:00:00.000Z
-slug: "kubepodoperator"
 ---
 
 ## Overview

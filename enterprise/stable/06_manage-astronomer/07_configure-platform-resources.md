@@ -1,8 +1,7 @@
 ---
-title: "Configuring Resources"
+title: "Configure Resources"
+navTitle: "Configure Resources"
 description: "A summary of how platform and Airflow deployment resources are created in the context of the Astronomer platform."
-date: 2018-07-17T00:00:00.000Z
-slug: "ee-configuring-resources"
 ---
 
 ## Configuring Platform Resources

@@ -1,8 +1,7 @@
 ---
 title: "AWS EKS Terraform Guide"
+navTitle: "Terraform Installation"
 description: "Install Astronomer with Terraform to build, change, and version your infrastructure safely and efficiently."
-date: 2020-01-28T00:00:00.000Z
-slug: "ee-installation-terraform-aws"
 ---
 
 Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.

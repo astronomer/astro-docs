@@ -1,8 +1,7 @@
 ---
 title: "Deployment Logs"
+navTitle: "Deployment Logs"
 description: "View and search Airflow Webserver, Scheduler, and Worker logs via the Astronomer UI."
-date: 2019-06-17T00:00:00.000Z
-slug: "deployment-level-logs"
 ---
 
 ## Overview

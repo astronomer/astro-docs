@@ -1,8 +1,7 @@
 ---
 title: "Debugging Your Installation"
-description: "Common issues deploying Astronomer"
-date: 2018-07-17T00:00:00.000Z
-slug: "debugging-install"
+navTitle: "Debugging"
+description: "Common gotchas users run into while deploying and running Astronomer Enterprise."
 ---
 
 

@@ -1,8 +1,7 @@
 ---
 title: "Release Notes"
-description: "Astronomer Platform Release Notes"
-date: 2020-01-24T00:00:00.000Z
-slug: "release-notes"
+navTitle: "Release Notes"
+description: "Astronomer Platform release notes."
 ---
 
 ## Astronomer v0.16 Release Notes

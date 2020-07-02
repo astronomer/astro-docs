@@ -1,8 +1,7 @@
 ---
 title: "The Houston API"
+navTitle: "Houston API"
 description: "How to use the GraphQL Playground to interact with Astronomer's API."
-date: 2020-03-13T00:00:00.000Z
-slug: "houston-api"
 ---
 
 ## Overview

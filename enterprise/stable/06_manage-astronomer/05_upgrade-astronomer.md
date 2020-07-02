@@ -1,8 +1,7 @@
 ---
 title: "Enterprise Upgrade Guide"
-description: "How to upgrade the Astronomer Enterprise Platform"
-date: 2018-08-23T00:00:00.000Z
-slug: "ee-upgrade-guide"
+navTitle: "Upgrade Astronomer"
+description: "How to upgrade the Astronomer Enterprise Platform."
 ---
 
 To upgrade your installation of the Astronomer Enterprise platform, follow the guidelines below.

@@ -1,8 +1,7 @@
 ---
-title: "Astronomer Platform Alerts"
+title: "Alerting in Astronomer Enterprise"
+navTitle: "Alerts"
 description: "Route common Airflow deployment and platform alerts to your preferred channel, via Prometheus Alertmanager."
-date: 2019-11-01 T00:00:00.000Z
-slug: "alerts"
 ---
 
 Route common Airflow deployment and platform alerts to your preferred channel, via [Prometheus Alertmanager](https://prometheus.io/docs/alerting/alertmanager).

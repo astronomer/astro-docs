@@ -1,8 +1,7 @@
 ---
-title: "Enterprise FAQ"
-description: "Commonly asked questions and answers for Astronomer Enterprise."
-date: 2019-12-06T00:00:00.000Z
-slug: "ee-faq"
+title: "Astronomer Enterprise FAQ"
+navTitle: "FAQ"
+description: "Commonly asked questions and answers pertaining to Astronomer Enterprise."
 ---
 
 ## Networking

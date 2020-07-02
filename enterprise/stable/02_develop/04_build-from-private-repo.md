@@ -1,8 +1,7 @@
 ---
 title: "Using a Private Repository"
+navTitle: "Use a Private Repo"
 description: "Build a custom Docker image using Python and OS-level packages from a private repository."
-date: 2019-08-09T00:00:00.000Z
-slug: "build-from-private-repo"
 ---
 
 If you're using Airflow on Astronomer, you might want to use custom Python packages that are stored in a private GitHub repo.

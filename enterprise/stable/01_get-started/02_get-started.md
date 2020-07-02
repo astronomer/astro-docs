@@ -1,8 +1,7 @@
---
-title: "Enterprise Quickstart"
-description: "Getting started after an Astronomer Enterprise install."
-date: 2018-07-17T00:00:00.000Z
-slug: "ee-getting-started"
+---
+title: "Astronomer Enterprise Quickstart"
+navTitle: "Get Started"
+description: "A guide to getting started on Astronomer Enterprise."
 ---
 
 ## Getting Started on Astronomer Enterprise
