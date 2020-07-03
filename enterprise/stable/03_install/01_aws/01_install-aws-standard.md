@@ -1,8 +1,7 @@
 ---
 title: "AWS EKS Installation Guide"
+navTitle: "Standard Installation"
 description: "How to install Astronomer on Amazon Web Services (AWS)."
-date: 2020-06-02T00:00:00.000Z
-slug: "ee-installation-eks"
 ---
 
 This guide describes the steps to install Astronomer Enterprise on Amazon Web Services (AWS), which allows you to deploy and scale [Apache Airflow](https://airflow.apache.org/) within an AWS [Elastic Kubernetes Service](https://aws.amazon.com/eks/) (EKS) cluster.

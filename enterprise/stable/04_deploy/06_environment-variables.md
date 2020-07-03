@@ -1,8 +1,7 @@
 ---
 title: "Environment Variables on Astronomer"
+navTitle: "Environment Variables"
 description: "How to manage Airflow Environment Variables on Astronomer."
-date: 2018-08-23T00:00:00.000Z
-slug: "environment-variables"
 ---
 
 ## Overview

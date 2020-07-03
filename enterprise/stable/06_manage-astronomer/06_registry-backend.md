@@ -1,15 +1,14 @@
 ---
-title: "Registry Back Ends in Astronomer Enterprise"
-description: "How to configure a registry back end."
-date: 2019-06-26T00:00:00.000Z
-slug: "ee-registry-backend"
+title: "Using Registry Back Ends in Astronomer Enterprise"
+navTitle: "Use a Registry Backend"
+description: "How to configure a registry back end to work with the Astronomer platform."
 ---
 
 ## Overview
 
 Astronomer Enterprise requires a Docker Registry to store the Docker images generated every time a user either pushes code or a configuration change to an Airflow Deployment on Astronomer.
 
-The default storage backend for this Docker Registry is a [Kubernetes Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). While this may be sufficient for teams just getting started on Astronomer, we'd strongly recommend backing the registry with an external storage solution for any team running in production.
+The default storage back end for this Docker Registry is a [Kubernetes Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). While this may be sufficient for teams just getting started on Astronomer, we'd strongly recommend backing the registry with an external storage solution for any team running in production.
 
 This doc will walk through configuring the 3 tools that Astronomer supports:
 
@@ -25,7 +24,7 @@ To read more about the Google Cloud Storage driver, reference [this doc](https:/
 
 ### Prerequisites
 
-To use Google Cloud Storage (GCS) as a registry backend solution, you'll need:
+To use Google Cloud Storage (GCS) as a registry back end solution, you'll need:
 
 -  An existing GCS Bucket
 - Your Google Cloud Platform Service Account JSON Key

@@ -1,8 +1,7 @@
 ---
 title: "Astronomer Enterprise Recovery Guide"
+navTitle: "Disaster Recovery"
 description: "How to recover after your Astronomer Enterprise platform is taken down."
-date: 2018-08-24T00:00:00.000Z
-slug: "ee-administration-recovery-guide"
 ---
 
 # Disaster Recovery Guide

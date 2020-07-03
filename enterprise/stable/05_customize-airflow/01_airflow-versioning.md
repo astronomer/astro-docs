@@ -1,8 +1,7 @@
 ---
 title: "Managing Airflow Versions on Astronomer"
+navTitle: "Airflow Versioning"
 description: "How to adjust and upgrade Airflow versions on Astronomer."
-date: 2020-01-24T00:00:00.000Z
-slug: "airflow-versioning"
 ---
 
 ## Overview

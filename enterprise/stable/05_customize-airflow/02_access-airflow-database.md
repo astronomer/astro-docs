@@ -1,8 +1,7 @@
 ---
 title: "The Airflow Database"
+navTitle: "The Airflow Database"
 description: "How to access Airflow's Postgres Metadata Database on Astronomer."
-date: 2019-06-03T00:00:00.000Z
-slug: "access-airflow-database"
 ---
 
 

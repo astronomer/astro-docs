@@ -1,8 +1,7 @@
 ---
 title: "Roles and Permissions"
-description: "Role Based Access Control for your Astronomer Workspace."
-date: 2019-05-28T00:00:00.000Z
-slug: "rbac"
+navTitle: "Roles and Permissions"
+description: "How roles and permissions work in the context of the Astronomer platform."
 ---
 
 Astronomer v0.9 and beyond supports role based access control (RBAC), allowing you to configure varying levels of access across all Users within your Workspace.
