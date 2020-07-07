@@ -1,6 +1,7 @@
 ---
 title: "Security Model"
-description: "Security on Astronomer Cloud and Astronomer Enterprise."
+navTitle: "Security Model"
+description: "Security on Astronomer Enterprise."
 ---
 
 Astronomer allows you to dictate who has access to specific Airflow deployments.

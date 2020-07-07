@@ -1,8 +1,7 @@
 ---
-title: "Code Deployment"
+title: "Deploy to Astronomer via the CLI"
+navTitle: "Deploy Code"
 description: "How to push code to your Airflow Deployment on Astronomer via the Astronomer CLI."
-date: 2018-07-17T00:00:00.000Z
-slug: "deploy-cli"
 ---
 
 ## Deployment on Astronomer

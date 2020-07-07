@@ -1,5 +1,6 @@
 ---
 title: "Managing Airflow Versions on Astronomer"
+navTitle: "Airflow Versioning"
 description: "How to adjust and upgrade Airflow versions on Astronomer."
 ---
 

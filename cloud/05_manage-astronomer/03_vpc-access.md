@@ -1,5 +1,6 @@
 ---
 title: "VPC Access"
+navTitle: "VPC Access"
 description: "How to grant Astronomer Cloud access to your VPC."
 ---
 

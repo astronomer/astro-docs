@@ -1,5 +1,6 @@
 ---
 title: "The Airflow Database"
+navtitle: "The Airflow Database"
 description: "How to access Airflow's Postgres Metadata Database on Astronomer."
 ---
 

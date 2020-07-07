@@ -1,5 +1,6 @@
 ---
-title: "KubernetesPodOperator on Astronomer"
+title: "Run the KubernetesPodOperator on Astronomer"
+navtitle: "KubernetesPodOperator"
 description: "How to run the KubernetesPodOperator on Astronomer."
 ---
 

@@ -1,8 +1,7 @@
 ---
-title: "Image Customization"
-description: "Customize your Docker image by running commands on build, adding dependencies, or bringing in Environment Variables."
-date: 2018-07-17T00:00:00.000Z
-slug: "customizing-your-image"
+title: "Customize your Airflow Image on Astronomer"
+navTitle: "Customize Images"
+description: "How to customize your Airflow Image on Astronomer, including guidance on adding dependencies and running commands on build."
 ---
 
 ## Containers and Volumes

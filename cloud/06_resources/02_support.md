@@ -1,8 +1,7 @@
 ---
 title: "Support"
-description: "How to work with Astronomer Support."
-date: 2020-03-10 T00:00:00.000Z
-slug: "support"
+navTitle: "Support"
+description: "How to get the most from Astronomer Support."
 ---
 
 Our mission at Astronomer is to help organizations adopt [Apache Airflow](https://airflow.apache.org/).

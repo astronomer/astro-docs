@@ -1,6 +1,7 @@
 ---
 title: "Cloud Pricing"
-description: "An overview of pricing for Astronomer Cloud."
+navTitle: "Pricing"
+description: "An overview of Astronomer Cloud pricing."
 ---
 
 To view a general overview of our pricing structure across our product offerings, check out the [pricing page](https://www.astronomer.io/pricing/) on our website.

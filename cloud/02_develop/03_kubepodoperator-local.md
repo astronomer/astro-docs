@@ -1,8 +1,7 @@
 ---
-title: "Local Development with the Kubernetes Pod Operator"
-description: "Run a single node Kubernetes cluster on your local machine."
-date: 2019-05-08T00:00:00.000Z
-slug: "kubepodoperator-local"
+title: "How to Run the KubernetesPodOperator Locally"
+navTitle: "Run the KubernetesPodOperator Locally"
+description: "How to run and test the KubernetesPodOperator on your local machine."
 ---
 
 

@@ -1,8 +1,7 @@
 ---
-title: "Configure your Deployment"
-description: "How to configure your Airflow Deployment's Resources on Astronomer."
-date: 2019-03-04T00:00:00.000Z
-slug: "configure-deployment"
+title: "Configure an Airflow Deployment on Astronomer"
+navTitle: "Configure a Deployment"
+description: "How to set resources and configure an Airflow Deployment on Astronomer."
 ---
 
 Once you've created your deployment, you can configure it for the use case at hand.
