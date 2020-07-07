@@ -1,7 +1,7 @@
 ---
 title: "Release Notes"
 navTitle: "Release Notes"
-description: "Astronomer Enterprise Release Notes."
+description: "Astronomer Cloud Release Notes."
 ---
 
 ## Astronomer v0.16 Release Notes

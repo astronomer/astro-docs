@@ -1,6 +1,6 @@
 ---
 title: "Workspace User Roles and Permissions on Astronomer"
-navTitle: "Workspace User Roles"
+navTitle: "Workspace User Permissions"
 description: "Role Based Access Control for your Astronomer Workspace."
 ---
 
