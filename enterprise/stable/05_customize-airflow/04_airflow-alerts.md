@@ -1,7 +1,7 @@
 ---
 title: "Airflow Alerts"
 navTitle: "Airflow Alerts"
-description: "Configure Airflow alerts to monitor the health of your deployments."
+description: "How to configure task-level Airflow alerts on Astronomer to monitor task failures, successes and retries."
 ---
 
 # Airflow Email Alerting
