@@ -1,7 +1,7 @@
 ---
-title: "Local Development with the Kubernetes Pod Operator"
-navTitle: "Run a Local KubePodOperator"
-description: "Run a single-node Kubernetes cluster on your machine to leverage the KubePodOperator locally."
+title: "How to Run the KubernetesPodOperator Locally"
+navTitle: "Run the KubernetesPodOperator Locally"
+description: "How to run and test the KubernetesPodOperator on your local machine."
 ---
 
 ## Setup Kubernetes
