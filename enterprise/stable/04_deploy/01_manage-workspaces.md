@@ -1,5 +1,5 @@
 ---
-title: "Manage Workspaces and Deployments"
+title: "Manage Workspaces and Deployments on Astronomer"
 navTitle: "Manage Workspaces"
 description: "Manage Astronomer Workspaces and Airflow Deployments via the Astronomer UI."
 ---
