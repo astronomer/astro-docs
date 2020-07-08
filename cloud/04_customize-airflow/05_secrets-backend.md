@@ -1,5 +1,6 @@
 ---
-title: "Integrate a Secret Backend"
+title: "Configure an External Secrets Backend on Astronomer"
+navTitle: "Configure a Secrets Backend"
 description: "Configure a secret backend tool on Astronomer to store Airflow Connections and Variables."
 ---
 

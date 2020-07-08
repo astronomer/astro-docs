@@ -1,8 +1,7 @@
 ---
-title: "The Astronomer UI"
+title: "Manage Workspaces and Deployments on Astronomer"
+navTitle: "Manage Workspaces"
 description: "Manage Astronomer Workspaces and Airflow Deployments via the Astronomer UI."
-date: 2018-10-12T00:00:00.000Z
-slug: "workspaces-deployments"
 ---
 
 We've designed the Astronomer UI as a place for you to easily and effectively manage users, deployments and resources.

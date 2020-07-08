@@ -1,6 +1,7 @@
 ---
 title: "Astronomer Overview"
-description: "Astronomer Cloud vs. Astronomer Enterprise."
+navTitle: Astronomer Overview
+description: "An overview of Astronomer Cloud and Enterprise."
 ---
 
 The Astronomer platform is available as a SaaS service (Astronomer Cloud) or as a software subscription (Astronomer Enterprise).

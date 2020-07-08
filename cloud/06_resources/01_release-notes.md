@@ -1,6 +1,7 @@
 ---
 title: "Release Notes"
-description: "Astronomer Platform Release Notes"
+navTitle: "Release Notes"
+description: "Astronomer Enterprise Release Notes."
 ---
 
 ## Astronomer v0.16 Release Notes

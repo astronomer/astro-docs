@@ -1,6 +1,7 @@
 ---
 title: "Cloud Quickstart"
-description: "Getting started with Astronomer Cloud."
+navTitle: Quickstart
+description: "Get started with Astronomer Cloud."
 ---
 
 Welcome to Astronomer.

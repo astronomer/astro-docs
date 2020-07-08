@@ -1,6 +1,7 @@
 ---
-title: "The Houston API"
-description: "How to use the GraphQL Playground to interact with Astronomer's API."
+title: "The Astronomer Houston API"
+navTitle: "Houston API"
+description: "How to automate actions on Astronomer via the Houston API."
 ---
 
 ## Overview
