@@ -1,7 +1,7 @@
 ---
-title: "Workspace User Roles and Permissions on Astronomer"
+title: "Manage User Permissions on an Astronomer Workspace"
 navTitle: "Workspace User Permissions"
-description: "Role Based Access Control for your Astronomer Workspace."
+description: "Manage user roles and permissions within a single Astronomer Workspace."
 ---
 
 Astronomer supports role based access control (RBAC), allowing you to configure varying levels of access across all Users within your Workspace.
