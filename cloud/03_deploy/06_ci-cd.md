@@ -1,7 +1,7 @@
 ---
 title: "Deploy to Astronomer via CI/CD"
 navTitle: "CI/CD"
-description: "Automate deploying to Airflow on Astronomer by setting up CI/CD."
+description: "Automate the deploy process to your Airflow Deployment by setting up a CI/CD pipeline with a Service Account on Astronomer."
 ---
 
 Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.

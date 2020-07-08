@@ -1,12 +1,13 @@
 ---
-title: "Configure Airflow Deployments"
-navTitle: "Configure Deployments"
+title: "Configure an Airflow Deployment on Astronomer"
+navTitle: "Configure a Deployment"
 description: "How to configure your Airflow Deployment's Resources on Astronomer."
 ---
 
 Once you've created your deployment, you can configure it for the use case at hand.
 
 ## Allocating Resources
+
 
 The `Settings` tab allows you to adjust your resource components - empowering you to freely scale your deployment up or down as you wish. To this end, you can:
 
