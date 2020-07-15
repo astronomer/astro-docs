@@ -1,5 +1,6 @@
 ---
-title: "Running Locally"
+title: "Running Astronomer Certified Locally"
+navTitle: "Running Locally"
 description: "Everything you need to know to get up and running on Astronomer's distribution of Apache Airflow on your local machine."
 ---
 

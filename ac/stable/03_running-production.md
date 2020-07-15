@@ -1,5 +1,6 @@
 ---
-title: "Running in Production"
+title: "Running Astronomer Certified in Production"
+navTitle: "Running in Production"
 description: "Running the Astronomer Certified distribution of Airflow in production with Systemd."
 ---
 

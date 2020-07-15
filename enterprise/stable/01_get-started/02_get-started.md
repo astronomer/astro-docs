@@ -248,7 +248,7 @@ If you are the first user to authenticate into Astronomer, you'll have access to
 These views show logs and metrics (respectively) acosss all deployments running on that deployment of Astronomer. You can set up Kibana with the instructions found [here](https://www.astronomer.io/docs/ee-kibana/)
 
 
-## 10. Start inviting Users!
+## 10. Start inviting Users
 
 Now that you've run through all of the functionality on Astronomer enterprise, you're ready to start inviting users! 
 
