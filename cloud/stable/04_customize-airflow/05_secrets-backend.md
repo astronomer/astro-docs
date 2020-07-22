@@ -30,7 +30,7 @@ If you do not already have a Vault server deployed but would like to test this f
 
 1. Deploying a light-weight server using [this Heroku Element](https://elements.heroku.com/buttons/pallavkothari/vault)
 2. Deploying a local server via the instructions in [our Airflow and Vault guide](https://astronomer.io/guides/airflow-and-hashicorp-vault)
-  
+
 ### Write a Connection to Vault
 
 To start, you'll need to write an [Airflow connection URI](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-connection-uri) to your Vault server.
@@ -107,15 +107,15 @@ To test your connection to Vault locally, add the code below as a new DAG in you
     from airflow.operators.python_operator import PythonOperator
     from datetime import datetime
     from airflow.hooks.base_hook import BaseHook
-    
-    
+
+
     def get_secrets(**kwargs):
         conn = BaseHook.get_connection(kwargs['my_conn_id'])
         print(f"Password: {conn.password}, Login: {conn.login}, URI: {conn.get_uri()}, Host: {conn.host}")
-    
+
     with DAG('example_secrets_dags', start_date=datetime(2020, 1, 1), schedule_interval=None) as dag:
-    
-    
+
+
         test_task = PythonOperator(
             task_id='test-task',
             python_callable=get_secrets,
@@ -129,7 +129,7 @@ Once you've added this DAG to your project:
 3. Click on `test-task` > `View Logs`
 4. Confirm your `smtp_default` connection information is being printed in the task logs.
 
-![Airflow Logs for Vault](http://assets2.astronomer.io/main/docs/secrets-backends/logs.png)
+![Airflow Logs for Vault](https://assets2.astronomer.io/main/docs/secrets-backends/logs.png)
 
 This works because we set the `connections_path` in our `AIRFLOW__SECRETS__BACKEND_KWARGS` to be `connections`. You are welcome to change this path name if you'd prefer to access Variables from a different Vault directory.
 
