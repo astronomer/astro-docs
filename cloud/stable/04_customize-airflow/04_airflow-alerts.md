@@ -148,15 +148,6 @@ In the Astronomer UI, you can subscribe to additional alerts in the `Alerts` tab
 | `AirflowCPUQuota` | Deployment is near its CPU quota, has been using over 95% of it's CPU quota for over 10 minutes. |
 | `AirflowMemoryQuota` | Deployment is near its memory quota, has been using over 95% of it's memory quota for over 10 minutes. |
 
-## Platform Alerts (Enterprise Only)
-
-| Alert | Description |
-| ------------- | ------------- |
-| `PrometheusDiskUsage` | Prometheus high disk usage, has less than 10% disk space available. |
-| `RegistryDiskUsage` | Docker Registry high disk usage, has less than 10% disk space available. |
-| `ElasticsearchDiskUsage` | Elasticsearch high disk usage, has less than 10% disk space available. |
-| `IngessCertificateExpiration` | TLS Certificate expiring soon, expiring in less than a week. |
-
 ### Example Alert
 
 This alert fires when the scheduler is not heartbeating every 5 seconds for more than 3 minutes:
@@ -177,4 +168,4 @@ alert: AirflowSchedulerUnhealthy
 The full PQL ([Prometheus Query Language](https://prometheus.io/docs/prometheus/latest/querying/basics/)) for how all these alerts are triggered can be found in our helm [helm charts ](https://github.com/astronomer/helm.astronomer.io/blob/387bcfcc06885d9253c2e1cfd6a5a08428323c57/charts/prometheus/values.yaml#L99
 ).
 
-**Note:** Customizing these alerts is currently only a feature available to Enterprise customers.
+> **Note:** Customizing these alerts is currently only a feature available to Enterprise customers.

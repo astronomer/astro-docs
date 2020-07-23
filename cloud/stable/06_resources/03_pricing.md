@@ -31,7 +31,7 @@ Via the [Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/login) as see
 
 Resource configurations are "live" as soon as you adjust the toggles on your web browser and click `Update`.
 
-> Note*: Read below for details on configuring "Extra Capacity," as AU's allocated to this slider are both calculated and billed differently.
+> **Note*:** Read below for details on configuring "Extra Capacity," as AU's allocated to this slider are both calculated and billed differently.
 
 ### The Astronomer Unit (AU)
 

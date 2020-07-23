@@ -91,7 +91,7 @@ Astro CLI Version: 0.15.0
 Git Commit: c4fdeda96501ac9b1f3526c97a1c5c9b3f890d71
 ```
 
-For a breakdown of subcommands and corresponding descriptions, you can always run `astro` or `astro help`.
+For a breakdown of subcommands and corresponding descriptions, you can always run `$ astro` or `$ astro help`.
 
 ```
 astro is a command line interface for working with the Astronomer Platform.
@@ -216,13 +216,7 @@ $ astro dev start
 
 ## Authenticate to Astronomer
 
-To authenticate to Astronomer via the CLI, run:
-
-```
-$ astro auth login BASEDOMAIN
-```
-
-If you're running on Astronomer Cloud, this would be:
+To authenticate to Astronomer Cloud via the CLI, run:
 
 ```
 $ astro auth login gcp0001.us-east4.astronomer.io
@@ -233,22 +227,6 @@ If you created your account with a username and password, you'll be prompted to 
 > **Note:** Once you run this command once, it should stay cached and allow you to just run `astro auth login` to authenticate more easily in the future.
 
 If you do _not_ have an account on Astronomer, ask your System Administrator, [start a trial on Astronomer Cloud](https://www.astronomer.io/trial/), or [reach out to us](https://support.astronomer.io/hc/en-us).
-
-## Access to the Airflow CLI
-
-You're free to use native Airflow CLI commands with the Astro CLI when developing locally by wrapping them around docker commands.
-
-### Adding a Connection
-
-For example, an Airflow Connection can be added with:
-
-```bash
-docker exec -it SCHEDULER_CONTAINER bash -c "airflow connections -a --conn_id test_three  --conn_type ' ' --conn_login etl --conn_password pw --conn_extra {"account":"blah"}"
-```
-
-Refer to the native [Airflow CLI](https://airflow.apache.org/cli.html) for a list of all commands.
-
-> **Note:** Direct access to the Airflow CLI is an Enterprise-only feature. If you're an Astronomer Cloud customer, you'll only be able to access it while developing locally for reasons related to the multi-tenant architecture of our Cloud. If you'd like to use a particular Airflow CLI command, reach out and we're happy to help you find a workaround.
 
 ## Additional Resources
 

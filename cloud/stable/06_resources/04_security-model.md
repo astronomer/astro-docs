@@ -18,7 +18,7 @@ In an upcoming release, we'll include Airflow 1.10 features, which will include
 To learn more about Workspaces and see screenshots of what their user management
 capability looks like, check out the [Platform Overview](https://astronomer.io/docs/overview).
 
-## Cloud Edition
+## Astronomer Cloud
 
 Astronomer Cloud is hosted on infrastructure we control. We run a single NAT
 that all internet bound traffic flows through. We don't persist any of your
@@ -29,9 +29,3 @@ Our cluster and databases are all hosted in a private VPC with all private IPs. 
 
 If you're interested in having a dedicated NAT or IP, you'll have to use our
 Enterprise product, which is installed into your Kubernetes.
-
-
-## Enterprise Edition
-
-Astronomer Enterprise is deployed in your cloud, on your Kubernetes. As such,
-it should comply with your internal security specifications.

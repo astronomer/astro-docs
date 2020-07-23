@@ -6,7 +6,7 @@ description: "Automate the deploy process to your Airflow Deployment by setting 
 
 Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
 
-This guide will walk you through configuring your CI/CD pipeline with either Astronomer Cloud or Astronomer Enterprise.
+This guide will walk you through configuring your CI/CD pipeline on Astronomer Cloud.
 
 For background and best practices on CI/CD, we recommend reading ["An Introduction to CI/CD Best Practices"](https://www.digitalocean.com/community/tutorials/an-introduction-to-ci-cd-best-practices) from DigitalOcean.
 
@@ -28,13 +28,13 @@ Read below for instructions on how to create a Service Account and what your CI/
 
 Before we get started, make sure you:
 
-- Have access to a running Airflow Deployment on either Astronomer Cloud or Enterprise
+- Have access to a running Airflow Deployment on Astronomer Cloud
 - Installed the [Astronomer CLI](https://github.com/astronomer/astro-cli)
 - Are familiar with your CI/CD tool of choice
 
 ## Create a Service Account
 
-In order to authenticate your CI/CD pipeline to Astronomer's private Docker registry (or yours), you'll need to create a Service Account and grant it an appropriate set of permissions. You can do so via the Astronomer UI or CLI. Once created, you can always delete this Service Account at any time. In both cases, creating a Service Account will generate an API key that will be used for the CI/CD process.
+In order to authenticate your CI/CD pipeline to Astronomer's private Docker registry, you'll need to create a Service Account and grant it an appropriate set of permissions. You can do so via the Astronomer UI or CLI. Once created, you can always delete this Service Account at any time. In both cases, creating a Service Account will generate an API key that will be used for the CI/CD process.
 
 Note that you're able to create Service Accounts at the:
 
@@ -119,7 +119,7 @@ docker login registry.$${BASE_DOMAIN} -u _ -p $${API_KEY_SECRET}
 
 In this example:
 
-- `BASEDOMAIN` = `gcp0001.us-east4.astronomer.io` (for Astronomer Cloud users) or your very own Basedomain for Enterprise
+- `BASEDOMAIN` = `gcp0001.us-east4.astronomer.io`
 - `API_KEY_SECRET` = The API Key that you got from the CLI or the UI and stored in your secret manager
 
 ### Building and Pushing an Image
@@ -128,11 +128,11 @@ Once you are authenticated you can build, tag and push your Airflow image to the
 
 #### Registry Address
 
-*Registry Address* tells Docker where to push images to. In this case it will either be:
+*Registry Address* tells Docker where to push images to. On Astronomer Cloud, the registry is:
 
-- Astronomer Enterprise: Your private registry located at registry.${BASE_DOMAIN}.
-
-- Astronomer Cloud: `registry.gcp0001.us-east4.astronomer.io`
+```
+registry.gcp0001.us-east4.astronomer.io
+```
 
 #### Release Name
 
@@ -156,9 +156,7 @@ If you would like to see a more complete working example please visit our [full 
 
 Depending on your CI/CD tool, configuration will be slightly different. This section will focus on outlining what needs to be accomplished, not the specifics of how.
 
-At its core, your CI/CD pipeline will be authenticating to the private registry installed with the platform, then building, tagging and pushing an image to that registry.
-
-> Note: The base image is based on the version of Astronomer you are currently running.
+At its core, your CI/CD pipeline will first authenticate to Astronomer Cloud's private registry and then build, tag and push your Docker Image to that registry.
 
 #### DroneCI
 

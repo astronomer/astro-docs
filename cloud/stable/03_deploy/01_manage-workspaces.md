@@ -4,7 +4,7 @@ navTitle: "Manage Workspaces"
 description: "Manage Astronomer Workspaces and Airflow Deployments via the Astronomer UI."
 ---
 
-We've designed the Astronomer UI as a place for you to easily and effectively manage users, deployments and resources.
+We've designed the Astronomer UI as a place for you to easily manage users, Airflow Deployments and resources.
 
 ## Dashboard
 
@@ -15,7 +15,7 @@ Once logged in, you'll land on a dashboard that gives you an overview of your Wo
 From this dashboard, you can:
 
 1. Spin up new Workspaces
-2. View the workspaces you currently have access to
+2. View the Workspaces you currently have access to
 3. Adjust your account name under the `Personal Settings` tab
 
 ## Workspaces
@@ -43,16 +43,15 @@ From this screen, you can:
 
 Since all of our app activity is routed through a GraphQL API, you're free to create deployments, switch workspaces, and add users via our [CLI](https://www.astronomer.io/docs/cli-quickstart/) if you prefer staying in your terminal.
 
-**Note:** The concept of a "workspace" only exists at the API level to help with permissions. It does **not** have anything to do with how Airflow will run jobs.
+> **Note:** The concept of a "Workspace" only exists at the API level to support role-based access control and user permissions. It will not affect Airflow task execution.
 
 ## Deployments
 
-A single instance of [Apache Airflow](https://airflow.apache.org/) made up of a scheduler, a webserver, and one or more workers. A deployment has the capacity to host a collection of DAGs.
+An [Apache Airflow](https://airflow.apache.org/) Deployment is made up of a Scheduler, a Webserver and, if you're running the Celery or Kubernetes Executors, one or more Workers. An Airflow Deployment within a Workspce has the capacity to host a collection of DAGs.
 
-In the context of Astronomer, the term `Airflow Deployment` is used to describe an instance of Airflow that you've spun up either via our [UI](https://astronomer.io/docs/overview) or [CLI](https://astronomer.io/docs/cli-quickstart) as part of a workspace. Under the hood, each deployment gets its own Kubernetes namespace and has a set isolated resources reserved for itself.
+In the context of Astronomer, the term `Airflow Deployment` is used to describe an instance of Airflow that you've spun up either via our [UI](https://astronomer.io/docs/overview) or [CLI](https://astronomer.io/docs/cli-quickstart) as part of a Workspace. Under the hood, each Airflow Deployment gets its own Kubernetes namespace and has a reserved set of dedicated resources and an underlying Postgres Metadata Database.
 
 You're able to adjust the resources given to your Airflow deployment directly from the UI. This functionality allows you to choose executor (local or celery) and easily provision additional resources as you scale up.
-
 
 From the Workspace dashboard, navigate back to the `Deployments` tab.
 
@@ -69,12 +68,14 @@ The former will link you directly to your DAG Dashboard on Airflow itself. Your 
 
 For a breakdown the Airflow UI itself, check out [this guide](https://www.astronomer.io/guides/airflow-ui/).
 
-**Each deployment will run in a separate Kubernetes namespace, so they'll all get resources and maintain metadata independently. You should assume that each deployment is unaware of the others.**
+> **Note:** All Airflow Deployments run in an isolated Kubernetes namespace, which means resources will be provisioned independently and data will be kept isolated from the rest. You can assume that each Airflow Deployment is unaware of the others, even within the same Workspace.
 
 ## User Management
 
-If you navigate over to the `Users` tab of your Workspace Dashboard, you'll be able to see who has access to the Workspace. If you'd like to share access to other members of your organization, invite them to a workspace you're a part of. Once members, they'll have access to _all_ Airflow deployments under that workspace.
+If you navigate over to the `Users` tab of your Workspace Dashboard, you'll be able to see who has access to the Workspace.
 
-## Workspace Permissions
+If you'd like to share access to other members of your organization, invite them to a Workspace you're a part of. Once members, they'll have access to _all_ Airflow deployments under that workspace with varying permissions.
+
+### Workspace Permissions
 
 Users in a Workspace can be given the role of a `Viewer`, `Editor`, or `Admin`. An exact breakdown of these roles can be found in the [User Roles and Permissions](https://www.astronomer.io/docs/rbac/) section. Astronomer Enterprise admins can [configure the exact permissions](https://www.astronomer.io/docs/ee-configuring-permissions/) for each Astronomer role.

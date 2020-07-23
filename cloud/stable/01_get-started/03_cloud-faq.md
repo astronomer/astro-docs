@@ -15,9 +15,9 @@ Astronomer Cloud is officially compatible with Airflow v1.10.5 and higher. For o
 
 ### What Airflow Executors do you currently support?
 
-We currently support the Celery, Local and Kubernetes Executors. You can switch between the two freely via the Astronomer UI.
+We currently support the Celery, Local and Kubernetes Executors. You can switch between the three freely via the Astronomer UI.
 
-*Not sure which Executor to use?* We generally recommend starting off with the LocalExecutor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](https://www.astronomer.io/guides/airflow-executors-explained/) for a ful analysis on each.
+If you're not sure which Executor to use, we generally recommend starting off with the Local Executor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](https://www.astronomer.io/guides/airflow-executors-explained/) for a ful analysis on each.
 
 ## Networking
 
@@ -31,7 +31,7 @@ If you're allowlisting that IP on Amazon Redshift, check out [our VPC Access Doc
 
 ### Will I have access to Airflow's underlying database for my deployment?
 
-Yes! Each Astronomer Cloud customer has an isolated Postgres database per deployment. To access that database and the Ad-Hoc Query feature for a deployment on both Astronomer and locally, check out [Query the Airflow Database](https://www.astronomer.io/docs/query-airflow-database).
+Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres Metadata Database hosted by Astronomer and isolated from all other Airflow Deployments. To access that database both on your local machine and Astronomer, check out our [Query the Airflow Database](https://www.astronomer.io/docs/query-airflow-database) doc.
 
 ## Monitoring
 
@@ -43,9 +43,9 @@ Right now, your monitoring options for Cloud are:
 * Deployment Configure page on the Astro UI for all resource configs
 * Flower dashboard in the Astro UI to check on your Celery Workers (whether or not they’re online, how many tasks they’re actively processing, etc.)
 * Scheduler/Webserver/Worker logs in the Astronomer UI
-* Metrics tab in the Astronomer UI (Container status, Scheduler Heartbeat, CPU utilization)
+* Metrics tab in the Astronomer UI (Container Status, Scheduler Heartbeat, CPU utilization)
 
-> NOTE: SysAdmin cluster-level monitoring across deployments via Grafana is an Enterprise-only feature at the moment since all Cloud deployments live within our wider Astronomer-hosted cluster.
+> **Note:** System Admin monitoring across multiple Airflow Deployments via Grafana is an Enterprise-only feature.
 
 ## Code Sharing
 
@@ -55,15 +55,15 @@ This is largely dependent on personal preference and your particular use case.
 
 At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. All users within a single Workspace have acess to all Airflow deployments within it, with [varying levels of permissions](https://www.astronomer.io/docs/rbac/).
 
-Across deployments, we'd generally recommend one repository/parent directory per project. That way, you leave the door open for CI/CD down the line if that's something you ever want to set up.
+Across Airflow Deployments, we'd generally recommend one repository/parent directory per project. That way, you leave the door open for CI/CD down the line if that's something you ever want to set up.
 
-As for the code itself, we’ve seen effective organization where external code is partitioned by function and/or business case, so one directly for SQL, one for data processing tasks, one for data validation, etc.
+As for the code itself, we’ve seen effective organization where external code is partitioned by function and/or business case. This may be one directly for SQL, one for data processing tasks, one for data validation, etc.
 
 ## Authentication
 
 ### What authentication methods does Astronomer Cloud support?
 
-We offer authentication via Google, Github, and Username/Password.
+We offer authentication via Google, Github, and Local Username/Password.
 
 Once you've created a Workspace on Astronomer, you'll use that same method to authenticate to the Astronomer CLI.
 
@@ -75,8 +75,8 @@ After you [sign up for a trial](https://www.astronomer.io/trial/), you can head 
 
 ### How does billing work?
 
-Your first 14 days on Astronomer Cloud are entirely free of cost. When you create a new Workspace, you'll begin a 14-day trial period that allows you to freely spin up a deployment without worrying about an invoice at the end of the month.
+Your first 14 days on Astronomer Cloud are entirely free of cost. When you create a new Workspace, you'll begin a 14-day trial period that allows you to spin up an Airflow Deployment, configure Environment Variables, invite users, and explore our Deployment-level monitoring tools.
 
-After your first 14 days, you'll be required to input a payment method to continue usage. From there, we'll charge you based on exact resource usage per deployment at the end of the month. You can expect your first invoice 1 month after the end of your trial.
+After your first 14 days, you'll be required to input a payment method to continue usage. From there, we'll charge you based on exact resource usage per Airflow Deployment every 1st of the month, pro-rated for your first few weeks.
 
 If you want to cancel your account or trial and are having trouble accessing your Astronomer account,  please [reach out to us](https://support.astronomer.io).
