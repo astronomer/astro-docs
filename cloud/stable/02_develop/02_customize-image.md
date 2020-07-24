@@ -10,7 +10,7 @@ Any extra commands you want to run when the image builds can be added in the `Do
 
 For example, suppose I wanted to run `ls` when my image builds. The `Dockerfile` would look like:
 
-```
+```dockerfile
 FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
 RUN ls
 ```
@@ -21,7 +21,7 @@ Any additional python packages or OS level packages can be added in `requirement
 
 This can be added to `requirements.txt`, run `astro dev stop` and `astro dev start` to rebuild my image with this new python package. Every package in the `requirements.txt` file will be installed by `pip` when the image builds (`astro dev start`).
 
-```
+```bash
 docker exec -it dff1aaef15cf pip freeze | grep pymongo
 pymongo==3.7.2
 ```
@@ -32,7 +32,7 @@ A list of default packages included in the Astronomer base image can be found [h
 
 **Note:** We run Alpine linux as our base image so you may need to add a few os-level packages in `packages.txt` to get your image to build. You can also "throw the kitchen sink" at it if image size is not a concern:
 
-```
+```python
 libc-dev
 musl
 libc6-compat
@@ -53,7 +53,7 @@ musl-dev
 In the same way, you can add a folder of `helper_functions` (or any other files for your DAGs to use) to build into your image. To do so, just add the folder into your project directory and rebuild your image.
 
 
-```
+```bash
 virajparekh@orbiter:~/cli_tutorial$ tree
 .
 ├── airflow_settings.yaml
@@ -71,7 +71,7 @@ virajparekh@orbiter:~/cli_tutorial$ tree
 
 Now going into my scheduler image:
 
-```
+```bash
 docker exec -it c2c7d3bb5bc1 /bin/bash
 bash-4.4$ ls
 Dockerfile  airflow_settings.yaml  helper_functions  logs  plugins  unittests.cfg
@@ -93,7 +93,7 @@ docker exec -it SCHEDULER_CONTAINER bash -c "airflow connections -a --conn_id te
 
 Astronomer's CLI comes with the ability to  bring in Environment Variables from a specified file by running `astro dev start` with an `--env` flag as seen below:
 
-```
+```bash
 astro dev start --env .env
 ```
 
@@ -121,7 +121,7 @@ If you haven't initialized an Airflow Project on Astronomer (by running `astro d
 
 2. To that file, add the following:
 
-```
+```dockerfile
 FROM astronomerinc/ap-airflow:0.7.5-1.10.2 AS stage1
 LABEL maintainer="Astronomer <humans@astronomer.io>"
 ARG BUILD_NUMBER=-1
@@ -164,7 +164,7 @@ Now, let's build a Docker image based on the requirements above that we'll then 
 
 Run the following in your terminal:
 
-```
+```bash
 $ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow
 ```
 
@@ -174,7 +174,7 @@ Now that we've built your custom image, let's reference that custom image in you
 
 Replace the current contents of your Dockerfile with the following:
 
-```
+```dockerfile
 FROM custom-ap-airflow
 ```
 
@@ -189,7 +189,7 @@ Now, let's push your new image to Astronomer.
 
 Now that you've started running Airflow with the Astro CLI, there will be some Docker images running on your machine with their own mounted volumes.
 
-```
+```bash
 docker ps
 
 CONTAINER ID        IMAGE                                COMMAND                  CREATED             STATUS              PORTS                                        NAMES
@@ -200,7 +200,7 @@ c572fe53093e        postgres:10.1-alpine                 "docker-entrypoint.s…
 
 These containers will mount volumes for their respective metadata.
 
-```
+```bash
 docker volumes ls
 
 DRIVER              VOLUME NAME
@@ -211,7 +211,7 @@ local               airflowcode66a665_airflow_logs
 
 To enter one of these containers:
 
-```
+```bash
 docker exec -it c572fe53093e /bin/bash
 
 bash-4.4$ ls
@@ -223,7 +223,7 @@ All default configurations can be found in the [Astronomer CLI repository](https
 
 For example, adding another volume mount for a directory named `custom_depedencies` can be done with:
 
-```
+```yaml
 version: "2"
 services:
   scheduler:
@@ -233,7 +233,7 @@ services:
 
 Now when this image is built, changes made to files within the `custom_dependencies` directory will be picked up automatically the same way they are with files in the `dags` directory:
 
-```
+```bash
 $ docker exec -it astronomer_project239673_scheduler_1 ls -al
 total 76
 drwxr-xr-x    1 astro    astro         4096 Dec 30 17:21 .
