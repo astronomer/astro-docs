@@ -50,7 +50,7 @@ default_args = {
 
 namespace = conf.get('kubernetes', 'NAMESPACE')
 
-# This will detect the default namespace locally and read the 
+# This will detect the default namespace locally and read the
 # environment namespace when deployed to Astronomer.
 if namespace =='default':
     config_file = '/usr/local/airflow/include/.kube/config'
@@ -88,12 +88,12 @@ If you are on Linux, the `cluster_context` will be `microk8s`
 
 ### Windows and Mac
 
-You can use `kubectl get pods -n $namespace` and `kubectl logs {pod_name} -n $namespace` to examine the logs for the pod that just ran. By default, `docker-for-desktop` and `microk8s` will run pods in the `default` namespace. 
+You can use `kubectl get pods -n $namespace` and `kubectl logs {pod_name} -n $namespace` to examine the logs for the pod that just ran. By default, `docker-for-desktop` and `microk8s` will run pods in the `default` namespace.
 
 ### Linux
 Run the same commands as above prefixed with microk8s:
 ```
-microk8s.kubectl get pods -n $namespace`
+microk8s.kubectl get pods -n $namespace
 ```
 
 When you are ready to deploy this up into Astronomer, follow the [KubePodOperator doc](https://github.com/astronomer/docs/blob/main/v0.10/kubepodoperator.md) to find a list of the necessary changes that will need to be made.
