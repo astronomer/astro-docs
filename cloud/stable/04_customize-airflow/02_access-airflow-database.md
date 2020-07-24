@@ -1,6 +1,6 @@
 ---
 title: "The Airflow Database"
-navtitle: "The Airflow Database"
+navTitle: "The Airflow Database"
 description: "How to access Airflow's Postgres Metadata Database on Astronomer."
 ---
 
@@ -28,7 +28,7 @@ We _strongly_ recommend users do not write to the database directly as it can co
 
 ### Use Cases
 
-Keeping the above risk in mind, pulling from and reading the database safely can be a great way to gather metadata from your Airflow Deployment that isn't otherwise exposed on Astronomer and Airflow (yet). 
+Keeping the above risk in mind, pulling from and reading the database safely can be a great way to gather metadata from your Airflow Deployment that isn't otherwise exposed on Astronomer and Airflow (yet).
 
 A few examples of what you can query for:
 - Completed Task Count
