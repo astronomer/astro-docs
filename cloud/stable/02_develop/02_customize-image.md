@@ -32,7 +32,7 @@ A list of default packages included in the Astronomer base image can be found [h
 
 **Note:** We run Alpine linux as our base image so you may need to add a few os-level packages in `packages.txt` to get your image to build. You can also "throw the kitchen sink" at it if image size is not a concern:
 
-```python
+```plaintext
 libc-dev
 musl
 libc6-compat
