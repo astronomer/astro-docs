@@ -1,5 +1,6 @@
 ---
 title: "Running in Production"
+navTitle: "Run in Production"
 description: "Running the Astronomer Certified distribution of Airflow in production with Systemd."
 ---
 
@@ -71,7 +72,7 @@ This section of the guide assumes that the database server is local to where you
 
 To make the database server accessible outside of your localhost, [you may have to edit your `/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) and restart Postgres. Note that achieving this is outside of the scope of this guide, as there is a degree of variance implied within each custom setup. You should also understand the security implications before editing this file.
 
-If the database is running on the same machine, you can change `peer` to `md5` to allow connections with username/password from the same machine. 
+If the database is running on the same machine, you can change `peer` to `md5` to allow connections with username/password from the same machine.
 
 First we need to create a database user named `airflow`:
 
@@ -259,7 +260,7 @@ Every machine running Airflow needs a copy of the DAG files, with all DAG files 
 
 - Baking DAGs into the docker image alongside Airflow.
 - Via a job that refreshes the DAGs folder on a schedule ([this is how the folks at WePay do it](https://wecode.wepay.com/posts/airflow-wepay)).
-- Via existing automation tools such as Ansible, Puppet or Chef. 
+- Via existing automation tools such as Ansible, Puppet or Chef.
 - Via making the DAGs live on a shared filesystem such as NFS (but be aware of read performance penalties - Airflow can be quite heavy on read-ops).
 
  Whatever you choose, it should align well with your internal development processes and you should leverage the tooling at your disposal (Ansible, Terraform, Git, etc) to automate as much as possible. If you're looking for a full-stack solution for DAG deployment, it's something we can help with via our commercial offerings here at Astronomer. [Get in touch](https://astronomer.io/contact) if you'd like to chat.
