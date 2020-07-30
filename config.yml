@@ -13,20 +13,9 @@ media_folder: "media"
 publish_mode: editorial_workflow
 
 collections:
-  - name: "generalDoc"
-    label: "General"
-    folder: "/content/general"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "certifiedDoc"
-    label: "Certified"
-    folder: "/content/certified"
+  - name: "acDoc"
+    label: "AC"
+    folder: "/content/ac"
     create: true
     slug: "{{slug}}"
     fields:
@@ -49,61 +38,6 @@ collections:
   - name: "enterpriseDoc"
     label: "Enterprise"
     folder: "/content/enterprise"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "cliDoc"
-    label: "CLI"
-    folder: "/content/cli"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "apiDoc"
-    label: "API"
-    folder: "/content/api"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "airflowDoc"
-    label: "Airflow"
-    folder: "/content/airflow"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "dockerDoc"
-    label: "Docker"
-    folder: "/content/docker"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "policyDoc"
-    label: "Policy"
-    folder: "/content/policies"
     create: true
     slug: "{{slug}}"
     fields:
