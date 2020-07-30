@@ -19,15 +19,24 @@ collections:
     label: "Cloud"
     folder: "cloud/stable"
     path: '{{slug}}'
-    create: true
     slug: '{{slug}}'
-    fields:
-      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Nav Title", name: "navTitle", widget: "string"}
-      - {label: "Description", name: "description", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-     
+    create: true
+    nested:
+      depth: 100
+    collections:
+      - name: "01_get-started"
+        label: "Get Started"
+        folder: "cloud/stable/01_get-started"
+        path: '{{slug}}'
+        slug: '{{slug}}'
+        create: true
+        fields:
+          - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Nav Title", name: "navTitle", widget: "string"}
+          - {label: "Description", name: "description", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}
+
   - name: "acDoc"
     label: "AC - Stable"
     folder: "ac/stable"
