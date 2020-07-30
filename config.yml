@@ -15,7 +15,8 @@ publish_mode: editorial_workflow
 collections:
   - name: "cloudDoc"
     label: "Cloud"
-    folder: "/cloud/{{slug}}"
+    folder: "cloud/stable"
+    path: '{{slug}}'
     create: true
     slug: "{{slug}}"
     fields:
@@ -26,7 +27,8 @@ collections:
      
   - name: "acDoc"
     label: "AC - Stable"
-    folder: "/ac/stable/{{slug}}"
+    folder: "ac/stable"
+    path: '{{slug}}'
     create: true
     slug: "{{slug}}"
     fields:
@@ -37,7 +39,8 @@ collections:
 
   - name: "enterpriseDoc"
     label: "Enterprise - Stable"
-    folder: "/enterprise/stable/{{slug}}"
+    folder: "enterprise/stable"
+    path: '{{slug}}'
     create: true
     slug: "{{slug}}"
     fields:
