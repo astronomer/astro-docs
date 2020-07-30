@@ -13,9 +13,9 @@ media_folder: "media"
 publish_mode: editorial_workflow
 
 collections:
-  - name: "acDoc"
-    label: "AC"
-    folder: "/ac"
+  - name: "cloudDoc"
+    label: "Cloud"
+    folder: "/cloud/stable"
     create: true
     slug: "{{slug}}"
     fields:
@@ -23,10 +23,10 @@ collections:
       - {label: "Date", name: "date", widget: "datetime"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Description", name: "description", widget: "string"}
-
-  - name: "cloudDoc"
-    label: "Cloud"
-    folder: "/cloud"
+     
+  - name: "acDoc"
+    label: "AC - Stable"
+    folder: "/ac/stable"
     create: true
     slug: "{{slug}}"
     fields:
@@ -36,8 +36,8 @@ collections:
       - {label: "Description", name: "description", widget: "string"}
 
   - name: "enterpriseDoc"
-    label: "Enterprise"
-    folder: "/enterprise"
+    label: "Enterprise - Stable"
+    folder: "/enterprise/stable"
     create: true
     slug: "{{slug}}"
     fields:
