@@ -23,7 +23,7 @@ collections:
     create: true
     nested:
       depth: 100
-    collections:
+    files:
       - name: "01_get-started"
         label: "Get Started"
         folder: "cloud/stable/01_get-started"
