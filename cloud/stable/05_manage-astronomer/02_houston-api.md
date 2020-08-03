@@ -8,7 +8,7 @@ description: "How to automate actions on Astronomer via the Houston API."
 
 Astronomer's [Houston API](https://github.com/astronomer/houston-api) is the source of truth across the entire Astronomer platform. 
 
-For both Astronomer Cloud and Enterprise users, our API is an easy way to do any of the following:
+For users on Astronomer Cloud, our API is an easy way to do any of the following:
 
 1. Query the platform's database for information about a user, Workspace, or Deployment
 2. Make changes to the platform's database (with the right permissions)
@@ -17,7 +17,6 @@ For example, you can:
 - Delete a deployment
 - Look up a deployment's resource config
 - Add a user to a Workspace
-- Make a user a SysAdmin (_Enterprise-only_)
 
 Anything you can do via the Astronomer UI, you can do programmatically via Astronomer's Houston API. Read below for guidelines.
 
@@ -31,12 +30,7 @@ In short, the Playground is a portal that allows you to write GraphQL queries di
 
 ### Navigate to the GraphQL Playground
 
-The URL at which you can reach Houston's GraphQL playground depends on the platform you're running.
-
-- Astronomer Cloud: https://houston.gcp0001.us-east4.astronomer.io/v1
-- Astronomer Enterprise: https://houston.BASEDOMAIN/v1/
-
-E.g. If you're an Enterprise customer and your basedomain were `Astronomer`, you would navigate to https://houston.astronomer/v1/. 
+On Astronomer Cloud, the URL at which you can reach Houston's GraphQL playground is: https://houston.gcp0001.us-east4.astronomer.io/v1
 
 ### Authenticate
 
@@ -207,30 +201,6 @@ mutation verifyEmail {
 ```
 
 > **Note:** To run this mutation, ensure that the user in question has already begun creating an account on the platform (i.e. the user has signed up and the platform has generated an "invite token" for that user).
-
-### Add a SysAdmin (_Enterprise Only_)
-
-System Admins can be added either via the Astronomer UI ('System Admin' > 'User' > 'User Details') or via an API call to Houston. To run the mutation in the GraphQL Playground, you'll need:
-
-- `userUuid`
-- `role` (SYSTEM_ADMIN)
-
-> **Note:** Keep in mind that only existing System Admins can grant the SysAdmin role to another user and that the user in question must already have a verified email address and already exist in the system.
-
-With the `uuid` you pulled above, call the `createSystemRoleBinding` mutation by running:
-
-```
-mutation AddAdmin {
-  createSystemRoleBinding(
-    userId: "<uuid>"
-    role: SYSTEM_ADMIN
-  ) {
-    id
-  }
-}
-```
-
-If you're assigning a user a different System-Level Role, replace `SYSTEM_ADMIN` with either [`SYSTEM_VIEWER`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L220) or [`SYSTEM_EDITOR`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L227) in the mutation above.
 
 ## Custom Types
 

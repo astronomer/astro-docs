@@ -16,10 +16,10 @@ At its core, the KubernetesPodOperator is built to run any docker image with Air
 
 To run the KubernetesPodOperator on Astronomer, make sure you:
 
-- Have a running Airflow Deployment on either Astronomer Cloud or Enterprise
+- Have a running Airflow Deployment on Astronomer Cloud
 - Run Astronomer Airflow 1.10+
 
-For both Astronomer Cloud and Enterprise, the Kubernetes overhead is taken care for you by default.
+On Astronomer Cloud, the Kubernetes overhead is taken care for you by default.
 
 > **Note:** If you haven't already, we'd encourage you to first test the KubernetesPodOperator in your local environment. Follow our [Running KubePodOperator Locally](https://www.astronomer.io/docs/cli-kubepodoperator/) for guidelines.
 
@@ -62,7 +62,6 @@ To successfully instantiate the operator, you'll need to make note of a few para
    - On Astronomer, each Airflow deployment sits on top of a corresponding [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
     - If you're running the KubernetesPodOperator, it needs to know *which* namespace to run in and where to look for the config file
     - On Astronomer Cloud, your namespace is `astronomer-cloud-deployment-release-name` (e.g. `astronomer-cloud-frigid-vacuum-0996`)
-    - On Astronomer Enterprise, this would be a combination of your platform namespace and your deployment's release name in the following format: `base-namespace-deployment-release-name` (e.g. `astronomer-frigid-vacuum-0996`)
     - The namespace variable is injected into your deployment's [airflow.cfg](https://airflow.apache.org/howto/set-config.html), which means you can programmatically import the namespace as an Environment Variable (shown above)
 2. `in_cluster`
     - Set the `in_cluster` parameter to `True` in your code
@@ -85,9 +84,9 @@ Reason: Forbidden
 "Failure","message":"pods is forbidden: User \"system:serviceaccount:astronomer-cloud-solar-orbit-4143:solar-orbit-4143-worker-serviceaccount\" cannot create pods in the namespace \"datarouter\"","reason":"Forbidden","details":{"kind":"pods"},"code":403}
 ```
 
-On Astronomer Cloud, the largest node a single pod can occupy is `57 GB` of Memory and `15.89 CPU` (based on Google Cloud's [n1-standard-16 machine type](https://cloud.google.com/compute/docs/machine-types)). On Enterprise, it will depend on the size of your underlying node pool.
+On Astronomer Cloud, the largest node a single pod can occupy is `57 GB` of Memory and `15.89 CPU` (based on Google Cloud's [n1-standard-16 machine type](https://cloud.google.com/compute/docs/machine-types)).
 
-> **Note:** If you need to increase your [limit range](https://kubernetes.io/docs/concepts/policy/limit-range/) on Astronomer Enterprise, contact your system admin. If you're running Astronomer Cloud, [reach out to us](https://support.astronomer.io).
+> **Note:** If you need to increase your [limit range](https://kubernetes.io/docs/concepts/policy/limit-range/) on Astronomer Cloud, [reach out to us](https://support.astronomer.io).
 
 #### Define Resources per Task
 
@@ -176,15 +175,15 @@ Once you've created the object, simply apply it to the `resources` parameter of 
 
 ## Pulling Images from a Private Registry
 
-By default, the KubernetesPodOperator will look for images hosted publicly on [Dockerhub](https://hub.docker.com/). If you want to pull images from a private registry, you may do so on both Astronomer Cloud and Enterprise.
+By default, the KubernetesPodOperator will look for images hosted publicly on [Dockerhub](https://hub.docker.com/). To pull images from a private registry, follow the guidelines below.
 
-> **Note:** The KubernetesPodOperator doesn't support passing in `image_pull_secrets` until [Airflow 1.10.2](https://github.com/apache/airflow/blob/master/CHANGELOG.txt#L526).
+Two preliminary notes:
 
-### Astronomer Cloud
+1. The KubernetesPodOperator doesn't support passing in `image_pull_secrets` until [Airflow 1.10.2](https://github.com/apache/airflow/blob/master/CHANGELOG.txt#L526).
 
-To pull images from a Private Registry on Astronomer Cloud, follow the guidelines below.
+2. In terms of what registries are supported, we recommend DockerHub. Technically speaking, all we need is for our cluster to be able to access your registry over the internet. With that said, we can't in practice support Amazon's ECR, for example, as the `docker login​` authentication token on ECR [rotates every 12 hours]((https://aws.amazon.com/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/)).
 
-> **Note:** In terms of what registries are supported, we recommend DockerHub. Technically speaking, all we need is for our cluster to be able to access your registry over the internet. With that said, we can't in practice support Amazon's ECR, for example, as the `docker login​` authentication token on ECR [rotates every 12 hours]((https://aws.amazon.com/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/)).
+### Guidelines
 
 **1.** Pull a `dockerconfigjson` file with your existing Docker credentials by following [this Kubernetes guide](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials).
 
@@ -211,16 +210,6 @@ The output should be something like:
 With the output you send over, we'll create a secret in your namespace in the following format: `deployment-release-name-private-registry​`
 
 **3.** You'll be able to call that secret in your KubernetesPodOperator by specifying `image_pull_secrets`
-
-### Astronomer Enterprise
-
-To pull images from a Private Registry on Astronomer Enterprise, follow the guidelines below.
-
-**1.** Pull a `dockerconfigjson` file with your existing Docker credentials by following [this guide](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) (step 1 above)
-
-**2.** Follow [this Kubernetes doc](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) to add that secret to your namespace
-
-**3.** Call that secret in your KubePodOperator by specifying `image_pull_secrets`
 
 ## Local Testing
 

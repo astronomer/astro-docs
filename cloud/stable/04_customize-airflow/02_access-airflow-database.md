@@ -9,7 +9,7 @@ description: "How to access Airflow's Postgres Metadata Database on Astronomer."
 
 On Astronomer, each Airflow deployment is equipped with a PostgreSQL database that serves as Airflow's underlying metadata database and your Airflow scheduler's source of truth.
 
-Astronomer hosts that database for Astronomer Cloud customers (each securely isolated from the rest) and our team helps Enterprise customers set up their own during our platform installation.
+For Astronomer Cloud users, our team securely hosts that database.
 
 This guide will cover guidelines for the following:
 
@@ -22,7 +22,7 @@ This guide will cover guidelines for the following:
 
 ### Risk Associated with Database Access
 
-As noted above, your Airflow Deployment's Metadata Database on Astronomer is either hosted by your team if you're using Astronomer Enterprise or by ours if you're running on Astronomer Cloud. In both cases, it's worth noting the risks associated with accessing Airflow's Database given its importance to the Scheduler's performance.
+As noted above, your Airflow Deployment's Metadata Database on Astronomer is hosted by our team. Given its importance to the Scheduler's performance, it's worth noting the risks associated with accessing Airflow's Database.
 
 We _strongly_ recommend users do not write to the database directly as it can compromise both the integrity of your Airflow Deployment and our team's ability to support you in the case of an issue.
 
@@ -161,12 +161,6 @@ Login: desolate_spectrum_3088_airflow
 Password: XXXXXXXX
 Port: 6543
 ```
-
-### Populating the `airflow_db` Connection on Astronomer Enterprise
-
-On Astronomer, your deployment's Postgres credentials are also stored as a Kubernetes Secret in your deployment's namespace. For users with `kubectl` access to the cluster who want to properly populate the `airflow_db` connection in the Airflow UI with the proper credentials, follow our instructions [here](https://www.astronomer.io/docs/ee-administration-postgres-creds/).
-
-> **Note:** This is entirely optional and is not required, as the `AIRFLOW_CONN_AIRFLOW_DB` Environment Variable is pre-set on Astronomer and will allow users to reference the `airflow_db` connection in a DAG even though the connection itself isn't populated in the Airflow UI.
 
 ### What's Next
 

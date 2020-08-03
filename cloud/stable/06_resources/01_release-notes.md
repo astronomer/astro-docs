@@ -4,11 +4,40 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.17 Release Notes
+
+Release Date: July 27, 2020
+
+## Platform-Wide Changes
+
+### CLI Improvements
+
+Astronomer v0.17 ships with two notable bug fixes that address issues commonly reported by users on v0.16.
+
+**1. (60) SSL certificate problem: certificate has expired**
+
+If you tried to install the Astronomer CLI recently, it's likely you received this error. It misleadingly did _not_ mean that our SSL Certificate was out of date, but rather that the intermediate CA Astronomer keys are signed by was expired.
+
+This has been resolved in 0.17.
+
+**2. CLI commands no longer require Astronomer Authentication**
+
+As reported [here](https://forum.astronomer.io/t/error-http-do-failed-i-o-timeout/706/2) and [here](https://forum.astronomer.io/t/local-airflow-instance-using-astro-cli-on-linux/711/6), v0.16.1 of the Astronomer CLI introduced a bug that blocked users from running `$ astro dev init` and `$ astro version` commands if not authenticated to Astronomer.
+
+The Astronomer CLI is open-source and open to _all_ developers looking to run Apache Airflow locally, so we've made sure to patch this up in v0.17 and will backport changes to 0.16.2 of the CLI.
+
+### Bug Fixes & Improvements
+
+- BugFix: AuthenticationError fetching Airflow Logs
+- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/kubepodoperator/) + KubernetesExecutor Config
+- BugFix: OAuth Login Errors in Safari
+- BugFix: Error adding "Billing Details" in Astro UI if Workspace unlocked by Astronomer
+- BugFix: Users able to create 2+ Service Accounts with the same label
+- Increased Test Coverage for Houston API + Astro CLI
+
 ## Astronomer v0.16 Release Notes
 
 Release Date: June 29, 2020
-
-## Platform-Wide Changes
 
 ### New "Environment Variables" Tab in the Astronomer UI
 
@@ -25,66 +54,6 @@ For more details on this new feature, reference our ["Environment Variables" doc
 - Improvement: Simplify `updateUser` Mutation in Houston API (remove `uuid`)
 - Security: Implement platform-wide Pod Security Policies
 - Security: Clear Javascript CVEs
-
-## Astronomer Enterprise-only Changes
-
-### Support for AD FS
-
-Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
-
-To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/ee-integrating-auth-systems/).
-
-### Bug Fixes and Improvements
-
-- BugFix: "Airflow State" dashboard in Grafana broken
-- BugFix: CLI Install command should point to BASEDOMAIN (not install.astronomer.io) for Enterprise users
-- BugFix: SysAdmin can't revoke SysAdmin permissions from another user
-
-## Astronomer v0.15 Release Notes
-
-Release Date: June 8, 2020
-
-## Platform-Wide Changes
-
-### Support for Airflow 1.10.10
-
-As of v0.15, Astronomer users are free to run our [Astronomer Certified (AC) 1.10.10 image](https://www.astronomer.io/downloads/ac/v1-10-10/), which is based on the [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/) open-source version released in early April.
-
-Airflow 1.10.10 notably includes the ability to choose a timezone in the Airflow UI, DAG Serialization functionality for improved Webserver performance, and the [ability to sync Airflow Connections and Variables](https://forum.astronomer.io/t/aws-parameter-store-as-secrets-backend-airflow-1-10-10/606) with a Secret Backend tool (e.g. AWS Secret Manager, Hashicorp Vault, etc.)
-
-For more detail on what's included in AC 1.10.10, reference the [changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md).
-
-### Bug Fixes & Improvements
-
-A few notable bug fixes and improvements:
-
-* Ability to add multiple email addresses to receive deployment-level alerts
-* Security improvements to the Astronomer UI
-* Reframe "Extra Capacity" in the 'Deployment Configuration' tab of the Astronomer UI
-* Improved error handling for users who sign up with an email different than their input in our trial form
-* Bug Fix: Warning via the CLI on Debian images
-* Bug Fix: "Failed to authenticate to the registry..." error on v0.13 of the CLI
-
-## Astronomer Enterprise-Only Changes
-
-### Manually Set Release Names
-
-As of Astronomer v0.15, Enterprise customers can now customize the release name of any Airflow Deployment instead of relying on the default naming scheme (e.g. `solar-galaxy-1234`). Release names within a single cluster must be unique and will continue to be immutable following creation.
-
-To activate this feature on the platform, refer to the `manualReleaseNames` value in your `config.yaml`.
-
-### Ability to Annotate Pods to integrate with IAM Roles
-
-As of Astronomer v0.15, IAM roles can now be appended to all pods within any individual Airflow Deployment on the platform. Users who integrate Airflow with some resource or set of resources (e.g. an AWS S3 bucket or Secret Backend) can now configure them to be accessible only to a subset of Kubernetes pods within your wider Astronomer cluster.
-
-Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](https://forum.astronomer.io/t/can-i-integrate-iam-roles-with-astronomer/649).
-
-### Bug Fixes & Improvements
-
-* Added support for AWS S3 Registry Backend
-* New UI warning when SMTP credentials are not configured and email invites cannot be sent
-* Improved UX of Failed Network Connections
-* Bug Fix: Missing "Deployment" label in Airflow Alerts
 
 ## Platform Changelog & Prior Releases
 

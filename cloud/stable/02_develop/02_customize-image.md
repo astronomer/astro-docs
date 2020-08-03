@@ -15,43 +15,65 @@ FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
 RUN ls
 ```
 
-## Add Dependencies
+## Add Python and OS-level Packages
 
-Any additional python packages or OS level packages can be added in `requirements.txt` or `packages.txt`. For example, suppose I wanted to add `pymongo` into my Airflow instance.
+To build Python and OS-level packages into your Airflow Deployment, add them to your `requirements.txt` and `packages.txt` files on Astronomer. Both files were automatically generated when you intialized an Airflow project locally via `$ astro dev init`. Steps below.
 
-This can be added to `requirements.txt`, run `astro dev stop` and `astro dev start` to rebuild my image with this new python package. Every package in the `requirements.txt` file will be installed by `pip` when the image builds (`astro dev start`).
+### 1. Add your Python or OS-Level Package
 
-```bash
-docker exec -it dff1aaef15cf pip freeze | grep pymongo
+Add all Python packages to your `requirements.txt` and any OS-level packages you'd like to include to your `packages.txt` file.
+
+To pin a version of that package, use the following syntax:
+
+```
+<package-name>=<version>
+```
+
+If you'd like to exclusively use Pymongo 3.7.2, for example, you'd add the following in your `requirements.txt`:
+
+```
+pymongo=3.7.2
+```
+
+If you do _not_ pin a package to a version, the latest version of the package that's publicly available will be installed by default.
+
+### 2. Re-build your Image
+
+Once you've saved those packages in your text editor or version control tool, re-build your image by running:
+
+```
+$ astro dev stop
+```
+
+followed by
+
+```
+$ astro dev start
+```
+
+This process stops your running Docker containers and restarts them with your updated image.
+
+### 3. Confirm your Package was Installed (_Optional_)
+
+If you added `pymongo` to your `requirements.txt` file, for example, you can confirm that it was properly installed by running a `$ docker exec` command into your Scheduler.
+
+1. Run `$ docker ps` to identify the 3 running docker containers on your machine
+2. Grab the container ID of your Scheduler container
+3. Run the following:
+
+```
+$ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
+
 pymongo==3.7.2
 ```
-This package is now installed.
 
-A list of default packages included in the Astronomer base image can be found [here](https://forum.astronomer.io/t/which-python-packages-come-default-with-astronomer/38).
+> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](www.astronomer.io/docs/airflow-versioning).
 
+## Add Helper Functions
 
-**Note:** We run Alpine linux as our base image so you may need to add a few os-level packages in `packages.txt` to get your image to build. You can also "throw the kitchen sink" at it if image size is not a concern:
+In the same way you can add Python and OS-level Packages into existing files, you're free to add a folder of `helper_functions` (or any other files for your DAGs to use) to build into your image.
 
-```plaintext
-libc-dev
-musl
-libc6-compat
-gcc
-python3-dev
-build-base
-gfortran
-freetype-dev
-libpng-dev
-openblas-dev
-gfortran
-build-base
-g++
-make
-musl-dev
-```
-
-In the same way, you can add a folder of `helper_functions` (or any other files for your DAGs to use) to build into your image. To do so, just add the folder into your project directory and rebuild your image.
-
+To do so, add the folder into your project directory and rebuild your image.
 
 ```bash
 virajparekh@orbiter:~/cli_tutorial$ tree
@@ -78,57 +100,75 @@ Dockerfile  airflow_settings.yaml  helper_functions  logs  plugins  unittests.cf
 airflow.cfg  dags  include  packages.txt  requirements.txt
 ```
 
-
 Notice the `helper_functions` folder has been built into the image.
 
-You can also pass direct Airflow CLI commands into your local image following this pattern:
+## Access to the Airflow CLI
 
-For example, a connection can be added with:
+You're free to use native Airflow CLI commands on Astronomer when developing locally by wrapping them around docker commands.
+
+To add a connection, for example, you can run:
 
 ```bash
 docker exec -it SCHEDULER_CONTAINER bash -c "airflow connections -a --conn_id test_three  --conn_type ' ' --conn_login etl --conn_password pw --conn_extra {"account":"blah"}"
 ```
 
+Refer to the native [Airflow CLI](https://airflow.apache.org/cli.html) for a list of all commands.
+
+> **Note:** Direct access to the Airflow CLI is an Enterprise-only feature. If you're an Astronomer Cloud customer, you'll only be able to access it while developing locally for reasons related to the multi-tenant architecture of our Cloud. If you'd like to use a particular Airflow CLI command, reach out and we're happy to help you find a workaround.
+
 ## Add Environment Variables Locally
 
 Astronomer's CLI comes with the ability to  bring in Environment Variables from a specified file by running `astro dev start` with an `--env` flag as seen below:
 
-```bash
-astro dev start --env .env
+```
+$ astro dev start --env .env
 ```
 
-**Note**: This feature is currently only functional for local development. Whatever `.env` you use locally will _not_ be bundled up when you deploy to Astronomer. To add Environment Variables when you deploy to Astronomer, you'll have to add them via the Astronomer UI (`Deployment` > `Configure` > `Environment Vars`).
+> **Note:** This feature is limited to local development only. Whatever `.env` you use locally will _not_ be bundled up when you deploy to Astronomer.
+>
+> For more detail on how to add Environment Variables both locally and on Astronomer, refer to our [Environment Variables doc](www.astronomer.io/docs/environment-variables).
 
 ## Build from a Private Repository
 
-If you're using Airflow on Astronomer, you might want to use custom Python packages that are stored in a private GitHub repo.
+If you're interested in bringing in custom Python Packages stored in a Private GitHub Repo, you're free to do that on Astronomer.
 
-This doc will guide you through adding corresponding secrets to a custom Docker image you'll be ready to build and push to Astronomer via our CLI.
+Read below for guidelines.
 
-### Pre-Requisites
+## Pre-Requisites
 
 - The Astronomer CLI
 - An intialized Astronomer Airflow project and corresponding directory
 - An [SSH Key](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to your Private GitHub Repo
 
-If you haven't initialized an Airflow Project on Astronomer (by running `astro dev init`), reference our [CLI Quickstart Guide](https://www.astronomer.io/docs/cli-quickstart/).
+If you haven't initialized an Airflow Project on Astronomer (by running `$ astro dev init`), reference our [CLI Quickstart Guide](https://www.astronomer.io/docs/cli-quickstart/).
 
-### Building your Image
+## Building your Image
 
-#### 1. Create a file called `Dockerfile.build`
+### Create a file called `Dockerfile.build`
 
 1. In your directory, create a file called `Dockerfile.build` that's parallel to your `Dockerfile`.
 
-2. To that file, add the following:
+2. To the first line of that file, add a "FROM" statement that specifies the Airflow Image you want to run on Astronomer and ends with `AS stage`.
 
-```dockerfile
-FROM astronomerinc/ap-airflow:0.7.5-1.10.2 AS stage1
+If you're running the Alpine-based, Airflow 1.10.10 Astronomer Certified image, this would be:
+
+```
+FROM astronomerinc/ap-airflow:1.10.10-alpine3.10 AS stage1
+```
+
+For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/airflow-versioning/).
+
+> **Note:**  Do NOT include `on-build` at the end of your Airflow Image as you typically would in your Dockerfile.
+
+3. Immediately below the `FROM...` line specified above, add the folllowing:
+
+```
 LABEL maintainer="Astronomer <humans@astronomer.io>"
 ARG BUILD_NUMBER=-1
 LABEL io.astronomer.docker=true
 LABEL io.astronomer.docker.build.number=$BUILD_NUMBER
 LABEL io.astronomer.docker.airflow.onbuild=true
-# Install OS-Level Packages
+# Install Python and OS-Level Packages
 COPY packages.txt .
 RUN cat packages.txt | xargs apk add --no-cache
 
@@ -154,103 +194,46 @@ In 3 stages, this file is bundling up your SSH keys, OS-Level packages in `packa
 
 A few notes:
 - The `Private RSA Key` = [SSH Key generated via GitHub](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-- Make sure to replace the first line of this file (`FROM`..) with your _current_ Docker image
+- Make sure to replace the first line of this file (`FROM`..) with your Airflow Image (Step 2 above)
 - If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
+- If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `## # Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
 
-#### 2. Build your Image
+### 2. Build your Image
 
 Now, let's build a Docker image based on the requirements above that we'll then reference in your Dockerfile, tag, and push to Astronomer.
 
 Run the following in your terminal:
 
-```bash
-$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow
+```
+$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-<airflow-image> .
 ```
 
-#### 3. Replace your Dockerfile
+If you have `astronomerinc/ap-airflow:1.10.10-alpine3.10` in your `Dockerfile.build`, for example, this command would be:
 
-Now that we've built your custom image, let's reference that custom image in your Dockerfile.
-
-Replace the current contents of your Dockerfile with the following:
-
-```dockerfile
-FROM custom-ap-airflow
+```
+$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow:1.10.10-alpine3.10 .
 ```
 
-#### 4. Push your Custom Image to Astronomer
+### 3. Replace your Dockerfile
+
+Now that we've built your custom image, let's reference that custom image in your `Dockerfile`. Replace the current contents of your `Dockerfile` with the following:
+
+```
+FROM custom-<airflow-image>
+```
+
+If you're running `astronomerinc/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
+
+```
+FROM custom-ap-airflow:1.10.10-alpine3.10
+```
+
+### 4. Push your Custom Image to Astronomer
 
 Now, let's push your new image to Astronomer.
 
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
-- If you're pushing up to Astronomer Cloud, you're free to deploy by running `$ astro dev deploy` or by triggering a CI/CD pipeline.
+- If you're pushing up to Astronomer Cloud, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
-## Containers and Volumes
-
-Now that you've started running Airflow with the Astro CLI, there will be some Docker images running on your machine with their own mounted volumes.
-
-```bash
-docker ps
-
-CONTAINER ID        IMAGE                                COMMAND                  CREATED             STATUS              PORTS                                        NAMES
-b32be577f24d        airflow-code_66a665/airflow:latest   "tini -- /entrypoint…"   4 hours ago         Up About an hour    5555/tcp, 8793/tcp, 0.0.0.0:8080->8080/tcp   airflowcode66a665_webserver_1
-28c8a7db90bd        airflow-code_66a665/airflow:latest   "tini -- /entrypoint…"   4 hours ago         Up About an hour    5555/tcp, 8080/tcp, 8793/tcp                 airflowcode66a665_scheduler_1
-c572fe53093e        postgres:10.1-alpine                 "docker-entrypoint.s…"   4 hours ago         Up About an hour    0.0.0.0:5432->5432/tcp                       airflowcode66a665_postgres_1
-```
-
-These containers will mount volumes for their respective metadata.
-
-```bash
-docker volumes ls
-
-DRIVER              VOLUME NAME
-local               airflow6f4ef6_airflow_logs
-local               airflow6f4ef6_postgres_data
-local               airflowcode66a665_airflow_logs
-```
-
-To enter one of these containers:
-
-```bash
-docker exec -it c572fe53093e /bin/bash
-
-bash-4.4$ ls
-Dockerfile  airflow.cfg  airflow_settings.yaml  dags  include  logs  packages.txt  plugins  requirements.txt  unittests.cfg
-bash-4.4$
-```
-
-All default configurations can be found in the [Astronomer CLI repository](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go). Any of these settings can be overriden by adding a `docker-compose.override.yml` file in the Astronomer project directory.
-
-For example, adding another volume mount for a directory named `custom_depedencies` can be done with:
-
-```yaml
-version: "2"
-services:
-  scheduler:
-    volumes:
-      - /home/astronomer_project/custom_depedencies:/usr/local/airflow/custom_depedencies:ro
-```
-
-Now when this image is built, changes made to files within the `custom_dependencies` directory will be picked up automatically the same way they are with files in the `dags` directory:
-
-```bash
-$ docker exec -it astronomer_project239673_scheduler_1 ls -al
-total 76
-drwxr-xr-x    1 astro    astro         4096 Dec 30 17:21 .
-drwxr-xr-x    1 root     root          4096 Dec 14  2018 ..
--rw-rw-r--    1 root     root            38 Oct  8 00:07 .dockerignore
--rw-rw-r--    1 root     root            31 Oct  8 00:07 .gitignore
--rw-rw-r--    1 root     root            50 Oct  8 00:10 Dockerfile
--rw-r--r--    1 astro    astro        20770 Dec 30 17:21 airflow.cfg
-drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 dags
--rw-r--r--    1 root     root           153 Dec 30 17:21 docker-compose.override.yml
-drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 include
-drwxr-xr-x    4 astro    astro         4096 Oct  8 00:11 logs
-drwxr-xr-x    2 1000     1000          4096 Dec 30 17:15 custom_dependencies
--rw-rw-r--    1 root     root             0 Oct  8 00:07 packages.txt
-drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 plugins
--rw-rw-r--    1 root     root             0 Oct  8 00:07 requirements.txt
--rw-r--r--    1 astro    astro         2338 Dec 30 17:21 unittests.cfg
-```
-
-> **Note:** This will only affect how the image runs locally and will not have any impact on what gets built and deployed.
+For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](https://www.astronomer.io/docs/create-deployment-deploying-code/).

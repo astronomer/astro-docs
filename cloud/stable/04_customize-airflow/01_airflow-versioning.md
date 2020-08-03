@@ -6,7 +6,7 @@ description: "How to adjust and upgrade Airflow versions on Astronomer."
 
 ## Overview
 
-On Astronomer, the process of pushing up your code to an individual Airflow deployment involves customizing a locally built Docker image —— with your DAG code, Python Packages, plugins, and so on —— that's then bundled, tagged, and pushed to a Docker Registry (Astronomer's if you're using Astronomer Cloud, yours if you're running Astronomer Enterprise).
+On Astronomer, the process of pushing up your code to an individual Airflow deployment involves customizing a locally built Docker image —— with your DAG code, Python Packages, plugins, and so on —— that's then bundled, tagged, and pushed to Astronomer Cloud's Docker Registry.
 
 Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer-built Docker Image built to be individually compatible with a particular Airflow version.
 
@@ -75,7 +75,7 @@ If you're developing locally, make sure to save your changes and issue the follo
 
 #### On Astronomer
 
-If you don't need to test this locally and just want to push to either Astronomer Cloud or your Astronomer Enterprise installation, you can issue:
+If you don't need to test this locally and just want to push to Astronomer Cloud, you can issue:
 
 ```bash
 astro deploy
@@ -100,4 +100,4 @@ Once there, you should see your correct Airflow version listed.
 
 #### On Astronomer
 
-If you're on Astronomer Cloud or Enterprise, navigate to your Airflow Deployment page on the Astronomer UI.
+If you're on Astronomer Cloud, navigate to your Airflow Deployment page on the Astronomer UI.

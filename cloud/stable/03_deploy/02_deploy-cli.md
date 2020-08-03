@@ -11,13 +11,11 @@ description: "How to push code to your Airflow Deployment on Astronomer via the 
 In order to push up code to a deployment on Astronomer, you must have:
 
 1. [The Astronomer CLI](https://www.astronomer.io/docs/cli-quickstart/) Installed
-2. An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/) OR access to an [Astronomer Enterprise Installation](https://www.astronomer.io/docs/ee-overview/)
+2. An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
 
 ### Create a Deployment
 
-To create a deployment on Astronomer, log into the Astronomer UI on either: 
-- Astronomer Cloud
-- Your own domain on Astronomer Enterprise (`app.BASEDOMAIN`)
+To create a deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/).
 
 From your Workspace on Astronomer, click `New Deployment`.
 
@@ -46,7 +44,7 @@ From this dashboard, you can:
 - Access the Airflow UI (left)
 - Access the Celery UI for Worker Monitoring (right)
 
-**Note**: You'll only see a tab for the Celery Dashboard if your deployment is running the Celery Executor.
+> **Note**: You'll only see a tab for the Celery Dashboard if your Airflow Deployment is running the Celery Executor.
 
 ## Deploy Code from the CLI
 
@@ -57,20 +55,6 @@ Astronomer's CLI allows you easily deploy your code onto an Airflow Deployment o
 To start, authenticate to the CLI.
 
 **Astronomer Cloud**
-
-```
-astro auth login gcp0001.us-east4.astronomer.io
-```
-
-**Astronomer Enterprise**
-
-```
-astro auth login BASEDOMAIN
-```
-
-(E.g. If your base domain is airflow.mycompany.io, your login command would be `astro auth login airflow.mycompany.io`)
-
-Follow the authentication flow from there.
 
 ```
 $ astro auth login gcp0001.us-east4.astronomer.io
@@ -85,21 +69,21 @@ Any Workspace you have access to on the Astronomer UI, you'll have access to via
 To see the list of all the Workspaces you have access to push code to, run:
 
 ```
-astro workspace list
+$ astro workspace list
 ```
 
 To switch between workspaces, run:
 
 ```
-astro workspace switch [UUID]
+$ astro workspace switch [UUID]
 ```
 
 #### Deployment
 
 ```
-astro deployment list
- NAME           RELEASE NAME                 ASTRO      DEPLOYMENT ID                            
- demo_cluster     infrared-photon-7780     v0.7.5     c2436025-d501-4944-9c29-19ca61e7f359  
+$ astro deployment list
+ NAME             RELEASE NAME             ASTRO      DEPLOYMENT ID                            
+ demo_cluster     infrared-photon-7780     v0.17.0     c2436025-d501-4944-9c29-19ca61e7f359  
 ```
 
 ### Deploy
@@ -107,18 +91,18 @@ astro deployment list
 To deploy on Astronomer, run:
 
 ```
-astro deploy
+$ astro deploy
 ```
 
 A few notes:
-- If it's your first time deploying, expect to wait a minute or two for the Docker Image to build.
-- To know if your deploy was successful, ensure no errors in the output and check your Airflow UI to see your code changes reflected.
+- If it's your first time deploying, expect to wait a minute or two for the Docker Image to build
+- To know if your deploy was successful, ensure no errors in the output and check your Airflow UI to see your code changes reflected
 
 #### What gets Deployed?
 
-Everything in your top level directory (and all children directory) in which you ran `astro dev init` will get bundled into a Docker image and deployed out.
+Everything in your top level directory (and all children directory) in which you ran `$ astro dev init` will get bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud.
 
-We do **not** deploy any of the metadata associated with your local Airflow deployment - only the code.
+We do _not_ deploy any of the Metadata associated with your local Airflow deployment, only the code.
 
 For more information on what gets built into your image, jump over to our doc on [Customizing your Image](https://www.astronomer.io/docs/customizing-your-image/).
 
@@ -126,11 +110,9 @@ For more information on what gets built into your image, jump over to our doc on
 
 ### Kubernetes Namespaces
 
-Airflow deployments live within their own Kubernetes [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) - each completely unaware of the rest.
+Airflow Deployments live within their own Kubernetes [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) - each completely unaware of the rest.
 
-Each deployment is allocated separate resources, is configured in isolation, and maintains its own metadata.
-
-**Note:** The only thing deployments have in common is that they run on _the same underlying Kubernetes cluster_, whether that's ours on Astronomer Cloud or your own if you're an Astronomer Enterprise customer.
+Each Airflow Deployment is allocated separate resources, is configured in isolation and maintains its own metadata.
 
 ## Organizing your Code
 
