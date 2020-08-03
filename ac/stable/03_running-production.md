@@ -1,6 +1,6 @@
 ---
-title: "Running in Production"
-navTitle: "Run in Production"
+title: "Running Astronomer Certified in Production"
+navTitle: "Running in Production"
 description: "Running the Astronomer Certified distribution of Airflow in production with Systemd."
 ---
 
@@ -45,24 +45,28 @@ Ensure the following linux packages are installed on your machine. To get them i
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Setting up the database](#setting-up-the-database)
-- [Per-machine setup](#per-machine-setup)
-  - [Create system user to run Airflow](#create-system-user-to-run-airflow)
-  - [Create virtual environment](#create-virtual-environment)
-  - [Install Astronomer ac](#install-astronomer-ac)
-  - [Create systemd unit files](#create-systemd-unit-files)
-  - [Configure Airflow for database access](#configure-airflow-for-database-access)
-- [On the scheduler machine](#on-the-scheduler-machine)
+- [Overview](#overview)
+- [Planning Your Deployment](#planning-your-deployment)
+  - [Prerequisites](#prerequisites)
+- [Setting Up the Database](#setting-up-the-database)
+- [Per-Machine Setup](#per-machine-setup)
+  - [Create System User to Run Airflow](#create-system-user-to-run-airflow)
+  - [Create a Virtual Environment](#create-a-virtual-environment)
+  - [Install Astronomer Certified](#install-astronomer-certified)
+  - [Create Systemd Unit File](#create-systemd-unit-file)
+  - [Configure Airflow for Database Access](#configure-airflow-for-database-access)
+- [Setting Up the Scheduler](#setting-up-the-scheduler)
   - [Enable the service](#enable-the-service)
   - [Start the service](#start-the-service)
-- [On the webserver machine](#on-the-webserver-machine)
+- [Setting Up the Webserver](#setting-up-the-webserver)
   - [Enable the service](#enable-the-service-1)
   - [Start the service](#start-the-service-1)
-    - [Recommend putting nginx in front of Airflow](#todo-recommend-putting-nginx-in-front-of-airflow)
-- [On the worker machines](#on-the-worker-machines)
+  - [Configuring a Reverse Proxy](#configuring-a-reverse-proxy)
+- [Setting Up the Worker Machines](#setting-up-the-worker-machines)
   - [Enable the service](#enable-the-service-2)
   - [Start the service](#start-the-service-2)
 - [Deploying DAGs](#deploying-dags)
+- [Production Support](#production-support)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

@@ -8,16 +8,17 @@ description: "How to use the GraphQL Playground to interact with Astronomer's AP
 
 Astronomer's [Houston API](https://github.com/astronomer/houston-api) is the source of truth across the entire Astronomer platform. 
 
-For both Astronomer Cloud and Enterprise users, our API is an easy way to do any of the following:
+For Astronomer Enterprise users, our API is an easy way to do any of the following:
 
 1. Query the platform's database for information about a user, Workspace, or Deployment
 2. Make changes to the platform's database (with the right permissions)
+3. Perform CRUD operations on entities scoped to the Astronoemr platform, including Airflow deployments, workspaces, and users.
 
 For example, you can:
 - Delete a deployment
 - Look up a deployment's resource config
 - Add a user to a Workspace
-- Make a user a SysAdmin (_Enterprise-only_)
+- Make a user a Systerm Administrator
 
 Anything you can do via the Astronomer UI, you can do programmatically via Astronomer's Houston API. Read below for guidelines.
 
@@ -31,10 +32,7 @@ In short, the Playground is a portal that allows you to write GraphQL queries di
 
 ### Navigate to the GraphQL Playground
 
-The URL at which you can reach Houston's GraphQL playground depends on the platform you're running.
-
-- Astronomer Cloud: https://houston.gcp0001.us-east4.astronomer.io/v1
-- Astronomer Enterprise: https://houston.BASEDOMAIN/v1/
+The URL at which you can reach Houston's GraphQL playground depends on the platform you're running. For your installation of Astronomer, it will be `https://houston.BASEDOMAIN/v1/`.
 
 E.g. If you're an Enterprise customer and your basedomain were `Astronomer`, you would navigate to https://houston.astronomer/v1/. 
 

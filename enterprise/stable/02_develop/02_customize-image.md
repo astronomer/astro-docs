@@ -183,7 +183,7 @@ FROM custom-ap-airflow
 Now, let's push your new image to Astronomer.
 
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
-- If you're pushing up to Astronomer Cloud, you're free to deploy by running `$ astro dev deploy` or by triggering a CI/CD pipeline.
+- If you're pushing up to Astronomer Enterprise, you're free to deploy by running `$ astro deploy` or by triggering a CI/CD pipeline that you've pre-configured to handle deployment.
 
 ## Containers and Volumes
 
