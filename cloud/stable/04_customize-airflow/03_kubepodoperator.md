@@ -1,6 +1,6 @@
 ---
 title: "Run the KubernetesPodOperator on Astronomer"
-navtitle: "KubernetesPodOperator"
+navTitle: "KubernetesPodOperator"
 description: "How to run the KubernetesPodOperator on Astronomer."
 ---
 
@@ -186,7 +186,7 @@ To pull images from a Private Registry on Astronomer Cloud, follow the guideline
 
 > **Note:** In terms of what registries are supported, we recommend DockerHub. Technically speaking, all we need is for our cluster to be able to access your registry over the internet. With that said, we can't in practice support Amazon's ECR, for example, as the `docker login​` authentication token on ECR [rotates every 12 hours]((https://aws.amazon.com/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/)).
 
-**1.** Pull a `dockerconfigjson` file with your existing Docker credentials by following [this Kubernetes guide](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials). 
+**1.** Pull a `dockerconfigjson` file with your existing Docker credentials by following [this Kubernetes guide](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials).
 
 The command will look something like:
 

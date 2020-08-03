@@ -1,113 +1,54 @@
 backend:
   name: git-gateway
-  branch: master
+  branch: main
+  squash_merges: true
   commit_messages:
-    create: 'Create {{collection}} “{{slug}}”'
-    update: 'Update {{collection}} “{{slug}}”'
-    delete: 'Delete {{collection}} “{{slug}}”'
-    uploadMedia: '[skip ci] Upload “{{path}}”'
-    deleteMedia: '[skip ci] Delete “{{path}}”'
-
+    create: Create {{collection}} “{{slug}}”
+    update: Update {{collection}} “{{slug}}”
+    delete: Delete {{collection}} “{{slug}}”
+    uploadMedia: Upload “{{path}}”
+    deleteMedia: Delete “{{path}}”
+    openAuthoring: '{{message}}'
 
 media_folder: "media"
 publish_mode: editorial_workflow
+show_preview_links: true
 
 collections:
-  - name: "generalDoc"
-    label: "General"
-    folder: "/content/general"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "certifiedDoc"
-    label: "Certified"
-    folder: "/content/certified"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
   - name: "cloudDoc"
     label: "Cloud"
-    folder: "/content/cloud"
+    folder: "cloud/stable"
+    path: '{{slug}}'
     create: true
-    slug: "{{slug}}"
+    nested:
+      depth: 100
     fields:
+      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "acDoc"
+    label: "AC - Stable"
+    folder: "ac/stable"
+    path: '{{slug}}'
+    create: true
+    fields:
+      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Nav Title", name: "navTitle", widget: "string"}
+      - {label: "Description", name: "description", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "enterpriseDoc"
-    label: "Enterprise"
-    folder: "/content/enterprise"
+    label: "Enterprise - Stable"
+    folder: "enterprise/stable"
+    path: '{{slug}}'
     create: true
-    slug: "{{slug}}"
     fields:
+      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}
-
-  - name: "cliDoc"
-    label: "CLI"
-    folder: "/content/cli"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
       - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "apiDoc"
-    label: "API"
-    folder: "/content/api"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "airflowDoc"
-    label: "Airflow"
-    folder: "/content/airflow"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "dockerDoc"
-    label: "Docker"
-    folder: "/content/docker"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}
-
-  - name: "policyDoc"
-    label: "Policy"
-    folder: "/content/policies"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Description", name: "description", widget: "string"}

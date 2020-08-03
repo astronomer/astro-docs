@@ -1,6 +1,6 @@
 ---
-title: "Astronomer Cloud Overview"
-navTitle: Cloud Overview
+title: "Astronomer Cloud Documentation"
+navTitle: "Astronomer Cloud"
 description: "An overview of Astronomer Cloud."
 ---
 

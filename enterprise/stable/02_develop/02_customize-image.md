@@ -219,7 +219,7 @@ Dockerfile  airflow.cfg  airflow_settings.yaml  dags  include  logs  packages.tx
 bash-4.4$
 ```
 
-All default configurations can be found in the [Astronomer CLI repository](https://github.com/astronomer/astro-cli/blob/master/airflow/include/composeyml.go). Any of these settings can be overriden by adding a `docker-compose.override.yml` file in the Astronomer project directory.
+All default configurations can be found in the [Astronomer CLI repository](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go). Any of these settings can be overriden by adding a `docker-compose.override.yml` file in the Astronomer project directory.
 
 For example, adding another volume mount for a directory named `custom_depedencies` can be done with:
 
@@ -253,4 +253,4 @@ drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 plugins
 -rw-r--r--    1 astro    astro         2338 Dec 30 17:21 unittests.cfg
 ```
 
-> **Note:** This will only affect how the image runs locally and will not have any impact on what gets built and deployed. 
+> **Note:** This will only affect how the image runs locally and will not have any impact on what gets built and deployed.
