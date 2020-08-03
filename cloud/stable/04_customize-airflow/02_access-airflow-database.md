@@ -1,9 +1,8 @@
 ---
-title: "The Airflow Database"
-navTitle: "The Airflow Database"
-description: "How to access Airflow's Postgres Metadata Database on Astronomer."
+title: "Access the Airflow Database"
+navTitle: "Access the Airflow Database"
+description: "How to access Airflow's Postgres Metadata Database on Astronomer Cloud."
 ---
-
 
 ## Overview
 
@@ -24,11 +23,11 @@ This guide will cover guidelines for the following:
 
 As noted above, your Airflow Deployment's Metadata Database on Astronomer is hosted by our team. Given its importance to the Scheduler's performance, it's worth noting the risks associated with accessing Airflow's Database.
 
-We _strongly_ recommend users do not write to the database directly as it can compromise both the integrity of your Airflow Deployment and our team's ability to support you in the case of an issue.
+We strongly recommend users do not write to the database directly as it can compromise both the integrity of your Airflow Deployment and our team's ability to support you in the case of an issue.
 
 ### Use Cases
 
-Keeping the above risk in mind, pulling from and reading the database safely can be a great way to gather metadata from your Airflow Deployment that isn't otherwise exposed on Astronomer and Airflow (yet).
+Keeping the above risk in mind, pulling from and reading the database safely can be a great way to gather metadata from your Airflow Deployment that isn't otherwise exposed on Astronomer and Airflow (yet). 
 
 A few examples of what you can query for:
 - Completed Task Count
@@ -37,7 +36,7 @@ A few examples of what you can query for:
 
 Read below for DB access guidelines both locally and on Astronomer.
 
-## Access to Airflow's Database in Local Development
+## Local Access to the Airflow Database
 
 To successfully query from your Airflow Deployment's Database, you'll need to set up your local Postgres connection.
 
@@ -69,35 +68,7 @@ Your connection should look something like:
 
 The port will be set to 5342 by default but if you’ve set a custom port, you’ll need to update that here as well.
 
-**3. Connect to the DB via a PostgreSQL Client**
-
-With the connection information above, you should be able to connect to the Airflow database from any PostgreSQL client.
-
-### Access to Airflow's Database on Astronomer
-
-The easiest way to pull from Airflow's Metadata Database on Astronomer is to leverage the `AIRFLOW_CONN_AIRFLOW_DB` Environment Variable, which we set [here](https://github.com/astronomer/airflow-chart/blob/master/templates/_helpers.yaml#L16-L20).
-
-This Environment Variable, which we set by default, silently enables users to leverage the `airflow_db` connection. It's worth noting that the connection itself in the Airflow UI will NOT reflect the correct credentials (Conn Type, Host, Schema, Login, Password, Port).
-
-To pull from the Airflow Database, follow the steps below. Note that you do _not_ have to set this Environment Variable yourself and you do _not_ have to populate the `airflow_db` connection in the Airflow UI.
-
-#### 1. Leave your `airflow_db` Connection as is
-
-Your `airflow_db` connection by default will look like the following:
-
-```
-Conn Id: airflow_db
-Conn Type: MySQL
-Host: mysql
-Schema: airflow
-Login: root
-```
-
-While this information is incorrect in the Airflow UI, the underlying connection will still succeed, as connections set by an Environment Variable take precedence over connection details in the Astronomer UI and in the Metadata Database itself.
-
-For clarity, we intend to make sure this connection is properly populated in upcoming versions of Astronomer.
-
-#### 2. Call `airflow_db` in your DAG
+**3. Connect to `airflow_db` in your DAG**
 
 Here's an example DAG, where `postgres_conn_id` is set to `airflow_db`:
 
@@ -132,7 +103,56 @@ with DAG(
 
 Here, the task above grabs all `dag_ids` stored inside `dag` Table within Airflow's Metadata Database.
 
-#### 3. Verify the Connection in your Task Logs
+### Connect to the DB via a PostgreSQL Client
+
+With the connection information above, you should also be able to connect to the Airflow Database from any PostgreSQL client. 
+
+Using [`psql`](https://www.postgresql.org/docs/9.3/app-psql.html), a terminal-based front-end to PostgreSQL, run:
+
+```
+$ psql -h localhost -U postgres -p 5432 -W
+```
+
+When prompted, enter the password from the Connection Object above to access the database.
+
+Alternatively, you can also connect to the DB via the Postgres container itself by exec-ing into it and executing the `psql` command.
+
+To do so, run:
+
+```
+    $ docker exec -it <postgres_container_id> /bin/bash
+    psql -U postgres
+```
+    
+## Access to the Airflow Database on Astronomer
+
+The easiest way to pull from Airflow's Metadata Database on Astronomer is to leverage the `AIRFLOW_CONN_AIRFLOW_DB` Environment Variable, which we set [here](https://github.com/astronomer/airflow-chart/blob/master/templates/_helpers.yaml#L16-L20).
+
+This Environment Variable, which we set by default, silently enables users to leverage the `airflow_db` connection. It's worth noting that the connection itself in the Airflow UI will NOT reflect the correct credentials (Conn Type, Host, Schema, Login, Password, Port).
+
+To pull from the Airflow Database, follow the steps below. Note that you do _not_ have to set this Environment Variable yourself and you do _not_ have to populate the `airflow_db` connection in the Airflow UI.
+
+**1. Leave your `airflow_db` Connection as is**
+
+Your `airflow_db` connection by default will look like the following:
+
+```
+Conn Id: airflow_db
+Conn Type: MySQL
+Host: mysql
+Schema: airflow
+Login: root
+```
+
+While this information is incorrect in the Airflow UI, the underlying connection will still succeed, as connections set by an Environment Variable take precedence over connection details in the Astronomer UI and in the Metadata Database itself.
+
+For clarity, we intend to make sure this connection is properly populated in upcoming versions of Astronomer.
+
+**2. Call `airflow_db` in your DAG**
+
+You can use the same example DAG outlined above where `postgres_conn_id` is set to `airflow_db`.
+
+**3. Verify the Connection in your Task Logs**
 
 To verify a successful connection, you can inspect the corresponding task log -
 
@@ -162,6 +182,6 @@ Password: XXXXXXXX
 Port: 6543
 ```
 
-### What's Next
+## What's Next
 
 For a list of handy queries to reference, check out [Useful SQL queries for Apache Airflow](https://www.astronomer.io/guides/airflow-queries/).
