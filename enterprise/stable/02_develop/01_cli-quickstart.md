@@ -150,7 +150,7 @@ This will generate a collection of files within your directory:
 └── requirements.txt # For any Python packages
 ```
 
-These files collectively make up the Docker image you'll then push to the Airflow instance on your local machine or to a Deployment on Astronomer Cloud or Enterprise.
+These files collectively make up the Docker image you'll then push to the Airflow instance on your local machine or to a Deployment on Astronomer Enterprise.
 
 ## Start Airflow Locally
 
@@ -227,8 +227,6 @@ docker exec -it SCHEDULER_CONTAINER bash -c "airflow connections -a --conn_id te
 ```
 
 Refer to the native [Airflow CLI](https://airflow.apache.org/cli.html) for a list of all commands.
-
-> **Note:** Direct access to the Airflow CLI is an Enterprise-only feature. If you're an Astronomer Cloud customer, you'll only be able to access it while developing locally for reasons related to the multi-tenant architecture of our Cloud. If you'd like to use a particular Airflow CLI command, reach out and we're happy to help you find a workaround.
 
 ## Additional Resources
 

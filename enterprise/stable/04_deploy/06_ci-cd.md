@@ -6,7 +6,7 @@ description: "Automate the deploy process to your Airflow Deployment by setting 
 
 Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
 
-This guide will walk you through configuring your CI/CD pipeline with either Astronomer Cloud or Astronomer Enterprise.
+This guide will walk you through configuring your CI/CD pipeline on Astronomer Enterprise.
 
 For background and best practices on CI/CD, we recommend reading ["An Introduction to CI/CD Best Practices"](https://www.digitalocean.com/community/tutorials/an-introduction-to-ci-cd-best-practices) from DigitalOcean.
 
@@ -28,7 +28,7 @@ Read below for instructions on how to create a Service Account and what your CI/
 
 Before we get started, make sure you:
 
-- Have access to a running Airflow Deployment on either Astronomer Cloud or Enterprise
+- Have access to a running Airflow Deployment on either Astronmer Enterprise
 - Installed the [Astronomer CLI](https://github.com/astronomer/astro-cli)
 - Are familiar with your CI/CD tool of choice
 
@@ -119,7 +119,7 @@ docker login registry.$${BASE_DOMAIN} -u _ -p $${API_KEY_SECRET}
 
 In this example:
 
-- `BASEDOMAIN` = `gcp0001.us-east4.astronomer.io` (for Astronomer Cloud users) or your very own Basedomain for Enterprise
+- `BASE_DOMAIN` = The domain at which your Enterprise platform is running
 - `API_KEY_SECRET` = The API Key that you got from the CLI or the UI and stored in your secret manager
 
 ### Building and Pushing an Image
@@ -128,11 +128,8 @@ Once you are authenticated you can build, tag and push your Airflow image to the
 
 #### Registry Address
 
-*Registry Address* tells Docker where to push images to. In this case it will either be:
+*Registry Address* tells Docker where to push images to. In the case of Astronomer Enterprise, your private registry located at registry.${BASE_DOMAIN}.
 
-- Astronomer Enterprise: Your private registry located at registry.${BASE_DOMAIN}.
-
-- Astronomer Cloud: `registry.gcp0001.us-east4.astronomer.io`
 
 #### Release Name
 
@@ -140,7 +137,7 @@ Once you are authenticated you can build, tag and push your Airflow image to the
 
 #### Tag Name
 
-*Tag Name*: Each deploy to Astronomer Cloud generated a Docker image with a corresponding tag. If you deploy via the CLI, the tag will by default read `deploy-n`, with `n` representing the numnber of deploys made to that Airflow Deployment. If you're using CI/CD, you get to customize this tag. We typically recommend specifying the source and the build number in the name.
+*Tag Name*: Each deploy to Astronomer generates a Docker image with a corresponding tag. If you deploy via the CLI, the tag will by default read `deploy-n`, with `n` representing the numnber of deploys made to that Airflow Deployment. If you're using CI/CD, you get to customize this tag. We typically recommend specifying the source and the build number in the name.
 
 In the example below, we use the prefix `ci-` and the ENV `${DRONE_BUILD_NUMBER}`. This guarantees that we always know which CI/CD build triggered the build and push.
 

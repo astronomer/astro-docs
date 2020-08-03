@@ -1,5 +1,6 @@
 ---
-title: "Running Locally"
+title: "Running Astronomer Certified Locally"
+navTitle: "Running Locally"
 description: "Everything you need to know to get up and running on Astronomer's distribution of Apache Airflow on your local machine."
 ---
 
@@ -49,7 +50,7 @@ To install and run the Astronomer Certified distribution, ensure that Docker is 
 3. Add the the following to the `Dockerfile` to grab the latest Astronomer Certified image on build:
 
     > Note: The below Dockerfile is an example and may use an outdated image. For an updated list of available images, see our [downloads page](https://astronomer.io/downloads).
-  
+
         # For an Alpine-based image
         FROM astronomerinc/ap-airflow:1.10.10-alpine3.10-onbuild
 
@@ -57,7 +58,7 @@ To install and run the Astronomer Certified distribution, ensure that Docker is 
         FROM astronomerinc/ap-airflow:1.10.10-buster-onbuild
 
     Note that you can select which version you'd like to use via the tag appended to the image.
-  
+
 4. Add the following to the `docker-compose.yml` file:
 
         version: "3"

@@ -75,7 +75,7 @@ If you're developing locally, make sure to save your changes and issue the follo
 
 #### On Astronomer
 
-If you don't need to test this locally and just want to push to either Astronomer Cloud or your Astronomer Enterprise installation, you can issue:
+If you don't need to test this locally and just want to push to your Astronomer Enterprise installation, you can issue:
 
 ```bash
 astro deploy
@@ -100,4 +100,4 @@ Once there, you should see your correct Airflow version listed.
 
 #### On Astronomer
 
-If you're on Astronomer Cloud or Enterprise, navigate to your Airflow Deployment page on the Astronomer UI.
+If you're on Astronomer Enterprise, navigate to your Airflow Deployment page on the Astronomer UI.

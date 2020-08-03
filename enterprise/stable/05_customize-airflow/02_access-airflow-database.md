@@ -9,8 +9,6 @@ description: "How to access Airflow's Postgres Metadata Database on Astronomer."
 
 On Astronomer, each Airflow deployment is equipped with a PostgreSQL database that serves as Airflow's underlying metadata database and your Airflow scheduler's source of truth.
 
-Astronomer hosts that database for Astronomer Cloud customers (each securely isolated from the rest) and our team helps Enterprise customers set up their own during our platform installation.
-
 This guide will cover guidelines for the following:
 
 - Risks associated with and use cases for Database Access
@@ -22,7 +20,7 @@ This guide will cover guidelines for the following:
 
 ### Risk Associated with Database Access
 
-As noted above, your Airflow Deployment's Metadata Database on Astronomer is either hosted by your team if you're using Astronomer Enterprise or by ours if you're running on Astronomer Cloud. In both cases, it's worth noting the risks associated with accessing Airflow's Database given its importance to the Scheduler's performance.
+Your Airflow Deployment's Metadata Database on Astronomer lives in the Postgres instance that you spun up as part of the platform installation process. It's worth noting that there are risks associated with accessing Airflow's Database given its importance to the Scheduler's performance.
 
 We _strongly_ recommend users do not write to the database directly as it can compromise both the integrity of your Airflow Deployment and our team's ability to support you in the case of an issue.
 

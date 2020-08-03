@@ -1,10 +1,10 @@
 ---
 title: "Astronomer Cloud FAQs"
-navTitle: FAQ
+navTitle: "FAQ"
 description: "Commonly asked questions and answers for those running Apache Airflow on Astronomer Cloud."
 ---
 
-If you're thinking about Astronomer Cloud, you might have a few questions on your mind. We've collected a few of the most frequent questions and our answers to it below. You can also ask questions on our [community forum](https://forum.astronomer.io/). Or if you're already a customer, reach out to us via the [Support Portal](https://support.astronomer.io). 
+If you're thinking about Astronomer Cloud, you might have a few questions on your mind. We've collected a few of the most frequent questions and our answers to it below. You can also ask questions on our [community forum](https://forum.astronomer.io/). Or if you're already a customer, reach out to us via the [Support Portal](https://support.astronomer.io).
 
 
 ## Supported Airflow Versions

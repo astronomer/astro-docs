@@ -1,6 +1,6 @@
 ---
 title: "CLI Quickstart"
-navTitle: CLI Quickstart
+navTitle: "CLI Quickstart"
 description: "Establish a local testing environment and deploy to Astronomer from the CLI."
 ---
 
@@ -167,7 +167,7 @@ This command will spin up 3 Docker containers on your machine, each for a differ
 - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
 Run `docker ps` to verify that these containers were created. Once you've run `astro dev start`, you'll be able to access the following components locally:
-                   
+
 - Airflow Webserver: http://localhost:8080/admin/ (Credentials are `admin:admin` by default)
 - Postgres Database: localhost:5432/postgres
 

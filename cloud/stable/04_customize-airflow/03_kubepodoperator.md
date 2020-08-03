@@ -1,6 +1,6 @@
 ---
 title: "Run the KubernetesPodOperator on Astronomer"
-navtitle: "KubernetesPodOperator"
+navTitle: "KubernetesPodOperator"
 description: "How to run the KubernetesPodOperator on Astronomer."
 ---
 
@@ -185,7 +185,7 @@ Two preliminary notes:
 
 ### Guidelines
 
-**1.** Pull a `dockerconfigjson` file with your existing Docker credentials by following [this Kubernetes guide](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials). 
+**1.** Pull a `dockerconfigjson` file with your existing Docker credentials by following [this Kubernetes guide](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials).
 
 The command will look something like:
 

@@ -10,7 +10,7 @@ Any extra commands you want to run when the image builds can be added in the `Do
 
 For example, suppose I wanted to run `ls` when my image builds. The `Dockerfile` would look like:
 
-```
+```dockerfile
 FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
 RUN ls
 ```
@@ -75,7 +75,7 @@ In the same way you can add Python and OS-level Packages into existing files, yo
 
 To do so, add the folder into your project directory and rebuild your image.
 
-```
+```bash
 virajparekh@orbiter:~/cli_tutorial$ tree
 .
 ├── airflow_settings.yaml
@@ -93,7 +93,7 @@ virajparekh@orbiter:~/cli_tutorial$ tree
 
 Now going into my scheduler image:
 
-```
+```bash
 docker exec -it c2c7d3bb5bc1 /bin/bash
 bash-4.4$ ls
 Dockerfile  airflow_settings.yaml  helper_functions  logs  plugins  unittests.cfg
@@ -234,6 +234,6 @@ FROM custom-ap-airflow:1.10.10-alpine3.10
 Now, let's push your new image to Astronomer.
 
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
-- If you're pushing up to Astronomer Cloud or Enterprise, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
+- If you're pushing up to Astronomer Cloud, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
 For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](https://www.astronomer.io/docs/create-deployment-deploying-code/).

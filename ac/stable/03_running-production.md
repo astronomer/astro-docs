@@ -1,5 +1,6 @@
 ---
-title: "Running in Production"
+title: "Running Astronomer Certified in Production"
+navTitle: "Running in Production"
 description: "Running the Astronomer Certified distribution of Airflow in production with Systemd."
 ---
 
@@ -44,24 +45,28 @@ Ensure the following linux packages are installed on your machine. To get them i
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Setting up the database](#setting-up-the-database)
-- [Per-machine setup](#per-machine-setup)
-  - [Create system user to run Airflow](#create-system-user-to-run-airflow)
-  - [Create virtual environment](#create-virtual-environment)
-  - [Install Astronomer ac](#install-astronomer-ac)
-  - [Create systemd unit files](#create-systemd-unit-files)
-  - [Configure Airflow for database access](#configure-airflow-for-database-access)
-- [On the scheduler machine](#on-the-scheduler-machine)
+- [Overview](#overview)
+- [Planning Your Deployment](#planning-your-deployment)
+  - [Prerequisites](#prerequisites)
+- [Setting Up the Database](#setting-up-the-database)
+- [Per-Machine Setup](#per-machine-setup)
+  - [Create System User to Run Airflow](#create-system-user-to-run-airflow)
+  - [Create a Virtual Environment](#create-a-virtual-environment)
+  - [Install Astronomer Certified](#install-astronomer-certified)
+  - [Create Systemd Unit File](#create-systemd-unit-file)
+  - [Configure Airflow for Database Access](#configure-airflow-for-database-access)
+- [Setting Up the Scheduler](#setting-up-the-scheduler)
   - [Enable the service](#enable-the-service)
   - [Start the service](#start-the-service)
-- [On the webserver machine](#on-the-webserver-machine)
+- [Setting Up the Webserver](#setting-up-the-webserver)
   - [Enable the service](#enable-the-service-1)
   - [Start the service](#start-the-service-1)
-    - [Recommend putting nginx in front of Airflow](#todo-recommend-putting-nginx-in-front-of-airflow)
-- [On the worker machines](#on-the-worker-machines)
+  - [Configuring a Reverse Proxy](#configuring-a-reverse-proxy)
+- [Setting Up the Worker Machines](#setting-up-the-worker-machines)
   - [Enable the service](#enable-the-service-2)
   - [Start the service](#start-the-service-2)
 - [Deploying DAGs](#deploying-dags)
+- [Production Support](#production-support)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -71,7 +76,7 @@ This section of the guide assumes that the database server is local to where you
 
 To make the database server accessible outside of your localhost, [you may have to edit your `/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) and restart Postgres. Note that achieving this is outside of the scope of this guide, as there is a degree of variance implied within each custom setup. You should also understand the security implications before editing this file.
 
-If the database is running on the same machine, you can change `peer` to `md5` to allow connections with username/password from the same machine. 
+If the database is running on the same machine, you can change `peer` to `md5` to allow connections with username/password from the same machine.
 
 First we need to create a database user named `airflow`:
 
@@ -259,7 +264,7 @@ Every machine running Airflow needs a copy of the DAG files, with all DAG files 
 
 - Baking DAGs into the docker image alongside Airflow.
 - Via a job that refreshes the DAGs folder on a schedule ([this is how the folks at WePay do it](https://wecode.wepay.com/posts/airflow-wepay)).
-- Via existing automation tools such as Ansible, Puppet or Chef. 
+- Via existing automation tools such as Ansible, Puppet or Chef.
 - Via making the DAGs live on a shared filesystem such as NFS (but be aware of read performance penalties - Airflow can be quite heavy on read-ops).
 
  Whatever you choose, it should align well with your internal development processes and you should leverage the tooling at your disposal (Ansible, Terraform, Git, etc) to automate as much as possible. If you're looking for a full-stack solution for DAG deployment, it's something we can help with via our commercial offerings here at Astronomer. [Get in touch](https://astronomer.io/contact) if you'd like to chat.

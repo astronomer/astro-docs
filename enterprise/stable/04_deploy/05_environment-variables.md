@@ -1,8 +1,7 @@
 ---
 title: "Environment Variables on Astronomer"
+navTitle: "Environment Variables"
 description: "How to manage Airflow Environment Variables on Astronomer."
-date: 2018-08-23T00:00:00.000Z
-slug: "environment-variables"
 ---
 
 ## Overview
@@ -210,7 +209,7 @@ Here, the full Environment Variable would read:
 ENV AIRFLOW_CONN_MY_PROD_DB=my-conn-type://login:password@host:5432/schema
 ```
 
-You're free to set this Environment Variable via an `.env` file locally, via your Dockerfile or via the Astronomer UI as explained above. For more information on how to generate your Connection URI, refer to [Airflow's documentation](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-connection-uri). 
+You're free to set this Environment Variable via an `.env` file locally, via your Dockerfile or via the Astronomer UI as explained above. For more information on how to generate your Connection URI, refer to [Airflow's documentation](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-connection-uri).
 
 ### Airflow Variables
 
