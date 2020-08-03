@@ -4,22 +4,26 @@ navTitle: "Customize Images"
 description: "How to customize your Airflow Image on Astronomer, including guidance on adding dependencies and running commands on build."
 ---
 
-## Run Commands on Build
+## Overview
 
-Any extra commands you want to run when the image builds can be added in the `Dockerfile` as a `RUN` command - these will run as the last step in the image build.
+The Astronomer CLI was built to be the easiest way to develop with Apache Airflow, whether you're developing on your local machine or deploying code to Astronomer. The guidelines below will cover a few ways you can customize the Docker Image that gets pushed up to Airflow every time you rebuild your image locally via `$ astro dev start` or deploy to Astronomer via `$ astro deploy`.
 
-For example, suppose I wanted to run `ls` when my image builds. The `Dockerfile` would look like:
+More specifically, this doc includes instructions for how to:
 
-```dockerfile
-FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
-RUN ls
-```
+- Add Python and OS-level Packages
+- Add Helper Functions
+- Run commands on Build
+- Access the Airflow CLI
+- Add Environment Variables Locally
+- Build from a Private Repository
+
+> **Note:** The guidelines below assume that you've initialized a project on Astronomer via `$ astro dev init`. If you haven't done so already, refer to our ["CLI Quickstart" doc](https://www.astronomer.io/docs/cli-quickstart/).
 
 ## Add Python and OS-level Packages
 
 To build Python and OS-level packages into your Airflow Deployment, add them to your `requirements.txt` and `packages.txt` files on Astronomer. Both files were automatically generated when you intialized an Airflow project locally via `$ astro dev init`. Steps below.
 
-### 1. Add your Python or OS-Level Package
+### Add your Python or OS-Level Package
 
 Add all Python packages to your `requirements.txt` and any OS-level packages you'd like to include to your `packages.txt` file.
 
@@ -37,9 +41,9 @@ pymongo=3.7.2
 
 If you do _not_ pin a package to a version, the latest version of the package that's publicly available will be installed by default.
 
-### 2. Re-build your Image
+### Rebuild your Image
 
-Once you've saved those packages in your text editor or version control tool, re-build your image by running:
+Once you've saved those packages in your text editor or version control tool, rebuild your image by running:
 
 ```
 $ astro dev stop
@@ -53,7 +57,7 @@ $ astro dev start
 
 This process stops your running Docker containers and restarts them with your updated image.
 
-### 3. Confirm your Package was Installed (_Optional_)
+### Confirm your Package was Installed (_Optional_)
 
 If you added `pymongo` to your `requirements.txt` file, for example, you can confirm that it was properly installed by running a `$ docker exec` command into your Scheduler.
 
@@ -73,7 +77,9 @@ pymongo==3.7.2
 
 In the same way you can add Python and OS-level Packages into existing files, you're free to add a folder of `helper_functions` (or any other files for your DAGs to use) to build into your image.
 
-To do so, add the folder into your project directory and rebuild your image.
+To do so, follow the guidelines below.
+
+### Add the folder into your project directory
 
 ```bash
 virajparekh@orbiter:~/cli_tutorial$ tree
@@ -91,16 +97,37 @@ virajparekh@orbiter:~/cli_tutorial$ tree
 └── requirements.txt
 ```
 
-Now going into my scheduler image:
+### Rebuild your Images
+
+Follow the instructions in the "Rebuild your Image" section above.
+
+### Confirm your files were added (_Optional_)
+
+Similar to the `pymongo` example above, you can confirm that `helper.py` was properly built into your image by running a `$ docker exec` command into your Scheduler.
+
+1. Run `$ docker ps` to identify the 3 running docker containers on your machine
+2. Grab the container ID of your Scheduler container
+3. Run the following:
 
 ```bash
-docker exec -it c2c7d3bb5bc1 /bin/bash
+docker exec -it <scheduler-container-id> /bin/bash
 bash-4.4$ ls
 Dockerfile  airflow_settings.yaml  helper_functions  logs  plugins  unittests.cfg
 airflow.cfg  dags  include  packages.txt  requirements.txt
 ```
 
-Notice the `helper_functions` folder has been built into the image.
+Notice that `helper_functions` folder has been built into your image.
+
+## Run Commands on Build
+
+If you're interested in running any extra commands when your Airflow Image builds, it can be added to your `Dockerfile` as a `RUN` command. These will run as the last step in the image build process.
+
+For example, if you wanted to run `ls` when your image builds, your `Dockerfile` would look like this:
+
+```
+FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
+RUN ls
+```
 
 ## Access to the Airflow CLI
 
@@ -118,7 +145,7 @@ Refer to the native [Airflow CLI](https://airflow.apache.org/cli.html) for a lis
 
 ## Add Environment Variables Locally
 
-Astronomer's CLI comes with the ability to  bring in Environment Variables from a specified file by running `astro dev start` with an `--env` flag as seen below:
+The Astronomer CLI comes with the ability to  bring in Environment Variables from a specified file by running `$ astro dev start` with an `--env` flag as seen below:
 
 ```
 $ astro dev start --env .env
@@ -234,6 +261,6 @@ FROM custom-ap-airflow:1.10.10-alpine3.10
 Now, let's push your new image to Astronomer.
 
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
-- If you're pushing up to Astronomer Cloud, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
+- If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
 For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](https://www.astronomer.io/docs/create-deployment-deploying-code/).
