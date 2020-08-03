@@ -6,7 +6,7 @@ description: "How to access Airflow's Postgres Metadata Database on Astronomer C
 
 ## Overview
 
-On Astronomer, each Airflow deployment is equipped with a PostgreSQL database that serves as Airflow's underlying metadata database and your Airflow scheduler's source of truth.
+On Astronomer, each Airflow deployment is equipped with a PostgreSQL database that serves as Airflow's underlying metadata database and your Airflow Scheduler's source of truth.
 
 For Astronomer Cloud users, our team securely hosts that database.
 
@@ -17,7 +17,7 @@ This guide will cover guidelines for the following:
 - Access to Airflow's Database on Astronomer
 - Example DAG that incorporates a query to the database
 
-> Note: Airflow's "Ad-Hoc Query" feature used to be a common way to test DB connections and query the Airflow Metadata Database via the Airflow UI but was recently deprecated in 1.10 for security reasons.
+> **Note:** Airflow's "Ad-Hoc Query" feature used to be a common way to test DB connections and query the Airflow Metadata Database via the Airflow UI but was deprecated in 1.10 for security reasons.
 
 ### Risk Associated with Database Access
 
