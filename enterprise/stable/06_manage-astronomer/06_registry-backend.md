@@ -6,9 +6,9 @@ description: "How to configure a registry back end to work with the Astronomer p
 
 ## Overview
 
-Astronomer Enterprise requires a Docker Registry to store the Docker images generated every time a user either pushes code or a configuration change to an Airflow Deployment on Astronomer.
+Astronomer Enterprise requires a Docker Registry to store the Docker Images generated every time a user either pushes code or a configuration change to an Airflow Deployment on Astronomer.
 
-The default storage back end for this Docker Registry is a [Kubernetes Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). While this may be sufficient for teams just getting started on Astronomer, we'd strongly recommend backing the registry with an external storage solution for any team running in production.
+The default storage backend for this Docker Registry is a [Kubernetes Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). While this may be sufficient for teams just getting started on Astronomer, we strongly recommend backing the registry with an external storage solution for any team running in production.
 
 This doc will walk through configuring the 3 tools that Astronomer supports:
 
@@ -24,15 +24,17 @@ To read more about the Google Cloud Storage driver, reference [this doc](https:/
 
 ### Prerequisites
 
-To use Google Cloud Storage (GCS) as a registry back end solution, you'll need:
+To use Google Cloud Storage (GCS) as a registry backend solution, you'll need:
 
--  An existing GCS Bucket
+- An existing GCS Bucket
 - Your Google Cloud Platform Service Account JSON Key
 - Ability to create a Kubernetes Secret in your cluster
 
 ### Add to your config.yaml
 
-**1. Download your Google Cloud Platform service account JSON key from [Google Console](https://console.cloud.google.com/apis/credentials/serviceaccountkey).** Make sure the service account you use has both the `Storage Legacy Bucket Owner` and `Storage Object Admin` roles.
+**1. Download your Google Cloud Platform service account JSON key from [Google Console](https://console.cloud.google.com/apis/credentials/serviceaccountkey)**
+
+Make sure the service account you use has both the `Storage Legacy Bucket Owner` and `Storage Object Admin` roles.
 
 **2. Create a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) using the downloaded key:** 
 
@@ -119,6 +121,46 @@ To use AWS S3 as a registry backend solution, you'll need:
 - Your AWS Secret Key
 - Ability to create a Kubernetes Secret in your cluster
 
+### Create S3 IAM Policy and User
+
+To grant the registry appropriate push and pull permissions, follow the steps below.
+
+**1. Create an AWS IAM Policy**
+
+Use the definition below, making sure to replace `S3_BUCKET_NAME` with your own S3 bucket's name.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:ListBucketMultipartUploads"
+      ],
+      "Resource": "arn:aws:s3:::S3_BUCKET_NAME"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject",
+        "s3:ListMultipartUploadParts",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*"
+    }
+  ]
+}
+```
+
+**2. Create a new IAM User and attach the Policy**
+
+Your access key and secret key will be generated and displayed after the user is created.
+
 ### Add to your `config.yaml`
 
 Now, add the following to your `config.yaml`:
@@ -132,6 +174,31 @@ astronomer:
       secretkey: my-secret-key
       region: us-east-1
       bucket: my-s3-bucket
+```
+
+### Enable Encryption (_Optional_)
+
+To enable encryption, follow the steps below.
+
+**1. Create a key in AWS Key Management Service (KMS)**
+
+During the key creation process you'll be asked to add "key users". Add the user created above as a "key user".
+
+**2. Enable Encryption in your `config.yaml`**
+
+Now, set `encrypt: true` in your Astronomer `config.yaml`:
+
+```yaml
+astronomer:
+  registry:
+    s3:
+      enabled: true
+      accesskey: my-access-key
+      secretkey: my-secret-key
+      region: us-east-1
+      bucket: my-s3-bucket
+      encrypt: true
+      keyid: my-kms-key-id
 ```
 
 ### Apply your Changes
