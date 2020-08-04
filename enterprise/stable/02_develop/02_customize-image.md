@@ -127,6 +127,46 @@ FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
 RUN ls
 ```
 
+## Docker Compose Override
+
+The Astronomer CLI is built on top of [Docker Compose](https://docs.docker.com/compose/), a tool for defining and running multi-container Docker applications. If you're interested in overriding any of our CLI's default configurations ([found here](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go)), you're free to do so by adding a `docker-compose.override.yml` file to your Astronomer project directory. Any values in this file wil override default settings run upon every `$ astro dev start`.
+
+To add another volume mount for a directory named `custom_depedencies`, for example, add the following to your `docker-compose.override.yml`:
+
+```
+version: "2"
+services:
+  scheduler:
+    volumes:
+      - /home/astronomer_project/custom_depedencies:/usr/local/airflow/custom_depedencies:ro
+```
+
+Make sure to specify `version: "2"` and mimic the format of the source code file linked above.
+
+When your image builds on `$ astro dev start`, any changes made within the `custom_dependencies` directory will be picked up automatically the same way they are with files in your `dags` directory:
+
+```
+$ docker exec -it astronomer_project239673_scheduler_1 ls -al
+total 76
+drwxr-xr-x    1 astro    astro         4096 Dec 30 17:21 .
+drwxr-xr-x    1 root     root          4096 Dec 14  2018 ..
+-rw-rw-r--    1 root     root            38 Oct  8 00:07 .dockerignore
+-rw-rw-r--    1 root     root            31 Oct  8 00:07 .gitignore
+-rw-rw-r--    1 root     root            50 Oct  8 00:10 Dockerfile
+-rw-r--r--    1 astro    astro        20770 Dec 30 17:21 airflow.cfg
+drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 dags
+-rw-r--r--    1 root     root           153 Dec 30 17:21 docker-compose.override.yml
+drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 include
+drwxr-xr-x    4 astro    astro         4096 Oct  8 00:11 logs
+drwxr-xr-x    2 1000     1000          4096 Dec 30 17:15 custom_dependencies
+-rw-rw-r--    1 root     root             0 Oct  8 00:07 packages.txt
+drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 plugins
+-rw-rw-r--    1 root     root             0 Oct  8 00:07 requirements.txt
+-rw-r--r--    1 astro    astro         2338 Dec 30 17:21 unittests.cfg
+```
+
+> **Note:** The Astronomer CLI does _not_ currently support overrides to Environment Variables. For more information on how to set, configure and customize those values, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/environment-variables/).
+
 ## Access to the Airflow CLI
 
 You're free to use native Airflow CLI commands on Astronomer when developing locally by wrapping them around docker commands.
