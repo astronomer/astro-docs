@@ -11,8 +11,8 @@ The Astronomer CLI was built to be the easiest way to develop with Apache Airflo
 More specifically, this doc includes instructions for how to:
 
 - Add Python and OS-level Packages
-- Add Helper Functions
-- Run commands on Build
+- Add dependencies
+- Run commands on build
 - Access the Airflow CLI
 - Add Environment Variables Locally
 - Build from a Private Repository
@@ -117,6 +117,50 @@ airflow.cfg  dags  include  packages.txt  requirements.txt
 ```
 
 Notice that `helper_functions` folder has been built into your image.
+
+## Configure `airflow_settings.yaml`
+
+When you first initialize a new Airflow project on Astronomer, a file titled `airflow_settings.yaml` will be automatically generated. With this file you can configure and programmatically generate Airflow Connections, Pools, and Variables when you're developing locally.
+
+For security reasons, the `airflow_settings.yaml` file is currently _only_ for local development and should not be used for pushing up code to Astronomer via `$ astro deploy`. For the same reason, we'd recommend adding this file to your `.gitignore`.
+
+> **Note:** If you're interested in programmatically managing Airflow Connections, Variables or Environment Variables, we'd recommend integrating a ["Secret Backend"](/docs/enterprise/latest/customize-airflow/secrets-backend) to help you do so.
+
+### Add Airfow Connections, Pools, Variables
+
+By default, the `airflow_settings.yaml` file will be structured as following:
+
+```yaml
+airflow:
+  connections:
+    - conn_id: my_new_connection
+      conn_type: postgres
+      conn_host: 123.0.0.4
+      conn_schema: airflow
+      conn_login: user
+      conn_password: pw
+      conn_port: 5432
+      conn_extra:
+  pools:
+    - pool_name: my_new_pool
+      pool_slot: 5
+      pool_description:
+  variables:
+    - variable_name: my_variable
+      variable_value: my_value
+```
+
+### Additional Entries
+
+If you want to add a second Connection/Pool/Variable, copy the existing fields and make a new entry like so:
+
+```yaml
+variables:
+  - variable_name: my_first_variable
+    variable_value: value123
+  - variable_name: my_second_variable
+    variable_value: value987
+```
 
 ## Run Commands on Build
 
