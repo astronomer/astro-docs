@@ -1,6 +1,6 @@
 ---
 title: "Astronomer Enterprise Quickstart"
-navTitle: "Get Started"
+navTitle: "Quickstart"
 description: "A guide to getting started on Astronomer Enterprise."
 ---
 
