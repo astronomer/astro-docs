@@ -11,8 +11,8 @@ The Astronomer CLI was built to be the easiest way to develop with Apache Airflo
 More specifically, this doc includes instructions for how to:
 
 - Add Python and OS-level Packages
-- Add Helper Functions
-- Run commands on Build
+- Add dependencies
+- Run commands on build
 - Access the Airflow CLI
 - Add Environment Variables Locally
 - Build from a Private Repository
@@ -73,9 +73,11 @@ pymongo==3.7.2
 
 > **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](www.astronomer.io/docs/airflow-versioning).
 
-## Add Helper Functions
+## Add Other Dependencies
 
-In the same way you can add Python and OS-level Packages into existing files, you're free to add a folder of `helper_functions` (or any other files for your DAGs to use) to build into your image. To do so, follow the guidelines below.
+In the same way you can add Python and OS-level Packages, you're free to build additional dependencies and files for your DAGs to use into your image.
+
+In the example below, we'll add a folder of `helper_functions` with a file (or set of files) that our Airflow DAGs can then call.
 
 ### Add the folder into your project directory
 
