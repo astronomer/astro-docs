@@ -15,6 +15,10 @@ The guidelines below will outline how to forward Airflow logs from Fluentd via a
 - [Fluentd docs on the `out_s3` Output Plugin](https://docs.fluentd.org/output/s3)
 - [Fluentd GitHub repo for the Amazon S3 Plugin](https://github.com/fluent/fluent-plugin-s3)
 
+Fluentd will continue to forward logs to Elasticsearch in addition to the destination you additionally configure, so we strongly recommend keeping the Elasticsearch output.
+
+> **Note:** The logs in question in this doc are Airflow logs, NOT Astronomer platform logs from Houston, the Registry, etc. They're the equivalent of deployment-level logs exposed in the 'Logs' tab of the Astronomer UI and task logs rendered in the Airflow UI.
+
 ### Prerequisites
 
 To configure log forwarding from Fluentd to Amazon S3, you'll need:
