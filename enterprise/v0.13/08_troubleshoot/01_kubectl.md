@@ -19,7 +19,7 @@ helm install -f config.yaml . datarouter
 ```
 This deploys a randomly named [release](https://helm.sh/docs/glossary/#release) of our helm charts into the `datarouter` [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
-All [pods](http://kubernetesbyexample.com/pods/) can be listed in the namespace with kubectl.
+All [pods](https://kubernetesbyexample.com/pods/) can be listed in the namespace with kubectl.
 
 ```bash
 root@orbiter: datarouter
