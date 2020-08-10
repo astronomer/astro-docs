@@ -339,7 +339,7 @@ jobs:
       with:
         name: infrared-photon-7780/airflow:ci-${{ github.sha }}
         username: _
-        password: ${{ secrets.SERVICE_ACOUNT_KEY }}
+        password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         registry: registry.gcp0001.us-east4.astronomer.io
 ```
 
