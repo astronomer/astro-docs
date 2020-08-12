@@ -24,13 +24,13 @@ Astronomer v0.16 comes with significant improvements to the experience of settin
 
 With the new tab comes the ability for Workspace Admins and Editors to create and mark a value as 'secret', permanently hiding the value from the Astronomer UI (and from the client). From the same tab, users can now export Environment Variables as 'JSON' as well.
 
-For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/environment-variables).
+For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/latest/deploy/environment-variables).
 
 #### Support for AD FS
 
 Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
 
-To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/ee-integrating-auth-systems/).
+To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/enterprise/latest/manage-astronomer/integrate-auth-system/).
 
 #### Bug Fixes and Improvements
 
@@ -94,7 +94,7 @@ To activate this feature on the platform, refer to the `manualReleaseNames` valu
 
 As of Astronomer v0.15, IAM roles can now be appended to all pods within any individual Airflow Deployment on the platform. Users who integrate Airflow with some resource or set of resources (e.g. an AWS S3 bucket or Secret Backend) can now configure them to be accessible only to a subset of Kubernetes pods within your wider Astronomer cluster.
 
-Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](https://forum.astronomer.io/t/can-i-integrate-iam-roles-with-astronomer/649).
+Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](docs/enterprise/latest/customize-airflow/integrate-iam/).
 
 ### Bug Fixes & Improvements
 
