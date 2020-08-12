@@ -29,7 +29,7 @@ The Astronomer CLI is open-source and open to _all_ developers looking to run Ap
 #### Bug Fixes & Improvements
 
 - BugFix: AuthenticationError fetching Airflow Logs
-- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/kubepodoperator/) + KubernetesExecutor Config
+- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/cloud/stable/customize-airflow/kubepodoperator/) and KubernetesExecutor Config
 - BugFix: OAuth Login Errors in Safari
 - BugFix: Error adding "Billing Details" in Astro UI if Workspace unlocked by Astronomer
 - BugFix: Users able to create 2+ Service Accounts with the same label
@@ -49,9 +49,9 @@ Along with this feature come a few other additions:
 
 - The ability for Workspace Admins and Editors to create and mark a value as 'secret', hiding it from the Astronomer UI (and the client)
 - The ability to export Environment Variables as JSON
-- A new `updateDeploymentVariables` mutation in Astronomer's [Houston API](https://www.astronomer.io/docs/houston-api/), separating the Environment Variable creation and update actions from the `updateDeployment` mutation
+- A new `updateDeploymentVariables` mutation in Astronomer's [Houston API](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/houston-api/), separating the Environment Variable creation and update actions from the `updateDeployment` mutation
 
-For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/environment-variables).
+For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/cloud/stable/deploy/environment-variables).
 
 #### Bug Fixes and Improvements
 

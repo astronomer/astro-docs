@@ -24,13 +24,13 @@ Astronomer v0.16 comes with significant improvements to the experience of settin
 
 With the new tab comes the ability for Workspace Admins and Editors to create and mark a value as 'secret', permanently hiding the value from the Astronomer UI (and from the client). From the same tab, users can now export Environment Variables as 'JSON' as well.
 
-For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/latest/deploy/environment-variables).
+For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/stable/deploy/environment-variables).
 
 #### Support for AD FS
 
 Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
 
-To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/enterprise/latest/manage-astronomer/integrate-auth-system/).
+To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system/).
 
 #### Bug Fixes and Improvements
 
@@ -70,8 +70,7 @@ Release Date: July 23, 2020
 - BugFix: Prevent ability to create Service Account with the same name in Astro UI and CLI
 - BugFix: Error on `$ astro dev init` and `$ astro version` if not authenticated to Astronomer
 - BugFix: Update intermediate cert on the astronomer.io wildcard to resolve `(60) SSL certificate problem: certificate has expired` in Astro CLI
-- BugFix: Restore ability to dynamically pull namespace for Celery Executor, Local Executor and KubernetesPodOperator
-
+- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/kubepodoperator/) and KubernetesExecutor Config
 ## Astronomer v0.15 Release Notes
 
 Release Date: June 8, 2020
@@ -94,7 +93,7 @@ To activate this feature on the platform, refer to the `manualReleaseNames` valu
 
 As of Astronomer v0.15, IAM roles can now be appended to all pods within any individual Airflow Deployment on the platform. Users who integrate Airflow with some resource or set of resources (e.g. an AWS S3 bucket or Secret Backend) can now configure them to be accessible only to a subset of Kubernetes pods within your wider Astronomer cluster.
 
-Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](docs/enterprise/latest/customize-airflow/integrate-iam/).
+Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/integrate-iam/).
 
 ### Bug Fixes & Improvements
 
