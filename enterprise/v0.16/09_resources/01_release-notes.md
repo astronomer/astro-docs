@@ -48,7 +48,7 @@ To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.i
 Release Date: July 9, 2020
 
 - BugFix: 'Metrics' Tab in the Astro UI unresponsive with large task payload
-- BugFix: Unable to delete 'Pending' workspace invite in Astro UI 
+- BugFix: Error when deleting a 'Pending' Workspace invite in Astro UI 
 - BugFix: "Deployment Status" bubble in the Astro UI persistently blue/pulsating
 - BugFix: Issue with Extra Capacity resetting every time you change an Env Var
 
