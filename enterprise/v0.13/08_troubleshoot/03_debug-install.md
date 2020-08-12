@@ -61,8 +61,8 @@ Once inside the pod, add the `postgresql` package:
 
 ```
 /houston # apk add postgresql
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.10/main/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.10/community/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.10/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.10/community/x86_64/APKINDEX.tar.gz
 (1/12) Installing ncurses-terminfo-base (6.1_p20190518-r0)
 (2/12) Installing ncurses-terminfo (6.1_p20190518-r0)
 (3/12) Installing ncurses-libs (6.1_p20190518-r0)
