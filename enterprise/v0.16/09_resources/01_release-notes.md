@@ -4,13 +4,21 @@ navTitle: "Release Notes"
 description: "Astronomer Enterprise release notes."
 ---
 
+### Notice on Astronomer Enterprise Releases
+
+As of v0.16, Astronomer platform releases will be made generally available to Enterprise customers on a quarterly basis. Critical security and bug fixes will be regularly backported to the latest supported Enterprise version as patch releases that are made available between quarterly minor releases. A changelog for all releases will be made available below.
+
+We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliablity and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
+
 ## Astronomer v0.16 Release Notes
+
+Latest Patch Release: **v0.16.4**.
+
+### v0.16.0
 
 Release Date: June 29, 2020
 
-## Platform-Wide Changes
-
-### New "Environment Variables" Tab in the Astronomer UI
+#### New "Environment Variables" Tab in the Astronomer UI
 
 Astronomer v0.16 comes with significant improvements to the experience of setting Environment Variables on Astronomer. Namely, we've introduced a dedicated 'Variables' tab, lessening the density of the "Settings" page and making these configurations accessible to "Trial" users on Astronoomer Cloud.
 
@@ -18,33 +26,55 @@ With the new tab comes the ability for Workspace Admins and Editors to create an
 
 For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/environment-variables).
 
-### Bug Fixes and Improvements
+#### Support for AD FS
+
+Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
+
+To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/ee-integrating-auth-systems/).
+
+#### Bug Fixes and Improvements
 
 - BugFix: Add Alphanumeric characters (e.g. S3)to Environment Variable validation in the Astro UI
 - BugFix: ExtraCapacity values (over minimum) are overriden in Deployment Update
 - Improvement: Simplify `updateUser` Mutation in Houston API (remove `uuid`)
 - Security: Implement platform-wide Pod Security Policies
 - Security: Clear Javascript CVEs
-
-## Astronomer Enterprise-only Changes
-
-### Support for AD FS
-
-Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
-
-To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/ee-integrating-auth-systems/).
-
-### Bug Fixes and Improvements
-
 - BugFix: "Airflow State" dashboard in Grafana broken
-- BugFix: CLI Install command should point to BASEDOMAIN (not install.astronomer.io) for Enterprise users
+- BugFix: CLI Install command should point to BASEDOMAIN (not `install.astronomer.io`) for Enterprise users
 - BugFix: SysAdmin can't revoke SysAdmin permissions from another user
+
+### v0.16.1
+
+Release Date: July 9, 2020
+
+- BugFix: 'Metrics' Tab in the Astro UI unresponsive with large task payload
+- BugFix: Unable to delete 'Pending' workspace invite in Astro UI 
+- BugFix: "Deployment Status" bubble in the Astro UI persistently blue/pulsating
+- BugFix: Issue with Extra Capacity resetting every time you change an Env Var
+
+### v0.16.3
+
+Release Date: July 17, 2020
+
+- Improvement: Allow SysAdmins to Access Workspaces in the Astro UI
+- Improvement: Create new critical severity alerts for platform system components
+- BugFix: Emails caps-sensitive in error for ADFS
+- BugFix: Mismatched rendering when switching between Deployments in the Astro UI
+
+### v0.16.4
+
+Release Date: July 23, 2020
+
+- Improvement: Default to eventual consistency in Airflow chart version
+- BugFix: Link to Workspace broken in 'SysAdmin' > 'Users' View
+- BugFix: Prevent ability to create Service Account with the same name in Astro UI and CLI
+- BugFix: Error on `$ astro dev init` and `$ astro version` if not authenticated to Astronomer
+- BugFix: Update intermediate cert on the astronomer.io wildcard to resolve `(60) SSL certificate problem: certificate has expired` in Astro CLI
+- BugFix: Restore ability to dynamically pull namespace for Celery Executor, Local Executor and KubernetesPodOperator
 
 ## Astronomer v0.15 Release Notes
 
 Release Date: June 8, 2020
-
-## Platform-Wide Changes
 
 ### Support for Airflow 1.10.10
 
@@ -54,20 +84,7 @@ Airflow 1.10.10 notably includes the ability to choose a timezone in the Airflow
 
 For more detail on what's included in AC 1.10.10, reference the [changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md).
 
-### Bug Fixes & Improvements
-
-A few notable bug fixes and improvements:
-
-* Ability to add multiple email addresses to receive deployment-level alerts
-* Security improvements to the Astronomer UI
-* Reframe "Extra Capacity" in the 'Deployment Configuration' tab of the Astronomer UI
-* Improved error handling for users who sign up with an email different than their input in our trial form
-* Bug Fix: Warning via the CLI on Debian images
-* Bug Fix: "Failed to authenticate to the registry..." error on v0.13 of the CLI
-
-## Astronomer Enterprise-Only Changes
-
-### Manually Set Release Names
+### Ability to Set Custom Release Names
 
 As of Astronomer v0.15, Enterprise customers can now customize the release name of any Airflow Deployment instead of relying on the default naming scheme (e.g. `solar-galaxy-1234`). Release names within a single cluster must be unique and will continue to be immutable following creation.
 
@@ -81,6 +98,14 @@ Leverage this feature by specifying an existing IAM role `arn` when you create o
 
 ### Bug Fixes & Improvements
 
+A few notable bug fixes and improvements:
+
+* Ability to add multiple email addresses to receive deployment-level alerts
+* Security improvements to the Astronomer UI
+* Reframe "Extra Capacity" in the 'Deployment Configuration' tab of the Astronomer UI
+* Improved error handling for users who sign up with an email different than their input in our trial form
+* Bug Fix: Warning via the CLI on Debian images
+* Bug Fix: "Failed to authenticate to the registry..." error on v0.13 of the CLI
 * Added support for AWS S3 Registry Backend
 * New UI warning when SMTP credentials are not configured and email invites cannot be sent
 * Improved UX of Failed Network Connections
