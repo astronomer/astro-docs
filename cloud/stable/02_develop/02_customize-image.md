@@ -308,7 +308,7 @@ A few notes:
 - Make sure to replace the first line of this file (`FROM`..) with your Airflow Image (Step 2 above)
 - If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
-- If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `## # Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
+- If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `# Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
 
 ### 2. Build your Image
 
