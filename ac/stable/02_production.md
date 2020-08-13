@@ -155,7 +155,7 @@ WantedBy=multi-user.target
 
 This is called a "template" unit file. We will specialize and enable it later on.
 
-Our Systemd unit file reads environment variables from `/etc/default/astronomer-certified` and Airflow will look for [`AIRFLOW__<section>__<option>`](http://airflow.apache.org/docs/stable/howto/set-config.html) environment variables when reading config, so this is a good way to configure environment/machine specific settings. If you have a config setting that doesn't change from machine-to-machine or environment-to-environment then you can place it in `airflow.cfg` in your Airflow home deployment step. More on that later.
+Our Systemd unit file reads environment variables from `/etc/default/astronomer-certified` and Airflow will look for [`AIRFLOW__<section>__<option>`](https://airflow.apache.org/docs/stable/howto/set-config.html) environment variables when reading config, so this is a good way to configure environment/machine specific settings. If you have a config setting that doesn't change from machine-to-machine or environment-to-environment then you can place it in `airflow.cfg` in your Airflow home deployment step. More on that later.
 
 Edit `/etc/default/astronomer-certified` to contain (at least) these:
 
