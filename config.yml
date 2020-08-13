@@ -23,7 +23,6 @@ collections:
     nested:
       depth: 100
     fields:
-      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}
@@ -35,7 +34,6 @@ collections:
     path: '{{slug}}'
     create: true
     fields:
-      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}
@@ -47,7 +45,6 @@ collections:
     path: '{{slug}}'
     create: true
     fields:
-      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}
