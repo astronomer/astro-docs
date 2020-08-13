@@ -16,7 +16,7 @@ Latest Patch Release: **v0.16.4**.
 
 ### v0.16.4
 
-Release Date: July 23, 2020
+Release Date: July 22, 2020
 
 - Improvement: Default to eventual consistency in Airflow chart version
 - BugFix: Link to Workspace broken in 'SysAdmin' > 'Users' View
@@ -27,7 +27,7 @@ Release Date: July 23, 2020
 
 ### v0.16.3
 
-Release Date: July 17, 2020
+Release Date: July 22, 2020
 
 - Improvement: Allow SysAdmins to Access Workspaces in the Astro UI
 - Improvement: Create new critical severity alerts for platform system components
