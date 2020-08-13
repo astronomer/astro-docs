@@ -12,18 +12,7 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.4**.
-
-### v0.16.4
-
-Release Date: July 22, 2020
-
-- Improvement: Default to eventual consistency in Airflow chart version
-- BugFix: Link to Workspace broken in 'SysAdmin' > 'Users' View
-- BugFix: Prevent ability to create Service Account with the same name in Astro UI and CLI
-- BugFix: Error on `$ astro dev init` and `$ astro version` if not authenticated to Astronomer
-- BugFix: Update intermediate cert on the astronomer.io wildcard to resolve `(60) SSL certificate problem: certificate has expired` in Astro CLI
-- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/kubepodoperator/) and KubernetesExecutor Config
+Latest Patch Release: **v0.16.3**.
 
 ### v0.16.3
 
