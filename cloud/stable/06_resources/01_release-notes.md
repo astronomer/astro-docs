@@ -8,7 +8,9 @@ description: "Astronomer Cloud Release Notes."
 
 Release Date: August 10, 2020
 
-### Support for Latest Astronomer Certified Builds
+### v0.18.0
+
+#### Support for Latest Astronomer Certified Builds
 
 Astronomer v0.18 includes support for the latest patch releases from Astronomer Certified, our distribution of Apache Airflow. These patch releases most notably include:
 
@@ -20,7 +22,7 @@ For a full list, reference the changelogs in our [`ap-airflow` repo](https://git
 
 To be notified of AC releases, feel free to [subscribe to our AC Newsletter](https://www.astronomer.io/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/airflow-versioning/).
 
-### Houston API Improvements
+#### Houston API Improvements
 
 Astronomer v0.18 includes standardization of the following 2 mutations to be more strongly typed and reliable:
 
@@ -33,7 +35,7 @@ As we strive to polish and standardize the schema more generally, our API will u
 
 If calling our API programmatically is critical to your use case, reference our [Houston API Documentation](https://www.astronomer.io/docs/houston-api/) for details and stay in close touch with our team.
 
-### Astronomer Bug Fixes & Improvements
+#### Astronomer Bug Fixes & Improvements
 
 Fixes to the Astronomer Platform shipped in 0.18:
 
