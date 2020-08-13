@@ -14,6 +14,35 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 Latest Patch Release: **v0.16.4**.
 
+### v0.16.4
+
+Release Date: July 23, 2020
+
+- Improvement: Default to eventual consistency in Airflow chart version
+- BugFix: Link to Workspace broken in 'SysAdmin' > 'Users' View
+- BugFix: Prevent ability to create Service Account with the same name in Astro UI and CLI
+- BugFix: Error on `$ astro dev init` and `$ astro version` if not authenticated to Astronomer
+- BugFix: Update intermediate cert on the astronomer.io wildcard to resolve `(60) SSL certificate problem: certificate has expired` in Astro CLI
+- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/kubepodoperator/) and KubernetesExecutor Config
+
+### v0.16.3
+
+Release Date: July 17, 2020
+
+- Improvement: Allow SysAdmins to Access Workspaces in the Astro UI
+- Improvement: Create new critical severity alerts for platform system components
+- BugFix: Emails caps-sensitive in error for ADFS
+- BugFix: Mismatched rendering when switching between Deployments in the Astro UI
+
+### v0.16.1
+
+Release Date: July 9, 2020
+
+- BugFix: 'Metrics' Tab in the Astro UI unresponsive with large task payload
+- BugFix: Error when deleting a 'Pending' Workspace invite in Astro UI 
+- BugFix: "Deployment Status" bubble in the Astro UI persistently blue/pulsating
+- BugFix: Issue with Extra Capacity resetting every time you change an Env Var
+
 ### v0.16.0
 
 Release Date: June 29, 2020
@@ -43,34 +72,6 @@ To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.i
 - BugFix: CLI Install command should point to BASEDOMAIN (not `install.astronomer.io`) for Enterprise users
 - BugFix: SysAdmin can't revoke SysAdmin permissions from another user
 
-### v0.16.1
-
-Release Date: July 9, 2020
-
-- BugFix: 'Metrics' Tab in the Astro UI unresponsive with large task payload
-- BugFix: Error when deleting a 'Pending' Workspace invite in Astro UI 
-- BugFix: "Deployment Status" bubble in the Astro UI persistently blue/pulsating
-- BugFix: Issue with Extra Capacity resetting every time you change an Env Var
-
-### v0.16.3
-
-Release Date: July 17, 2020
-
-- Improvement: Allow SysAdmins to Access Workspaces in the Astro UI
-- Improvement: Create new critical severity alerts for platform system components
-- BugFix: Emails caps-sensitive in error for ADFS
-- BugFix: Mismatched rendering when switching between Deployments in the Astro UI
-
-### v0.16.4
-
-Release Date: July 23, 2020
-
-- Improvement: Default to eventual consistency in Airflow chart version
-- BugFix: Link to Workspace broken in 'SysAdmin' > 'Users' View
-- BugFix: Prevent ability to create Service Account with the same name in Astro UI and CLI
-- BugFix: Error on `$ astro dev init` and `$ astro version` if not authenticated to Astronomer
-- BugFix: Update intermediate cert on the astronomer.io wildcard to resolve `(60) SSL certificate problem: certificate has expired` in Astro CLI
-- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/kubepodoperator/) and KubernetesExecutor Config
 ## Astronomer v0.15 Release Notes
 
 Release Date: June 8, 2020
