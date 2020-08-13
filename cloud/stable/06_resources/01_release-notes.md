@@ -76,6 +76,21 @@ The Astronomer CLI is open-source and open to _all_ developers looking to run Ap
 
 ## Astronomer v0.16 Release Notes
 
+### v0.16.3
+
+Release Date: July 17, 2020
+
+- BugFix: Mismatched rendering when switching between Deployments in the Astro UI
+
+### v0.16.1
+
+Release Date: July 9, 2020
+
+- BugFix: 'Metrics' Tab in the Astro UI unresponsive with large task payload
+- BugFix: Error when deleting a 'Pending' Workspace invite in Astro UI 
+- BugFix: "Deployment Status" bubble in the Astro UI persistently blue/pulsating
+- BugFix: Issue with Extra Capacity resetting every time you change an Env Var
+
 ### v0.16.0
 
 Release Date: June 29, 2020
@@ -98,21 +113,6 @@ For more details on this new feature, reference our ["Environment Variables" doc
 - BugFix: ExtraCapacity values (over minimum) are overriden in Deployment Update
 - Security: Implement platform-wide Pod Security Policies
 - Security: Clear Javascript CVEs
-
-### v0.16.1
-
-Release Date: July 9, 2020
-
-- BugFix: 'Metrics' Tab in the Astro UI unresponsive with large task payload
-- BugFix: Error when deleting a 'Pending' Workspace invite in Astro UI 
-- BugFix: "Deployment Status" bubble in the Astro UI persistently blue/pulsating
-- BugFix: Issue with Extra Capacity resetting every time you change an Env Var
-
-### v0.16.3
-
-Release Date: July 17, 2020
-
-- BugFix: Mismatched rendering when switching between Deployments in the Astro UI
 
 ## Platform Changelog & Prior Releases
 
