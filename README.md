@@ -26,12 +26,12 @@ We will likely introduce a `staging` branch or something similar at some point s
 
 ## Enterprise Docs
 
-All Enterprise documentation lives in the top-level `enterprise` directory. Enterprise docs will be versioned; only subdirectories of the format `vX.X` will be included in the website builds; the `stable` directory is reserved for active development work. Yes, I know it's a bit confusing; we will likely soon rename the `stable` subdirectory in enterprise and ac docs to be more intuitive.
+All Enterprise documentation lives in the top-level `enterprise` directory. Enterprise docs will be versioned; only subdirectories of the format `vX.X` will be included in the website builds; the `next` directory is reserved for active development work. Yes, I know it's a bit confusing; we will likely soon rename the `next` subdirectory in enterprise and ac docs to be more intuitive.
 
 ### Contributing to Enterprise Docs
 
-All active development on enterprise docs will be done in the `enterprise/stable` directory (up for rename). When we're ready to release a new version of Enterprise to our customers, we will branch off of main, run a `mkdir vX.X && cp stable/* vX.X` to copy the latest version of all files down into a versioned subdirectory, and merge those changes back into `main`.
+All active development on enterprise docs will be done in the `enterprise/next` directory (up for rename). When we're ready to release a new version of Enterprise to our customers, we will branch off of main, run a `mkdir vX.X && cp next/* vX.X` to copy the latest version of all files down into a versioned subdirectory, and merge those changes back into `main`.
 
 ### Contributing to AC Docs
 
-All active development on enterprise docs will be done in the `ac/stable` directory (up for rename). When we're ready to release a new version of AC to our customers, we will branch off of main, run a `mkdir vX.X.X && cp stable/* vX.X.X` to copy the latest version of all files down into a versioned subdirectory, and merge those changes back into `main`.
+All active development on enterprise docs will be done in the `ac/next` directory (up for rename). When we're ready to release a new version of AC to our customers, we will branch off of main, run a `mkdir vX.X.X && cp next/* vX.X.X` to copy the latest version of all files down into a versioned subdirectory, and merge those changes back into `main`.
