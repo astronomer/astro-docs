@@ -30,8 +30,8 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "acDoc"
-    label: "AC - Stable"
-    folder: "ac/stable"
+    label: "AC - Next"
+    folder: "ac/next"
     path: '{{slug}}'
     create: true
     fields:
@@ -42,8 +42,8 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "enterpriseDoc"
-    label: "Enterprise - Stable"
-    folder: "enterprise/stable"
+    label: "Enterprise - Next"
+    folder: "enterprise/next"
     path: '{{slug}}'
     create: true
     fields:
