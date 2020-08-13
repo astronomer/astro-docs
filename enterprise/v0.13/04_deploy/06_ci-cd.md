@@ -147,7 +147,7 @@ Example:
 docker build -t registry.${BASE_DOMAIN}/${RELEASE_NAME}/airflow:ci-${DRONE_BUILD_NUMBER} .
 ```
 
-If you would like to see a more complete working example please visit our [full example using Drone-CI](https://github.com/astronomer/airflow-example-dags/blob/master/.drone.yml).
+If you would like to see a more complete working example please visit our [full example using Drone-CI](https://github.com/astronomer/airflow-example-dags/blob/main/.drone.yml).
 
 ### Configure Your CI/CD Pipeline
 
@@ -330,7 +330,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: Publish to Astronomer.io

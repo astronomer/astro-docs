@@ -32,7 +32,7 @@ For more details on this new feature, reference our ["Environment Variables" doc
 
 Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
 
-To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/ee-integrating-auth-systems/).
+To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system/).
 
 ### Bug Fixes and Improvements
 

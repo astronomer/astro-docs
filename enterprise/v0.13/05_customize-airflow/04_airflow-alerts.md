@@ -27,9 +27,9 @@ You will need fill out some boilerplate survey information, but it's a quick set
 
 A new account will be given 40k emails for the first 30 days and then 100 emails/day for free. As long as your DAGs are working properly, this should be more than enough for most use cases.
 
-After you create your account, you'll reach a view like below. 
+After you create your account, you'll reach a view like below.
 
-#### 2. Click on "Integrate using our Web API or SMTP relay"   
+#### 2. Click on "Integrate using our Web API or SMTP relay"
 ![Sendgrid Getting Started](https://assets2.astronomer.io/main/docs/emails/sendgrid_getting_started.png)
 
 #### 3. Choose the "Web API (recommended)" method
@@ -114,7 +114,7 @@ AIRFLOW__SMTP__SMTP_MAIL_FROM={ENTER_FROM_EMAIL_HERE}
 
 Email alerting set up via `email_on_failure` is handled at the task level. If a handful of your tasks fail for related reasons, you'll receive an individual email for each of those failures.
 
-If you're interested in limiting failure alerts to the DAG run level, you can instead pass `on_failure_callback` ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/models.py#L3311)) directly in your DAG file to define a Python function that sends you an email denoting failure.
+If you're interested in limiting failure alerts to the DAG run level, you can instead pass `on_failure_callback` ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/models/dag.py#L167)) directly in your DAG file to define a Python function that sends you an email denoting failure.
 
 ```
  :param on_failure_callback: A function to be called when a DagRun of this dag fails.

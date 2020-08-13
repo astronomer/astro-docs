@@ -153,12 +153,12 @@ Successfully tagged hello-astro_fc483c/airflow:latest
 Creating network "helloastrofc483c_airflow" with driver "bridge"
 Creating volume "helloastrofc483c_postgres_data" with driver "local"
 Creating volume "helloastrofc483c_airflow_logs" with driver "local"
-INFO[0015] [0/3] [postgres]: Starting                   
-INFO[0015] [1/3] [postgres]: Started                    
-INFO[0015] [1/3] [scheduler]: Starting                  
-INFO[0016] [2/3] [scheduler]: Started                   
-INFO[0016] [2/3] [webserver]: Starting                  
-INFO[0016] [3/3] [webserver]: Started                   
+INFO[0015] [0/3] [postgres]: Starting
+INFO[0015] [1/3] [postgres]: Started
+INFO[0015] [1/3] [scheduler]: Starting
+INFO[0016] [2/3] [scheduler]: Started
+INFO[0016] [2/3] [webserver]: Starting
+INFO[0016] [3/3] [webserver]: Started
 Airflow Webserver: http://localhost:8080
 Postgres Database: localhost:5432/postgres
 The default credentials are admin:admin
@@ -181,11 +181,11 @@ Once authenticated, run:
 
 ```
 /hello-astro$ astro deploy
-Authenticated to democluster.astronomer-trials.com 
+Authenticated to democluster.astronomer-trials.com
 
 Select which airflow deployment you want to deploy to:
- #     LABEL     DEPLOYMENT NAME          WORKSPACE     DEPLOYMENT ID                 
- 1     Dev       dynamical-flare-3582     ETLs          ck8g10xxc1zfq0966xlefcpxu     
+ #     LABEL     DEPLOYMENT NAME          WORKSPACE     DEPLOYMENT ID
+ 1     Dev       dynamical-flare-3582     ETLs          ck8g10xxc1zfq0966xlefcpxu
 
 > 1
 Deploying: dynamical-flare-3582
@@ -207,20 +207,20 @@ Successfully built d6e82b576ce5
 Successfully tagged dynamical-flare-3582/airflow:latest
 Pushing image to Astronomer registry
 The push refers to repository [registry.democluster.astronomer-trials.com/dynamical-flare-3582/airflow]
-e5b0f4e97557: Pushed 
-e4f165f2c539: Pushed 
-7ae85d63186e: Pushed 
-3d6737106ee1: Pushed 
-cc0e1283f9aa: Pushed 
-7e57912de03a: Mounted from elementary-rocket-7360/airflow 
-e1aaa247f09d: Mounted from elementary-rocket-7360/airflow 
-c33dcb91918f: Mounted from elementary-rocket-7360/airflow 
-1cb60be4a43a: Mounted from elementary-rocket-7360/airflow 
-3fc755cc03d0: Mounted from elementary-rocket-7360/airflow 
-e09740f41293: Mounted from elementary-rocket-7360/airflow 
-5c858070b896: Mounted from elementary-rocket-7360/airflow 
-95df7c26d7c5: Mounted from elementary-rocket-7360/airflow 
-77cae8ab23bf: Mounted from elementary-rocket-7360/airflow 
+e5b0f4e97557: Pushed
+e4f165f2c539: Pushed
+7ae85d63186e: Pushed
+3d6737106ee1: Pushed
+cc0e1283f9aa: Pushed
+7e57912de03a: Mounted from elementary-rocket-7360/airflow
+e1aaa247f09d: Mounted from elementary-rocket-7360/airflow
+c33dcb91918f: Mounted from elementary-rocket-7360/airflow
+1cb60be4a43a: Mounted from elementary-rocket-7360/airflow
+3fc755cc03d0: Mounted from elementary-rocket-7360/airflow
+e09740f41293: Mounted from elementary-rocket-7360/airflow
+5c858070b896: Mounted from elementary-rocket-7360/airflow
+95df7c26d7c5: Mounted from elementary-rocket-7360/airflow
+77cae8ab23bf: Mounted from elementary-rocket-7360/airflow
 deploy-1: digest: sha256:9e69b7b81efc95c3f024f7656646b523f5b611c1954d52be6dca203c888fc842 size: 3230
 Untagged: registry.democluster.astronomer-trials.com/dynamical-flare-3582/airflow:deploy-1
 Untagged: registry.democluster.astronomer-trials.com/dynamical-flare-3582/airflow@sha256:9e69b7b81efc95c3f024f7656646b523f5b611c1954d52be6dca203c888fc842
@@ -250,6 +250,6 @@ These views show logs and metrics (respectively) acosss all deployments running 
 
 ## 10. Start inviting Users
 
-Now that you've run through all of the functionality on Astronomer enterprise, you're ready to start inviting users! 
+Now that you've run through all of the functionality on Astronomer enterprise, you're ready to start inviting users!
 
-To change the authentication system, naviate to our [Auth Systems](https://www.astronomer.io/docs/ee-integrating-auth-systems/) doc.
+To change the authentication system, naviate to our [Auth Systems](https://www.astronomer.io/docs/enterprise/v0.14/manage-astronomer/integrate-auth-system/) doc.

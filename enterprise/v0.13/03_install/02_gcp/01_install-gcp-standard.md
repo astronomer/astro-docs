@@ -186,7 +186,7 @@ install.BASEDOMAIN
 
 ```
 
-You can also use a wildcard cert for yourdomain (e.g. `*.astro.BASEDOMAIN.com`). 
+You can also use a wildcard cert for yourdomain (e.g. `*.astro.BASEDOMAIN.com`).
 **Note:** You cannot use a self-signed certificate.
 
 
@@ -292,7 +292,7 @@ nginx:
 
 #################################
 ### SMTP configuration
-#################################  
+#################################
 
 astronomer:
   houston:
@@ -308,7 +308,7 @@ Note - the SMTP URI will take the form:
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
-Check out our `Customizing Your Install` section for guidance on setting an [auth system](https://www.astronomer.io/docs/ee-integrating-auth-system/) and [resource requests(https://www.astronomer.io/docs/ee-configuring-resources/) in this `config.yaml`.
+Check out our `Customizing Your Install` section for guidance on setting an [auth system](https://www.astronomer.io/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/) and [resource requests(https://www.astronomer.io/docs/ee-configuring-resources/) in this `config.yaml`.
 
 ## 8. Install Astronomer
 
@@ -365,7 +365,7 @@ If you are seeing issues here, check out our [guide on debugging your installati
 
 Go to app.BASEDOMAIN to see the Astronomer UI.
 
-## 11. Verify SSL  
+## 11. Verify SSL
 
 To make sure that the certs were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
 

@@ -25,7 +25,7 @@ All Astronomer services will be tied to a base domain of your choice, under whic
 
 Once created, your Astronomer base domain will be linked to a variety of sub-services that your users will access via the internet to manage, monitor and run Airflow on the platform.
 
-For the base domain `astro.mydomain.com`, for example, here are some corresponding URLs that your users would be able to reach: 
+For the base domain `astro.mydomain.com`, for example, here are some corresponding URLs that your users would be able to reach:
 
 * Astronomer UI: `app.astro.mydomain.com`
 * Airflow Deployments: `deployments.astro.mydomain.com/uniquely-generated-airflow-name/airflow`
@@ -38,7 +38,7 @@ For the full list of subdomains you need a certificate for, read below.
 
 To proceed with the installation, you'll need to spin up an [EKS Control Plane](https://aws.amazon.com/eks/) as well as worker nodes in your Kubernetes cluster by following [this AWS guide](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html).
 
-EKS is built off of Amazon's pre-existing EC2 service, so you can manage your Kubernetes nodes the same way you would manage your EC2 nodes. 
+EKS is built off of Amazon's pre-existing EC2 service, so you can manage your Kubernetes nodes the same way you would manage your EC2 nodes.
 
 As you follow the guide linked above, keep in mind:
 * Astronomer supports Kubernetes versions 1.14 and 1.15 (support for 1.16 coming soon).
@@ -169,7 +169,7 @@ nginx:
 
 #################################
 ### SMTP configuration
-#################################  
+#################################
 
 astronomer:
   houston:
@@ -177,7 +177,7 @@ astronomer:
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
-``` 
+```
 
 SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
 
@@ -188,7 +188,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 > **Note:** If you are using Amazon SES, your URL will look like the following:
 `smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`. If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
-For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide. 
+For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
 
 ## 7. Install Astronomer
 
@@ -203,7 +203,7 @@ $ helm repo add astronomer https://helm.astronomer.io/
 $ helm install astronomer -f config.yaml --version=0.15.0 astronomer/astronomer --namespace astronomer
 ```
 
-This will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc. 
+This will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
 
 
 ## 8. Verify Pods are Up
@@ -263,7 +263,7 @@ If you are seeing issues here, check out our [guide on debugging your installati
 
 ## 9. Configure DNS
 
-Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.  
+Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.
 
 Run `kubectl get svc -n astronomer` to view your ELB's CNAME, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
 
@@ -341,7 +341,7 @@ docker login registry.BASEDOMAIN -u _ p <token>
 
 To help you make the most of Astronomer Enterprise, take note of the following resources:
 
-* [Integrating an Auth System](https://www.astronomer.io/docs/ee-integrating-auth-system/)
+* [Integrating an Auth System](https://www.astronomer.io/docs/enterprise/v0.14/manage-astronomer/integrate-auth-system/)
 * [Configuring Platform Resources](https://www.astronomer.io/docs/ee-configuring-resources/)
 * [Managing Users on Astronomer Enterprise](https://www.astronomer.io/docs/ee-managing-users/)
 
