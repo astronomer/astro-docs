@@ -4,6 +4,43 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.18 Release Notes
+
+Release Date: August 10, 2020
+
+### Support for Latest Astronomer Certified Builds
+
+Astronomer v0.18 includes support for the latest patch releases from Astronomer Certified, our distribution of Apache Airflow. These patch releases most notably include:
+
+- BugFix: Broken `/landing_times` view in the Airflow UI rendering with plain HTML ([commit](https://github.com/astronomer/airflow/commit/6567df3))
+- BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/ap-airflow/commit/c2536db))
+- BugFix: Broken PapermillOperator ([commit](https://github.com/astronomer/astronomer-airflow-version-check/commit/811cc75) - 1.10.10 only).
+
+For a full list, reference the changelogs in our [`ap-airflow` repo](https://github.com/astronomer/ap-airflow) for the AC version of your choice (e.g. changelog for 1.10.10 [here](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)).
+
+To be notified of AC releases, feel free to [subscribe to our AC Newsletter](https://www.astronomer.io/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/airflow-versioning/).
+
+### Houston API Improvements
+
+Astronomer v0.18 includes standardization of the following 2 mutations to be more strongly typed and reliable:
+
+- `updateDeployment`
+- `createDeployment`
+
+If you're calling either of those mutations in your current workflow, Astronomer v0.18 will introduce a breaking change.
+
+As we strive to polish and standardize the schema more generally, our API will undergo rapid and potentially breaking changes over the next few releases. The Astronomer CLI and UI will continue to stay in sync with API changes and is our recommended way to interact with the platform.
+
+If calling our API programmatically is critical to your use case, reference our [Houston API Documentation](https://www.astronomer.io/docs/houston-api/) for details and stay in close touch with our team.
+
+### Astronomer Bug Fixes & Improvements
+
+Fixes to the Astronomer Platform shipped in 0.18:
+
+- BugFix: Navigating directly to the "Metrics" tab in the Astronomer UI renders an error
+- BugFix: API error (400) on `$ astro workspace user add` and `$ astro workspace user remove` (CLI)
+- BugFix: `Error: failed to find a valid role` on Service Account creation (CLI + Astro UI)
+
 ## Astronomer v0.17 Release Notes
 
 Release Date: July 27, 2020
