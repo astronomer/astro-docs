@@ -1,11 +1,11 @@
 # Astronomer Documentation
 
-This repository contains all public [Astronomer Documentation](https://astronoemr.io/docs) files. Docs are stored in product-specific directories and are versioned in a way that aligns with our internal dev streams.
+This repository contains all public [Astronomer Documentation](https://astronomer.io/docs) files. Docs are stored in product-specific directories and are versioned in a way that aligns with our internal dev streams.
 
 ## Overview
 - [Cloud](https://astronomer.io/docs/cloud/stable): The default when a user visits our documentation site, these docs are continuously delivered along with Cloud features.
 - [Enterprise](https://astronomer.io/docs/enterprise/stable): These docs are fully versioned to align with the way our Enterprise users engage with and upgrade our product.
-- [AC](https://astronoemr.io/docs/certified/stable): These docs are hidden from the top-level nav for now, but are available to be shared on a case-by-case basis.
+- [AC](https://astronomer.io/docs/certified/stable): These docs are hidden from the top-level nav for now, but are available to be shared on a case-by-case basis.
 
 ## Cloud Docs
 
@@ -25,7 +25,7 @@ New features will need to be documented as they are rolled out to Cloud users.
 
 #### Quick Fixes
 
-Quick fixes can generally be reviewed and merged much more quickly than feature docs. 
+Quick fixes can generally be reviewed and merged much more quickly than feature docs.
 
 1. To fix a bug, branch off of main with a `hotfix/your-hotfix-branch` naming schema.
 2. Add your desired fixes to the appropriate documents.

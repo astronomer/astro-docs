@@ -36,7 +36,7 @@ If you're new to Astronomer but someone else on your team has an existing Worksp
 
 [Role-based Access Control (RBAC)](https://www.astronomer.io/docs/rbac/) is a recent addition to our platform and allows you to give your teammates varying levels of permissions.
 
-**Note**: If you have any trouble with your invitation or confirmation email, check your spam filter. If that doesn't do the trick, [reach out to us](https://www.support.astronomer.io).
+**Note**: If you have any trouble with your invitation or confirmation email, check your spam filter. If that doesn't do the trick, [reach out to us](https://support.astronomer.io).
 
 ## Start with the Astronomer CLI
 
@@ -142,12 +142,12 @@ Step 1/1 : FROM astronomerinc/ap-airflow:latest-onbuild
  ---> 5160cfd00623
 Successfully built 5160cfd00623
 Successfully tagged astro-trial_705330/airflow:latest
-INFO[0000] [0/3] [postgres]: Starting                   
-INFO[0002] [1/3] [postgres]: Started                    
-INFO[0002] [1/3] [scheduler]: Starting                  
-INFO[0003] [2/3] [scheduler]: Started                   
-INFO[0003] [2/3] [webserver]: Starting                  
-INFO[0004] [3/3] [webserver]: Started                   
+INFO[0000] [0/3] [postgres]: Starting
+INFO[0002] [1/3] [postgres]: Started
+INFO[0002] [1/3] [scheduler]: Starting
+INFO[0003] [2/3] [scheduler]: Started
+INFO[0003] [2/3] [webserver]: Starting
+INFO[0004] [3/3] [webserver]: Started
 Airflow Webserver: http://localhost:8080
 Postgres Database: localhost:5432/postgres
 The default credentials are admin:admin

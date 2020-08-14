@@ -29,7 +29,7 @@ To finish creating your Deployment, you'll have to:
 - Pick an Airflow Executor (Celery or Local)
 - Set Initial Resources
 
-![New Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/v0.15-new_deployment-config.png)
+![New Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/V0.15-new_deployment-config.png)
 
 ### Deployment Dashboard
 
@@ -82,8 +82,8 @@ $ astro workspace switch [UUID]
 
 ```
 $ astro deployment list
- NAME             RELEASE NAME             ASTRO      DEPLOYMENT ID                            
- demo_cluster     infrared-photon-7780     v0.17.0     c2436025-d501-4944-9c29-19ca61e7f359  
+ NAME             RELEASE NAME             ASTRO      DEPLOYMENT ID
+ demo_cluster     infrared-photon-7780     v0.17.0     c2436025-d501-4944-9c29-19ca61e7f359
 ```
 
 ### Deploy
@@ -120,7 +120,7 @@ This is largely dependent on personal preference and your particular use case.
 
 ### Workspace Level
 
-At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. That way, anyone on each team has access to the same set of deployments under that Workspace (RBAC will soon allow you to adjust that access at a deployment level if you'd like). 
+At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. That way, anyone on each team has access to the same set of deployments under that Workspace (RBAC will soon allow you to adjust that access at a deployment level if you'd like).
 
 ### Deployment Level
 

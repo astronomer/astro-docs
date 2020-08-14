@@ -48,16 +48,16 @@ You can find a list of all components used by the platform in the [Astronomer Pl
 No. Astronomer makes use of Kubernetes cluster-level features (including K8s RBAC) by design. These features include creating / deleting namespaces, daemonsets, roles, cluster-roles, service-accounts, resource-quotas, limit-ranges, etc. Additionally, Astronomer dynamically creates new airflow instances in separate namespaces, which protects data engineer users from noisy neighbors.
 
 * Roles
-  * [Houston](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/astronomer/templates/houston/houston-bootstrap-role.yaml)
-  * [Prisma](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/astronomer/templates/prisma/prisma-bootstrap-role.yaml)
-  * [Kubed](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/kubed/templates/kubed-clusterrole.yaml)
-  * [NGINX](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/nginx/templates/nginx-role.yaml)
-  * [Commander](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/astronomer/templates/commander/commander-role.yaml)
-  * [Fluentd](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/fluentd/templates/fluentd-clusterrole.yaml)
-  * [Prometheus](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/prometheus/templates/prometheus-role.yaml)
-  * [Grafana](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/grafana/templates/grafana-bootstrap-role.yaml)
-  * [Kubestate](https://github.com/astronomer/astronomer/blob/v0.10.3-fix.4/charts/kube-state/templates/kube-state-role.yaml)
-  * [Tiller](https://github.com/astronomer/astronomer/blob/tiller-clusterrole/charts/astronomer/templates/commander/tiller-clusterrole.yaml)
+  * [Houston](https://github.com/astronomer/astronomer/blob/release-0.16/charts/astronomer/templates/houston/houston-bootstrap-role.yaml)
+  * [Prisma](https://github.com/astronomer/astronomer/blob/release-0.16/charts/astronomer/templates/prisma/prisma-bootstrap-role.yaml)
+  * [Kubed](https://github.com/astronomer/astronomer/blob/release-0.16/charts/kubed/templates/kubed-clusterrole.yaml)
+  * [NGINX](https://github.com/astronomer/astronomer/blob/release-0.16/charts/nginx/templates/nginx-role.yaml)
+  * [Commander](https://github.com/astronomer/astronomer/blob/release-0.16/charts/astronomer/templates/commander/commander-role.yaml)
+  * [Fluentd](https://github.com/astronomer/astronomer/blob/release-0.16/charts/fluentd/templates/fluentd-clusterrole.yaml)
+  * [Prometheus](https://github.com/astronomer/astronomer/blob/release-0.16/charts/prometheus/templates/prometheus-role.yaml)
+  * [Grafana](https://github.com/astronomer/astronomer/blob/release-0.16/charts/grafana/templates/grafana-bootstrap-role.yaml)
+  * [Kubestate](https://github.com/astronomer/astronomer/blob/release-0.16/charts/kube-state/templates/kube-state-role.yaml)
+  * [Tiller](https://github.com/astronomer/astronomer/blob/release-0.16/charts/astronomer/templates/commander/commander-role.yaml)
 
 ### How can we restrict the application from getting full access?
 
@@ -85,13 +85,13 @@ You may have special requirements of your infrastructure such that you want to s
 
 ### How can we integrate with LDAP?
 
-See https://www.astronomer.io/docs/ee-integrating-auth-systems/
+See https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/
 
 ### How can we get multi-factor auth?
 
-Astronomer has a flexible [auth front end](https://www.astronomer.io/docs/ee-integrating-auth-systems/), with pre-built integrations for Google Auth, Okta, Auth0, and others.
+Astronomer has a flexible [auth front end](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/), with pre-built integrations for Google Auth, Okta, Auth0, and others.
 
-If you choose to use Google Auth, we have [documentation available](https://www.astronomer.io/docs/ee-installation-google-oauth/). 
+If you choose to use Google Auth, we have [documentation available](https://www.astronomer.io/docs/ee-installation-google-oauth/).
 
 ### How can implement RBAC with this solution?
 
