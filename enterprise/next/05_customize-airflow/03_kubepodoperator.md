@@ -19,7 +19,7 @@ To run the KubernetesPodOperator on Astronomer, make sure you:
 - Have a running Airflow Deployment on Astronomer Enterprise
 - Run Astronomer Airflow 1.10+
 
-> **Note:** If you haven't already, we'd encourage you to first test the KubernetesPodOperator in your local environment. Follow our [Running KubePodOperator Locally](https://www.astronomer.io/docs/cli-kubepodoperator/) for guidelines.
+> **Note:** If you haven't already, we'd encourage you to first test the KubernetesPodOperator in your local environment. Follow our [Running KubePodOperator Locally](/docs/cli-kubepodoperator/) for guidelines.
 
 ## The KubernetesPodOperator on Astronomer
 
@@ -70,7 +70,7 @@ To successfully instantiate the operator, you'll need to make note of a few para
 
 #### Add Resources to your Deployment on Astronomer
 
-The KubernetesPodOperator is entirely powered by the resources allocated to the `Extra Capacity` slider of your deployment's `Configure` page in the [Astronomer UI](https://www.astronomer.io/docs/enterprise/stable/deploy/manage-workspaces/) in lieu of needing a Celery Worker (or Scheduler resources for those running the Local Executor). Raising the slider will increase your namespace's [resource quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) such that Airflow has permissions to successfully launch pods within your deployment's namespace.
+The KubernetesPodOperator is entirely powered by the resources allocated to the `Extra Capacity` slider of your deployment's `Configure` page in the [Astronomer UI](/docs/enterprise/stable/deploy/manage-workspaces/) in lieu of needing a Celery Worker (or Scheduler resources for those running the Local Executor). Raising the slider will increase your namespace's [resource quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) such that Airflow has permissions to successfully launch pods within your deployment's namespace.
 
 > **Note:** Your Airflow Scheduler and Webserver will remain necessary fixed resources that ensure the rest of your tasks can execute and that your deployment stays up and running.
 
@@ -187,6 +187,6 @@ To pull images from a private registry on Astronomer Enterprise, follow the guid
 
 ## Local Testing
 
-Follow our [CLI doc](https://www.astronomer.io/docs/cli-kubepodoperator/) on using [Microk8s](https://microk8s.io/) or [Docker for Kubernetes](https://matthewpalmer.net/kubernetes-app-developer/articles/how-to-run-local-kubernetes-docker-for-mac.html) to run tasks with the KubernetesPodOperator locally.
+Follow our [CLI doc](/docs/cli-kubepodoperator/) on using [Microk8s](https://microk8s.io/) or [Docker for Kubernetes](https://matthewpalmer.net/kubernetes-app-developer/articles/how-to-run-local-kubernetes-docker-for-mac.html) to run tasks with the KubernetesPodOperator locally.
 
 > **Note:** To pull images from a private registry locally, you'll have to create a secret in your local namespace and similarly call it in your operator following the guidelines above.

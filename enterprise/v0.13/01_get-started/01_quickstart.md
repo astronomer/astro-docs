@@ -16,17 +16,17 @@ Astronomer Cloud:
 - Is billed by usage, whereas Enterprise is billed through an annual license
 - Does not give users access to the same monitoring stack
 
-If you want to get a sense of Astronomer Enterprise without going through the installation process, try out Cloud by [starting a 14-Day Trial](https://www.astronomer.io/trial/).
+If you want to get a sense of Astronomer Enterprise without going through the installation process, try out Cloud by [starting a 14-Day Trial](/trial/).
 
 ## 2. Install Astronomer Enterprise
 
-If you are in charge of setting up Astronomer for your org, head over to our [Enterprise Edition](https://www.astronomer.io/docs/ee-overview/) section to get Astronomer running on your Kubernetes Cluster.
+If you are in charge of setting up Astronomer for your org, head over to our [Enterprise Edition](/docs/ee-overview/) section to get Astronomer running on your Kubernetes Cluster.
 
 We have documentation to deploy Astronomer on:
-- AWS EKS ([Manually](https://www.astronomer.io/docs/ee-installation-eks/) or through [Terraform](https://www.astronomer.io/docs/ee-installation-terraform-aws/))
-- [GCP Google Kubernetes Service](https://www.astronomer.io/docs/ee-installation-gke/)
-- [Azure Azure Kubernetes Service](https://www.astronomer.io/docs/ee-installation-aks/)
-- [Digital Ocean Kubernetes](https://www.astronomer.io/docs/ee-installation-do/)
+- AWS EKS ([Manually](/docs/ee-installation-eks/) or through [Terraform](/docs/ee-installation-terraform-aws/))
+- [GCP Google Kubernetes Service](/docs/ee-installation-gke/)
+- [Azure Azure Kubernetes Service](/docs/ee-installation-aks/)
+- [Digital Ocean Kubernetes](/docs/ee-installation-do/)
 
 
 ## 3. Install the CLI
@@ -38,7 +38,7 @@ curl -sSL https://install.astronomer.io | sudo bash
 
 ```
 
-**Note:** The `curl` command will work for Unix (Linux+Mac) based systems. If you want to run on Windows 10, you'll need to run through [this guide](https://www.astronomer.io/docs/enterprise/v0.13/develop/cli-install-windows-10/) on getting Docker for WSL working.
+**Note:** The `curl` command will work for Unix (Linux+Mac) based systems. If you want to run on Windows 10, you'll need to run through [this guide](/docs/enterprise/v0.13/develop/cli-install-windows-10/) on getting Docker for WSL working.
 
 
 Let's make sure you have Astro CLI installed on your machine, and that you have a project to work from.
@@ -106,7 +106,7 @@ astro auth login BASEDOMAIN
 
 and run through the authentication flow that was set up (most likely be the OAuth flow). You'll be prompted for the workspace that you want to log into - as you are added to more workspaces, there will be more values on this prompt.
 
-The first user to login will become the Admin. Additional users can be added from the Astronomer UI. More information on Astronomer's users and permissions model can be found [here](https://www.astronomer.io/docs/ee-configuring-permissions/).
+The first user to login will become the Admin. Additional users can be added from the Astronomer UI. More information on Astronomer's users and permissions model can be found [here](/docs/ee-configuring-permissions/).
 
 ## 5. Create an Airflow deployment
 
@@ -245,11 +245,11 @@ If you are the first user to authenticate into Astronomer, you'll have access to
 ![Admin](https://assets2.astronomer.io/main/docs/enterprise_quickstart/admin_panel.png)
 
 
-These views show logs and metrics (respectively) acosss all deployments running on that deployment of Astronomer. You can set up Kibana with the instructions found [here](https://www.astronomer.io/docs/ee-kibana/)
+These views show logs and metrics (respectively) acosss all deployments running on that deployment of Astronomer. You can set up Kibana with the instructions found [here](/docs/ee-kibana/)
 
 
 ## 10. Start inviting Users
 
 Now that you've run through all of the functionality on Astronomer enterprise, you're ready to start inviting users!
 
-To change the authentication system, naviate to our [Auth Systems](https://www.astronomer.io/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/) doc.
+To change the authentication system, naviate to our [Auth Systems](/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/) doc.

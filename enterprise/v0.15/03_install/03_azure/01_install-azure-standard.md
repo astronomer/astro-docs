@@ -277,7 +277,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 $ helm install -f config.yaml . --namespace <my-namespace>
 ```
 
-Check out our `Customizing Your Install` section for guidance on setting an [auth system](https://www.astronomer.io/docs/enterprise/v0.15/manage-astronomer/integrate-auth-system/) and [resource requests(https://www.astronomer.io/docs/ee-configuring-resources/) in this `config.yaml`.
+Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.15/manage-astronomer/integrate-auth-system/) and [resource requests(https://www.astronomer.io/docs/ee-configuring-resources/) in this `config.yaml`.
 
 ## 10. Verify all pods are up
 
@@ -321,7 +321,7 @@ newbie-norse-prisma-699bd664bb-vbvlf                   1/1     Running     0    
 newbie-norse-prometheus-0                              1/1     Running     0          30m
 newbie-norse-registry-0                                1/1     Running     0          30m
 ```
-If you are seeing issues here, check out our [guide on debugging your installation](https://www.astronomer.io/docs/ee-debugging-install/)
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/ee-debugging-install/)
 
 
 ## 11. Access Astronomer's Orbit UI

@@ -20,7 +20,7 @@ Astronomer v0.18 includes support for the latest patch releases from Astronomer 
 
 For a full list, reference the changelogs in our [`ap-airflow` repo](https://github.com/astronomer/ap-airflow) for the AC version of your choice (e.g. changelog for 1.10.10 [here](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)).
 
-To be notified of AC releases, feel free to [subscribe to our AC Newsletter](https://www.astronomer.io/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
+To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](/docs/cloud/stable/customize-airflow/airflow-versioning/).
 
 #### Houston API Improvements
 
@@ -33,7 +33,7 @@ If you're calling either of those mutations in your current workflow, Astronomer
 
 As we strive to polish and standardize the schema more generally, our API will undergo rapid and potentially breaking changes over the next few releases. The Astronomer CLI and UI will continue to stay in sync with API changes and is our recommended way to interact with the platform.
 
-If calling our API programmatically is critical to your use case, reference our [Houston API Documentation](https://www.astronomer.io/docs/houston-api/) for details and stay in close touch with our team.
+If calling our API programmatically is critical to your use case, reference our [Houston API Documentation](/docs/houston-api/) for details and stay in close touch with our team.
 
 #### Astronomer Bug Fixes & Improvements
 
@@ -68,7 +68,7 @@ The Astronomer CLI is open-source and open to _all_ developers looking to run Ap
 #### Bug Fixes & Improvements
 
 - BugFix: AuthenticationError fetching Airflow Logs
-- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](https://www.astronomer.io/docs/cloud/stable/customize-airflow/kubepodoperator/) and KubernetesExecutor Config
+- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator](/docs/cloud/stable/customize-airflow/kubepodoperator/) and KubernetesExecutor Config
 - BugFix: OAuth Login Errors in Safari
 - BugFix: Error adding "Billing Details" in Astro UI if Workspace unlocked by Astronomer
 - BugFix: Users able to create 2+ Service Accounts with the same label
@@ -103,9 +103,9 @@ Along with this feature come a few other additions:
 
 - The ability for Workspace Admins and Editors to create and mark a value as 'secret', hiding it from the Astronomer UI (and the client)
 - The ability to export Environment Variables as JSON
-- A new `updateDeploymentVariables` mutation in Astronomer's [Houston API](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/houston-api/), separating the Environment Variable creation and update actions from the `updateDeployment` mutation
+- A new `updateDeploymentVariables` mutation in Astronomer's [Houston API](/docs/cloud/stable/manage-astronomer/houston-api/), separating the Environment Variable creation and update actions from the `updateDeployment` mutation
 
-For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/cloud/stable/deploy/environment-variables).
+For more details on this new feature, reference our ["Environment Variables" doc](/docs/cloud/stable/deploy/environment-variables).
 
 #### Bug Fixes and Improvements
 

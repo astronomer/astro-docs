@@ -20,7 +20,7 @@ In this section, we'll walk through how to use Vault as a secrets backend both l
 To use this feature, you'll need the following:
 
 - "Admin" access to an Airflow Deployment on Astronomer
-- [The Astro CLI](https://www.astronomer.io/docs/enterprise/v0.13/develop/cli-quickstart/)
+- [The Astro CLI](/docs/enterprise/v0.13/develop/cli-quickstart/)
 - A running Hashicorp Vault server
 - [The Vault CLI](https://www.vaultproject.io/docs/install)
 - Your Vault server's [Root Token](https://www.vaultproject.io/docs/concepts/tokens#root-tokens)
@@ -29,7 +29,7 @@ To use this feature, you'll need the following:
 If you do not already have a Vault server deployed but would like to test this feature, we'd recommend either:
 
 1. Deploying a light-weight server using [this Heroku Element](https://elements.heroku.com/buttons/pallavkothari/vault)
-2. Deploying a local server via the instructions in [our Airflow and Vault guide](https://www.astronomer.io/guides/airflow-and-hashicorp-vault)
+2. Deploying a local server via the instructions in [our Airflow and Vault guide](/guides/airflow-and-hashicorp-vault)
   
 ### Write a Connection to Vault
 
@@ -175,7 +175,7 @@ For the purpose of this doc, we'll assume you already have an SSM Parameter Stor
 To use this feature, you'll need the following:
 
 - "Admin" access to an Airflow Deployment on Astronomer
-- The [Astro CLI](https://www.astronomer.io/docs/enterprise/v0.13/develop/cli-quickstart/)
+- The [Astro CLI](/docs/enterprise/v0.13/develop/cli-quickstart/)
 - A running AWS SSM Parameter Store instance
 - A valid AWS Access Key ID and Secret Access Key
 

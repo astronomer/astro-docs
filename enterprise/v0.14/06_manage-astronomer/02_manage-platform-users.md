@@ -6,7 +6,7 @@ description: "How to add and customize user permissions on the platform, enable 
 
 ## Overview
 
-In addition to the [Role-Based Access Control (RBAC) functionality](https://www.astronomer.io/docs/enterprise/v0.14/manage-astronomer/workspace-permissions/) core to our platform, Astronomer Enterprise allows teams to customize *how* they want users to create accounts on Astronomer and what they're able to do on the platform - both on Astronomer and Airflow.
+In addition to the [Role-Based Access Control (RBAC) functionality](/docs/enterprise/v0.14/manage-astronomer/workspace-permissions/) core to our platform, Astronomer Enterprise allows teams to customize *how* they want users to create accounts on Astronomer and what they're able to do on the platform - both on Astronomer and Airflow.
 
 Read below for a high-level overview of user management and guidelines around public sign-ups, role customization and adding System Admins.
 
@@ -27,7 +27,7 @@ Once on the platform, administrators can customize permissions across teams. On 
 1. Workspace Level (Viewer, Editor, Admin)
 2. System Level (Viewer, Editor, Admin)
 
-Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace Level Roles on Astronomer (Viewer, Editor and Admin), refer to our [Role Based Access Control](https://www.astronomer.io/docs/enterprise/v0.14/manage-astronomer/workspace-permissions/) doc.
+Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace Level Roles on Astronomer (Viewer, Editor and Admin), refer to our [Role Based Access Control](/docs/enterprise/v0.14/manage-astronomer/workspace-permissions/) doc.
 
 ## Public Sign-Ups
 
@@ -127,7 +127,7 @@ Keep in mind that:
 - Only existing System Admins can grant the SysAdmin role to another user
 - The user must have a verified email address and already exist in the system
 
-> **Note:** If you'd like to assign a user a different System-Level Role (either [`SYSTEM_VIEWER`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L220) or [`SYSTEM_EDITOR`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L227)), you'll have to do so via an API call from your platform's GraphQL playground. For guidelines, refer to our ["Houston API" doc](https://www.astronomer.io/docs/houston-api/).
+> **Note:** If you'd like to assign a user a different System-Level Role (either [`SYSTEM_VIEWER`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L220) or [`SYSTEM_EDITOR`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L227)), you'll have to do so via an API call from your platform's GraphQL playground. For guidelines, refer to our ["Houston API" doc](/docs/houston-api/).
 
 #### Verify SysAdmin Access
 
@@ -141,7 +141,7 @@ To verify a user was successfully granted the SysAdmin role, ensure they can do 
 
 On Astronomer Enterprise, platform administrators can customize the definitions of both Workspace and System Level roles from the same `config.yaml` file.
 
-For guidelines on how a user might limit the permission to create a Workspace, read below. For step-by-step instructions on how to customize and apply changes to permission sets across the platform, refer to our [Configuring Permissions](https://www.astronomer.io/docs/ee-configuring-permissions/) doc.
+For guidelines on how a user might limit the permission to create a Workspace, read below. For step-by-step instructions on how to customize and apply changes to permission sets across the platform, refer to our [Configuring Permissions](/docs/ee-configuring-permissions/) doc.
 
 ### Limiting Workspace Creation
 
@@ -157,4 +157,4 @@ Astronomer ships with a `USER` role that is synthetically bound to _all_ users w
 
 If you're an administrator on Astronomer who wants to limit its scope, you can remove the `system.workspace.create` permission from all users and instead attach it to a separate role of your choice. If you'd like to reserve the ability to create a Workspace _only_ to System Admins who otherwise manage cluster-level resources and costs, you might limit that permission to the `SYSTEM_ADMIN` role on the platform.
 
-To configure and apply this change, follow the steps in our [Configuring Permissions](https://www.astronomer.io/docs/ee-configuring-permissions/) doc.
+To configure and apply this change, follow the steps in our [Configuring Permissions](/docs/ee-configuring-permissions/) doc.

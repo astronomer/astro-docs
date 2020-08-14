@@ -49,7 +49,7 @@ To install and run the Astronomer Certified distribution, ensure that Docker is 
 
 3. Add the the following to the `Dockerfile` to grab the latest Astronomer Certified image on build:
 
-    > Note: The below Dockerfile is an example and may use an outdated image. For an updated list of available images, see our [downloads page](https://www.astronomer.io/downloads).
+    > Note: The below Dockerfile is an example and may use an outdated image. For an updated list of available images, see our [downloads page](/downloads).
 
         # For an Alpine-based image
         FROM astronomerinc/ap-airflow:1.10.10-alpine3.10-onbuild

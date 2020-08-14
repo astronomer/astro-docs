@@ -7,7 +7,7 @@ note: "Consider updating https://github.com/astronomer/astronomer when you updat
 
 Astronomer makes it easy to run, monitor, and scale [Apache Airflow](https://github.com/apache/airflow) deployments in our cloud or yours. Source code is made available for the benefit of customers.
 
-If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](https://www.astronomer.io/trial) and run through our [getting started guide](https://www.astronomer.io/docs/getting-started/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
+If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](/trial) and run through our [getting started guide](/docs/getting-started/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
 
 ## Architecture
 
@@ -17,33 +17,33 @@ If you'd like to see the platform in action, [start a free trial on our SaaS ser
 
 We have created guides for installing Astronomer on a number of Kubernetes environments:
 
-* [Amazon Web Services EKS](https://www.astronomer.io/docs/ee-installation-eks/)
-* [Google Cloud Platform GKE](https://www.astronomer.io/docs/ee-installation-gke/)
-* [Microsoft Azure AKS](https://www.astronomer.io/docs/ee-installation-aks/)
-* [Openshift Kubernetes](https://www.astronomer.io/docs/ee-installation-openshift/)
-* [Digital Ocean Kubernetes](https://www.astronomer.io/docs/ee-installation-do/)
-* ["General" Kubernetes](https://www.astronomer.io/docs/ee-installation-general-kubernetes/)
+* [Amazon Web Services EKS](/docs/ee-installation-eks/)
+* [Google Cloud Platform GKE](/docs/ee-installation-gke/)
+* [Microsoft Azure AKS](/docs/ee-installation-aks/)
+* [Openshift Kubernetes](/docs/ee-installation-openshift/)
+* [Digital Ocean Kubernetes](/docs/ee-installation-do/)
+* ["General" Kubernetes](/docs/ee-installation-general-kubernetes/)
 
 ## Customizing Your Installation
 
 Because the platform uses Helm throughout, it's very easy to customize your Astronomer installation. Below are some guides for most common customizations:
 
-* [Integrating Auth Systems](https://www.astronomer.io/docs/ee-integrating-auth-systems)
-* [Configuring Resources with Helm](https://www.astronomer.io/docs/ee-configuring-resources)
-* [Configuring a Registry Back End](https://www.astronomer.io/docs/ee-registry-backend)
-* [Built-in Alerts](https://www.astronomer.io/docs/alerts)
+* [Integrating Auth Systems](/docs/ee-integrating-auth-systems)
+* [Configuring Resources with Helm](/docs/ee-configuring-resources)
+* [Configuring a Registry Back End](/docs/ee-registry-backend)
+* [Built-in Alerts](/docs/alerts)
 
 ## Administration
 
 There are many tools at your disposal for administrating Astronomer:
 
-* [The Houston API Playground](https://www.astronomer.io/docs/houston-api)
-* [Metrics](https://www.astronomer.io/docs/ee-metrics)
-* [Using Kibana](https://www.astronomer.io/docs/ee-kibana)
-* [Using kubectl](https://www.astronomer.io/docs/ee-kubectl)
-* [Pulling Postgres Credentials](https://www.astronomer.io/docs/ee-administration-postgres-creds)
-* [Upgrading](https://www.astronomer.io/docs/ee-upgrade-guide)
-* [Migrating An Airflow Deployment to Astronomer](https://www.astronomer.io/docs/migrating-airflow-to-astronomer)
+* [The Houston API Playground](/docs/houston-api)
+* [Metrics](/docs/ee-metrics)
+* [Using Kibana](/docs/ee-kibana)
+* [Using kubectl](/docs/ee-kubectl)
+* [Pulling Postgres Credentials](/docs/ee-administration-postgres-creds)
+* [Upgrading](/docs/ee-upgrade-guide)
+* [Migrating An Airflow Deployment to Astronomer](/docs/migrating-airflow-to-astronomer)
 
 ## License
 

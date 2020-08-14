@@ -8,7 +8,7 @@ description: "How to grant Astronomer Cloud access to your VPC."
 
 On Astronomer, all deployments that live in our Astronomer Cloud cluster route traffic through the same single NAT. In other words, we have 1 NAT gateway out of our VPC through which all internet-bound traffic goes through.
 
-**Note**: If you need or would like Private IP access, consider [Astronomer Enterprise](https://www.astronomer.io/enterprise/) or [reach out to us](https://support.astronomer.io).
+**Note**: If you need or would like Private IP access, consider [Astronomer Enterprise](/enterprise/) or [reach out to us](https://support.astronomer.io).
 
 ## Allowing Astronomer Cloud Access to your VPC
 

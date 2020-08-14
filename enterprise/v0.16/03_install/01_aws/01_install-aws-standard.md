@@ -206,7 +206,7 @@ Now, run:
 $ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
 ```
 
-Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](https://www.astronomer.io/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
 
 Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc. 
 
@@ -263,7 +263,7 @@ astronomer-prometheus-blackbox-exporter-65f6c5f456-szr4s   1/1     Running      
 astronomer-registry-0                                      1/1     Running             0          24m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](https://www.astronomer.io/docs/ee-debugging-install/).
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/ee-debugging-install/).
 
 ## 9. Configure DNS
 
@@ -345,9 +345,9 @@ docker login registry.BASEDOMAIN -u _ p <token>
 
 To help you make the most of Astronomer Enterprise, take note of the following resources:
 
-* [Integrating an Auth System](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](https://www.astronomer.io/docs/ee-configuring-resources/)
-* [Managing Users on Astronomer Enterprise](https://www.astronomer.io/docs/ee-managing-users/)
+* [Integrating an Auth System](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
+* [Configuring Platform Resources](/docs/ee-configuring-resources/)
+* [Managing Users on Astronomer Enterprise](/docs/ee-managing-users/)
 
 ### Astronomer Support Team
 
@@ -356,4 +356,4 @@ If you have any feedback or need help during this process and aren't in touch wi
 * [Community Forum](forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](https://www.astronomer.io/docs/support/).
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/support/).

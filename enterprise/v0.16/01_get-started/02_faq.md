@@ -89,13 +89,13 @@ See https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-
 
 ### How can we get multi-factor auth?
 
-Astronomer has a flexible [auth front end](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/), with pre-built integrations for Google Auth, Okta, Auth0, and others.
+Astronomer has a flexible [auth front end](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/), with pre-built integrations for Google Auth, Okta, Auth0, and others.
 
-If you choose to use Google Auth, we have [documentation available](https://www.astronomer.io/docs/ee-installation-google-oauth/).
+If you choose to use Google Auth, we have [documentation available](/docs/ee-installation-google-oauth/).
 
 ### How can implement RBAC with this solution?
 
-Astronomer has [built-in Airflow RBAC support](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/workspace-permissions/).
+Astronomer has [built-in Airflow RBAC support](/docs/enterprise/v0.16/manage-astronomer/workspace-permissions/).
 
 
 ## Continuous Vulnerability Assessment and Remediation

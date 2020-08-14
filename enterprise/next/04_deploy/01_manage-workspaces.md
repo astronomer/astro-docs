@@ -39,7 +39,7 @@ From this screen, you can:
 3. Generate tokens for CI/CD systems via service accounts.
 4. Rename your Workspace
 
-Since all of our app activity is routed through a GraphQL API, you're free to create deployments, switch workspaces, and add users via our [CLI](https://www.astronomer.io/docs/enterprise/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
+Since all of our app activity is routed through a GraphQL API, you're free to create deployments, switch workspaces, and add users via our [CLI](/docs/enterprise/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
 
 **Note:** The concept of a "workspace" only exists at the API level to help with permissions. It does **not** have anything to do with how Airflow will run jobs.
 
@@ -47,7 +47,7 @@ Since all of our app activity is routed through a GraphQL API, you're free to cr
 
 A single instance of [Apache Airflow](https://airflow.apache.org/) made up of a scheduler, a webserver, and one or more workers. A deployment has the capacity to host a collection of DAGs.
 
-In the context of Astronomer, the term **Airflow Deployment** is used to describe an instance of Airflow that you've spun up either via the Astronomer UI or [CLI](https://www.astronomer.io/docs/cli-quickstart) as part of a workspace. Under the hood, each deployment gets its own Kubernetes namespace and has a set isolated resources reserved for itself.
+In the context of Astronomer, the term **Airflow Deployment** is used to describe an instance of Airflow that you've spun up either via the Astronomer UI or [CLI](/docs/cli-quickstart) as part of a workspace. Under the hood, each deployment gets its own Kubernetes namespace and has a set isolated resources reserved for itself.
 
 You're able to adjust the resources given to your Airflow deployment directly from the UI. This functionality allows you to choose executor (local or celery) and easily provision additional resources as you scale up.
 
@@ -65,7 +65,7 @@ From here, you'll be able to access:
 
 The former will link you directly to your DAG Dashboard on Airflow itself. Your Flower Dashboard is your go-to spot to monitor your Celery Workers.
 
-For a breakdown the Airflow UI itself, check out [this guide](https://www.astronomer.io/guides/airflow-ui/).
+For a breakdown the Airflow UI itself, check out [this guide](/guides/airflow-ui/).
 
 **Each deployment will run in a separate Kubernetes namespace, so they'll all get resources and maintain metadata independently. You should assume that each deployment is unaware of the others.**
 
@@ -75,4 +75,4 @@ If you navigate over to the "Users" tab of your Workspace Dashboard, you'll be a
 
 ## Workspace Permissions
 
-Users in a Workspace can be given the role of a **Viewer**, **Editor**, or **Admin***. An exact breakdown of these roles can be found in the [User Roles and Permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions/) section. Astronomer Enterprise admins can [configure the exact permissions](https://www.astronomer.io/docs/ee-configuring-permissions/) for each Astronomer role.
+Users in a Workspace can be given the role of a **Viewer**, **Editor**, or **Admin***. An exact breakdown of these roles can be found in the [User Roles and Permissions](/docs/enterprise/stable/manage-astronomer/workspace-permissions/) section. Astronomer Enterprise admins can [configure the exact permissions](/docs/ee-configuring-permissions/) for each Astronomer role.

@@ -8,11 +8,11 @@ Welcome to Astronomer.
 
 This guide will help you kick off your trial on Astronomer by walking you through a sample DAG deployment from start to finish.
 
-Whether you're exploring our [Enterprise](https://www.astronomer.io/enterprise) or [Cloud](https://www.astronomer.io/cloud) offering, we've designed this to be a great way to get to know our platform.
+Whether you're exploring our [Enterprise](/enterprise) or [Cloud](/cloud) offering, we've designed this to be a great way to get to know our platform.
 
 ## Start Trial
 
-If you haven't already, [start an Astronomer Trial](https://www.astronomer.io/trial/).
+If you haven't already, [start an Astronomer Trial](/trial/).
 
 ### Authorization
 
@@ -28,13 +28,13 @@ If you're the first person at your org on Astronomer, you'll want to create a Wo
 
 Airflow deployments are hierarchically lower - from a Workspace, you can create one or more Airflow deployments.
 
-To read more about navigating the Astronomer UI, go [here](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces/).
+To read more about navigating the Astronomer UI, go [here](/docs/cloud/stable/deploy/manage-workspaces/).
 
 #### Join another Workspace
 
 If you're new to Astronomer but someone else on your team has an existing Workspace you want to join, your  team member will be able to add you as a user to that shared Workspace directly from their account.
 
-[Role-based Access Control (RBAC)](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions/) is a recent addition to our platform and allows you to give your teammates varying levels of permissions.
+[Role-based Access Control (RBAC)](/docs/cloud/stable/manage-astronomer/workspace-permissions/) is a recent addition to our platform and allows you to give your teammates varying levels of permissions.
 
 **Note**: If you have any trouble with your invitation or confirmation email, check your spam filter. If that doesn't do the trick, [reach out to us](https://support.astronomer.io).
 
@@ -60,7 +60,7 @@ To install the Astronomer CLI with our latest version, run:
 $ curl -ssl https://install.astronomer.io | sudo bash -s -- v0.12.0
 ```
 
-**Note:** If you're running on Windows, check out our [Windows Install Guide](https://www.astronomer.io/docs/cloud/stable/develop/cli-install-windows-10/).
+**Note:** If you're running on Windows, check out our [Windows Install Guide](/docs/cloud/stable/develop/cli-install-windows-10/).
 
 ### Initialize an Airflow Project
 
@@ -122,7 +122,7 @@ $ astro dev start
 
 This command will spin up 3 Docker containers on your machine, each for a different Airflow component:
 
-- **Postgres:** [Airflow's Metadata Database](https://www.astronomer.io/docs/cloud/stable/customize-airflow/access-airflow-database/)
+- **Postgres:** [Airflow's Metadata Database](/docs/cloud/stable/customize-airflow/access-airflow-database/)
 - **Webserver:** The Airflow component responsible for rendering the Airflow UI
 - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
@@ -196,7 +196,7 @@ A few tips for when you're developing locally:
 
 ### Check out your Logs
 
-As you're developing locally, you'll want to pull logs for easy troubleshooting. Check out our [Logs and Source Control](https://www.astronomer.io/docs/cloud/stable/deploy/deployment-logs/) doc for guidelines.
+As you're developing locally, you'll want to pull logs for easy troubleshooting. Check out our [Logs and Source Control](/docs/cloud/stable/deploy/deployment-logs/) doc for guidelines.
 
 ### Customize Your Image
 
@@ -213,7 +213,7 @@ Astronomer currently supports both Alpine and Debian based Airflow images for Ai
 
 As noted above, the Astronomer Certified image will by default install the latest version of Airflow available on [Alpine Linux](https://alpinelinux.org/), though users leveraging Machine Learning Python Libraries or more complex dependencies might find Debian to be more appropriate.
 
-If you're interested in upgrading Airflow versions or switching to a Debian-based image, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
+If you're interested in upgrading Airflow versions or switching to a Debian-based image, refer to our ["Airflow Versioning" doc](/docs/cloud/stable/customize-airflow/airflow-versioning/).
 
 #### Add DAGs, Packages and Environment Variables
 
@@ -245,7 +245,7 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 
 ![Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/new_deployment-config.png)
 
-For a full walk-through, check out our doc on [Configuring your Deployment and Deploying your Code](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli/).
+For a full walk-through, check out our doc on [Configuring your Deployment and Deploying your Code](/docs/cloud/stable/deploy/deploy-cli/).
 
 ### Deploy your First DAG
 
@@ -271,7 +271,7 @@ To get ready for a deployment, make sure:
 - You have the right permissions (Workspace Editor or Admin)
 - The deployment you want to deploy to lives under that Workspace
 
-Follow our [CLI Getting Started Guide](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart/) for more specific guidelines and commands.
+Follow our [CLI Getting Started Guide](/docs/cloud/stable/develop/cli-quickstart/) for more specific guidelines and commands.
 
 #### Deploy
 
@@ -291,9 +291,9 @@ After you deploy your example DAG, you'll be able to see it running in your Clou
 
 Now that you're set up on Astronomer and familiar with our deployment flow, consider a few next steps:
 
-- [Allowlist our IP](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/vpc-access/) for access to your external databases
-- Think about setting up a [CI/CD Pipeline](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd/)
-- Set up [Airflow Alerts](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-alerts/)
+- [Allowlist our IP](/docs/cloud/stable/manage-astronomer/vpc-access/) for access to your external databases
+- Think about setting up a [CI/CD Pipeline](/docs/cloud/stable/deploy/ci-cd/)
+- Set up [Airflow Alerts](/docs/cloud/stable/customize-airflow/airflow-alerts/)
 - Migrate any existing Airflow DAGs (you'll have to manually port over Variables + Connections)
 
 ### Additional Resources
