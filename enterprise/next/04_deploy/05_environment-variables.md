@@ -129,7 +129,7 @@ The last way to add Environment Variables on Astronomer is to add them via the A
 To set them,
 
 1. Navigate to the Astronomer UI
-2. Go to **Deployment** > **Variables**
+2. Go to "Deployment" > "Variables"
 3. Add your Environment Variables
 
 ![Astro UI Env Vars Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.16-Astro-UI-EnvVars.png)
