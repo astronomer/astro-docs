@@ -97,7 +97,7 @@ Upon creating a Service Account, make sure to:
 * Give it a Category (optional)
 * Grant it a User Role
 
-> **Note:** In order for a Service Account to have permission to push code to your Airflow Deployment, it must have either the `Editor` or `Admin` role. For more information on Workspace roles, refer to our ["Roles and Permissions"](https://www.astronomer.io/docs/rbac/) doc.
+> **Note:** In order for a Service Account to have permission to push code to your Airflow Deployment, it must have either the "Editor" or "Admin" role. For more information on Workspace roles, refer to our ["Roles and Permissions"](https://www.astronomer.io/docs/rbac/) doc.
 
 ![Name Service Account](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-name-service-account.png)
 
@@ -128,7 +128,7 @@ Once you are authenticated you can build, tag and push your Airflow image to the
 
 #### Registry Address
 
-*Registry Address* tells Docker where to push images to. In the case of Astronomer Enterprise, your private registry located at registry.${BASE_DOMAIN}.
+*Registry Address* tells Docker where to push images to. In the case of Astronomer Enterprise, your private registry located at `registry.${BASE_DOMAIN}`.
 
 
 #### Release Name
@@ -137,7 +137,7 @@ Once you are authenticated you can build, tag and push your Airflow image to the
 
 #### Tag Name
 
-*Tag Name*: Each deploy to Astronomer generates a Docker image with a corresponding tag. If you deploy via the CLI, the tag will by default read `deploy-n`, with `n` representing the numnber of deploys made to that Airflow Deployment. If you're using CI/CD, you get to customize this tag. We typically recommend specifying the source and the build number in the name.
+*Tag Name*: Each deploy to Astronomer generates a Docker image with a corresponding tag. If you deploy via the CLI, the tag will by default read `deploy-n`, with `n` representing the number of deploys made to that Airflow Deployment. If you're using CI/CD, you get to customize this tag. We typically recommend specifying the source and the build number in the name.
 
 In the example below, we use the prefix `ci-` and the ENV `${DRONE_BUILD_NUMBER}`. This guarantees that we always know which CI/CD build triggered the build and push.
 

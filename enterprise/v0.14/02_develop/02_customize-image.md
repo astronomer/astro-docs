@@ -21,7 +21,7 @@ More specifically, this doc includes instructions for how to:
 
 ## Add Python and OS-level Packages
 
-To build Python and OS-level packages into your Airflow Deployment, add them to your `requirements.txt` and `packages.txt` files on Astronomer. Both files were automatically generated when you intialized an Airflow project locally via `$ astro dev init`. Steps below.
+To build Python and OS-level packages into your Airflow Deployment, add them to your `requirements.txt` and `packages.txt` files on Astronomer. Both files were automatically generated when you initialized an Airflow project locally via `$ astro dev init`. Steps below.
 
 ### Add your Python or OS-Level Package
 

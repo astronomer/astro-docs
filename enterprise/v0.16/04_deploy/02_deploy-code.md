@@ -19,7 +19,7 @@ To create a deployment on Astronomer, log into the Astronomer UI on either:
 - Astronomer Cloud
 - Your own domain on Astronomer Enterprise (`app.BASEDOMAIN`)
 
-From your Workspace on Astronomer, click `New Deployment`.
+From your Workspace on Astronomer, click "New Deployment".
 
 ![Workspace Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/workspace_dashboard.png)
 

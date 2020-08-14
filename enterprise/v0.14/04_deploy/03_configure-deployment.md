@@ -8,12 +8,12 @@ Once you've created your deployment, you can configure it for the use case at ha
 
 ## Allocating Resources
 
-The `Settings` tab allows you to adjust your resource components - empowering you to freely scale your deployment up or down as you wish. To this end, you can:
+The "Settings" tab allows you to adjust your resource components - empowering you to freely scale your deployment up or down as you wish. To this end, you can:
 
 1. Choose your Executor (Local, Celery, or Kubernetes)
 2. Adjust resources to your Scheduler and Webserver
-3. Adjust worker count (*Celery only*)
-4. Adjust your `Worker Termination Grace Period` (*Celery only*)
+3. Adjust Worker Count (*Celery only*)
+4. Adjust your Worker Termination Grace Period (*Celery only*)
 5. Add Extra Capacity (*Kubernetes or KubernetesPodOperator only*)
 
 ![Astro UI Executor Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.15-Astro-UI-Executor.png)
@@ -43,7 +43,7 @@ If your Airflow UI is really slow or crashes when you try to load a large DAG, y
 
 ### Extra Capacity
 
-The `Extra Capacity` setting is tied to the [KubernetesPodOperator](https://www.astronomer.io/docs/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider effects:
+The **Extra Capacity** setting is tied to the [KubernetesPodOperator](https://www.astronomer.io/docs/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider affects:
 
 1. CPU and memory quotas
 2. Database connection limits.
