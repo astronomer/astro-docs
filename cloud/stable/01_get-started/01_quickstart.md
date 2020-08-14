@@ -196,7 +196,7 @@ A few tips for when you're developing locally:
 
 ### Check out your Logs
 
-As you're developing locally, you'll want to pull logs for easy troubleshooting. Check out our [Logs and Source Control](https://www.astronomer.io/docs/logs-and-source-control/) doc for guidelines.
+As you're developing locally, you'll want to pull logs for easy troubleshooting. Check out our [Logs and Source Control](https://www.astronomer.io/docs/cloud/stable/deploy/deployment-logs/) doc for guidelines.
 
 ### Customize Your Image
 
