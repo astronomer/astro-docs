@@ -28,7 +28,7 @@ If you're the first person at your org on Astronomer, you'll want to create a Wo
 
 Airflow deployments are hierarchically lower - from a Workspace, you can create one or more Airflow deployments.
 
-To read more about navigating the Astronomer UI, go [here](https://www.astronomer.io/docs/astronomer-ui/).
+To read more about navigating the Astronomer UI, go [here](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces/).
 
 #### Join another Workspace
 
