@@ -349,7 +349,7 @@ To help you make the most of Astronomer Enterprise, take note of the following r
 
 If you have any feedback or need help during this process and aren't in touch with our team already, a few resources to keep in mind:
 
-* [Community Forum](forum.astronomer.io): General Airflow + Astronomer FAQs
+* [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
 For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.14/resources/support/).
