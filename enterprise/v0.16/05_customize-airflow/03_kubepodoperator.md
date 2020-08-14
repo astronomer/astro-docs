@@ -19,7 +19,7 @@ To run the KubernetesPodOperator on Astronomer, make sure you:
 - Have a running Airflow Deployment on Astronomer Enterprise
 - Run Astronomer Airflow 1.10+
 
-> **Note:** If you haven't already, we'd encourage you to first test the KubernetesPodOperator in your local environment. Follow our [Running KubePodOperator Locally](/docs/cli-kubepodoperator/) for guidelines.
+> **Note:** If you haven't already, we'd encourage you to first test the KubernetesPodOperator in your local environment. Follow our [Running KubePodOperator Locally](/docs/enterprise/v0.16/develop/kubepodoperator-local/) for guidelines.
 
 ## The KubernetesPodOperator on Astronomer
 
@@ -187,6 +187,6 @@ To pull images from a private registry on Astronomer Enterprise, follow the guid
 
 ## Local Testing
 
-Follow our [CLI doc](/docs/cli-kubepodoperator/) on using [Microk8s](https://microk8s.io/) or [Docker for Kubernetes](https://matthewpalmer.net/kubernetes-app-developer/articles/how-to-run-local-kubernetes-docker-for-mac.html) to run tasks with the KubernetesPodOperator locally.
+Follow our [CLI doc](/docs/enterprise/v0.16/develop/kubepodoperator-local/) on using [Microk8s](https://microk8s.io/) or [Docker for Kubernetes](https://matthewpalmer.net/kubernetes-app-developer/articles/how-to-run-local-kubernetes-docker-for-mac.html) to run tasks with the KubernetesPodOperator locally.
 
 > **Note:** To pull images from a private registry locally, you'll have to create a secret in your local namespace and similarly call it in your operator following the guidelines above.

@@ -21,7 +21,7 @@ To run the KubernetesPodOperator on Astronomer, make sure you:
 
 On Astronomer Cloud, the Kubernetes overhead is taken care for you by default.
 
-> **Note:** If you haven't already, we'd encourage you to first test the KubernetesPodOperator in your local environment. Follow our [Running KubePodOperator Locally](/docs/cli-kubepodoperator/) for guidelines.
+> **Note:** If you haven't already, we'd encourage you to first test the KubernetesPodOperator in your local environment. Follow our [Running KubePodOperator Locally](/docs/cloud/stable/develop/kubepodoperator-local/) for guidelines.
 
 ## The KubernetesPodOperator on Astronomer
 
@@ -213,6 +213,6 @@ With the output you send over, we'll create a secret in your namespace in the fo
 
 ## Local Testing
 
-Follow our [CLI doc](/docs/cli-kubepodoperator/) on using [Microk8s](https://microk8s.io/) or [Docker for Kubernetes](https://matthewpalmer.net/kubernetes-app-developer/articles/how-to-run-local-kubernetes-docker-for-mac.html) to run tasks with the KubernetesPodOperator locally.
+Follow our [CLI doc](/docs/cloud/stable/develop/kubepodoperator-local/) on using [Microk8s](https://microk8s.io/) or [Docker for Kubernetes](https://matthewpalmer.net/kubernetes-app-developer/articles/how-to-run-local-kubernetes-docker-for-mac.html) to run tasks with the KubernetesPodOperator locally.
 
 > **Note:** To pull images from a private registry locally, you'll have to create a secret in your local namespace and similarly call it in your operator following the guidelines above.
