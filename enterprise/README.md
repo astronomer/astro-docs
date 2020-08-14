@@ -7,7 +7,7 @@ note: "Consider updating https://github.com/astronomer/astronomer when you updat
 
 Astronomer makes it easy to run, monitor, and scale [Apache Airflow](https://github.com/apache/airflow) deployments in our cloud or yours. Source code is made available for the benefit of customers.
 
-If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](/trial) and run through our [getting started guide](https://www.astronomer.io/docs/getting-started/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
+If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](/trial) and run through our [getting started guide](https://www.astronomer.io/docs/enterprise/stable/get-started/quickstart/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
 
 ## Architecture
 
