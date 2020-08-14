@@ -71,7 +71,7 @@ $ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 pymongo==3.7.2
 ```
 
-> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](www.astronomer.io/docs/airflow-versioning).
+> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](https://www.astronomer.io/docs/airflow-versioning).
 
 ## Add Other Dependencies
 
@@ -237,7 +237,7 @@ $ astro dev start --env .env
 
 > **Note:** This feature is limited to local development only. Whatever `.env` you use locally will _not_ be bundled up when you deploy to Astronomer.
 >
-> For more detail on how to add Environment Variables both locally and on Astronomer, refer to our [Environment Variables doc](www.astronomer.io/docs/environment-variables).
+> For more detail on how to add Environment Variables both locally and on Astronomer, refer to our [Environment Variables doc](https://www.astronomer.io/docs/environment-variables).
 
 ## Build from a Private Repository
 

@@ -37,7 +37,7 @@ As you scale up the number of tasks or the resources your workflows require, we 
 
 ## Scaling the Scheduler and Webserver
 
-If you are seeing delays in tasks being scheduled (check the Gantt Chart via the Airflow UI), it's usually time to scale up your Scheduler. If you're interested in setting up email alerts to get notified when your Scheduler is underprovisioned, refer to our [Airflow Alerts doc](www.astronomer.io/docs/airflow-alerts).
+If you are seeing delays in tasks being scheduled (check the Gantt Chart via the Airflow UI), it's usually time to scale up your Scheduler. If you're interested in setting up email alerts to get notified when your Scheduler is underprovisioned, refer to our [Airflow Alerts doc](https://www.astronomer.io/docs/airflow-alerts).
 
 If your Airflow UI is slow or crashes when you try to load a large DAG, you'll want to scale up your Webserver.
 
