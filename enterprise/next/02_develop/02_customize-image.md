@@ -347,4 +347,4 @@ Now, let's push your new image to Astronomer.
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
-For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](https://www.astronomer.io/docs/create-deployment-deploying-code/).
+For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](https://www.astronomer.io/docs/enterprise/stable/deploy/deploy-code/).
