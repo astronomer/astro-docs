@@ -144,5 +144,5 @@ github.com/astronomer/astro-cli/vendor/github.com/Nvveen/Gotty.readTermInfo(0xc4
 This is an issue pulling Postgres that should be fixed by running the following:
 
 ```
-Docker pull postgres:10.1-alpine
+docker pull postgres:10.1-alpine
 ```

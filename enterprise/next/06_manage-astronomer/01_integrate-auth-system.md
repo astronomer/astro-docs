@@ -4,7 +4,7 @@ navTitle: "Integrate an Auth System"
 description: "Plug your internal authentication server into your Astronomer platform instantiation."
 ---
 
-By default, the Astronomer platform allows you to authenticate using your Google or GitHub account. We provide the option to authenticate using any alternative providers that follow the [Open Id Connect protocol](https://openid.net/connect/) via [Implicit Flow](https://auth0.com/docs/flows/concepts/implicit),  including (but not limited to) [Auth0](https://auth0.com/), [Okta](https://okta.com), and [Microsoft Azure's Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc). 
+By default, the Astronomer platform allows you to authenticate using your Google or GitHub account. We provide the option to authenticate using any alternative providers that follow the [Open Id Connect protocol](https://openid.net/connect/) via [Implicit Flow](https://auth0.com/docs/flows/concepts/implicit),  including (but not limited to) [Auth0](https://auth0.com/), [Okta](https://www.okta.com), and [Microsoft Azure's Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc).
 
 ## Configuration
 

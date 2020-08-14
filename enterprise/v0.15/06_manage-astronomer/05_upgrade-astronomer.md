@@ -4,7 +4,7 @@ navTitle: "Upgrade Astronomer"
 description: "How to upgrade the Astronomer Enterprise Platform."
 ---
 
-_Coming soon..._
+_Coming soon…_
 
 In the meantime:
 

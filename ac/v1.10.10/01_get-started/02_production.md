@@ -40,7 +40,7 @@ Ensure the following linux packages are installed on your machine. To get them i
 - python3
 - python3-dev (python3-devel for RHEL/CentOS)
 - gcc
-- text editor of your choice (vi, vim, nano, etc...)
+- text editor of your choice (vi, vim, nano, etc…)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

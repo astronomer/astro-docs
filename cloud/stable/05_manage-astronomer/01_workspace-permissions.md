@@ -6,7 +6,7 @@ description: "Manage user roles and permissions within a single Astronomer Works
 
 Astronomer supports role based access control (RBAC), allowing you to configure varying levels of access across all Users within your Workspace.
 
-The Astronomer image comes bundled with an [astronomer-fab-security manager package](https://github.com/astronomer/astronomer-fab-securitymanager/blob/4950500a51755f5b3d1ca288089404bfbd5fba60/README.md_) that connects permissions between
+The Astronomer image comes bundled with an [astronomer-fab-security manager package](https://github.com/astronomer/astronomer-fab-securitymanager/blob/3067c0470dbb1a528d1e251fb45312d01989e6a4/README.md) that connects permissions between
 Houston (the Astronomer API) and Airflow's built-in RBAC.
 
 For details on how those levels of permission are defined and how to leverage them on both Astronomer and Airflow, read the guidelines below.
