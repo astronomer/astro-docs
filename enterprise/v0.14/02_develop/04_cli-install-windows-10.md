@@ -9,7 +9,7 @@ Welcome to Astronomer!
 If you're a Windows User looking to install and use the Astronomer CLI, you have 2 options:
 
 1. Install the Unix-based CLI a Windows Subsystem for Linux (WSL)
-2. Install the Windows-based CLI 
+2. Install the Windows-based CLI
 
 > **Note:** Either option will require Windows 10 or greater.
 
@@ -66,7 +66,7 @@ You're all set! You can now run `docker run hello-world` through your WSL instan
 
 ### Step 6. Final Install
 
-Once you've completed the steps above, head over to our [CLI Quickstart Guide](/docs/cli-quickstart/) to finish the installation and start deployment DAGs.
+Once you've completed the steps above, head over to our [CLI Quickstart Guide](/docs/enterprise/v0.14/develop/cli-quickstart/) to finish the installation and start deployment DAGs.
 
 ## Astronomer CLI on Windows 10
 
@@ -81,7 +81,7 @@ Make sure you have the following installed:
 
 ### Step 2. Enable Hyper-V
 
-Make sure you enabled Hyper-V, which is required to run Docker and Linux Containers. 
+Make sure you enabled Hyper-V, which is required to run Docker and Linux Containers.
 
 If you have any issues with Docker, check out [Docker's Troubleshooting Guide for Windows](https://docs.docker.com/docker-for-windows/troubleshoot/).
 
@@ -102,7 +102,7 @@ After following step 3, you should see a zip file on your machine that contains 
 
 Grab that `astro.exe` file and move it to a location that won't be deleted.
 
-### Step 5. Extract the contents 
+### Step 5. Extract the contents
 Add the location of `astro.exe` in your %PATH%. If you don't know how to do this, check out [this helpful guide](https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/).
 
 ### Step 6. Final Command
