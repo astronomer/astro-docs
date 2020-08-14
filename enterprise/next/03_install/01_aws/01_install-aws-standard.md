@@ -208,7 +208,7 @@ $ helm install astronomer -f config.yaml --version=<platform-version> astronomer
 
 Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.x.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
 
-Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc. 
+Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
 
 
 ## 8. Verify Pods are Up
@@ -357,4 +357,4 @@ If you have any feedback or need help during this process and aren't in touch wi
 * [Community Forum](forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/support/).
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/stable/resources/support/).

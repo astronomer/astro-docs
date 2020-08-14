@@ -352,4 +352,4 @@ If you have any feedback or need help during this process and aren't in touch wi
 * [Community Forum](forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/support/).
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.15/resources/support/).
