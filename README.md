@@ -1,11 +1,11 @@
 # Astronomer Documentation
 
-This repository contains all public [Astronomer Documentation](/docs) files. Docs are stored in product-specific directories and are versioned in a way that aligns with our internal dev streams.
+This repository contains all public [Astronomer Documentation](https://www.astronomer.io/docs/) files. Docs are stored in product-specific directories and are versioned in a way that aligns with our internal dev streams.
 
 ## Overview
-- [Cloud](/docs/cloud/stable): The default when a user visits our documentation site, these docs are continuously delivered along with Cloud features.
-- [Enterprise](/docs/enterprise/stable): These docs are fully versioned to align with the way our Enterprise users engage with and upgrade our product.
-- [AC](/docs/certified/stable): These docs are hidden from the top-level nav for now, but are available to be shared on a case-by-case basis.
+- [Cloud](https://www.astronomer.io/docs/cloud/): The default when a user visits our documentation site, these docs are continuously delivered along with Cloud features.
+- [Enterprise](https://www.astronomer.io/docs/enterprise/): These docs are fully versioned to align with the way our Enterprise users engage with and upgrade our product.
+- [AC](https://www.astronomer.io/docs/certified/): These docs are hidden from the top-level nav for now, but are available to be shared on a case-by-case basis.
 
 ## Cloud Docs
 
