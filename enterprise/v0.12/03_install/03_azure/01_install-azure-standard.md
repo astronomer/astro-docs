@@ -277,7 +277,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 $ helm install -f config.yaml . --namespace <my-namespace>
 ```
 
-Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.12/manage-astronomer/integrate-auth-system/) and [resource requests(https://www.astronomer.io/docs/ee-configuring-resources/) in this `config.yaml`.
+Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.12/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/ee-configuring-resources/) in this `config.yaml`.
 
 ## 10. Verify all pods are up
 
