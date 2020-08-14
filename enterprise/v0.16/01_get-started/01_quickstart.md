@@ -245,7 +245,7 @@ If you are the first user to authenticate into Astronomer, you'll have access to
 ![Admin](https://assets2.astronomer.io/main/docs/enterprise_quickstart/admin_panel.png)
 
 
-These views show logs and metrics (respectively) across all deployments running on that deployment of Astronomer. You can set up Kibana with the instructions found [here](/docs/ee-kibana/)
+These views show logs and metrics (respectively) across all deployments running on that deployment of Astronomer. You can set up Kibana with the instructions found [here](/docs/enterprise/v0.16/monitor/kibana-logging/)
 
 
 ## 10. Start inviting Users
