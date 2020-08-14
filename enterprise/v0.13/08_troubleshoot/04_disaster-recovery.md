@@ -13,7 +13,7 @@ In the event that the platform is taken down, there are a number of restoration 
 If the entire platform is taken down, you can restore service through the standard Helm charts provided in the original installation. This will take care of installing Airflow, Grafana, NGINX, Prometheus, and the Astronomer components (Commander Provisioning Service, Houston API, Orbit UI, and internal Docker registry). The exact process for this will depend on what hosting provider you are using (e.g. GCP, AWS)
 
 More information can be found here:
-- [Install Astronomer on GCP](/docs/ee-installation-gke/)
+- [Install Astronomer on GCP](/docs/enterprise/v0.13/install/gcp/install-gcp-standard/)
 - [Install Astronomer on AWS](/docs/enterprise/v0.13/install/aws/install-aws-standard/)
 
 ## Restoring Postgres

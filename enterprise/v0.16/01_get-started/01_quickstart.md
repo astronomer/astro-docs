@@ -24,7 +24,7 @@ If you are in charge of setting up Astronomer for your org, head over to our [En
 
 We have documentation to deploy Astronomer on:
 - AWS EKS ([Manually](/docs/enterprise/v0.16/install/aws/install-aws-standard/) or through [Terraform](/docs/enterprise/v0.16/install/aws/install-aws-terraform/))
-- [GCP Google Kubernetes Service](/docs/ee-installation-gke/)
+- [GCP Google Kubernetes Service](/docs/enterprise/v0.16/install/gcp/install-gcp-standard/)
 - [Azure Azure Kubernetes Service](/docs/ee-installation-aks/)
 - [Digital Ocean Kubernetes](/docs/ee-installation-do/)
 
