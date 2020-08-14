@@ -39,7 +39,7 @@ Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres M
 
 Right now, your monitoring options for Cloud are:
 
-* Airflow Alerts at the Task or DAG Run level (instructions [here](https://www.astronomer.io/docs/setting-up-airflow-emails/))
+* Airflow Alerts at the Task or DAG Run level (instructions [here](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-alerts/))
 * Deployment Configure page on the Astro UI for all resource configs
 * Flower dashboard in the Astro UI to check on your Celery Workers (whether or not they’re online, how many tasks they’re actively processing, etc.)
 * Scheduler/Webserver/Worker logs in the Astronomer UI

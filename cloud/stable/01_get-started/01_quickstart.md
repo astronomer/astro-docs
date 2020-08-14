@@ -293,7 +293,7 @@ Now that you're set up on Astronomer and familiar with our deployment flow, cons
 
 - [Allowlist our IP](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/vpc-access/) for access to your external databases
 - Think about setting up a [CI/CD Pipeline](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd/)
-- Set up [Airflow Alerts](https://www.astronomer.io/docs/setting-up-airflow-emails/)
+- Set up [Airflow Alerts](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-alerts/)
 - Migrate any existing Airflow DAGs (you'll have to manually port over Variables + Connections)
 
 ### Additional Resources
