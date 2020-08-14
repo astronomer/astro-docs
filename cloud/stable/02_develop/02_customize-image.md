@@ -267,7 +267,7 @@ If you're running the Alpine-based, Airflow 1.10.10 Astronomer Certified image, 
 FROM astronomerinc/ap-airflow:1.10.10-alpine3.10 AS stage1
 ```
 
-For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/airflow-versioning/).
+For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
 
 > **Note:**  Do NOT include `on-build` at the end of your Airflow Image as you typically would in your Dockerfile.
 

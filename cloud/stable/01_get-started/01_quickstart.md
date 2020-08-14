@@ -213,7 +213,7 @@ Astronomer currently supports both Alpine and Debian based Airflow images for Ai
 
 As noted above, the Astronomer Certified image will by default install the latest version of Airflow available on [Alpine Linux](https://alpinelinux.org/), though users leveraging Machine Learning Python Libraries or more complex dependencies might find Debian to be more appropriate.
 
-If you're interested in upgrading Airflow versions or switching to a Debian-based image, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/airflow-versioning/).
+If you're interested in upgrading Airflow versions or switching to a Debian-based image, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
 
 #### Add DAGs, Packages and Environment Variables
 
