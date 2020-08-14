@@ -342,7 +342,7 @@ docker login registry.BASEDOMAIN -u _ p <token>
 To help you make the most of Astronomer Enterprise, take note of the following resources:
 
 * [Integrating an Auth System](/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](/docs/ee-configuring-resources/)
+* [Configuring Platform Resources](/docs/enterprise/v0.13/manage-astronomer/configure-platform-resources/)
 * [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.13/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
