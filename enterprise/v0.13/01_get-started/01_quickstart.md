@@ -38,7 +38,7 @@ curl -sSL https://install.astronomer.io | sudo bash
 
 ```
 
-**Note:** The `curl` command will work for Unix (Linux+Mac) based systems. If you want to run on Windows 10, you'll need to run through [this guide](https://www.astronomer.io/docs/cli-installation-windows-10/) on getting Docker for WSL working.
+**Note:** The `curl` command will work for Unix (Linux+Mac) based systems. If you want to run on Windows 10, you'll need to run through [this guide](https://www.astronomer.io/docs/enterprise/v0.13/develop/cli-install-windows-10//) on getting Docker for WSL working.
 
 
 Let's make sure you have Astro CLI installed on your machine, and that you have a project to work from.
