@@ -39,7 +39,7 @@ From this screen, you can:
 3. Generate tokens for CI/CD systems via service accounts.
 4. Rename your Workspace
 
-Since all of our app activity is routed through a GraphQL API, you're free to create deployments, switch workspaces, and add users via our [CLI](https://www.astronomer.io/docs/cli-quickstart/) if you prefer staying in your terminal.
+Since all of our app activity is routed through a GraphQL API, you're free to create deployments, switch workspaces, and add users via our [CLI](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
 
 > **Note:** The concept of a "Workspace" only exists at the API level to support role-based access control and user permissions. It will not affect Airflow task execution.
 

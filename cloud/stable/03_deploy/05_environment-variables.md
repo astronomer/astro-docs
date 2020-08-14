@@ -36,7 +36,7 @@ Read below for instructions on how to configure them via all 3 methods.
 
 ### via `.env` (_Local Only_)
 
-The [Astronomer CLI](https://www.astronomer.io/docs/cli-quickstart/) comes with the ability to bring in Environment Variables from a specified `.env` file, which was automatically generated when you initialized an Airflow project on Astronomer via `$ astro dev init`.
+The [Astronomer CLI](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart/) comes with the ability to bring in Environment Variables from a specified `.env` file, which was automatically generated when you initialized an Airflow project on Astronomer via `$ astro dev init`.
 
 To add Environment Variables locally,
 
