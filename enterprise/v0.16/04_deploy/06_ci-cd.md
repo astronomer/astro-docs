@@ -97,7 +97,7 @@ Upon creating a Service Account, make sure to:
 * Give it a Category (optional)
 * Grant it a User Role
 
-> **Note:** In order for a Service Account to have permission to push code to your Airflow Deployment, it must have either the "Editor" or "Admin" role. For more information on Workspace roles, refer to our ["Roles and Permissions"](https://www.astronomer.io/docs/rbac/) doc.
+> **Note:** In order for a Service Account to have permission to push code to your Airflow Deployment, it must have either the "Editor" or "Admin" role. For more information on Workspace roles, refer to our ["Roles and Permissions"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/workspace-permissions/) doc.
 
 ![Name Service Account](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-name-service-account.png)
 

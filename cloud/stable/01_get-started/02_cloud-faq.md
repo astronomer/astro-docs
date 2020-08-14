@@ -53,7 +53,7 @@ Right now, your monitoring options for Cloud are:
 
 This is largely dependent on personal preference and your particular use case.
 
-At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. All users within a single Workspace have acess to all Airflow deployments within it, with [varying levels of permissions](https://www.astronomer.io/docs/rbac/).
+At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. All users within a single Workspace have acess to all Airflow deployments within it, with [varying levels of permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions/).
 
 Across Airflow Deployments, we'd generally recommend one repository/parent directory per project. That way, you leave the door open for CI/CD down the line if that's something you ever want to set up.
 

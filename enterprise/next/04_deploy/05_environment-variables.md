@@ -159,7 +159,7 @@ A few additional notes:
 
 Read below for more detail on how Environment Variables are encrypted on Astronomer.
 
-> **Note:** As noted above, Workspace roles and permissions apply to actions in the "Variables" tab. For a full breakdown of permissions for each role, reference Astronomer's ["Roles and Permissions" doc](https://www.astronomer.io/docs/rbac/).
+> **Note:** As noted above, Workspace roles and permissions apply to actions in the "Variables" tab. For a full breakdown of permissions for each role, reference Astronomer's ["Roles and Permissions" doc](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
 
 ### Precedence amongst 3 Methods
 

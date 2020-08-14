@@ -34,7 +34,7 @@ To read more about navigating the Astronomer UI, go [here](https://www.astronome
 
 If you're new to Astronomer but someone else on your team has an existing Workspace you want to join, your  team member will be able to add you as a user to that shared Workspace directly from their account.
 
-[Role-based Access Control (RBAC)](https://www.astronomer.io/docs/rbac/) is a recent addition to our platform and allows you to give your teammates varying levels of permissions.
+[Role-based Access Control (RBAC)](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions/) is a recent addition to our platform and allows you to give your teammates varying levels of permissions.
 
 **Note**: If you have any trouble with your invitation or confirmation email, check your spam filter. If that doesn't do the trick, [reach out to us](https://support.astronomer.io).
 
