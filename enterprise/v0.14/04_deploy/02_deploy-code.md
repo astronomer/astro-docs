@@ -10,8 +10,8 @@ description: "How to push code to your Airflow Deployment on Astronomer via the 
 
 In order to push up code to a deployment on Astronomer, you must have:
 
-1. [The Astronomer CLI](https://www.astronomer.io/docs/cli-quickstart/) Installed
-2. Access to an Airflow deployment running on [Astronomer Enterprise](https://www.astronomer.io/docs/ee-overview/)
+1. [The Astronomer CLI](/docs/enterprise/v0.14/develop/cli-quickstart/) Installed
+2. Access to an Airflow deployment running on [Astronomer Enterprise](/docs/enterprise/)
 
 ### Create a Deployment
 
@@ -120,7 +120,7 @@ Everything in your top level directory (and all children directory) in which you
 
 We do **not** deploy any of the metadata associated with your local Airflow deployment - only the code.
 
-For more information on what gets built into your image, jump over to our doc on [Customizing your Image](https://www.astronomer.io/docs/customizing-your-image/).
+For more information on what gets built into your image, jump over to our doc on [Customizing your Image](/docs/enterprise/v0.14/develop/customize-image/).
 
 ## Deployments & Kubernetes Namespaces
 

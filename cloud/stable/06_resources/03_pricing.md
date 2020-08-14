@@ -4,7 +4,7 @@ navTitle: "Pricing"
 description: "An overview of Astronomer Cloud pricing."
 ---
 
-To view a general overview of our pricing structure across our product offerings, check out the [pricing page](https://www.astronomer.io/pricing/) on our website.
+To view a general overview of our pricing structure across our product offerings, check out the [pricing page](/pricing/) on our website.
 
 ### Overview
 
@@ -12,7 +12,7 @@ As part of our promise to give our customers more freedom and control with Apach
 
 Our Cloud platform is fully managed on Astronomer's infrastructure, allowing you to run as many deployments (and DAGs) as you'd like. Each of your deployments is powered by an isolated set of resources that can be scaled up or down to fit your needs and the architecture of your running workflows.
 
-Resource configuration is directly managed on the `Configure` tab of the Astronomer UI (check out our [Astronomer UI Guide](https://www.astronomer.io/docs/airflow-deployments/) for more detail).
+Resource configuration is directly managed on the `Configure` tab of the Astronomer UI (check out our [Astronomer UI Guide](/docs/airflow-deployments/) for more detail).
 
 ### Configuration Overview
 
@@ -48,7 +48,7 @@ See below for out-of-the-box configurations and corresponding AU count:
 
 | Executor   | PgBouncer & StatsD | Scheduler | Webserver | Celery Worker | Redis & Flower | Extra Capacity | Total AU | Monthly Cost |
 |------------|--------------------|-----------|-----------|---------------|----------------|----------------|----------|--------------|
-| Local | 4 | 10| 5 | N/A | N/A | N/A | 19 | $190 | 
+| Local | 4 | 10| 5 | N/A | N/A | N/A | 19 | $190 |
 | Celery | 4 | 10 | 5 | 10 | 4 | N/A | 33 | $330 |
 | Kubernetes | 4 | 10 | 5 | N/A | N/A | 10 | 19 - 29 | $190 - $290  |
 
@@ -58,7 +58,7 @@ See below for out-of-the-box configurations and corresponding AU count:
 
 #### Kubernetes Executor & KubernetesPodOperator
 
-On Astronomer, resources needed for either the [KubernetesPodOperator](https://www.astronomer.io/docs/kubepodoperator/) or the KubernetesExecutor are mapped to the `Extra Capacity` slider on your deployment's "Configure" page.
+On Astronomer, resources needed for either the [KubernetesPodOperator](/docs/cloud/stable/customize-airflow/kubepodoperator/) or the KubernetesExecutor are mapped to the `Extra Capacity` slider on your deployment's "Configure" page.
 
 The number of AUs (as a combination of CPU and Memory) maps to [*resource quotas*](https://kubernetes.io/docs/concepts/policy/resource-quotas/) on the [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in which your Airflow deployment lives.
 
@@ -101,4 +101,4 @@ If you're interested and believe you might be eligible, reach out to us at human
 
 ## Enterprise Pricing
 
-If you're interested in Enterprise and haven't already talked to us, reach out [here](https://www.astronomer.io/contact).
+If you're interested in Enterprise and haven't already talked to us, reach out [here](/contact).

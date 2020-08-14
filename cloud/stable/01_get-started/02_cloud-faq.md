@@ -11,13 +11,13 @@ If you're thinking about Astronomer Cloud, you might have a few questions on you
 
 ### What version of Airflow is Astronomer Cloud currently running?
 
-Astronomer Cloud is officially compatible with Airflow v1.10.5 and higher. For our list of supported images and guidelines on how to upgrade versions, check out our [Airflow Versioning](https://astronomer.io/docs/airflow-versioning) doc.
+Astronomer Cloud is officially compatible with Airflow v1.10.5 and higher. For our list of supported images and guidelines on how to upgrade versions, check out our [Airflow Versioning](/docs/cloud/stable/customize-airflow/airflow-versioning/) doc.
 
 ### What Airflow Executors do you currently support?
 
 We currently support the Celery, Local and Kubernetes Executors. You can switch between the three freely via the Astronomer UI.
 
-If you're not sure which Executor to use, we generally recommend starting off with the Local Executor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](https://www.astronomer.io/guides/airflow-executors-explained/) for a ful analysis on each.
+If you're not sure which Executor to use, we generally recommend starting off with the Local Executor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](/guides/airflow-executors-explained/) for a ful analysis on each.
 
 ## Networking
 
@@ -25,13 +25,13 @@ If you're not sure which Executor to use, we generally recommend starting off wi
 
 To connect Astronomer Cloud to any database in your VPC, you'll just have to allowlist our Static IP: `35.245.140.149`
 
-If you're allowlisting that IP on Amazon Redshift, check out [our VPC Access Doc](https://www.astronomer.io/docs/vpc-access).
+If you're allowlisting that IP on Amazon Redshift, check out [our VPC Access Doc](/docs/cloud/stable/manage-astronomer/vpc-access/).
 
 ## Airflow Metadata Access
 
 ### Will I have access to Airflow's underlying database for my deployment?
 
-Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres Metadata Database hosted by Astronomer and isolated from all other Airflow Deployments. To access that database both on your local machine and Astronomer, check out our [Query the Airflow Database](https://www.astronomer.io/docs/query-airflow-database) doc.
+Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres Metadata Database hosted by Astronomer and isolated from all other Airflow Deployments. To access that database both on your local machine and Astronomer, check out our [Query the Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/) doc.
 
 ## Monitoring
 
@@ -39,7 +39,7 @@ Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres M
 
 Right now, your monitoring options for Cloud are:
 
-* Airflow Alerts at the Task or DAG Run level (instructions [here](https://www.astronomer.io/docs/setting-up-airflow-emails/))
+* Airflow Alerts at the Task or DAG Run level (instructions [here](/docs/cloud/stable/customize-airflow/airflow-alerts/))
 * Deployment Configure page on the Astro UI for all resource configs
 * Flower dashboard in the Astro UI to check on your Celery Workers (whether or not they’re online, how many tasks they’re actively processing, etc.)
 * Scheduler/Webserver/Worker logs in the Astronomer UI
@@ -53,7 +53,7 @@ Right now, your monitoring options for Cloud are:
 
 This is largely dependent on personal preference and your particular use case.
 
-At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. All users within a single Workspace have acess to all Airflow deployments within it, with [varying levels of permissions](https://www.astronomer.io/docs/rbac/).
+At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. All users within a single Workspace have acess to all Airflow deployments within it, with [varying levels of permissions](/docs/cloud/stable/manage-astronomer/workspace-permissions/).
 
 Across Airflow Deployments, we'd generally recommend one repository/parent directory per project. That way, you leave the door open for CI/CD down the line if that's something you ever want to set up.
 
@@ -69,7 +69,7 @@ Once you've created a Workspace on Astronomer, you'll use that same method to au
 
 ### Where do I log in?
 
-After you [sign up for a trial](https://www.astronomer.io/trial/), you can head over to the [Astro UI](https://app.gcp0001.us-east4.astronomer.io/login) to login.
+After you [sign up for a trial](/trial/), you can head over to the [Astro UI](https://app.gcp0001.us-east4.astronomer.io/login) to login.
 
 ## Billing
 

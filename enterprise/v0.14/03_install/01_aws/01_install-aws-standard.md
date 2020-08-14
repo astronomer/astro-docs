@@ -259,7 +259,7 @@ astronomer-prometheus-blackbox-exporter-65f6c5f456-szr4s   1/1     Running      
 astronomer-registry-0                                      1/1     Running             0          24m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](https://astronomer.io/docs/ee-debugging-install/).
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.14/troubleshoot/debug-install/).
 
 ## 9. Configure DNS
 
@@ -341,15 +341,15 @@ docker login registry.BASEDOMAIN -u _ p <token>
 
 To help you make the most of Astronomer Enterprise, take note of the following resources:
 
-* [Integrating an Auth System](https://www.astronomer.io/docs/enterprise/v0.14/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](https://www.astronomer.io/docs/ee-configuring-resources/)
-* [Managing Users on Astronomer Enterprise](https://www.astronomer.io/docs/ee-managing-users/)
+* [Integrating an Auth System](/docs/enterprise/v0.14/manage-astronomer/integrate-auth-system/)
+* [Configuring Platform Resources](/docs/enterprise/v0.14/manage-astronomer/configure-platform-resources/)
+* [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.14/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
 
 If you have any feedback or need help during this process and aren't in touch with our team already, a few resources to keep in mind:
 
-* [Community Forum](forum.astronomer.io): General Airflow + Astronomer FAQs
+* [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](https://www.astronomer.io/docs/support/).
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.14/resources/support/).

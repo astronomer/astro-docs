@@ -59,4 +59,4 @@ On Astronomer, you can search for logs with a text string on the top left.
 
 ## Local Logs
 
-For guidelines on how to tail logs locally via the CLI, check out [this doc](https://www.astronomer.io/docs/logs-and-source-control/).
+For guidelines on how to tail logs locally via the CLI, check out [this doc](/docs/enterprise/stable/deploy/deployment-logs/).

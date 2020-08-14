@@ -10,13 +10,13 @@ Astronomer Cloud is the easiest way for any organization to adopt [Apache Airflo
 
 Astronomer Cloud runs on a Kubernetes cluster hosted and managed by the Astronomer team. Our managed offering abstracts the everyday data engineer from the infrastructure management layer otherwise required to adopt, maintain and grow with Airflow.
 
-For a detailed breakdown of Astronomer Cloud, refer [here](https://www.astronomer.io/cloud/).
+For a detailed breakdown of Astronomer Cloud, refer [here](/cloud/).
 
 ## Get Started
 
-Astronomer Cloud's [free 14-day Trial](https://www.astronomer.io/trial/) is the best way to get started. You're welcome to sign up at anytime, no credit card required.
+Astronomer Cloud's [free 14-day Trial](/trial/) is the best way to get started. You're welcome to sign up at anytime, no credit card required.
 
-Once you start your trial, follow our [Cloud Quickstart](https://astronomer.io/docs/cloud/stable/get-started/quickstart) for guidance.
+Once you start your trial, follow our [Cloud Quickstart](/docs/cloud/stable/get-started/quickstart) for guidance.
 
 We'll guide you through the following journey:
 
@@ -36,6 +36,6 @@ We won't charge you.
 As you navigate Astronomer Cloud, keep the following resources in mind:
 
 - [**Community Forum**](https://forum.astronomer.io): General Airflow + Astronomer FAQs
-- [**Technical Support**](https://astronomer.io/docs/cloud/stable/resources/support): Platform or Airflow issues
+- [**Technical Support**](/docs/cloud/stable/resources/support): Platform or Airflow issues
 
 We're here to help.

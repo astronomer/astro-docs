@@ -42,13 +42,13 @@ Astronomer v0.16 comes with significant improvements to the experience of settin
 
 With the new tab comes the ability for Workspace Admins and Editors to create and mark a value as 'secret', permanently hiding the value from the Astronomer UI (and from the client). From the same tab, users can now export Environment Variables as 'JSON' as well.
 
-For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/stable/deploy/environment-variables).
+For more details on this new feature, reference our ["Environment Variables" doc](/docs/enterprise/stable/deploy/environment-variables).
 
 #### Support for AD FS
 
 Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
 
-To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system/).
+To learn more, reference ["Auth Systems on Astronomer"](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/).
 
 #### Bug Fixes and Improvements
 
@@ -69,7 +69,7 @@ Release Date: June 8, 2020
 
 #### Support for Airflow 1.10.10
 
-As of v0.15, Astronomer users are free to run our [Astronomer Certified (AC) 1.10.10 image](https://www.astronomer.io/downloads/ac/v1-10-10/), which is based on the [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/) open-source version released in early April.
+As of v0.15, Astronomer users are free to run our [Astronomer Certified (AC) 1.10.10 image](/downloads/ac/v1-10-10/), which is based on the [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/) open-source version released in early April.
 
 Airflow 1.10.10 notably includes the ability to choose a timezone in the Airflow UI, DAG Serialization functionality for improved Webserver performance, and the [ability to sync Airflow Connections and Variables](https://forum.astronomer.io/t/aws-parameter-store-as-secrets-backend-airflow-1-10-10/606) with a Secret Backend tool (e.g. AWS Secret Manager, Hashicorp Vault, etc.)
 
@@ -85,7 +85,7 @@ To activate this feature on the platform, refer to the `manualReleaseNames` valu
 
 As of Astronomer v0.15, IAM roles can now be appended to all pods within any individual Airflow Deployment on the platform. Users who integrate Airflow with some resource or set of resources (e.g. an AWS S3 bucket or Secret Backend) can now configure them to be accessible only to a subset of Kubernetes pods within your wider Astronomer cluster.
 
-Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/integrate-iam/).
+Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](/docs/enterprise/stable/customize-airflow/integrate-iam/).
 
 #### Bug Fixes & Improvements
 

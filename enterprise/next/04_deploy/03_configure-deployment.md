@@ -24,7 +24,7 @@ If you're running Astronomer Enterprise, you can watch these in real time with y
 
 ### Airflow Executors 101
 
-Check out this [guide](https://www.astronomer.io/guides/airflow-executors-explained/) for a summary on each executor.
+Check out this [guide](/guides/airflow-executors-explained/) for a summary on each executor.
 
 #### Which executor should I be using?
 
@@ -43,7 +43,7 @@ If your Airflow UI is really slow or crashes when you try to load a large DAG, y
 
 ### Extra Capacity
 
-The **Extra Capacity** setting is tied to the [KubernetesPodOperator](https://www.astronomer.io/docs/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider affects:
+The **Extra Capacity** setting is tied to the [KubernetesPodOperator](/docs/enterprise/stable/customize-airflow/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider affects:
 
 1. CPU and memory quotas
 2. Database connection limits.
@@ -63,7 +63,7 @@ Environment Variables are a set of configurable values that allow you to dynamic
 
 To learn more, consider the following two resources:
 
-- ["Environment Variables on Astronomer"](astronomer.io/docs/environment-variables) Doc
-- ["Scaling out Airflow"](https://www.astronomer.io/guides/airflow-scaling-workers/) Guide
+- ["Environment Variables on Astronomer"](/docs/enterprise/stable/deploy/environment-variables/) Doc
+- ["Scaling out Airflow"](/guides/airflow-scaling-workers/) Guide
 
 > **Note**: Environment Variables are distinct from Airflow Variables/XComs, which you can configure directly via the Airflow UI/our CLI/your DAG code and are used for inter-task communication.

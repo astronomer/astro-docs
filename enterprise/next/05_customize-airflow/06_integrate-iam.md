@@ -30,7 +30,7 @@ More specific guidelines below.
 
 ## Prerequisites
 
-* [The Astronomer CLI](https://www.astronomer.io/docs/cli-quickstart/)
+* [The Astronomer CLI](/docs/enterprise/stable/develop/cli-quickstart/)
 * Your IAM role `arn`
 * Admin access on an Astronomer Workspace
 * Permission to run `$ kubectl describe po` in your cluster

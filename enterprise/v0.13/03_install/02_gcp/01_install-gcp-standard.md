@@ -308,7 +308,7 @@ Note - the SMTP URI will take the form:
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
-Check out our `Customizing Your Install` section for guidance on setting an [auth system](https://www.astronomer.io/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/) and [resource requests(https://www.astronomer.io/docs/ee-configuring-resources/) in this `config.yaml`.
+Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/v0.13/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
 
 ## 8. Install Astronomer
 
@@ -359,7 +359,7 @@ newbie-norse-prometheus-0                              1/1     Running     0    
 newbie-norse-registry-0                                1/1     Running     0          30m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](https://astronomer.io/docs/ee-debugging-install/)
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.13/troubleshoot/debug-install/)
 
 ## 10. Access Astronomer's Orbit UI
 

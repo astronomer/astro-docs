@@ -6,7 +6,7 @@ description: "How to automate actions on Astronomer via the Houston API."
 
 ## Overview
 
-Astronomer's [Houston API](https://github.com/astronomer/houston-api) is the source of truth across the entire Astronomer platform. 
+Astronomer's [Houston API](https://github.com/astronomer/houston-api) is the source of truth across the entire Astronomer platform.
 
 For users on Astronomer Cloud, our API is an easy way to do any of the following:
 
@@ -119,7 +119,7 @@ query GetUser {
     uuid
     roleBindings {role}
     status
-    createdAt 
+    createdAt
   }
 }
 ```
@@ -139,10 +139,8 @@ Mutations make a change to your platform's underlying database. For some common 
 
 To delete a Deployment, you'll need:
 
-1. Permission (SysAdmin or Workspace Admin)
+1. Permission (Workspace Admin)
 2. `deploymentUuid`
-
-> **Note:** For more information about the SysAdmin role, reference our ["User Management" doc](https://www.astronomer.io/docs/ee-managing-users/).
 
 #### Query for `deploymentUuid`
 
