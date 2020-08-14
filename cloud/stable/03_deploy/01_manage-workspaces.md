@@ -47,7 +47,7 @@ Since all of our app activity is routed through a GraphQL API, you're free to cr
 
 An [Apache Airflow](https://airflow.apache.org/) Deployment is made up of a Scheduler, a Webserver and, if you're running the Celery or Kubernetes Executors, one or more Workers. An Airflow Deployment within a Workspce has the capacity to host a collection of DAGs.
 
-In the context of Astronomer, the term **Airflow Deployment** is used to describe an instance of Airflow that you've spun up either via the Astronomer UI or [CLI](/docs/cli-quickstart) as part of a Workspace. Under the hood, each Airflow Deployment gets its own Kubernetes namespace and has a reserved set of dedicated resources and an underlying Postgres Metadata Database.
+In the context of Astronomer, the term **Airflow Deployment** is used to describe an instance of Airflow that you've spun up either via the Astronomer UI or [CLI](/docs/cloud/stable/develop/cli-quickstart/) as part of a Workspace. Under the hood, each Airflow Deployment gets its own Kubernetes namespace and has a reserved set of dedicated resources and an underlying Postgres Metadata Database.
 
 You're able to adjust the resources given to your Airflow deployment directly from the UI. This functionality allows you to choose executor (local or celery) and easily provision additional resources as you scale up.
 
