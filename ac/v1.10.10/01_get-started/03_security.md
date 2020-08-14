@@ -6,7 +6,7 @@ description: "Common Vulnerabilities and Exposures identified within our Astrono
 
 ## Overview
 
-This page is the source of truth for any CVE (Common Vulnerabilities and Exposures) identifed within any of our Astronomer Certified Images running Apache Airflow.
+This page is the source of truth for any CVE (Common Vulnerabilities and Exposures) identified within any of our Astronomer Certified Images running Apache Airflow.
 
 Currently, our officially supported Astronomer Certified images are listed in two places:
 
