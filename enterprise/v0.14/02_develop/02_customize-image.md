@@ -267,7 +267,7 @@ If you're running the Alpine-based, Airflow 1.10.10 Astronomer Certified image, 
 FROM astronomerinc/ap-airflow:1.10.10-alpine3.10 AS stage1
 ```
 
-For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/airflow-versioning/).
+For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/enterprise/v0.14/customize-airflow/airflow-versioning/).
 
 > **Note:**  Do NOT include `on-build` at the end of your Airflow Image as you typically would in your Dockerfile.
 
@@ -348,4 +348,3 @@ Now, let's push your new image to Astronomer.
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
 For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](https://www.astronomer.io/docs/create-deployment-deploying-code/).
-

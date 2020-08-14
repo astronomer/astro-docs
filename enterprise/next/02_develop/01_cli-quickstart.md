@@ -167,7 +167,7 @@ This command will spin up 3 Docker containers on your machine, each for a differ
 - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
 Run `docker ps` to verify that these containers were created. Once you've run `astro dev start`, you'll be able to access the following components locally:
-                   
+
 - Airflow Webserver: http://localhost:8080/admin/ (Credentials are `admin:admin` by default)
 - Postgres Database: localhost:5432/postgres
 
@@ -241,7 +241,7 @@ If you're looking for guidance beyond the Astronomer CLI, we'd encourage you to 
 
 * [Deploying to Astronomer](https://www.astronomer.io/docs/create-deployment-deploying-code/)
 * [Customizing your Image](https://www.astronomer.io/docs/customizing-your-image/)
-* [Managing Airflow Versions](https://www.astronomer.io/docs/airflow-versioning/)
+* [Managing Airflow Versions](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/airflow-versioning/)
 * [CI/CD](https://www.astronomer.io/docs/ci-cd/)
 
 As always, don't hesitate to reach out to the [Astronomer Support Portal](https://support.astronomer.io/hc/en-us) for additional questions or reference the [Astronomer Forum](https://forum.astronomer.io/).
