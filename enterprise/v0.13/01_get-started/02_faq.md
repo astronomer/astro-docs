@@ -91,7 +91,7 @@ See https://www.astronomer.io/docs/enterprise/v0.13/manage-astronomer/integrate-
 
 Astronomer has a flexible [auth front end](/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/), with pre-built integrations for Google Auth, Okta, Auth0, and others.
 
-If you choose to use Google Auth, we have [documentation available](/docs/ee-installation-google-oauth/).
+If you choose to use Google Auth, we have [documentation available](/docs/enterprise/v0.13/manage-astronomer/integrate-auth-systems/).
 
 ### How can implement RBAC with this solution?
 
