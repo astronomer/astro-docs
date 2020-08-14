@@ -194,17 +194,21 @@ For more insight into how you might be able to customize Astronomer for your tea
 
 Now that you have an EKS cluster set up and your `config.yaml` defined, you're ready to deploy all components of our platform.
 
-Run the following commands:
+First, run:
 
 ```
 $ helm repo add astronomer https://helm.astronomer.io/
 ```
+
+Now, run:
+
 ```
-$ helm install astronomer -f config.yaml --version=0.15.0 astronomer/astronomer --namespace astronomer
+$ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
 ```
 
-This will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
+Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to ["Enterprise Release Notes"](astronomer.io/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
 
+Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc. 
 
 ## 8. Verify Pods are Up
 
