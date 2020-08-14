@@ -31,7 +31,7 @@ If you're allowlisting that IP on Amazon Redshift, check out [our VPC Access Doc
 
 ### Will I have access to Airflow's underlying database for my deployment?
 
-Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres Metadata Database hosted by Astronomer and isolated from all other Airflow Deployments. To access that database both on your local machine and Astronomer, check out our [Query the Airflow Database](https://www.astronomer.io/docs/query-airflow-database) doc.
+Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres Metadata Database hosted by Astronomer and isolated from all other Airflow Deployments. To access that database both on your local machine and Astronomer, check out our [Query the Airflow Database](https://www.astronomer.io/docs/cloud/stable/customize-airflow/access-airflow-database/) doc.
 
 ## Monitoring
 
