@@ -21,7 +21,7 @@ Vulnerability reports for Astronomer Certified should be sent to [security@astro
 
 When we receive a request, our dedicated security team will evaluate and validate it. If we confirm a vulnerability, we’ll allocate internal resources towards identifying and publishing a resolution in an updated image. The timeline within which vulnerabilities are addressed will depend on the severity level of the vulnerability and its impact.
 
-Once a resolution has been confirmed, we'll release it in the next major or minor Astronomer Certified iamge and publish details to this page in the section below.
+Once a resolution has been confirmed, we'll release it in the next major or minor Astronomer Certified image and publish details to this page in the section below.
 
 > **Note:** All other Airflow and product support requests should be directed to [Astronomer's Support Portal](support.astronomer.io), where our team's Airflow Engineers are ready to help.
 
