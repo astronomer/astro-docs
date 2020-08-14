@@ -37,7 +37,7 @@ As you scale up the number of tasks or the resources your workflows require, we 
 
 ## Scaling the Scheduler and Webserver
 
-If you are seeing delays in tasks being scheduled (check the Gantt Chart via the Airflow UI), it's usually time to scale up your Scheduler. If you're interested in setting up email alerts to get notified when your Scheduler is underprovisioned, refer to our [Airflow Alerts doc](/docs/airflow-alerts).
+If you are seeing delays in tasks being scheduled (check the Gantt Chart via the Airflow UI), it's usually time to scale up your Scheduler. If you're interested in setting up email alerts to get notified when your Scheduler is underprovisioned, refer to our [Airflow Alerts doc](/docs/cloud/stable/customize-airflow/airflow-alerts/).
 
 If your Airflow UI is slow or crashes when you try to load a large DAG, you'll want to scale up your Webserver.
 
@@ -55,9 +55,9 @@ The **Extra Capacity** setting is tied to the [KubernetesPodOperator](/docs/kube
 Environment Variables are a set of configurable values that allow you to dynamically fine tune your Airflow Deployment. As you think about scaling your use of Airflow, you might consider customizing any of the following Environment Variables:
 
 - `AIRFLOW__CORE__PARALLELISM`
-- `AIRFLOW__CORE__DAG_CONCURRENCY`	
-- `AIRFLOW__CELERY__WORKER_CONCURRENCY`	
-- `AIRFLOW__SCHEDULER__MAX_THREADS`	
+- `AIRFLOW__CORE__DAG_CONCURRENCY`
+- `AIRFLOW__CELERY__WORKER_CONCURRENCY`
+- `AIRFLOW__SCHEDULER__MAX_THREADS`
 
 ![Astro UI Env Vars Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.16-Astro-UI-EnvVars.png)
 
