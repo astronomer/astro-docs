@@ -103,7 +103,7 @@ By default, the first user to log into an Astronomer Enterprise installation is 
 
 In addition to the commonly used System Admin role, the Astronomer platform also supports both a System Editor and System Viewer permission set.
 
-No user is assigned the System Editor or Viewer Roles by default, but they can be added by System Admins via our API. Once assigned, System Viewers, for example, can access both Grafana and Kibana but don't have permission to delete a Workspace they're not a part of. 
+No user is assigned the System Editor or Viewer Roles by default, but they can be added by System Admins via our API. Once assigned, System Viewers, for example, can access both Grafana and Kibana but don't have permission to delete a Workspace they're not a part of.
 
 All three permission sets are entirely customizable on Astronomer Enterprise. For a full breakdown of the default configurations attached to the System Admin, Editor and Viewer Roles, refer to our [Houston API source code](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L220).
 
@@ -111,7 +111,7 @@ For guidelines on assigning users any System Level role, read below.
 
 ### Assigning Users System-Level Roles
 
-System Admins can be added to Astronomer Enterprise by issuing an API call to Houston via the [GraphQL playground](/docs/houston-api/).
+System Admins can be added to Astronomer Enterprise by issuing an API call to Houston via the [GraphQL playground](/docs/enterprise/v0.12/manage-astronomer/houston-api/).
 
 Keep in mind that:
 - Only existing System Admins can grant the SysAdmin role to another user
@@ -138,7 +138,7 @@ In the output, you should see:
 - The user's `uuid`
 - A list of existing roles across the cluster (e.g. Workspace Admin)
 
-> **Note:** You'll have to authenticate to the Houston API to be able to run the query above. For guidelines, refer to our [Houston API doc](/docs/houston-api/).
+> **Note:** You'll have to authenticate to the Houston API to be able to run the query above. For guidelines, refer to our [Houston API doc](/docs/enterprise/v0.12/manage-astronomer/houston-api/).
 
 #### Run the Mutation
 
@@ -167,7 +167,7 @@ To verify a user was successfully granted the SysAdmin role, ensure they can do 
 - Navigate to `kibana.BASEDOMAIN`
 - Access the "Admin Settings" tab from the top right menu of the Astronomer UI
 
-## Customizing Roles and Permissions 
+## Customizing Roles and Permissions
 
 On Astronomer Enterprise, platform administrators can customize the definitions of both Workspace and System Level roles from the same `config.yaml` file.
 
