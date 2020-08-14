@@ -211,7 +211,7 @@ drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 plugins
 -rw-r--r--    1 astro    astro         2338 Dec 30 17:21 unittests.cfg
 ```
 
-> **Note:** The Astronomer CLI does _not_ currently support overrides to Environment Variables. For more information on how to set, configure and customize those values, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/environment-variables/).
+> **Note:** The Astronomer CLI does _not_ currently support overrides to Environment Variables. For more information on how to set, configure and customize those values, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/stable/deploy/environment-variables/).
 
 ## Access to the Airflow CLI
 
@@ -237,7 +237,7 @@ $ astro dev start --env .env
 
 > **Note:** This feature is limited to local development only. Whatever `.env` you use locally will _not_ be bundled up when you deploy to Astronomer.
 >
-> For more detail on how to add Environment Variables both locally and on Astronomer, refer to our [Environment Variables doc](https://www.astronomer.io/docs/environment-variables).
+> For more detail on how to add Environment Variables both locally and on Astronomer, refer to our [Environment Variables doc](https://www.astronomer.io/docs/enterprise/stable/deploy/environment-variables/).
 
 ## Build from a Private Repository
 

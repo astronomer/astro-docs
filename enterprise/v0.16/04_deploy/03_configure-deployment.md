@@ -55,15 +55,15 @@ The **Extra Capacity** setting is tied to the [KubernetesPodOperator](https://ww
 Environment Variables are a set of configurable values that allow you to dynamically fine tune your Airflow Deployment. As you think about scaling your use of Airflow, you might consider customizing any of the following Environment Variables:
 
 - `AIRFLOW__CORE__PARALLELISM`
-- `AIRFLOW__CORE__DAG_CONCURRENCY`	
-- `AIRFLOW__CELERY__WORKER_CONCURRENCY`	
-- `AIRFLOW__SCHEDULER__MAX_THREADS`	
+- `AIRFLOW__CORE__DAG_CONCURRENCY`
+- `AIRFLOW__CELERY__WORKER_CONCURRENCY`
+- `AIRFLOW__SCHEDULER__MAX_THREADS`
 
 ![Astro UI Env Vars Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.16-Astro-UI-EnvVars.png)
 
 To learn more, consider the following two resources:
 
-- ["Environment Variables on Astronomer"](astronomer.io/docs/environment-variables) Doc
+- ["Environment Variables on Astronomer"](https://www.astronomer.io/docs/enterprise/v0.15/deploy/environment-variables/) Doc
 - ["Scaling out Airflow"](https://www.astronomer.io/guides/airflow-scaling-workers/) Guide
 
 > **Note**: Environment Variables are distinct from Airflow Variables/XComs, which you can configure directly via the Airflow UI/our CLI/your DAG code and are used for inter-task communication.

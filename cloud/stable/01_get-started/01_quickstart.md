@@ -60,7 +60,7 @@ To install the Astronomer CLI with our latest version, run:
 $ curl -ssl https://install.astronomer.io | sudo bash -s -- v0.12.0
 ```
 
-**Note:** If you're running on Windows, check out our [Windows Install Guide](https://www.astronomer.io/docs/cloud/stable/develop/cli-install-windows-10//).
+**Note:** If you're running on Windows, check out our [Windows Install Guide](https://www.astronomer.io/docs/cloud/stable/develop/cli-install-windows-10/).
 
 ### Initialize an Airflow Project
 

@@ -16,7 +16,7 @@ Astronomer v0.16 comes with significant improvements to the experience of settin
 
 With the new tab comes the ability for Workspace Admins and Editors to create and mark a value as 'secret', permanently hiding the value from the Astronomer UI (and from the client). From the same tab, users can now export Environment Variables as 'JSON' as well.
 
-For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/environment-variables).
+For more details on this new feature, reference our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/v0.13/deploy/environment-variables/).
 
 ### Bug Fixes and Improvements
 
