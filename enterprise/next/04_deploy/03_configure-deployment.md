@@ -63,7 +63,7 @@ Environment Variables are a set of configurable values that allow you to dynamic
 
 To learn more, consider the following two resources:
 
-- ["Environment Variables on Astronomer"](/docs/environment-variables) Doc
+- ["Environment Variables on Astronomer"](/docs/enterprise/stable/deploy/environment-variables/) Doc
 - ["Scaling out Airflow"](/guides/airflow-scaling-workers/) Guide
 
 > **Note**: Environment Variables are distinct from Airflow Variables/XComs, which you can configure directly via the Airflow UI/our CLI/your DAG code and are used for inter-task communication.
