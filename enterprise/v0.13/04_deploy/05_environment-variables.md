@@ -12,7 +12,7 @@ Environment Variables can be used to set any of the following (and much more):
 
 - SMTP to enable email alerts
 - Airflow Parallelism and DAG Concurrency
-- [A Secret Backend](/docs/secrets-backend/) to manage your Airflow Connections and Variables
+- [A Secret Backend](/docs/enterprise/v0.13/customize-airflow/secrets-backend/) to manage your Airflow Connections and Variables
 - Store Airflow Connections and Variables
 - Customize your default DAG view in the Airflow UI (Tree, Graph, Gantt etc.)
 
@@ -215,7 +215,7 @@ Here, the full Environment Variable would read:
 ENV AIRFLOW_CONN_MY_PROD_DB=my-conn-type://login:password@host:5432/schema
 ```
 
-You're free to set this Environment Variable via an `.env` file locally, via your Dockerfile or via the Astronomer UI as explained above. For more information on how to generate your Connection URI, refer to [Airflow's documentation](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-connection-uri). 
+You're free to set this Environment Variable via an `.env` file locally, via your Dockerfile or via the Astronomer UI as explained above. For more information on how to generate your Connection URI, refer to [Airflow's documentation](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-connection-uri).
 
 ### Airflow Variables
 
