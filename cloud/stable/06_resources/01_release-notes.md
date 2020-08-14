@@ -20,7 +20,7 @@ Astronomer v0.18 includes support for the latest patch releases from Astronomer 
 
 For a full list, reference the changelogs in our [`ap-airflow` repo](https://github.com/astronomer/ap-airflow) for the AC version of your choice (e.g. changelog for 1.10.10 [here](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)).
 
-To be notified of AC releases, feel free to [subscribe to our AC Newsletter](https://www.astronomer.io/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/airflow-versioning/).
+To be notified of AC releases, feel free to [subscribe to our AC Newsletter](https://www.astronomer.io/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
 
 #### Houston API Improvements
 
@@ -47,7 +47,7 @@ Fixes to the Astronomer Platform shipped in 0.18:
 
 Release Date: July 27, 2020
 
-### v0.17.0 
+### v0.17.0
 
 #### CLI Improvements
 
@@ -87,7 +87,7 @@ Release Date: July 17, 2020
 Release Date: July 9, 2020
 
 - BugFix: 'Metrics' Tab in the Astro UI unresponsive with large task payload
-- BugFix: Error when deleting a 'Pending' Workspace invite in Astro UI 
+- BugFix: Error when deleting a 'Pending' Workspace invite in Astro UI
 - BugFix: "Deployment Status" bubble in the Astro UI persistently blue/pulsating
 - BugFix: Issue with Extra Capacity resetting every time you change an Env Var
 
