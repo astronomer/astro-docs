@@ -14,7 +14,7 @@ If the entire platform is taken down, you can restore service through the standa
 
 More information can be found here:
 - [Install Astronomer on GCP](/docs/ee-installation-gke/)
-- [Install Astronomer on AWS](/docs/ee-installation-eks/)
+- [Install Astronomer on AWS](/docs/enterprise/stable/install/aws/install-aws-standard/)
 
 ## Restoring Postgres
 

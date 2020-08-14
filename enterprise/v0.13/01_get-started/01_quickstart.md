@@ -23,7 +23,7 @@ If you want to get a sense of Astronomer Enterprise without going through the in
 If you are in charge of setting up Astronomer for your org, head over to our [Enterprise Edition](/docs/enterprise/) section to get Astronomer running on your Kubernetes Cluster.
 
 We have documentation to deploy Astronomer on:
-- AWS EKS ([Manually](/docs/ee-installation-eks/) or through [Terraform](/docs/ee-installation-terraform-aws/))
+- AWS EKS ([Manually](/docs/enterprise/v0.13/install/aws/install-aws-standard/) or through [Terraform](/docs/ee-installation-terraform-aws/))
 - [GCP Google Kubernetes Service](/docs/ee-installation-gke/)
 - [Azure Azure Kubernetes Service](/docs/ee-installation-aks/)
 - [Digital Ocean Kubernetes](/docs/ee-installation-do/)
