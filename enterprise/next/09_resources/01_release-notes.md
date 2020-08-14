@@ -65,7 +65,9 @@ To learn more, reference ["Auth Systems on Astronomer"](https://www.astronomer.i
 
 Release Date: June 8, 2020
 
-### Support for Airflow 1.10.10
+### v0.15.0
+
+#### Support for Airflow 1.10.10
 
 As of v0.15, Astronomer users are free to run our [Astronomer Certified (AC) 1.10.10 image](https://www.astronomer.io/downloads/ac/v1-10-10/), which is based on the [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/) open-source version released in early April.
 
@@ -73,19 +75,19 @@ Airflow 1.10.10 notably includes the ability to choose a timezone in the Airflow
 
 For more detail on what's included in AC 1.10.10, reference the [changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md).
 
-### Ability to Set Custom Release Names
+#### Ability to Set Custom Release Names
 
 As of Astronomer v0.15, Enterprise customers can now customize the release name of any Airflow Deployment instead of relying on the default naming scheme (e.g. `solar-galaxy-1234`). Release names within a single cluster must be unique and will continue to be immutable following creation.
 
 To activate this feature on the platform, refer to the `manualReleaseNames` value in your `config.yaml`.
 
-### Ability to Annotate Pods to integrate with IAM Roles
+#### Ability to Annotate Pods to integrate with IAM Roles
 
 As of Astronomer v0.15, IAM roles can now be appended to all pods within any individual Airflow Deployment on the platform. Users who integrate Airflow with some resource or set of resources (e.g. an AWS S3 bucket or Secret Backend) can now configure them to be accessible only to a subset of Kubernetes pods within your wider Astronomer cluster.
 
 Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/integrate-iam/).
 
-### Bug Fixes & Improvements
+#### Bug Fixes & Improvements
 
 A few notable bug fixes and improvements:
 
