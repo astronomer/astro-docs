@@ -7,7 +7,7 @@ note: "Consider updating https://github.com/astronomer/astronomer when you updat
 
 Astronomer makes it easy to run, monitor, and scale [Apache Airflow](https://github.com/apache/airflow) deployments in our cloud or yours. Source code is made available for the benefit of customers.
 
-If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](/trial) and run through our [getting started guide](/docs/getting-started/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
+If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](/trial) and run through our [getting started guide](https://www.astronomer.io/docs/getting-started/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
 
 ## Architecture
 
@@ -17,33 +17,33 @@ If you'd like to see the platform in action, [start a free trial on our SaaS ser
 
 We have created guides for installing Astronomer on a number of Kubernetes environments:
 
-* [Amazon Web Services EKS](/docs/ee-installation-eks/)
-* [Google Cloud Platform GKE](/docs/ee-installation-gke/)
-* [Microsoft Azure AKS](/docs/ee-installation-aks/)
-* [Openshift Kubernetes](/docs/ee-installation-openshift/)
-* [Digital Ocean Kubernetes](/docs/ee-installation-do/)
-* ["General" Kubernetes](/docs/ee-installation-general-kubernetes/)
+* [Amazon Web Services EKS](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard/)
+* [Google Cloud Platform GKE](https://www.astronomer.io/docs/enterprise/stable/install/gcp/install-gcp-standard/)
+* [Microsoft Azure AKS](https://www.astronomer.io/docs/enterprise/stable/install/azure/install-azure-standard/)
+* [Openshift Kubernetes](https://www.astronomer.io/docs/enterprise/)
+* [Digital Ocean Kubernetes](https://www.astronomer.io/docs/enterprise/)
+* ["General" Kubernetes](https://www.astronomer.io/docs/enterprise/)
 
 ## Customizing Your Installation
 
 Because the platform uses Helm throughout, it's very easy to customize your Astronomer installation. Below are some guides for most common customizations:
 
-* [Integrating Auth Systems](/docs/ee-integrating-auth-systems)
-* [Configuring Resources with Helm](/docs/ee-configuring-resources)
-* [Configuring a Registry Back End](/docs/ee-registry-backend)
-* [Built-in Alerts](/docs/alerts)
+* [Integrating Auth Systems](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
+* [Configuring Resources with Helm](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/manage-platform-users/)
+* [Configuring a Registry Back End](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/registry-backend/)
+* [Built-in Alerts](https://www.astronomer.io/docs/enterprise/stable/monitor/platform-alerts/)
 
 ## Administration
 
 There are many tools at your disposal for administrating Astronomer:
 
-* [The Houston API Playground](/docs/houston-api)
-* [Metrics](/docs/ee-metrics)
-* [Using Kibana](/docs/ee-kibana)
-* [Using kubectl](/docs/ee-kubectl)
-* [Pulling Postgres Credentials](/docs/ee-administration-postgres-creds)
-* [Upgrading](/docs/ee-upgrade-guide)
-* [Migrating An Airflow Deployment to Astronomer](/docs/migrating-airflow-to-astronomer)
+* [The Houston API Playground](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/houston-api/)
+* [Metrics](https://www.astronomer.io/docs/enterprise/stable/monitor/grafana-metrics/)
+* [Using Kibana](https://www.astronomer.io/docs/enterprise/stable/monitor/kibana-logging/)
+* [Using kubectl](https://www.astronomer.io/docs/enterprise/stable/troubleshoot/kubectl/)
+* [Pulling Postgres Credentials](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/access-airflow-database/)
+* [Upgrading](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer/)
+* [Migrating An Airflow Deployment to Astronomer](https://www.astronomer.io/docs/enterprise/)
 
 ## License
 
