@@ -291,7 +291,7 @@ After you deploy your example DAG, you'll be able to see it running in your Clou
 
 Now that you're set up on Astronomer and familiar with our deployment flow, consider a few next steps:
 
-- [Allowlist our IP](https://www.astronomer.io/docs/vpc-access/) for access to your external databases
+- [Allowlist our IP](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/vpc-access/) for access to your external databases
 - Think about setting up a [CI/CD Pipeline](https://www.astronomer.io/docs/ci-cd/)
 - Set up [Airflow Alerts](https://www.astronomer.io/docs/setting-up-airflow-emails/)
 - Migrate any existing Airflow DAGs (you'll have to manually port over Variables + Connections)

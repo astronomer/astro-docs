@@ -25,7 +25,7 @@ If you're not sure which Executor to use, we generally recommend starting off wi
 
 To connect Astronomer Cloud to any database in your VPC, you'll just have to allowlist our Static IP: `35.245.140.149`
 
-If you're allowlisting that IP on Amazon Redshift, check out [our VPC Access Doc](https://www.astronomer.io/docs/vpc-access).
+If you're allowlisting that IP on Amazon Redshift, check out [our VPC Access Doc](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/vpc-access/).
 
 ## Airflow Metadata Access
 
