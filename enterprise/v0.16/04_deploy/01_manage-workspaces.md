@@ -77,4 +77,4 @@ If you navigate over to the "Users" tab of your Workspace Dashboard, you'll be a
 
 ## Workspace Permissions
 
-Users in a Workspace can be given the role of a **Viewer**, **Editor**, or **Admin***. An exact breakdown of these roles can be found in the [User Roles and Permissions](/docs/enterprise/v0.16/manage-astronomer/workspace-permissions/) section. Astronomer Enterprise admins can [configure the exact permissions](/docs/ee-configuring-permissions/) for each Astronomer role.
+Users in a Workspace can be given the role of a **Viewer**, **Editor**, or **Admin***. An exact breakdown of these roles can be found in the [User Roles and Permissions](/docs/enterprise/v0.16/manage-astronomer/workspace-permissions/) section. Astronomer Enterprise admins can [configure the exact permissions](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/) for each Astronomer role.

@@ -106,7 +106,7 @@ astro auth login BASEDOMAIN
 
 and run through the authentication flow that was set up (most likely be the OAuth flow). You'll be prompted for the workspace that you want to log into - as you are added to more workspaces, there will be more values on this prompt.
 
-The first user to login will become the Admin. Additional users can be added from the Astronomer UI. More information on Astronomer's users and permissions model can be found [here](/docs/ee-configuring-permissions/).
+The first user to login will become the Admin. Additional users can be added from the Astronomer UI. More information on Astronomer's users and permissions model can be found [here](/docs/enterprise/v0.12/manage-astronomer/manage-platform-users/).
 
 ## 5. Create an Airflow deployment
 
