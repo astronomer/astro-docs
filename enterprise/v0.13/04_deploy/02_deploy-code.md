@@ -11,7 +11,7 @@ description: "How to push code to your Airflow Deployment on Astronomer via the 
 In order to push up code to a deployment on Astronomer, you must have:
 
 1. [The Astronomer CLI](/docs/enterprise/v0.13/develop/cli-quickstart/) Installed
-2. Access to an Airflow deployment running on [Astronomer Enterprise](/docs/ee-overview/)
+2. Access to an Airflow deployment running on [Astronomer Enterprise](/docs/enterprise/)
 
 ### Create a Deployment
 
