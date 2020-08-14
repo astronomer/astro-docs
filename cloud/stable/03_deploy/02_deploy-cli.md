@@ -17,7 +17,7 @@ In order to push up code to a deployment on Astronomer, you must have:
 
 To create a deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/).
 
-From your Workspace on Astronomer, click `New Deployment`.
+From your Workspace on Astronomer, click "New Deployment".
 
 ![Workspace Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/workspace_dashboard.png)
 

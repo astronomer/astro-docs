@@ -129,7 +129,7 @@ The last way to add Environment Variables on Astronomer is to add them via the A
 To set them,
 
 1. Navigate to the Astronomer UI
-2. Go to `Deployment` > `Variables`
+2. Go to **Deployment** > **Variables**
 3. Add your Environment Variables
 
 ![Astro UI Env Vars Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.16-Astro-UI-EnvVars.png)
@@ -140,32 +140,32 @@ To set them,
 
 On Astronomer, users have the ability to mark any Environment Variable as "secret" via the UI. For those who have Environment Variables containing potentially sensitive information (e.g. SMTP password, S3 bucket, etc.), we'd recommend leveraging this feature.
 
-To do so from the `Variables` tab,
+To do so from the "Variables" tab,
 
 1. Enter a Key
 2. Enter a Value
-3. Check off the `Secret?` box
-4. Click `Add`
-5. Press `Deploy Changes`
+3. Check the "Secret?" box
+4. Click "Add"
+5. Press "Deploy Changes"
 
-Once changes are deployed, Environment Variables marked as 'secret' will NOT be available in plain-text to any user in the Workspace.
+Once changes are deployed, Environment Variables marked as "secret" will NOT be available in plain-text to any user in the Workspace.
 
 A few additional notes:
 
-- Workspace Editors and Admins are free to set an existing non-secret Env Var to 'secret' any time
-- To convert a 'secret' Env Var to a 'non-secret' Env Var, you'll be prompted to enter a new value
-- If you export Environment Variables via JSON, 'secret' values will NOT render in plain-text
+- Workspace Editors and Admins are free to set an existing non-secret Env Var to "secret" any time
+- To convert a "secret" Env Var to a "non-secret" Env Var, you'll be prompted to enter a new value
+- If you export Environment Variables via JSON, "secret" values will NOT render in plain-text
 - Users cannot add a new variable that has the same key as an existing variable
 
 Read below for more detail on how Environment Variables are encrypted on Astronomer.
 
-> **Note:** As noted above, Workspace roles and permissions apply to actions in the `Variables` tab. For a full breakdown of permissions for each role, reference Astronomer's ["Roles and Permissions" doc](https://www.astronomer.io/docs/rbac/).
+> **Note:** As noted above, Workspace roles and permissions apply to actions in the "Variables" tab. For a full breakdown of permissions for each role, reference Astronomer's ["Roles and Permissions" doc](https://www.astronomer.io/docs/rbac/).
 
 ### Precedence amongst 3 Methods
 
 Given the ability to set Environment Variables across 3 different methods potentially simultaneously, it's worth noting the precedence each take.
 
-On Astronomer, Environment Variables will be applied and overriden in the following order:
+On Astronomer, Environment Variables will be applied and overridden in the following order:
 
 1. Astronomer UI
 2. .env (_Local Only_)
