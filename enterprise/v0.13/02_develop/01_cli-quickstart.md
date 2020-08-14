@@ -162,7 +162,7 @@ $ astro dev start
 
 This command will spin up 3 Docker containers on your machine, each for a different Airflow component.
 
-- **Postgres:** [Airflow's Metadata Database](https://www.astronomer.io/docs/query-airflow-database/)
+- **Postgres:** [Airflow's Metadata Database](https://www.astronomer.io/docs/enterprise/v0.13/customize-airflow/access-airflow-database/)
 - **Webserver:** The Airflow component responsible for rendering the Airflow UI
 - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
@@ -171,7 +171,7 @@ Run `docker ps` to verify that these containers were created. Once you've run `a
 - Airflow Webserver: http://localhost:8080/admin/ (Credentials are `admin:admin` by default)
 - Postgres Database: localhost:5432/postgres
 
-For guidelines on accessing your Postgres database both locally and on Astronomer, refer to our ["Airflow Database" doc](https://www.astronomer.io/docs/query-airflow-database/).
+For guidelines on accessing your Postgres database both locally and on Astronomer, refer to our ["Airflow Database" doc](https://www.astronomer.io/docs/enterprise/v0.13/customize-airflow/access-airflow-database/).
 
 > **Note:** The image might take some time to build the first time. After that, it will build from cached layers.
 

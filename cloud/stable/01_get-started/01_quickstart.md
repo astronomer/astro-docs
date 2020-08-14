@@ -122,7 +122,7 @@ $ astro dev start
 
 This command will spin up 3 Docker containers on your machine, each for a different Airflow component:
 
-- **Postgres:** [Airflow's Metadata Database](https://www.astronomer.io/docs/query-airflow-database/)
+- **Postgres:** [Airflow's Metadata Database](https://www.astronomer.io/docs/cloud/stable/customize-airflow/access-airflow-database/)
 - **Webserver:** The Airflow component responsible for rendering the Airflow UI
 - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
