@@ -245,7 +245,7 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 
 ![Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/new_deployment-config.png)
 
-For a full walk-through, check out our doc on [Configuring your Deployment and Deploying your Code](https://www.astronomer.io/docs/create-deployment-deploying-code/).
+For a full walk-through, check out our doc on [Configuring your Deployment and Deploying your Code](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli/).
 
 ### Deploy your First DAG
 
