@@ -16,7 +16,7 @@ From this dashboard, you can:
 
 1. Spin up new Workspaces
 2. View the Workspaces you currently have access to
-3. Adjust your account name under the `Personal Settings` tab
+3. Update your name from the "Account Settings" menu
 
 ## Workspaces
 
