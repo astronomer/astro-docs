@@ -348,7 +348,7 @@ To help you make the most of Astronomer Enterprise, take note of the following r
 
 * [Integrating an Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
 * [Configuring Platform Resources](/docs/ee-configuring-resources/)
-* [Managing Users on Astronomer Enterprise](/docs/ee-managing-users/)
+* [Managing Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
 
