@@ -321,7 +321,7 @@ newbie-norse-prisma-699bd664bb-vbvlf                   1/1     Running     0    
 newbie-norse-prometheus-0                              1/1     Running     0          30m
 newbie-norse-registry-0                                1/1     Running     0          30m
 ```
-If you are seeing issues here, check out our [guide on debugging your installation](/docs/ee-debugging-install/)
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.15/troubleshoot/debug-install/)
 
 
 ## 11. Access Astronomer's Orbit UI
