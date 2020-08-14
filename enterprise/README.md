@@ -7,7 +7,7 @@ note: "Consider updating https://github.com/astronomer/astronomer when you updat
 
 Astronomer makes it easy to run, monitor, and scale [Apache Airflow](https://github.com/apache/airflow) deployments in our cloud or yours. Source code is made available for the benefit of customers.
 
-If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](https://astronomer.io/trial) and run through our [getting started guide](https://www.astronomer.io/docs/getting-started/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
+If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](https://www.astronomer.io/trial) and run through our [getting started guide](https://www.astronomer.io/docs/getting-started/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
 
 ## Architecture
 
@@ -20,9 +20,9 @@ We have created guides for installing Astronomer on a number of Kubernetes envir
 * [Amazon Web Services EKS](https://www.astronomer.io/docs/ee-installation-eks/)
 * [Google Cloud Platform GKE](https://www.astronomer.io/docs/ee-installation-gke/)
 * [Microsoft Azure AKS](https://www.astronomer.io/docs/ee-installation-aks/)
-* [Openshift Kubernetes](https://astronomer.io/docs/ee-installation-openshift/)
-* [Digital Ocean Kubernetes](https://astronomer.io/docs/ee-installation-do/)
-* ["General" Kubernetes](https://astronomer.io/docs/ee-installation-general-kubernetes/)
+* [Openshift Kubernetes](https://www.astronomer.io/docs/ee-installation-openshift/)
+* [Digital Ocean Kubernetes](https://www.astronomer.io/docs/ee-installation-do/)
+* ["General" Kubernetes](https://www.astronomer.io/docs/ee-installation-general-kubernetes/)
 
 ## Customizing Your Installation
 

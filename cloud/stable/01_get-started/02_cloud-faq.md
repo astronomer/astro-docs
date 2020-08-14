@@ -11,7 +11,7 @@ If you're thinking about Astronomer Cloud, you might have a few questions on you
 
 ### What version of Airflow is Astronomer Cloud currently running?
 
-Astronomer Cloud is officially compatible with Airflow v1.10.5 and higher. For our list of supported images and guidelines on how to upgrade versions, check out our [Airflow Versioning](https://astronomer.io/docs/airflow-versioning) doc.
+Astronomer Cloud is officially compatible with Airflow v1.10.5 and higher. For our list of supported images and guidelines on how to upgrade versions, check out our [Airflow Versioning](https://www.astronomer.io/docs/airflow-versioning) doc.
 
 ### What Airflow Executors do you currently support?
 

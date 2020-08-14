@@ -193,7 +193,7 @@ If you aren't happy with this and have an existing "credential store" configured
 AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
 ```
 
-You can follow our guide on [integrating with Hashicorp Vault](https://astronomer.io/guides/airflow-and-hashicorp-vault) if you would like more direction on this.
+You can follow our guide on [integrating with Hashicorp Vault](https://www.astronomer.io/guides/airflow-and-hashicorp-vault) if you would like more direction on this.
 
 ## Setting Up the Scheduler
 
@@ -267,8 +267,8 @@ Every machine running Airflow needs a copy of the DAG files, with all DAG files 
 - Via existing automation tools such as Ansible, Puppet or Chef.
 - Via making the DAGs live on a shared filesystem such as NFS (but be aware of read performance penalties - Airflow can be quite heavy on read-ops).
 
- Whatever you choose, it should align well with your internal development processes and you should leverage the tooling at your disposal (Ansible, Terraform, Git, etc) to automate as much as possible. If you're looking for a full-stack solution for DAG deployment, it's something we can help with via our commercial offerings here at Astronomer. [Get in touch](https://astronomer.io/contact) if you'd like to chat.
+ Whatever you choose, it should align well with your internal development processes and you should leverage the tooling at your disposal (Ansible, Terraform, Git, etc) to automate as much as possible. If you're looking for a full-stack solution for DAG deployment, it's something we can help with via our commercial offerings here at Astronomer. [Get in touch](https://www.astronomer.io/contact) if you'd like to chat.
 
 ## Production Support
 
-We’re now providing commercial support subscriptions for Apache Airflow via Astronomer Certified. These subscriptions are SLA-backed and give your tea access to our deep Airflow expertise through email and our support portal, where you can submit questions, feature requests, and bug reports. [Get in touch](https://astronomer.io/contact) if you would like to learn more.
+We’re now providing commercial support subscriptions for Apache Airflow via Astronomer Certified. These subscriptions are SLA-backed and give your tea access to our deep Airflow expertise through email and our support portal, where you can submit questions, feature requests, and bug reports. [Get in touch](https://www.astronomer.io/contact) if you would like to learn more.

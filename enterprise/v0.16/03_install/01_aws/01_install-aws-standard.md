@@ -263,7 +263,7 @@ astronomer-prometheus-blackbox-exporter-65f6c5f456-szr4s   1/1     Running      
 astronomer-registry-0                                      1/1     Running             0          24m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](https://astronomer.io/docs/ee-debugging-install/).
+If you are seeing issues here, check out our [guide on debugging your installation](https://www.astronomer.io/docs/ee-debugging-install/).
 
 ## 9. Configure DNS
 

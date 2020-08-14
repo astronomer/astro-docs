@@ -16,7 +16,7 @@ For a detailed breakdown of Astronomer Cloud, refer [here](https://www.astronome
 
 Astronomer Cloud's [free 14-day Trial](https://www.astronomer.io/trial/) is the best way to get started. You're welcome to sign up at anytime, no credit card required.
 
-Once you start your trial, follow our [Cloud Quickstart](https://astronomer.io/docs/cloud/stable/get-started/quickstart) for guidance.
+Once you start your trial, follow our [Cloud Quickstart](https://www.astronomer.io/docs/cloud/stable/get-started/quickstart) for guidance.
 
 We'll guide you through the following journey:
 
@@ -36,6 +36,6 @@ We won't charge you.
 As you navigate Astronomer Cloud, keep the following resources in mind:
 
 - [**Community Forum**](https://forum.astronomer.io): General Airflow + Astronomer FAQs
-- [**Technical Support**](https://astronomer.io/docs/cloud/stable/resources/support): Platform or Airflow issues
+- [**Technical Support**](https://www.astronomer.io/docs/cloud/stable/resources/support): Platform or Airflow issues
 
 We're here to help.

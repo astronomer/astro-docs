@@ -8,7 +8,7 @@ Welcome to Astronomer.
 
 This guide will help you kick off your trial on Astronomer by walking you through a sample DAG deployment from start to finish.
 
-Whether you're exploring our [Enterprise](https://astronomer.io/enterprise) or [Cloud](https://astronomer.io/cloud) offering, we've designed this to be a great way to get to know our platform.
+Whether you're exploring our [Enterprise](https://www.astronomer.io/enterprise) or [Cloud](https://www.astronomer.io/cloud) offering, we've designed this to be a great way to get to know our platform.
 
 ## Start Trial
 

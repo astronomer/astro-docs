@@ -29,7 +29,7 @@ To use this feature, you'll need the following:
 If you do not already have a Vault server deployed but would like to test this feature, we'd recommend either:
 
 1. Deploying a light-weight server using [this Heroku Element](https://elements.heroku.com/buttons/pallavkothari/vault)
-2. Deploying a local server via the instructions in [our Airflow and Vault guide](https://astronomer.io/guides/airflow-and-hashicorp-vault)
+2. Deploying a local server via the instructions in [our Airflow and Vault guide](https://www.astronomer.io/guides/airflow-and-hashicorp-vault)
 
 ### Write a Connection to Vault
 
