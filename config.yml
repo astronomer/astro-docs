@@ -23,31 +23,28 @@ collections:
     nested:
       depth: 100
     fields:
-      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "acDoc"
-    label: "AC - Stable"
-    folder: "ac/stable"
+    label: "AC - Next"
+    folder: "ac/next"
     path: '{{slug}}'
     create: true
     fields:
-      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "enterpriseDoc"
-    label: "Enterprise - Stable"
-    folder: "enterprise/stable"
+    label: "Enterprise - Next"
+    folder: "enterprise/next"
     path: '{{slug}}'
     create: true
     fields:
-      - {label: "Path", name: "path", widget: "string", default: "{{slug}}"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Nav Title", name: "navTitle", widget: "string"}
       - {label: "Description", name: "description", widget: "string"}

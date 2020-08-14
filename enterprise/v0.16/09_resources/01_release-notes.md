@@ -12,7 +12,7 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.3**.
+Latest Patch Release: **v0.16.3**
 
 ### v0.16.3
 
