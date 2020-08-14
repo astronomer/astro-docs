@@ -48,7 +48,7 @@ See below for out-of-the-box configurations and corresponding AU count:
 
 | Executor   | PgBouncer & StatsD | Scheduler | Webserver | Celery Worker | Redis & Flower | Extra Capacity | Total AU | Monthly Cost |
 |------------|--------------------|-----------|-----------|---------------|----------------|----------------|----------|--------------|
-| Local | 4 | 10| 5 | N/A | N/A | N/A | 19 | $190 | 
+| Local | 4 | 10| 5 | N/A | N/A | N/A | 19 | $190 |
 | Celery | 4 | 10 | 5 | 10 | 4 | N/A | 33 | $330 |
 | Kubernetes | 4 | 10 | 5 | N/A | N/A | 10 | 19 - 29 | $190 - $290  |
 
@@ -58,7 +58,7 @@ See below for out-of-the-box configurations and corresponding AU count:
 
 #### Kubernetes Executor & KubernetesPodOperator
 
-On Astronomer, resources needed for either the [KubernetesPodOperator](/docs/kubepodoperator/) or the KubernetesExecutor are mapped to the `Extra Capacity` slider on your deployment's "Configure" page.
+On Astronomer, resources needed for either the [KubernetesPodOperator](/docs/cloud/stable/customize-airflow/kubepodoperator/) or the KubernetesExecutor are mapped to the `Extra Capacity` slider on your deployment's "Configure" page.
 
 The number of AUs (as a combination of CPU and Memory) maps to [*resource quotas*](https://kubernetes.io/docs/concepts/policy/resource-quotas/) on the [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in which your Airflow deployment lives.
 

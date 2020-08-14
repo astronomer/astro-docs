@@ -43,7 +43,7 @@ If your Airflow UI is really slow or crashes when you try to load a large DAG, y
 
 ### Extra Capacity
 
-The **Extra Capacity** setting is tied to the [KubernetesPodOperator](/docs/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider affects:
+The **Extra Capacity** setting is tied to the [KubernetesPodOperator](/docs/enterprise/v0.13/customize-airflow/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider affects:
 
 1. CPU and memory quotas
 2. Database connection limits.
