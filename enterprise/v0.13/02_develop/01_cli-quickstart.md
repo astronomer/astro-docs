@@ -240,7 +240,7 @@ For more information on our CLI specifically, feel free to reference:
 If you're looking for guidance beyond the Astronomer CLI, we'd encourage you to reference some of the resources below:
 
 * [Deploying to Astronomer](https://www.astronomer.io/docs/enterprise/v0.13/deploy/deploy-code/)
-* [Customizing your Image](https://www.astronomer.io/docs/customizing-your-image/)
+* [Customizing your Image](https://www.astronomer.io/docs/enterprise/v0.13/develop/customize-image/)
 * [Managing Airflow Versions](https://www.astronomer.io/docs/enterprise/v0.13/customize-airflow/airflow-versioning/)
 * [CI/CD](https://www.astronomer.io/docs/enterprise/v0.13/deploy/ci-cd/)
 

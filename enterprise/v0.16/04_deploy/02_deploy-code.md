@@ -120,7 +120,7 @@ Everything in your top level directory (and all children directory) in which you
 
 We do **not** deploy any of the metadata associated with your local Airflow deployment - only the code.
 
-For more information on what gets built into your image, jump over to our doc on [Customizing your Image](https://www.astronomer.io/docs/customizing-your-image/).
+For more information on what gets built into your image, jump over to our doc on [Customizing your Image](https://www.astronomer.io/docs/enterprise/v0.16/develop/customize-image/).
 
 ## Deployments & Kubernetes Namespaces
 
