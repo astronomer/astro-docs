@@ -271,7 +271,7 @@ To get ready for a deployment, make sure:
 - You have the right permissions (Workspace Editor or Admin)
 - The deployment you want to deploy to lives under that Workspace
 
-Follow our [CLI Getting Started Guide](https://www.astronomer.io/docs/cli-getting-started/) for more specific guidelines and commands.
+Follow our [CLI Getting Started Guide](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart/) for more specific guidelines and commands.
 
 #### Deploy
 
