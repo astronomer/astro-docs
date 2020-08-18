@@ -226,7 +226,8 @@ Add the following line in the `nginx:` section:
 
 Here is an example of what your `config.yaml` might look like:
 
-```
+```yaml
+```yaml
 #################################
 ### Astronomer global configuration
 #################################
@@ -242,8 +243,7 @@ global:
 #################################
 nginx:
   # IP address the nginx ingress should bind to
-  loadBalancerIP: 0.0.0.0
-  preserveSourceIP: true
+  loadBalancerIP: ~
 
 #################################
 ### SMTP configuration
@@ -251,10 +251,26 @@ nginx:
 
 astronomer:
   houston:
+    publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
+    emailConfirmation: true # Users get an email verification before accessing Astronomer
     config:
+      deployments:
+        manualReleaseNames: true # Allows you to set your release names
+        serviceAccountAnnotationKey:  # Flag to enable using IAM roles (don't enter a specific role)
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
+        reply: "noreply@astronomer.io" # Emails will be sent from this address
+      auth:
+        # Local database (user/pass) configuration.
+        github:
+          enabled: true # Lets users authenticate with Github
+        local:
+          enabled: false # Disables logging in with just a username and password
+        openidConnect:
+          google:
+            enabled: true # Lets users authenticate with Github
+```
 ```
 
 Note - the SMTP URI will take the form:

@@ -191,7 +191,7 @@ astronomer:
           enabled: false # Disables logging in with just a username and password
         openidConnect:
           google:
-            enabled: true # true Lets users authenticate with Github
+            enabled: true # Lets users authenticate with Github
 ```
 
 Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:

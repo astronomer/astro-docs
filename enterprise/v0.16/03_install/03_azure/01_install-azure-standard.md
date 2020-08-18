@@ -12,7 +12,7 @@ _Deploy a Kubernetes native [Apache Airflow](https://airflow.apache.org/) platfo
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 * [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [Helm v2.14.1](https://github.com/helm/helm/releases/tag/v2.14.1)
+* [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
 * SMTP Creds (Mailgun, Sendgrid) or any service will  work!
 * Permissions to create / modify resources on Microsoft Azure
 * A wildcard SSL cert (we'll show you how to create a free 90 day cert in this guide)!
@@ -95,68 +95,8 @@ Create a namespace to host the core Astronomer Platform. If you are running thro
 $ kubectl create namespace <my-namespace>
 ```
 
-### Create a tiller Service Account
-Save the following in a file named `rbac-config.yaml`:
-```
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
-```
 
-Run the following command to apply these configurations to your Kubernetes cluster:
-```
-$ kubectl create -f rbac-config.yaml
-```
-
-### Deploy a tiller Pod
-
-Your Helm client communicates with your kubernetes cluster through a `tiller` pod.  To deploy your tiller, run:
-```
-$ helm init --service-account tiller
-```
-
-Confirm your `tiller` pod was deployed successfully:
-```
-$ helm version
-```
-
-## 5. Configure the Database
-
-Astronomer by default requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
-
-Set the following values in your `config.yaml` to enable a production-ready PostgreSQL server on your AKS cluster:
-
-```
-global:
-  postgresqlEnabled: true
-postgresql:
-  replication:
-    enabled: true
-    slaveReplicas: 2
-    synchronousCommit: on
-    numSynchronousReplicas: 1
-  metrics:
-    enabled: true
-```
-
-> **Note:** Due to performance related issues, we cannot recommend using Azure Database for PostgreSQL.
-
-## 6. SSL Configuration
+## 5. SSL Configuration
 
 You'll need to obtain a wildcard SSL certificate for your domain (e.g. `*.astro.mydomain.com`). This allows for web endpoint protection and encrypted communication between pods. Your options are:
 * Purchase a wildcard SSL certificate from your preferred vendor.
@@ -182,26 +122,19 @@ Follow the on-screen prompts and create a TXT record through your DNS provider. 
 Create an A record through your DNS provider for `*.astro.mydomain.com` using your previously created static IP address.
 
 
-## 7. Create Kubernetes Secrets
+## 6. Create Kubernetes Secrets
 
 You'll need to create two Kubernetes secrets - one for the databases to be created and one for TLS.
 
 ### Create Database Connection Secret
 
-Set an environment variable `$PGPASSWORD` containing your PostgreSQL database password:
+If you are connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
+
 ```
-$ export PGPASSWORD=$(kubectl get secret --namespace <my-namespace> <my-astro-db>-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode; echo)
+$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <my-namespace>
 ```
 
-Confirm your `$PGPASSWORD` variable is set properly:
-```
-$ echo $PGPASSWORD
-```
-
-Create a Kubernetes secret named `astronomer-bootstrap` to hold your database connection string:
-```
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://postgres:$PGPASSWORD@<my-astro-db>-postgresql.<my-namespace>.svc.cluster.local:5432" --namespace <my-namespace>
-```
+**Note:** You cannot use the Azure Database offering due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 8. 
 
 ### Create TLS Secret
 
@@ -211,33 +144,18 @@ $ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astr
 ```
 **Note:** If you generated your certs using LetsEncrypt, you will need to run the command above as `sudo`
 
-## 8. Configure your Helm Chart
+## 7. Configure your Helm Chart
 
-Now that your Kubernetes cluster has been configured with all prerequisites, you can deploy Astronomer!
+As a next step, create a file named `config.yaml` in an empty directory.
 
-Clone the Astronomer helm charts locally and checkout your desired branch:
-```
-$ git clone https://github.com/astronomer/astronomer.git
-$ git checkout <branch-name>
-```
-**Do not deploy off of the master branch. Be sure to check out the latest stable branch. Be sure to check out the latest `release-0.X` branch that can be found on our [CHANGELOG](https://github.com/astronomer/astronomer/blob/master/CHANGELOG.md)**
+For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
-Create your `config.yaml` by copying our `starter.yaml` template:
-```
-$ cp ./configs/starter.yaml ./config.yaml
-```
+In the newly created file, copy the example below and replace `baseDomain` , `smtpUrl` and `loadBalancerIp` with your own values.
 
 
-Set the following values in `config.yaml`:
-* `baseDomain: astro.mydomain.com`
-* `tlsSecret: astronomer-tls`
-* `loadBalancerIP: <my-static-ip>`
-* SMTP credentails as a houston config
-
-Here is an example of what your `config.yaml` might look like:
-```
+```yaml
 #################################
-## Astronomer global configuration
+### Astronomer global configuration
 #################################
 global:
   # Base domain for all subdomains exposed through ingress
@@ -246,40 +164,85 @@ global:
   # Name of secret containing TLS certificate
   tlsSecret: astronomer-tls
 
+  postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
+
+
+# Settings for database deployed on AKS cluster.
+  postgresql:
+    replication:
+      enabled: true
+      slaveReplicas: 2
+      synchronousCommit: on
+      numSynchronousReplicas: 1
+    metrics:
+      enabled: true
 
 #################################
-## Nginx configuration
+### Nginx configuration
 #################################
 nginx:
   # IP address the nginx ingress should bind to
-  loadBalancerIP: 0.0.0.0
+  loadBalancerIP:  0.0.0.0
 
 #################################
-## SMTP configuration
+### SMTP configuration
 #################################
 
 astronomer:
   houston:
+    publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
+    emailConfirmation: true # Users get an email verification before accessing Astronomer
     config:
+      deployments:
+        manualReleaseNames: true # Allows you to set your release names
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
-
+        reply: "noreply@astronomer.io" # Emails will be sent from this address
+      auth:
+        # Local database (user/pass) configuration.
+        github:
+          enabled: true # Lets users authenticate with Github
+        local:
+          enabled: false # Disables logging in with just a username and password
+        openidConnect:
+          google:
+            enabled: true # Lets users authenticate with Github
 ```
-Note - the SMTP URI will take the form:
+
+Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) 
+
+SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
+
 ```
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
-## 9. Install Astronomer
+**Note:**If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
+
+For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
+
+## 8. Install Astronomer
+
+Now that you have an EKS cluster set up and your `config.yaml` defined, you're ready to deploy all components of our platform.
+
+First, run:
 
 ```
-$ helm install -f config.yaml . --namespace <my-namespace>
+$ helm repo add astronomer https://helm.astronomer.io/
 ```
 
-Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
+Now, run:
 
-## 10. Verify all pods are up
+```
+$ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
+```
+
+Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+
+Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
+
+## 9. Verify all pods are up
 
 To verify all pods are up and running, run:
 
@@ -324,12 +287,12 @@ newbie-norse-registry-0                                1/1     Running     0    
 If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.16/troubleshoot/debug-install/)
 
 
-## 11. Access Astronomer's Orbit UI
+## 10. Access Astronomer's Orbit UI
 
 Go to `app.BASEDOMAIN` to see the Astronomer UI.
 
 
-## 12 Verify SSL
+## 11. Verify SSL
 
 To make sure that the certificates were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
 

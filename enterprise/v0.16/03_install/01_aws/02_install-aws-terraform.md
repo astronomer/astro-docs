@@ -95,6 +95,8 @@ provider "kubernetes" {
 }
 ```
 
+Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
+
 **Note:** If you are using Amazon SES, your URL will look like:
 `smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`
 
