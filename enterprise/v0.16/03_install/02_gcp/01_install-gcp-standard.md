@@ -11,7 +11,7 @@ This guide describes the steps to install Astronomer on Google Cloud Platform (G
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Google Cloud SDK](https://cloud.google.com/sdk/install)
 * [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [Helm v2.16.1](https://github.com/helm/helm/releases/tag/v2.14.1)
+* [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
 * SMTP Creds (Mailgun, Sendgrid) or any service will  work!
 * Permissions to create / modify resources on Google Cloud Platform
 * A wildcard SSL cert (we'll show you how to create a free 90 day cert in this guide)!
@@ -121,51 +121,6 @@ Create a namespace to host the core Astronomer Platform. If you are running thro
 
 ```
 $ kubectl create namespace <my-namespace>
-```
-
-### Create a tiller Service Account
-
-Save the following in a file named `rbac-config.yaml`:
-
-```
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
-```
-
-Run the following command to apply these configurations to your Kubernetes cluster:
-
-```
-$ kubectl create -f rbac-config.yaml
-```
-
-### Deploy a tiller pod
-
-Your Helm client communicates with your kubernetes cluster through a `tiller` pod.  To deploy your tiller, run:
-
-```
-$ helm init --service-account tiller
-```
-
-Confirm your `tiller` pod was deployed successfully:
-
-```
-$ helm version
 ```
 
 ## 5. SSL Configuration
