@@ -173,13 +173,28 @@ nginx:
 
 astronomer:
   houston:
+    publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
+    emailConfirmation: true # Users get an email verification before accessing Astronomer
     config:
+      deployments:
+        manualReleaseNames: true # Allows you to set your release names
+        serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
+        reply: "noreply@astronomer.io" # Emails will be sent from this address
+      auth:
+        # Local database (user/pass) configuration.
+        github:
+          enabled: true # Lets users authenticate with Github
+        local:
+          enabled: false # Disables logging in with just a username and password
+        openidConnect:
+          google:
+            enabled: true # true Lets users authenticate with Github
 ```
 
-SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
+Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
 
 ```
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true

@@ -75,6 +75,9 @@ module "astronomer-enterprise" {
   astronomer:
     houston:
       config:
+        deployments:
+          manualReleaseNames: true # Allows you to set your release names
+          serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
         email:
           enabled: true
           smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true
