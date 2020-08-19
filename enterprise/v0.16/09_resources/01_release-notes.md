@@ -12,7 +12,51 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.3**
+Latest Patch Release: **v0.16.5**
+
+### v0.16.5
+
+Release Date: August 19, 2020
+
+#### Support for Latest Builds of Astronomer Certified
+
+Astronomer Enterprise v0.16.5 includes support for the following patch releases of Astronomer Certified (AC), our distribution of Apache Airflow:
+
+- [1.10.5-10](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)
+- [1.10.7-14](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
+- [1.10.10-4](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
+
+These patch releases most notably include:
+
+- BugFix: Broken `/landing_times` view in the Airflow UI rendering with plain HTML ([commit](https://github.com/astronomer/airflow/commit/6567df3))
+- BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/ap-airflow/commit/c2536db))
+- BugFix: Broken PapermillOperator ([commit](https://github.com/astronomer/astronomer-airflow-version-check/commit/811cc75) - 1.10.10 only).
+
+To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](/docs/cloud/stable/customize-airflow/airflow-versioning/).
+
+#### Airflow Chart: Default to Eventual Consistency
+
+Historically, upgrades to Astronomer (major, minor or patch) that have included a change to the Airflow Chart forcibly restart all Airflow Deployments running on the platform at the time of the upgrade, often causing task interruption.
+
+This change allows for Airflow Deployments to remain unaffected through the upgrade and for Airflow Chart changes to take effect _only_ when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
+
+More specifically, this changes the behavior of our API's `updateDeployment` mutation to perform the Airflow Helm Chart version upgrade only if/when a Houston config is updated. [Source Code here](https://github.com/astronomer/houston-api/blob/main/src/resolvers/mutation/update-deployment/index.js#L86).
+
+#### Bug Fixes and Improvements
+
+- BugFix: 400 Error on ` $ astro workspace user add` in Astro CLI (CLI v0.16.3)
+- BugFix: 400 Error on ` $ astro workspace user remove` in Astro CLI (CLI v0.16.3)
+- BugFix: Users able to create 2+ Service Accounts with the same label
+- BugFix: Link to Workspace broken in 'SysAdmin' > 'Users' View
+- BugFix: Navigating directly to the 'Metrics' Tab of the Astronomer UI renders error
+- BugFix: Adjust commander role to include KEDA CRD (fixes `could not get information about the resource: scaledobjects.keda.k8s.io` on Airflow Deployment creation)
+
+### v0.16.4
+
+Release Date: July 22, 2020
+
+- BugFix: Restore ability to dynamically pull namespace with `namespace=default` in [KubernetesPodOperator] and KubernetesExecutor Config
+- BugFix: Error on `$ astro dev init` and `$ astro version` if not authenticated to Astronomer (CLI v0.16.2)
 
 ### v0.16.3
 
