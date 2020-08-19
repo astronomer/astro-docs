@@ -4,6 +4,22 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.19 Release Notes
+
+Release Date: August 24, 2020
+
+### v0.19.0
+
+#### Bug Fixes and Improvements
+
+- Improvement: Display toast message in Astronomer UI following Deployment deletion
+- Improvement: Replace `workspaceUuid` with `deploymentUuid` in arg for `deploymentVariables` Houston API mutation
+- BugFix: Correct Astro CLI output for `deployment service-account create --help` subcommand to read `--deployment-id`
+- BugFix: Adjust commander role to include KEDA CRD (fixes `could not get information about the resource: scaledobjects.keda.k8s.io` on Airflow Deployment creation)
+- BugFix: `$ astro upgrade` no longer requires authentication to Astronomer
+- BugFix: Environment Variable changes via the Astronomer UI not consistently reflected in Workers and in underlying Kubernetes secrets
+- BugFix: Incorrect Extra Capacity AU detected from Houston API
+
 ## Astronomer v0.18 Release Notes
 
 Release Date: August 10, 2020
@@ -40,7 +56,7 @@ If calling our API programmatically is critical to your use case, reference our 
 Fixes to the Astronomer Platform shipped in 0.18:
 
 - BugFix: Navigating directly to the "Metrics" tab in the Astronomer UI renders an error
-- BugFix: API error (400) on `$ astro workspace user add` and `$ astro workspace user remove` (CLI)
+- BugFix: API error (400) on `$ astro workspace user add` and `$ astro workspace user remove` in Astro CLI
 - BugFix: `Error: failed to find a valid role` on Service Account creation (CLI + Astro UI)
 
 ## Astronomer v0.17 Release Notes
