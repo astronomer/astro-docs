@@ -4,48 +4,214 @@ navTitle: "Disaster Recovery"
 description: "How to recover after your Astronomer Enterprise platform is taken down."
 ---
 
-# Disaster Recovery Guide
+## Overview
 
-In the event that the platform is taken down, there are a number of restoration points that need to occur, depending on the severity of the outage. This guide assumes the use of a managed Kubernetes service (Google GKE). If running Kubernetes and associated services privately, the disaster recovery procedure will be dictated by your company's internal DevOps plan and may differ from this plan.
+All applications are vulnerable to service-interrupting events - a network outage, a team member accidentally deleting a namespace, a critical bug introduced by your latest application push or even a natural disaster. All are rare and undesirable events that modern teams running enterprise-grade software need to protect against. At Astronomer, we encourage all customers to have a robust, targeted, and well-tested DR (Disaster Recovery) plan.
 
-## Relaunching the Platform
+The doc below will provide guidelines for how to:
 
-If the entire platform is taken down, you can restore service through the standard Helm charts provided in the original installation. This will take care of installing Airflow, Grafana, NGINX, Prometheus, and the Astronomer components (Commander Provisioning Service, Houston API, Orbit UI, and internal Docker registry). The exact process for this will depend on what hosting provider you are using (e.g. GCP, AWS)
+*   Backup the Astronomer Platform
+*   Restore the Astronomer Platform in case of an incident
 
-More information can be found here:
-- [Install Astronomer on GCP](/docs/enterprise/v0.16/install/gcp/install-gcp-standard/)
-- [Install Astronomer on AWS](/docs/enterprise/v0.16/install/aws/install-aws-standard/)
+At Astronomer, we strongly recommend [Velero](https://velero.io/) for both backup and restore operations. Velero is an open source tool acquired by VMWare that is built for Kubernetes backups and migrations.
 
-## Restoring Postgres
+### Why Velero
 
-All operational data (DAG runs, task instances, variables, connections) underpinning Airflow on Astronomer is stored in Postgres. In the event that Postgres is made unavailable, this data can be restored as long as a backup is available.
+Unlike other tools that directly access the [Kubernetes etcd database](https://kubernetes.io/docs/concepts/overview/components/#etcd) to perform backups and restores, Velero uses the Kubernetes API to capture the state of cluster resources and to restore them when necessary. This API-driven approach has a number of key benefits:
 
-If hosting Kubernetes on a managed service, Astronomer recommends also using a hosted database due to the ease-of-use, affordability, and included disaster recovery options. If using such a service, make sure to set the backup schedule to at least a daily, automated backup with retention set to the last week. With GCP, this is included by default.
+*   Backups can capture subsets of the cluster’s resources, filtering by namespace, resource type, and/or label selector, providing a high degree of flexibility around what’s backed up and restored.
+*   Users of managed Kubernetes offerings often do not have access to the underlying etcd database, so direct backups/restores of it are not possible.
+*   Resources exposed through aggregated API servers can easily be backed up and restored even if they’re stored in a separate etcd database.
 
-Once restored, all DAG states will be set to the state they were at when this backup was made. If running DAGs at a greater frequency and it is critical to be able to restore with a finer granularity, simply set the Postgres backup to a more frequent back up schedule. More information regarding control and pricing of backups on GCP can be found here: https://cloud.google.com/sql/docs/postgres/backup-recovery/backups
+## Backup
 
-![GCP Postgres Backup](https://assets.astronomer.io/website/img/guides/disaster-recovery-guide/gcp-postgres-backup.png)
+To recover the Astronomer platform in the case of an incident, there are two main components that need to be backed up:
 
-Simply click on the three vertical dots of the most recent backup and click 'restore', choosing the appropriate Target Instance.
+1. The Kubernetes Cluster State
+2. The Astronomer Postgres Database
 
-![GCP Postgres Backup](https://assets.astronomer.io/website/img/guides/disaster-recovery-guide/gcp-postgres-restore.png)
+Read below for specific instructions for how to backup both components.
 
-## Restoring Prometheus
+### Kubernetes Cluster Backup
 
-Prometheus data is stored on the network volumes with the relevant Kubernetes cluster. Due to the reporting nature of Prometheus, Astronomer does not currently feel it necessary to back up Prometheus as any lost metrics will not affect overall recovery or future performance of the platform.
+With Velero, you can back up or restore all objects in your cluster, or you can filter objects by type, namespace, and/or label. There are two types of backups:
 
-However, if you would like to ensure that Prometheus be recoverable, it can be set to 2 replicas with a double scrape configuration. More information on this configuration can be found in Prometheus's official documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
+1. On-Demand
+2. Scheduled
 
-## Restoring Redis
+Generally speaking, the backup operation does the following:
 
-Due to the temporary nature of Redis's function, Astronomer does not currently feel it necessary or advisable to restore Redis from a backup.
+*   Uploads a tarball of copied Kubernetes objects into cloud object storage.
+*   Calls the cloud provider API to make disk snapshots of persistent volumes, if specified.
 
-## Restoring the Registry
+We’ll cover both on-demand and scheduled backups below. For more information on the above, refer to [“How Velero Works.”](https://velero.io/docs/v1.4/how-velero-works/)
 
-The registry holds all previous docker images for deployments and is not recoverable if corrupted. For this reason, it is advisable to rely on git or another code versioning mechanism to retain prior states of your DAG and Plugin directories. To begin populating the registry again, simply `astro dev deploy` again from your local directory and a new image will appear with the latest code.
+#### Prerequisites
 
-If it is necessary to ensure all previous images are available, outside storage backends can be configured.
+The following instructions assume you have:
 
-See below for more information on how:
-[Google Cloud Storage Driver](https://docs.docker.com/registry/storage-drivers/gcs/)
-[AWS S3 Storage Driver](https://docs.docker.com/registry/storage-drivers/s3/)
+* Velero installed in your cluster 
+* The Velero CLI
+* `kubectl` accesss to your cluster
+
+If you do not already have both, reference [Velero's documentation](https://velero.io/docs/v1.4/).
+
+#### On-Demand Backup
+
+If you need to create a backup on demand, run the following via the Velero CLI:
+
+```
+$ velero backup create <BACKUP NAME> 
+```
+
+By default, the command above makes disk snapshots of any persistent volumes. You can adjust the snapshots by specifying additional flags. To see available flags, run:
+
+```
+$ velero backup create --help
+```
+
+Snapshots can be disabled with the option `--snapshot-volumes=false.`
+
+#### Scheduled Backup
+
+Production environments should have scheduled backups enabled. The frequency of this backup depends on your needs and constraints.
+
+We recommend that you start with at least daily backups and adjust the frequency from there as needed. To schedule a backup for a specific time, run:
+
+```
+$ velero schedule create <SCHEDULE NAME> --schedule "0 1 * * *"
+```
+
+The command above will schedule a daily backup of the entire cluster at 1am UTC. Velero uses standard Unix cron syntax to specify the schedule frequency and occurrence. 
+
+### Database Backup
+
+There are two ways to backup the Astronomer Database:
+
+1. Enable Automatic Backups via your Cloud Provider (Preferred)
+2. Traditional Backup Tools (e.g. [pg_dump](https://www.postgresql.org/docs/12/app-pgdump.html) for Postgresql)
+
+#### Enable Automatic Backups via your Cloud Provider
+
+The easiest and most reliable way to ensure the database is backed up  is to enable automatic backups via your cloud provider. This will create daily backups of your Astronomer Postgresql database.
+
+Refer to the following links to Cloud Provider documentation for creating Postgres Database Backups:
+
+*   AWS: [Database backup and restore in AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_CommonTasks.BackupRestore.html)
+*   GCP: [Create automatic backups in GCP](https://cloud.google.com/sql/docs/postgres/backup-recovery/backing-up)
+*   Azure: [Azure Postgres backup and restore](https://docs.microsoft.com/en-us/azure/postgresql/concepts-backup)
+
+Similar to Velero, one-off snapshots can also be created that will represent the database at that specific time, rather than at the normal scheduled intervals. 
+
+#### Traditional Backup Tool (`pg_dump`):
+
+To run `pg_dump` successfully, someone with “read” access to the Astronomer Database will need to collect the following (stored as a Kubernetes Secret):
+
+*   Database connection string
+*   Username
+*   Password
+
+The connection string, which includes username and password, can be obtained via the following command:
+
+```
+kubectl -n astronomer get secret  astronomer-houston-backend -o jsonpath='{.data.connection}' | base64 -D
+```
+
+## Restore
+
+In the case of an incident, you’re always free to restore either:
+
+*   A single Airflow Deployment
+*   The Whole Platform (all Airflow Deployments)
+
+The guidelines below will cover both, including specifics for restoring both deleted and non-deleted Airflow Deployments.
+
+### Single Deployment 
+
+The steps below are valid for the Astronomer Platform on Helm3 (Astronomer v0.14+).
+
+#### Non-Deleted Airflow Deployment
+
+To restore a previous version of a deployment that has NOT been deleted via the Astronomer UI (or CLI/API) and that has been backed up with Velero, follow the steps below.
+
+1. Identify the Velero backup you intend to use by running:
+
+    ```
+    $ velero backup get
+    ```
+
+2. Identify the Kubernetes namespace in question, which corresponds to your Airflow Deployment’s “release name” and has your platform’s namespace (typically “astronomer”) prepended to the front. 
+
+    For example, the namespace for an Airflow Deployment with the release name `weightless-meteor-5042` would be `astronomer-weightless-meteor-5042`.
+
+3. Run:
+
+    ```
+    $ velero restore create --from-backup <BACKUP NAME> --include-namespaces <NAMESPACE NAME>
+    ```
+
+#### Deleted Airflow Deployment
+
+To restore a single Airflow Deployment that _was_ deleted via the Astronomer UI (or CLI/API), first perform the steps detailed above for restoring its namespace with Velero.
+
+Once that is complete, the Astronomer Database needs to be updated to mark that release as not deleted. Follow the steps below.
+
+1. Grab your database connection string (stored as a Kubernetes secret):
+
+```
+    $ kubectl -n astronomer get secret  astronomer-houston-backend -o jsonpath='{.data.connection}' | base64 -D
+```
+
+2. To connect to the database, launch a container into your cluster with the Postgres client:
+
+```
+    $ kubectl run pgclient -ti --image=postgres --restart=Never --image-pull-policy=Always -- bash
+```
+
+3. Then run the following command to connect to the database:
+
+```
+    $ psql <YOUR CONNECTION STRING> 
+```
+
+Example: 
+
+```
+    $ psql postgres://airflow:XXXXXXX@database1.cloud.com:5432/astronomer_houston
+```
+
+3. Update the record for the deployment you wish to restore. 
+
+```
+    $ UPDATE houston$default."Deployment" SET "deletedAt" = NULL WHERE "releaseName" = '<YOUR RELEASE NAME>';
+```
+
+Following these steps, the restored Airflow Deployment should render in the Astronomer UI with its corresponding Workspace. All associated pods should be running in the cluster. 
+
+### Whole Platform
+
+In case your team ever needs to migrate to new infrastructure or your existing infrastructure is no longer accessible and you need to restore the Astronomer Platform in its entirety, including all Airflow Deployments within it, follow the steps below.
+
+1. Create a new Kubernetes Cluster _without_ Astronomer installed 
+2. Install Velero into the new cluster, ensuring that it can reach the previous backups in their storage location (e.g. S3 storage or GCS Bucket)
+3. Set the Velero backup storage location to `readonly` to prevent accidentally overwriting any backups by running:
+
+```
+    $ kubectl patch backupstoragelocation <STORAGE LOCATION NAME> \
+    --namespace velero \
+    --type merge \
+    --patch '{"spec":{"accessMode":"ReadOnly"}}'
+```
+
+From here, 
+
+1. Restore database snapshots to a new Postgres database or create a new database and restore from `pg_dump` backups. 
+2. Perform velero full cluster restore by running: 
+
+    ```
+    $ velero restore create --from-backup <BACKUP NAME>
+    ```
+
+3. If the database endpoint has changed (e.g. it has a new hostname), it needs to be provided to the platform.
+    * **AWS** - Update the `astronomer-bootstrap` secret to have the new connection string. Then the pods in the astronomer namespace will need to be restarted to pick up this change. The `pgbouncer-config `secret in each release namespace will also need to be updated with the new endpoint in the connection string. 
+    * **GCP**  - The `pg-sqlproxy-gcloud-sqlproxy `deployment needs to be updated to put the new database instance name in the `instances` argument passed to the container
