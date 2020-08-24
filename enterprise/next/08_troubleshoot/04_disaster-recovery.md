@@ -156,35 +156,35 @@ To restore a single Airflow Deployment that _was_ deleted via the Astronomer UI 
 
 Once that is complete, the Astronomer Database needs to be updated to mark that release as not deleted. Follow the steps below.
 
-1. Grab your database connection string (stored as a Kubernetes secret):
+1. Grab your database connection string (stored as a Kubernetes secret)
 
-```
+    ```
     $ kubectl -n astronomer get secret  astronomer-houston-backend -o jsonpath='{.data.connection}' | base64 -D
-```
+    ```
 
 2. To connect to the database, launch a container into your cluster with the Postgres client:
 
-```
+    ```
     $ kubectl run pgclient -ti --image=postgres --restart=Never --image-pull-policy=Always -- bash
-```
+    ```
 
 3. Then run the following command to connect to the database:
 
-```
+    ```
     $ psql <YOUR CONNECTION STRING> 
-```
+    ```
 
-Example: 
+    Example: 
 
-```
+    ```
     $ psql postgres://airflow:XXXXXXX@database1.cloud.com:5432/astronomer_houston
-```
+    ```
 
-3. Update the record for the deployment you wish to restore. 
+4. Update the record for the deployment you wish to restore. 
 
-```
+    ```
     $ UPDATE houston$default."Deployment" SET "deletedAt" = NULL WHERE "releaseName" = '<YOUR RELEASE NAME>';
-```
+    ```
 
 Following these steps, the restored Airflow Deployment should render in the Astronomer UI with its corresponding Workspace. All associated pods should be running in the cluster. 
 
