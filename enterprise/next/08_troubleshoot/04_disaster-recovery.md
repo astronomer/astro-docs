@@ -1,7 +1,7 @@
 ---
-title: "Astronomer Enterprise Recovery Guide"
+title: "Astronomer Enterprise Disaster Recovery Guide"
 navTitle: "Disaster Recovery"
-description: "How to recover after your Astronomer Enterprise platform is taken down."
+description: "A guide to Platform Backups and Disaster Recovery for Astronomer Enterprise."
 ---
 
 ## Overview

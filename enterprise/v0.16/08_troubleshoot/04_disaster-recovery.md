@@ -1,7 +1,7 @@
 ---
-title: "Astronomer Enterprise Recovery Guide"
+title: "Astronomer Enterprise Disaster Recovery Guide"
 navTitle: "Disaster Recovery"
-description: "How to recover after your Astronomer Enterprise platform is taken down."
+description: "A guide to Platform Backups and Disaster Recovery for Astronomer Enterprise."
 ---
 
 ## Overview
@@ -213,5 +213,6 @@ From here,
     ```
 
 3. If the database endpoint has changed (e.g. it has a new hostname), it needs to be provided to the platform.
+
     * **AWS** - Update the `astronomer-bootstrap` secret to have the new connection string. Then the pods in the astronomer namespace will need to be restarted to pick up this change. The `pgbouncer-config `secret in each release namespace will also need to be updated with the new endpoint in the connection string. 
     * **GCP**  - The `pg-sqlproxy-gcloud-sqlproxy `deployment needs to be updated to put the new database instance name in the `instances` argument passed to the container
