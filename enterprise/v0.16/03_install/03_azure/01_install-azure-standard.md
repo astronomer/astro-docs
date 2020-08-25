@@ -42,13 +42,14 @@ The steps below will walk you through how to:
 - Create a Static IP Address
 - Authenticate with your AKS Cluster
 
-> **Note:** You can view Microsoft Azure's Web Portal at https://portal.azure.com/*
+> **Note:** You can view Microsoft Azure's Web Portal at https://portal.azure.com/
 
 ### Create an Azure Resource Group
 
 A resource group is a collection of related resources for an Azure solution. Your AKS cluster will reside in the resource group you create. Learn more about resource groups [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview#resource-groups).
 
 Login to your Azure account with the `az` CLI:
+
 ```
 $ az login
 ```
@@ -69,12 +70,12 @@ Create a resource group:
 ```
 $ az group create --location <location> --name <my_resource_group>
 ```
-> **Note:** - For a list of available locations, run `$ az account list-locations`.
+> **Note:** For a list of available locations, run `$ az account list-locations`.
 
 ### Create an AKS Cluster
 
-Astronomer will deploy to Azure's managed Kubernetes service (Azure Kubernetes Service). Learn more about AKS [here.](https://docs.microsoft.com/en-us/azure/aks/)
-You can choose the machine type to use, but we recommend using larger nodes vs smaller nodes.*
+Astronomer will deploy to Azure's Kubernetes service (AKS). Learn more about AKS [here.](https://docs.microsoft.com/en-us/azure/aks/)
+You can choose the machine type to use, but we recommend using larger nodes vs smaller nodes.
 
 Create your Kubernetes cluster:
 ```
@@ -166,7 +167,7 @@ Follow the on-screen prompts and create a TXT record through your DNS provider. 
 
 ## 5. Create Kubernetes Secrets
 
-### Database Connection Secret
+### Bootstrap Secret (Database Connection)
 
 If you're connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
 
@@ -255,7 +256,7 @@ astronomer:
             enabled: true # Lets users authenticate with Google
 ```
 
-Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
+ SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
 
 ```
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
@@ -263,7 +264,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 
 > **Note:** If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
-For more insight into how you might be able to customize Astronomer for your team, refer to step 11 at the bottom of this guide.
+Information on other auth systems can be found [here](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/). For more insight into how you might be able to customize Astronomer for your team, refer to step 11 at the bottom of this guide.
 
 ## 7. Install Astronomer
 
@@ -290,13 +291,13 @@ Running the commands above will generate a set of Kubernetes pods that will powe
 To verify all pods are up and running, run:
 
 ```
-kubectl get pods --namespace <my-namespace>
+$ kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
 
 ```command
-kubectl get pods --namespace astronomer
+$ kubectl get pods --namespace astronomer
 
 NAME                                                       READY   STATUS              RESTARTS   AGE
 astronomer-alertmanager-0                                  1/1     Running             0          24m
@@ -361,7 +362,7 @@ Verify that this output matches with:
 curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
 ```
 
-> **Note:** The `-k` flag will run the command without looking for SSL
+> **Note:** The `-k` flag will run the command without looking for SSL.
 
 Finally, to make sure the registry accepted SSL, try to log into the registry:
 
