@@ -121,6 +121,7 @@ Make sure to subsitute the appropriate values for your domain.
 ## 5. Configure the Database
 
 Astronomer by default requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
+
 While you're free to configure any database, most AWS users on Astronomer run [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). For production environments, we _strongly_ recommend a managed Postgres solution.
 
 > **Note:** If you're setting up a development environment, this step is optional. Astronomer can be configured to deploy the PostgreSQL helm chart as the backend database with the following set in your `config.yaml`:
@@ -128,12 +129,15 @@ While you're free to configure any database, most AWS users on Astronomer run [A
 > global:
 >   postgresqlEnabled: true
 > ```
+
 To connect to an external database to your EKS cluster, create a Kubernetes Secret named `astronomer-bootstrap` that points to your database.
+
 ```bash
 kubectl create secret generic astronomer-bootstrap \
   --from-literal connection="postgres://USERNAME:$PASSWORD@host:5432" \
   --namespace astronomer
 ```
+
 > **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size.
 
 ## 6. Configure your Helm Chart
@@ -278,7 +282,7 @@ If you are seeing issues here, check out our [guide on debugging your installati
 
 ## 9. Configure DNS
 
-Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AKS account. This ELB routes incoming traffic to our NGINX ingress controller.
+Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.
 
 Run `kubectl get svc -n astronomer` to view your ELB's CNAME, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
 
@@ -319,6 +323,9 @@ install.astro.mydomain.com
 alertmanager.astro.mydomain.com
 prometheus.astro.mydomain.com
 ```
+
+Example wildcard CNAME record:
+![aws-elb](https://assets2.astronomer.io/main/docs/ee/route53.png)
 
 ## 10. Verify You Can Access the Astronomer UI
 
