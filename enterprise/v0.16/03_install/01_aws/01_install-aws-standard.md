@@ -106,6 +106,18 @@ $ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
 
+### Create a TLS Secret
+
+Finally, create a Kubernetes Secret named `astronomer-tls` that points to your certificates.
+
+If you used LetsEncrypt, the command looks like the following:
+
+```bash
+sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.mydomain.com/privkey.pem --cert /etc/letsencrypt/live/astro.mydomain.com/fullchain.pem --namespace <my-namespace>
+```
+
+Make sure to subsitute the appropriate values for your domain.
+
 ## 5. Configure the Database
 
 Astronomer by default requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
@@ -178,7 +190,7 @@ astronomer:
             enabled: true # Lets users authenticate with Google
 ```
 
-Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
+ SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
 
 ```
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
@@ -187,7 +199,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 > **Note:** If you are using Amazon SES, your URL will look like the following:
 `smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`. If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
-For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
+Information on other auth systems can be found [here](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/). For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
 
 ## 7. Install Astronomer
 
@@ -214,13 +226,13 @@ Running the commands above will generate a set of Kubernetes pods that will powe
 To verify all pods are up and running, run:
 
 ```
-kubectl get pods --namespace <my-namespace>
+$ kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
 
 ```command
-kubectl get pods --namespace astronomer
+$ kubectl get pods --namespace astronomer
 
 NAME                                                       READY   STATUS              RESTARTS   AGE
 astronomer-alertmanager-0                                  1/1     Running             0          24m
