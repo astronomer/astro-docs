@@ -6,7 +6,7 @@ description: "How to install Astronomer on Amazon Web Services (AWS)."
 
 This guide describes the steps to install Astronomer Enterprise on Amazon Web Services (AWS), which allows you to deploy and scale [Apache Airflow](https://airflow.apache.org/) within an AWS [Elastic Kubernetes Service](https://aws.amazon.com/eks/) (EKS) cluster.
 
-## Pre-Requisites
+## Prerequisites
 
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
@@ -106,22 +106,9 @@ $ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
 
-### Create a Kubernetes Secret
-
-Finally, create a Kubernetes Secret that points to your certificates.
-
-If you used LetsEncrypt, the command looks like the following:
-
-```bash
-sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.mydomain.com/privkey.pem --cert /etc/letsencrypt/live/astro.mydomain.com/fullchain.pem --namespace <my-namespace>
-```
-
-Make sure to subsitute the appropriate values for your domain.
-
 ## 5. Configure the Database
 
 Astronomer by default requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
-
 While you're free to configure any database, most AWS users on Astronomer run [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). For production environments, we _strongly_ recommend a managed Postgres solution.
 
 > **Note:** If you're setting up a development environment, this step is optional. Astronomer can be configured to deploy the PostgreSQL helm chart as the backend database with the following set in your `config.yaml`:
@@ -129,16 +116,13 @@ While you're free to configure any database, most AWS users on Astronomer run [A
 > global:
 >   postgresqlEnabled: true
 > ```
-
 To connect to an external database to your EKS cluster, create a Kubernetes Secret named `astronomer-bootstrap` that points to your database.
-
 ```bash
 kubectl create secret generic astronomer-bootstrap \
   --from-literal connection="postgres://USERNAME:$PASSWORD@host:5432" \
   --namespace astronomer
 ```
-
-> **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size
+> **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size.
 
 ## 6. Configure your Helm Chart
 
@@ -191,7 +175,7 @@ astronomer:
           enabled: false # Disables logging in with just a username and password
         openidConnect:
           google:
-            enabled: true # Lets users authenticate with Github
+            enabled: true # Lets users authenticate with Google
 ```
 
 Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
@@ -282,7 +266,7 @@ If you are seeing issues here, check out our [guide on debugging your installati
 
 ## 9. Configure DNS
 
-Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.
+Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AKS account. This ELB routes incoming traffic to our NGINX ingress controller.
 
 Run `kubectl get svc -n astronomer` to view your ELB's CNAME, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
 
@@ -308,7 +292,6 @@ astronomer-orbit                     ClusterIP      172.20.186.166   <none>     
 astronomer-prisma                    ClusterIP      172.20.144.188   <none>                                                                    4466/TCP                                     24d
 astronomer-prometheus                ClusterIP      172.20.72.196    <none>                                                                    9090/TCP                                     24d
 astronomer-registry                  ClusterIP      172.20.100.102   <none>                                                                    5000/TCP                                     24d
-
 ```
 
 You will need to create a new CNAME record through your DNS provider using the ELB CNAME listed above. You can create a single wildcard CNAME record such as `*.astro.mydomain.com`, or alternatively create individual CNAME records for the following routes:
@@ -325,10 +308,6 @@ alertmanager.astro.mydomain.com
 prometheus.astro.mydomain.com
 ```
 
-Example wildcard CNAME record:
-![aws-elb](https://assets2.astronomer.io/main/docs/ee/route53.png)
-
-
 ## 10. Verify You Can Access the Astronomer UI
 
 Go to `app.BASEDOMAIN` to see the Astronomer UI.
@@ -336,6 +315,7 @@ Go to `app.BASEDOMAIN` to see the Astronomer UI.
 Consider this your new Airflow control plane. From the Astronomer UI, you'll be able to both invite and manage users as well as create and monitor Airflow Deployments on the platform.
 
 ## 11. Verify SSL
+
 To make sure that the certificates were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
 
 ```
