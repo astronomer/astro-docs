@@ -42,7 +42,7 @@ The steps below will walk you through how to:
 - Create a Static IP Address
 - Authenticate with your AKS Cluster
 
-> **Note:** You can view Microsoft Azure's Web Portal at https://portal.azure.com/
+> **Note:** You can view Microsoft Azure's Web Portal at https://portal.azure.com/.
 
 ### Create an Azure Resource Group
 
@@ -167,7 +167,7 @@ Follow the on-screen prompts and create a TXT record through your DNS provider. 
 
 ## 5. Create Kubernetes Secrets
 
-### Bootstrap Secret (Database Connection)
+### Create a Bootstrap Secret (Database Connection)
 
 If you're connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
 
@@ -177,7 +177,7 @@ $ kubectl create secret generic astronomer-bootstrap --from-literal connection="
 
 > **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6. 
 
-### TLS Secret
+### Create a TLS Secret
 
 Finally, create a TLS Kubernetes Secret named `astronomer-tls` that points to your certificates.
 
@@ -256,7 +256,7 @@ astronomer:
             enabled: true # Lets users authenticate with Google
 ```
 
- SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
+SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
 
 ```
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
