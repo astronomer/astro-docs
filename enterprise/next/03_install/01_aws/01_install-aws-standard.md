@@ -6,7 +6,7 @@ description: "How to install Astronomer on Amazon Web Services (AWS)."
 
 This guide describes the steps to install Astronomer Enterprise on Amazon Web Services (AWS), which allows you to deploy and scale [Apache Airflow](https://airflow.apache.org/) within an AWS [Elastic Kubernetes Service](https://aws.amazon.com/eks/) (EKS) cluster.
 
-## Pre-Requisites
+## Prerequisites
 
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
@@ -106,9 +106,9 @@ $ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
 
-### Create a Kubernetes Secret
+### Create a TLS Secret
 
-Finally, create a Kubernetes Secret that points to your certificates.
+Finally, create a Kubernetes Secret named `astronomer-tls` that points to your certificates.
 
 If you used LetsEncrypt, the command looks like the following:
 
@@ -138,7 +138,7 @@ kubectl create secret generic astronomer-bootstrap \
   --namespace astronomer
 ```
 
-> **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size
+> **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size.
 
 ## 6. Configure your Helm Chart
 
@@ -173,13 +173,28 @@ nginx:
 
 astronomer:
   houston:
+    publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
+    emailConfirmation: true # Users get an email verification before accessing Astronomer
     config:
+      deployments:
+        manualReleaseNames: true # Allows you to set your release names
+        serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
+        reply: "noreply@astronomer.io" # Emails will be sent from this address
+      auth:
+        # Local database (user/pass) configuration.
+        github:
+          enabled: true # Lets users authenticate with Github
+        local:
+          enabled: false # Disables logging in with just a username and password
+        openidConnect:
+          google:
+            enabled: true # Lets users authenticate with Google
 ```
 
-SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
+ SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
 
 ```
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
@@ -188,7 +203,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 > **Note:** If you are using Amazon SES, your URL will look like the following:
 `smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`. If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
-For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
+Information on other auth systems can be found [here](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/). For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
 
 ## 7. Install Astronomer
 
@@ -206,23 +221,22 @@ Now, run:
 $ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
 ```
 
-Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.x.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
 
 Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
-
 
 ## 8. Verify Pods are Up
 
 To verify all pods are up and running, run:
 
 ```
-kubectl get pods --namespace <my-namespace>
+$ kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
 
 ```command
-kubectl get pods --namespace astronomer
+$ kubectl get pods --namespace astronomer
 
 NAME                                                       READY   STATUS              RESTARTS   AGE
 astronomer-alertmanager-0                                  1/1     Running             0          24m
@@ -264,7 +278,7 @@ astronomer-prometheus-blackbox-exporter-65f6c5f456-szr4s   1/1     Running      
 astronomer-registry-0                                      1/1     Running             0          24m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/stable/troubleshoot/debug-install/).
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.16/troubleshoot/debug-install/).
 
 ## 9. Configure DNS
 
@@ -294,7 +308,6 @@ astronomer-orbit                     ClusterIP      172.20.186.166   <none>     
 astronomer-prisma                    ClusterIP      172.20.144.188   <none>                                                                    4466/TCP                                     24d
 astronomer-prometheus                ClusterIP      172.20.72.196    <none>                                                                    9090/TCP                                     24d
 astronomer-registry                  ClusterIP      172.20.100.102   <none>                                                                    5000/TCP                                     24d
-
 ```
 
 You will need to create a new CNAME record through your DNS provider using the ELB CNAME listed above. You can create a single wildcard CNAME record such as `*.astro.mydomain.com`, or alternatively create individual CNAME records for the following routes:
@@ -314,7 +327,6 @@ prometheus.astro.mydomain.com
 Example wildcard CNAME record:
 ![aws-elb](https://assets2.astronomer.io/main/docs/ee/route53.png)
 
-
 ## 10. Verify You Can Access the Astronomer UI
 
 Go to `app.BASEDOMAIN` to see the Astronomer UI.
@@ -322,6 +334,7 @@ Go to `app.BASEDOMAIN` to see the Astronomer UI.
 Consider this your new Airflow control plane. From the Astronomer UI, you'll be able to both invite and manage users as well as create and monitor Airflow Deployments on the platform.
 
 ## 11. Verify SSL
+
 To make sure that the certificates were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
 
 ```
@@ -346,9 +359,9 @@ docker login registry.BASEDOMAIN -u _ p <token>
 
 To help you make the most of Astronomer Enterprise, take note of the following resources:
 
-* [Integrating an Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](/docs/enterprise/stable/manage-astronomer/configure-platform-resources/)
-* [Managing Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/)
+* [Integrating an Auth System](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
+* [Configuring Platform Resources](/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/)
+* [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
 
@@ -357,4 +370,4 @@ If you have any feedback or need help during this process and aren't in touch wi
 * [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/stable/resources/support/).
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.16/resources/support/).

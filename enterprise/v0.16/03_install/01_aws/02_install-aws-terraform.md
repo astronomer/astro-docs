@@ -75,6 +75,9 @@ module "astronomer-enterprise" {
   astronomer:
     houston:
       config:
+        deployments:
+          manualReleaseNames: true # Allows you to set your release names
+          serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
         email:
           enabled: true
           smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true
@@ -91,6 +94,8 @@ provider "kubernetes" {
   version = "1.10.0"
 }
 ```
+
+Information on other auth systems can be found [here.](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
 
 **Note:** If you are using Amazon SES, your URL will look like:
 `smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`
