@@ -8,12 +8,13 @@ description: "Astronomer Cloud Release Notes."
 
 Release Date: August 27, 2020
 
-### v0.19.0
+### v0.19.3
 
 #### Bug Fixes and Improvements
 
 - Improvement: Display toast message in Astronomer UI following Deployment deletion
 - Improvement: Replace `workspaceUuid` with `deploymentUuid` in arg for `deploymentVariables` Houston API mutation
+- Improvement: The 'Create', 'Update' and 'Delete' Deployment operations are now implemented in an event-driven framework optimized for reliability
 - BugFix: Correct Astro CLI output for `deployment service-account create --help` subcommand to read `--deployment-id`
 - BugFix: `$ astro upgrade` no longer requires authentication to Astronomer
 - BugFix: Environment Variable changes via the Astronomer UI not consistently reflected in Workers and in underlying Kubernetes secrets
