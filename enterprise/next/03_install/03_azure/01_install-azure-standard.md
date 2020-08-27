@@ -99,7 +99,7 @@ $ az aks show --resource-group <my-resource-group> --name <my_cluster_name> --qu
 Create a static IP in your infrastructure resource group:
 
 ```
-$ az network public-ip create --resource-group <infrastructure-resource-group-name> --name astro-ip --allocation-method static
+$ az network public-ip create --resource-group <infrastructure-resource-group-name> --name astro-ip --allocation-method static --sku Standard
 ```
 
 Save the output from this command - we'll use it again later in this guide.
@@ -228,7 +228,7 @@ global:
 #################################
 nginx:
   # IP address the nginx ingress should bind to
-  loadBalancerIP: ~
+  loadBalancerIP: YOUR_EXTERNAL_IP_HERE
 
 #################################
 ### SMTP configuration
