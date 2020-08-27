@@ -6,7 +6,7 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.19 Release Notes
 
-Release Date: August 24, 2020
+Release Date: August 27, 2020
 
 ### v0.19.0
 
@@ -15,10 +15,12 @@ Release Date: August 24, 2020
 - Improvement: Display toast message in Astronomer UI following Deployment deletion
 - Improvement: Replace `workspaceUuid` with `deploymentUuid` in arg for `deploymentVariables` Houston API mutation
 - BugFix: Correct Astro CLI output for `deployment service-account create --help` subcommand to read `--deployment-id`
-- BugFix: Adjust commander role to include KEDA CRD (fixes `could not get information about the resource: scaledobjects.keda.k8s.io` on Airflow Deployment creation)
 - BugFix: `$ astro upgrade` no longer requires authentication to Astronomer
 - BugFix: Environment Variable changes via the Astronomer UI not consistently reflected in Workers and in underlying Kubernetes secrets
 - BugFix: Incorrect Extra Capacity AU detected from Houston API
+- BugFix: Adjust commander role to include KEDA CRD (fixes `could not get information about the resource: scaledobjects.keda.k8s.io` on Airflow Deployment creation)
+- BugFix: User Invite redirects to "Public Signups Disabled"
+- BugFix: Error on "Inspect" of the 'Metrics' tab of the Astronomer UI: `Error with Feature-Policy header`
 
 ## Astronomer v0.18 Release Notes
 
