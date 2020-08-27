@@ -12,7 +12,7 @@ Included in that build is your `Dockerfile`, a file that is automatically genera
 
 To upgrade or otherwise change the Airflow version you want to run, all it takes is a swap to the FROM statement held within your Dockerfile. Read below for details.
 
-> **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](customizing-your-image.md).
+> **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](/docs/enterprise/v0.13/develop/customize-image/).
 
 ## Upgrade Airflow Version
 
