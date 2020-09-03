@@ -76,7 +76,7 @@ This will output the list of running Astronomer Workspaces you have access to, a
 With that UUID, run:
 
 ```bash
-$ astro workspace service-account create -w <WORKSPACE-ID> --label <SERVICE-ACCOUNT-LABEL> --role <WORKSPACE-ROLE>
+$ astro workspace service-account create -w <workspace-id> --label <service-account-label> --role <workspace-role>
 ```
 
 ### Create a Service Account via the Astronomer UI

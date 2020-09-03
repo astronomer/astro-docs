@@ -60,7 +60,7 @@ This will output the list of running Airflow deployments you have access to, and
 With that UUID, run:
 
 ```bash
-$ astro deployment service-account create -d <DEPLOYMENT-UUID> --label <SERVICE-ACCOUNT-LABEL> --role <DEPLOYMENT-ROLE>
+$ astro deployment service-account create -d <deployment-uuid> --label <service-account-label> --role <deployment-role>
 ```
 
 #### Workspace Level Service Account
@@ -76,7 +76,7 @@ This will output the list of running Astronomer Workspaces you have access to, a
 With that UUID, run:
 
 ```bash
-$ astro workspace service-account create -w <WORKSPACE-UUID> --label <SERVICE-ACCOUNT-LABEL> --role <WORKSPACE-ROLE>
+$ astro workspace service-account create -w <workspace-uuid> --label <service-account-label> --role <workspace-role>
 ```
 
 ### Create a Service Account via the Astronomer UI
