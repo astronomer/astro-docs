@@ -91,7 +91,7 @@ Astro CLI Version: 0.15.0
 Git Commit: c4fdeda96501ac9b1f3526c97a1c5c9b3f890d71
 ```
 
-For a breakdown of subcommands and corresponding descriptions, you can always run `astro` or `astro help`.
+For a breakdown of subcommands and corresponding descriptions, you can always run `astro` or `astro --help`.
 
 ```
 astro is a command line interface for working with the Astronomer Platform.
