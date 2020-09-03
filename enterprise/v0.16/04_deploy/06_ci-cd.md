@@ -60,7 +60,7 @@ This will output the list of running Airflow deployments you have access to, and
 With that UUID, run:
 
 ```sa
-$ astro workspace service-account create -d [DEPLOYMENTUUID] --label [SERVICEACCOUNTLABEL]
+$ astro deployment service-account create -d [DEPLOYMENTUUID] --label [SERVICEACCOUNTLABEL]
 ```
 
 #### Workspace Level Service Account
