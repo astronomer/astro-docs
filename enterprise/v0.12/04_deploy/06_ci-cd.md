@@ -51,7 +51,7 @@ Read below for guidelines on how to create a service account via the CLI and via
 
 To create a Deployment Level Service account via the CLI, first run:
 
-```
+```bash
 $ astro deployment list
 ```
 
@@ -59,7 +59,7 @@ This will output the list of running Airflow deployments you have access to, and
 
 With that UUID, run:
 
-```sa
+```bash
 $ astro deployment service-account create -d [DEPLOYMENTUUID] --label [SERVICEACCOUNTLABEL]
 ```
 
@@ -67,7 +67,7 @@ $ astro deployment service-account create -d [DEPLOYMENTUUID] --label [SERVICEAC
 
 To create a Workspace Level Service account via the CLI, first run:
 
-```
+```bash
 $ astro workspace list
 ```
 
@@ -75,7 +75,7 @@ This will output the list of running Astronomer Workspaces you have access to, a
 
 With that UUID, run:
 
-```sa
+```bash
 $ astro workspace service-account create -w [WORKSPACEUUID] -l [SERVICEACCOUNTLABEL]
 ```
 
