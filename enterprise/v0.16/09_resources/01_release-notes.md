@@ -97,7 +97,7 @@ To learn more, reference ["Auth Systems on Astronomer"](/docs/enterprise/stable/
 #### Bug Fixes and Improvements
 
 - BugFix: Add Alphanumeric characters (e.g. S3)to Environment Variable validation in the Astro UI
-- BugFix: ExtraCapacity values (over minimum) are overriden in Deployment Update
+- BugFix: ExtraCapacity values (over minimum) are overridden in Deployment Update
 - Improvement: Simplify `updateUser` Mutation in Houston API (remove `uuid`)
 - Security: Implement platform-wide Pod Security Policies
 - Security: Clear Javascript CVEs

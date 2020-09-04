@@ -129,7 +129,7 @@ For more details on this new feature, reference our ["Environment Variables" doc
 #### Bug Fixes and Improvements
 
 - BugFix: Add Alphanumeric characters (e.g. S3)to Environment Variable validation in the Astro UI
-- BugFix: ExtraCapacity values (over minimum) are overriden in Deployment Update
+- BugFix: ExtraCapacity values (over minimum) are overridden in Deployment Update
 - Security: Implement platform-wide Pod Security Policies
 - Security: Clear Javascript CVEs
 
