@@ -6,7 +6,7 @@ description: "How to upgrade the Astronomer Enterprise Platform."
 
 ## Overview
 
-As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis within a long-term support (LTS) release model. Critical security and bug fixes will be regularly backported to the latest supported Enterprise LTS version as one or more patch releases. Patch releases will be made available _between_ quarterly LTS releases and require a simple upgrade process.
+As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases. Patch releases will be made available _between_ quarterly LTS releases and require a simple upgrade process.
 
 To help you maintain Astronomer up-to-date, the guide below will walk you through:
 
@@ -24,15 +24,22 @@ Astronomer platform releases follow a semantic versioning scheme. All versions a
 - Y: Minor Version
 - Z: Patch/Hotfix
 
-For example, upgrading Astronomer from `v0.16.4` to `v0.16.5` would be considered upgrading to a "patch" version whereas upgrading from `v0.15.0` to `v0.16.0` would be considered upgrading to a subsequent "minor" version.
+For example, upgrading Astronomer from `v0.16.4` to `v0.16.5` would be considered upgrading to a "patch" version whereas upgrading from `v0.15.0` to `v0.16.0` would be considered upgrading to the latest "minor" version.
 
 ## Upgrade to a Patch Version
 
-If you're already on Astronomer 0.16.x, you're free to upgrade Astronomer to a patch releases without our assistance as soon as they're made available.
+If you're already on Astronomer's latest minor version (v0.16), you're free to upgrade the platform to a patch release as soon as it's made available.
 
-Read below for guidelines.
+A few notes before you get started:
+- The patch upgrade process will NOT affect running tasks if `upgradeDeployments.enabled=false`
+- Patch version updates will NOT cause any downtime to Astronomer services (UI, API, etc.)
 
-### Ensure you have a copy of Astronomer `config.yaml`
+Read below for specific guidelines.
+
+> **Note:** Astronomer v0.16.5 and beyond includes "Eventual Consistency" functionality that allows for Airflow Deployments to remain unaffected through a platform upgrade that includes changes to [the Airflow Chart](https://github.com/astronomer/airflow-chart).
+>
+> Now, Airflow Chart changes only take effect when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
+### Ensure you have a copy of your Astronomer `config.yaml`
 
 First, ensure you have a copy of the `config.yaml` file of your platform namespace if you don't already.
 
@@ -42,8 +49,11 @@ To do this, you can run:
 $ helm3 get values -n <namespace> <release name of astronomer> > config.yaml
 ```
 
-Review this configuration, and you can delete the line "USER-SUPPLIED VALUES:"
-- check your current version
+Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
+
+### Verify your current Platform Version
+
+To verify the version of Astronomer you're currently operating with, run:
 
 ```sh
 helm3 list --all-namespaces | grep astronomer
@@ -51,7 +61,13 @@ helm3 list --all-namespaces | grep astronomer
 
 ### Run Astronomer's Patch Upgrade Script
 
-- Use a script like this to update Astronomer patch versions or reconfigurations, please review this script to understand what it is doing and substitute the variables with your own values
+Now, review and run the script below to upgrade to the patch version of your choice.
+
+Make sure to substitute the following 3 variables with your own values:
+
+- `RELEASE_NAME`
+- `NAMESPACE`
+- `ASTRO_VERSION`
 
 ```sh
 #!/bin/bash
@@ -79,9 +95,7 @@ helm3 upgrade --namespace $NAMESPACE \
 
 ## Upgrade to a Minor Version
 
-In the meantime:
-
-- If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/stable/resources/release-notes) from an earlier minor version, submit a request to [our Support Portal](support.astronomer.io).
+If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/stable/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](support.astronomer.io).
 
 We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
 
