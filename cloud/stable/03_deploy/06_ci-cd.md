@@ -60,7 +60,7 @@ This will output the list of running Airflow deployments you have access to, and
 With that UUID, run:
 
 ```bash
-$ astro deployment service-account create -d <DEPLOYMENT-ID> --label <SERVICE-ACCOUNT-LABEL> --role <DEPLOYMENT-ROLE>
+$ astro deployment service-account create -d <deployment-id> --label <service-account-label> --role <deployment-role>
 ```
 
 #### Workspace Level Service Account
