@@ -173,9 +173,9 @@ nginx:
 
 astronomer:
   houston:
-    publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
-    emailConfirmation: true # Users get an email verification before accessing Astronomer
     config:
+      publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
+      emailConfirmation: true # Users get an email verification before accessing Astronomer
       deployments:
         manualReleaseNames: true # Allows you to set your release names
         serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
