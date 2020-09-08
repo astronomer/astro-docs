@@ -14,7 +14,7 @@ To help you maintain Astronomer up-to-date, the guide below will walk you throug
 - How to upgrade to a patch version on Astronomer
 - How to upgrade to a minor version on Astronomer
 
-For a detailed breakdown of individual releases, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/stable/resources/release-notes/).
+For a detailed breakdown of individual releases, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/).
 
 ## Astronomer Platform Versioning
 
@@ -94,9 +94,8 @@ helm3 upgrade --namespace $NAMESPACE \
             astronomer/astronomer
 ```
 
-
 ## Upgrade to a Minor Version
 
-If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/stable/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](support.astronomer.io).
+If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/v0.16/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](support.astronomer.io).
 
 We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
