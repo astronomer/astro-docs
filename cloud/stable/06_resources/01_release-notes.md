@@ -136,5 +136,3 @@ For more details on this new feature, reference our ["Environment Variables" doc
 ## Platform Changelog & Prior Releases
 
 In addition to release notes, our team publishes an itemized changelog [on GitHub](https://github.com/astronomer/astronomer/blob/master/CHANGELOG.md).
-
-To view earlier release notes, change the version of this doc on the top right menu.

@@ -186,5 +186,3 @@ For those who want to limit user access to the Workspace creation function, admi
 Astronomer ships with a `USER` role that is synthetically bound to _all_ users within a single cluster. By default, this [role includes the `system.workspace.create` permission](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L324).
 
 If you're an administrator on Astronomer who wants to limit its scope, you can remove the `system.workspace.create` permission from all users and instead attach it to a separate role of your choice. If you'd like to reserve the ability to create a Workspace _only_ to System Admins who otherwise manage cluster-level resources and costs, you might limit that permission to the `SYSTEM_ADMIN` role on the platform.
-
-To configure and apply this change, follow the steps in our [Configuring Permissions](/docs/enterprise/v0.12/manage-astronomer/manage-platform-users/) doc.
