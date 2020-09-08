@@ -8,7 +8,7 @@ description: "How to add and customize user permissions on the platform, enable 
 
 In addition to Workspace-level [role-based access control (RBAC) functionality](/docs/enterprise/stable/manage-astronomer/workspace-permissions/) core to our platform, Astronomer Enterprise allows teams to customize *how* they want users to create accounts on Astronomer and what they're able to do on the platform - both on Astronomer and Airflow.
 
-Read below for a high-level overview of user management and guidelines around public sign-ups, role customization and adding System Admins.
+Read below for a high-level overview of user management and guidelines around public signups, role customization and adding System Admins.
 
 ## Add Users to Astronomer
 
@@ -16,19 +16,21 @@ When Astronomer Enterprise is first deployed, the first user to log in is grante
 
 - Invitation to a Workspace by a Workspace Admin
 - Invitation to Astronomer by a System Admin
-- Signing up via the Astronomer UI without an invitation (requires "Public Sign-Ups")
+- Signing up via the Astronomer UI without an invitation (requires "Public Signups")
 
-On Astronomer, administrators have the option to either open the platform to public sign-ups or limit sign-ups to users invited by others.
+On Astronomer, administrators have the option to either open the platform to public signups or limit account creation to users invited by others.
 
-### Enable Public Sign-Ups
+### Enable Public Signups
 
-As noted above, public sign-ups allow any user with access to the platform URL (the Astronomer UI) to create an account. If Public sign-ups are *disabled*, users that try to access Astronomer without an invitation from another user will be met with an error.
+As noted above, public signups allow any user with access to the platform URL (the Astronomer UI) to create an account. If public signups are *disabled*, users that try to access Astronomer without an invitation from another user will be met with an error.
 
-In cases where SMTP credentials are difficult to acquire, enabling this flag might facilitate initial setup, as disabling public sign-ups requires that a user accept an email invitation. Public Sign-Ups are a configuration available in Astronomer's Houston API and can be enabled in the `config.yaml` file of your Helm chart.
+In cases where SMTP credentials are difficult to acquire, enabling this flag might facilitate initial setup, as disabling public signups requires that a user accept an email invitation. Public signups are a configuration available in Astronomer's Houston API and can be enabled in the `config.yaml` file of your Helm chart.
+
+To enable or disable public signups, follow the guidelines below.
 
 #### Modify your `config.yaml`
 
-To *enable* Public Sign-Ups, add the following yaml snippet to your `config.yaml` file:
+To *enable* public signups, add the following yaml snippet to your `config.yaml` file:
 
 ```
 astronomer:
@@ -85,7 +87,7 @@ Once on the platform, administrators can customize permissions across teams. On 
 1. Workspace Level (Viewer, Editor, Admin)
 2. System Level (Viewer, Editor, Admin)
 
-Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace Level Roles on Astronomer (Viewer, Editor and Admin), refer to our [Role-Based Access Control](/docs/enterprise/stable/manage-astronomer/workspace-permissions/) doc.
+Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace-level roles on Astronomer (Viewer, Editor and Admin), refer to our ["Manage User Permissions on an Astronomer Workspace"](/docs/enterprise/stable/manage-astronomer/workspace-permissions/) doc.
 
 ## Customize Permissions
 
