@@ -36,9 +36,10 @@ A few notes before you get started:
 
 Read below for specific guidelines.
 
-> **Note:** Astronomer v0.16.5 and beyond includes "Eventual Consistency" functionality that allows for Airflow Deployments to remain unaffected through a platform upgrade that includes changes to [the Airflow Chart](https://github.com/astronomer/airflow-chart).
+> **Note:** Astronomer v0.16.5 and beyond includes an improved upgrade process that allows Airflow Deployments to remain unaffected through a platform upgrade that includes changes to [the Airflow Chart](https://github.com/astronomer/airflow-chart).
 >
 > Now, Airflow Chart changes only take effect when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
+
 ### Ensure you have a copy of your Astronomer `config.yaml`
 
 First, ensure you have a copy of the `config.yaml` file of your platform namespace if you don't already.
