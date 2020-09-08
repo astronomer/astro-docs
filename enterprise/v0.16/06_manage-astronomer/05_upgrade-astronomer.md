@@ -87,6 +87,7 @@ helm3 repo update
 # restart.
 helm3 upgrade --namespace $NAMESPACE \
             -f ./config.yaml \
+            --reset-values \
             --version $ASTRO_VERSION \
             --set astronomer.houston.upgradeDeployments.enabled=false \
             $RELEASE_NAME \
