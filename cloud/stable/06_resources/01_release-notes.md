@@ -6,9 +6,17 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.19 Release Notes
 
-Release Date: August 27, 2020
+### v0.19.4
+
+Release Date: September 9, 2020
+
+#### Bug Fixes and Improvements
+
+- BugFix: Adding a non-Airflow config Environment Variable on Astronomer UI with KubernetesExecutor does not get passed successfully
 
 ### v0.19.3
+
+Release Date: August 27, 2020
 
 #### Bug Fixes and Improvements
 
