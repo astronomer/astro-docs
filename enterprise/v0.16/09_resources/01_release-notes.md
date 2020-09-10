@@ -12,7 +12,15 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.6**
+Latest Patch Release: **v0.16.7**
+
+### v0.16.7
+
+Release Date: September 9, 2020
+
+#### Bug Fixes and Improvements
+
+- BugFix: Adding a non-Airflow config Environment Variable on Astronomer UI with KubernetesExecutor does not get passed successfully
 
 ### v0.16.6
 
