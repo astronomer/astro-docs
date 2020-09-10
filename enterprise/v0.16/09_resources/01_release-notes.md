@@ -6,7 +6,9 @@ description: "Astronomer Enterprise release notes."
 
 ### Notice on Astronomer Enterprise Releases
 
-As of v0.16, Astronomer platform releases will be made generally available to Enterprise customers on a quarterly basis. Critical security and bug fixes will be regularly backported to the latest supported Enterprise version as patch releases that are made available between quarterly minor releases. A changelog for all releases will be made available below.
+As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases. Patch releases will be made available between quarterly LTS releases and require a simple upgrade process.
+
+For instructions on how to upgrade to a patch version, refer to our ["Upgrade Astronomer" doc](/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
 
 We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliablity and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
 
