@@ -32,8 +32,8 @@ More specific guidelines below.
 
 * [The Astronomer CLI](/docs/enterprise/v0.16/develop/cli-quickstart/)
 * Admin access on an Astronomer Workspace
-* Permission to run `$ kubectl describe po` in your cluster
-* EKS 1.14+
+* Direct access to your Kubernetes Cluster (e.g. permission to run `$ kubectl describe po`)
+* Kubernetes 1.14+
 * Your IAM role `arn`
 
 ## Guidelines
