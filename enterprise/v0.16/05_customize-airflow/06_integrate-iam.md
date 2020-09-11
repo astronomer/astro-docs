@@ -6,13 +6,13 @@ description: "How to append IAM roles to an Airflow Deployment on Astronomer."
 
 ## Overview
 
-As of Astronomer v0.15, IAM roles can now be appended to all pods within any individual Airflow Deployment on the platform.
+On Astronomer, IAM roles can be appended to all Kubernetes pods within any individual Airflow Deployment on the platform.
 
 IAM roles on [AWS](https://aws.amazon.com/iam/faqs/), [GCP](https://cloud.google.com/iam/docs/overview) and other platforms are often used to manage the level of access a specific user (or object, or group of users) have to some resource (or set of resources). The resource in question could be an S3 bucket or Secret Backend, both of which are commonly used in tandem with Airflow and Astronomer and can now be configured to be accessible only to a subset of Kubernetes pods within your wider Astronomer cluster.
 
 To support this functionality, each pod in an Astronomer namespace (each of which maps to an Airflow deployment) is launched by a [Kubernetes Service Account](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/). By annotating the service account with the role, all pods launched will inherit that role.
 
-At a high-level, you can now:
+At a high-level, you can:
 
 * Create an IAM role defining access to the target service or set of services (e.g. AWS S3)
 * Create or update an existing Airflow Deployment on Astronomer with that appended IAM role
@@ -31,32 +31,115 @@ More specific guidelines below.
 ## Prerequisites
 
 * [The Astronomer CLI](/docs/enterprise/v0.16/develop/cli-quickstart/)
-* Your IAM role `arn`
 * Admin access on an Astronomer Workspace
-* Permission to run `$ kubectl describe po` in your cluster
+* Direct access to your Kubernetes Cluster (e.g. permission to run `$ kubectl describe po`)
+* Kubernetes 1.14+
+* Your IAM role `arn`
 
 ## Guidelines
 
-### Create or update an Airflow Deployment with an annotated IAM Role
+The steps below will walk you through the configuration needed within Kubernetes (EKS, GKE or AKS) to integrate IAM with Astronomer, including steps to create an IAM role and policy in the first place. If you've already done so and have your IAM role `arn` on hand, skip to the "Integrate IAM with Astronomer" section below.
 
-The only way to create or update an Airflow Deployment with an annotated IAM Role is to do so via the Astronomer CLI.
+### Set up IAM on Kubernetes
 
-To create a new Airflow Deployment, run the following:
+Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll need to do the following within Kubernetes:
+
+- Enable IAM Roles for Service Accounts
+- Create an IAM Role and Policy
+- Test that your IAM Role is functional by applying a Service Account to a Pod
+
+#### Enable IAM Roles for Service Accounts
+
+As a first step, enable IAM integration for Service Accounts and create an OpenID Connect (OIDC) identity provider in the IAM console. Once you've enabled an IAM OIDC identity provider, you'll be able to create an IAM role to associate with a service account in your cluster.
+
+If you're running Astronomer on EKS, follow ["Enable IAM Roles for Service Accounts"](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) from AWS.
+
+#### Create an IAM Role and Policy
+
+Now, the next two steps are:
+
+1. Create an IAM Policy that specifies the permissions you want to apply (or restrict) to the resource in question (e.g. read-only access to an AWS S3 bucket)
+2. Create an IAM role and Service Account on Kubernetes
+
+At the end of these two steps, you should have an IAM role that's attached to an IAM policy. That role will be associated with a Kubernetes Service Account.
+
+If you're running Astronomer on EKS, refer to ["Create Service Account IAM Policy and Role"](https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html).
+
+#### Apply a Service Account to Test your IAM Role
+
+To test that your IAM Role is functional before integrating it with Astronomer, apply a Service Account to a Pod.
+
+If you're running Astronomer on EKS, follow ["Specify Service Account Role"](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html). These guidelines will walk you through how to annotate a Service Account with an IAM role and apply it to a Kubernetes pod (or set of pods).
+
+### Integrate IAM with Astronomer
+
+Now that your IAM Role is functional, you're ready to apply it to an Airflow Deployment on Astronomer. From here, you'll need to:
+
+- Specify your cloud provider by setting `serviceAccountAnnotationKey` in your `config.yaml`
+- Create or update an Airflow Deployment with an annotated IAM Role via the `--cloud-role` flag from the Astro CLI
+- Confirm the role was passed successfully
+
+Read below for guidelines.
+
+#### Set `serviceAccountAnnotationKey` in your `config.yaml`
+
+In order to apply an IAM role to any Airflow Deployment on Astronomer, you need to explicitly pass a cloud provider config to the platform. To do so, set the following in your `config.yaml` file under `astronomer`, depending on your cloud provider:
+
+**EKS** -
 
 ```
-astro deployment create new-deployment-name123 --executor=celery --cloud-role={arn-role}
+serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
 ```
 
-To update an existing Airflow Deployment, run the following:
+**GKE** -
 
 ```
-astro deployment update new-deployment-name123 --cloud-role={arn-role}
+serviceAccountAnnotationKey: iam.gke.io/gcp-service-account
 ```
 
-Make sure to insert your own `role-arn` for the IAM role in question after the `--cloud-role` flag.
+For example:
 
+```global:
+    baseDomain: ${var.deployment_id}.${var.route53_domain}
+    tlsSecret: astronomer-tls
+    postgresqlEnabled: false
+  nginx:
+    privateLoadBalancer: true
+  astronomer:
+    houston:
+      config:
+        deployments:
+          serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
+        auth:
+```
 
-### Confirm the role was passed successfully
+[Source code here](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L576).
+
+#### Create or update an Airflow Deployment with an annotated IAM Role
+
+Now that you've enabled the ability for Astronomer to pass IAM roles, you're free to create or update an individual Airflow Deployment with an annotated role via the Astronomer CLI.
+
+To _create_ a new Airflow Deployment, run the following:
+
+```
+$ astro deployment create new-deployment-1234 --executor=celery --cloud-role={arn-role}
+```
+
+To _update_ an existing Airflow Deployment, run the following:
+
+```
+$ astro deployment update release-name-1234 --cloud-role={arn-role}
+```
+
+As you run these commands make sure to:
+
+- Insert your own `role-arn` for the IAM role in question after the `--cloud-role` flag
+- Specify your Airflow Executor (Celery, Local, Kubernetes) if you create a Deployment
+- Specify the release name you'd like to give to your new Airflow Deployment if applicable (e.g. `new-deployment-1234)
+
+> **Note:** To customize an Airflow Deployment's release name when you create it, make sure you've set `manualReleaseNames: true` in the `config.yaml` file of your Astronomer directory. Enabling that configuration should make applying the IAM role to that Airflow Deployment easier to automate. If you _don't_ enable `manualReleaseNames`, the release name for any Aiflow Deployment you create will be generated automatically and at random.
+
+#### Confirm the role was passed successfully
 
 To confirm the role was passed successfully to all pods within your Airflow Deployment, you can either:
 
