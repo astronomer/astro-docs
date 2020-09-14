@@ -116,11 +116,11 @@ To view results, press the "Play" button in middle of the page and see them rend
 
 To query for information about a user on the platform (e.g. "When was this user created?" "Does this user exist?" "What roles do they have on any Workspace?"), run a variation of the following:
 
-```
-query GetUser {
-  users(email:"<name@mycompany.com>")
+```graphql
+query User {
+  users(user: { email: "<name@mycompany.com>"} )
   {
-    uuid
+    id
     roleBindings {role}
     status
     createdAt 
@@ -130,7 +130,7 @@ query GetUser {
 
 In the output, you should see:
 
-- The user's `uuid`
+- The user's `id`
 - A list of existing roles across the cluster (e.g. Workspace Admin)
 - The status of the user (`active`, `pending`)
 - A timestamp that reflects when the user was created
