@@ -138,5 +138,5 @@ $ helm upgrade <platform-release-name> -f config.yaml --version=<platform-versio
 Make sure to substitute the values above with your own. For example, if you're running Astronomer v0.16.0 and your platform release name is `astronomer`, you might run:
 
 ```
-$ helm upgrade astronomer -f config.yaml --version=0.17.0 astronomer/astronomer -n astronomer
+$ helm upgrade astronomer -f config.yaml --version=0.16.0 astronomer/astronomer -n astronomer
 ```
