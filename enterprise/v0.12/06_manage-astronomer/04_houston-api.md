@@ -18,7 +18,7 @@ For example, you can:
 - Delete a deployment
 - Look up a deployment's resource config
 - Add a user to a Workspace
-- Make a user a Systerm Administrator
+- Make a user a System Administrator
 
 Anything you can do via the Astronomer UI, you can do programmatically via Astronomer's Houston API. Read below for guidelines.
 
