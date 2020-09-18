@@ -82,7 +82,7 @@ $ gcloud config set compute/zone [COMPUTE_ZONE]
 
 ### Create a GKE Cluster
 
-Astronomer will deploy to Google's managed Kubernetes service (Google Kubernetes Engine). Learn more about GKE [here](https://cloud.google.com/kubernetes-engine/).
+Astronomer will deploy to Google's managed Kubernetes service (Google Kubernetes Engine). Learn more about GKE [here](https://cloud.google.com/kubernetes-engine/). Note that Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 in GKE.
 
 Enable the [Google Kubernetes Engine API](https://console.cloud.google.com/apis/library/container.googleapis.com?q=kubernetes%20engine).
 

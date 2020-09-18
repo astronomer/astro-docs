@@ -38,7 +38,7 @@ For the full list of subdomains you need a certificate for, read below.
 The steps below will walk you through how to:
 
 - Create an Azure Resource Group
-- Create an AKS Cluster
+- Create an AKS Cluster - Note that Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 in AKS.
 - Create a Static IP Address
 - Authenticate with your AKS Cluster
 
