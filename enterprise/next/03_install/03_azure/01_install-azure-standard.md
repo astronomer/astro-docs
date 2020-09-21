@@ -42,7 +42,9 @@ The steps below will walk you through how to:
 - Create a Static IP Address
 - Authenticate with your AKS Cluster
 
-> **Note:** You can view Microsoft Azure's Web Portal at https://portal.azure.com/.
+You can view Microsoft Azure's Web Portal at https://portal.azure.com/.
+
+> Note: Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on AKS.
 
 ### Create an Azure Resource Group
 
