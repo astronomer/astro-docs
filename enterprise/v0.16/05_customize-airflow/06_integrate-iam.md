@@ -44,11 +44,12 @@ The steps below will walk you through the configuration needed within Kubernetes
 
 Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll need to do the following within Kubernetes:
 
-- Enable IAM Roles for Service Accounts
+- Create an IAM OIDC Identity Provider
 - Create an IAM Role and Policy
+- Create a Trust Relationship
 - Test that your IAM Role is functional by applying a Service Account to a Pod
 
-#### Enable IAM Roles for Service Accounts
+#### Create an IAM OIDC Identity Provider
 
 As a first step, enable IAM integration for Service Accounts and create an OpenID Connect (OIDC) identity provider in the IAM console. Once you've enabled an IAM OIDC identity provider, you'll be able to create an IAM role to associate with a service account in your cluster.
 
@@ -64,6 +65,38 @@ Now, the next two steps are:
 At the end of these two steps, you should have an IAM role that's attached to an IAM policy. That role will be associated with a Kubernetes Service Account.
 
 If you're running Astronomer on EKS, refer to ["Create Service Account IAM Policy and Role"](https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html).
+
+#### Create a Trust Relationship
+
+Create a trust relationship between your IAM role and OIDC identity provider. If you're running Astronomer on EKS, refer to ["IAM Role Configuration"](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts-technical-overview.html#iam-role-configuration).
+
+Example AWS configuration:
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::123456789:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/1230D14A829F4B2854D8DAE63782CE90"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringLike": {
+          "oidc.eks.us-west-2.amazonaws.com/id/1230D14A829F4B2854D8DAE63782CE90:sub": "system:serviceaccount:astronomer-*:*"
+        }
+      }
+    }
+  ]
+}
+```
 
 #### Apply a Service Account to Test your IAM Role
 
@@ -99,18 +132,19 @@ serviceAccountAnnotationKey: iam.gke.io/gcp-service-account
 
 For example:
 
-```global:
-    baseDomain: ${var.deployment_id}.${var.route53_domain}
-    tlsSecret: astronomer-tls
-    postgresqlEnabled: false
-  nginx:
-    privateLoadBalancer: true
-  astronomer:
-    houston:
-      config:
-        deployments:
-          serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
-        auth:
+```
+global:
+  baseDomain: ${var.deployment_id}.${var.route53_domain}
+  tlsSecret: astronomer-tls
+  postgresqlEnabled: false
+nginx:
+  privateLoadBalancer: true
+astronomer:
+  houston:
+    config:
+      deployments:
+        serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
+      auth:
 ```
 
 [Source code here](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L576).
@@ -147,10 +181,3 @@ To confirm the role was passed successfully to all pods within your Airflow Depl
 
 2. At the bottom of your `config.yaml`, you should see the role listed ([source code here](https://github.com/astronomer/houston-api/blob/561c2783a11fb7d45ac9b85caa0daf534d6f09fe/config/default.yaml#L538-L541)).
 
-```
-astronomer_houston=# select config from houston$default."Deployment";
-                                   config
-----------------------------------------------------------------------------
- {"serviceAccountAnnotations":{"eks.amazonaws.com/role-arn":"test-update"}}
-(1 row)
-```
