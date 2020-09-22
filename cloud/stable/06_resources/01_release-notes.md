@@ -19,6 +19,7 @@ Release Date: September 23, 2020
 - BugFix: Inaccurate CLI version output on `$ astro upgrade` (_CLI v0.20_)
 - BugFix: Adding a non-Airflow config Environment Variable on Astronomer UI with KubernetesExecutor does not get passed successfully
 - BugFix: Navigating to the Airflow Webserver if not authenticated redirects to Astro UI homepage after login
+- BugFix: Intermittent errors with Workspace "Trial" functionality and "Billing" tab (`Minified React Error #310`)
 
 ## Astronomer v0.19 Release Notes
 
