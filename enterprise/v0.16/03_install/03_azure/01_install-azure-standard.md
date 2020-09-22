@@ -189,6 +189,8 @@ If you used LetsEncrypt, the command looks like the following:
 sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.mydomain.com/privkey.pem --cert /etc/letsencrypt/live/astro.mydomain.com/fullchain.pem --namespace <my-namespace>
 ```
 
+Make sure to subsitute the appropriate values for your domain.
+
 You can use any SSL Certification you would like by replacing the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
 
 > **Note:** If you generated your certs using LetsEncrypt, you will need to run the command above as `sudo`.
