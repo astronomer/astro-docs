@@ -218,6 +218,8 @@ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.
 
 (with the appropriate values substituted for your domain).
 
+> **Note:** You can use any SSL Certification you would like by replacing the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+
 ### Create a DNS A Record
 
 If using a wildcard cert, create an A record through your DNS provider for  your domain (e.g. `*.astro.mydomain.com`) using your previously created static IP address.

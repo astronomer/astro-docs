@@ -118,6 +118,8 @@ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.
 
 Make sure to subsitute the appropriate values for your domain.
 
+> **Note:** You can use any SSL Certification you would like by replacing the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+
 ## 5. Configure the Database
 
 Astronomer by default requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
