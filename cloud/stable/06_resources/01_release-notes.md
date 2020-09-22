@@ -4,6 +4,22 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.20 Release Notes
+
+### v0.20
+
+Release Date: September 23, 2020
+
+#### Bug Fixes and Improvements
+
+- Improved user search in Astro UI
+- Updated doc links in Astro UI
+- Platform Upgrade to [Prisma 2](https://www.prisma.io/) (Database Toolkit for our Houston API)
+- Improved error message on `$ astro dev init` if not authenticated to Astronomer (_CLI v0.20_)
+- BugFix: Inaccurate CLI version output on `$ astro upgrade` (_CLI v0.20_)
+- BugFix: Adding a non-Airflow config Environment Variable on Astronomer UI with KubernetesExecutor does not get passed successfully
+- BugFix: Navigating to the Airflow Webserver if not authenticated redirects to Astro UI homepage after login
+
 ## Astronomer v0.19 Release Notes
 
 ### v0.19.4
