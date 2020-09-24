@@ -235,7 +235,6 @@ Add the following line in the `nginx:` section:
 Here is an example of what your `config.yaml` might look like:
 
 ```yaml
-```yaml
 #################################
 ### Astronomer global configuration
 #################################
@@ -278,7 +277,6 @@ astronomer:
         openidConnect:
           google:
             enabled: true # Lets users authenticate with Github
-```
 ```
 
 Note - the SMTP URI will take the form:
