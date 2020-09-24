@@ -125,11 +125,18 @@ Create a trust relationship between your IAM role and OIDC identity provider.
     {
       "Effect": "Allow",
       "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
         "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/OIDC_PROVIDER"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
-        "StringEquals": {
+        "StringLike": {
           "OIDC_PROVIDER:sub": "system:serviceaccount:SERVICE_ACCOUNT_NAMESPACE:SERVICE_ACCOUNT_NAME"
         }
       }
@@ -182,7 +189,7 @@ Example:
 ```yaml
 global:
   baseDomain: astro.mydomain.com
-  tlsSecret: astronomer-tlsu
+  tlsSecret: astronomer-tls
   postgresqlEnabled: false
 nginx:
   privateLoadBalancer: true
