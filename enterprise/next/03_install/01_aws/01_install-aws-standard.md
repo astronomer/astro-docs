@@ -118,7 +118,10 @@ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.
 
 Make sure to subsitute the appropriate values for your domain.
 
-> **Note:** You can use any SSL Certification you would like by replacing the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+> **Note:** If you'd like to use another SSL Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+> ```bash
+> kubectl create secret tls astronomer-tls --key <path_to_key> --cert <path_to_cert> --namespace <my-namespace>
+> ```
 
 ## 5. Configure the Database
 
