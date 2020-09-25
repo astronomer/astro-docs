@@ -222,3 +222,29 @@ To verify a user was successfully granted the SysAdmin role, ensure they can do 
 - Navigate to `grafana.BASEDOMAIN`
 - Navigate to `kibana.BASEDOMAIN`
 - Access the 'System Admin' tab from the top left menu of the Astronomer UI
+
+#### Create SysAdmin User via CLI
+
+Get name of one of Houston pods(switch to base namespace: astronomer (default))
+
+- Get a Prisma security token via `kubectl -n astronomer exec astronomer-houston-****** -ti -- npm run token` (filling in that name in place of Houston in this case)
+
+
+- Run `kubectl -n astronomer port-forward svc/astronomer-prisma 4466:4466`
+
+
+- Visit http://localhost:4466/houston
+
+
+- Click on `HTTP Headers` in the bottom left and set `{"Authorization": "<token from step 2>"}`
+
+
+- Run below mutation
+
+```mutation makeSysAdmin {
+ createRoleBinding(data: {
+       user: { connect: { username: "a.xxxxxx@XXX.com"} },
+       role: SYSTEM_ADMIN
+     }
+ ) { id }
+}```
