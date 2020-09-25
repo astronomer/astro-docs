@@ -223,20 +223,28 @@ To verify a user was successfully granted the SysAdmin role, ensure they can do 
 - Navigate to `kibana.BASEDOMAIN`
 - Access the 'System Admin' tab from the top left menu of the Astronomer UI
 
+
 #### Create SysAdmin User via CLI
+To assign exisiting user SysAdmin role via CLI
 
-Get name of one of Houston pods(switch to base namespace: astronomer (default))
+- Switch to base namespace (namespace: astronomer (default))
+```$ kubectl get pods -n astronomer```
 
-- Get a Prisma security token via `kubectl -n astronomer exec astronomer-houston-****** -ti -- npm run token` (filling in that name in place of Houston in this case)
+- Now, get a Prisma security token by running:
+
+```$ kubectl -n astronomer exec astronomer-houston-****** -ti -- npm run token```
+Make sure to substitute your full Houston pod name above.
 
 
-- Run `kubectl -n astronomer port-forward svc/astronomer-prisma 4466:4466`
+- Then, run:
+
+```$ kubectl -n astronomer port-forward svc/astronomer-prisma 4466:4466```
 
 
 - Visit http://localhost:4466/houston
 
 
-- Click on `HTTP Headers` in the bottom left and set `{"Authorization": "<token from 1st step>"}`
+- Click on `HTTP Headers` in the bottom left and set `{"Authorization": "<prisma-security-token>"}`
 
 
 - Run below mutation
