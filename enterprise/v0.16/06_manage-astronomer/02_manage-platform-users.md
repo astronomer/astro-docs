@@ -236,7 +236,7 @@ Get name of one of Houston pods(switch to base namespace: astronomer (default))
 - Visit http://localhost:4466/houston
 
 
-- Click on `HTTP Headers` in the bottom left and set `{"Authorization": "<token from step 2>"}`
+- Click on `HTTP Headers` in the bottom left and set `{"Authorization": "<token from 1st step>"}`
 
 
 - Run below mutation
