@@ -263,7 +263,7 @@ astronomer:
     config:
       deployments:
         manualReleaseNames: true # Allows you to set your release names
-        serviceAccountAnnotationKey:  # Flag to enable using IAM roles (don't enter a specific role)
+        serviceAccountAnnotationKey: iam.gke.io/gcp-service-account # Flag to enable using IAM roles (don't enter a specific role)
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
