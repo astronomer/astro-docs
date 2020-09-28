@@ -173,6 +173,11 @@ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.
 
 (with the appropriate values substituted for your domain).
 
+> **Note:** If you'd like to use another SSL Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+> ```bash
+> kubectl create secret tls astronomer-tls --key <path_to_key> --cert <path_to_cert> --namespace <my-namespace>
+> ```
+
 ### Create a DNS A Record
 
 If using a wildcard cert, create an A record through your DNS provider for  your domain (e.g. `*.astro.mydomain.com`) using your previously created static IP address.
@@ -230,7 +235,6 @@ Add the following line in the `nginx:` section:
 Here is an example of what your `config.yaml` might look like:
 
 ```yaml
-```yaml
 #################################
 ### Astronomer global configuration
 #################################
@@ -273,7 +277,6 @@ astronomer:
         openidConnect:
           google:
             enabled: true # Lets users authenticate with Github
-```
 ```
 
 Note - the SMTP URI will take the form:
