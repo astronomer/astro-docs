@@ -14,7 +14,17 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.7**
+Latest Patch Release: **v0.16.8**
+
+### v0.16.8
+
+Release Date: September 25, 2020
+
+### Export Logs from Fluentd to Amazon S3
+
+Astronomer leverages [Fluentd](https://www.fluentd.org/) as a data collector that is responsible for scraping and cleaning Airflow task logs to then send to [Elasticsearch](https://www.elastic.co/elasticsearch/), a search engine used to centralize and index logs from Airflow. As of v0.16, Astronomer now supports a Fluentd to S3 plugin that allows users to forward Airflow logs to Amazon S3 while ensuring they're also sent to Elasticsearch and otherwise supported by the platform.
+
+For step-by-step guidelines, refer to ["Forward Logs to S3"](https://www.astronomer.io/docs/enterprise/v0.16/monitor/logs-to-s3/).
 
 ### v0.16.7
 
