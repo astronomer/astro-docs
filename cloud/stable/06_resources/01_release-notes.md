@@ -8,7 +8,7 @@ description: "Astronomer Cloud Release Notes."
 
 ### v0.20
 
-Release Date: September 23, 2020
+Release Date: September 30, 2020
 
 #### Bug Fixes and Improvements
 
