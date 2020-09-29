@@ -62,7 +62,7 @@ To confirm the role was passed successfully to all pods within your Airflow Depl
 
 1. Run a `kubectl describe po/<pod>` on any new pod created in your namespace and see `Annotations` within the output
 
-2. At the bottom of your `config.yaml`, you should see the role listed ([source code here](https://github.com/astronomer/houston-api/blob/561c2783a11fb7d45ac9b85caa0daf534d6f09fe/config/default.yaml#L538-L541)).
+2. At the bottom of your `config.yaml`, you should see the role listed ([source code here](https://github.com/astronomer/docs/blob/082e949/enterprise/v0.15/reference/default.yaml#L538-L541)).
 
 ```
 astronomer_houston=# select config from houston$default."Deployment";

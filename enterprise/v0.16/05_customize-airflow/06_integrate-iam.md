@@ -113,7 +113,7 @@ For example:
         auth:
 ```
 
-[Source code here](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L576).
+[Source code here](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.16/reference/default.yaml#L576).
 
 #### Create or update an Airflow Deployment with an annotated IAM Role
 
@@ -145,7 +145,7 @@ To confirm the role was passed successfully to all pods within your Airflow Depl
 
 1. Run a `kubectl describe po/<pod>` on any new pod created in your namespace and see `Annotations` within the output
 
-2. At the bottom of your `config.yaml`, you should see the role listed ([source code here](https://github.com/astronomer/houston-api/blob/561c2783a11fb7d45ac9b85caa0daf534d6f09fe/config/default.yaml#L538-L541)).
+2. At the bottom of your `config.yaml`, you should see the role listed ([source code here](https://github.com/astronomer/docs/blob/082e949/enterprise/v0.16/reference/default.yaml#L558-L561)).
 
 ```
 astronomer_houston=# select config from houston$default."Deployment";

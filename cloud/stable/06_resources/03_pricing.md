@@ -35,7 +35,7 @@ Resource configurations are "live" as soon as you adjust the toggles on your web
 
 ### The Astronomer Unit (AU)
 
-To track and measure allocation to each of these components, we introduce the concept of [an Astronomer Unit (AU)](https://github.com/astronomer/houston-api/blob/193183be40df7e00261c3bf4941caf80e5d874a4/config/default.yaml#L317).
+To track and measure allocation to each of these components, we introduce the concept of an Astronomer Unit (AU).
 
 | AU Count | CPU | GB of Memory | Monthly Price |
 |----------|-----|--------|-------|

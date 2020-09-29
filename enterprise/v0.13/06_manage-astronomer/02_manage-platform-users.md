@@ -74,8 +74,8 @@ For example, you might run:
 
 ```
 $ helm ls
-NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE                                       
-calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.10.3     	astro                    
+NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE
+calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.10.3     	astro
 
 $ helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
 ```
@@ -97,9 +97,9 @@ Permissions are defined on Astronomer as `scope.entity.action`, where:
 - `entity`: The object or role being operated on
 - `action`: The verb describing the operation being performed on the `entity`
 
-For example, the `deployment.serviceAccounts.create` permission translates to the ability for a usr to create a Deployment-level Service Account. To view all available platform permissions, view our [default Houston API configuration](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L200). Each permission is applied to the role under which it is listed.
+For example, the `deployment.serviceAccounts.create` permission translates to the ability for a usr to create a Deployment-level Service Account. To view all available platform permissions, view our [default Houston API configuration](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L200). Each permission is applied to the role under which it is listed.
 
-> **Note:** Higher-level roles by default encompass permissions that are found and explicitly defined in lower-level roles, both at the Workspace and System levels. For example, a `SYSTEM_ADMIN` encompasses all permission listed under its role _as well as_ all permissions listed under the `SYSTEM_EDITOR` and `SYSTEM_VIEWER` roles ([source code here](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L266)).
+> **Note:** Higher-level roles by default encompass permissions that are found and explicitly defined in lower-level roles, both at the Workspace and System levels. For example, a `SYSTEM_ADMIN` encompasses all permission listed under its role _as well as_ all permissions listed under the `SYSTEM_EDITOR` and `SYSTEM_VIEWER` roles ([source code here](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L266)).
 
 To customize permissions, follow the steps below.
 
@@ -107,8 +107,8 @@ To customize permissions, follow the steps below.
 
 First, take a look at our default roles and permissions linked above and identify two things:
 
-1. What role do you want to configure? (e.g. [`DEPLOYMENT_EDITOR`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L356))
-2. What permission(s) would you like to add to or remove from that role? (e.g. [`deployment.images.push`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L362))
+1. What role do you want to configure? (e.g. [`DEPLOYMENT_EDITOR`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L356))
+2. What permission(s) would you like to add to or remove from that role? (e.g. [`deployment.images.push`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L362))
 
 For example, you might want to block a `DEPLOYMENT_EDITOR` (and therefore `WORKSPACE_EDITOR`) from deploying code to all Airflow Deployments within a Workspace and instead limit that action to users assigned the `DEPLOYMENT_ADMIN` role.
 
@@ -116,11 +116,11 @@ For example, you might want to block a `DEPLOYMENT_EDITOR` (and therefore `WORKS
 
 Unless otherwise configured, a user who creates a Workspace on Astronomer is automatically granted the `WORKSPACE_ADMIN` role and is thus able to create an unlimited number of Airflow Deployments within that Workspace. For teams looking to more strictly control resources, our platform supports limiting the Workspace creation function via a `USER` role.
 
-Astronomer ships with a `USER` role that is synthetically bound to _all_ users within a single cluster. By default, this [role includes the `system.workspace.create` permission](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L377).
+Astronomer ships with a `USER` role that is synthetically bound to _all_ users within a single cluster. By default, this [role includes the `system.workspace.create` permission](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L377).
 
 If you're an administrator on Astronomer who wants to limit Workspace Creation, you can:
 
-- Remove the `system.workspace.create` permission from the `USER` role [here](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L382)
+- Remove the `system.workspace.create` permission from the `USER` role [here](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L382)
 - Attach it to a separate role of your choice
 
 If you'd like to reserve the ability to create a Workspace _only_ to System Admins who otherwise manage cluster-level resources and costs, you might limit that permission to the `SYSTEM_ADMIN` role on the platform.
@@ -171,8 +171,8 @@ For example, you might run:
 
 ```
 $ helm ls
-NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE                                       
-calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.16.4     	astro                    
+NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE
+calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.16.4     	astro
 
 $ helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
 ```
@@ -201,7 +201,7 @@ In addition to the commonly used System Admin role, the Astronomer platform also
 
 No user is assigned the System Editor or Viewer Roles by default, but they can be added by System Admins via our API. Once assigned, System Viewers, for example, can access both Grafana and Kibana but don't have permission to delete a Workspace they're not a part of.
 
-All three permission sets are entirely customizable on Astronomer Enterprise. For a full breakdown of the default configurations attached to the System Admin, Editor and Viewer Roles, refer to our [Houston API source code](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L220).
+All three permission sets are entirely customizable on Astronomer Enterprise. For a full breakdown of the default configurations attached to the System Admin, Editor and Viewer Roles, refer to our [Houston API source code](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L220).
 
 For guidelines on assigning users any System Level role, read below.
 
@@ -213,7 +213,7 @@ Keep in mind that:
 - Only existing System Admins can grant the SysAdmin role to another user
 - The user must have a verified email address and already exist in the system
 
-> **Note:** If you'd like to assign a user a different System-Level Role (either [`SYSTEM_VIEWER`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L220) or [`SYSTEM_EDITOR`](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L227)), you'll have to do so via an API call from your platform's GraphQL playground. For guidelines, refer to our ["Houston API" doc](/docs/enterprise/v0.13/manage-astronomer/houston-api/).
+> **Note:** If you'd like to assign a user a different System-Level Role (either [`SYSTEM_VIEWER`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L228) or [`SYSTEM_EDITOR`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.13/reference/default.yaml#L236)), you'll have to do so via an API call from your platform's GraphQL playground. For guidelines, refer to our ["Houston API" doc](/docs/enterprise/v0.13/manage-astronomer/houston-api/).
 
 #### Verify SysAdmin Access
 
@@ -222,4 +222,3 @@ To verify a user was successfully granted the SysAdmin role, ensure they can do 
 - Navigate to `grafana.BASEDOMAIN`
 - Navigate to `kibana.BASEDOMAIN`
 - Access the 'System Admin' tab from the top left menu of the Astronomer UI
-
