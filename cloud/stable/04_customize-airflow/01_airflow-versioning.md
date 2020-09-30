@@ -23,6 +23,7 @@ Astronomer is compatible with the following Airflow versions:
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
 - [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
+- [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
 
 To change or upgrade Airflow versions on Astronomer, read the guidelines below.
 
@@ -56,6 +57,7 @@ Astronomer supports both Alpine Linux and Debian-based images. Alpine is a widel
 | [v1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)         | FROM astronomerinc/ap-airflow:1.10.5-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.5-buster-onbuild |
 | [v1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)         | FROM astronomerinc/ap-airflow:1.10.7-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.7-buster-onbuild |
 | [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.10-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.10-buster-onbuild |
+| [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.12-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.12-buster-onbuild |
 
 > **Note:** Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow metadata database structurally changes with each release, making for backwards incompatibility across versions.
 
@@ -78,7 +80,7 @@ If you're developing locally, make sure to save your changes and issue the follo
 If you don't need to test this locally and just want to push to Astronomer Cloud, you can issue:
 
 ```bash
-astro deploy
+$ astro deploy
 ```
 
 This will bundle your updated directory, re-build your image and push it to your remote Airflow deployment on Astronomer.
