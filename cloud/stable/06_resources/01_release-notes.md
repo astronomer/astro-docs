@@ -10,6 +10,22 @@ description: "Astronomer Cloud Release Notes."
 
 Release Date: September 30, 2020
 
+#### Support for Airflow 1.10.12
+
+Astronomer v0.20 comes with support for [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/), the community's most recent release.
+
+Airflow 1.10.12 notably includes:
+
+- The ability to configure and launch pods via YAML files with the Kubernetes Executor and KubernetesPodOperator ([commit](https://github.com/apache/airflow/pull/6230))
+- A new `on_kill` method that ensures a KubernetesPodOperator task is killed when it's cleared in the Airflow UI ([commit]((https://github.com/apache/airflow/commit/ce94497cc) ))
+- Ability to define a custom XCom class ([commit]((https://github.com/apache/airflow/pull/8560)))
+- Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit]((https://github.com/apache/airflow/pull/9645)))
+- Support for AirfowClusterPolicyViolation support in Airflow local settings ([commit](https://github.com/apache/airflow/pull/10282)).
+
+For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
+
+> **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images staring with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
+
 #### Bug Fixes and Improvements
 
 - Improved user search in Astro UI
