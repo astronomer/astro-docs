@@ -289,7 +289,7 @@ Check out our `Customizing Your Install` section for guidance on setting an [aut
 
 ## 8. Install Astronomer
 
-Now that you have an EKS cluster set up and your config.yaml defined, you're ready to deploy all components of our platform.
+Now that you have a GCP cluster set up and your `config.yaml` defined, you're ready to deploy all components of our platform.
 
 First, run:
 
