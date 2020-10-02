@@ -30,7 +30,7 @@ Install the necessary tools:
 
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
-* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3-0.12.28*
+* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 - 0.12.28*
 * [Helm client](https://github.com/helm/helm#install) *Use version 3.2.1*
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) *Use the version appropriate for your Kubernetes cluster version*
 
