@@ -30,8 +30,8 @@ Install the necessary tools:
 
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
-* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 or later*
-* [Helm client](https://github.com/helm/helm#install) *Use version 2.16.1*
+* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 - 0.12.28*
+* [Helm client](https://github.com/helm/helm#install) *Use version 3.2.1*
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) *Use the version appropriate for your Kubernetes cluster version*
 
 ## Installation
@@ -184,7 +184,7 @@ A `kubeconfig` file will be generated in your working directory. Be sure to refe
 export KUBECONFIG=./kubeconfig
 
 kubectl get pods -n astronomer
-helm ls
+helm ls -n astronomer
 ```
 
 The kubeconfig file along with other secrets such as the TLS certificate are backed up in the remote Terraform state S3 bucket (if applicable).
