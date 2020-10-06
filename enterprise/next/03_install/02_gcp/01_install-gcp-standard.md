@@ -252,19 +252,9 @@ kubectl create secret generic astronomer-bootstrap \
 
 Now that your Kubernetes cluster has been configured with all prerequisites, you can deploy Astronomer!
 
-Clone the Astronomer helm charts locally and checkout your desired branch:
+Create a file named `config.yaml` in an empty directory.
 
-```
-$ git clone https://github.com/astronomer/astronomer.git
-$ git checkout <branch-name>
-```
-**Do not deploy off of the master branch. Be sure to check out the latest stable branch. Be sure to check out the latest `release-0.X` branch that can be found on our [CHANGELOG](https://github.com/astronomer/astronomer/blob/master/CHANGELOG.md)**
-
-Create your `config.yaml` by copying our `starter.yaml` template:
-
-```
-$ cp ./configs/starter.yaml ./config.yaml
-```
+For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
 Set the following values in `config.yaml`:
 
@@ -315,6 +305,8 @@ Note - the SMTP URI will take the form:
 ```
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
+
+For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/016_patch/configs).
 
 Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
 
