@@ -6,6 +6,14 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.20 Release Notes
 
+### v0.21
+
+Release Date: October 7, 2020
+
+### Bug Fixes and Improvements
+
+- BugFix: Platform signup successful with invalid or changed invite token
+
 ### v0.20
 
 Release Date: September 30, 2020
