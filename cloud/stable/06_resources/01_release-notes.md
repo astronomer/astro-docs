@@ -10,7 +10,7 @@ description: "Astronomer Cloud Release Notes."
 
 Release Date: October 7, 2020
 
-### Bug Fixes and Improvements
+#### Bug Fixes and Improvements
 
 - BugFix: Platform signup successful with invalid or changed invite token
 
