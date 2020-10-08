@@ -97,7 +97,7 @@ helm3 upgrade --namespace $NAMESPACE \
 
 ## Upgrade to a Minor Version
 
-If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/stable/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](support.astronomer.io).
+If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/stable/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](https://support.astronomer.io).
 
 We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
 
