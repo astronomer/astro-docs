@@ -24,7 +24,6 @@ Release Date: October 8, 2020
 
 Astronomer v0.16.9 comes with support for [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/) in addition to 3 patch versions of previously released images.
 
-
 Airflow 1.10.12 notably includes:
 
 - The ability to configure and launch pods via YAML files with the Kubernetes Executor and KubernetesPodOperator ([commit](https://github.com/apache/airflow/pull/6230))
@@ -38,12 +37,12 @@ For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](htt
 > **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images staring with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
 
 #### Support for Latest Builds of Astronomer Certified
+
 Astronomer v0.16.9 also includes support for:
 
 - AC 1.10.10-5 ([Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md))
 - AC 1.10.7-15 ([Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md))
 - AC 1.10.5-11 ([Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md))
-
 
 These patch releases include a fix to an identified security issue listed [here](https://www.astronomer.io/docs/ac/v1.10.10/get-started/security/).
 
