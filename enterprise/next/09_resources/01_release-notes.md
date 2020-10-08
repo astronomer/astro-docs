@@ -14,7 +14,56 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.7**
+Latest Patch Release: **v0.16.9**
+
+### v0.16.9
+
+Release Date: October 8, 2020
+
+#### Support for Airflow 1.10.12
+
+Astronomer v0.16.9 comes with support for [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/) in addition to 3 patch versions of previously released images.
+
+
+Airflow 1.10.12 notably includes:
+
+- The ability to configure and launch pods via YAML files with the Kubernetes Executor and KubernetesPodOperator ([commit](https://github.com/apache/airflow/pull/6230))
+- A new `on_kill` method that ensures a KubernetesPodOperator task is killed when it's cleared in the Airflow UI ([commit]((https://github.com/apache/airflow/commit/ce94497cc) ))
+- Ability to define a custom XCom class ([commit]((https://github.com/apache/airflow/pull/8560)))
+- Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit]((https://github.com/apache/airflow/pull/9645)))
+- Support for AirfowClusterPolicyViolation support in Airflow local settings ([commit](https://github.com/apache/airflow/pull/10282)).
+
+For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
+
+> **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images staring with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
+
+#### Support for Latest Builds of Astronomer Certified
+Astronomer v0.16.9 also includes support for:
+
+- AC 1.10.10-5 ([Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md))
+- AC 1.10.7-15 ([Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md))
+- AC 1.10.5-11 ([Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md))
+
+
+These patch releases include a fix to an identified security issue listed [here](https://www.astronomer.io/docs/ac/v1.10.10/get-started/security/).
+
+#### Bug Fixes and Improvements
+
+Two additional bugs were addressed in v0.16.9 -
+
+- BugFix: IAM role integration fails with Debian Airflow Image on DAG run (`[Errno 13] Permission denied`)
+- BugFix: Calling the `createWorkspace` Houston API mutation with a system Service Account returns an error (`No Node for the model User`)
+
+### v0.16.8
+
+Release Date: September 25, 2020
+
+#### Export Logs from Fluentd to Amazon S3
+
+Astronomer leverages [Fluentd](https://www.fluentd.org/) as a data collector that is responsible for scraping and cleaning Airflow task logs to then send to [Elasticsearch](https://www.elastic.co/elasticsearch/), a search engine used to centralize and index logs from Airflow. As of v0.16, Astronomer now supports a Fluentd to S3 plugin that allows users to forward Airflow logs to Amazon S3 while ensuring they're also sent to Elasticsearch and otherwise supported by the platform.
+
+For step-by-step guidelines, refer to ["Forward Logs to S3"](https://www.astronomer.io/docs/enterprise/v0.16/monitor/logs-to-s3/).
+
 
 ### v0.16.7
 
