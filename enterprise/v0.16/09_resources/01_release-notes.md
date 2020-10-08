@@ -10,7 +10,7 @@ As of Astronomer v0.16, Astronomer releases will be made generally available to 
 
 For instructions on how to upgrade to a patch version, refer to ["Upgrade Astronomer"](/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
 
-We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliablity and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
+We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliability and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
 
 ## Astronomer v0.16 Release Notes
 
@@ -49,7 +49,7 @@ These patch releases include a fix to an identified security issue listed [here]
 
 #### Bug Fixes and Improvements
 
-Two additional bugs were addressed in Astronoemr v0.16.9:
+Two additional bugs were addressed in Astronomer v0.16.9:
 
 - BugFix: IAM role integration fails with Debian Airflow Image on DAG run (`[Errno 13] Permission denied`)
 - BugFix: Calling the `createWorkspace` Houston API mutation with a system Service Account returns an error (`No Node for the model User`)
@@ -191,7 +191,7 @@ Release Date: June 29, 2020
 
 #### New "Environment Variables" Tab in the Astronomer UI
 
-Astronomer v0.16 comes with significant improvements to the experience of setting Environment Variables on Astronomer. Namely, we've introduced a dedicated 'Variables' tab, lessening the density of the "Settings" page and making these configurations accessible to "Trial" users on Astronoomer Cloud.
+Astronomer v0.16 comes with significant improvements to the experience of setting Environment Variables on Astronomer. Namely, we've introduced a dedicated 'Variables' tab, lessening the density of the "Settings" page and making these configurations accessible to "Trial" users on Astronomer Cloud.
 
 With the new tab comes the ability for Workspace Admins and Editors to create and mark a value as 'secret', permanently hiding the value from the Astronomer UI (and from the client). From the same tab, users can now export Environment Variables as 'JSON' as well.
 
