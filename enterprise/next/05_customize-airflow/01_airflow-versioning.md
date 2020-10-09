@@ -12,7 +12,7 @@ Included in that build is your `Dockerfile`, a file that is automatically genera
 
 To upgrade your Airflow Deployment to a higher version of Airflow, all it takes is changing the FROM statement in your project's Dockerfile to reference the AC image of your choice. Read below for details.
 
-> **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](/docs/enterprise/v0.16/develop/customize-image/).
+> **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](/docs/enterprise/stable/develop/customize-image/).
 
 ## Upgrade Airflow Version
 
@@ -57,7 +57,7 @@ Astronomer supports both Alpine Linux and Debian-based images. Alpine is a widel
 | [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.10-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.10-buster-onbuild |
 | [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.12-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.12-buster-onbuild |
 
-To upgrade an Airflow Deployment to Astronomer Certified 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
+To upgrade an Airflow Deployment to Astronomer Certified 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
 
 > **Note:** Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow metadata database structurally changes with each release, making for backwards incompatibility across versions.
 
