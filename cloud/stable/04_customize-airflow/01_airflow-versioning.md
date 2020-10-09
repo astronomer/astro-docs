@@ -128,6 +128,3 @@ In this case, that would be: `FROM astronomerinc/ap-airflow:1.10.10-5-buster-onb
 > **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Certified image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
 > 
 > If a patch release becomes available _after_ you've already built an Astronomer Certified image for the first time, subsequent code pushes will _not_ automatically pull the latest corresponding patch. You must follow the process above to pin your image to a particular version.
-
-
-
