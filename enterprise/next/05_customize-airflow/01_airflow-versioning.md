@@ -16,8 +16,6 @@ To upgrade your Airflow Deployment to a higher version of Airflow, all it takes 
 
 ## Upgrade Airflow Version
 
-### Overview
-
 Astronomer Certified offers support for the following versions of Apache Airflow:
 
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
