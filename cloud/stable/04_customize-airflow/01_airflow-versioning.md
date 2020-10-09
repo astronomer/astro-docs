@@ -8,22 +8,20 @@ description: "How to adjust and upgrade Airflow versions on Astronomer."
 
 On Astronomer, the process of pushing up your code to an individual Airflow deployment involves customizing a locally built Docker image —— with your DAG code, Python Packages, plugins, and so on —— that's then bundled, tagged, and pushed to Astronomer Cloud's Docker Registry.
 
-Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer Certified Docker Image. Astronomer Certified is a production-ready distribution of Apache Airflow that mirrors the open-source project and undergoes additional levels of rigorous testing conducted by our team.
+Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer Certified Docker Image. Astronomer Certified (AC) is a production-ready distribution of Apache Airflow that mirrors the open-source project and undergoes additional levels of rigorous testing conducted by our team.
 
-To upgrade your Airflow Deployment to a higher version of Airflow, all it takes is changing the FROM statement in your project's Dockerfile to reference the Astronomer Certified image of your choice. Read below for details.
+To upgrade your Airflow Deployment to a higher version of Airflow, all it takes is changing the FROM statement in your project's Dockerfile to reference the AC image of your choice. Read below for details.
 
 > **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](/docs/cloud/stable/develop/customize-image/).
 
 ## Upgrade Airflow Version
 
-Astronomer is compatible with the following Airflow versions:
+Astronomer Certified offers support for the following versions of Apache Airflow:
 
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
 - [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
 - [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
-
-To upgrade Airflow versions on Astronomer, read the guidelines below.
 
 ### 1. Locate your Dockerfile in your Project Directory
 
@@ -104,7 +102,7 @@ If you're on Astronomer Cloud, navigate to your Airflow Deployment page on the A
 
 ### Patch Versions of Astronomer Certified
 
-In addition to building Astronomer Certified images following open-source releases, our team regularly ships bug and security fixes to those images as _patch_ releases.
+In addition to supporting the latest versions of open-source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
 For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release:
 
@@ -113,7 +111,7 @@ For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional pa
 - 1.10.10-4
 - 1.10.10-5
 
-All generally available patch releases are listed in the corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open-source release.
+All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open-source release.
 
 #### Upgrade to an Astronomer Certified Patch Version
 
