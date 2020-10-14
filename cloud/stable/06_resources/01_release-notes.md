@@ -4,9 +4,39 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.21 Release Notes
+
+Release Date: October 14, 2020
+
+### v0.21.0
+
+#### A New "Status" Framework for Deployment Changes
+
+The biggest change to Astronomer Cloud in v0.21 is the introduction of a new `deploymentStatus` query that will allow the platform to more reliably communicate the status of any particular "deploy" to it. We define a "deploy" as the process that follows when a user triggers a code change to an Airflow Deployment (e.g. a code push from the Astronomer CLI or the addition of an Environment Variable) and that change is passed to all individual pods within an Airflow Deployment and eventually incorporated as "live" and "running" code.
+
+This new logic enables us to provide you with the following:
+- A new banner in the "Deployment" view of the Astronomer UI if a "deploy" to that Airflow Deployment is in progress
+- A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete
+
+#### Improved Celery Worker Update Strategy
+
+A key change incorporated in Astronomer v0.21 is an improvement to the process by which Celery workers update and gracefully spin up or down following a code push. Previously, we leveraged a `RollingUpdate` strategy where only a certain percentage of Celery workers shut down at a time before a transition to new workers is complete. This often dragged out the time it takes for a push to an Airflow Deployment to be successful.
+
+Astronomer v0.21 leverages a `Recreate` update strategy that sends notice to _all_ Celery Workers immediately such that they can collectively begin a warm shutdown while _new_ Workers come up and begin to take tasks.
+
+For users, this change will result in a quicker and more graceful deploy process.
+
+#### Bug Fixes & Improvements
+
+- Improvement: Add email validation to `$ astro workspace user add` command in Astro CLI (_CLI v0.21_)
+- BugFix: Workspace Admin downgraded to Workspace Viewer after creating Service Account with "Viewer" permissions
+- BugFix: "Billing" page in Astronomer UI shows error in console when saving a new card
+- BugFix: Calling the `createWorkspace` Houston API mutation with a system Service Account returns an error (`No Node for the model User`)
+- BugFix: Some Airflow Metrics unavailable in the "Metrics" tab of the Astronomer UI (DagBag Count, Zombies Killed, Task Success Rate, Task Failure Rate, Task Stream)
+
 ## Astronomer v0.20 Release Notes
 
-### v0.21
+### v0.20.1
 
 Release Date: October 7, 2020
 
@@ -14,7 +44,7 @@ Release Date: October 7, 2020
 
 - BugFix: Platform signup successful with invalid or changed invite token
 
-### v0.20
+### v0.20.0
 
 Release Date: September 30, 2020
 
