@@ -6,23 +6,27 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.21 Release Notes
 
-Release Date: October 14, 2020
+Release Date: October 15, 2020
 
 ### v0.21.0
 
-#### A New "Status" Framework for Deployment Changes
+#### A New "Deploment Status" Framework
 
-The biggest change to Astronomer Cloud in v0.21 is the introduction of a new `deploymentStatus` query that will allow the platform to more reliably communicate the status of any particular "deploy" to it. We define a "deploy" as the process that follows when a user triggers a code change to an Airflow Deployment (e.g. a code push from the Astronomer CLI or the addition of an Environment Variable) and that change is passed to all individual pods within an Airflow Deployment and eventually incorporated as "live" and "running" code.
+The biggest change to Astronomer Cloud in v0.21 is the introduction of a new `deploymentStatus` query that allows the platform to more reliably communicate the status of a _deploy_ and the overall health of your Airflow Deployment. We define a _deploy_ as the process that begins when a user triggers a change to an Airflow Deployment (e.g. a code push from the Astronomer CLI or the addition of an Environment Variable) and ends when that change is successfully passed and considered to be live.
 
-This new logic enables us to provide you with the following:
-- A new banner in the "Deployment" view of the Astronomer UI if a "deploy" to that Airflow Deployment is in progress
-- A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete
+While this change largely sets the foundation for new features in later releases, we did include a handful of UX improvements in the meantime.
+
+More specifically, Astronomer v0.21 will include:
+
+- A new banner in the "Deployment" view of the Astronomer UI if a deploy to that Airflow Deployment is in progress.
+- Refined logic for "Deployment Health Status" (Unhealthy/Red, Healthy/Green, Deploying/Blue and Unknown/Gray) that's visible as a "bubble" next to all Airflow Deployments in the Astronomer UI.
+- A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete.
 
 #### Improved Celery Worker Update Strategy
 
-A key change incorporated in Astronomer v0.21 is an improvement to the process by which Celery workers update and gracefully spin up or down following a code push. Previously, we leveraged a `RollingUpdate` strategy where only a certain percentage of Celery workers shut down at a time before a transition to new workers is complete. This often dragged out the time it takes for a push to an Airflow Deployment to be successful.
+Our latest release also includes an improvement to the process by which Celery workers update and gracefully spin up or down following a code push. Previously, we leveraged a `RollingUpdate` strategy where only a certain percentage of Celery workers shut down at a time before the transition to new workers was complete. This often dragged out the time it took for a push to an Airflow Deployment to be successful.
 
-Astronomer v0.21 leverages a `Recreate` update strategy that sends notice to _all_ Celery Workers immediately such that they can collectively begin a warm shutdown while _new_ Workers come up and begin to take tasks.
+Astronomer v0.21 leverages a `Recreate` update strategy that sends notice to _all_ Celery workers immediately such that they can collectively begin a warm shutdown while _new_ workers come up and begin to take tasks.
 
 For users, this change will result in a quicker and more graceful deploy process.
 
