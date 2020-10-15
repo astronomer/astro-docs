@@ -4,9 +4,35 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.21 Release Notes
+
+Release Date: October 15, 2020
+
+### v0.21.0
+
+#### A New "Deploment Status" Framework
+
+The biggest change to Astronomer Cloud in v0.21 is the introduction of a new `deploymentStatus` query that allows the platform to more reliably communicate the status of a _deploy_ and the overall health of your Airflow Deployment. We define a _deploy_ as the process that begins when a user triggers a change to an Airflow Deployment (e.g. a code push from the Astronomer CLI or the addition of an Environment Variable) and ends when that change is successfully passed and considered to be live.
+
+While this change largely sets the foundation for new features in later releases, we did include a handful of UX improvements in the meantime.
+
+More specifically, Astronomer v0.21 will include:
+
+- A new banner in the "Deployment" view of the Astronomer UI if a deploy to that Airflow Deployment is in progress.
+- Refined logic for "Deployment Health Status" (Unhealthy/Red, Healthy/Green, Deploying/Blue and Unknown/Gray) that's visible as a "bubble" next to all Airflow Deployments in the Astronomer UI.
+- A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete.
+
+#### Bug Fixes & Improvements
+
+- Improvement: Add email validation to `$ astro workspace user add` command in Astro CLI (_CLI v0.21_)
+- BugFix: Workspace Admin downgraded to Workspace Viewer after creating Service Account with "Viewer" permissions
+- BugFix: "Billing" page in Astronomer UI shows error in console when saving a new card
+- BugFix: Calling the `createWorkspace` Houston API mutation with a system Service Account returns an error (`No Node for the model User`)
+- BugFix: Some Airflow Metrics unavailable in the "Metrics" tab of the Astronomer UI (DagBag Count, Zombies Killed, Task Success Rate, Task Failure Rate, Task Stream)
+
 ## Astronomer v0.20 Release Notes
 
-### v0.21
+### v0.20.1
 
 Release Date: October 7, 2020
 
@@ -14,7 +40,7 @@ Release Date: October 7, 2020
 
 - BugFix: Platform signup successful with invalid or changed invite token
 
-### v0.20
+### v0.20.0
 
 Release Date: September 30, 2020
 
