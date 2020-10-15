@@ -30,13 +30,13 @@ Add all Python packages to your `requirements.txt` and any OS-level packages you
 To pin a version of that package, use the following syntax:
 
 ```
-<package-name>=<version>
+<package-name>==<version>
 ```
 
 If you'd like to exclusively use Pymongo 3.7.2, for example, you'd add the following in your `requirements.txt`:
 
 ```
-pymongo=3.7.2
+pymongo==3.7.2
 ```
 
 If you do _not_ pin a package to a version, the latest version of the package that's publicly available will be installed by default.
