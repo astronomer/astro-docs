@@ -22,14 +22,6 @@ More specifically, Astronomer v0.21 will include:
 - Refined logic for "Deployment Health Status" (Unhealthy/Red, Healthy/Green, Deploying/Blue and Unknown/Gray) that's visible as a "bubble" next to all Airflow Deployments in the Astronomer UI.
 - A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete.
 
-#### Improved Celery Worker Update Strategy
-
-Our latest release also includes an improvement to the process by which Celery workers update and gracefully spin up or down following a code push. Previously, we leveraged a `RollingUpdate` strategy where only a certain percentage of Celery workers shut down at a time before the transition to new workers was complete. This often dragged out the time it took for a push to an Airflow Deployment to be successful.
-
-Astronomer v0.21 leverages a `Recreate` update strategy that sends notice to _all_ Celery workers immediately such that they can collectively begin a warm shutdown while _new_ workers come up and begin to take tasks.
-
-For users, this change will result in a quicker and more graceful deploy process.
-
 #### Bug Fixes & Improvements
 
 - Improvement: Add email validation to `$ astro workspace user add` command in Astro CLI (_CLI v0.21_)
