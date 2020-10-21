@@ -33,6 +33,7 @@ Install the necessary tools:
 * [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 - 0.12.28*
 * [Helm client](https://github.com/helm/helm#install) *Use version 3.2.1*
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) *Use the version appropriate for your Kubernetes cluster version*
+* [Python 3](https://www.python.org/download/releases/3.0/) *Must be available under the name `python3`*
 
 ## Installation
 
