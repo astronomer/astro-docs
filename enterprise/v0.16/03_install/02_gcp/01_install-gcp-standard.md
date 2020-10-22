@@ -173,6 +173,11 @@ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.
 
 (with the appropriate values substituted for your domain).
 
+> **Note:** If you'd like to use another SSL Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+> ```bash
+> kubectl create secret tls astronomer-tls --key <path_to_key> --cert <path_to_cert> --namespace <my-namespace>
+> ```
+
 ### Create a DNS A Record
 
 If using a wildcard cert, create an A record through your DNS provider for  your domain (e.g. `*.astro.mydomain.com`) using your previously created static IP address.
@@ -202,19 +207,9 @@ kubectl create secret generic astronomer-bootstrap \
 
 Now that your Kubernetes cluster has been configured with all prerequisites, you can deploy Astronomer!
 
-Clone the Astronomer helm charts locally and checkout your desired branch:
+Create a file named `config.yaml` in an empty directory.
 
-```
-$ git clone https://github.com/astronomer/astronomer.git
-$ git checkout <branch-name>
-```
-**Do not deploy off of the master branch. Be sure to check out the latest stable branch. Be sure to check out the latest `release-0.X` branch that can be found on our [CHANGELOG](https://github.com/astronomer/astronomer/blob/master/CHANGELOG.md)**
-
-Create your `config.yaml` by copying our `starter.yaml` template:
-
-```
-$ cp ./configs/starter.yaml ./config.yaml
-```
+For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
 Set the following values in `config.yaml`:
 
@@ -229,7 +224,6 @@ Add the following line in the `nginx:` section:
 
 Here is an example of what your `config.yaml` might look like:
 
-```yaml
 ```yaml
 #################################
 ### Astronomer global configuration
@@ -259,7 +253,7 @@ astronomer:
     config:
       deployments:
         manualReleaseNames: true # Allows you to set your release names
-        serviceAccountAnnotationKey:  # Flag to enable using IAM roles (don't enter a specific role)
+        serviceAccountAnnotationKey: iam.gke.io/gcp-service-account # Flag to enable using IAM roles (don't enter a specific role)
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
@@ -274,7 +268,6 @@ astronomer:
           google:
             enabled: true # Lets users authenticate with Github
 ```
-```
 
 Note - the SMTP URI will take the form:
 
@@ -282,13 +275,30 @@ Note - the SMTP URI will take the form:
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
+For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/016_patch/configs).
+
 Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
 
 ## 8. Install Astronomer
 
+Now that you have a GCP cluster set up and your `config.yaml` defined, you're ready to deploy all components of our platform.
+
+First, run:
+
 ```
-$ helm install -f config.yaml . --namespace <my-namespace>
+$ helm repo add astronomer https://helm.astronomer.io/
 ```
+
+Now, run:
+
+
+```
+$ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
+```
+
+Replace <platform-version> above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/v0.16/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+
+Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
 
 ## 9. Verify all pods are up
 

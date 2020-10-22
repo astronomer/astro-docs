@@ -6,7 +6,7 @@ description: "How to automate actions on Astronomer via the Houston API."
 
 ## Overview
 
-Astronomer's [Houston API](https://github.com/astronomer/houston-api) is the source of truth across the entire Astronomer platform.
+Astronomer's Houston API is the source of truth across the entire Astronomer platform.
 
 For users on Astronomer Cloud, our API is an easy way to do any of the following:
 
@@ -119,7 +119,7 @@ query User {
     id
     roleBindings {role}
     status
-    createdAt 
+    createdAt
   }
 }
 ```

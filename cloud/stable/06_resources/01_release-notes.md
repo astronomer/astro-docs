@@ -4,6 +4,72 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.21 Release Notes
+
+Release Date: October 15, 2020
+
+### v0.21.0
+
+#### A New "Deploment Status" Framework
+
+The biggest change to Astronomer Cloud in v0.21 is the introduction of a new `deploymentStatus` query that allows the platform to more reliably communicate the status of a _deploy_ and the overall health of your Airflow Deployment. We define a _deploy_ as the process that begins when a user triggers a change to an Airflow Deployment (e.g. a code push from the Astronomer CLI or the addition of an Environment Variable) and ends when that change is successfully passed and considered to be live.
+
+While this change largely sets the foundation for new features in later releases, we did include a handful of UX improvements in the meantime.
+
+More specifically, Astronomer v0.21 will include:
+
+- A new banner in the "Deployment" view of the Astronomer UI if a deploy to that Airflow Deployment is in progress.
+- Refined logic for "Deployment Health Status" (Unhealthy/Red, Healthy/Green, Deploying/Blue and Unknown/Gray) that's visible as a "bubble" next to all Airflow Deployments in the Astronomer UI.
+- A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete.
+
+#### Bug Fixes & Improvements
+
+- Improvement: Add email validation to `$ astro workspace user add` command in Astro CLI (_CLI v0.21_)
+- BugFix: Workspace Admin downgraded to Workspace Viewer after creating Service Account with "Viewer" permissions
+- BugFix: "Billing" page in Astronomer UI shows error in console when saving a new card
+- BugFix: Calling the `createWorkspace` Houston API mutation with a system Service Account returns an error (`No Node for the model User`)
+- BugFix: Some Airflow Metrics unavailable in the "Metrics" tab of the Astronomer UI (DagBag Count, Zombies Killed, Task Success Rate, Task Failure Rate, Task Stream)
+
+## Astronomer v0.20 Release Notes
+
+### v0.20.1
+
+Release Date: October 7, 2020
+
+#### Bug Fixes and Improvements
+
+- BugFix: Platform signup successful with invalid or changed invite token
+
+### v0.20.0
+
+Release Date: September 30, 2020
+
+#### Support for Airflow 1.10.12
+
+Astronomer v0.20 comes with support for [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/), the community's most recent release.
+
+Airflow 1.10.12 notably includes:
+
+- The ability to configure and launch pods via YAML files with the Kubernetes Executor and KubernetesPodOperator ([commit](https://github.com/apache/airflow/pull/6230))
+- A new `on_kill` method that ensures a KubernetesPodOperator task is killed when it's cleared in the Airflow UI ([commit]((https://github.com/apache/airflow/commit/ce94497cc) ))
+- Ability to define a custom XCom class ([commit]((https://github.com/apache/airflow/pull/8560)))
+- Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit]((https://github.com/apache/airflow/pull/9645)))
+- Support for AirfowClusterPolicyViolation support in Airflow local settings ([commit](https://github.com/apache/airflow/pull/10282)).
+
+For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
+
+> **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
+
+#### Bug Fixes and Improvements
+
+- Improved user search in Astro UI
+- Updated doc links in Astro UI
+- Platform Upgrade to [Prisma 2](https://www.prisma.io/) (Database Toolkit for our Houston API)
+- Improved error message on `$ astro dev init` if not authenticated to Astronomer (_CLI v0.20_)
+- BugFix: Inaccurate CLI version output on `$ astro upgrade` (_CLI v0.20_)
+- BugFix: Navigating to the Airflow Webserver if not authenticated redirects to Astro UI homepage after login
+- BugFix: Intermittent errors with Workspace "Trial" functionality and "Billing" tab (`Minified React Error #310`)
+
 ## Astronomer v0.19 Release Notes
 
 ### v0.19.4

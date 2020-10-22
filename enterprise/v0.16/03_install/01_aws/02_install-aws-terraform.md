@@ -30,9 +30,10 @@ Install the necessary tools:
 
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
-* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 or later*
-* [Helm client](https://github.com/helm/helm#install) *Use version 2.16.1*
+* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 - 0.12.28*
+* [Helm client](https://github.com/helm/helm#install) *Use version 3.2.1*
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) *Use the version appropriate for your Kubernetes cluster version*
+* [Python 3](https://www.python.org/download/releases/3.0/) *Must be available under the name `python3`*
 
 ## Installation
 
@@ -102,9 +103,9 @@ Information on other auth systems can be found [here.](/docs/enterprise/v0.16/ma
 
 If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
-The above options will deploy the Astronomer platform in a new VPC, with new subnets, a dedicated database, a new EKS, and DNS record for `*.<deployment_id>.<route53_domain>` with a LetsEncrypyt 90 wildcard certificate. 
+The above options will deploy the Astronomer platform in a new VPC, with new subnets, a dedicated database, a new EKS, and DNS record for `*.<deployment_id>.<route53_domain>` with a LetsEncrypyt 90 wildcard certificate.
 
-Other options to review include: 
+Other options to review include:
 
 - db_instance_type
 - worker_instance_type
@@ -117,7 +118,7 @@ A full list of configuration options, and more detailed descriptions, can be fou
 
 ## Network Configurations
 
-By default, **a new VPC and subnets will be created**. Pre-existing VPCs and subnets can be supplied as parameters: 
+By default, **a new VPC and subnets will be created**. Pre-existing VPCs and subnets can be supplied as parameters:
 
 ```
 module "astronomer-enterprise" {
@@ -135,10 +136,10 @@ module "astronomer-enterprise" {
 
 If using private subnets, be sure to change the `private_load_balancer` value in the  `astronomer_helm_values` to `true` and `allow_public_load_balancers` to `false`.
 
-By default, a public subnet is created only to allow egress internet traffic. The cluster, database, and load balancer (where the application is accessed) are placed in the private networks by default. 
+By default, a public subnet is created only to allow egress internet traffic. The cluster, database, and load balancer (where the application is accessed) are placed in the private networks by default.
 
 
-The Kubernetes API will be deployed into the public internet by default (if you're deploying into a private network, it'll only be accessible on that internal network). This is to enable a one-click solution (deploy network, deploy Kubernetes in that network, deploy application on Kubernetes all in one go). Once the cluster is avaliable, you can toggle it to private in the AWS console (in the EKS settings). Just be sure to set it back to public if running any Terraform updates. 
+The Kubernetes API will be deployed into the public internet by default (if you're deploying into a private network, it'll only be accessible on that internal network). This is to enable a one-click solution (deploy network, deploy Kubernetes in that network, deploy application on Kubernetes all in one go). Once the cluster is avaliable, you can toggle it to private in the AWS console (in the EKS settings). Just be sure to set it back to public if running any Terraform updates.
 
 To use Terraform completely privately from scratch, you will need to deploy from an existing VPC into the same VPC. Once again, be sure to set `private_load_balancer` in  `astronomer_helm_values` to `true`.
 
@@ -168,10 +169,10 @@ tls_cert = <<EOF
   EOF
 tls_key = <<EOF
 -----BEGIN PRIVATE KEY-----
------END PRIVATE KEY----- 
+-----END PRIVATE KEY-----
   EOF
 ```
-Make sure that your TLS cert is properly chained, including both the certificate and issuer pem in the same file, with the issuer second and no newline in between. 
+Make sure that your TLS cert is properly chained, including both the certificate and issuer pem in the same file, with the issuer second and no newline in between.
 
 
 ## Deploy the Platform
@@ -189,14 +190,14 @@ A `kubeconfig` file will be generated in your working directory. Be sure to refe
 export KUBECONFIG=./kubeconfig
 
 kubectl get pods -n astronomer
-helm ls
+helm ls -n astronomer
 ```
 
 The kubeconfig file along with other secrets such as the TLS certificate are backed up in the remote Terraform state S3 bucket (if applicable).
 
 ## Configuring the platform
 
-Astronomer is deployed on Kubernetes with a package manager, ['Helm'](www.helm.sh). 
+Astronomer is deployed on Kubernetes with a package manager, ['Helm'](https://helm.sh).
 
 All reconfiguration options that are intended for the Astronomer platform rather than Terraform or infrastructure (`astronomer_helm_values`) are passed in YAML. For all reconfigurations, you can make use of the Terraform option astronomer_helm_values, which should be a YAML block in a Terraform string.
 
@@ -217,4 +218,4 @@ astronomer:
           smtpUrl: YOUR_URI_HERE
 
 ```
-*Note: You will need to download the helm client to directly call helm commands* 
+*Note: You will need to download the helm client to directly call helm commands*

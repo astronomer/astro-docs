@@ -67,7 +67,7 @@ Viewers _cannot_ push code to a deployment.
 
 Astronomer RBAC not only applies to functions on Astronomer itself, but it also maps to Airflow native roles and permissions. User roles apply to all Airflow deployments within a single Workspace.
 
-For a detailed mapping of Airflow-native roles, refer to our source code [here](https://github.com/astronomer/houston-api/blob/main/config/default.yaml#L218) and [here](https://github.com/astronomer/houston-api/blob/main/src/routes/v1/authorization/handler.js#L87-L111).
+For a detailed mapping of Airflow-native roles, refer to our source code [here](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.12/reference/default.yaml#L215) and [here](https://github.com/astronomer/docs/blob/9cd8da9a4382bc89d7b8c07f5585ad1daa64a250/enterprise/v0.12/reference/authorization-handler.js#L85-L109).
 
 Read below for a breakdown of how Astronomer roles translate to Airflow access and functionality.
 

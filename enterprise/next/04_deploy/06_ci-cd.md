@@ -149,15 +149,15 @@ docker build -t registry.${BASE_DOMAIN}/${RELEASE_NAME}/airflow:ci-${DRONE_BUILD
 
 If you would like to see a more complete working example please visit our [full example using Drone-CI](https://github.com/astronomer/airflow-example-dags/blob/main/.drone.yml).
 
-### Configure Your CI/CD Pipeline
+## Configure Your CI/CD Pipeline
 
 Depending on your CI/CD tool, configuration will be slightly different. This section will focus on outlining what needs to be accomplished, not the specifics of how.
 
 At its core, your CI/CD pipeline will be authenticating to the private registry installed with the platform, then building, tagging and pushing an image to that registry.
 
-> Note: The base image is based on the version of Astronomer you are currently running.
+> **Note:** The base image is based on the version of Astronomer you are currently running.
 
-#### DroneCI
+## DroneCI
 
 ```yaml
 pipeline:
@@ -185,7 +185,7 @@ pipeline:
       branch: [ master, release-* ]
 ```
 
-#### CircleCI
+## CircleCI
 
 ```yaml
 # Python CircleCI 2.0 configuration file
@@ -250,7 +250,7 @@ workflows:
                 - master
 ```
 
-#### Jenkins Script
+## Jenkins Script
 
 ```yaml
 pipeline {
@@ -273,10 +273,9 @@ pipeline {
    }
  }
 }
-
 ```
 
-#### Bitbucket
+## Bitbucket
 
 If you are using [Bitbucket](https://bitbucket.org/), this script should work (courtesy of our friends at [Das42](https://www.das42.com/))
 
@@ -298,10 +297,10 @@ pipelines:
             - docker
           caches:
             - docker
-
 ```
 
-#### Gitlab
+## Gitlab
+
 ```yaml
 astro_deploy:
   stage: deploy
@@ -317,13 +316,36 @@ astro_deploy:
     - master
 ```
 
-### GitHub Actions CI/CD
+## AWS Codebuild
+
+```yaml
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: latest
+​
+  pre_build:
+    commands:
+      - echo Logging in to dockerhub ...
+      - docker login "registry.$BASE_DOMAIN" -u _ -p "$API_KEY_SECRET"
+      - export GIT_VERSION="$(git rev-parse --short HEAD)"
+      - echo "GIT_VERSION = $GIT_VERSION"
+      - pip install -r requirements.txt
+​
+  build:
+    commands:
+      - docker build -t "registry.$BASE_DOMAIN/$RELEASE_NAME/airflow:ci-$GIT_VERSION" .
+      - docker push "registry.$BASE_DOMAIN/$RELEASE_NAME/airflow:ci-$GIT_VERSION"
+```
+
+## GitHub Actions CI/CD
 
 GitHub supports a growing set of native CI/CD features in ["GitHub Actions"](https://github.com/features/actions), including a "Publish Docker" action that works well with Astronomer.
 
 To use GitHub Actions on Astronomer, create a new action in your repo at `.github/workflows/main.yml` with the following:
 
-```
+```yaml
 name: CI
 
 on: [push]
