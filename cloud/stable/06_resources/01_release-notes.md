@@ -6,9 +6,19 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.21 Release Notes
 
-Release Date: October 15, 2020
+### v0.21.1
+
+Release Date: October 22, 2020
+
+#### Bug Fixes & Improvements
+
+- BugFix: "User" search in Astro UI broken with filter for email address
+- BugFix: Ability to update user role locked if a Workspace Admin creates Service Account with view access
+- BugFix: User can still access the Airflow Webserver of a deleted Deployment
 
 ### v0.21.0
+
+Release Date: October 15, 2020
 
 #### A New "Deploment Status" Framework
 
