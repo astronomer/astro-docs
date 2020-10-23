@@ -12,7 +12,7 @@ Release Date: October 22, 2020
 
 #### Bug Fixes & Improvements
 
-- BugFix: "User" search in Astro UI broken with filter for email address
+- BugFix: "User" query in Astro UI + API broken with filter for email address
 - BugFix: Ability to update user role locked if a Workspace Admin creates Service Account with view access
 - BugFix: User can still access the Airflow Webserver of a deleted Deployment
 
