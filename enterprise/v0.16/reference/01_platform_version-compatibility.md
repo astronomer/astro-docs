@@ -38,4 +38,13 @@ For more detail on each version of Astronomer Certified and instructions on how 
 
 The table above lists long-term support (LTS) versions of Astronomer and does not specify _patch_ versions that our engineering team releases on a regular basis. For more detail on changes between patches, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/).
 
-If you're running on a legacy Astronomer version (pre-v0.16), reach out to [Astronomer Support](https://support.astronomer.io) to schedule an upgrade with our team.
+> **Note:** If you're running on a legacy version of Astronomer (pre-v0.16), reach out to [Astronomer Support](https://support.astronomer.io) to schedule an upgrade with our team.
+
+### Kubernetes Upgrade Guides
+
+If you're looking to upgrade Kubernetes versions, make sure to follow the guidelines offered by your managed offering provider.
+
+- [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html)
+- [Azure AKS](https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster)
+- [Google GKE](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades)
+- [RedHat OpenShift](https://docs.openshift.com/container-platform/4.6/updating/updating-cluster-between-minor.html)
