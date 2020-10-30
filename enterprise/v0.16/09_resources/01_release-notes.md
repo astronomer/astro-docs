@@ -14,7 +14,22 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.9**
+Latest Patch Release: **v0.16.10**
+
+### v0.16.10
+
+Release Date: October 30, 2020
+
+#### Support for Custom CA Certificates
+
+For users who rely on an internal Certificate Authority (CA), Astronomer now supports custom CA certificates out-of-the-box through a set of helm values in the Astronomer helm chart.
+
+For guidelines, refer to our forum post on ["Using Private CAs on Astronomer"](https://forum.astronomer.io/t/using-private-cas-in-astronomer/753).
+
+#### Bug Fixes & Improvements
+
+- Improvement: Create mutation to allow users to enable or disable KEDA via Astronomer Houston API (`updateDeploymentKedaConfig`)
+- BugFix: Alerts from Astronomer not sent when an Airflow component breaches the resource threshold level defined in Prometheus
 
 ### v0.16.9
 
