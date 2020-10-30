@@ -57,7 +57,7 @@ To start using the CLI, make sure you've already installed:
 To install the Astronomer CLI with our latest version, run:
 
 ```
-$ curl -ssl https://install.astronomer.io | sudo bash -s -- v0.12.0
+$ curl -ssl https://install.astronomer.io | sudo bash
 ```
 
 **Note:** If you're running on Windows, check out our [Windows Install Guide](/docs/cloud/stable/develop/cli-install-windows-10/).
