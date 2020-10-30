@@ -6,6 +6,14 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.21 Release Notes
 
+### v0.21.2
+
+Release Date: October 29, 2020
+
+#### Bug Fixes & Improvements
+
+BugFix: Reset password flow triggers incorrect email for users who use local username/password to authenticate
+
 ### v0.21.1
 
 Release Date: October 22, 2020
