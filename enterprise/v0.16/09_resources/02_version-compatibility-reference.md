@@ -1,5 +1,5 @@
 ---
-title: "Version Compatibility Reference for Adjacent Tooling"
+title: "Version Compatibility Reference for Astronomer Enterprise"
 navTitle: "Version Compatibility Reference"
 description: "A reference of all adjecent tooling required to run Astronomer Enterprise and corresponding version compatibility."
 ---
