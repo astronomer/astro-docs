@@ -15,7 +15,7 @@ For those running our distribution of Apache Airflow, Astronomer Certified, _wit
 | Astronomer Platform | Kubernetes             | Helm | Terraform | Postgres | Astronomer Certified                      | Python        |
 |---------------------|------------------------|------|-----------|----------|-------------------------------------------|---------------|
 | v0.16               | 1.14, 1.15, 1.16, 1.17 | 3    | 0.12      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.13 | 3.6, 3.7, 3.8 |
-| v0.22 (*Coming Soon*)| 1.15, 1.16, 1.17       | 3    | 0.12      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 2.0.0   | 3.6, 3.7, 3.8 |
+| v0.22 (*Coming Soon*)| 1.15, 1.16, 1.17      | 3    | 0.12      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 2.0.0   | 3.6, 3.7, 3.8 |
 
 > **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12. For instructions on how to upgrade Airflow, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/airflow-versioning/). For instructions on how to upgrade to the latest version of Astronomer, refer to our ["Enterprise Upgrade Guide"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
 
