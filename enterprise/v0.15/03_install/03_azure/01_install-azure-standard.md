@@ -343,5 +343,5 @@ Verify that this output matches with:
 Finally, to make sure the registry accepted SSL, try to log into the registry:
 
 ```
-docker login registry.BASEDOMAIN -u _ p <token>
+docker login registry.BASEDOMAIN -u _ -p <token>
 ```
