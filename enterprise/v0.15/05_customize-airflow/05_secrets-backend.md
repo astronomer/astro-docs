@@ -97,7 +97,7 @@ To set this configuration up, follow the steps below.
 
 > **Note:** By default, Airflow uses `"kv_engine_version": 2`, but we've written this secret using v1. You're welcome to change this to accommodate how you write and read your secrets.
 
-If you'd like to further customize what the interaction between Airflow and Vault server will look like, you read [the full list of available kwargs for this integration](https://airflow.readthedocs.io/en/latest/_api/airflow/providers/hashicorp/secrets/vault/index.html).
+If you'd like to further customize what the interaction between Airflow and Vault server will look like, you read [the full list of available kwargs for this integration](https://airflow.apache.org/docs/stable/_api/airflow/contrib/secrets/hashicorp_vault/index.html).
 
 ### Test Your Connection
 
@@ -209,7 +209,7 @@ To do so, follow the steps below.
 
 This tells Airflow to look for connection information at the `airflow/connections/*` path in your SSM instance.
 
-If you're interested in further customizing what the interaction between Airflow and your SSM server looks like, learn more by reading [the full list of available kwargs for this integration](https://airflow.readthedocs.io/en/latest/_api/airflow/providers/amazon/aws/secrets/systems_manager/index.html).
+If you're interested in further customizing what the interaction between Airflow and your SSM server looks like, learn more by reading [the full list of available kwargs for this integration](https://airflow.apache.org/docs/stable/_api/airflow/contrib/secrets/aws_systems_manager/index.html).
 
 > **Note:** If you'd like to reference an AWS profile instead of connecting via Environment Variables, you can also [add the `profile` param to your kwargs](https://airflow.apache.org/docs/1.10.10/howto/use-alternative-secrets-backend.html).
 
