@@ -375,7 +375,7 @@ curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <toke
 Finally, to make sure the registry accepted SSL, try to log into the registry:
 
 ```
-docker login registry.BASEDOMAIN -u _ p <token>
+docker login registry.BASEDOMAIN -u _ -p <token>
 ```
 
 ## 11. What's Next
