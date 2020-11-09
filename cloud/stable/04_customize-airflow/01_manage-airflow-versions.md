@@ -12,8 +12,8 @@ Included in that build is your `Dockerfile`, a file that is automatically genera
 
 To upgrade your Airflow Deployment to a higher version of Airflow, there are three steps:
 
-1. Initialize the Airflow Upgrade via the Astronomer UI or CLI
-2. Change the FROM statement in your project's Dockerfile to reference a new, corresponding AC image
+1. Initialize the upgrade by selecting a new Airflow version via the Astronomer UI or CLI
+2. Change the FROM statement in your project's Dockerfile to reference an AC image that corresponds to the Airflow version indicated in Step 1
 3. Deploy to Astronomer
 
 Read below for details.
@@ -50,7 +50,7 @@ This action will NOT interrupt or otherwise impact your Airflow Deployment or tr
 
 Once you select a version, you can expect to see a banner at the top of the **Settings** tab that reads `Airflow Deployment in Progress...`.
 
-> **Note:** If you'd like to change your selected version of Airflow to upgrade to, you can do so at anytime as long as long as you re-click **Upgrade** after making your selection.
+> **Note:** If you'd like to change your selected version of Airflow to upgrade to, you can do so at anytime as long as you re-click **Upgrade** after making your selection.
 
 #### via the Astronomer CLI
 
@@ -76,7 +76,7 @@ With that `Deployment ID`, run:
 $ astro deployment airflow upgrade --deployment-id=<deployment-id>
 ```
 
-This command will output a list of available versions of Airflow you can choose from. You should see something like the following:
+This command will output a list of available versions of Airflow you can choose from and prompt you to pick one. For example, a user upgrading from Airflow 1.10.5 to Airflow 1.10.12 should see the following:
 
 ```
 astro deployment airflow upgrade --deployment-id=ckguogf6x0685ewxtebr4v04x
@@ -86,10 +86,10 @@ astro deployment airflow upgrade --deployment-id=ckguogf6x0685ewxtebr4v04x
 3     1.10.12
 
 > 3
- NAME                                   DEPLOYMENT NAME       ASTRO       DEPLOYMENT ID                 AIRFLOW VERSION
- new-deployment-1-10-10-airflow-k8s     new-velocity-8501     v0.17.0     ckguogf6x0685ewxtebr4v04x     1.10.12
+ NAME                  DEPLOYMENT NAME       ASTRO       DEPLOYMENT ID                 AIRFLOW VERSION
+ Astronomer Stagings   new-velocity-8501     v0.17.0     ckguogf6x0685ewxtebr4v04x     1.10.12
 
-The upgrade from Airflow 1.10.10 to 1.10.12 has been started. To complete this process, add an Airflow 1.10.12 image to your Dockerfile and deploy to Astronomer.
+The upgrade from Airflow 1.10.5 to 1.10.12 has been started. To complete this process, add an Airflow 1.10.12 image to your Dockerfile and deploy to Astronomer.
 ```
 
 As noted above, this action will NOT interrupt or otherwise impact your Airflow Deployment or trigger a code change - it is simply a signal to our platform that you _intend_ to upgrade such that we can guide your experience through the rest of the process.
@@ -110,9 +110,11 @@ Via the Astronomer CLI, run:
 $ astro deployment airflow upgrade --cancel --deployment-id=<deployment-id>
 ```
 
-After running that command, you should see:
+For example, if the user mentioned above canceled the initialized upgrade from Airflow 1.10.5 to Airflow 1.10.12 via the CLI, they would see the following:
 
 ```bash
+astro deployment airflow upgrade --cancel --deployment-id=ckguogf6x0685ewxtebr4v04x
+
 Airflow upgrade process has been successfully canceled. Your Deployment was not interrupted and you are still running Airflow 1.10.5.
 ```
 
