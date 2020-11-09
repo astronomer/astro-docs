@@ -13,7 +13,7 @@ Included in that build is your `Dockerfile`, a file that is automatically genera
 To upgrade your Airflow Deployment to a higher version of Airflow, there are three steps:
 
 1. Initialize the Airflow Upgrade via the Astronomer UI or CLI
-2. Change the FROM statement in your project's Dockerfile to reference the new AC image of your choice
+2. Change the FROM statement in your project's Dockerfile to reference a new, corresponding AC image
 3. Deploy to Astronomer
 
 Read below for details.
@@ -48,7 +48,7 @@ To initialize the Airflow upgrade process via the Astronomer UI, navigate to **D
 
 This action will NOT interrupt or otherwise impact your Airflow Deployment or trigger a code change - it is simply a signal to our platform that you _intend_ to upgrade such that we can guide your experience through the rest of the process.
 
-Once you select a version, you can expect to see a banner at the top of the **Settings** tab that reads, `Airflow Deployment in Progress...`.
+Once you select a version, you can expect to see a banner at the top of the **Settings** tab that reads `Airflow Deployment in Progress...`.
 
 > **Note:** If you'd like to change your selected version of Airflow to upgrade to, you can do so at anytime as long as long as you re-click **Upgrade** after making your selection.
 
@@ -94,13 +94,13 @@ The upgrade from Airflow 1.10.10 to 1.10.12 has been started. To complete this p
 
 As noted above, this action will NOT interrupt or otherwise impact your Airflow Deployment or trigger a code change - it is simply a signal to our platform that you _intend_ to upgrade such that we can guide your experience through the rest of the process.
 
-To complete the upgrade, all you have to do is add a new, corresponding AC image to your Dockerfile.
+To complete the upgrade, all you have to do is add a corresponding AC image to your Dockerfile.
 
 #### Cancel Airflow Upgrade Initialization
 
-If you begin the upgrade process for your Airflow Deployment and would like to cancel it, you can do so at any time either via the Astronomer UI or CLI as long as you have NOT yet changed the Astronomer Certified Image in your Dockerfile.
+If you begin the upgrade process for your Airflow Deployment and would like to cancel it, you can do so at any time either via the Astronomer UI or CLI as long as you have NOT changed the Astronomer Certified Image in your Dockerfile and deployed it.
 
-Via the Astronomer UI, select **Cancel** next to **Airflow Version**.
+Via the Astronomer UI, select **Cancel Upgrade** next to **Airflow Version**.
 
 [INSERT SCREENSHOT OF CANCEL AIRFOW UPGRADE IN ASTRO UI]
 
@@ -110,7 +110,7 @@ Via the Astronomer CLI, run:
 $ astro deployment airflow upgrade --cancel --deployment-id=<deployment-id>
 ```
 
-After running that command, you can expect the following:
+After running that command, you should see:
 
 ```bash
 Airflow upgrade process has been successfully canceled. Your Deployment was not interrupted and you are still running Airflow 1.10.5.
@@ -122,7 +122,7 @@ Canceling the Airflow Upgrade process will NOT interrupt or otherwise impact you
 
 #### Locate your Dockerfile in your Project Directory
 
-First, open the `Dockerfile` within your Astronomer directory. When you initialiazed an Airflow project via the Astronomer CLI, the following files should have been automatially generated:
+First, open the `Dockerfile` within your Astronomer directory. When you initialized an Airflow project via the Astronomer CLI, the following files should have been automatially generated:
 
 ```
 .
@@ -197,16 +197,17 @@ Once there, you should see your correct Airflow version listed.
 
 If you're on Astronomer Cloud, navigate to your Airflow Deployment page on the Astronomer UI.
 
+[INSERT SCREENSHOT OF AIRFLOW UI VERSION]
+
 ### Patch Versions of Astronomer Certified
 
 In addition to supporting the latest versions of open-source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
-For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release:
+For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release: 
 
 - 1.10.10-2
 - 1.10.10-3
-- 1.10.10-4
-- 1.10.10-5
+- 1.10.10-4 etc.
 
 All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open-source release.
 
