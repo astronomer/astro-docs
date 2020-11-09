@@ -1,7 +1,7 @@
 ---
 title: "Manage User Permissions on an Astronomer Workspace"
-navTitle: "Workspace User Permissions"
-description: "Manage user roles and permissions within a single Astronomer Workspace."
+navTitle: "User Permissions"
+description: "Manage user roles and permissions."
 ---
 
 Astronomer supports role based access control (RBAC), allowing you to configure varying levels of access across all Users within your Workspace.
@@ -13,13 +13,15 @@ For details on how those levels of permission are defined and how to leverage th
 
 ## Overview
 
-Astronomer supports three levels of Workspace roles:
+Astronomer supports three levels of roles for both Workspaces and Deployments:
 
    - Admin
    - Editor
    - Viewer
 
 Each of these roles maps to a combination of permissions to both Astronomer and Airflow itself.
+
+## Workspace Access
 
 ### View Roles
 
@@ -31,9 +33,9 @@ To view roles within a Workspace, navigate to the `Users` tab.
 
 If you're a Workspace Admin, you can edit permissions by clicking into a user.
 
-![Configure Access](https://assets2.astronomer.io/main/docs/astronomer-ui/configure_access.png)
+![Configure Access](https://assets2.astronomer.io/main/docs/astronomer-ui/configure_access-0.22.png)
 
-## Astronomer Access
+## Astronomer Workspace Access
 
 ### Admin
 
@@ -62,6 +64,50 @@ Viewers are limited to read-only mode. They can:
 Viewers _cannot_ push code to a deployment.
 
 **Note:** By default, newly invited users are `Viewers` in a Workspace.
+
+## Deployment Access
+
+### View Roles
+
+To view roles within a Deployment, navigate to the `Access` tab.
+
+![Deployment Users](https://assets2.astronomer.io/main/docs/astronomer-ui/deployment_users_0.22.png)
+
+### Edit Roles
+
+If you're a Deployment Admin, you can edit permissions using the dropdown.
+
+![Configure Deployment Access](https://assets2.astronomer.io/main/docs/astronomer-ui/deployment_users_edit_0.22.png)
+
+## Astronomer Deployment Access
+
+### Admin
+
+Deployment Admins are the highest-tiered role. Admins can:
+
+- Perform CRUD (create, read, update, delete) operations on the Deployment
+- Perform CRUD Airflow operations
+- Manage users and their permissions in a Deployment
+
+### Editor
+
+Behind admins, the Editor can:
+
+- Perform CRUD operations on in the Deployment
+- Perform CRUD operations on any service account in the Deployment
+
+Editors _cannot_ manage other users in the Deployment.
+
+### Viewer
+
+Viewers are limited to read-only mode. They can:
+
+- Can view users in a Deployment
+- Can view deployments in a Deployment
+
+Viewers _cannot_ push code to a deployment.
+
+**Note:** By default, newly invited users are `Viewers` in a Deployment
 
 ## Airflow Access
 
