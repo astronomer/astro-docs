@@ -10,10 +10,11 @@ On Astronomer, the process of pushing up your code to an individual Airflow Depl
 
 Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer Certified Docker Image. Astronomer Certified (AC) is a production-ready distribution of Apache Airflow that mirrors the open-source project and undergoes additional levels of rigorous testing conducted by our team.
 
-To upgrade your Airflow Deployment to a higher version of Airflow, there are two steps:
+To upgrade your Airflow Deployment to a higher version of Airflow, there are three steps:
 
-1. Indicate your intent to upgrade your Deployment to some higher version of Airflow via the Astronomer UI or CLI
+1. Initialize the Airflow Upgrade via the Astronomer UI or CLI
 2. Change the FROM statement in your project's Dockerfile to reference the new AC image of your choice
+3. Deploy to Astronomer
 
 Read below for details.
 
@@ -109,11 +110,10 @@ Via the Astronomer CLI, run:
 $ astro deployment airflow upgrade --cancel --deployment-id=<deployment-id>
 ```
 
-You can expect the following output from the Astronomer CLI:
+After running that command, you can expect the following:
 
 ```bash
-Airflow upgrade process has been successfully canceled.
-Your Deployment was not interrupted and you are still running Airflow 1.10.5.
+Airflow upgrade process has been successfully canceled. Your Deployment was not interrupted and you are still running Airflow 1.10.5.
 ```
 
 Canceling the Airflow Upgrade process will NOT interrupt or otherwise impact your Airflow Deployment or code that's running with it. To re-initialize an upgrade, follow the steps above.
