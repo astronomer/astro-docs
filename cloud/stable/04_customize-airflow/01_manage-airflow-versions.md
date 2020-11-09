@@ -13,7 +13,7 @@ Included in that build is your `Dockerfile`, a file that is automatically genera
 To upgrade your Airflow Deployment to a higher version of Airflow, there are two steps:
 
 1. Indicate your intent to upgrade your Deployment to some higher version of Airflow via the Astronomer UI or CLI
-2. Change the FROM statement in your project's Dockerfile to reference the new AC image of your choice.
+2. Change the FROM statement in your project's Dockerfile to reference the new AC image of your choice
 
 Read below for details.
 
@@ -34,13 +34,13 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 
 The first step to upgrading your Deployment to a higher version of Apache Airflow is to indicate your intent to do so via the Astronomer UI or CLI.
 
-> **Note::** The Astronomer UI and CLI will only make available versions of Airflow that are _higher_ than the version you're currently running in your `Dockerfile`. For example, if you're currently running Airflow `1.10.10`, `1.10.7` will _not_ be available for selection.
+> **Note:** The Astronomer UI and CLI will only make available versions of Airflow that are _higher_ than the version you're currently running in your `Dockerfile`. For example, if you're currently running Airflow `1.10.10`, `1.10.7` will _not_ be available for selection.
 
 #### via the Astronomer UI
 
 To initialize the Airflow upgrade process via the Astronomer UI, navigate to **Deployment** > **Settings** > **Basics** > **Airflow Version**. Next to **Airflow Version**,
 
-1. Select your desired version of Airflow from the drop-down menu
+1. Select your desired version of Airflow
 2. Click **Upgrade**
 
 [INSERT SCREENSHOT/GIF OF AIRFOW UPGRADE MODAL IN ASTRO UI]
