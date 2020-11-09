@@ -109,6 +109,40 @@ Viewers _cannot_ push code to a deployment.
 
 **Note:** By default, newly invited users are `Viewers` in a Deployment
 
+## Astronomer CLI commands
+
+You can perform Deployment level RBAC operations using the following commands
+
+#### Add User to a Deployment
+
+```
+$ astro deployment user add <email> --deployment-id=ID --role=ROLE
+```
+
+#### Update Deployment User role
+
+```
+$ astro deployment user update <email> --deployment-id=ID --role=ROLE
+```
+
+#### Remove User from a Deployment
+
+```
+$ astro deployment user delete <email> --deployment-id=ID
+```
+
+#### List Deployment Users
+
+```
+$ astro deployment user list <deployment-id>
+```
+
+**Note:**
+#### Current deployment roles:
+```
+"DEPLOYMENT_VIEWER", "DEPLOYMENT_EDITOR", "DEPLOYMENT_ADMIN"
+```
+
 ## Airflow Access
 
 Astronomer RBAC not only applies to functions on Astronomer itself, but it also maps to Airflow native roles and permissions. User roles apply to all Airflow deployments within a single Workspace.
@@ -143,7 +177,3 @@ Read below for a breakdown of how Astronomer roles translate to Airflow access a
 - Any attempts to view logs, trigger DAGs, or anything else of the sort will result in a `403` and an `Access is Denied` message.
 
 ![Access Denied](https://assets2.astronomer.io/main/docs/astronomer-ui/access_denied.png)
-
-## Coming soon
-
-In coming releases, we'll be rolling out Deployment level permissions to use in tandem with Workspace level permissions.
