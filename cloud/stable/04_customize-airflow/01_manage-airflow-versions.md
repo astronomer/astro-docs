@@ -35,7 +35,7 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 
 The first step to upgrading your Deployment to a higher version of Apache Airflow is to indicate your intent to do so via the Astronomer UI or CLI.
 
-> **Note:** The Astronomer UI and CLI will only make available versions of Airflow that are _higher_ than the version you're currently running in your `Dockerfile`. For example, if you're currently running Airflow `1.10.10`, `1.10.7` will _not_ be available for selection.
+> **Note:** The Astronomer UI and CLI will only make available versions of Airflow that are _higher_ than the version you're currently running in your `Dockerfile`. For example, Airflow `1.10.7` would not be available for an Airflow Deployment running `1.10.10`.
 
 #### via the Astronomer UI
 
@@ -44,13 +44,13 @@ To initialize the Airflow upgrade process via the Astronomer UI, navigate to **D
 1. Select your desired version of Airflow
 2. Click **Upgrade**
 
-[INSERT SCREENSHOT/GIF OF AIRFOW UPGRADE MODAL IN ASTRO UI]
+![Airflow Upgrade via Astronomer UI](https://assets2.astronomer.io/main/docs/manage-airflow-versions/airflow-upgrade-astro-ui.gif)
 
 This action will NOT interrupt or otherwise impact your Airflow Deployment or trigger a code change - it is simply a signal to our platform that you _intend_ to upgrade such that we can guide your experience through the rest of the process.
 
-Once you select a version, you can expect to see a banner at the top of the **Settings** tab that reads `Airflow Deployment in Progress...`.
+Once you select a version, you can expect to see a banner next to **Airflow Version** indicating that the upgrade is in progress. For a user upgrading from 1.10.7 to 1.10.12, that banner would read `Upgrade from 1.10.7 to 1.10.12 in progress…`
 
-> **Note:** If you'd like to change your selected version of Airflow to upgrade to, you can do so at anytime as long as you re-click **Upgrade** after making your selection.
+> **Note:** If you'd like to change the version of Airflow you'd like to upgrade to, you can do so at anytime by clicking **Cancel**, re-selecting a new version and once again clicking **Upgrade**. More on that below.
 
 #### via the Astronomer CLI
 
@@ -100,9 +100,9 @@ To complete the upgrade, all you have to do is add a corresponding AC image to y
 
 If you begin the upgrade process for your Airflow Deployment and would like to cancel it, you can do so at any time either via the Astronomer UI or CLI as long as you have NOT changed the Astronomer Certified Image in your Dockerfile and deployed it.
 
-Via the Astronomer UI, select **Cancel Upgrade** next to **Airflow Version**.
+Via the Astronomer UI, select **Cancel** next to **Airflow Version**.
 
-[INSERT SCREENSHOT OF CANCEL AIRFOW UPGRADE IN ASTRO UI]
+![Airflow Upgrade via Astronomer UI](https://assets2.astronomer.io/main/docs/manage-airflow-versions/airflow-upgrade-astro-ui-cancel.gif)
 
 Via the Astronomer CLI, run:
 
@@ -110,12 +110,12 @@ Via the Astronomer CLI, run:
 $ astro deployment airflow upgrade --cancel --deployment-id=<deployment-id>
 ```
 
-For example, if the user mentioned above canceled the initialized upgrade from Airflow 1.10.5 to Airflow 1.10.12 via the CLI, they would see the following:
+For example, if a user cancels an initialized upgrade from Airflow 1.10.7 to Airflow 1.10.12 via the CLI, they would see the following:
 
 ```bash
 astro deployment airflow upgrade --cancel --deployment-id=ckguogf6x0685ewxtebr4v04x
 
-Airflow upgrade process has been successfully canceled. Your Deployment was not interrupted and you are still running Airflow 1.10.5.
+Airflow upgrade process has been successfully canceled. Your Deployment was not interrupted and you are still running Airflow 1.10.7.
 ```
 
 Canceling the Airflow Upgrade process will NOT interrupt or otherwise impact your Airflow Deployment or code that's running with it. To re-initialize an upgrade, follow the steps above.
