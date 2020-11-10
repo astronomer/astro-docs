@@ -102,7 +102,7 @@ If you begin the upgrade process for your Airflow Deployment and would like to c
 
 Via the Astronomer UI, select **Cancel** next to **Airflow Version**.
 
-![Airflow Upgrade via Astronomer UI](https://assets2.astronomer.io/main/docs/manage-airflow-versions/airflow-upgrade-astro-ui-cancel.gif)
+![Cancel Airflow Upgrade via Astronomer UI](https://assets2.astronomer.io/main/docs/manage-airflow-versions/airflow-upgrade-astro-ui-cancel.gif)
 
 Via the Astronomer CLI, run:
 
@@ -197,9 +197,11 @@ Once there, you should see your correct Airflow version listed.
 
 #### On Astronomer
 
-If you're on Astronomer Cloud, navigate to your Airflow Deployment page on the Astronomer UI.
+If you're on Astronomer Cloud, navigate to your Airflow Deployment via Astronomer and navigate to **About** > **Version**.
 
-[INSERT SCREENSHOT OF AIRFLOW UI VERSION]
+![Verify Airflow Version in Airflow UI](https://assets2.astronomer.io/main/docs/manage-airflow-versions/airflow-ui-version.png)
+
+> **Note:** In Airflow 2.0, the **Version** page referenced above will be deprecated. Check the footer of the Airflow UI to validate Airflow version instead.
 
 ### Patch Versions of Astronomer Certified
 
