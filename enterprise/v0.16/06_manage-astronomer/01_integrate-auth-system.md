@@ -24,7 +24,7 @@ The doc below will walk through how to both enable local authentication and conf
 
 If you'd like to enable the ability for users to authenticate to Astronomer with a local username and password, follow the steps below.
 
-### Enable Local Auth in your `config.yaml`:
+### Enable Local Auth in your `values.yaml`:
 
 ```yaml
 astronomer:
@@ -37,15 +37,15 @@ astronomer:
 
 ### Apply your Changes
 
-To apply the changes to your `config.yaml`, run the following:
+To apply the changes to your `values.yaml`, run the following:
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+$ helm upgrade <platform-release-name> -f values.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 ## General OIDC Configuration
 
-If you'd like to integrate an OIDC provider with Astronomer Enterprise, you can enable that configuration in the `config.yaml` file of your `astronomer` directory.
+If you'd like to integrate an OIDC provider with Astronomer Enterprise, you can enable that configuration in the `values.yaml` file of your `astronomer` directory.
 
 Example:
 
@@ -86,9 +86,9 @@ Example:
 
 ![authentication.png](https://assets2.astronomer.io/main/docs/auth/authentication.png)
 
-### Enable Azure AD in your `config.yaml`
+### Enable Azure AD in your `values.yaml`
 
-Make sure the `config.yaml` file in your `astronomer` directory is updated with the proper values:
+Make sure the `values.yaml` file in your `astronomer` directory is updated with the proper values:
 
 ```yaml
 astronomer:
@@ -111,14 +111,14 @@ astronomer:
 
 ### Apply your Changes
 
-To apply the changes to your `config.yaml`, run the following:
+To apply the changes to your `values.yaml`, run the following:
 
 ```
 $ helm ls --namespace <your-namespace>
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+$ helm upgrade <platform-release-name> -f values.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 ## Okta
@@ -139,9 +139,9 @@ Follow the steps below.
 
 4. Save the `Client ID` generated for this Okta app for use in the next steps
 
-### Enable Okta in your `config.yaml`
+### Enable Okta in your `values.yaml`
 
-Add the following to your `config.yaml` file in your `astronomer` directory:
+Add the following to your `values.yaml` file in your `astronomer` directory:
 
 ```yaml
 astronomer:
@@ -159,14 +159,14 @@ astronomer:
 
 ### Apply your Changes
 
-To apply the changes to your `config.yaml`, run the following:
+To apply the changes to your `values.yaml`, run the following:
 
 ```
 $ helm ls --namespace <your-namespace>
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+$ helm upgrade <platform-release-name> -f values.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 ## Auth0
@@ -214,9 +214,9 @@ For instructions, navigate to Auth0's [connection guides](https://auth0.com/docs
 * Under `Identifier`, enter `astronomer-ee`.
 * Leave the value under `Signing Algorithm` as `RS256`.
 
-### Enable Auth0 in your `config.yaml`
+### Enable Auth0 in your `values.yaml`
 
-Add the following to your `config.yaml` file in your `astronomer` directory:
+Add the following to your `values.yaml` file in your `astronomer` directory:
 
 ```yaml
 astronomer:
@@ -234,14 +234,14 @@ You can find your `clientID` value at `https://manage.auth0.com/dashboard/us/<te
 
 ### Apply your Changes
 
-To apply the changes to your `config.yaml`, run the following:
+To apply the changes to your `values.yaml`, run the following:
 
 ```
 $ helm ls --namespace <your-namespace>
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+$ helm upgrade <platform-release-name> -f values.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 ## Running behind an HTTPS Proxy
@@ -256,7 +256,7 @@ If your install is configured _without_ a direct connection to the internet you 
 
 To configure the proxy server used we need to set the `GLOBAL_AGENT_HTTPS_PROXY` Environment Variable for the Houston deployment.
 
-To do so, add the following to the Houston section of the `config.yaml` file in your `astronomer` directory:
+To do so, add the following to the Houston section of the `values.yaml` file in your `astronomer` directory:
 
 
 ```yaml
@@ -276,12 +276,12 @@ astronomer:
 
 ### Apply your Changes
 
-To apply the changes to your `config.yaml`, run the following:
+To apply the changes to your `values.yaml`, run the following:
 
 ```
 $ helm ls --namespace <your-namespace>
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+$ helm upgrade <platform-release-name> -f values.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```

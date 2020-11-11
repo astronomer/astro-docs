@@ -8,7 +8,7 @@ By default, the Astronomer platform allows you to authenticate using your Google
 
 ## Configuration
 
-In your `config.yaml` file in your `astronomer` directory, you can enable an OIDC provider of your choice via the following config:
+In your `values.yaml` file in your `astronomer` directory, you can enable an OIDC provider of your choice via the following config:
 
 ```yaml
 astronomer:
@@ -34,7 +34,7 @@ https://houston.BASEDOMAIN/v1/oauth/redirect
 From there, head over to Authentication and make sure that Access Tokens and ID tokens are explicitly enabled. Also verify the redirect URI
 ![authentication.png](https://assets2.astronomer.io/main/docs/auth/authentication.png)
 
-Make sure the `config.yaml` file has is udpated with the proper values
+Make sure the `values.yaml` file has is udpated with the proper values
 ```
 astronomer:
   houston:
@@ -53,7 +53,7 @@ astronomer:
 To apply the configuration:
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+$ helm upgrade <platform-release-name> -f values.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 **Note:** The `discoveryURL` includes the tenant ID in this example
@@ -76,7 +76,7 @@ $ helm upgrade <platform-release-name> -f config.yaml --version=<platform-versio
 
 ### Astronomer Configuration
 
-Add the following to your `config.yaml` file in your `astronomer` directory:
+Add the following to your `values.yaml` file in your `astronomer` directory:
 
 ```yaml
 astronomer:
@@ -138,7 +138,7 @@ The steps required for establishing a connection will vary by identity provider 
 
 ### Astronomer Configuration
 
-Add the following to your `config.yaml` file in your `astronomer/` directory. You can find your `clientID` value at `https://manage.auth0.com/dashboard/us/<tenant-name>/applications` listed next to `Default App`:
+Add the following to your `values.yaml` file in your `astronomer/` directory. You can find your `clientID` value at `https://manage.auth0.com/dashboard/us/<tenant-name>/applications` listed next to `Default App`:
 
 ```yaml
 astronomer:
@@ -161,7 +161,7 @@ $ helm ls --namespace <your-namespace>
 
 ```
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+$ helm upgrade <platform-release-name> -f values.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 ## Running behind an HTTPS Proxy
@@ -170,7 +170,7 @@ The Identity provider integration of the Astronomer platform requires that Houst
 
 If your install is configured without a direct connection to the internet you will need to configure an HTTPS proxy server for Houston.
 
-To configure the proxy server used we need to set the `GLOBAL_AGENT_HTTPS_PROXY` environment variable for the Houston deployment, which we do by adding the following to your `config.yaml` file in your `astronomer/` directory. The houston section of this file should now look something like this:
+To configure the proxy server used we need to set the `GLOBAL_AGENT_HTTPS_PROXY` environment variable for the Houston deployment, which we do by adding the following to your `values.yaml` file in your `astronomer/` directory. The houston section of this file should now look something like this:
 
 
 ```yaml
