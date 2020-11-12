@@ -159,7 +159,7 @@ Deployment _Admins_ can edit permissions using the dropdown menu in the **Access
 
 ![Configure Deployment Access](https://assets2.astronomer.io/main/docs/astronomer-ui/configure-deployment-user-access.png)
 
-To edit a user's role via the Astro CLI as a Deployment _Admin_, run:
+To edit a user's role via the Astro CLI, run:
 
 ```bash
 $ astro deployment user update <email> --deployment-id=<deployment-id> --role=<deployment-role>
@@ -183,11 +183,16 @@ $ astro deployment user delete <email> --deployment-id=<deployment-id>
 
 #### Workspace Admin
 
-Workspace _Admins_ are the highest-tiered role. Admins:
+Workspace _Admins_ are the highest-tiered role at the Workspace level. Admins:
 
 - Can manage users and their permissions in a Workspace
-- Can perform CRUD (create, read, update, delete) operations on the Workspace
-- Can perform CRUD operations on any Airflow Deployment within that Workspace
+- Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name)
+- Can create Airflow Deployments in the Workspace
+- Can manage **Billing**
+- Can perform CRUD operations on any Service Account in the Workspace
+
+
+Workspace _Admins_ do not automatically have CRUD access to all Airflow Deployments within it - they must either create or be added to those Deployments and will be held to the restrictions of their deployment-level role. For example, a Workspace _Admin_ could be a Deployment _Viewer_ and not have access to push code to that Deployment.
 
 #### Workspace Editor
 
@@ -196,12 +201,12 @@ Below a Workspace _Admin_, an _Editor_:
 - Can access and make changes to the Workspace in the **Settings** tab
 - Can perform CRUD operations on any Service Account in the Workspace
 - Can create Airflow Deployments in the Workspace
-
-A Workspace _Editor_ cannot manage other users in the Workspace and _cannot_ add, edit or remove information in the **Billing** tab.
+- Cannot manage other users in the Workspace
+- Cannot add, edit or remove information in **Billing**
 
 #### Workpace Viewer
 
-A Deployment _Viewer_ is limited to read-only mode. _Viewers_: 
+A Workspace _Viewer_ is limited to read-only mode. _Viewers_: 
 
 - Can list users in a Workspace
 - Can view all Airflow Deployments in the Workspace
@@ -216,7 +221,7 @@ A Deployment _Viewer_ is limited to read-only mode. _Viewers_:
 
 Deployment _Admins_ are the highest-tiered role. Admins:
 
-- Can perform CRUD (create, read, update, delete) Astronomer operations on the Deployment (e.g. modify resources, add Environment Variables)
+- Can perform CRUD (create, read, update, delete) Astronomer operations on the Deployment (e.g. modify resources, add Environment Variables, push code, delete the Deployment)
 - Can manage users and their permissions in the Deployment
 - Can perform CRUD operations on any Service Account in the Workspace
 - Can perform CRUD Airflow operations (push code, add Connections, clear tasks, delete DAGs etc.)
@@ -227,7 +232,7 @@ Deployment _Admins_ are the highest-tiered role. Admins:
 
 Behind _Admins_, a Deployment _Editor_:
 
-- Can access and make changes to the Deployment (e.g. modify resources, change name, push code)
+- Can access and make changes to the Deployment on Astronomer (e.g. modify resources, add Environment Variables, push code)
 - Cannot delete the Deployment
 - Can perform CRUD operations on any Service Account in the Deployment
 - Has full access to modify and interact with DAGs in the Airflow UI
