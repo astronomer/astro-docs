@@ -71,7 +71,7 @@ $ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 pymongo==3.7.2
 ```
 
-> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.12/customize-airflow/airflow-versioning/).
+> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.12/customize-airflow/manage-airflow-versions/).
 
 ## Add Other Dependencies
 
@@ -267,7 +267,7 @@ If you're running the Alpine-based, Airflow 1.10.10 Astronomer Certified image, 
 FROM astronomerinc/ap-airflow:1.10.10-alpine3.10 AS stage1
 ```
 
-For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](/docs/enterprise/v0.12/customize-airflow/airflow-versioning/).
+For a list of all Airflow Images supported on Astronomer, refer to our ["Manage Airflow Versions" doc](/docs/enterprise/v0.12/customize-airflow/manage-airflow-versions/).
 
 > **Note:**  Do NOT include `on-build` at the end of your Airflow Image as you typically would in your Dockerfile.
 

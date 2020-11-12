@@ -30,7 +30,7 @@ It's worth noting that while the tables below reference the minimum compatible v
 | 1.10.13 (*Coming Soon*) | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              |
 | 2.0.0 (*Coming Soon*)   | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              |
 
-For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Airflow Versioning" doc](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/airflow-versioning/).
+For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions/).
 
 > **Note:** MySQL 5.7 is compatible with Airflow and Astronomer Certified 2.0 but it does NOT support the ability to run more than 1 Scheduler and is not recommended. If you'd like to leverage Airflow's new Highly-Available Scheduler, make sure you're running MySQL 8.0+.
 
