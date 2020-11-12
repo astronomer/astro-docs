@@ -26,8 +26,6 @@ Users can now see the version of Airflow they're running in the **Settings** pag
 
 For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
-> **Note:** Support for Astronomer Certified 1.10.5 is ending soon. As of Astronomer v0.22, users will NOT be able to create a new Airflow Deployment with 1.10.5. We'll continue to support existing 1.10.5 users through December 31, 2020 but strongly recommend you upgrade to AC 1.10.7+.
-
 #### Support for Multiple Schedulers
 
 Airflow 2.0 is around the corner and will allow users to provision multiple Airflow Schedulers for high-availability and scale. While Airflow 2.0 is not generally available just yet, Astronomer v0.22 pre-emptively supports the ability to provision up to 4 Schedulers via the Astronomer UI for Airflow Deployments running Airflow 2.0+.
