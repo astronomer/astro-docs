@@ -105,7 +105,7 @@ If you do _not_ specify a role in this command, `DEPLOYMENT_VIEWER` will be set 
 
 To view roles within a Workspace via the Astronomer UI, navigate to **Workspace** > **Users**. All Workspace users have access to this view and can see the roles of other users.
 
-![Users](https://assets2.astronomer.io/main/docs/astronomer-ui/users_permissions.png)
+![View Workspace Users](https://assets2.astronomer.io/main/docs/astronomer-ui/view-workspace-users.png)
 
 To list Workspace users via the Astronomer CLI, run:
 
@@ -117,7 +117,7 @@ This command will output the email addresses of all users in the Workspace along
 
 #### Edit Workspace User Role
 
-If you're a Workspace _Admin_, you can edit both Workspace and deployment-level permissions by clicking into an individual user.
+If you're a Workspace _Admin_, you can edit both Workspace and deployment-level permissions by navigating to **Workspace** > **Users** and clicking into an individual user.
 
 ![Configure Access](https://assets2.astronomer.io/main/docs/astronomer-ui/configure_access-0.22.png)
 
