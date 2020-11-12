@@ -4,6 +4,42 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.22 Release Notes
+
+### v0.22.0
+
+Release Date: November 12, 2020
+
+#### New Deployment-level Permissions
+
+Astronomer v0.22 introduces deployment-level permissions, a much-awaited feature for teams running multiple Airflow Deployments on Astronomer.
+
+Users can now configure and assign 1 of 3 roles specific to each individual Deployment - _Admin_, _Editor_ and _Viewer_. If you have a "Prod" and "Dev" Airflow Deployment, for example, you can restrict a user's access to "Prod" but grant them full access to "Dev" - all in the same Workspace.
+
+This new framework comes with support via the Astronomer UI/API and a new set of commands for the Astro CLI. For more information, refer to our re-factored ["User Permissions" doc](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions/).
+
+#### Airflow Version Selection & Upgrade in Astronomer UI/CLI
+
+This release formally introduces "Airflow Version" to the Astronomer UI, CLI and API for an enhanced version selection and Airflow upgrade experience.
+
+Users can now see the version of Airflow they're running in the **Settings** page of a Deployment and indicate interest in upgrading to a higher version. Users who initialize the upgrade process via the Astronomer UI or CLI will be instructed to update the Astronomer Certified (AC) Docker image in their Dockerfile and be given feedback along the way.
+
+For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
+
+#### Support for Multiple Schedulers
+
+Airflow 2.0 is around the corner and will allow users to provision multiple Airflow Schedulers for high-availability and enhanced scalability.
+
+While Airflow 2.0 is not yet generally available, Astronomer v0.22 comes with support for provisioning up to 4 Schedulers via the Astronomer UI.
+
+Once Airflow 2.0 is released, users on Astronomer Cloud will be able to leverage this exciting feature on Day 1. To read more about the momentous Airflow release, check out our blog post, ["Introducing Airflow 2.0"](https://www.astronomer.io/blog/introducing-airflow-2-0/). More Airflow 2.0 announcements coming soon.
+
+#### Bug Fixes & Improvements
+
+- Improved error handling on `$ astro auth login` when Docker isn't running
+- BugFix: Alert are not triggered when Airflow components resource threshold is breached
+- BugFix: Some Airflow metrics not rendering in Astronomer UI (`Zombies Killed`, `Task Stream`, `DagBag Count`, `Task Success Rate`, `Task Failure Rate`).
+
 ## Astronomer v0.21 Release Notes
 
 ### v0.21.2
