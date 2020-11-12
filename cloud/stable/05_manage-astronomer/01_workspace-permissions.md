@@ -143,7 +143,7 @@ $ astro workspace user remove <email>
 
 #### View Deployment Users
 
-To list all users within a Deployment and their corresponding roles, navigate to **Workspace** > **Deployment** > **Access**.
+To list all users within a Deployment and their corresponding roles, navigate to **Workspace** > **Deployment** > **Access**. All Deployment users have access to this view and can see the roles of other users.
 
 ![Deployment Users](https://assets2.astronomer.io/main/docs/astronomer-ui/deployment_users_0.22.png)
 
@@ -183,25 +183,25 @@ $ astro deployment user delete <email> --deployment-id=<deployment-id>
 
 #### Workspace Admin
 
-Workspace Admins are the highest-tiered role. Admins can:
+Workspace _Admins_ are the highest-tiered role. Admins:
 
-- Manage users and their permissions in a Workspace
-- Perform CRUD (create, read, update, delete) operations on the Workspace
-- Perform CRUD operations on any Airflow Deployment within that Workspace
+- Can manage users and their permissions in a Workspace
+- Can perform CRUD (create, read, update, delete) operations on the Workspace
+- Can perform CRUD operations on any Airflow Deployment within that Workspace
 
 #### Workspace Editor
 
-Behind Workspace _Admins_, an _Editor_:
+Below a Workspace _Admin_, an _Editor_:
 
 - Can access and make changes to the Workspace in the **Settings** tab
 - Can perform CRUD operations on any Service Account in the Workspace
 - Can create Airflow Deployments in the Workspace
 
-Editors _cannot_ manage other users in the Workspace and _cannot_ add, edit or remove Billing information.
+A Workspace _Editor_ cannot manage other users in the Workspace and _cannot_ add, edit or remove information in the **Billing** tab.
 
 #### Workpace Viewer
 
-Deployment _Viewers_ are limited to read-only mode. _Viewers_: 
+A Deployment _Viewer_ is limited to read-only mode. _Viewers_: 
 
 - Can list users in a Workspace
 - Can view all Airflow Deployments in the Workspace
@@ -210,7 +210,7 @@ Deployment _Viewers_ are limited to read-only mode. _Viewers_:
 
 > **Note:** If a role is not set, newly invited users are Workspace _Viewers_ by default.
 
-### Deployment Permissions Reference
+### Deployment
 
 #### Deployment Admin
 
