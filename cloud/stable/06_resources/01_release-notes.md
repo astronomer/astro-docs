@@ -6,7 +6,7 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.22 Release Notes
 
-### v0.22.0
+### v0.22.3
 
 Release Date: November 12, 2020
 
