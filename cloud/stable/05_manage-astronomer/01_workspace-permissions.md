@@ -24,9 +24,9 @@ Read below for guidelines.
 
 ### Invite to Workspace
 
-The ability to invite users to an Astronomer Workspace is limited to Workspace _Admins_, who can also grant the _Admin_ role to other users. Workspace _Editors_ and _Viewers_ cannot invite or otherwise manage Workspace users, though they may do so at the deployment level depending on their deployment-level role.
+The ability to invite users to an Astronomer Workspace is limited to Workspace _Admins_, who can also grant the _Admin_ role to other users. Workspace _Editors_ and _Viewers_ cannot invite or otherwise manage other Workspace users, though they may do so at the deployment level depending on their deployment-level role.
 
-A user who creates a Workspace is automatically granted the _Admin_ role for the Workspace and has the ability to create any number of Airflow Deployments within it.
+A user who creates a Workspace is automatically granted the _Admin_ role for the Workspace and has the ability to create any number of Airflow Deployments within it. Every Workspace must have at least 1 Workspace _Admin_.
 
 #### via Astronomer UI
 
@@ -40,11 +40,13 @@ If a Workspace Admin invites a user to a Workspace that does _not_ have any Airf
 
 #### via Astronomer CLI
 
-To invite a user to a Workspace as a Workspace _Admin_ via the Astronomer CLI, run:
+To invite a user to a Workspace via the Astronomer CLI, run:
 
 ```bash
 $ astro workspace user add <email-address> --workspace-id=<workspace-id> --role=<workspace-role>
 ```
+
+Only Workspace _Admins_ can invite other users and set their permissions.
 
 To find **Workspace ID**, you can:
 
@@ -67,7 +69,7 @@ The ability to invite Workspace users to an Airflow Deployment within it is limi
 
 #### via Astronomer UI
 
-To invite a Workspace user to an Airflow Deployment via the Astronomer UI, navigate to: **Workspace** > **Deployment** > **Access**.
+To invite a Workspace user to an Airflow Deployment via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to: **Workspace** > **Deployment** > **Access**.
 
 From there:
 
@@ -79,11 +81,13 @@ From there:
 
 #### via Astronomer CLI
 
-To invite a Workspace user to an Airflow Deployment as a Deployment _Admin_ via the Astronomer CLI, run:
+To invite a Workspace user to an Airflow Deployment via the Astronomer CLI, run:
 
 ```
 $ astro deployment user add <email-address> --deployment-id=<deployment-id> --role=<deployment-role>
 ```
+
+Only Deployment _Admins_ can invite other users and set their permissions.
 
 To find **Deployment ID**, you can:
 
@@ -103,7 +107,7 @@ If you do _not_ specify a role in this command, `DEPLOYMENT_VIEWER` will be set 
 
 #### View Workspace Users
 
-To view roles within a Workspace via the Astronomer UI, navigate to **Workspace** > **Users**. All Workspace users have access to this view and can see the roles of other users.
+To view roles within a Workspace via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to **Workspace** > **Users**. All Workspace users have access to this view and can see the roles of other users.
 
 ![View Workspace Users](https://assets2.astronomer.io/main/docs/astronomer-ui/view-workspace-users.png)
 
@@ -127,17 +131,21 @@ To edit a user's role via the Astro CLI, run:
 $ astro workspace user update <email> --workspace-id=<workspace-id> --role=<workspace-role>
 ```
 
+Only Workspace _Admins_ can modify the role of another user in the Workspace.
+
 #### Remove Workspace User
 
 Workspace _Admins_ can remove users from a Workspace by navigating to: **Workspace** > **Users** > **Individual User** > **Remove User**.
 
 ![Remove Workspace User](https://assets2.astronomer.io/main/docs/astronomer-ui/remove-workspace-user.gif)
 
-To remove a user from a Workspace via the Astronomer CLI as a Workspace _Admin_, make sure you're first operating in that Workspace. Then, run:
+To remove a user from a Workspace via the Astronomer CLI, make sure you're first operating in that Workspace. Then, run:
 
 ```bash
 $ astro workspace user remove <email>
 ```
+
+Only Workspace _Admins_ can remove other Workspace users.
 
 ### Deployment
 
@@ -191,8 +199,9 @@ Workspace _Admins_ are the highest-tiered role at the Workspace level. Admins:
 - Can manage **Billing**
 - Can perform CRUD operations on any Service Account in the Workspace
 
-
 Workspace _Admins_ do not automatically have CRUD access to all Airflow Deployments within it - they must either create or be added to those Deployments and will be held to the restrictions of their deployment-level role. For example, a Workspace _Admin_ could be a Deployment _Viewer_ and not have access to push code to that Deployment.
+
+Every Workspace must have at least 1 Workspace _Admin_.
 
 #### Workspace Editor
 
@@ -203,6 +212,7 @@ Below a Workspace _Admin_, an _Editor_:
 - Can create Airflow Deployments in the Workspace
 - Cannot manage other users in the Workspace
 - Cannot add, edit or remove information in **Billing**
+- Cannot delete the Workspace
 
 #### Workpace Viewer
 
@@ -225,8 +235,10 @@ Deployment _Admins_ are the highest-tiered role. Admins:
 - Can manage users and their permissions in the Deployment
 - Can perform CRUD operations on any Service Account in the Workspace
 - Can perform CRUD Airflow operations (push code, add Connections, clear tasks, delete DAGs etc.)
-- Have full access to the `Admin` panel in the Airflow UI
+- Have full access to the **Admin** menu in the Airflow UI
 - Have full access to modify and interact with DAGs in the Airflow UI
+
+Every Deployment must have at least 1 Deployment _Admin_.
 
 #### Deployment Editor
 
@@ -235,8 +247,9 @@ Behind _Admins_, a Deployment _Editor_:
 - Can access and make changes to the Deployment on Astronomer (e.g. modify resources, add Environment Variables, push code)
 - Cannot delete the Deployment
 - Can perform CRUD operations on any Service Account in the Deployment
+- Cannot manage other users in the Deployment
 - Has full access to modify and interact with DAGs in the Airflow UI
-- Does NOT have access to the `Admin` menu in Airflow, which includes:
+- Does NOT have access to the **Admin** menu in Airflow, which includes:
     - Pools
     - Configuration
     - Users
@@ -245,8 +258,6 @@ Behind _Admins_, a Deployment _Editor_:
     - XComs
 
 ![No Admin Tab](https://assets2.astronomer.io/main/docs/astronomer-ui/editor_view.png)
-
-A Deployment _Editor_ can push code but _cannot_ manage other users in the Deployment.
 
 #### Deployment Viewer
 
