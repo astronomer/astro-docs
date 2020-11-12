@@ -28,11 +28,9 @@ For more information, refer to ["Manage Airflow Versions"](https://www.astronome
 
 #### Support for Multiple Schedulers
 
-Airflow 2.0 is around the corner and will allow users to provision multiple Airflow Schedulers for high-availability and enhanced scalability.
+Airflow 2.0 is around the corner and will allow users to provision multiple Airflow Schedulers for high-availability and scale. While Airflow 2.0 is not generally available just yet, Astronomer v0.22 pre-emptively supports the ability to provision up to 4 Schedulers via the Astronomer UI for Airflow Deployments running Airflow 2.0+.
 
-While Airflow 2.0 is not yet generally available, Astronomer v0.22 comes with support for provisioning up to 4 Schedulers via the Astronomer UI.
-
-Once Airflow 2.0 is released, users on Astronomer Cloud will be able to leverage this exciting feature on Day 1. To read more about the momentous Airflow release, check out our blog post, ["Introducing Airflow 2.0"](https://www.astronomer.io/blog/introducing-airflow-2-0/). More Airflow 2.0 announcements coming soon.
+Once Airflow 2.0 is released, you'll be able to leverage this feature as an Astronomer Cloud user as soon as you upgrade. To read more Airflow 2.0, check out our blog post, ["Introducing Airflow 2.0"](https://www.astronomer.io/blog/introducing-airflow-2-0/).
 
 #### Bug Fixes & Improvements
 
