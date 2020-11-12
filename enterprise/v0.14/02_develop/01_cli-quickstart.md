@@ -241,7 +241,7 @@ If you're looking for guidance beyond the Astronomer CLI, we'd encourage you to 
 
 * [Deploying to Astronomer](/docs/enterprise/v0.14/deploy/deploy-code/)
 * [Customizing your Image](/docs/enterprise/v0.14/develop/customize-image/)
-* [Managing Airflow Versions](/docs/enterprise/v0.14/customize-airflow/airflow-versioning/)
+* [Manage Airflow Versions](/docs/enterprise/v0.14/customize-airflow/manage-airflow-versions/)
 * [CI/CD](/docs/enterprise/v0.14/deploy/ci-cd/)
 
 As always, don't hesitate to reach out to the [Astronomer Support Portal](https://support.astronomer.io/hc/en-us) for additional questions or reference the [Astronomer Forum](https://forum.astronomer.io/).
