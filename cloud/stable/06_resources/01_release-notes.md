@@ -14,7 +14,7 @@ Release Date: November 12, 2020
 
 Astronomer v0.22 introduces deployment-level permissions, a much-awaited feature for teams running multiple Airflow Deployments on Astronomer.
 
-Users can now configure and assign 1 of 3 roles specific to each individual Deployment - _Admin_, _Editor_ and _Viewer_. If you have a "Prod" and "Dev" Airflow Deployment, for example, you can restrict a user's access to "Prod" but grant them full access to "Dev" - all in the same Workspace.
+Users can now configure and be assigned 1 of 3 user roles within each Deployment - _Admin_, _Editor_ and _Viewer_. If you have a "Prod" and "Dev" Airflow Deployment, for example, you can restrict a user's access to "Prod" as a _Viewer_ but grant them full access to "Dev" as an _Admin_ - all within the same Workspace. Similarly, the level of access that Workspace _Admins_ have to the Airflow Deployments within that Workpace can now be customized without limiting their ability to manage Billing and Workspace user invites, for example.
 
 This new framework comes with support via the Astronomer UI/API and a new set of commands for the Astro CLI. For more information, refer to our re-factored ["User Permissions" doc](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions/).
 
