@@ -14,7 +14,15 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16 Release Notes
 
-Latest Patch Release: **v0.16.10**
+Latest Patch Release: **v0.16.11**
+
+### v0.16.11
+
+Release Date: November 2, 2020
+
+##### Bug Fixes & Improvements
+
+- BugFix: Fix conditionally disabling subcharts
 
 ### v0.16.10
 
