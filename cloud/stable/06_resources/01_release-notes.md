@@ -26,7 +26,7 @@ Users can now see the version of Airflow they're running in the **Settings** pag
 
 For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
-#### Support for Multiple Schedulers
+#### Support for Multiple Schedulers (_Airflow 2.0+_)
 
 Airflow 2.0 is around the corner and will allow users to provision multiple Airflow Schedulers for ultimate high-availability and scale. While Airflow 2.0 is not generally available just yet, Astronomer v0.22 pre-emptively supports the ability to provision up to 4 Schedulers via the Astronomer UI for Airflow Deployments running Airflow 2.0+.
 
