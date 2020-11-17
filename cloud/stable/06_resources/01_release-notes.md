@@ -6,6 +6,14 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.22 Release Notes
 
+### v0.22.4
+
+Release Date: November 16, 2020
+
+#### Bug Fixes & Improvements
+
+- BugFix: Workspace-level Service Account unable to trigger action on any Airflow Deployment (`denied: You do not have deployment.images.push permission`)
+
 ### v0.22.3
 
 Release Date: November 12, 2020
