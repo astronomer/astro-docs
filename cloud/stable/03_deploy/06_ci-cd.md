@@ -163,7 +163,7 @@ At its core, your CI/CD pipeline will first authenticate to Astronomer Cloud's p
 ```yaml
 pipeline:
   build:
-    image: astronomerio/ap-build:0.0.7
+    image: quay.io/astronomer/ap-build:0.0.7
     commands:
       - docker build -t registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:ci-${DRONE_BUILD_NUMBER} .
     volumes:
@@ -173,7 +173,7 @@ pipeline:
       branch: [ master, release-* ]
 
   push:
-    image: astronomerio/ap-build:0.0.7
+    image: quay.io/astronomer/ap-build:0.0.7
     commands:
       - echo $${SERVICE_ACCOUNT_KEY}
       - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $${SERVICE_ACCOUNT_KEY}
@@ -224,7 +224,7 @@ jobs:
             pycodestyle .
   deploy:
     docker:
-      - image:  astronomerio/ap-build:0.0.7
+      - image:  quay.io/astronomer/ap-build:0.0.7
     steps:
       - checkout
       - setup_remote_docker:
@@ -281,7 +281,7 @@ pipeline {
 If you are using [Bitbucket](https://bitbucket.org/), this script should work (courtesy of our friends at [Das42](https://www.das42.com/))
 
 ```yaml
-image: astronomerio/ap-build:0.0.7
+image: quay.io/astronomer/ap-build:0.0.7
 
 pipelines:
   branches:
