@@ -10,7 +10,7 @@ Designed in close partnership with both Airflow committers and users, Astronomer
 
 There are two primary ways to obtain the Astronomer Certified distribution:
 
-1. [Docker Image](https://hub.docker.com/r/astronomerinc/ap-airflow)
+1. [Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
 2. [Python Package](https://pip.astronomer.io/simple/apache-airflow/)
 
 Astronomer Certified currently supports Airflow versions  1.10.7 and 1.10.10. This doc should cover everything you need to know to run Astronomer Certified via either method, including:
