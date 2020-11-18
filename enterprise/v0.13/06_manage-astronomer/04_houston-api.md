@@ -12,7 +12,7 @@ For Astronomer Enterprise users, our API is an easy way to do any of the followi
 
 1. Query the platform's database for information about a user, Workspace, or Deployment
 2. Make changes to the platform's database (with the right permissions)
-3. Perform CRUD operations on entities scoped to the Astronoemr platform, including Airflow deployments, workspaces, and users.
+3. Perform CRUD operations on entities scoped to the Astronomer platform, including Airflow deployments, workspaces, and users.
 
 For example, you can:
 - Delete a deployment
