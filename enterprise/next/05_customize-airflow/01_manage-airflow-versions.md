@@ -42,11 +42,15 @@ First, open the `Dockerfile` within your Astronomer directory. When you initiali
 
 Depending on the OS distribution and version of Airflow you want to run, you'll want to reference the corresponding Astronomer Certified image in the FROM statement of your Dockerfile.
 
+> **Note:** Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow Metadata Database structurally changes with each release, making for backwards incompatibility across versions.
+
 #### Alpine and Debian-based Images
 
-Astronomer supports both Alpine Linux and Debian-based images. Alpine is a widely-used lightweight distribution of Linux that keeps our default images slim and performant. For users leveraging Machine Learning Python Libraries or more complex dependencies, we strongly recommend Debian.
+Astronomer supports both [Alpine Linux](https://alpinelinux.org/) and [Debian](https://www.debian.org/)-based images. Alpine is a widely-used lightweight distribution of Linux that keeps our default images slim and performant. For users leveraging Machine Learning Python Libraries or more complex dependencies, we strongly recommend Debian.
 
-> **Note:** For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/astronomer/ap-airflow/tags).
+For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
+
+> **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
 
 | Airflow Version | Alpine-based Image                          | Debian-based Image
 |-----------------|-----------------------------------------------------|-----------------------------------------------------|
@@ -55,10 +59,9 @@ Astronomer supports both Alpine Linux and Debian-based images. Alpine is a widel
 | [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
 | [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild |
 
-To upgrade an Airflow Deployment to Astronomer Certified 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
+To upgrade an Airflow Deployment to Astronomer Certified 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
 
-> **Note:** Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow metadata database structurally changes with each release, making for backwards incompatibility across versions.
-
+> **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer or otherwise pull a Platform  Docker Image (e.g. `toomanyrequests: You have reached your pull rate limit`).
 ### 3. Re-Build your Image
 
 #### Local Development
