@@ -49,7 +49,7 @@ Depending on the version of Airflow and OS distribution you want to run, you'll 
 
 Astronomer supports both Alpine Linux and Debian-based images. Alpine is a widely-used lightweight distribution of Linux that keeps our default images slim and performant. For users leveraging Machine Learning Python Libraries or more complex dependencies, Debian is often more appropriate.
 
-> **Note:** For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/astronomer/ap-airflow/tags).
+> **Note:** For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
 
 | Airflow Version | Alpine-based Image                          | Debian-based Image
 |-----------------|-----------------------------------------------------|-----------------------------------------------------|
