@@ -32,7 +32,7 @@ This is meant to be a high level overview of a particular Airflow deployment.
 
 ![Astronomer Deployments](https://assets2.astronomer.io/main/docs/ee/airflow_deployment_overview.png)
 
-### Platform Overivew
+### Platform Overview
 This will show the amount of persistent storage available to Prometheus, the registry, and ElasticSearch. It will also show a summary of all alerts that have fired.
 
 ![Astronomer Platform](https://assets2.astronomer.io/main/docs/ee/platform_overview.png)
