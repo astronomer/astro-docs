@@ -169,7 +169,7 @@ If you're interested in running any extra commands when your Airflow Image build
 For example, if you wanted to run `ls` when your image builds, your `Dockerfile` would look like this:
 
 ```
-FROM quay.io/astronomer/ap-airflow:0.8.2-1.10.3-onbuild
+FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild
 RUN ls
 ```
 
