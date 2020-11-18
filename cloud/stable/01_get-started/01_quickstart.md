@@ -26,7 +26,7 @@ This is how you'll log into both the Astronomer UI and the CLI.
 
 If you're the first person at your org on Astronomer, you'll want to create a Workspace. You can think of Workspaces the same way you'd think of teams - a space that specific user groups have access to with varying levels of permissions.
 
-Airflow deployments are hierarchically lower - from a Workspace, you can create one or more Airflow deployments.
+Airflow deployments are hierarchically lower - from a Workspace, you can create one or more Airflow Deployments.
 
 To read more about navigating the Astronomer UI, go [here](/docs/cloud/stable/deploy/manage-workspaces/).
 
