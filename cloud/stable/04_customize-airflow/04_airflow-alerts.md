@@ -26,66 +26,35 @@ The following topics contain setup steps for two free and popular SMTP services:
 By default, email alerts are sent whenever individual tasks fail. To limit emails only to overall DAG failures, refer to the [Configure Email Alerts at the DAG Level](Link to topic) topic.
 
 
-## Sendgrid
+## Integrate SendGrid with Astronomer
+SendGrid gives you 40,000 free emails for the first 30 days of your account, then 100 emails/day for free after that. We expect this to be more than enough emails for alerting you when a task fails or retries.
 
-### Create a Sendgrid Token
+To get started with SendGrid:
 
-#### [1. Create a New Account](`https://signup.sendgrid.com`)
+#### 1. [Create a New Account](https://signup.sendgrid.com)
 
-You will need fill out some boilerplate survey information, but it's a quick setup.
+When creating an account, be prepared to disclose some standard information about yourself and your organization.
 
-![Sendgrid Signup](https://assets2.astronomer.io/main/docs/emails/sendgrid_signup.png)
 
-A new account will be given 40k emails for the first 30 days and then 100 emails/day for free. As long as your DAGs are working properly, this should be more than enough for most use cases.
+#### 2. [Verify a Single Sender Identity](https://sendgrid.com/docs/ui/sending-email/sender-verification/)
 
-After you create your account, you'll reach a view like below.
+Because you’re only sending emails for internal administrative purposes, a single sender identity is sufficient for integrating with Astronomer. The email address you verify here is used as the sender for your Airflow alert emails.
 
-#### 2. Click on "Integrate using our Web API or SMTP relay"
-![Sendgrid Getting Started](https://assets2.astronomer.io/main/docs/emails/sendgrid_getting_started.png)
+#### 4. Add SendGrid Credentials to your Astronomer Deployment
 
-#### 3. Choose the "Web API (recommended)" method
-![Sendgrid Setup Method](https://assets2.astronomer.io/main/docs/emails/sendgrid_setup_method.png)
-
-#### 4. Select the "cURL" option from the languages
-![Sendgrid Language](https://assets2.astronomer.io/main/docs/emails/sendgrid_language.png)
-
-#### 5. Create a new API Key
-
-The name can be anything you want. Then, run the code in your terminal and verify the integration.
-
-You don't have to export the API Key as the docs suggest. Instead, just replace the `$SENDGRID_API_KEY` in the example code with the generated API key.
-
-**Note:** If you don't execute the code to use the token at least once, Sendgrid will not be able to verify that it is working properly and you will not be able to use the key.
-
-![Sendgrid API Key](https://assets2.astronomer.io/main/docs/emails/sendgrid_apikey.png)
-
-#### 6. Verify
-
-On the following page, click `Verify`. This is to make sure that Sendgrid activates the key.
-
-If an error pops up that Sendgrid cannot find the test email, run the cURL command again in your terminal and click `Retry`.
-
-### Add Sendgrid Credentials to your Astronomer Deployment
-
-Once you have your Sendgrid API Key, go to your Astronomer deployment and click "Configure" from the top nav. Click on "Environment Vars" from the lefthand menu and begin adding the following variables specified below.
-
-Two things:
-
-- Your Sendgrid API Key will be used as the value for `SMTP__SMTP_PASSWORD`
-- You'll need to specify a `SMTP__SMTP_MAIL_FROM` value with the same email you used to sign up with Sendgrid.
+In your Astronomer deployment, go to `Deployments` > `Configure` > `Env Vars` and add the following variables:
 
 ```
 AIRFLOW__SMTP__SMTP_HOST=smtp.sendgrid.net
 AIRFLOW__SMTP__SMTP_STARTTLS=True
 AIRFLOW__SMTP__SMTP_SSL=False
 AIRFLOW__SMTP__SMTP_USER=apikey
-AIRFLOW__SMTP__SMTP_PASSWORD={ENTER_SENDGRID_APIKEY_HERE}
+AIRFLOW__SMTP__SMTP_PASSWORD={Your SendGrid API Key from step 3}
 AIRFLOW__SMTP__SMTP_PORT=587
-AIRFLOW__SMTP__SMTP_MAIL_FROM={ENTER_RELEVENT_FROM_EMAIL_HERE}
+AIRFLOW__SMTP__SMTP_MAIL_FROM={Your SendGrid email sender from step 2}
 ```
-![Astro Create Envs](https://assets2.astronomer.io/main/docs/emails/astro_create_envs.png)
 
-Click `Update` to save the configuration and redeploy to propagate to your deployment. Your deployment will use that configuration to send emails from then on.
+Click `Update` to save the configuration and redeploy to propagate to your deployment. 
 
 ## Amazon SES
 
