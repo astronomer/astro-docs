@@ -21,7 +21,7 @@ With Astronomer, you can integrate a Simple Mail Transfer Protocol (SMTP) servic
 The following topics contain setup steps for two free and popular SMTP services:
 
 * [Integrate Sendgrid with Astronomer](#integrate-sendgrid-with-astronomer)
-* [Integrate Amazon's Simple Email Service (SES) with Astronomer](#integrate-sendgrid-with-amazon-ses)
+* [Integrate Amazon's Simple Email Service (SES) with Astronomer](#integrate-amazon-ses-with-astronomer)
 
 By default, email alerts are sent whenever individual tasks fail. To limit emails only to overall DAG failures, refer to the [Configure Email Alerts at the DAG Level](Link to topic) topic.
 
@@ -54,40 +54,42 @@ AIRFLOW__SMTP__SMTP_PORT=587
 AIRFLOW__SMTP__SMTP_MAIL_FROM={Your SendGrid email sender from step 2}
 ```
 
-Click `Update` to save the configuration and redeploy to propagate to your deployment. 
+Click `Update` to save the configuration and redeploy to propagate to your deployment.
 
-## Amazon SES
+## Integrate Amazon SES with Astronomer
 
-If you choose to use Amazon SES, the process is similar to the one outlined above for Sendgrid users.
+**Prerequisite**: This setup requires an AWS account and use of the [AWS Management Console](https://aws.amazon.com/console/).
 
-### Verify Email Addresses
+#### 1. Verify Email Addresses
 
-Go to: `AWS Console` > `Simple Email Service` > `Email Addresses`
+Go to: `AWS Console` > `Simple Email Service` > `Email Addresses` and add the email addresses you want to deliver mail to.
 
-Here, email addresses need to be verified in order to deliver email to them. If you want to configure alerts to be sent to a Slack channel, you can enter an email addreses from Slack to be verified here.
+From here, open the account each email address you specified and verify them through the email sent by Amazon.
 
-### SMTP Settings
 
-Go to: `AWS Console` > `Simple Email Service` > `SMTP Settings`
+#### 2. Create SMTP Credentials
 
-Use the `Create My SMTP Credentials` button, which will generate a username and password. This will look similar to an access and secret access key.
+In the AWS Console, go to `Simple Email Service` > `SMTP Settings` and use the `Create My SMTP Credentials` button to generate a username and password. This will look similar to an access and secret access key. Write down this username and password for later, as well as the Server Name and Port.
 
-**Note:** You won't be able to acecss these values again, so consider storing them in a password manager. Note the Server Name and Port on this page as well.
+**Note:** You won't be able to access these values again, so consider storing them in a password manager.
 
-### Add SES Credentials to your Astronomer Deployment
+#### 3. Choose an Amazon EC2 region
 
-Once you have your SES API Key, go to your Astronomer Deployment on Astronomer's UI and navigate to `Deployments` > `Configure` > `Env Vars`.
+Refer to [Amazon’s list of available regions and servers](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions) to determine which server best fits your needs. Write down the code of the server you chose for the next step.
 
-Now, add the following Environment Variables:
+
+#### 4. Add SES Credentials to your Astronomer Deployment
+
+In your Astronomer Deployment on Astronomer's UI, go to `Deployments` > `Configure` > `Env Vars` and add the following Environment Variables:
 
 ```
-AIRFLOW__SMTP__SMTP_HOST=in US-EAST-1, this will be "email-smtp.us-east-1.amazonaws.com
+AIRFLOW__SMTP__SMTP_HOST={The address of AWS server you chose in step 3. For instance, in US-EAST-1 this would be email-smtp.us-east-1.amazonaws.com}
 AIRFLOW__SMTP__SMTP_PORT=587
 AIRFLOW__SMTP__SMTP_STARTTLS=True
 AIRFLOW__SMTP__SMTP_SSL=False
-AIRFLOW__SMTP__SMTP_USER={ENTER_USERNAME_FROM_STEP2A}
-AIRFLOW__SMTP__SMTP_PASSWORD={ENTER_PASSWORD_FROM_STEP2A}
-AIRFLOW__SMTP__SMTP_MAIL_FROM={ENTER_FROM_EMAIL_HERE}
+AIRFLOW__SMTP__SMTP_USER={Your username from step 2}
+AIRFLOW__SMTP__SMTP_PASSWORD={Your password from step 2}
+AIRFLOW__SMTP__SMTP_MAIL_FROM={Your verified email address from step 1}
 ```
 
 ## Triggering Alerts on DAG Run
