@@ -7,26 +7,26 @@ description: "How to configure different types of Airflow alerts on Astronomer t
 # Monitor Airflow Deployments with Alerts
 
 Airflow alerts help you quickly and accurately diagnose issues with your deployments. Astronomer offers two solutions for triggering alerts when something happens in your system:
-* [DAG and Task-level alerts](#configure-email-alerts-for-airflow) use a Simple Mail Transfer Protocol (SMTP) service to alert you via email when something you specify happens in a task or DAG.
-* [Deployment-level alerts](#configure-deployment-level-alerts-for-airflow) give you information about how your entire system is performing. You can configure an email to receive these alerts directly in Astronomer UI.
+* [DAG and Task-level alerts](#configure-an-smtp-service-for-dag-and-task-alerts) use a Simple Mail Transfer Protocol (SMTP) service to alert you via email when something you specify happens in a task or DAG.
+* [Deployment-level alerts](#configure-deployment-alerts) give you information about how an entire deployment is performing. You can specify an email address to receive these alerts directly in Astronomer UI.
 
-## Use an SMTP Service to Send Alerts at the DAG or Task Level
+## Configure an Simple Mail Transfer Protocol Service for Task Alerts
 
 **Prerequisite**: To perform this setup, you need to have built error notifications as described in the [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/) topic.
 
-You can configure Airflow to send alerts via email whenever a task fails, retries, succeeds, or experiences any other event you want to know about through the [email util](https://github.com/apache/airflow/blob/master/airflow/utils/email.py).
+You can configure Airflow to send alerts via email whenever a task fails, retries, succeeds, or experiences any other event you want to know about through the [email util](https://github.com/apache/airflow/blob/master/airflow/utils/email.py).  
 
-With Astronomer, you can integrate a Simple Mail Transfer Protocol (SMTP) service to automatically handle the delivery of these emails. When an Airflow email alert is triggered, the SMTP service automatically sends an email from the address of your choice.
+With Astronomer, you can integrate an SMTP service to automatically handle the delivery of these emails. When an Airflow email alert is triggered, the SMTP service automatically sends an email from the address of your choice.
 
 The following topics contain setup steps for two free and popular SMTP services:
 
-* [Integrate Sendgrid with Astronomer](#integrate-sendgrid-with-astronomer)
+* [Integrate SendGrid with Astronomer](#integrate-sendgrid-with-astronomer)
 * [Integrate Amazon's Simple Email Service (SES) with Astronomer](#integrate-amazon-ses-with-astronomer)
 
-By default, email alerts are sent whenever individual tasks fail. To limit emails only to overall DAG failures, refer to the [Configure Email Alerts at the DAG Level](Link to topic) topic.
+By default, email alerts for process failures are sent whenever individual tasks fail. To receive only one email per DAG failure, refer to the [Limit Alerts to the DAG Level](limit-alerts-to-the-dag-level) topic.
 
 
-## Integrate SendGrid with Astronomer
+### Integrate SendGrid with Astronomer
 SendGrid gives you 40,000 free emails for the first 30 days of your account, then 100 emails/day for free after that. We expect this to be more than enough emails for alerting you when a task fails or retries.
 
 To get started with SendGrid:
@@ -56,7 +56,7 @@ AIRFLOW__SMTP__SMTP_MAIL_FROM={Your SendGrid email sender from step 2}
 
 Click `Update` to save the configuration and redeploy to propagate to your deployment.
 
-## Integrate Amazon SES with Astronomer
+### Integrate Amazon SES with Astronomer
 
 **Prerequisite**: This setup requires an AWS account and use of the [AWS Management Console](https://aws.amazon.com/console/).
 
@@ -92,7 +92,7 @@ AIRFLOW__SMTP__SMTP_PASSWORD={Your password from step 2}
 AIRFLOW__SMTP__SMTP_MAIL_FROM={Your verified email address from step 1}
 ```
 
-## Configure Email Alerts at the DAG Level
+## Limit Alerts to The DAG Level
 
 By default, email alerts configured via the `email_on_failure` param ([source](https://github.com/apache/airflow/blob/master/airflow/models/baseoperator.py)) are handled at the task level. If a handful of your tasks fail for related reasons, you'll receive an individual email for each of those failures.
 
@@ -149,4 +149,4 @@ alert: AirflowSchedulerUnhealthy
 
 The full PQL ([Prometheus Query Language](https://prometheus.io/docs/prometheus/latest/querying/basics/)) for how all these alerts are triggered can be found in our [helm charts](https://github.com/astronomer/airflow-chart).
 
-**Need to customize an alert?** Customers with an Enterprise license can modify any Astronomer-released alert according to their organization’s needs.
+**Need to customize an alert?** Customers with Enterprise-level Astronomer can modify any Astronomer-released alert according to their organization’s needs.
