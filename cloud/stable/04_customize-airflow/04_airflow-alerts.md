@@ -92,47 +92,46 @@ AIRFLOW__SMTP__SMTP_PASSWORD={Your password from step 2}
 AIRFLOW__SMTP__SMTP_MAIL_FROM={Your verified email address from step 1}
 ```
 
-## Triggering Alerts on DAG Run
+## Configure Email Alerts at the DAG Level
 
-Email alerting set up via `email_on_failure` is handled at the task level. If a handful of your tasks fail for related reasons, you'll receive an individual email for each of those failures.
+By default, email alerts configured via the `email_on_failure` param ([source](https://github.com/apache/airflow/blob/master/airflow/models/baseoperator.py)) are handled at the task level. If a handful of your tasks fail for related reasons, you'll receive an individual email for each of those failures.
 
-If you're interested in limiting failure alerts to the DAG run level, you can instead pass `on_failure_callback` ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/models/dag.py#L167)) directly in your DAG file to define a Python function that sends you an email denoting failure.
+If you want to limit failure alerts to the DAG run level, you can instead set up your alerts using the `on_failure_callback` param ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/models/dag.py#L167)). When you pass `on_failure_callback` directly in your DAG file, it defines a Python function that sends you one email per DAG failure, rather than multiple emails for each task that fails:
 
 ```
  :param on_failure_callback: A function to be called when a DagRun of this dag fails.
  ```
 
-The code in your DAG will look something like the following: ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/utils/email.py#L41)):
+The code in your DAG might look something like this ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/utils/email.py#L41)):
 
  ```
  from airflow.models.email import send_email
 
 def new_email_alert(self, **kwargs):
   title = "TEST MESSAGE: THIS IS A MODIFIED TEST"
-  body = ("I've now modified the email alert "
-                "to say whatever I want it to say.<br>")
+  body = ("This is the text "
+                "That appears in the email body..<br>")
   send_email('my_email@email.com', title, body)
   ```
-# Astronomer Deployment-Level Alerting
+## Configure Deployment-Level Alerts for Airflow
 
-In the Astronomer UI, you can subscribe to additional alerts in the `Alerts` tab. These alerts are _platform_ level alerts that pertain to how the underlying components are performing (e.g. is the scheduler healthy? Are tasks failing at an abnormal _rate_? )
+In Astronomer’s UI, you can subscribe to deployment-level alerts in the `Alerts` tab. These alerts tell you how your deployments are performing across the entire platform. For instance, it might tell you whether the scheduler is healthy, or whether tasks are failing at an abnormal rate. Alerts appear in the Notifications tab of Astronomer’s UI.
 
-**Note:** You do **not** need to create an SMTP URI for this feature to work.
-
-## Airflow Deployment Alerts
+### List of all Astronomer Airflow Deployment Alerts
 
 | Alert | Description |
 | ------------- | ------------- |
-| `AirflowDeploymentUnhealthy` | Airflow deployment is unhealthy, not completely available. |
+| `AirflowDeploymentUnhealthy` | Airflow deployment is unhealthy or not completely available. |
 | `AirflowFailureRate` | Airflow tasks are failing at a higher rate than normal. |
-| `AirflowSchedulerUnhealthy` | Airflow scheduler is unhealthy, heartbeat has dropped below the acceptable rate. |
-| `AirflowPodQuota` | Deployment is near its pod quota, has been using over 95% of it's pod quota for over 10 minutes. |
-| `AirflowCPUQuota` | Deployment is near its CPU quota, has been using over 95% of it's CPU quota for over 10 minutes. |
-| `AirflowMemoryQuota` | Deployment is near its memory quota, has been using over 95% of it's memory quota for over 10 minutes. |
+| `AirflowSchedulerUnhealthy` | Airflow scheduler is unhealthy: heartbeat has dropped below the acceptable rate. |
+| `AirflowPodQuota` | Deployment is near its pod quota: it’s been using over 95% of it's pod quota for over 10 minutes. |
+| `AirflowCPUQuota` | Deployment is near its CPU quota: it’s been using over 95% of it's CPU quota for over 10 minutes. |
+| `AirflowMemoryQuota` | Deployment is near its memory quota: it’s been using over 95% of it's memory quota for over 10 minutes. |
 
-### Example Alert
 
-This alert fires when the scheduler is not heartbeating every 5 seconds for more than 3 minutes:
+### Anatomy of a Deployment Alert
+
+When you subscribe to the AirflowSchedulerUnhealthy Alert in Astronomer’s UI, an alert checks to see if the scheduler is heartbeating every 5 seconds. If the scheduler stops heartbeating for more than 3 minutes, the alert is triggered:
 
 ```
 alert: AirflowSchedulerUnhealthy
@@ -147,7 +146,7 @@ alert: AirflowSchedulerUnhealthy
         description: "The {{ $labels.deployment }} scheduler's heartbeat has dropped below the acceptable rate."
 ```
 
-The full PQL ([Prometheus Query Language](https://prometheus.io/docs/prometheus/latest/querying/basics/)) for how all these alerts are triggered can be found in our helm [helm charts ](https://github.com/astronomer/helm.astronomer.io/blob/387bcfcc06885d9253c2e1cfd6a5a08428323c57/charts/prometheus/values.yaml#L99
-).
 
-> **Note:** Customizing these alerts is currently only a feature available to Enterprise customers.
+The full PQL ([Prometheus Query Language](https://prometheus.io/docs/prometheus/latest/querying/basics/)) for how all these alerts are triggered can be found in our [helm charts](https://github.com/astronomer/airflow-chart).
+
+**Need to customize an alert?** Customers with an Enterprise license can modify any Astronomer-released alert according to their organization’s needs.
