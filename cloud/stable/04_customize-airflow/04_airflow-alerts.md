@@ -7,10 +7,10 @@ description: "How to configure different types of Airflow alerts on Astronomer t
 # Monitor Airflow Deployments with Alerts
 
 Airflow alerts help you quickly and accurately diagnose issues with your deployments. Astronomer offers two solutions for triggering alerts when something happens in your system:
-* [Email alerts](#configure-email-alerts-for-airflow) are sent when something you specify happens in a task or DAG.
-* [Deployment-level alerts](#configure-deployment-level-alerts-for-airflow) give you information about how your entire system is performing. These appear directly in Astronomer’s UI.
+* [DAG and Task-level alerts](#configure-email-alerts-for-airflow) use a Simple Mail Transfer Protocol (SMTP) service to alert you via email when something you specify happens in a task or DAG.
+* [Deployment-level alerts](#configure-deployment-level-alerts-for-airflow) give you information about how your entire system is performing. You can configure an email to receive these alerts directly in Astronomer UI.
 
-## Configure Email Alerts for Airflow
+## Use an SMTP Service to Send Alerts at the DAG or Task Level
 
 **Prerequisite**: To perform this setup, you need to have built error notifications as described in the [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/) topic.
 
@@ -113,7 +113,7 @@ def new_email_alert(self, **kwargs):
                 "That appears in the email body..<br>")
   send_email('my_email@email.com', title, body)
   ```
-## Configure Deployment-Level Alerts for Airflow
+## Subscribe to Deployment Alerts
 
 In Astronomer’s UI, you can subscribe to deployment-level alerts in the `Alerts` tab. These alerts tell you how your deployments are performing across the entire platform. For instance, it might tell you whether the scheduler is healthy, or whether tasks are failing at an abnormal rate. Alerts appear in the Notifications tab of Astronomer’s UI.
 
