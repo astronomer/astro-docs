@@ -92,7 +92,7 @@ This will generate some skeleton files:
 
 #### Dockerfile
 
-Your Dockerfile will include reference to an Astronomer [Docker Image](https://hub.docker.com/r/quay.io/astronomer/ap-airflow) that dictates the version of Airflow your deployment will run both when you're developing locally and pushing up to Astronomer Cloud.
+Your Dockerfile will include reference to an Astronomer [Docker Image](https://quay.io/astronomer/ap-airflow) that dictates the version of Airflow your deployment will run both when you're developing locally and pushing up to Astronomer Cloud.
 
 The Docker image you'll find by default is:
 
