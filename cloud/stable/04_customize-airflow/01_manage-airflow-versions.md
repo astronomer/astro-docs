@@ -141,7 +141,7 @@ Depending on the OS distribution and version of Airflow you want to run, you'll 
 
 #### Choose your new Astronomer Certified Image
 
-Below you'll find a matrix of all Astronomer Certified images supported on Astronomer. Depedending on the Airflow version you'd like to run or upgrade to, copy one of the images below to your `Dockerfile` and proceed to Step 3.
+Below you'll find a matrix of all Astronomer Certified images supported on Astronomer. Depending on the Airflow version you'd like to run or upgrade to, copy one of the images below to your `Dockerfile` and proceed to Step 3.
 
 Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow metadata database structurally changes with each release, making for backwards incompatibility across versions.
 
