@@ -177,7 +177,7 @@ RUN ls
 
 The Astronomer CLI is built on top of [Docker Compose](https://docs.docker.com/compose/), a tool for defining and running multi-container Docker applications. If you're interested in overriding any of our CLI's default configurations ([found here](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go)), you're free to do so by adding a `docker-compose.override.yml` file to your Astronomer project directory. Any values in this file wil override default settings run upon every `$ astro dev start`.
 
-To add another volume mount for a directory named `custom_denpedencies`, for example, add the following to your `docker-compose.override.yml`:
+To add another volume mount for a directory named `custom_dependencies`, for example, add the following to your `docker-compose.override.yml`:
 
 ```
 version: "2"
