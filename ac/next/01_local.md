@@ -33,7 +33,7 @@ Once you have the pre-reqs installed, follow the below instructions to get the A
 
 The preferred way to install Astronomer Astronomer Certified is to download our latest Astronomer-hosted Docker image, each of which will generally correspond with an open-source Airflow release.
 
-For Astronomer's full collection of Docker Images, reference our public [Docker Hub repository](https://quay.io/astronomer/ap-airflow).
+For Astronomer's full collection of Docker Images, reference our public [Quay.io repository](https://quay.io/astronomer/ap-airflow).
 
 #### Install and Run
 
