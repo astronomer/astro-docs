@@ -92,12 +92,12 @@ This will generate some skeleton files:
 
 #### Dockerfile
 
-Your Dockerfile will include reference to an Astronomer [Docker Image](https://hub.docker.com/r/astronomerinc/ap-airflow) that dictates the version of Airflow your deployment will run both when you're developing locally and pushing up to Astronomer Cloud.
+Your Dockerfile will include reference to an Astronomer [Docker Image](https://hub.docker.com/r/quay.io/astronomer/ap-airflow) that dictates the version of Airflow your deployment will run both when you're developing locally and pushing up to Astronomer Cloud.
 
 The Docker image you'll find by default is:
 
 ```
-FROM astronomerinc/ap-airflow:latest-onbuild
+FROM quay.io/astronomer/ap-airflow:latest-onbuild
 ```
 
 This will install an Astronomer Certified Alpine-based Airflow image running the latest version of Airflow we support. For more information on how to customize your image, refer to the "Customize your Image" section below.
@@ -132,7 +132,7 @@ You should see the following output:
 $ astro dev start
 Env file ".env" found. Loading...
 Sending build context to Docker daemon  10.75kB
-Step 1/1 : FROM astronomerinc/ap-airflow:latest-onbuild
+Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
 # Executing 5 build triggers
  ---> Using cache
  ---> Using cache

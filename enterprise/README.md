@@ -68,7 +68,7 @@ Astronomer Enterprise brings together best-of-class components into a complete "
 * [Prisma ORM](https://www.prisma.io/) - An interface between the HoustonGraphQL API and your Postgres database. This handles read/writes to the database as well as migrations for upgrades.
 * [Astronomer Helm](https://github.com/astronomer/astronomer) - Helm charts for the Astronomer Platform
 * [db-bootstrapper](https://github.com/astronomer/db-bootstrapper) - Init container for bootstrapping system databases
-* [Docker images](https://hub.docker.com/u/astronomerinc/) - Docker images for deploying and running Astronomer on DockerHub.
+* [Docker images](https://hub.docker.com/u/quay.io/astronomer/) - Docker images for deploying and running Astronomer on DockerHub.
 
 ## Airflow Components
 

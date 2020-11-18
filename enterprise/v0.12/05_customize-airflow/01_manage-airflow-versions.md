@@ -49,13 +49,13 @@ Depending on the version of Airflow and OS distribution you want to run, you'll 
 
 Astronomer supports both Alpine Linux and Debian-based images. Alpine is a widely-used lightweight distribution of Linux that keeps our default images slim and performant. For users leveraging Machine Learning Python Libraries or more complex dependencies, Debian is often more appropriate.
 
-> **Note:** For our platform's full collection of Docker Images, reference [Astronomer on Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow/tags).
+> **Note:** For our platform's full collection of Docker Images, reference [Astronomer on Docker Hub](https://hub.docker.com/r/quay.io/astronomer/ap-airflow/tags).
 
 | Airflow Version | Alpine-based Image                          | Debian-based Image
 |-----------------|-----------------------------------------------------|-----------------------------------------------------|
-| [v1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)         | FROM astronomerinc/ap-airflow:1.10.5-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.5-buster-onbuild |
-| [v1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)         | FROM astronomerinc/ap-airflow:1.10.7-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.7-buster-onbuild |
-| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.10-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.10-buster-onbuild |
+| [v1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)         | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild |
+| [v1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)         | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild |
+| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
 
 > **Note:** Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow metadata database structurally changes with each release, making for backwards incompatibility across versions.
 

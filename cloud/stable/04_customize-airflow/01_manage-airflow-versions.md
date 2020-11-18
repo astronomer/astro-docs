@@ -149,10 +149,10 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 
 | Airflow Version | Alpine-based Image                          | Debian-based Image
 |-----------------|-----------------------------------------------------|-----------------------------------------------------|
-| [v1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.5-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.5-buster-onbuild |
-| [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.7-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.7-buster-onbuild |
-| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.10-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.10-buster-onbuild |
-| [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM astronomerinc/ap-airflow:1.10.12-alpine3.10-onbuild | FROM astronomerinc/ap-airflow:1.10.12-buster-onbuild |
+| [v1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild |
+| [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild |
+| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
+| [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild |
 
 > **Note:** Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow metadata database structurally changes with each release, making for backwards incompatibility across versions.
 
@@ -225,7 +225,7 @@ If you're looking for the latest Astronomer Certified 1.10.10, for example, you 
 2. Identify the latest patch (e.g. `1.10.10-5`)
 3. Pin the Astronomer Certified Image in your Dockerfile to that patch version
 
-In this case, that would be: `FROM astronomerinc/ap-airflow:1.10.10-5-buster-onbuild` (Debian).
+In this case, that would be: `FROM quay.io/astronomer/ap-airflow:1.10.10-5-buster-onbuild` (Debian).
 
 > **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Certified image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
 > 

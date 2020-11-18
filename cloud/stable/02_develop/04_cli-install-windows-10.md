@@ -123,7 +123,7 @@ As a Windows user, you might see the following error when trying to call `astro 
 
 ```
 Sending build context to Docker daemon  8.192kB
-Step 1/1 : FROM astronomerinc/ap-airflow:latest-onbuild
+Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
 # Executing 5 build triggers
  ---> Using cache
  ---> Using cache
