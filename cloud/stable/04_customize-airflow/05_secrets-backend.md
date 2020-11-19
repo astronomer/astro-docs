@@ -207,7 +207,7 @@ To do so, follow the steps below.
         ENV AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
         ENV AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
         ENV AIRFLOW__SECRETS__BACKEND="airflow.contrib.secrets.aws_systems_manager.SystemsManagerParameterStoreBackend"
-        ENV AIRFLOW__SECRETS__BACKEND_KWARGS="{"connections_prefix": "/airflow/connections", "variables_prefix": "/airflow/variables"}"
+        ENV AIRFLOW__SECRETS__BACKEND_KWARGS='{"connections_prefix": "/airflow/connections", "variables_prefix": "/airflow/variables"}'
 
 This tells Airflow to look for connection information at the `airflow/connections/*` path in your SSM instance.
 
