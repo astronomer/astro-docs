@@ -135,7 +135,7 @@ We also distribute Astronomer Certified as a python wheel available on PyPi. Thi
 
     Note that if you'd like to install a specific version, you can do so by appending the version tag via the following syntax:
 
-        PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip install -U 'astronomer-certified==1.10.10-1
+        PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip install -U 'astronomer-certified==1.10.10-1'
 
 3. Run `airflow initdb` to build out your project directory and initialize a lightweight SQLite database for Airflow.
 4. Run `airflow webserver -p 8080` to spin up the webserver on your `localhost:8080`.
