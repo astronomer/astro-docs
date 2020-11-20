@@ -39,7 +39,7 @@ When creating an account, be prepared to disclose some standard information abou
 
 #### 2. [Verify a Single Sender Identity](https://sendgrid.com/docs/ui/sending-email/sender-verification/)
 
-Because you’re only sending emails for internal administrative purposes, a single sender identity is sufficient for integrating with Astronomer. The email address you verify here is used as the sender for your Airflow alert emails.
+Because you're sending emails only for internal administrative purposes, a single sender identity is sufficient for integrating with Astronomer. The email address you verify here is used as the sender for your Airflow alert emails.
 
 #### 3. Create a Key Using SendGrid’s Web API.
 
