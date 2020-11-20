@@ -78,7 +78,7 @@ From here, open the account each email address you specified and verify them thr
 
 #### 2. Create SMTP Credentials
 
-In the AWS Console, go to `Simple Email Service` > `SMTP Settings` and use the `Create My SMTP Credentials` button to generate a username and password. This will look similar to an access and secret access key. Write down this username and password for later, as well as the Server Name and Port.
+In the AWS Console, go to **Simple Email Service** > **SMTP Settings** and use the **Create My SMTP Credentials** button to generate a username and password. This will look similar to an access and secret access key. Write down this username and password for later, as well as the Server Name and Port.
 
 **Note:** You won't be able to access these values again, so consider storing them in a password manager.
 
