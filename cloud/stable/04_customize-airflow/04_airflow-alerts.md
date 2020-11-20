@@ -157,7 +157,4 @@ alert: AirflowSchedulerUnhealthy
         description: "The {{ $labels.deployment }} scheduler's heartbeat has dropped below the acceptable rate."
 ```
 
-
-The full PQL ([Prometheus Query Language](https://prometheus.io/docs/prometheus/latest/querying/basics/)) for how all these alerts are triggered can be found in our [helm charts](https://github.com/astronomer/airflow-chart).
-
 **Need to customize an alert?** Customers with Enterprise-level Astronomer can modify any Astronomer-released alert according to their organization's needs.
