@@ -41,13 +41,13 @@ When creating an account, be prepared to disclose some standard information abou
 
 Because you're sending emails only for internal administrative purposes, a single sender identity is sufficient for integrating with Astronomer. The email address you verify here is used as the sender for your Airflow alert emails.
 
-#### 3. Create a Key Using SendGrid’s Web API.
+#### 3. Create a Key Using SendGrid's Web API.
 
-a) In SendGrid, go to Email API > Integration Guide. Follow the steps to generate a new API key using SendGrid’s Web API and cURL.
+a) In SendGrid, go to Email API > Integration Guide. Follow the steps to generate a new API key using SendGrid's Web API and cURL.
 
 b) Skip the step for exporting your API Key to your development environment. Instead, execute the generated curl code directly in your command line, making sure to replace `$SENDGRID_API_KEY` in the `--header` field with your copied key.
 
-c) Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can’t find the test email, try rerunning the cURL code in your terminal before retrying the verification.
+c) Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can't find the test email, try rerunning the cURL code in your terminal before retrying the verification.
 
 #### 4. Add SendGrid Credentials to your Astronomer Deployment
 
@@ -84,7 +84,7 @@ In the AWS Console, go to `Simple Email Service` > `SMTP Settings` and use the `
 
 #### 3. Choose an Amazon EC2 region
 
-Refer to [Amazon’s list of available regions and servers](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions) to determine which server best fits your needs. Write down the code of the server you chose for the next step.
+Refer to [Amazon's list of available regions and servers](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions) to determine which server best fits your needs. Write down the code of the server you chose for the next step.
 
 
 #### 4. Add SES Credentials to your Astronomer Deployment
@@ -124,7 +124,7 @@ def new_email_alert(self, **kwargs):
   ```
 ## Subscribe to Deployment Alerts on Astronomer
 
-In Astronomer’s UI, you can subscribe to deployment-level alerts in the `Alerts` tab. These alerts tell you how your deployments are performing across the entire platform. For instance, it might tell you whether the scheduler is healthy, or whether tasks are failing at an abnormal rate. Alerts appear in the Notifications tab of Astronomer’s UI.
+In Astronomer's UI, you can subscribe to deployment-level alerts in the `Alerts` tab. These alerts tell you how your deployments are performing across the entire platform. For instance, it might tell you whether the scheduler is healthy, or whether tasks are failing at an abnormal rate. Alerts appear in the Notifications tab of Astronomer's UI.
 
 ### List of All Astronomer Airflow Deployment Alerts
 
@@ -133,14 +133,14 @@ In Astronomer’s UI, you can subscribe to deployment-level alerts in the `Alert
 | `AirflowDeploymentUnhealthy` | Airflow deployment is unhealthy or not completely available. |
 | `AirflowFailureRate` | Airflow tasks are failing at a higher rate than normal. |
 | `AirflowSchedulerUnhealthy` | Airflow scheduler is unhealthy: heartbeat has dropped below the acceptable rate. |
-| `AirflowPodQuota` | Deployment is near its pod quota: it’s been using over 95% of it's pod quota for over 10 minutes. |
-| `AirflowCPUQuota` | Deployment is near its CPU quota: it’s been using over 95% of it's CPU quota for over 10 minutes. |
-| `AirflowMemoryQuota` | Deployment is near its memory quota: it’s been using over 95% of it's memory quota for over 10 minutes. |
+| `AirflowPodQuota` | Deployment is near its pod quota: it's been using over 95% of it's pod quota for over 10 minutes. |
+| `AirflowCPUQuota` | Deployment is near its CPU quota: it's been using over 95% of it's CPU quota for over 10 minutes. |
+| `AirflowMemoryQuota` | Deployment is near its memory quota: it's been using over 95% of it's memory quota for over 10 minutes. |
 
 
 ### Anatomy of a Deployment Alert
 
-When you subscribe to the AirflowSchedulerUnhealthy Alert in Astronomer’s UI, an alert checks to see if the scheduler is heartbeating every 5 seconds. If the scheduler stops heartbeating for more than 3 minutes, the alert is triggered:
+When you subscribe to the AirflowSchedulerUnhealthy Alert in Astronomer's UI, an alert checks to see if the scheduler is heartbeating every 5 seconds. If the scheduler stops heartbeating for more than 3 minutes, the alert is triggered:
 
 ```
 alert: AirflowSchedulerUnhealthy
@@ -158,4 +158,4 @@ alert: AirflowSchedulerUnhealthy
 
 The full PQL ([Prometheus Query Language](https://prometheus.io/docs/prometheus/latest/querying/basics/)) for how all these alerts are triggered can be found in our [helm charts](https://github.com/astronomer/airflow-chart).
 
-**Need to customize an alert?** Customers with Enterprise-level Astronomer can modify any Astronomer-released alert according to their organization’s needs.
+**Need to customize an alert?** Customers with Enterprise-level Astronomer can modify any Astronomer-released alert according to their organization's needs.
