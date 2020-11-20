@@ -1,7 +1,7 @@
 ---
 title: "Monitor Airflow Deployments with Alerts"
 navTitle: "Airflow Alerts"
-description: "How to configure different types of Airflow alerts on Astronomer to monitor the status of your deployments and tasks."
+description: "How to configure alerts on Astronomer to monitor the health of your Airflow Deployment and the status of your tasks."
 ---
 
 # Monitor Airflow Deployments with Alerts
