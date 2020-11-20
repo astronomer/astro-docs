@@ -71,7 +71,7 @@ Click `Update` to save the configuration and redeploy to propagate to your deplo
 
 #### 1. Verify Email Addresses
 
-Go to: `AWS Console` > `Simple Email Service` > `Email Addresses` and add the email addresses you want to deliver mail to.
+Go to: **AWS Console** > **Simple Email Service** > **Email Addresses** to add and verify the email addresses you want to receive alerts to.
 
 From here, open the account each email address you specified and verify them through the email sent by Amazon.
 
