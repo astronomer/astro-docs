@@ -8,8 +8,8 @@ description: "How to configure alerts on Astronomer to monitor the health of you
 ## Overview
 
 Airflow alerts help you quickly and accurately diagnose issues with your deployments. Astronomer offers two solutions for triggering alerts when something happens in your system:
-* [DAG and Task-level alerts](#configure-a-simple-mail-transfer-protocol-service-for-task-alerts) use a Simple Mail Transfer Protocol (SMTP) service to alert you via email when something you specify happens in a task or DAG.
-* [Deployment-level alerts](#subscribe-to-deployment-alerts) give you information about how an entire deployment is performing. You can specify an email address to receive these alerts directly in Astronomer UI.
+* [DAG and Task-level alerts](#configure-a-simple-mail-transfer-protocol-service-for-task-alerts) use a Simple Mail Transfer Protocol (SMTP) service to alert you via email when a task or DAG fails, succeeds, or retries.
+* [Deployment-level alerts](#subscribe-to-deployment-alerts) give you information about the general performance of a deployment. You can specify an email address to receive these alerts directly in Astronomer UI.
 
 ## Configure a Simple Mail Transfer Protocol Service for Task Alerts
 
