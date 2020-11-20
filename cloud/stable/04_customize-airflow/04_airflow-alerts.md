@@ -28,7 +28,7 @@ By default, email alerts for process failures are sent whenever individual tasks
 
 
 ### Integrate SendGrid with Astronomer
-SendGrid gives you 40,000 free emails for the first 30 days of your account, then 100 emails/day for free after that. We expect this to be more than enough emails for alerting you when a task fails or retries.
+SendGrid grants users 40,000 free emails within the first 30 days of an account opening and 100 emails per day after that at no cost. This should be more than enough to cover alerts when a task fails or retries, though you may want to consider upgrading your account if you're running Airflow at a significant scale.
 
 To get started with SendGrid:
 
