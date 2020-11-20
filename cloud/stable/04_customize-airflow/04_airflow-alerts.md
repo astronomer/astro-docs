@@ -142,7 +142,7 @@ In Astronomer's UI, you can subscribe to deployment-level email alerts in the Se
 
 ### Anatomy of a Deployment Alert
 
-When you subscribe to the AirflowSchedulerUnhealthy Alert in Astronomer's UI, an alert checks to see if the scheduler is heartbeating every 5 seconds. If the scheduler stops heartbeating for more than 3 minutes, the alert is triggered:
+This alert fires when the scheduler is not heartbeating every 5 seconds for more than 3 minutes:
 
 ```
 alert: AirflowSchedulerUnhealthy
