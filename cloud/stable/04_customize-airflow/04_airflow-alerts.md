@@ -124,7 +124,9 @@ def new_email_alert(self, **kwargs):
   ```
 ## Subscribe to Deployment Alerts on Astronomer
 
-In Astronomer's UI, you can subscribe to deployment-level alerts in the `Alerts` tab. These alerts tell you how your deployments are performing across the entire platform. For instance, it might tell you whether the scheduler is healthy, or whether tasks are failing at an abnormal rate. Alerts appear in the Notifications tab of Astronomer's UI.
+In Astronomer's UI, you can subscribe to deployment-level email alerts in the Settings page for a deployment. These alerts tell you how a deployment is performing. For instance, it might tell you whether the scheduler is healthy, or whether tasks are failing at an abnormal rate. Unlike task-level alerts, deployment-level alerts can be sent without an SMTP service.
+
+![Astronomer Deployment Email Settings](https://assets2.astronomer.io/main/docs/emails/astro_deployment_email.png)
 
 ### List of All Astronomer Airflow Deployment Alerts
 
