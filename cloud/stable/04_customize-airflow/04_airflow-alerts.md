@@ -92,7 +92,7 @@ Refer to [Amazon's list of available regions and servers](https://docs.aws.amazo
 In your Astronomer Deployment on Astronomer's UI, go to `Deployments` > `Configure` > `Env Vars` and add the following Environment Variables:
 
 ```
-AIRFLOW__SMTP__SMTP_HOST={The address of AWS server you chose in step 3. For instance, in US-EAST-1 this would be email-smtp.us-east-1.amazonaws.com}
+AIRFLOW__SMTP__SMTP_HOST={my.smtp.host}
 AIRFLOW__SMTP__SMTP_PORT=587
 AIRFLOW__SMTP__SMTP_STARTTLS=True
 AIRFLOW__SMTP__SMTP_SSL=False
