@@ -13,9 +13,7 @@ Airflow alerts help you quickly and accurately diagnose issues with your deploym
 
 ## Subscribe to Task-Level Alerts
 
-**Prerequisite**: To complete this setup, you need to have built error notifications as described in the [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/) topic.
-
-You can configure Airflow to send alerts via email whenever a task fails, retries, succeeds, or experiences any other event you want to know about through the [email util](https://github.com/apache/airflow/blob/master/airflow/utils/email.py).  
+You can configure Airflow to send alerts via email whenever a task fails, retries, succeeds, or experiences any other event you want to know about through the [email util](https://github.com/apache/airflow/blob/master/airflow/utils/email.py). For more information on building alerts with Airflow, refer to the [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/) topic.
 
 With Astronomer, you can integrate an SMTP service to automatically handle the delivery of these emails. When an Airflow email alert is triggered, the SMTP service automatically sends an email from the address of your choice.
 
@@ -51,7 +49,7 @@ c) Verify your integration in SendGrid to confirm that the key was activated. If
 
 #### 4. Add SendGrid Credentials to your Astronomer Deployment
 
-In your Astronomer Deployment, go to **Deployment** > **Variables** and add the following Environment Variables:
+In your Astronomer Deployment on Astronomer's UI, go to the **Variables** tab for your deployment and add the following Environment Variable using the **+Add** button:
 
 ```
 AIRFLOW__SMTP__SMTP_HOST=smtp.sendgrid.net
@@ -63,11 +61,18 @@ AIRFLOW__SMTP__SMTP_PORT=587
 AIRFLOW__SMTP__SMTP_MAIL_FROM={Your SendGrid email sender from step 2}
 ```
 
-Click `Update` to save the configuration and redeploy to propagate to your deployment.
+When you're done, the Astronomer UI should look something like this:
+
+![Astronomer Deployment Email Settings](https://assets2.astronomer.io/main/docs/emails/astro_env_variables.png)
+
+To prevent unauthorized users in your Workspace from seeing sensitive information, we recommend selecting the **Secret?** checkbox for your email and password profile variables.
+
+Lastly, click **Deploy Changes** to push your configuration to your Airflow Deployment.
 
 ### Integrate Amazon SES with Astronomer
 
-**Prerequisite**: This setup requires an AWS account and use of the [AWS Management Console](https://aws.amazon.com/console/).
+#### Prerequisites
+This setup requires an AWS account and use of the [AWS Management Console](https://aws.amazon.com/console/).
 
 #### 1. Verify Email Addresses
 
@@ -89,7 +94,7 @@ Refer to [Amazon's list of available regions and servers](https://docs.aws.amazo
 
 #### 4. Add SES Credentials to your Astronomer Deployment
 
-In your Astronomer Deployment on Astronomer's UI, go to `Deployments` > `Configure` > `Env Vars` and add the following Environment Variables:
+In your Astronomer Deployment on Astronomer's UI, go to the **Variables** tab for your deployment and add the following Environment Variables:
 
 ```
 AIRFLOW__SMTP__SMTP_HOST={Your SMTP host}
@@ -100,6 +105,14 @@ AIRFLOW__SMTP__SMTP_USER={Your username from step 2}
 AIRFLOW__SMTP__SMTP_PASSWORD={Your password from step 2}
 AIRFLOW__SMTP__SMTP_MAIL_FROM={Your verified email address from step 1}
 ```
+When you're done, the Astronomer UI should look something like this:
+
+![Astronomer Deployment Email Settings](https://assets2.astronomer.io/main/docs/emails/astro_env_variables.png)
+
+To prevent unauthorized users in your Workspace from seeing sensitive information, we recommend selecting the **Secret?** checkbox for your email and password profile variables.
+
+Lastly, click **Deploy Changes** to push your configuration to your Airflow Deployment.
+
 
 ## Limit Alerts to the DAG Level
 
@@ -114,13 +127,12 @@ If you want to limit failure alerts to the DAG run level, you can instead set up
 The code in your DAG might look something like this ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/utils/email.py#L41)):
 
  ```
- from airflow.models.email import send_email
-
-def new_email_alert(self, **kwargs):
-  title = "TEST MESSAGE: THIS IS A MODIFIED TEST"
-  body = ("This is the text "
-                "That appears in the email body..<br>")
-  send_email('my_email@email.com', title, body)
+      from airflow.models.email import send_email
+      def new_email_alert(self, **kwargs):
+      title = "TEST MESSAGE: THIS IS A MODIFIED TEST"    
+      body = ("This is the text "
+      "That appears in the email body..<br>")      
+      send_email('my_email@email.com', title, body)
   ```
 ## Subscribe to Deployment Alerts on Astronomer
 
