@@ -51,7 +51,7 @@ c) Verify your integration in SendGrid to confirm that the key was activated. If
 
 #### 4. Add SendGrid Credentials to your Astronomer Deployment
 
-In your Astronomer deployment, go to `Deployments` > `Configure` > `Env Vars` and add the following variables:
+In your Astronomer Deployment, go to **Deployment** > **Variables** and add the following Environment Variables:
 
 ```
 AIRFLOW__SMTP__SMTP_HOST=smtp.sendgrid.net
