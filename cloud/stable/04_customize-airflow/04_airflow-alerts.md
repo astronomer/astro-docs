@@ -5,6 +5,7 @@ description: "How to configure different types of Airflow alerts on Astronomer t
 ---
 
 # Monitor Airflow Deployments with Alerts
+## Overview
 
 Airflow alerts help you quickly and accurately diagnose issues with your deployments. Astronomer offers two solutions for triggering alerts when something happens in your system:
 * [DAG and Task-level alerts](#configure-a-simple-mail-transfer-protocol-service-for-task-alerts) use a Simple Mail Transfer Protocol (SMTP) service to alert you via email when something you specify happens in a task or DAG.
@@ -42,9 +43,11 @@ Because you’re only sending emails for internal administrative purposes, a sin
 
 #### 3. Create a Key Using SendGrid’s Web API.
 
-(A) In SendGrid, go to Email API > Integration Guide. Follow the steps to generate a new API key using SendGrid’s Web API and cURL.
-(B) Skip the step for exporting your API Key to your development environment. Instead, execute the generated curl code directly in your command line, making sure to replace `$SENDGRID_API_KEY` in the `--header` field with your copied key. 
-(C) Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can’t find the test email, try rerunning the cURL code in your terminal before retrying the verification.
+a) In SendGrid, go to Email API > Integration Guide. Follow the steps to generate a new API key using SendGrid’s Web API and cURL.
+
+b) Skip the step for exporting your API Key to your development environment. Instead, execute the generated curl code directly in your command line, making sure to replace `$SENDGRID_API_KEY` in the `--header` field with your copied key.
+
+c) Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can’t find the test email, try rerunning the cURL code in your terminal before retrying the verification.
 
 #### 4. Add SendGrid Credentials to your Astronomer Deployment
 
