@@ -116,7 +116,7 @@ Lastly, click **Deploy Changes** to push your configuration to your Airflow Depl
 
 ## Limit Alerts to the Airflow DAG Level
 
-By default, email alerts configured via the `email_on_failure` param ([source](https://github.com/apache/airflow/blob/master/airflow/models/baseoperator.py)) are handled at the task level. If a handful of your tasks fail for related reasons, you'll receive an individual email for each of those failures.
+By default, email alerts configured via the `email_on_failure` param ([source](https://github.com/apache/airflow/blob/master/airflow/models/baseoperator.py)) are handled at the task level. If some number of your tasks fail, you'll receive an individual email for each of those failures.
 
 If you want to limit failure alerts to the DAG run level, you can instead set up your alerts using the `on_failure_callback` param ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/models/dag.py#L167)). When you pass `on_failure_callback` directly in your DAG file, it defines a Python function that sends you one email per DAG failure, rather than multiple emails for each task that fails:
 
