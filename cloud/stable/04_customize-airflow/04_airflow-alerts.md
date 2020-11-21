@@ -114,7 +114,7 @@ To prevent unauthorized users in your Workspace from seeing sensitive informatio
 Lastly, click **Deploy Changes** to push your configuration to your Airflow Deployment.
 
 
-## Limit Alerts to the DAG Level
+## Limit Alerts to the Airflow DAG Level
 
 By default, email alerts configured via the `email_on_failure` param ([source](https://github.com/apache/airflow/blob/master/airflow/models/baseoperator.py)) are handled at the task level. If a handful of your tasks fail for related reasons, you'll receive an individual email for each of those failures.
 
