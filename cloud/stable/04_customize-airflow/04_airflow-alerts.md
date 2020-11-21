@@ -1,10 +1,10 @@
 ---
-title: "Monitor Airflow Deployments with Alerts"
+title: "Monitor Airflow with Email Alerts"
 navTitle: "Airflow Alerts"
 description: "How to configure alerts on Astronomer to monitor the health of your Airflow Deployment and the status of your tasks."
 ---
 
-# Monitor Airflow Deployments with Alerts
+# Monitor Airflow with Email Alerts
 ## Overview
 
 Airflow alerts help you quickly and accurately diagnose issues with your deployments. Astronomer offers two solutions for triggering alerts when something happens in your system:
@@ -168,5 +168,3 @@ alert: AirflowSchedulerUnhealthy
         summary: "{{ $labels.deployment }} scheduler is unhealthy"
         description: "The {{ $labels.deployment }} scheduler's heartbeat has dropped below the acceptable rate."
 ```
-
-**Need to customize an alert?** Customers with Enterprise-level Astronomer can modify any Astronomer-released alert according to their organization's needs.
