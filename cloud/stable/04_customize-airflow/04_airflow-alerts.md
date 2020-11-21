@@ -30,7 +30,7 @@ SendGrid grants users 40,000 free emails within the first 30 days of an account 
 
 To get started with SendGrid:
 
-#### 1. [Create a New Account](https://signup.sendgrid.com)
+#### 1. [Create a SendGrid Account](https://signup.sendgrid.com)
 
 When creating an account, be prepared to disclose some standard information about yourself and your organization.
 
@@ -41,13 +41,13 @@ Because you're sending emails only for internal administrative purposes, a singl
 
 #### 3. Create a Key Using SendGrid's Web API.
 
-a) In SendGrid, go to Email API > Integration Guide. Follow the steps to generate a new API key using SendGrid's Web API and cURL.
+a) In SendGrid, go to **Email API** > **Integration Guide**. Follow the steps to generate a new API key using SendGrid's Web API and cURL.
 
 b) Skip the step for exporting your API Key to your development environment. Instead, execute the generated curl code directly in your command line, making sure to replace `$SENDGRID_API_KEY` in the `--header` field with your copied key.
 
 c) Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can't find the test email, try rerunning the cURL code in your terminal before retrying the verification.
 
-#### 4. Add SendGrid Credentials to your Astronomer Deployment
+#### 4. Add SendGrid Credentials to your Airflow Deployment
 
 In your Astronomer Deployment on Astronomer's UI, go to the **Variables** tab for your deployment and add the following Environment Variable using the **+Add** button:
 
@@ -114,9 +114,9 @@ To prevent unauthorized users in your Workspace from seeing sensitive informatio
 Lastly, click **Deploy Changes** to push your configuration to your Airflow Deployment.
 
 
-## Limit Alerts to the DAG Level
+## Limit Alerts to the Airflow DAG Level
 
-By default, email alerts configured via the `email_on_failure` param ([source](https://github.com/apache/airflow/blob/master/airflow/models/baseoperator.py)) are handled at the task level. If a handful of your tasks fail for related reasons, you'll receive an individual email for each of those failures.
+By default, email alerts configured via the `email_on_failure` param ([source](https://github.com/apache/airflow/blob/master/airflow/models/baseoperator.py)) are handled at the task level. If some number of your tasks fail, you'll receive an individual email for each of those failures.
 
 If you want to limit failure alerts to the DAG run level, you can instead set up your alerts using the `on_failure_callback` param ([source](https://github.com/apache/airflow/blob/v1-10-stable/airflow/models/dag.py#L167)). When you pass `on_failure_callback` directly in your DAG file, it defines a Python function that sends you one email per DAG failure, rather than multiple emails for each task that fails:
 
@@ -136,7 +136,7 @@ The code in your DAG might look something like this ([source](https://github.com
   ```
 ## Subscribe to Deployment Alerts on Astronomer
 
-In Astronomer's UI, you can subscribe to deployment-level email alerts in the Settings page for a deployment. These alerts tell you how a deployment is performing. For instance, it might tell you whether the scheduler is healthy, or whether tasks are failing at an abnormal rate. Unlike task-level alerts, deployment-level alerts can be sent without an SMTP service.
+In the Astronomer UI, you can subscribe to deployment-level email alerts in the **Settings** tab of your Airflow Deployment. Our platform monitors the health of your Airflow Deployment and triggers an alert if any of Airflow's core components are underperforming or if you've initiated a faulty action. For instance, you may receive an alert if your Airflow Scheduler is unhealthy, if tasks are failing at an abnormal rate, or if you've attempted to upgrade to a version of Airflow that does not match the corresponding Docker image in your Dockerfile. Unlike task-level alerts, deployment-level alerts are sent by Astronomer and do not require a separate SMTP configuration.
 
 ![Astronomer Deployment Email Settings](https://assets2.astronomer.io/main/docs/emails/astro_deployment_email.png)
 
@@ -154,7 +154,7 @@ In Astronomer's UI, you can subscribe to deployment-level email alerts in the Se
 
 ### Anatomy of a Deployment Alert
 
-This alert fires when the scheduler is not heartbeating every 5 seconds for more than 3 minutes:
+This alert fires when the Airflow Scheduler is not heart beating every 5 seconds, for more than 3 minutes:
 
 ```
 alert: AirflowSchedulerUnhealthy
