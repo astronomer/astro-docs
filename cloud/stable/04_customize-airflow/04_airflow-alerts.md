@@ -30,7 +30,7 @@ SendGrid grants users 40,000 free emails within the first 30 days of an account 
 
 To get started with SendGrid:
 
-#### 1. [Create a New Account](https://signup.sendgrid.com)
+#### 1. [Create a SendGrid Account](https://signup.sendgrid.com)
 
 When creating an account, be prepared to disclose some standard information about yourself and your organization.
 
