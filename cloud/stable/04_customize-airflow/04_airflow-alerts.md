@@ -41,7 +41,7 @@ Because you're sending emails only for internal administrative purposes, a singl
 
 #### 3. Create a Key Using SendGrid's Web API.
 
-a) In SendGrid, go to Email API > Integration Guide. Follow the steps to generate a new API key using SendGrid's Web API and cURL.
+a) In SendGrid, go to **Email API** > **Integration Guide**. Follow the steps to generate a new API key using SendGrid's Web API and cURL.
 
 b) Skip the step for exporting your API Key to your development environment. Instead, execute the generated curl code directly in your command line, making sure to replace `$SENDGRID_API_KEY` in the `--header` field with your copied key.
 
