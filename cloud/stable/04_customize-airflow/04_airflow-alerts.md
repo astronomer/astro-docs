@@ -47,7 +47,7 @@ b) Skip the step for exporting your API Key to your development environment. Ins
 
 c) Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can't find the test email, try rerunning the cURL code in your terminal before retrying the verification.
 
-#### 4. Add SendGrid Credentials to your Astronomer Deployment
+#### 4. Add SendGrid Credentials to your Airflow Deployment
 
 In your Astronomer Deployment on Astronomer's UI, go to the **Variables** tab for your deployment and add the following Environment Variable using the **+Add** button:
 
