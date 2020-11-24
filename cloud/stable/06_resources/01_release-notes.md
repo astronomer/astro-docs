@@ -4,6 +4,26 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.23 Release Notes
+
+### v0.23.0
+
+Release Date: November 24, 2020
+
+#### Support for Docker Images on Quay.io + DockerHub
+Astronomer recently migrated from [Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow/tags) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our platform’s primary Docker Registry in light of Docker Hub’s [new rate-limit policy](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/), effective Nov 2nd, 2020.
+
+Astronomer v0.23 supports Airflow images that are pulled from _either_ Docker registry, though we strongly encourage users to switch to Quay.io images to avoid rate limiting errors from Docker Hub. If you're running a legacy image that pulls from `astronomerinc/ap-airflow`, all it takes is modifying that image in your Dockerfile to read `quay.io/astronomer/ap-airflow`. Both have the exact same functionality.
+
+For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/) or [this forum post](https://forum.astronomer.io/t/docker-hub-rate-limit-error-toomanyrequests-you-have-reached-your-pull-rate-limit/887).
+
+#### Bug Fixes & Improvements
+
+- Improvement: Default to latest available version of Airflow on Deployment Creation via Astro UI/CLI
+- BugFix: `$ astro dev init` shows `No module named 'airflow.api.auth.backend.basic_auth` (_CLI v0.23_)
+- Bugfix: Deployment "Viewer" Access erroneously given to Workspace user
+- BugFix: Variables and Connections declared in `airflow_settings.yaml` are not properly passed to Airflow's Metadata Database via the Astro CLI (_CLI v0.23_)
+
 ## Astronomer v0.22 Release Notes
 
 ### v0.22.4
