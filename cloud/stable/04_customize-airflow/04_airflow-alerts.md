@@ -1,13 +1,13 @@
 ---
-title: "Monitor Airflow with Email Alerts"
+title: "Configure Airflow Email Alerts on Astronomer"
 navTitle: "Airflow Alerts"
-description: "How to configure alerts on Astronomer to monitor the health of your Airflow Deployment and the status of your tasks."
+description: "Configure Email Alerts on Astronomer to monitor the health of your Airflow Deployment and the status of your tasks."
 ---
 
-# Monitor Airflow with Email Alerts
 ## Overview
 
 Airflow alerts help you quickly and accurately diagnose issues with your deployments. Astronomer offers two solutions for triggering alerts when something happens in your system:
+
 * [Task-level alerts](#subscribe-to-task-level-alerts) use a Simple Mail Transfer Protocol (SMTP) service to alert you via email when a task or DAG fails, succeeds, or retries.
 * [Deployment-level alerts](#subscribe-to-deployment-alerts-on-astronomer) give you information about the general performance of a deployment. You can specify an email address to receive these alerts directly in Astronomer UI.
 
