@@ -150,7 +150,7 @@ This will generate a collection of files within your directory:
 └── requirements.txt # For any Python packages
 ```
 
-These files collectively make up the Docker image you'll then push to the Airflow instance on your local machine or to a Deployment on Astronomer Cloud or Enterprise.
+These files collectively make up the Docker image you'll then push to the Airflow instance on your local machine, or to a Deployment on Astronomer Cloud or Enterprise.
 
 ## Start Airflow Locally
 
