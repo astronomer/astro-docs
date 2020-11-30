@@ -13,14 +13,11 @@ Whether you're just starting to use Apache Airflow or your team is running it at
 
 ## Subscribe to Task-Level Alerts
 
-As an Airflow user, you can configure event-based email alerts directly in your DAG code by leveraging Airflow's [email util](https://github.com/apache/airflow/blob/master/airflow/utils/email.py). Depending on your use case, you may choose to be notified if a particular task or DAG fails, succeeds, retries, etc. On Astronomer, setting up task-level alerts requires configuring an SMTP service to handle the delivery of those emails.
+As an Airflow user, you can configure event-based email alerts directly in your DAG code by leveraging Airflow's [email util](https://github.com/apache/airflow/blob/master/airflow/utils/email.py). Depending on your use case, you may choose to be notified if a particular task or DAG fails, succeeds, retries, etc. On Astronomer, setting up task-level alerts requires configuring an SMTP service to handle the delivery of these emails.
 
-The topics below contain setup steps for two free and popular SMTP services:
+We recommend using either SendGrid or Amazon's Simple Email Service (SES) as your SMTP service for Airflow alerts. To integrate these services with Astronomer, refer to the setups below. 
 
-* [Integrate SendGrid with Astronomer](#integrate-sendgrid-with-astronomer)
-* [Integrate Amazon SES (Simple Email Service) with Astronomer](#integrate-amazon-ses-with-astronomer)
-
-By default, email alerts for process failures are sent whenever individual tasks fail. To receive only 1 email per DAG failure, refer to the [Limit Alerts to the DAG Level](#limit-alerts-to-the-dag-level) topic below. For more information and best practices on Airflow alerts, refer to our Guide on [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/).
+By default, email alerts for process failures are sent whenever individual tasks fail. To receive only 1 email per DAG failure, refer to the Limit Alerts to the DAG Level topic below. For more information and best practices on Airflow alerts, refer to our Guide on [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/).
 
 ### Integrate SendGrid with Astronomer
 
@@ -30,7 +27,7 @@ To get started with SendGrid:
 
 #### 1. [Create a SendGrid Account](https://signup.sendgrid.com)
 
-When you create an acccount, be prepared to disclose some standard information about yourself and your organization.
+When you create an account, be prepared to disclose some standard information about yourself and your organization.
 
 
 #### 2. [Verify a Single Sender Identity](https://sendgrid.com/docs/ui/sending-email/sender-verification/)

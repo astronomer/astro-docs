@@ -17,12 +17,9 @@ You can configure Airflow to send alerts via email whenever a task fails, retrie
 
 With Astronomer, you can integrate an SMTP service to automatically handle the delivery of these emails. When an Airflow email alert is triggered, the SMTP service automatically sends an email from the address of your choice.
 
-The following topics contain setup steps for two free and popular SMTP services:
+We recommend using either SendGrid or Amazon's Simple Email Service (SES) as your SMTP service for Airflow alerts. To integrate these services with Astronomer, refer to the setups below. 
 
-* [Integrate SendGrid with Astronomer](#integrate-sendgrid-with-astronomer)
-* [Integrate Amazon's Simple Email Service (SES) with Astronomer](#integrate-amazon-ses-with-astronomer)
-
-By default, email alerts for process failures are sent whenever individual tasks fail. To receive only one email per DAG failure, refer to the [Limit Alerts to the DAG Level](#limit-alerts-to-the-dag-level) topic.
+By default, email alerts for process failures are sent whenever individual tasks fail. To receive only one email per DAG failure, refer to the Limit Alerts to the DAG Level topic.
 
 
 ### Integrate SendGrid with Astronomer
