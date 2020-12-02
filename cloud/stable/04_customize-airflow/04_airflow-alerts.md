@@ -147,28 +147,8 @@ Refer to the following chart for more information on each deployment-level alert
 | ------------- | ------------- | ------------- |
 | `AirflowDeploymentUnhealthy` | The Airflow Deployment is unhealthy or not completely available. | Contact your Astronomer representative. |
 | `AirflowEphemeralStorageLimit` | The Airflow Deployment is nearing its limit for storing temporary data. | Ensure that you are continually removing unused temporary data in your Airflow tasks. |
-| `AirflowPodQuota` | The Airflow Deployment is near its pod quota; it's been using over 95% of it's pod quota for over 10 minutes. | Either increase the Deployment's allocated Webserver and Scheduler Resources or update your DAGs to use less resources. If you have not already done so, upgrade to Airflow 2.0 for improved resource management. |
+| `AirflowPodQuota` | The Airflow Deployment is near its pod quota; it's been using over 95% of it's pod quota for over 10 minutes. | Either increase the Deployment's allocated Webserver and Scheduler Resources or update your DAGs to use less resources. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management. |
 | `AirflowSchedulerUnhealthy` | The Airflow scheduler's heartbeat has dropped below the acceptable rate. | Contact your Astronomer representative. |
 | `AirflowTasksPendingIncreasing` | The Airflow Deployment is creating tasks faster than it's clearing them. | Ensure that your tasks are running and completing correctly. If your tasks are running as expected, increase the Deployment's allocated Server Resources in the Astronomer UI or redesign your DAGs so that less tasks are concurrently pending. |
-| `ContainerMemoryNearTheLimitInDeployment` | The Airflow Deployment is near its memory quota; it's been using over 95% of it's memory quota for over 10 minutes. | Either increase the Deployment's allocated Webserver Resources or update your DAGs to use less resources. If you have not already done so, upgrade to Airflow 2.0 for improved resource management. |
-| `CpuThrottlingInDeployment` | The Airflow Deployment is near its CPU quota; it's been using over 95% of it's CPU quota for over 10 minutes. | Either increase the Deployment's allocated Webserver and Scheduler Resources or update your DAGs to use less resources. If you have not already done so, upgrade to Airflow 2.0 for improved resource management. |
-
-
-
-
-### Anatomy of a Deployment Alert
-
-This alert fires when the Airflow Scheduler is not heart beating every 5 seconds, for more than 3 minutes:
-
-```
-alert: AirflowSchedulerUnhealthy
-      expr: round(rate(airflow_scheduler_heartbeat{type="counter"}[1m]) * 5) == 0
-      for: 3m # Scheduler should reboot quick
-      labels:
-        tier: airflow
-        component: scheduler
-        deployment: "{{ $labels.deployment }}"
-      annotations:
-        summary: "{{ $labels.deployment }} scheduler is unhealthy"
-        description: "The {{ $labels.deployment }} scheduler's heartbeat has dropped below the acceptable rate."
-```
+| `ContainerMemoryNearTheLimitInDeployment` | The Airflow Deployment is near its memory quota; it's been using over 95% of it's memory quota for over 10 minutes. | Either increase the Deployment's allocated Webserver Resources or update your DAGs to use less resources. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management. |
+| `CpuThrottlingInDeployment` | The Airflow Deployment is near its CPU quota; it's been using over 95% of it's CPU quota for over 10 minutes. | Either increase the Deployment's allocated Webserver and Scheduler Resources or update your DAGs to use less resources. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management. |
