@@ -47,12 +47,12 @@ First, ensure you have a copy of the `config.yaml` file of your platform namespa
 To do this, you can run:
 
 ```sh
-$ helm3 get values -n <namespace> <release name of astronomer> > config.yaml
+$ helm3 get values -n <namespace> <release name of astronomer> >config.yaml
 ```
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### Verify your current Platform Version
+### Verify Your Current Platform Version
 
 To verify the version of Astronomer you're currently operating with, run:
 
@@ -101,3 +101,31 @@ If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/ent
 
 We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
 
+## Update Your Astronomer Configuration Without Upgrading
+
+If you want to reconfigure specific variables used on your Astronomer platform, such as resource allocation limits, you can do so without needing to upgrade to a new version.
+
+#### 1. Populate a .yaml file with your current configuration.
+
+Run the following command:
+
+```
+$ helm -n astronomer get values astronomer >config.yaml
+```
+#### 2. Open the .yaml file and reconfigure the variables.
+
+By default, the `config.yaml` file you created only shows values that have been modified from their defaults. To see the full .yaml with every possible key-value pair, refer to [the `values.yaml` sample file](https://github.com/astronomer/astronomer/blob/master/values.yaml).
+
+To update reconfigure any of the prepopulated variables, simply modify the existing value in config.yaml file. To update a variable that hasn't yet been configured, copy the .yaml key-value pair you want to update from [the `values.yaml` sample file](https://github.com/astronomer/astronomer/blob/master/values.yaml). After copying the key-value pairs you need to config.yaml, ensure they are indented and organized the same as they were in `values.yaml`.
+
+#### 3. Push the changes to your Astronomer platform.
+
+Save your updated config.yaml file, then run the following command:
+
+```
+$ helm -n astronomer upgrade astronomer astronomer/astronomer --version=<your current version> -f config.yaml
+```
+To see the updated key-value pairs in your terminal, you can run:
+```
+$ helm3 get values -n <namespace> <release name of astronomer>
+```
