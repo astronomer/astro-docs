@@ -49,7 +49,7 @@ In order for our team to serve yours most effectively, it's critical that we und
 - **P3:** Partial/Non-Critical Loss
 - **P4:** General Inquiry
 
-**2. Be as descriptive as possible**
+**2. Be As Descriptive As Possible**
 
 The more you can tell us about the issue you're facing, the more quickly we can jump in. Consider including the following:
 
