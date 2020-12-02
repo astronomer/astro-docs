@@ -40,7 +40,7 @@ If you're working with a team, make sure to create an account with your work ema
 
 When you submit a ticket to Astronomer's Support Portal, keep the following best practices in mind.
 
-**1. Always indicate Priority**
+**1. Always Indicate Priority**
 
 In order for our team to serve yours most effectively, it's critical that we understand the impact of all reported issues. Generally speaking, here are the guidelines we operate under:
 
