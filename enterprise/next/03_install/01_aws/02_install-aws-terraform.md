@@ -190,27 +190,6 @@ helm ls -n astronomer
 
 The kubeconfig file along with other secrets such as the TLS certificate are backed up in the remote Terraform state S3 bucket (if applicable).
 
-## Configuring the platform
+## Configuring the Platform
 
-Astronomer is deployed on Kubernetes with a package manager, ['Helm'](https://helm.sh).
-
-All reconfiguration options that are intended for the Astronomer platform rather than Terraform or infrastructure (`astronomer_helm_values`) are passed in YAML. For all reconfigurations, you can make use of the Terraform option astronomer_helm_values, which should be a YAML block in a Terraform string.
-
-Once the platform is deployed, the current `astronomer_helm_values` for the platform can be found with:
-
-```
-helm get values astronomer
-global:
-  baseDomain: deployment-id.your-domain.com
-  tlsSecret: astronomer-tls
-nginx:
-  privateLoadBalancer: false
-astronomer:
-    houston:
-      config:
-        email:
-          enabled: true
-          smtpUrl: YOUR_URI_HERE
-
-```
-*Note: You will need to download the helm client to directly call helm commands*
+Astronomer is deployed on Kubernetes with the [Helm](https://helm.sh) package manager. After completing your installation with Terraform, we recommend updating your configuration through Helm as described in the [Update Your Astronomer Configuration Without Upgrading](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/update-your-astronomer-configuration-without-upgrading) topic.
