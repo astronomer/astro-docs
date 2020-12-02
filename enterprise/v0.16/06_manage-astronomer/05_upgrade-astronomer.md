@@ -102,20 +102,20 @@ We're working on a more robust and reliable upgrade process for our next Astrono
 
 ## Update Your Astronomer Configuration Without Upgrading
 
-If you want to reconfigure specific variables used on your Astronomer platform, such as resource allocation limits, you can do so without needing to upgrade to a new version.
+If you want to reconfigure specific variables used on your Astronomer platform, such as resource allocation limits, you can do so without upgrading to a new version.
 
 #### 1. Populate a .yaml file with your current configuration.
 
-Run the following command:
+Run the following command to create a new file called `config.yaml`:
 
 ```
 $ helm -n astronomer get values astronomer >config.yaml
 ```
-#### 2. Open the .yaml file and reconfigure the variables.
+#### 2. Open the new file and reconfigure the variables.
 
-By default, the `config.yaml` file you created only shows values that have been modified from their defaults. To see the full .yaml with every possible key-value pair, refer to [the `values.yaml` sample file](https://github.com/astronomer/astronomer/blob/master/values.yaml).
+By default, the `config.yaml` file you created only shows key-value pairs that have been modified from their default state. To see the full .yaml with every possible key-value pair, refer to [the `values.yaml` template file](https://github.com/astronomer/astronomer/blob/master/values.yaml).
 
-To update reconfigure any of the prepopulated variables, simply modify the existing value in config.yaml file. To update a variable that hasn't yet been configured, copy the .yaml key-value pair you want to update from [the `values.yaml` sample file](https://github.com/astronomer/astronomer/blob/master/values.yaml). After copying the key-value pairs you need to config.yaml, ensure they are indented and organized the same as they were in `values.yaml`.
+To update any of the prepopulated variables, simply modify the existing value `config.yaml`. To update a variable that hasn't yet been configured, copy the .yaml key-value pair you want to update from [the `values.yaml` template file](https://github.com/astronomer/astronomer/blob/master/values.yaml). After copying the key-value pairs you need to `config.yaml`, ensure they have the same order and indentation as they have in `values.yaml`.
 
 #### 3. Push the changes to your Astronomer platform.
 
