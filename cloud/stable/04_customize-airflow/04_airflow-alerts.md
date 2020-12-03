@@ -15,9 +15,14 @@ Whether you're just starting to use Apache Airflow or your team is running it at
 
 As an Airflow user, you can configure event-based email alerts directly in your DAG code by leveraging Airflow's [email util](https://github.com/apache/airflow/blob/master/airflow/utils/email.py). Depending on your use case, you may choose to be notified if a particular task or DAG fails, succeeds, retries, etc. On Astronomer, setting up task-level alerts requires configuring an SMTP service to handle the delivery of these emails.
 
-We recommend using either SendGrid or Amazon's Simple Email Service (SES) as your SMTP service for Airflow alerts, though any tool of your choice will do. To integrate these services with Astronomer, refer to the steps below.
+If your team isn't already using an SMTP service, we recommend the following:
 
-By default, email alerts for process failures are sent whenever individual tasks fail. To receive only 1 email per DAG failure, refer to the Limit Alerts to the DAG Level topic below. For more information and best practices on Airflow alerts, refer to our Guide on [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/).
+- [SendGrid](https://sendgrid.com/)
+- [Amazon SES](https://aws.amazon.com/ses/)
+
+For step-by-step instructions on how to integrate either of these two services with Astronomer, refer to the steps below. If your team prefers another email delivery tool, you're more than free to use it.
+
+> **Note:** By default, email alerts for process failures are sent whenever individual tasks fail. To receive only 1 email per DAG failure, refer to the Limit Alerts to the DAG Level topic below. For more information and best practices on Airflow alerts, refer to our Guide on [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/).
 
 ### Integrate SendGrid with Astronomer
 
