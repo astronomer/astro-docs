@@ -31,7 +31,7 @@ Once you have the pre-reqs installed, follow the below instructions to get the A
 
 ### Via Docker
 
-The preferred way to install Astronomer Astronomer Certified is to download our latest Astronomer-hosted Docker image, each of which will generally correspond with an open-source Airflow release.
+The preferred way to install Astronomer Astronomer Certified is to download our latest Astronomer-hosted Docker image, each of which will generally correspond with an open source Airflow release.
 
 For Astronomer's full collection of Docker Images, reference our public [Quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
 
@@ -128,7 +128,7 @@ By default, the above will run Airflow on your machine using the Local Executor.
 
 ### Via Python Wheel
 
-We also distribute Astronomer Certified as a python wheel available on PyPi. This distribution can be run locally via the same mechanisms used to run the open-source Airflow package.
+We also distribute Astronomer Certified as a python wheel available on PyPi. This distribution can be run locally via the same mechanisms used to run the open source Airflow package.
 
 1. Run `export AIRFLOW_HOME=~/airflow` to give Astronomer Certified Airflow a home root directory on your machine.
 2. Run the following command to get the latest version of the distribution on your machine:

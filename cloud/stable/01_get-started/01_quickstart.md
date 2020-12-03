@@ -40,7 +40,7 @@ If you're new to Astronomer but someone else on your team has an existing Worksp
 
 ## Start with the Astronomer CLI
 
-Astronomer's [open-source CLI](https://github.com/astronomer/astro-cli) is the easiest way to run Apache Airflow on your machine.
+Astronomer's [open source CLI](https://github.com/astronomer/astro-cli) is the easiest way to run Apache Airflow on your machine.
 
 From the CLI, you can establish a local testing environment and deploy to Astronomer Cloud whenever you're ready.
 
