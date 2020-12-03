@@ -108,7 +108,7 @@ If you're on Astronomer Enterprise, navigate to your Airflow Deployment page on 
 
 ### Patch Versions of Astronomer Certified
 
-In addition to supporting the latest versions of open-source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
+In addition to supporting the latest versions of open source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
 For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release:
 
@@ -117,7 +117,7 @@ For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional pa
 - 1.10.10-4
 - 1.10.10-5
 
-All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open-source release.
+All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open source release.
 
 > **Note:** Not all versions of the Astronomer Platform support all versions of Astronomer Certified. If you're not running the latest version of Astronomer and want to upgrade to the latest AC patch, [reach out to us](https://support.astronomer.io).
 

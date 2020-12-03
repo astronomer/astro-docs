@@ -6,7 +6,7 @@ description: "Establish a local testing environment and deploy to Astronomer fro
 
 ## Overview
 
-Astronomer's [open-source CLI](https://github.com/astronomer/astro-cli) is the easiest way to run Apache Airflow on your machine.
+Astronomer's [open source CLI](https://github.com/astronomer/astro-cli) is the easiest way to run Apache Airflow on your machine.
 
 From the CLI, both Astronomer and non-Astronomer users can provision a local Apache Airflow instance with a dedicated Webserver, Scheduler and Postgres Database. Once you initialize a project on Astronomer, you can easily customize your image (e.g. add Python or OS-level packages, plugins etc.) and push that image to run on your local machine.
 
