@@ -1,4 +1,4 @@
-Deployment-level---
+---
 title: "Configure Airflow Email Alerts on Astronomer"
 navTitle: "Airflow Alerts"
 description: "Configure Email Alerts on Astronomer to monitor the health of your Airflow Deployment and the status of your tasks."

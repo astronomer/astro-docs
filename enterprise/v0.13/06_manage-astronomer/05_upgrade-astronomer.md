@@ -31,9 +31,9 @@ Astronomer platform releases follow a semantic versioning scheme. All versions a
 
 For example, upgrading Astronomer from `v0.16.4` to `v0.16.5` would be considered upgrading to a "patch" version whereas upgrading from `v0.15.0` to `v0.16.0` would be considered upgrading to the latest "minor" version.
 
-## Update Your Astronomer Configuration Without Upgrading
+## Update Your Platform Configuration
 
-If you want to reconfigure specific variables used on your Astronomer platform, such as resource allocation limits, you can do so without upgrading to a new version.
+You can reconfigure your Astronomer platform without upgrading your Astronomer version. This is useful for [integrating an Auth system](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system), [adding a registry backend](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/registry-backend), (changing resource allocation limits)[https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources], or any other change that applies to your entire platform.
 
 #### 1. Populate a .yaml file with your current configuration.
 

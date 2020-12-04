@@ -52,7 +52,7 @@ $ helm3 get values -n <namespace> <release name of astronomer> > config.yaml
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### Verify your current Platform Version
+### Verify Your Current Platform Version
 
 To verify the version of Astronomer you're currently operating with, run:
 
@@ -100,9 +100,9 @@ If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/ent
 
 We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
 
-## Update Your Astronomer Configuration Without Upgrading
+## Update Your Platform Configuration
 
-If you want to reconfigure specific variables used on your Astronomer platform, such as resource allocation limits, you can do so without upgrading to a new version.
+You can reconfigure your Astronomer platform without upgrading your Astronomer version. This is useful for [integrating an Auth system](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system), [adding a registry backend](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/registry-backend), (changing resource allocation limits)[https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources], or any other change that applies to your entire platform.
 
 #### 1. Populate a .yaml file with your current configuration.
 
