@@ -138,7 +138,7 @@ The code in your DAG might look something like this ([source](https://github.com
 
 In the Astronomer UI, you can subscribe to Deployment-level alerts by navigating to the **Settings** tab of your Airflow Deployment and entering your email address under **Email Alerts**.
 
-Astronomer's platform monitors the health of your Airflow Deployment and triggers an alert if any of Airflow's core components are underperforming (e.g. Scheduler, Webserver) or if you've initiated a faulty action. For instance, you may receive an alert if your Airflow Scheduler is unhealthy, if tasks are failing at an abnormal rate, or if you've attempted to upgrade to a version of Airflow that does not match the corresponding Docker image in your Dockerfile.
+Astronomer monitors the health of your Airflow Deployment and triggers an alert if any of Airflow's core components are underperforming (e.g. Scheduler, Webserver) or if you've initiated a faulty action. For instance, you may receive an alert if your Airflow Scheduler is unhealthy, if tasks are failing at an abnormal rate, or if you've attempted to upgrade to a version of Airflow that does not match the corresponding Docker image in your Dockerfile.
 
 Unlike task-level alerts, Deployment-level alerts are sent by Astronomer and do _not_ require a separate SMTP configuration.
 
