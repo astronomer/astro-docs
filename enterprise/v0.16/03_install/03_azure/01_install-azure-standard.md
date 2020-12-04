@@ -222,14 +222,12 @@ global:
   postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
 
 # Settings for database deployed on AKS cluster.
-  postgresql:
-    replication:
-      enabled: true
-      slaveReplicas: 2
-      synchronousCommit: on
-      numSynchronousReplicas: 1
-    metrics:
-      enabled: true
+postgresql:
+  replication:
+    enabled: true
+    slaveReplicas: 2
+    synchronousCommit: "on"
+    numSynchronousReplicas: 1
 
 #################################
 ### Nginx configuration
