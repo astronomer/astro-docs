@@ -150,7 +150,7 @@ Refer to the following chart for more information on each deployment-level alert
 
 | Alert | Description | Follow-Up |
 | ------------- | ------------- | ------------- |
-| `AirflowDeploymentUnhealthy` | The Airflow Deployment is unhealthy or not completely available. | Contact your Astronomer representative. |
+| `AirflowDeploymentUnhealthy` | The Airflow Deployment is unhealthy or not completely available. | Reach out to [Astronomer Support](https://support.astronomer.io). |
 | `AirflowEphemeralStorageLimit` | The Airflow Deployment is nearing its limit for storing temporary data. | Ensure that you are continually removing unused temporary data in your Airflow tasks. |
 | `AirflowPodQuota` | The Airflow Deployment is near its pod quota; it's been using over 95% of it's pod quota for over 10 minutes. | Either increase the Deployment's allocated Webserver and Scheduler Resources or update your DAGs to use less resources. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management. |
 | `AirflowSchedulerUnhealthy` | The Airflow scheduler's heartbeat has dropped below the acceptable rate. | Reach out to [Astronomer Support](https://support.astronomer.io). |
