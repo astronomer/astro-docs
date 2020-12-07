@@ -1,4 +1,4 @@
-Deployment-level---
+---
 title: "Configure Airflow Email Alerts on Astronomer"
 navTitle: "Airflow Alerts"
 description: "Configure Email Alerts on Astronomer to monitor the health of your Airflow Deployment and the status of your tasks."
@@ -146,7 +146,7 @@ Unlike task-level alerts, Deployment-level alerts are sent by Astronomer and do 
 
 ## Deployment Alerts on Astronomer
 
-Refer to the following chart for more information on each deployment-level alert you might receive from Astronomer, as well as follow-up steps for improving the health of your affected Deployments.
+Refer to the table below for a list of each Deployment-level alert you might receive from Astronomer. To limit the appearance of these alerts in the future, complete the corresponding follow-up action for each alert you receive.
 
 | Alert | Description | Follow-Up |
 | ------------- | ------------- | ------------- |
