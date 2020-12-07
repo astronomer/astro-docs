@@ -8,7 +8,7 @@ description: "How to adjust and upgrade Airflow versions on Astronomer."
 
 On Astronomer, the process of pushing up your code to an individual Airflow Deployment involves customizing a locally built Docker image —— with your DAG code, Python Packages, plugins, and so on —— that's then bundled, tagged, and pushed to Astronomer Cloud's Docker Registry.
 
-Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer Certified Docker Image. Astronomer Certified (AC) is a production-ready distribution of Apache Airflow that mirrors the open-source project and undergoes additional levels of rigorous testing conducted by our team.
+Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer Certified Docker Image. Astronomer Certified (AC) is a production-ready distribution of Apache Airflow that mirrors the open source project and undergoes additional levels of rigorous testing conducted by our team.
 
 To upgrade your Airflow Deployment to a higher version of Airflow, there are three steps:
 
@@ -210,7 +210,7 @@ If you're on Astronomer Cloud, navigate to your Airflow Deployment via Astronome
 
 ### Patch Versions of Astronomer Certified
 
-In addition to supporting the latest versions of open-source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
+In addition to supporting the latest versions of open source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
 For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release: 
 
@@ -218,7 +218,7 @@ For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional pa
 - 1.10.10-3
 - 1.10.10-4 etc.
 
-All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open-source release.
+All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open source release.
 
 #### Upgrade to an Astronomer Certified Patch Version
 

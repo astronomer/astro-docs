@@ -40,16 +40,16 @@ If you're working with a team, make sure to create an account with your work ema
 
 When you submit a ticket to Astronomer's Support Portal, keep the following best practices in mind.
 
-**1. Always indicate Severity**
+**1. Always Indicate Priority**
 
 In order for our team to serve yours most effectively, it's critical that we understand the impact of all reported issues. Generally speaking, here are the guidelines we operate under:
 
-- **S1:** Mission-Critical
-- **S2:** Major functionality impacted
-- **S3:** Partial/Non-Critical Loss
-- **S4:** General Inquiry
+- **P1:** Mission-Critical
+- **P2:** Major functionality impacted
+- **P3:** Partial/Non-Critical Loss
+- **P4:** General Inquiry
 
-**2. Be as descriptive as possible**
+**2. Be As Descriptive As Possible**
 
 The more you can tell us about the issue you're facing, the more quickly we can jump in. Consider including the following:
 
