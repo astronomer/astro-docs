@@ -13,6 +13,7 @@ To help you maintain Astronomer up-to-date, the guide below will walk you throug
 - Astronomer Platform Versioning
 - How to upgrade to a patch version on Astronomer
 - How to upgrade to a minor version on Astronomer
+- How to apply a platform configuration change
 
 For a detailed breakdown of individual releases, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/).
 
@@ -52,12 +53,12 @@ $ helm3 get values -n <namespace> <release name of astronomer> > config.yaml
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### Verify Your Current Platform Version
+### Verify your Current Platform Version
 
 To verify the version of Astronomer you're currently operating with, run:
 
 ```sh
-helm3 list --all-namespaces | grep astronomer
+$ helm3 list --all-namespaces | grep astronomer
 ```
 
 ### Run Astronomer's Patch Upgrade Script
@@ -98,30 +99,31 @@ helm3 upgrade --namespace $NAMESPACE \
 
 If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/v0.16/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](https://support.astronomer.io).
 
-We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
+We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Winter 2020.
 
 ## Configure Astronomer Between Upgrades
 
-You can configure Astronomer's settings without needing to upgrade your version number. Using Helm, any of the settings your platform uses, including ones available in the Astronomer UI, can be updated through a few simple commands. For example, you can use Helm to quickly:
+You can configure platform-wide settings without needing to upgrade Astronomer versions. Using Helm, any of the settings your platform uses, including ones available in the Astronomer UI, can be updated through a few simple commands. For example, you can use Helm to:
+
 * [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system)
-* [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/registry-backend),
+* [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/registry-backend)
 * [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources)
-* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml).
+* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml)
 
 To do so:
 
 #### 1. Open your config.yaml file.
 
 This file was created when you installed Astronomer using one of the following guides:
-* [AWS EKS Installation Guide] (https://www.astronomer.io/docs/enterprise/v0.16/install/aws/install-aws-standard#6-configure-your-helm-chart)
-* [GCP GKE Installation Guide] (https://www.astronomer.io/docs/enterprise/v0.16/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
-* [Azure AKS Installation Guide] (https://www.astronomer.io/docs/enterprise/v0.16/install/azure/install-azure-standard#6-configure-your-helm-chart)
+* [AWS EKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/aws/install-aws-standard#6-configure-your-helm-chart)
+* [GCP GKE Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
+* [Azure AKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/azure/install-azure-standard#6-configure-your-helm-chart)
 
 #### 2. Update key-value pairs in config.yaml.
 
 To update any of your existing settings, modify them directly in `config.yaml`. To update a setting you haven't already specified, copy the corresponding key-value pair from the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml) into your `config.yaml` file and modify the value from there.
 
-When you have finished updating the key-value pairs, ensure that they have the same relative order and indentation as they had in the default configuration file. If they don't, your changes might not be properly applied.
+When you have finished updating the key-value pairs, ensure that they have the same relative order and indentation as they do in the default configuration file. If they don't, your changes might not be properly applied.
 
 #### 3. Push the changes to your Astronomer platform.
 

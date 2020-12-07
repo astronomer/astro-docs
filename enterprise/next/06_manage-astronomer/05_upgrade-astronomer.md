@@ -13,6 +13,8 @@ To help you maintain Astronomer up-to-date, the guide below will walk you throug
 - Astronomer Platform Versioning
 - How to upgrade to a patch version on Astronomer
 - How to upgrade to a minor version on Astronomer
+- How to apply a platform configuration change
+
 
 For a detailed breakdown of individual releases, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/stable/resources/release-notes/).
 
@@ -52,7 +54,7 @@ $ helm3 get values -n <namespace> <release name of astronomer> >config.yaml
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### Verify Your Current Platform Version
+### Verify your Current Platform Version
 
 To verify the version of Astronomer you're currently operating with, run:
 
@@ -99,7 +101,7 @@ helm3 upgrade --namespace $NAMESPACE \
 
 If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/stable/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](https://support.astronomer.io).
 
-We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
+We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Winter 2020.
 
 ## Configure Astronomer Between Upgrades
 
