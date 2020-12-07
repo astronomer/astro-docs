@@ -41,7 +41,7 @@ Read below for specific guidelines.
 >
 > Now, Airflow Chart changes only take effect when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
 
-### Ensure you have a copy of your Astronomer `config.yaml`
+#### 1. Ensure you have a copy of your Astronomer config.yaml file.
 
 First, ensure you have a copy of the `config.yaml` file of your platform namespace if you don't already.
 
@@ -53,7 +53,7 @@ $ helm3 get values -n <namespace> <release name of astronomer> > config.yaml
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### Verify your Current Platform Version
+#### 2. Verify your current platform version.
 
 To verify the version of Astronomer you're currently operating with, run:
 
@@ -61,7 +61,7 @@ To verify the version of Astronomer you're currently operating with, run:
 $ helm3 list --all-namespaces | grep astronomer
 ```
 
-### Run Astronomer's Patch Upgrade Script
+#### 3. Run Astronomer's patch upgrade script.
 
 Now, review and run the script below to upgrade to the patch version of your choice.
 
@@ -101,7 +101,7 @@ If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/ent
 
 We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Winter 2020.
 
-## Configure Astronomer Between Upgrades
+## Configure Platform Settings Between Upgrades
 
 You can configure platform-wide settings without needing to upgrade Astronomer versions. Using Helm, any of the settings your platform uses, including ones available in the Astronomer UI, can be updated through a few simple commands. For example, you can use Helm to:
 
@@ -130,10 +130,14 @@ When you have finished updating the key-value pairs, ensure that they have the s
 Save `config.yaml`, then run the following command:
 
 ```
-$ helm -n astronomer upgrade astronomer astronomer/astronomer --version=<your current version> -f config.yaml
+$ helm -n <your-namespace> upgrade <your-platform-release name> astronomer/astronomer --version=<your-platform-version> -f config.yaml
+```
+For example, if you're running Astronomer v0.16.10 and your platform release name is astronomer, you might run:
+```
+$ helm upgrade astronomer -f config.yaml --version=0.16.10 astronomer/astronomer -n astronomer
 ```
 To see the updated key-value pairs in your terminal, you can run:
 
 ```
-$ helm3 get values -n <namespace> <release name of astronomer>
+$ helm3 get values -n <namespace> <your-platform-release-namer>
 ```
