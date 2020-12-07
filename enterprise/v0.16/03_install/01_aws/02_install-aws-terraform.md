@@ -197,4 +197,4 @@ The kubeconfig file along with other secrets such as the TLS certificate are bac
 
 ## Configuring the Platform
 
-Astronomer is deployed on Kubernetes with the [Helm](https://helm.sh) package manager. After completing your installation with Terraform, we recommend updating your configuration through Helm as described in the [Update Your Platform Configuration](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/update-your-astronomer-configuration-without-upgrading) topic.
+We recommend using Terraform only for your initial installation of Astronomer. Afterwards, all post-install upgrades and configurations to Astronomer should be completed using the [Helm](https://helm.sh) package manager. For more information on how to configure Astronomer after installation, refer to the [Update Your Platform Configuration](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/update-your-astronomer-configuration-without-upgrading) topic.
