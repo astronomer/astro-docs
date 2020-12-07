@@ -4,6 +4,8 @@ navTitle: "Pricing"
 description: "An overview of Astronomer Cloud pricing."
 ---
 
+> Interested in trying out Astronomer? [Get in touch](https://www.astronomer.io/get-astronomer/).
+
 ## Overview
 
 As part of our promise to give our customers more freedom and control with Apache Airflow, Astronomer Cloud is priced based on exact resource usage per Airflow Deployment. Your monthly charge is based on the total number of deployments tied to your organization and the total AU hours you allocate to each of those deployments throughout the course of that particular month.

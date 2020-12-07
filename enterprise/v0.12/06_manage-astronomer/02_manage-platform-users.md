@@ -123,7 +123,7 @@ The API call to add a System Admin on Astronomer requires the `uuid` of the user
 
 To pull the user's `uuid`, run the following query with their email address as the input:
 
-```
+```gql
 query GetUser {
   users(email:"<name@mycompany.com>")
   {
@@ -146,7 +146,7 @@ Below the query above, call `createSystemRoleBinding` with the `uuid` you pulled
 
 The mutation should look like:
 
-```
+```gql
 mutation AddAdmin {
   createSystemRoleBinding(
     userId: "<uuid>"

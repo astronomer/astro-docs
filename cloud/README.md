@@ -6,7 +6,7 @@ description: "An overview of Astronomer Cloud."
 
 ## Overview
 
-Astronomer Cloud is the easiest way for any organization to adopt [Apache Airflow](https://airflow.apache.org/), an open-source tool designed to programmatically author, schedule and monitor data workflows.
+Astronomer Cloud is the easiest way for any organization to adopt [Apache Airflow](https://airflow.apache.org/), an open source tool designed to programmatically author, schedule and monitor data workflows.
 
 Astronomer Cloud runs on a Kubernetes cluster hosted and managed by the Astronomer team. Our managed offering abstracts the everyday data engineer from the infrastructure management layer otherwise required to adopt, maintain and grow with Airflow.
 
