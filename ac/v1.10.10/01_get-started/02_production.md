@@ -6,10 +6,7 @@ description: "Running the Astronomer Core distribution of Airflow in production 
 
 ## Overview
 
-Delivered by Astronomer's Airflow PMC members and committers, Astronomer Core (AC) is
-for teams ready to leverage the Python-based workflow management tool in production.
-Astronomer Core combines Airflow’s extensibility and community-driven development with
-industry standards for security, reliability, and scale.
+Designed in close partnership with both Airflow committers and users, Astronomer Core (AC) is for teams ready to leverage the Python-based workflow management tool in production. Astronomer Core combines Airflow’s extensibility and community-driven development with industry standards for security, reliability, and scale.
 
 There are two primary ways to obtain the Astronomer Core distribution:
 
