@@ -31,10 +31,6 @@ Beyond that, the platform does not need to connect to outside domains for routin
 
 ## Docker
 
-### What are the components of the Astronomer platform, with their respective Docker image versions?
-
-You can find a list of all components used by the platform in the [Astronomer Platform - Docker Images](https://docs.google.com/spreadsheets/d/1jE8EA4YapKEghVvk0-4K_MdwoVe6-O7v4uCI03ke6yg/edit#gid=0) Google Sheet.
-
 ### What Docker version is used for deployment?
 
 * AWS: Astronomer prefers to use the EKS-optimized AMIs provided by AWS. These will automatically include the latest, stable Docker version tested by Amazon with EKS. We recommend [looking up the AMI ID](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html) to find the image appropriate for your Kubernetes version and AWS region. You may have additional requirements that necessitate building your own AMI. You might build these with Packer, in which case you may want to reference the EKS [optimized Packer configuration](https://github.com/awslabs/amazon-eks-ami). Assuming that you are using Kubernetes 1.14, it looks like AWS is using Docker version 18.09 for the [latest release of the EKS AMI](https://github.com/awslabs/amazon-eks-ami/blob/da2d05a60929f9d258355b8a597f2917c35896f4/eks-worker-al2.json#L17).
