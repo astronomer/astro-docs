@@ -1,19 +1,19 @@
 ---
-title: "Running Astronomer Certified Locally"
+title: "Running Astronomer Core Locally"
 navTitle: "Running Locally"
 description: "Everything you need to know to get up and running on Astronomer's distribution of Apache Airflow on your local machine."
 ---
 
 ## Overview
 
-Designed in close partnership with both Airflow committers and users, Astronomer Certified (AC) is for teams ready to leverage the Python-based workflow management tool in production. Astronomer Certified combines Airflow’s extensibility and community-driven development with industry standards for security, reliability, and scale.
+Designed in close partnership with both Airflow committers and users, Astronomer Core (AC) is for teams ready to leverage the Python-based workflow management tool in production. Astronomer Core combines Airflow’s extensibility and community-driven development with industry standards for security, reliability, and scale.
 
-There are two primary ways to obtain the Astronomer Certified distribution:
+There are two primary ways to obtain the Astronomer Core distribution:
 
-1. [Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
+1. [Docker Image](https://quay.io/repository/astronomer/core?tab=tags)
 2. [Python Package](https://pip.astronomer.io/simple/apache-airflow/)
 
-Astronomer Certified currently supports Airflow versions 1.10.5 - 1.10.7. This doc should cover everything you need to know to run Astronomer Astronomer Certified via either method, including:
+Astronomer Core currently supports Airflow versions 1.10.5 - 1.10.7. This doc should cover everything you need to know to run Astronomer Astronomer Core via either method, including:
 
 - Pre-Requisites
 - Instructions for Local Dev
@@ -22,7 +22,7 @@ Astronomer Certified currently supports Airflow versions 1.10.5 - 1.10.7. This d
 
 ### Pre-Requisites
 
-To run Astronomer Certified locally, you'll need the following on your machine:
+To run Astronomer Core locally, you'll need the following on your machine:
 
 - [Python 3](https://www.python.org/downloads/)
 - [Docker](https://www.docker.com/products/docker-desktop) (if you plan on using our Docker image)
@@ -31,31 +31,31 @@ Once you have the pre-reqs installed, follow the below instructions to get the A
 
 ### Via Docker
 
-The preferred way to install Astronomer Astronomer Certified is to download our latest Astronomer-hosted Docker image, each of which will generally correspond with an open source Airflow release.
+The preferred way to install Astronomer Astronomer Core is to download our latest Astronomer-hosted Docker image, each of which will generally correspond with an open source Airflow release.
 
-For Astronomer's full collection of Docker Images, reference our public [Quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
+For Astronomer's full collection of Docker Images, reference our public [Quay.io repository](https://quay.io/repository/astronomer/core?tab=tags).
 
 #### Install and Run
 
-To install and run the Astronomer Certified distribution, ensure that Docker is running on your machine and follow the steps below.
+To install and run the Astronomer Core distribution, ensure that Docker is running on your machine and follow the steps below.
 
 1. Create and cd into a new project directory for your Airflow project.
 
-        mkdir astronomer-certified && cd astronomer-certified
+        mkdir astronomer-core && cd astronomer-core
 
 2. Run the following command to initialize all of the necessary files you'll need to run the Airflow image locally:
 
         touch .env packages.txt requirements.txt docker-compose.yml Dockerfile
 
-3. Add the the following to the `Dockerfile` to grab the latest Astronomer Certified image on build:
+3. Add the the following to the `Dockerfile` to grab the latest Astronomer Core image on build:
 
     > Note: The below Dockerfile is an example and may use an outdated image. For an updated list of available images, see our [downloads page](/downloads).
 
         # For an Alpine-based image
-        FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild
+        FROM quay.io/astronomer/core:1.10.10-alpine3.10-onbuild
 
         # For a Debian-based image
-        FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild
+        FROM quay.io/astronomer/core:1.10.10-buster-onbuild
 
     Note that you can select which version you'd like to use via the tag appended to the image.
 
@@ -128,16 +128,16 @@ By default, the above will run Airflow on your machine using the Local Executor.
 
 ### Via Python Wheel
 
-We also distribute Astronomer Certified as a python wheel available on PyPi. This distribution can be run locally via the same mechanisms used to run the open source Airflow package.
+We also distribute Astronomer Core as a python wheel available on PyPi. This distribution can be run locally via the same mechanisms used to run the open source Airflow package.
 
-1. Run `export AIRFLOW_HOME=~/airflow` to give Astronomer Certified Airflow a home root directory on your machine.
+1. Run `export AIRFLOW_HOME=~/airflow` to give Astronomer Core Airflow a home root directory on your machine.
 2. Run the following command to get the latest version of the distribution on your machine:
 
-        PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip install -U 'astronomer-certified==1.10.10.*'
+        PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip install -U 'astronomer-core==1.10.10.*'
 
     Note that if you'd like to install a specific version, you can do so by appending the version tag via the following syntax:
 
-        PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip install -U 'astronomer-certified==1.10.10-1'
+        PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip install -U 'astronomer-core==1.10.10-1'
 
 3. Run `airflow initdb` to build out your project directory and initialize a lightweight SQLite database for Airflow.
 4. Run `airflow webserver -p 8080` to spin up the webserver on your `localhost:8080`.

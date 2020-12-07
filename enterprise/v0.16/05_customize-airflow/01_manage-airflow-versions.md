@@ -16,7 +16,7 @@ To upgrade your Airflow Deployment to a higher version of Airflow, all it takes 
 
 ## Upgrade Airflow Version
 
-Astronomer Certified offers support for the following versions of Apache Airflow:
+Astronomer Core offers support for the following versions of Apache Airflow:
 
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
@@ -40,7 +40,7 @@ First, open the `Dockerfile` within your Astronomer directory. When you initiali
 
 ### 2. Change the FROM Statement in your Dockerfile
 
-Depending on the OS distribution and version of Airflow you want to run, you'll want to reference the corresponding Astronomer Certified image in the FROM statement of your Dockerfile.
+Depending on the OS distribution and version of Airflow you want to run, you'll want to reference the corresponding Astronomer Core image in the FROM statement of your Dockerfile.
 
 > **Note:** Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow Metadata Database structurally changes with each release, making for backwards incompatibility across versions.
 
@@ -48,20 +48,20 @@ Depending on the OS distribution and version of Airflow you want to run, you'll 
 
 Astronomer supports both [Alpine Linux](https://alpinelinux.org/) and [Debian](https://www.debian.org/)-based images. Alpine is a widely-used lightweight distribution of Linux that keeps our default images slim and performant. For users leveraging Machine Learning Python Libraries or more complex dependencies, we strongly recommend Debian.
 
-For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
+For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/repository/astronomer/core?tab=tags).
 
 > **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
 
 | Airflow Version | Alpine-based Image                          | Debian-based Image
 |-----------------|-----------------------------------------------------|-----------------------------------------------------|
-| [v1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild |
-| [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild |
-| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
-| [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild |
+| [v1.10.5](https://github.com/astronomer/core/blob/master/1.10.5/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.5-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.5-buster-onbuild |
+| [v1.10.7](https://github.com/astronomer/core/blob/master/1.10.7/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.7-buster-onbuild |
+| [v1.10.10](https://github.com/astronomer/core/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.10-buster-onbuild |
+| [v1.10.12](https://github.com/astronomer/core/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.12-buster-onbuild |
 
-To upgrade an Airflow Deployment to Astronomer Certified 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
+To upgrade an Airflow Deployment to Astronomer Core 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
 
-> **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer or otherwise pull a Platform  Docker Image (e.g. `toomanyrequests: You have reached your pull rate limit`).
+> **Note:** We recently migrated from DockerHub to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer or otherwise pull a Platform  Docker Image (e.g. `toomanyrequests: You have reached your pull rate limit`).
 
 ### 3. Re-Build your Image
 
@@ -106,11 +106,11 @@ Once there, you should see your correct Airflow version listed.
 
 If you're on Astronomer Enterprise, navigate to your Airflow Deployment page on the Astronomer UI.
 
-### Patch Versions of Astronomer Certified
+### Patch Versions of Astronomer Core
 
-In addition to supporting the latest versions of open source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
+In addition to supporting the latest versions of open source Airflow on Astronomer Core (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
-For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release:
+For example, Astronomer Core 1.10.10 has been enhanced with 4 additional patches since its initial release:
 
 - 1.10.10-2
 - 1.10.10-3
@@ -119,20 +119,20 @@ For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional pa
 
 All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open source release.
 
-> **Note:** Not all versions of the Astronomer Platform support all versions of Astronomer Certified. If you're not running the latest version of Astronomer and want to upgrade to the latest AC patch, [reach out to us](https://support.astronomer.io).
+> **Note:** Not all versions of the Astronomer Platform support all versions of Astronomer Core. If you're not running the latest version of Astronomer and want to upgrade to the latest AC patch, [reach out to us](https://support.astronomer.io).
 
-#### Upgrade to an Astronomer Certified Patch Version
+#### Upgrade to an Astronomer Core Patch Version
 
-To upgrade to the latest patch version of Astronomer Certified, replace the image referenced in your `Dockerfile` with a pinned version that specifies a particular patch.
+To upgrade to the latest patch version of Astronomer Core, replace the image referenced in your `Dockerfile` with a pinned version that specifies a particular patch.
 
-If you're looking for the latest Astronomer Certified 1.10.10, for example, you would:
+If you're looking for the latest Astronomer Core 1.10.10, for example, you would:
 
-1. Check the AC [1.10.10 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
+1. Check the AC [1.10.10 Changelog](https://github.com/astronomer/core/blob/master/1.10.10/CHANGELOG.md)
 2. Identify the latest patch (e.g. `1.10.10-5`)
-3. Pin the Astronomer Certified Image in your Dockerfile to that patch version
+3. Pin the Astronomer Core Image in your Dockerfile to that patch version
 
-In this case, that would be: `FROM quay.io/astronomer/ap-airflow:1.10.10-5-buster-onbuild` (Debian).
+In this case, that would be: `FROM quay.io/astronomer/core:1.10.10-5-buster-onbuild` (Debian).
 
-> **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Certified image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
+> **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Core image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
 > 
-> If a patch release becomes available _after_ you've already built an Astronomer Certified image for the first time, subsequent code pushes will _not_ automatically pull the latest corresponding patch. You must follow the process above to pin your image to a particular version.
+> If a patch release becomes available _after_ you've already built an Astronomer Core image for the first time, subsequent code pushes will _not_ automatically pull the latest corresponding patch. You must follow the process above to pin your image to a particular version.

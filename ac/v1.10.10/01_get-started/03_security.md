@@ -1,27 +1,27 @@
 ---
-title: "Astronomer Certified Security"
+title: "Astronomer Core Security"
 navtitle: "Security"
-description: "Common Vulnerabilities and Exposures identified within our Astronomer Certified Images."
+description: "Common Vulnerabilities and Exposures identified within our Astronomer Core Images."
 ---
 
 ## Overview
 
-This page is the source of truth for any CVE (Common Vulnerabilities and Exposures) identified within any of our Astronomer Certified Images running Apache Airflow.
+This page is the source of truth for any CVE (Common Vulnerabilities and Exposures) identified within any of our Astronomer Core Images running Apache Airflow.
 
-Currently, our officially supported Astronomer Certified images are listed in two places:
+Currently, our officially supported Astronomer Core images are listed in two places:
 
 - [Astronomer Downloads](/downloads/)
-- [Astronomer's Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
+- [Astronomer's Quay.io](https://quay.io/repository/astronomer/core?tab=tags)
 
 If you run on Astronomer Cloud or Enterprise, you can refer to our [Airflow Versioning Doc](/docs/enterprise/stable/customize-airflow/manage-airflow-versions/) for detailed guidelines on how to upgrade between Airflow versions on the platform.
 
 ## Reporting Vulnerabilities and Security Concerns
 
-Vulnerability reports for Astronomer Certified should be sent to [security@astronomer.io](mailto:security@astronomer.io). All security concerns, questions and requests should be directed here.
+Vulnerability reports for Astronomer Core should be sent to [security@astronomer.io](mailto:security@astronomer.io). All security concerns, questions and requests should be directed here.
 
 When we receive a request, our dedicated security team will evaluate and validate it. If we confirm a vulnerability, we’ll allocate internal resources towards identifying and publishing a resolution in an updated image. The timeline within which vulnerabilities are addressed will depend on the severity level of the vulnerability and its impact.
 
-Once a resolution has been confirmed, we'll release it in the next major or minor Astronomer Certified image and publish details to this page in the section below.
+Once a resolution has been confirmed, we'll release it in the next major or minor Astronomer Core image and publish details to this page in the section below.
 
 > **Note:** All other Airflow and product support requests should be directed to [Astronomer's Support Portal](support.astronomer.io), where our team's Airflow Engineers are ready to help.
 
@@ -33,9 +33,9 @@ Once a resolution has been confirmed, we'll release it in the next major or mino
 |---|---|---|---|---|
 | CVE-2020-13944 | 2020-09-16 | Apache Airflow versions < 1.10.12 | In Apache Airflow < 1.10.12, the "origin" parameter passed to some of the endpoints like '/trigger' was vulnerable to XSS exploit. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-13944)) | Use Docker image with one of the following AC Versions: <ul><li>1.10.10-5</li><li>1.10.7-15</li></ul> |
 
-### Astronomer Certified Docker Images
+### Astronomer Core Docker Images
 
-This section lists security related updates/mitigations in the Astronomer Certified docker images.
+This section lists security related updates/mitigations in the Astronomer Core docker images.
 
 | CVE            | Date       | Component | Versions Affected                                                                                                                          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Remediation                                                                                                          |
 |----------------|------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|

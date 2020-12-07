@@ -140,7 +140,7 @@ dags                   include     plugins
 $ astro dev start
 Env file ".env" found. Loading...
 Sending build context to Docker daemon  11.26kB
-Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
+Step 1/1 : FROM quay.io/astronomer/core:latest-onbuild
 # Executing 5 build triggers
  ---> Using cache
  ---> Using cache
@@ -195,7 +195,7 @@ WARNING! You are about to push an image using the 'latest-onbuild' tag. This is 
 Please use one of the following tags: 1.10.7-alpine3.10-onbuild.
 Are you sure you want to continue? (y/n) y
 Sending build context to Docker daemon  11.26kB
-Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
+Step 1/1 : FROM quay.io/astronomer/core:latest-onbuild
 # Executing 5 build triggers
  ---> Using cache
  ---> Using cache

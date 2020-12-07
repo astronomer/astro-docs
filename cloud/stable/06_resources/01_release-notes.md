@@ -11,9 +11,9 @@ description: "Astronomer Cloud Release Notes."
 Release Date: November 24, 2020
 
 #### Support for Docker Images on Quay.io + DockerHub
-Astronomer recently migrated from [Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow/tags) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our platform’s primary Docker Registry in light of Docker Hub’s [new rate-limit policy](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/), effective Nov 2nd, 2020.
+Astronomer recently migrated from [Docker Hub](https://hub.docker.com/r/astronomerinc/core/tags) to [Quay.io](https://quay.io/repository/astronomer/core?tab=tags) as our platform’s primary Docker Registry in light of Docker Hub’s [new rate-limit policy](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/), effective Nov 2nd, 2020.
 
-Astronomer v0.23 supports Airflow images that are pulled from _either_ Docker registry, though we strongly encourage users to switch to Quay.io images to avoid rate limiting errors from Docker Hub. If you're running a legacy image that pulls from `astronomerinc/ap-airflow`, all it takes is modifying that image in your Dockerfile to read `quay.io/astronomer/ap-airflow`. Both have the exact same functionality.
+Astronomer v0.23 supports Airflow images that are pulled from _either_ Docker registry, though we strongly encourage users to switch to Quay.io images to avoid rate limiting errors from Docker Hub. If you're running a legacy image that pulls from `astronomerinc/core`, all it takes is modifying that image in your Dockerfile to read `quay.io/astronomer/core`. Both have the exact same functionality.
 
 For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/) or [this forum post](https://forum.astronomer.io/t/docker-hub-rate-limit-error-toomanyrequests-you-have-reached-your-pull-rate-limit/887).
 
@@ -50,7 +50,7 @@ This new framework comes with support via the Astronomer UI/API and a new set of
 
 This release formally introduces "Airflow Version" to the Astronomer UI, CLI and API for an enhanced version selection and Airflow upgrade experience.
 
-Users can now see the version of Airflow they're running in the **Settings** page of a Deployment and indicate interest in upgrading to a higher version. Users who initialize the upgrade process via the Astronomer UI or CLI will be instructed to update the Astronomer Certified (AC) Docker image in their Dockerfile and be given feedback along the way.
+Users can now see the version of Airflow they're running in the **Settings** page of a Deployment and indicate interest in upgrading to a higher version. Users who initialize the upgrade process via the Astronomer UI or CLI will be instructed to update the Astronomer Core (AC) Docker image in their Dockerfile and be given feedback along the way.
 
 For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
@@ -136,7 +136,7 @@ Airflow 1.10.12 notably includes:
 - Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit]((https://github.com/apache/airflow/pull/9645)))
 - Support for AirfowClusterPolicyViolation support in Airflow local settings ([commit](https://github.com/apache/airflow/pull/10282)).
 
-For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
+For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/core/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
 > **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
 
@@ -183,17 +183,17 @@ Release Date: August 10, 2020
 
 ### v0.18.0
 
-#### Support for Latest Astronomer Certified Builds
+#### Support for Latest Astronomer Core Builds
 
-Astronomer v0.18 includes support for the latest patch releases from Astronomer Certified, our distribution of Apache Airflow. These patch releases most notably include:
+Astronomer v0.18 includes support for the latest patch releases from Astronomer Core, our distribution of Apache Airflow. These patch releases most notably include:
 
 - BugFix: Broken `/landing_times` view in the Airflow UI rendering with plain HTML ([commit](https://github.com/astronomer/airflow/commit/6567df3))
-- BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/ap-airflow/commit/c2536db))
+- BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/core/commit/c2536db))
 - BugFix: Broken PapermillOperator ([commit](https://github.com/astronomer/astronomer-airflow-version-check/commit/811cc75) - 1.10.10 only).
 
-For a full list, reference the changelogs in our [`ap-airflow` repo](https://github.com/astronomer/ap-airflow) for the AC version of your choice (e.g. changelog for 1.10.10 [here](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)).
+For a full list, reference the changelogs in our [`core` repo](https://github.com/astronomer/core) for the AC version of your choice (e.g. changelog for 1.10.10 [here](https://github.com/astronomer/core/blob/master/1.10.10/CHANGELOG.md)).
 
-To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Manage Airflow Versions" doc](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
+To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Core versions, refer to our ["Manage Airflow Versions" doc](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
 #### Houston API Improvements
 

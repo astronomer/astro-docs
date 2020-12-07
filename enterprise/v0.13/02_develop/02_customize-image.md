@@ -71,7 +71,7 @@ $ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 pymongo==3.7.2
 ```
 
-> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.13/customize-airflow/manage-airflow-versions/).
+> **Note:** Astronomer Core, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.13/customize-airflow/manage-airflow-versions/).
 
 ## Add Other Dependencies
 
@@ -169,7 +169,7 @@ If you're interested in running any extra commands when your Airflow Image build
 For example, if you wanted to run `ls` when your image builds, your `Dockerfile` would look like this:
 
 ```
-FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild
+FROM quay.io/astronomer/core:1.10.10-buster-onbuild
 RUN ls
 ```
 
@@ -261,10 +261,10 @@ If you haven't initialized an Airflow Project on Astronomer (by running `astro d
 
 2. To the first line of that file, add a "FROM" statement that specifies the Airflow Image you want to run on Astronomer and ends with `AS stage`.
 
-If you're running the Alpine-based, Airflow 1.10.10 Astronomer Certified image, this would be:
+If you're running the Alpine-based, Airflow 1.10.10 Astronomer Core image, this would be:
 
 ```
-FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10 AS stage1
+FROM quay.io/astronomer/core:1.10.10-alpine3.10 AS stage1
 ```
 
 For a list of all Airflow Images supported on Astronomer, refer to our ["Manage Airflow Versions" doc](/docs/enterprise/v0.13/customize-airflow/manage-airflow-versions/).
@@ -320,10 +320,10 @@ Run the following in your terminal:
 $ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-<airflow-image> .
 ```
 
-If you have `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` in your `Dockerfile.build`, for example, this command would be:
+If you have `quay.io/astronomer/core:1.10.10-alpine3.10` in your `Dockerfile.build`, for example, this command would be:
 
 ```
-$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow:1.10.10-alpine3.10 .
+$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-core:1.10.10-alpine3.10 .
 ```
 
 ### 3. Replace your Dockerfile
@@ -334,10 +334,10 @@ Now that we've built your custom image, let's reference that custom image in you
 FROM custom-<airflow-image>
 ```
 
-If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
+If you're running `quay.io/astronomer/core:1.10.10-alpine3.10` as specified above, this line would read:
 
 ```
-FROM custom-ap-airflow:1.10.10-alpine3.10
+FROM custom-core:1.10.10-alpine3.10
 ```
 
 ### 4. Push your Custom Image to Astronomer

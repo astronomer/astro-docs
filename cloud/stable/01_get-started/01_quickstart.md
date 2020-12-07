@@ -92,15 +92,15 @@ This will generate some skeleton files:
 
 #### Dockerfile
 
-Your Dockerfile will include reference to an Astronomer [Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab=tags) that dictates the version of Airflow your deployment will run both when you're developing locally and pushing up to Astronomer Cloud.
+Your Dockerfile will include reference to an Astronomer [Docker Image](https://quay.io/repository/astronomer/core?tab=tags) that dictates the version of Airflow your deployment will run both when you're developing locally and pushing up to Astronomer Cloud.
 
 The Docker image you'll find by default is:
 
 ```
-FROM quay.io/astronomer/ap-airflow:latest-onbuild
+FROM quay.io/astronomer/core:latest-onbuild
 ```
 
-This will install an Astronomer Certified Alpine-based Airflow image running the latest version of Airflow we support. For more information on how to customize your image, refer to the "Customize your Image" section below.
+This will install an Astronomer Core Debian-based Airflow image running the latest version of Airflow we support. For more information on how to customize your image, refer to the "Customize your Image" section below.
 
 #### Example DAG
 
@@ -132,7 +132,7 @@ You should see the following output:
 $ astro dev start
 Env file ".env" found. Loading...
 Sending build context to Docker daemon  10.75kB
-Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
+Step 1/1 : FROM quay.io/astronomer/core:latest-onbuild
 # Executing 5 build triggers
  ---> Using cache
  ---> Using cache
@@ -209,11 +209,7 @@ As you get more familiar with Airflow and Astronomer, you can customize any of t
 
 #### Airflow Base Image
 
-Astronomer currently supports both Alpine and Debian based Airflow images for Airflow versions 1.10.5 and beyond.
-
-As noted above, the Astronomer Certified image will by default install the latest version of Airflow available on [Alpine Linux](https://alpinelinux.org/), though users leveraging Machine Learning Python Libraries or more complex dependencies might find Debian to be more appropriate.
-
-If you're interested in upgrading Airflow versions or switching to a Debian-based image, refer to our ["Airflow Versioning" doc](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
+As noted above, the Astronomer Core image will by default install the latest version of Airflow available on Debian.
 
 #### Add DAGs, Packages and Environment Variables
 

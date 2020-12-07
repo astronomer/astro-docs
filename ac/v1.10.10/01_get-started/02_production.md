@@ -1,19 +1,22 @@
 ---
-title: "Running Astronomer Certified in Production"
+title: "Running Astronomer Core in Production"
 navTitle: "Running in Production"
-description: "Running the Astronomer Certified distribution of Airflow in production with Systemd."
+description: "Running the Astronomer Core distribution of Airflow in production with Systemd."
 ---
 
 ## Overview
 
-Designed in close partnership with both Airflow committers and users, Astronomer Certified (AC) is for teams ready to leverage the Python-based workflow management tool in production. Astronomer Certified combines Airflow’s extensibility and community-driven development with industry standards for security, reliability, and scale.
+Delivered by Astronomer's Airflow PMC members and committers, Astronomer Core (AC) is
+for teams ready to leverage the Python-based workflow management tool in production.
+Astronomer Core combines Airflow’s extensibility and community-driven development with
+industry standards for security, reliability, and scale.
 
-There are two primary ways to obtain the Astronomer Certified distribution:
+There are two primary ways to obtain the Astronomer Core distribution:
 
-1. [Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
-2. [Python Package](https://pip.astronomer.io/simple/apache-airflow/)
+1. [Docker Image](https://quay.io/repository/astronomer/core?tab=tags)
+2. [Python Package](https://pip.astronomer.io/simple/astronomer-core/)
 
-Astronomer Certified currently supports Airflow versions  1.10.7 and 1.10.10. This doc should cover everything you need to know to run Astronomer Certified via either method, including:
+Astronomer Core currently supports Airflow versions  1.10.7 and 1.10.10. This doc should cover everything you need to know to run Astronomer Core via either method, including:
 
 - Prerequisites
 - Instructions for Deploying AC to Production
@@ -52,7 +55,7 @@ Ensure the following linux packages are installed on your machine. To get them i
 - [Per-Machine Setup](#per-machine-setup)
   - [Create System User to Run Airflow](#create-system-user-to-run-airflow)
   - [Create a Virtual Environment](#create-a-virtual-environment)
-  - [Install Astronomer Certified](#install-astronomer-certified)
+  - [Install Astronomer Core](#install-astronomer-core)
   - [Create Systemd Unit File](#create-systemd-unit-file)
   - [Configure Airflow for Database Access](#configure-airflow-for-database-access)
 - [Setting Up the Scheduler](#setting-up-the-scheduler)
@@ -94,7 +97,7 @@ sudo -u postgres createdb --owner airflow airflow
 
 ## Per-Machine Setup
 
-Each machine that will be running an Astronomer Certified component (Scheduler, Webserver, Worker) will need all of the following steps performed.
+Each machine that will be running an Astronomer Core component (Scheduler, Webserver, Worker) will need all of the following steps performed.
 
 ### Create System User to Run Airflow
 
@@ -113,16 +116,16 @@ echo 'export AIRFLOW_HOME=/usr/local/airflow' | sudo tee --append ~astro/.bashrc
 
 ### Create a Virtual Environment
 
-In order to isolate the Astronomer Certified python modules from changes to the system we recommend that a virtual environment is created:
+In order to isolate the Astronomer Core python modules from changes to the system we recommend that a virtual environment is created:
 
 ```
 sudo -u astro python3 -m venv ~astro/airflow-venv
 ```
 
-### Install Astronomer Certified
+### Install Astronomer Core
 
 ```
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[postgres]==1.10.10.*'
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==1.10.10.*'
 ```
 
 Note: This command includes the `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies such as `[redis, crypto, aws, celery]` depending on your use case.
@@ -131,7 +134,7 @@ Note: This command includes the `[postgres]` dependency so that all libraries ne
 
 In order to have Airflow start at your machine's boot time and stay running, we recommend you use a process supervisor. Systemd ships with most modern Linux distributions, so we will use it for the purposes of this example, but it is not a requirement.
 
-With the text editor of your choice, create and edit `/etc/systemd/system/astronomer-certified@.service` (with sudo) and put this in there:
+With the text editor of your choice, create and edit `/etc/systemd/system/astronomer-core@.service` (with sudo) and put this in there:
 
 ```
 [Unit]
@@ -140,7 +143,7 @@ After=network-online.target cloud-config.service
 Requires=network-online.target
 
 [Service]
-EnvironmentFile=/etc/default/astronomer-certified
+EnvironmentFile=/etc/default/astronomer-core
 User=astro
 Group=astro
 Type=simple
@@ -155,9 +158,9 @@ WantedBy=multi-user.target
 
 This is called a "template" unit file. We will specialize and enable it later on.
 
-Our Systemd unit file reads environment variables from `/etc/default/astronomer-certified` and Airflow will look for [`AIRFLOW__<section>__<option>`](https://airflow.apache.org/docs/stable/howto/set-config.html) environment variables when reading config, so this is a good way to configure environment/machine specific settings. If you have a config setting that doesn't change from machine-to-machine or environment-to-environment then you can place it in `airflow.cfg` in your Airflow home deployment step. More on that later.
+Our Systemd unit file reads environment variables from `/etc/default/astronomer-core` and Airflow will look for [`AIRFLOW__<section>__<option>`](https://airflow.apache.org/docs/stable/howto/set-config.html) environment variables when reading config, so this is a good way to configure environment/machine specific settings. If you have a config setting that doesn't change from machine-to-machine or environment-to-environment then you can place it in `airflow.cfg` in your Airflow home deployment step. More on that later.
 
-Edit `/etc/default/astronomer-certified` to contain (at least) these:
+Edit `/etc/default/astronomer-core` to contain (at least) these:
 
 ```sh
 AIRFLOW_HOME=/usr/local/airflow/
@@ -167,7 +170,7 @@ PATH=$PATH:/home/astro/airflow-venv/bin
 
 ### Configure Airflow for Database Access
 
-Airflow needs to be told where its metadata DB lives, and what user to connect as, by setting the `sql_alchemy_conn` config option in `core` section- this is the DSN of the database connection. If you are okay with having the password written in a file (owned by `root:root` and `0600` permissions) on your nodes, you can make `/etc/default/astronomer-certified` contain these lines:
+Airflow needs to be told where its metadata DB lives, and what user to connect as, by setting the `sql_alchemy_conn` config option in `core` section- this is the DSN of the database connection. If you are okay with having the password written in a file (owned by `root:root` and `0600` permissions) on your nodes, you can make `/etc/default/astronomer-core` contain these lines:
 
 Local Executor
 ```
@@ -202,14 +205,14 @@ You can follow our guide on [integrating with Hashicorp Vault](/guides/airflow-a
 Begin by running the following command on the machine which you wish to enable the scheduler:
 
 ```
-sudo systemctl enable astronomer-certified@scheduler.service
+sudo systemctl enable astronomer-core@scheduler.service
 ```
 
 The machine that will run the scheduler will need some slight configuration, as we have to run DB migrations somewhere, and it's best to only run them from one machine.
 
 >Note: The above is not required, Airflow will not try to apply migrations more than once.
 
-To set up this behavior,  we can edit the "override file" for this unit by running `sudo systemctl edit astronomer-certified@scheduler.service`. This will open an editor with an empty document, into which we place:
+To set up this behavior,  we can edit the "override file" for this unit by running `sudo systemctl edit astronomer-core@scheduler.service`. This will open an editor with an empty document, into which we place:
 
 ```
 [Service]
@@ -219,7 +222,7 @@ ExecStartPre=/home/astro/airflow-venv/bin/airflow upgradedb
 ### Start the service
 
 ```
-sudo systemctl start astronomer-certified@scheduler.service
+sudo systemctl start astronomer-core@scheduler.service
 ```
 
 ## Setting Up the Webserver
@@ -229,13 +232,13 @@ sudo systemctl start astronomer-certified@scheduler.service
 Begin by running the following command on the machine which you wish to enable the webserver:
 
 ```
-sudo systemctl enable astronomer-certified@webserver.service
+sudo systemctl enable astronomer-core@webserver.service
 ```
 
 ### Start the service
 
 ```
-sudo systemctl start astronomer-certified@webserver.service
+sudo systemctl start astronomer-core@webserver.service
 ```
 
 ### Configuring a Reverse Proxy
@@ -249,13 +252,13 @@ For added security and stability, we recommend running the webserver behind a re
 Begin by running the following command on the machine which you wish to enable the worker:
 
 ```
-sudo systemctl enable astronomer-certified@worker.service
+sudo systemctl enable astronomer-core@worker.service
 ```
 
 ### Start the service
 
 ```
-sudo systemctl start astronomer-certified@worker.service
+sudo systemctl start astronomer-core@worker.service
 ```
 
 ## Deploying DAGs
@@ -271,4 +274,4 @@ Every machine running Airflow needs a copy of the DAG files, with all DAG files 
 
 ## Production Support
 
-We’re now providing commercial support subscriptions for Apache Airflow via Astronomer Certified. These subscriptions are SLA-backed and give your tea access to our deep Airflow expertise through email and our support portal, where you can submit questions, feature requests, and bug reports. [Get in touch](/contact) if you would like to learn more.
+We’re now providing commercial support subscriptions for Apache Airflow via Astronomer Core. These subscriptions are SLA-backed and give your tea access to our deep Airflow expertise through email and our support portal, where you can submit questions, feature requests, and bug reports. [Get in touch](/contact) if you would like to learn more.

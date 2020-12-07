@@ -8,7 +8,7 @@ description: "How to adjust and upgrade Airflow versions on Astronomer."
 
 On Astronomer, the process of pushing up your code to an individual Airflow Deployment involves customizing a locally built Docker image —— with your DAG code, Python Packages, plugins, and so on —— that's then bundled, tagged, and pushed to Astronomer Cloud's Docker Registry.
 
-Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer Certified Docker Image. Astronomer Certified (AC) is a production-ready distribution of Apache Airflow that mirrors the open source project and undergoes additional levels of rigorous testing conducted by our team.
+Included in that build is your `Dockerfile`, a file that is automatically generated when you initialize an Airflow project on Astronomer via our CLI. Every successful build on Astronomer must include a `Dockerfile` that references an Astronomer Core Docker Image. Astronomer Core (AC) is a production-ready distribution of Apache Airflow that mirrors the open source project and undergoes additional levels of rigorous testing conducted by our team.
 
 To upgrade your Airflow Deployment to a higher version of Airflow, there are three steps:
 
@@ -20,14 +20,16 @@ Read below for details.
 
 > **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](/docs/cloud/stable/develop/customize-image/).
 
-## Available Astronomer Certified Versions
+## Available Astronomer Core Versions
 
-Astronomer Certified offers support for the following versions of Apache Airflow:
+Astronomer Core offers support for the following versions of Apache Airflow:
 
-- [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
-- [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
-- [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
-- [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
+- 1.10.5
+- 1.10.7
+- 1.10.10
+- 1.10.12
+- 1.10.14
+- 2.0.0
 
 ## Upgrade Airflow
 
@@ -98,7 +100,7 @@ To complete the upgrade, all you have to do is add a corresponding AC image to y
 
 #### Cancel Airflow Upgrade Initialization
 
-If you begin the upgrade process for your Airflow Deployment and would like to cancel it, you can do so at any time either via the Astronomer UI or CLI as long as you have NOT changed the Astronomer Certified Image in your Dockerfile and deployed it.
+If you begin the upgrade process for your Airflow Deployment and would like to cancel it, you can do so at any time either via the Astronomer UI or CLI as long as you have NOT changed the Astronomer Core Image in your Dockerfile and deployed it.
 
 Via the Astronomer UI, select **Cancel** next to **Airflow Version**.
 
@@ -120,7 +122,7 @@ Airflow upgrade process has been successfully canceled. Your Deployment was not 
 
 Canceling the Airflow Upgrade process will NOT interrupt or otherwise impact your Airflow Deployment or code that's running with it. To re-initialize an upgrade, follow the steps above.
 
-### 2. Deploy a New Astronomer Certified Image
+### 2. Deploy a New Astronomer Core Image
 
 #### Locate your Dockerfile in your Project Directory
 
@@ -137,29 +139,29 @@ First, open the `Dockerfile` within your Astronomer directory. When you initiali
 └── requirements.txt # For any Python packages
 ```
 
-Depending on the OS distribution and version of Airflow you want to run, you'll want to reference the corresponding Astronomer Certified image in the FROM statement of your Dockerfile.
+#### Choose your Astronomer Core Image
 
-#### Choose your new Astronomer Certified Image
-
-Below you'll find a matrix of all Astronomer Certified images supported on Astronomer. Depending on the Airflow version you'd like to run or upgrade to, copy one of the images below to your `Dockerfile` and proceed to Step 3.
+Below you'll find a matrix of all Astronomer Core images supported on Astronomer. Depending on the Airflow version you'd like to run or upgrade to, copy one of the images below to your `Dockerfile` and proceed to Step 3.
 
 Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. The Airflow metadata database structurally changes with each release, making for backwards incompatibility across versions.
 
-In terms of system distribution, Astronomer supports both [Alpine Linux](https://alpinelinux.org/) and [Debian](https://www.debian.org/)-based images. Alpine is a widely-used lightweight distribution of Linux that keeps our default images slim and performant. For users leveraging Machine Learning Python Libraries or more complex dependencies, we strongly recommend Debian.
+In terms of system distribution, Astronomer supports [Debian](https://www.debian.org/)-based images, and has historically also supported [Alpine Linux](https://alpinelinux.org/) through Airflow 1.10.12.
 
-For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
+For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/repository/astronomer/core?tab=tags).
 
 > **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
 
 
 | Airflow Version | Alpine-based Image                          | Debian-based Image
 |-----------------|-----------------------------------------------------|-----------------------------------------------------|
-| [v1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild |
-| [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild |
-| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
-| [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild |
+| [v1.10.5](https://github.com/astronomer/core/blob/master/1.10.5/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.5-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.5-buster-onbuild |
+| [v1.10.7](https://github.com/astronomer/core/blob/master/1.10.7/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.7-buster-onbuild |
+| [v1.10.10](https://github.com/astronomer/core/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.10-buster-onbuild |
+| [v1.10.12](https://github.com/astronomer/core/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/core:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/core:1.10.12-buster-onbuild |
+| [v1.10.14](https://github.com/astronomer/core/blob/master/1.10.14/CHANGELOG.md)         | | FROM quay.io/astronomer/core:1.10.14-buster-onbuild |
+| [v2.0.0](https://github.com/astronomer/core/blob/master/1.10.14/CHANGELOG.md)         | | FROM quay.io/astronomer/core:2.0.0-buster-onbuild |
 
-> **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
+> **Note:** We recently migrated from DockerHub to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/core` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
 
 ### 3. Re-Build your Image
 
@@ -208,11 +210,11 @@ If you're on Astronomer Cloud, navigate to your Airflow Deployment via Astronome
 
 > **Note:** In Airflow 2.0, the **Version** page referenced above will be deprecated. Check the footer of the Airflow UI to validate Airflow version instead.
 
-### Patch Versions of Astronomer Certified
+### Patch Versions of Astronomer Core
 
-In addition to supporting the latest versions of open source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
+In addition to supporting the latest versions of open source Airflow on Astronomer Core (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
-For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release: 
+For example, Astronomer Core 1.10.10 has been enhanced with 4 additional patches since its initial release: 
 
 - 1.10.10-2
 - 1.10.10-3
@@ -220,18 +222,18 @@ For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional pa
 
 All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open source release.
 
-#### Upgrade to an Astronomer Certified Patch Version
+#### Upgrade to an Astronomer Core Patch Version
 
-To upgrade to the latest patch version of Astronomer Certified, replace the image referenced in your `Dockerfile` with a pinned version that specifies a particular patch.
+To upgrade to the latest patch version of Astronomer Core, replace the image referenced in your `Dockerfile` with a pinned version that specifies a particular patch.
 
-If you're looking for the latest Astronomer Certified 1.10.10, for example, you would:
+If you're looking for the latest Astronomer Core 1.10.10, for example, you would:
 
-1. Check the AC [1.10.10 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
+1. Check the AC [1.10.10 Changelog](https://github.com/astronomer/core/blob/master/1.10.10/CHANGELOG.md)
 2. Identify the latest patch (e.g. `1.10.10-5`)
-3. Pin the Astronomer Certified Image in your Dockerfile to that patch version
+3. Pin the Astronomer Core Image in your Dockerfile to that patch version
 
-In this case, that would be: `FROM quay.io/astronomer/ap-airflow:1.10.10-5-buster-onbuild` (Debian).
+In this case, that would be: `FROM quay.io/astronomer/core:1.10.10-5-buster-onbuild` (Debian).
 
-> **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Certified image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
+> **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Core image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
 > 
-> If a patch release becomes available _after_ you've already built an Astronomer Certified image for the first time, subsequent code pushes will _not_ automatically pull the latest corresponding patch. You must follow the process above to pin your image to a particular version.
+> If a patch release becomes available _after_ you've already built an Astronomer Core image for the first time, subsequent code pushes will _not_ automatically pull the latest corresponding patch. You must follow the process above to pin your image to a particular version.
