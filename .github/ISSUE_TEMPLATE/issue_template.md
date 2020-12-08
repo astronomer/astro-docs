@@ -9,7 +9,7 @@ assignees: ''
 
 **What kind of documentation change are you requesting?**
 
-* **New document, topic, or other piece of content**: Add the `docs/newcontent` label to this issue. 
+* **New document, topic, or other piece of content**: Add the `newcontent` label to this issue. 
 * **Fix to an existing document**: See below for what labels to add
 
 **For new documents, answer the following questions**
@@ -29,9 +29,9 @@ _Are you the right person to review a draft of the document for technical accura
 **For fixes, answer the following questions:**
 
 _How severe is the problem?_
-- [ ] Important to fix: The document has incorrect or missing information that is preventing customers from being successful (Add the `docs/error/itf` label to this issue).
-- [ ] Useful: The document could benefit from a change, but there's nothing that's currently preventing customers from being successful without it (Add the `docs/error/useful` label to this issue).
-- [ ] Typo: There's a noticeable grammar, spelling, or formatting issue in a document (Add the `docs/error/typo` label to this issue). 
+- [ ] Important to fix: The document has incorrect or missing information that is preventing customers from being successful (Add the `error/itf` label to this issue).
+- [ ] Useful: The document could benefit from a change, but there's nothing that's currently preventing customers from being successful without it (Add the `error/useful` label to this issue).
+- [ ] Typo: There's a noticeable grammar, spelling, or formatting issue in a document (Add the `error/typo` label to this issue). 
 
 _Link to affected document:_
 
