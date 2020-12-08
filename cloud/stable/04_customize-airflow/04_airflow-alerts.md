@@ -136,39 +136,23 @@ The code in your DAG might look something like this ([source](https://github.com
   ```
 ## Subscribe to Deployment Alerts on Astronomer
 
-In the Astronomer UI, you can subscribe to deployment-level alerts by navigating to the **Settings** tab of your Airflow Deployment and entering your email address under **Email Alerts**.
-
-Our platform monitors the health of your Airflow Deployment and triggers an alert if any of Airflow's core components are underperforming (e.g. Scheduler, Webserver) or if you've initiated a faulty action. For instance, you may receive an alert if your Airflow Scheduler is unhealthy, if tasks are failing at an abnormal rate, or if you've attempted to upgrade to a version of Airflow that does not match the corresponding Docker image in your Dockerfile.
-
-Unlike task-level alerts, deployment-level alerts are sent by Astronomer and do _not_ require a separate SMTP configuration.
+In the Astronomer UI, you can subscribe to Deployment-level alerts by navigating to the **Settings** tab of your Airflow Deployment and entering your email address under **Email Alerts**.
 
 ![Astronomer Deployment Email Settings](https://assets2.astronomer.io/main/docs/emails/astro_deployment_email.png)
 
-### Deployment Alerts on Astronomer
+Astronomer monitors the health of your Airflow Deployment and triggers an alert if any of Airflow's core components are underperforming (e.g. Scheduler, Webserver) or if you've initiated a faulty action. For instance, you may receive an alert if your Airflow Scheduler is unhealthy, if tasks are failing at an abnormal rate, or if you've attempted to upgrade to a version of Airflow that does not match the corresponding Docker image in your Dockerfile.
 
-| Alert | Description |
-| ------------- | ------------- |
-| `AirflowDeploymentUnhealthy` | Airflow deployment is unhealthy or not completely available. |
-| `AirflowFailureRate` | Airflow tasks are failing at a higher rate than normal. |
-| `AirflowSchedulerUnhealthy` | Airflow scheduler is unhealthy: heartbeat has dropped below the acceptable rate. |
-| `AirflowPodQuota` | Deployment is near its pod quota: it's been using over 95% of it's pod quota for over 10 minutes. |
-| `AirflowCPUQuota` | Deployment is near its CPU quota: it's been using over 95% of it's CPU quota for over 10 minutes. |
-| `AirflowMemoryQuota` | Deployment is near its memory quota: it's been using over 95% of it's memory quota for over 10 minutes. |
+Unlike task-level alerts, Deployment-level alerts are sent by Astronomer and do _not_ require a separate SMTP configuration.
 
+## Deployment Alerts on Astronomer
 
-### Anatomy of a Deployment Alert
+Refer to the table below for a list of each Deployment-level alert you might receive from Astronomer. To limit these alerts in the future, complete the corresponding follow-up action for each alert you receive.
 
-This alert fires when the Airflow Scheduler is not heart beating every 5 seconds, for more than 3 minutes:
-
-```
-alert: AirflowSchedulerUnhealthy
-      expr: round(rate(airflow_scheduler_heartbeat{type="counter"}[1m]) * 5) == 0
-      for: 3m # Scheduler should reboot quick
-      labels:
-        tier: airflow
-        component: scheduler
-        deployment: "{{ $labels.deployment }}"
-      annotations:
-        summary: "{{ $labels.deployment }} scheduler is unhealthy"
-        description: "The {{ $labels.deployment }} scheduler's heartbeat has dropped below the acceptable rate."
-```
+| Alert | Description | Follow-Up |
+| ------------- | ------------- | ------------- |
+| `AirflowDeploymentUnhealthy` | Your Airflow Deployment is unhealthy or not completely available. | Reach out to [Astronomer Support](https://support.astronomer.io). |
+| `AirflowEphemeralStorageLimit` | Your Airflow Deployment has been using more than 5GB of its ephemeral storage for over 10 minutes. | Make sure to continually remove unused temporary data in your Airflow tasks. |
+| `AirflowPodQuota` | Your Airflow Deployment has been using over 95% of its pod quota for over 10 minutes. | Either increase your Deployment's Extra Capacity in the Astronomer UI or update your DAGs to use less resources. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management. |
+| `AirflowSchedulerUnhealthy` | The Airflow Scheduler has not emitted a heartbeat for over 1 minute. | Reach out to [Astronomer Support](https://support.astronomer.io). |
+| `AirflowTasksPendingIncreasing` | Your Airflow Deployment created tasks faster than it was clearing them for over 30 minutes. | Ensure that your tasks are running and completing correctly. If your tasks are running as expected, [raise concurrency and parallelism in Airflow](https://www.astronomer.io/guides/airflow-scaling-workers), then consider increasing one of the following resources to handle the increase in performance: <ul><li>Kubernetes: Extra Capacity</li><li>Celery: Worker Count or Worker Resources</li></ul><ul><li>Local Executor: Scheduler Resources</li></ul>|
+| `ContainerMemoryNearTheLimitInDeployment` | A container in your Airflow Deployment is near its memory quota; it's been using over 95% of its memory quota for over 60 minutes. | Either increase your Deployment's allocated resources in the Astronomer UI or update your DAGs to use less memory. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management. |
