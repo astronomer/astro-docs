@@ -12,7 +12,7 @@ Astronomer Cloud runs on a Kubernetes cluster hosted and managed by the Astronom
 
 ## Get Started
 
-If you're interested in giving Astronomer Cloud a spin, you can start a free 14-day trial by [reaching out to us here](https://astronomer.io/get-astronomer?ref=docs). is the best way to get started. You're welcome to sign up at anytime, no credit card required.
+If you're interested in giving Astronomer Cloud a spin, you can start a free 14-day trial by [reaching out to us here](/get-astronomer?ref=docs). is the best way to get started. You're welcome to sign up at anytime, no credit card required.
 
 Once you start your trial, follow our [Cloud Quickstart](/docs/cloud/stable/get-started/quickstart) for guidance.
 
