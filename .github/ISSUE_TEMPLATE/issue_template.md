@@ -36,6 +36,6 @@ _What is the purpose of the document? Select all that apply:_
   
 #### _Describe your suggestion for the change. In addition, include links to any relevant existing documentation, support tickets, messages, or external content:_
   
-### Context
-Add any context about the problem here.
+### Other Context
+Add any additional context about the problem here.
 
