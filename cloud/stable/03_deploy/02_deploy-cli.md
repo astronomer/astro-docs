@@ -8,7 +8,7 @@ Once you create an Airflow Deployment, you can quickly push code there using the
 
 ### Pre-Requisites
 
-In order to push up code to a deployment on Astronomer, you must have:
+In order to push up code to a Deployment on Astronomer, you must have:
 
 * [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) Installed
 * An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
@@ -79,11 +79,11 @@ To deploy on Astronomer, go to your Airflow project directory and run:
 $ astro deploy
 ```
 
-If it's your first time deploying, expect to wait a minute or two for the Docker Image to build. If your deployment was successful, your code changes will appear directly in Airflow.
+If it's your first time deploying, expect to wait a minute or two for the Docker Image to build. If the deployment was successful, your code changes will appear directly in Airflow.
 
 #### What gets Deployed?
 
-Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud. Note that we don't deploy any of the Metadata associated with your local Airflow deployment; just the code.
+Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud. Note that we don't deploy any of the Metadata associated with your local Airflow Deployment; just the code.
 
 For more information on what gets built into your image, refer to the [Customizing your Image](/docs/cloud/stable/develop/customize-image/) guide.
 
@@ -101,4 +101,4 @@ While the specific needs of your organization might require a slightly different
 
 **Deployments:** Most use cases will call for a `production` and `dev` Deployment, both of which exist within a single Workspace and are accessible to the same set of users. From there, you can [set permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) to give users in the Workspace access to specific Deployments.
 
-**Code:** Across deployments, we generally recommend one parent directory per project. That way, you can still configure [CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd) in the future. When creating child directories, we recommend having code directories partitioned by function and/or business case. For instance, you can have one directory for SQL, one for data processing tasks, and one for data validation.
+**Code:** Across Deployments, we generally recommend one parent directory per project. That way, you can still configure [CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd) in the future. When creating child directories, we recommend having code directories partitioned by function and/or business case. For instance, you can have one directory for SQL, one for data processing tasks, and one for data validation.
