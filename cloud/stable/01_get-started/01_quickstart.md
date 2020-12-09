@@ -16,7 +16,7 @@ If you haven't already, start a free 14-day trial by [reaching out to us here](/
 
 Once you've been in touch with our team, you'll be invited to create an account on Astronomer Cloud via email. The email you receive will be sent from `noreply@astronomer.io` with the subject line **Your Astronomer Invitation**.
 
-[INSERT EMAIL SCREENSHOT]
+![Email Invite to Astronomer](https://assets2.astronomer.io/main/docs/getting-started/email-invite.png)
 
 > **Note:** If you're expecting an invitation email and don't receive one or you have trouble with **Accept Invitation**, [reach out to us](https://support.astronomer.io).
 
@@ -24,7 +24,7 @@ Once you've been in touch with our team, you'll be invited to create an account 
 
 Once you accept your invitation via email, you'll be taken to a webpage that will prompt you to create an account on Astronomer Cloud. You can sign up with Google, GitHub, or via a username/password combination of your choosing.
 
-[INSERT CREATE AN ACCOUNT SCREENSHOT]
+![Create an Account on Astronomer](https://assets2.astronomer.io/main/docs/getting-started/create-account.png)
 
 This is how you'll log into both the Astronomer UI and the CLI in the future. 
 
@@ -34,7 +34,7 @@ This is how you'll log into both the Astronomer UI and the CLI in the future.
 
 If you're the first person on your team to sign up for Astronomer, create a Workspace to officially begin your 14-day trial.
 
-[INSERT CREATE A WORKSPACE SCREENSHOT]
+![Create an Workspace on Astronomer](https://assets2.astronomer.io/main/docs/getting-started/create-workspace.png)
 
 You can think of Workspaces the same way you'd think of teams - a space that specific user groups have access to with varying levels of permissions. From within a Workspace you can create one or more Airflow Deployments, each of which hosts a collection of DAGs.
 
@@ -257,11 +257,11 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 2. Navigate to the Workspace you want to create an Airflow Deployment from
 3. Select **+ New Deployment**
 4. Give your Airflow Deployment a Name and Description (_optional_)
-5. Select your **Airflow Version**
-6. Choose your **Executor** (we'd recommend starting with Local)
+5. Select your **Airflow Version** (we recommend _latest_)
+6. Choose your **Executor** (we recommend starting with Local)
 7. Select **Create Deployment**
 
-[INSERT NEW DEPLOYMENT CREATE SCREENSHOT]
+![Create an Airflow Deployment on Astronomer](https://assets2.astronomer.io/main/docs/getting-started/create-deployment.png)
 
 To access the Airflow UI of your new Deployment, wait a few minutes for your Webserver and Scheduler to spin up.
 
