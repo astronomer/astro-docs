@@ -191,7 +191,7 @@ To check out the Airflow UI of your local Airflow project, you can:
 - Navigate to http://localhost:8080/
 - Log in with `admin` as both your Username and Password
 
-### See your Example DAG
+#### See your Example DAG
 
 The `example_dag` in your directory should be populated in the Airflow UI on your local your machine.
 
@@ -265,7 +265,7 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 
 To access the Airflow UI of your new Deployment, wait a few minutes for your Webserver and Scheduler to spin up.
 
-For a full walk-through of the deployment creation and configuration process, check out our doc on [Configuring your Deployment and Deploying your Code](/docs/cloud/stable/deploy/deploy-cli/).
+For a full walk-through of the deployment creation and configuration process, refer to ["Deploy Code"](/docs/cloud/stable/deploy/deploy-cli/).
 
 > **Note:** To create an Airflow Deployment via the Astronomer CLI, run: `$ astro deployment create`. Learn more at ["CLI Quickstart"](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
 
@@ -273,7 +273,7 @@ For a full walk-through of the deployment creation and configuration process, ch
 
 You're ready to deploy your first DAG to Astronomer Cloud.
 
-> **Note:** To push code to a Deployment on Astronomer, you _must_ be a Deployment _Editor_ or _Admin_. If you created an Airflow Deployment, you'll be an _Admin_ by default.
+> **Note:** To push code to a Deployment on Astronomer, you _must_ be a Deployment _Editor_ or _Admin_. If you created an Airflow Deployment, you'll be a _Deployment Admin_ by default.
 >
 > If you don't have the correct permissions, reach out to someone on your team. For a breakdown of Deployment and Workspace-level roles, refer to ["Manage User Permissions"](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions).
 
