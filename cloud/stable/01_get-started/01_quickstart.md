@@ -14,7 +14,7 @@ Whether you're exploring our Enterprise or Cloud offering, we've designed this t
 
 If you haven't already, start a free 14-day trial by [reaching out to us here](/get-astronomer?ref=docs).
 
-Once you've been in touch with our team, you'll be invited to create an account on Astronomer Cloud via email. The email you receive will be sent from `noreply@astronomer.io` with the subject line **Your Astronomer Invitation**.
+Once you've been in touch with our team, you'll be invited to create an account on Astronomer Cloud via email. The email you receive will be sent from `noreply@astronomer.io` with the subject line "Your Astronomer Invitation".
 
 ![Email Invite to Astronomer](https://assets2.astronomer.io/main/docs/getting-started/email-invite.png)
 
@@ -28,7 +28,7 @@ Once you accept your invitation via email, you'll be taken to a webpage that wil
 
 This is how you'll log into both the Astronomer UI and the CLI in the future. 
 
-> **Note:** Once you've created an account on Astronomer Cloud, you will NOT be able to change your method of authorization.
+> **Note:** Once you've created an account on Astronomer Cloud, you will NOT be able to change your method of authentication.
 
 ### Create a Workspace
 
@@ -46,7 +46,7 @@ If you're new to Astronomer Cloud but someone else on your team has an existing 
 
 Once you receive a Workspace invitation via email, accept the invitation and create an account by following the guidelines above. Once you're a member of a Workspace, you can be granted varying levels of access to the Airflow Deployment(s) within that Workspace by _Deployment Admins_.
 
-For more information on user roles and permissions, refer to ["Manage User Permissions on Astronomer Cloud"](/docs/cloud/stable/manage-astronomer/workspace-permissions/). 
+For more information on user roles and permissions, refer to [Manage User Permissions on Astronomer Cloud](/docs/cloud/stable/manage-astronomer/workspace-permissions/). 
 
 ## Start with the Astronomer CLI
 
@@ -72,7 +72,7 @@ To install via [Homebrew](https://brew.sh/), run:
 $ brew install astronomer/tap/astro
 ```
 
-For more on the Astronomer CLI, refer to ["CLI Quickstart"](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
+For more on the Astronomer CLI, refer to [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
 
 > **Note:** If you're running on Windows, check out our [Windows Install Guide](/docs/cloud/stable/develop/cli-install-windows-10/).
 
@@ -116,7 +116,7 @@ The Docker image you'll find by default in your Dockerfile is:
 FROM quay.io/astronomer/ap-airflow:latest-onbuild
 ```
 
-This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions) or refer to the "Customize your Image" section below.
+This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, refer to [Manage Airflow Versions](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions) or refer to the "Customize your Image" section below.
 
 #### Example DAG
 
@@ -235,7 +235,7 @@ If you're unfamiliar with Alpine Linux or Debian, check out some examples of wha
 - [GCP](https://github.com/astronomer/airflow-guides/tree/main/example_code/gcp/example_code)
 - [Snowflake](https://github.com/astronomer/airflow-guides/tree/main/example_code/snowflake/example_code)
 
-To learn more, refer to ["Manage Airflow Versions"](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
+To learn more, refer to [Manage Airflow Versions](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
 #### Add DAGs, Packages and Environment Variables
 
@@ -256,6 +256,11 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 1. [Log into Astronomer](https://app.gcp0001.us-east4.astronomer.io/login)
 2. Navigate to the Workspace you want to create an Airflow Deployment from
 3. Select **+ New Deployment**
+
+![Create New Deployment](https://assets2.astronomer.io/main/docs/getting-started/new-deployment.png)
+
+Now,
+
 4. Give your Airflow Deployment a Name and Description (_optional_)
 5. Select your **Airflow Version** (we recommend _latest_)
 6. Choose your **Executor** (we recommend starting with Local)
@@ -265,21 +270,21 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 
 To access the Airflow UI of your new Deployment, wait a few minutes for your Webserver and Scheduler to spin up.
 
-For a full walk-through of the deployment creation and configuration process, refer to ["Deploy Code"](/docs/cloud/stable/deploy/deploy-cli/).
+For a full walk-through of the deployment creation and configuration process, refer to [Deploy Code](/docs/cloud/stable/deploy/deploy-cli/).
 
-> **Note:** To create an Airflow Deployment via the Astronomer CLI, run: `$ astro deployment create`. Learn more at ["CLI Quickstart"](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
+> **Note:** To create an Airflow Deployment via the Astronomer CLI, run: `$ astro deployment create`. Learn more at [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
 
 ### Deploy to Astronomer
 
 You're ready to deploy your first DAG to Astronomer Cloud.
 
-> **Note:** To push code to a Deployment on Astronomer, you _must_ be a Deployment _Editor_ or _Admin_. If you created an Airflow Deployment, you'll be a _Deployment Admin_ by default.
+> **Note:** To push code to a Deployment on Astronomer, you _must_ be a Deployment _Editor_ or _Admin_. If you create an Airflow Deployment, you'll be a _Deployment Admin_ by default.
 >
-> If you don't have the correct permissions, reach out to someone on your team. For a breakdown of Deployment and Workspace-level roles, refer to ["Manage User Permissions"](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions).
+> If you don't have the correct permissions, reach out to someone on your team. For a breakdown of Deployment and Workspace-level roles, refer to [Manage User Permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions).
 
 #### Authenticate via the Astronomer CLI
 
-To log into your existing account and pass our authorization flow, run:
+To log into your existing account and pass our authentication flow, run:
 
 ```
 $ astro auth login gcp0001.us-east4.astronomer.io
@@ -310,9 +315,11 @@ This command will return a list of Airflow Deployments available in your Workspa
 
 #### Open the Airflow UI
 
-Once you deploy to Astronomer, navigate back to the [Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/). In **Deployment** > **Settings**, go to **Open Airflow** on the top, right-hand side of the page.
+Once you deploy to Astronomer, navigate back to the [Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/). From there, go to **Deployment** > **Settings** > **Open Airflow**.
 
-This will give you access to your Deployment's Airflow UI, where you'll find your `example_dag` and any other DAGs in your project.
+![Access Airflow UI](https://assets2.astronomer.io/main/docs/getting-started/open-airflow.png)
+
+This links to your Deployment's Airflow UI, where you'll find your `example_dag` and all other DAGs in your project.
 
 For guidance on how to navigate the Airflow UI, refer to [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/ui.html).
 
@@ -325,7 +332,9 @@ Now that you're set up on Astronomer and familiar with our deployment flow, cons
 - Set up [Airflow Alerts](/docs/cloud/stable/customize-airflow/airflow-alerts/)
 - Migrate existing Airflow DAGs
 
-> **Note:** If you migrate DAGs from another Apache Airflow environment, you'll have to manually re-create Airflow Variables + Connections or pull them from an external secrets backend. To learn more, go to ["Configure a Secrets Backend"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/secrets-backend).
+For full control over resource configuration, upgrade anytime by adding payment information in **Deployment** > **Billing**.
+
+> **Note:** If you migrate DAGs from another Apache Airflow environment, you'll have to manually re-create Airflow Variables + Connections or pull them from an external secrets backend. To learn more, go to [Configure a Secrets Backend](https://www.astronomer.io/docs/cloud/stable/customize-airflow/secrets-backend).
 
 ### Additional Resources
 
