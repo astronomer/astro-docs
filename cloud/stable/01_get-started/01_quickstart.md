@@ -201,7 +201,7 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 ![Create New Deployment](https://assets2.astronomer.io/main/docs/getting-started/new-deployment.png)
 
 #### b) Configure your deployment.
-Use the **New Deployment** menu to configure the following.
+Use the **New Deployment** menu to configure the following:
 
 * **Name** and **Description** (optional)
 * **Airflow Version**: We recommend using the latest version.
@@ -212,7 +212,7 @@ When you've finished, click **Create Deployment**.
 ![Create an Airflow Deployment on Astronomer](https://assets2.astronomer.io/main/docs/getting-started/create-deployment.png)
 
 
-For a full walk-through of the deployment creation and configuration process, refer to the [Deploy Code](/docs/cloud/stable/deploy/deploy-cli/) guide.
+For a full walk-through to creating and configuring deployments, refer to the [Deploy Code](/docs/cloud/stable/deploy/deploy-cli/) guide.
 
 > **Note:** If you configure your new Deployment to run a version of Airflow that is _not_ latest, make sure that the Astronomer Certified image in your Dockerfile corresponds to that version.
 >

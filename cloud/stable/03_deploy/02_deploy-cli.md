@@ -4,16 +4,18 @@ navTitle: "Deploy Code"
 description: "How to push code to your Airflow Deployment on Astronomer via the Astronomer CLI."
 ---
 
-## Deployment on Astronomer
+
+If you want to update the code for DAGs in your Airflow Deployment, you can do so using the Astronomer CLI.
 
 ### Pre-Requisites
 
 In order to push up code to a deployment on Astronomer, you must have:
 
-1. [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) Installed
-2. An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
+* The [Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/)
+* An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
+* A [Workspace](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
-### Create a Deployment
+### 1. Create a Deployment
 
 To create a deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/).
 
@@ -23,11 +25,11 @@ From your Workspace on Astronomer, click "New Deployment".
 
 ### Configure your Airflow Deployment
 
-To finish creating your Deployment, you'll have to:
+Go to the **Settings** tab of your Deployment and configure the following:
 
-- Give it a name and description
-- Pick an Airflow Executor (Celery or Local)
-- Set Initial Resources
+* **Name** and **Description** (optional)
+* **Airflow Version**: We recommend using the latest version.
+* **Executor**: We recommend starting with Local
 
 ![New Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/V0.15-new_deployment-config.png)
 
