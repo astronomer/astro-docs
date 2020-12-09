@@ -16,7 +16,7 @@ Astronomer Cloud:
 - Is billed by usage, whereas Enterprise is billed through an annual license
 - Does not give users access to the same monitoring stack
 
-If you want to get a sense of Astronomer Enterprise without going through the installation process, try out Cloud by [starting a 14-Day Trial](/trial/).
+If you want to get a sense of Astronomer Enterprise without going through the installation process, try out Cloud by [starting a 14-Day Trial](/get-astronomer?ref=docs).
 
 ## 2. Install Astronomer Enterprise
 
