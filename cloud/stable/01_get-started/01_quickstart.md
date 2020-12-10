@@ -58,7 +58,6 @@ To get started, make sure you've already installed [Docker](https://www.docker.c
 
 ### Install
 
-
 To install the latest version of the Astronomer CLI via cURL, run:
 
 ```bash
@@ -71,7 +70,7 @@ To install via [Homebrew](https://brew.sh/), run:
 $ brew install astronomer/tap/astro
 ```
 
-For more on the Astronomer CLI, refer to the [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart) guide.
+For more on the Astronomer CLI, refer to [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
 
 > **Note:** If you're running on Windows, check out our [Windows Install Guide](/docs/cloud/stable/develop/cli-install-windows-10/).
 
@@ -85,14 +84,13 @@ $ mkdir <directory-name> && cd <directory-name>
 
 This project directory is where you'll store all the necessary files files to build and deploy your Airflow image.
 
-
 In the project directory, run:
 
 ```
 $ astro dev init
 ```
 
-This will generate some files in the directory:
+This will generate the following files in that directory:
 
 ```py
 .
@@ -106,7 +104,7 @@ This will generate some files in the directory:
 └── requirements.txt # For any Python packages
 ```
 
-A few of these files are essential for deploying your Airflow image for the first time:
+These files will get built into the Airflow image you push to your local machine and to Astronomer Cloud.
 
 ### Dockerfile
 
@@ -114,13 +112,13 @@ Your Dockerfile will include reference to an Astronomer Certified Docker Image. 
 
 This Docker image is hosted on [Astronomer's Docker Registry](https://quay.io/repository/astronomer/ap-airflow?tab=tags) and allows you to run Airflow on Astronomer. Additionally, the image you include in your Dockerfile dictates the version of Airflow you'd like to run both when you're developing locally and pushing up to Astronomer Cloud.
 
-The Docker image you'll find by default in your Dockerfile is:
+The Docker image you'll find in your Dockerfile by default is:
 
 ```
 FROM quay.io/astronomer/ap-airflow:latest-onbuild
 ```
 
-This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, refer to the [Manage Airflow Versions](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions) guide and the the Customize your Image topic below.
+This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, refer to [Manage Airflow Versions](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions) and the Customize your Image topic below.
 
 ### Example DAG
 
@@ -188,16 +186,15 @@ $ docker ps
 
 ### C) Open the Airflow UI
 
-To check out the Airflow UI of your local Airflow project, go to http://localhost:8080/ and log in with `admin` as both your Username and Password.
-
-The example DAG in your directory should be populated in the Airflow UI on your local machine.
+To access the Airflow UI of your local Airflow project, go to http://localhost:8080/ and log in with `admin` as both your Username and Password.
 
 ![Example DAG](https://assets2.astronomer.io/main/docs/getting-started/sample_dag.png)
 
+The example DAG in your directory should be populated in the **DAGs** tab of the Airflow UI.
 
 ## 7. Create an Airflow Deployment on Astronomer
 
-Now that we've made sure your DAGs run successfully when developing locally, you're ready to create an Airflow Deployment on Astronomer.
+Now that you've made sure your DAGs run successfully on your local machine, you're ready to create an Airflow Deployment on Astronomer.
 
 ### A) Create a new Deployment
 
@@ -207,7 +204,7 @@ Now that we've made sure your DAGs run successfully when developing locally, you
 
 ### B) Configure your Deployment
 
-Via the **New Deployment** menu, configure the following:
+Via the **New Deployment** modal, configure the following:
 
 * **Name**
 * **Description** (Optional)
@@ -285,7 +282,7 @@ A few tips for when you're developing locally:
 
 - Any code-level DAG changes will immediately render in the Airflow UI as soon as they're saved in your source-code editor
 
-- If you make changes to your Dockerfile, `packages.txt` or `requirements.txt`, you'll have to rebuild your image by running the following in sequence:
+- If you make changes to your Dockerfile, `packages.txt` or `requirements.txt`, rebuild your image by running the following in sequence:
 
    ```
    $ astro dev stop
@@ -297,7 +294,7 @@ A few tips for when you're developing locally:
 
 ### Check out your Logs
 
-As you're developing locally, you'll want to pull logs for easy troubleshooting. Check out our [Logs and Source Control](/docs/cloud/stable/deploy/deployment-logs/) doc for guidelines.
+As you're developing locally, you'll want to pull logs for easy troubleshooting. Check out [Logs and Source Control](/docs/cloud/stable/deploy/deployment-logs/) for guidelines.
 
 ### Customize your Image
 
@@ -306,11 +303,11 @@ As you get more familiar with Airflow and Astronomer, you can customize any of t
 - Astronomer Certified Image
 - Airflow Version (1.10.5+)
 - Python Packages and OS-level dependencies
-- Airflow configurations (as Environment Variables)
+- Airflow configurations (i.e. Environment Variables)
 
 #### Upgrade Astronomer Certified Version
 
-Astronomer Certified supports both [Alpine Linux](https://alpinelinux.org/) and [Debian](https://www.debian.org/)-based images for versions 1.10.5-1.10.12. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.14.
+Astronomer Certified supports both [Alpine Linux](https://alpinelinux.org/) and [Debian](https://www.debian.org/)-based images for Airflow versions 1.10.5-1.10.12. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.14.
 
 If you're unfamiliar with Alpine Linux or Debian, check out some examples of what you might need based on your use case:
 
