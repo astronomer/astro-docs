@@ -6,7 +6,7 @@ description: "How to push code to your Airflow Deployment on Astronomer via the 
 
 Once you create an Airflow Deployment, you can quickly push code there using the Astronomer CLI.
 
-### Pre-Requisites
+## Prerequisites
 
 In order to push up code to a Deployment on Astronomer, you must have:
 
@@ -14,13 +14,13 @@ In order to push up code to a Deployment on Astronomer, you must have:
 * An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
 * A [Workspace](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces).
 
-## 1. Create a Deployment
+## Step 1: Create an Airflow Deployment
 
-To create a Deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
+To create an Airflow Deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
 
 ![Workspace Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/workspace_dashboard.png)
 
-## 2. Configure your Airflow Deployment
+## Step 2: Configure your Airflow Deployment
 
 Use the **New Deployment** menu to configure the following:
 
@@ -41,7 +41,7 @@ From this dashboard, you can:
 - Open the Kubernetes or Celery (if you configured your Deployment to use one of those executors).
 
 
-## 3. Deploy Code from the CLI
+## Step 3: Deploy Code from the CLI
 
 First, authenticate to the CLI:
 
@@ -81,11 +81,11 @@ $ astro deploy
 
 If it's your first time deploying, expect to wait a minute or two for the Docker Image to build. If the deployment was successful, your code changes will appear directly in Airflow.
 
-#### What gets Deployed?
+### What gets Deployed?
 
 Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud. Note that we don't deploy any of the Metadata associated with your local Airflow Deployment; just the code.
 
-For more information on what gets built into your image, refer to the [Customizing your Image](/docs/cloud/stable/develop/customize-image/) guide.
+For more information about what gets built into your image, read [Customizing your Image](/docs/cloud/stable/develop/customize-image/).
 
 ## Considerations: Kubernetes Namespaces
 
