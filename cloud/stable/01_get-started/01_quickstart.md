@@ -141,7 +141,7 @@ Run the following command:
 $ astro dev start
 ```
 
-This command will spin up 3 Docker containers on your machine, each for a different Airflow component:
+This command spins up 3 Docker containers on your machine, each for a different Airflow component:
 
 - **Postgres:** [Airflow's Metadata Database](/docs/cloud/stable/customize-airflow/access-airflow-database/)
 - **Webserver:** The Airflow component responsible for rendering the Airflow UI
