@@ -59,7 +59,7 @@ To see the list of all the Workspaces you have access to push code to, run:
 $ astro workspace list
 ```
 
-To switch between workspaces, run:
+To switch between Workspaces, run:
 
 ```
 $ astro workspace switch [UUID]
