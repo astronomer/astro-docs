@@ -4,13 +4,53 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
-## Astronomer v0.23 Release Notes
+## Astronomer v0.23
+
+### v0.23.4
+
+#### Zero Airflow Webserver Downtime for Airflow 2.0+ Deployments
+
+We're excited to announce that Astronomer v0.23.4 introduces zero Webserver downtime for Deployments running Airflow 2.0+. For users running on Airflow's latest, the Webserver will no longer require a restart after every code push or configuration change.
+
+This means a few things:
+- The Airflow Webserver now requires less CPU and Memory
+- An increase in total # of DAGs no longer necessitates a proportional increase in Weberver resources
+- Following `$ astro deploy`, users should see DAG changes reflected in the Airflow UI in real-time without the interruption of the "Airflow is Starting Up" page
+
+For context, this functionality is possible because Airflow 2.0 requires that [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, be enabled.
+
+> **Note:** If you use Webserver plugins, you _will_ need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
+
+```gql
+  mutation toggleWebserverReboot {
+    toggleWebserverReboot (
+      deploymentId: "<deployment-id>"
+      reboot: true
+    	)
+    {
+      id
+      updatedAt
+      }
+    }
+```
+
+#### Improvements to Airflow 2.0 Upgrade Path
+
+In preparation for Airflwo 2.0, we've continued to enhance the migration experience for users on Airflow 1.10. In Astronomer v0.23.4, we:
+
+- Enforce that all users migrate to Airflow 1.10.14 in order to upgrade to Airflow 2.0
+- Support Airflow's "upgrade check" in the Astronomer CLI (`$ astro dev upgrade-check`)
+
+#### Bug Fixes & Improvements
+
+- Improvement: Opt-in users to **Email Alerts** by default
 
 ### v0.23.0
 
 Release Date: November 24, 2020
 
 #### Support for Docker Images on Quay.io + DockerHub
+
 Astronomer recently migrated from [Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow/tags) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our platform’s primary Docker Registry in light of Docker Hub’s [new rate-limit policy](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/), effective Nov 2nd, 2020.
 
 Astronomer v0.23 supports Airflow images that are pulled from _either_ Docker registry, though we strongly encourage users to switch to Quay.io images to avoid rate limiting errors from Docker Hub. If you're running a legacy image that pulls from `astronomerinc/ap-airflow`, all it takes is modifying that image in your Dockerfile to read `quay.io/astronomer/ap-airflow`. Both have the exact same functionality.
@@ -24,7 +64,7 @@ For more information, refer to ["Manage Airflow Versions"](https://www.astronome
 - Bugfix: Deployment "Viewer" Access erroneously given to Workspace user
 - BugFix: Variables and Connections declared in `airflow_settings.yaml` are not properly passed to Airflow's Metadata Database via the Astro CLI (_CLI v0.23_)
 
-## Astronomer v0.22 Release Notes
+## Astronomer v0.22
 
 ### v0.22.4
 
@@ -66,7 +106,7 @@ Once Airflow 2.0 is released, you'll be able to leverage this feature as an Astr
 - BugFix: Alert are not triggered when Airflow components resource threshold is breached
 - BugFix: Some Airflow metrics not rendering in Astronomer UI (`Zombies Killed`, `Task Stream`, `DagBag Count`, `Task Success Rate`, `Task Failure Rate`).
 
-## Astronomer v0.21 Release Notes
+## Astronomer v0.21
 
 ### v0.21.2
 
@@ -110,7 +150,7 @@ More specifically, Astronomer v0.21 will include:
 - BugFix: Calling the `createWorkspace` Houston API mutation with a system Service Account returns an error (`No Node for the model User`)
 - BugFix: Some Airflow Metrics unavailable in the "Metrics" tab of the Astronomer UI (DagBag Count, Zombies Killed, Task Success Rate, Task Failure Rate, Task Stream)
 
-## Astronomer v0.20 Release Notes
+## Astronomer v0.20
 
 ### v0.20.1
 
@@ -150,7 +190,7 @@ For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](htt
 - BugFix: Navigating to the Airflow Webserver if not authenticated redirects to Astro UI homepage after login
 - BugFix: Intermittent errors with Workspace "Trial" functionality and "Billing" tab (`Minified React Error #310`)
 
-## Astronomer v0.19 Release Notes
+## Astronomer v0.19
 
 ### v0.19.4
 
@@ -177,7 +217,7 @@ Release Date: August 27, 2020
 - BugFix: User Invite redirects to "Public Signups Disabled"
 - BugFix: Error on "Inspect" of the 'Metrics' tab of the Astronomer UI: `Error with Feature-Policy header`
 
-## Astronomer v0.18 Release Notes
+## Astronomer v0.18
 
 Release Date: August 10, 2020
 
@@ -216,7 +256,7 @@ Fixes to the Astronomer Platform shipped in 0.18:
 - BugFix: API error (400) on `$ astro workspace user add` and `$ astro workspace user remove` in Astro CLI
 - BugFix: `Error: failed to find a valid role` on Service Account creation (CLI + Astro UI)
 
-## Astronomer v0.17 Release Notes
+## Astronomer v0.17
 
 Release Date: July 27, 2020
 
@@ -247,7 +287,7 @@ The Astronomer CLI is open source and open to _all_ developers looking to run Ap
 - BugFix: Users able to create 2+ Service Accounts with the same label
 - Improvement: Increased Test Coverage for Houston API + Astro CLI
 
-## Astronomer v0.16 Release Notes
+## Astronomer v0.16
 
 ### v0.16.3
 
