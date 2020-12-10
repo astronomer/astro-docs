@@ -10,7 +10,7 @@ This guide will help you kick off your trial on Astronomer by walking you throug
 
 Whether you're exploring our Enterprise or Cloud offering, we've designed this to be a great way to become familiar with our platform.
 
-## 1. Start Your Trial
+## Step 1: Start Your Trial
 
 If you haven't already, start a free 14-day trial by [reaching out to us](/get-astronomer?ref=docs).
 
@@ -20,7 +20,7 @@ Once you've been in touch with our team, you'll be invited to create an account 
 
 > **Note:** If you're expecting an invitation email and don't receive one or you can't accept the invitation, [reach out to our support team](https://support.astronomer.io).
 
-## 2. Create an Account
+## Step 2: Create an Account
 
 Once you accept your invitation via email, you'll be taken to a webpage that will prompt you to create an account on Astronomer Cloud. You can sign up with Google, GitHub, or via a username/password combination of your choosing.
 
@@ -30,7 +30,7 @@ This is how you'll log into both the Astronomer UI and the CLI in the future.
 
 > **Note:** Once you've created an account on Astronomer Cloud, you will NOT be able to change your method of authentication.
 
-## 3. Create a Workspace
+## Step 3: Create a Workspace
 
 If you're the first person on your team to sign up for Astronomer, click **New Workspace** to create a Workspace and officially begin your 14-day trial.
 
@@ -38,17 +38,17 @@ If you're the first person on your team to sign up for Astronomer, click **New W
 
 You can think of Workspaces the same way you'd think of teams - a space that specific user groups have access to with varying levels of permissions. From within a Workspace you can create one or more Airflow Deployments, each of which hosts a collection of DAGs.
 
-For more information, refer to the [Manage Workspaces and Deployments](/docs/cloud/stable/deploy/manage-workspaces/) guide.
+For more information, read [Manage Workspaces and Deployments](/docs/cloud/stable/deploy/manage-workspaces/).
 
-#### Join an Existing Workspace
+### Join an Existing Workspace
 
 If you're new to Astronomer Cloud but someone else on your team has an existing Workspace you'd like to join, a Workspace Admin can invite you to it.
 
 Once you receive a Workspace invitation via email, accept the invitation and create an account by following the guidelines above. Once you're a member of a Workspace, Deployment Admins can grant you varying levels of access to the Airflow Deployment(s) within that Workspace.
 
-For more information on Workspace Admins, Deployment Admins, and other user roles and permissions, refer to the [Manage User Permissions on Astronomer Cloud](/docs/cloud/stable/manage-astronomer/workspace-permissions/) guide.
+For more information on Workspace Admins, Deployment Admins, and other user roles and permissions, read [Manage User Permissions on Astronomer Cloud](/docs/cloud/stable/manage-astronomer/workspace-permissions/).
 
-## 4. Install the Astronomer CLI
+## Step 4: Install the Astronomer CLI
 
 The [Astronomer CLI](https://github.com/astronomer/astro-cli) is the easiest way to run Apache Airflow on your machine. From the CLI, you can establish a local testing environment and deploy to Astronomer Cloud whenever you're ready.
 
@@ -68,11 +68,11 @@ To install via [Homebrew](https://brew.sh/), run:
 $ brew install astronomer/tap/astro
 ```
 
-For more on the Astronomer CLI, refer to the [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart) guide.
+For more on the Astronomer CLI, go read [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
 
 > **Note:** If you're running on Windows, check out our [Windows Install Guide](/docs/cloud/stable/develop/cli-install-windows-10/).
 
-## 5. Initialize an Airflow Project
+## Step 5: Initialize an Airflow Project
 
 Create a new project directory on your machine and `cd` to it:
 
@@ -106,7 +106,7 @@ This will generate some files in the directory:
 
 A few of these files are essential for deploying your Airflow image for the first time:
 
-#### Dockerfile
+### Dockerfile
 
 Your Dockerfile will include reference to an Astronomer Certified Docker Image. [Astronomer Certified](https://www.astronomer.io/downloads/) (AC) is a Debian-based, production-ready distribution of Apache Airflow that mirrors the open source project and undergoes additional levels of rigorous testing conducted by our team.
 
@@ -118,18 +118,18 @@ The Docker image you'll find by default in your Dockerfile is:
 FROM quay.io/astronomer/ap-airflow:latest-onbuild
 ```
 
-This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, refer to the [Manage Airflow Versions](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions) guide and the the Customize your Image topic below.
+This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, see [Manage Airflow Versions](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions) and the _Customize your Image_ topic below.
 
-#### Example DAG
+### Example DAG
 
 To help you get started, your initialized project includes an example DAG in `/dags`. This DAG simply prints today's date, but it'll give you a chance to become familiar to deploying on Astronomer.
 
 If you'd like to deploy some more functional DAGs, upload your own or check out [example DAGs we've made open source](https://github.com/airflow-plugins/example-dags).
 
-## 6. Develop Locally
+## Step 6: Develop Locally
 
 After building your project directory, you're ready to push your Airflow image to your local Airflow environment.
-#### a) Start Airflow.
+### a. Start Airflow
 Run the following command:
 
 ```
@@ -171,7 +171,7 @@ The default credentials are admin:admin
 
 > **Note:** If you’re running the Astronomer CLI with the [buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature enabled in Docker, you may see an error (`buildkit not supported by daemon`). Learn more in [this forum post](https://forum.astronomer.io/t/buildkit-not-supported-by-daemon-error-command-docker-build-t-airflow-astro-bcb837-airflow-latest-failed-failed-to-execute-cmd-exit-status-1/857).
 
-#### b) Verify the Docker containers.
+### b. Verify the Docker Containers
 To verify that all 3 Docker containers were created, run:
 
 ```
@@ -182,7 +182,7 @@ $ docker ps
 >
 > If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
-#### c) See your work in the Airflow UI.
+### c. See Your Work in the Airflow UI
 
 To check out the Airflow UI of your local Airflow project, go to http://localhost:8080/ and log in in with `admin` as both your Username and Password
 
@@ -191,16 +191,16 @@ The example DAG in your directory should be populated in the Airflow UI on your 
 ![Example DAG](https://assets2.astronomer.io/main/docs/getting-started/sample_dag.png)
 
 
-## 7. Create an Airflow Deployment
+## Step 7: Create an Airflow Deployment
 
 
 Now that we've made sure your DAGs run successfully when developing locally, you're ready to create an Airflow Deployment on Astronomer.
-#### a) Create a new deployment.
+### a. Create a New Deployment
 [Log into Astronomer](https://app.gcp0001.us-east4.astronomer.io/login) and open to the Workspace you want to work in. From there, select **+ New Deployment**
 
 ![Create New Deployment](https://assets2.astronomer.io/main/docs/getting-started/new-deployment.png)
 
-#### b) Configure your deployment.
+### b. Configure Your Deployment
 Use the **New Deployment** menu to configure the following.
 
 * **Name** and **Description** (optional)
@@ -212,7 +212,7 @@ When you've finished, click **Create Deployment**.
 ![Create an Airflow Deployment on Astronomer](https://assets2.astronomer.io/main/docs/getting-started/create-deployment.png)
 
 
-For a full walk-through of the deployment creation and configuration process, refer to the [Deploy Code](/docs/cloud/stable/deploy/deploy-cli/) guide.
+For a full walk-through of the deployment creation and configuration process, see [Deploy to Astronomer via the CLI](/docs/cloud/stable/deploy/deploy-cli/).
 
 > **Note:** If you configure your new Deployment to run a version of Airflow that is _not_ latest, make sure that the Astronomer Certified image in your Dockerfile corresponds to that version.
 >
@@ -220,15 +220,15 @@ For a full walk-through of the deployment creation and configuration process, re
 >
 > `FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild`
 
-## 8. Deploy to Astronomer
+## Step 8: Deploy to Astronomer
 
 You're ready to deploy your first DAG to Astronomer Cloud using the Astronomer CLI.
 
 First, make sure that you're either a Deployment Editor or Admin. If you create an Airflow Deployment, you'll be a Deployment Admin by default.
 
-If you don't have the correct permissions, reach out to someone on your team. For a breakdown of Deployment and Workspace-level roles, refer to the [Manage User Permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) guide.
+If you don't have the correct permissions, reach out to someone on your team. For a breakdown of Deployment and Workspace-level roles, see [Manage User Permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) .
 
-#### A) Authenticate via the Astronomer CLI.
+### a. Authenticate via the Astronomer CLI
 
 To log into Astronomer via the Astronomer CLI, run:
 
@@ -240,7 +240,7 @@ If you created your account with a username and password, you'll be prompted to 
 
 > **Note:** Once you run this command, it should stay cached and allow you to just run `$ astro auth login` to authenticate more easily in the future.
 
-#### B) Confirm your Workspace and Deployment.
+### b. Confirm Your Workspace and Deployment
 
 Before you deploy to Astronomer, make sure of the following:
 
@@ -249,7 +249,7 @@ Before you deploy to Astronomer, make sure of the following:
 
 Follow our [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart/) guide for more specific guidelines and commands.
 
-#### C) Deploy to Astronomer.
+### c. Deploy to Astronomer
 
 When you're ready to deploy your DAGs, run:
 
@@ -259,7 +259,7 @@ $ astro deploy
 
 This command will return a list of Airflow Deployments available in your Workspace and prompt you to pick one.
 
-#### D) Open the Airflow UI.
+### d. Open the Airflow UI
 
 Once you deploy to Astronomer, reopen the [Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/). From there, go to **Deployment** > **Settings** > **Open Airflow**.
 
@@ -267,9 +267,9 @@ Once you deploy to Astronomer, reopen the [Astronomer UI](https://app.gcp0001.us
 
 This links to your Deployment's Airflow UI, where you'll find your example DAG and all other DAGs in your project.
 
-For guidance on how to navigate the Airflow UI, refer to the [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/ui.html).
+For guidance on how to navigate the Airflow UI, read the [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/ui.html).
 
-## What's Next
+## What's Next?
 
 Now that you're set up on Astronomer and familiar with our deployment flow, consider a few next steps:
 
@@ -289,7 +289,7 @@ A few tips for when you're developing locally:
    $ astro dev start
     ```
 
-### Check out your Logs
+### Check out Your Logs
 
 As you're developing locally, you'll want to pull logs for easy troubleshooting. Check out our [Logs and Source Control](/docs/cloud/stable/deploy/deployment-logs/) doc for guidelines.
 
@@ -302,7 +302,7 @@ As you get more familiar with Airflow and Astronomer, you can customize any of t
 - Python Packages and OS-level dependencies
 - Airflow configurations (as Environment Variables)
 
-### Add DAGs, Packages and Environment Variables
+### Add DAGs, Packages, and Environment Variables
 
 In addition to customizing the Astronomer Certified image referenced in your Dockerfile, you can:
 
