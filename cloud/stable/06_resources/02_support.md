@@ -44,10 +44,10 @@ When you submit a ticket to Astronomer's Support Portal, keep the following best
 
 In order for our team to serve yours most effectively, it's critical that we understand the impact of all reported issues. Generally speaking, here are the guidelines we operate under:
 
-- **P1:** Mission-Critical
-- **P2:** Major functionality impacted
-- **P3:** Partial/Non-Critical Loss
-- **P4:** General Inquiry
+- **P1:** Critical Impact (Service Unusable in Production)
+- **P2:** High Impact (Service Use Severely Impaired)
+- **P3:** Medium Impact (Service Use Partially Impaired)
+- **P4:** Low Impact (Service Fully Usable)
 
 **2. Be As Descriptive As Possible**
 
