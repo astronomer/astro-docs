@@ -48,7 +48,7 @@ First, ensure you have a copy of the `config.yaml` file of your platform namespa
 To do this, you can run:
 
 ```sh
-$ helm3 get values -n <namespace> <release name of astronomer> > config.yaml
+$ helm get values -n <namespace> <release name of astronomer> > config.yaml
 ```
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
@@ -58,7 +58,7 @@ Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you s
 To verify the version of Astronomer you're currently operating with, run:
 
 ```sh
-$ helm3 list --all-namespaces | grep astronomer
+$ helm list --all-namespaces | grep astronomer
 ```
 
 #### 3. Run Astronomer's patch upgrade script.
@@ -131,14 +131,11 @@ When you have finished updating the key-value pairs, ensure that they have the s
 Save `config.yaml`, then run the following command:
 
 ```
-$ helm -n <your-namespace> upgrade <your-platform-release name> astronomer/astronomer --version=<your-platform-version> -f config.yaml
+$ helm -n <your-namespace> upgrade <your-plarform-release-name> astronomer/astronomer --version=<your-platform-version> -f config.yaml
 ```
-For example, if you're running Astronomer v0.16.10 and your platform release name is astronomer, you might run:
-```
-$ helm upgrade astronomer -f config.yaml --version=0.16.10 astronomer/astronomer -n astronomer
-```
+
 To see the updated key-value pairs in your terminal, you can run:
 
 ```
-$ helm3 get values -n <namespace> <your-platform-release-namer>
+$ helm get values -n <your-namespace> <your-platform-release-name>
 ```
