@@ -30,7 +30,7 @@ There are two ways to install any version of the Astronomer CLI:
 
 ### Prerequisites
 
-To install the Astronomer CLI, make sure you've installed [Docker](https://www.docker.com/) (v18.09 or higher).
+The Astronomer CLI installation process requires [Docker](https://www.docker.com/) (v18.09 or higher).
 
 ### Install with Homebrew
 
@@ -40,10 +40,10 @@ If you have Homebrew installed, run:
 $ brew install astronomer/tap/astro
 ```
 
-To install a specific version of the Astro CLI, you'll have to specify `@major.minor.patch`. To install v0.13.1, for example, run:
+To install a specific version of the Astro CLI, you'll have to specify `@major.minor.patch`. To install v0.16.1, for example, run:
 
 ```sh
-$ brew install astronomer/tap/astro@0.13.1
+$ brew install astronomer/tap/astro@0.16.1
 ```
 
 ### Install with cURL
@@ -73,11 +73,7 @@ If you're running macOS Catalina and beyond, do the following:
 $ curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
 ```
 
-<<<<<<< HEAD
 ## Step 2: Confirm the Install
-=======
-## 2. Confirm the CLI Install
->>>>>>> aae372a9832e25712c3a65b5b91e9af518051991
 
 To make sure that you have the Astronomer CLI installed on your machine, run:
 
@@ -154,11 +150,13 @@ This will generate the following files in that directory:
 └── requirements.txt # For any Python packages
 ```
 
-These files make up the Docker image you'll then push to the Airflow instance on your local machine, or to a Deployment on Astronomer Cloud or Enterprise.
+These files make up the Docker image you'll then push to the Airflow instance on your local machine or to an Airflow Deployment on Astronomer Cloud.
 
 ## Step 4: Start Airflow Locally
 
-To start a local Airflow Deployment on your local machine, run:
+### a. Start Airflow
+
+To start Airflow on your local machine, run:
 
 ```
 $ astro dev start
@@ -170,7 +168,9 @@ This command will spin up 3 Docker containers on your machine, each for a differ
 - **Webserver:** The Airflow component responsible for rendering the Airflow UI
 - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
-The image might take some time to build the first time you run this command on your machine. After that, it will build from cached layers. As your image builds, you should see the following output:
+The image might take some time to build the first time you run this command on your machine. After that, it will build from cached layers.
+
+As your image builds, you should see the following output:
 
 ```
 $ astro dev start
@@ -199,7 +199,7 @@ The default credentials are admin:admin
 
 For guidelines on accessing your Postgres database both locally and on Astronomer, read [Access the Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/).
 
-### B) Verify Docker Containers
+### b. Verify Docker Containers
 
 To verify that all 3 Docker containers were created, run:
 
@@ -211,7 +211,7 @@ $ docker ps
 >
 > If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
-### C) Open the Airflow UI
+### c. Open the Airflow UI
 
 To access the Airflow UI of your local Airflow project, go to http://localhost:8080/ and log in with `admin` as both your Username and Password.
 

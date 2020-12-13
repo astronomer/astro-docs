@@ -200,7 +200,6 @@ The example DAG in your directory should be populated in the Airflow UI on your 
 
 ![Example DAG](https://assets2.astronomer.io/main/docs/getting-started/sample_dag.png)
 
-
 ## Step 7: Create an Airflow Deployment
 
 Now that we've made sure your DAGs run successfully when developing locally, you're ready to create an Airflow Deployment on Astronomer.
@@ -272,7 +271,7 @@ $ astro deploy
 
 This command will return a list of Airflow Deployments available in your Workspace and prompt you to pick one.
 
-### d. Open the Airflow UI
+### d. Access the Airflow UI
 
 Once you deploy to Astronomer, reopen the [Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/). From there, go to **Deployment** > **Settings** > **Open Airflow**.
 
