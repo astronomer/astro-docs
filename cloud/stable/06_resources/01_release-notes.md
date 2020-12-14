@@ -39,6 +39,8 @@ In Astronomer v0.23.5, we:
 - Enforce that all users migrate to Astronomer Certified 1.10.14 before upgrading to 2.0
 - Support for Airflow's ["upgrade check"](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
 
+The migration path to Airflow 2.0 on Astronomer follows all recommendations published by the Apache Airflow project. We expect to publish an official "Upgrade to Airflow 2.0 on Astronomer" guide as soon as Airflow 2.0 is generally available.
+
 #### Bug Fixes & Improvements
 
 - Add clear messaging to Astronomer UI around user steps required to finalize Airflow upgrade
