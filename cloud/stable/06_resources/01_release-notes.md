@@ -6,44 +6,44 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.23
 
-### v0.23.4
+### v0.23.5
 
-#### Zero Airflow Webserver Downtime for Airflow 2.0+ Deployments
+Release Date: December 14, 2020
 
-We're excited to announce that Astronomer v0.23.4 introduces zero Webserver downtime for Deployments running Airflow 2.0+. For users running on Airflow's latest, the Webserver will no longer require a restart after every code push or configuration change.
+#### Support for Airflow 1.10.14
 
-This means a few things:
-- The Airflow Webserver now requires less CPU and Memory
-- An increase in total # of DAGs no longer necessitates a proportional increase in Weberver resources
-- Following `$ astro deploy`, users should see DAG changes reflected in the Airflow UI in real-time without the interruption of the "Airflow is Starting Up" page
+Support for Airflow 1.10.14 as an Astronomer Certified image was introduced on December 11th, a few days prior to the release of Astronomer v0.23.5.
 
-For context, this functionality is possible because Airflow 2.0 requires that [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, be enabled.
+Airflow 1.10.14 was built to make testing and migration to Airflow 2.0 as easy as possible. Highlights include:
 
-> **Note:** If you use Webserver plugins, you _will_ need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
+- "Warning" to users with duplicate Airflow Connections ([commit](https://github.com/apache/airflow/commit/0e40ddd8e))
+- Enable [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html) by default ([commit](https://github.com/apache/airflow/commit/8a265067e))
+- Support for Airflow 2.0 CLI commands ([commit](https://github.com/apache/airflow/pull/12725))
+- Bugfix: Unable to import Airflow plugins on Python 3.8 ([commit](https://github.com/apache/airflow/pull/12859))
+- BugFix: Tasks with depends_on_past or task_concurrency are stuck ([commit](https://github.com/apache/airflow/pull/12663))
 
-```gql
-  mutation toggleWebserverReboot {
-    toggleWebserverReboot (
-      deploymentId: "<deployment-id>"
-      reboot: true
-    	)
-    {
-      id
-      updatedAt
-      }
-    }
+To upgrade to AC 1.10.14, add our new Debian image to your Dockerfile:
+
 ```
+FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild
+```
+
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [“Manage Airflow Versions”](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.14, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.14) or the corresponding [AC 1.10.14 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md).
 
 #### Improvements to Airflow 2.0 Upgrade Path
 
-In preparation for Airflwo 2.0, we've continued to enhance the migration experience for users on Airflow 1.10. In Astronomer v0.23.4, we:
+In preparation for Airflow 2.0, we've continued to enhance the expected migration experience for users on Airflow 1.10.
 
-- Enforce that all users migrate to Airflow 1.10.14 in order to upgrade to Airflow 2.0
-- Support Airflow's "upgrade check" in the Astronomer CLI (`$ astro dev upgrade-check`)
+In Astronomer v0.23.5, we:
+
+- Enforce that all users migrate to Astronomer Certified 1.10.14 before upgrading to 2.0
+- Support for Airflow's ["upgrade check"](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
 
 #### Bug Fixes & Improvements
 
-- Improvement: Opt-in users to **Email Alerts** by default
+- Add clear messaging to Astronomer UI around user steps required to finalize Airflow upgrade
+- Opt-in users to **Email Alerts** by default
+- BugFix: `pod_mutation_hook` overrides commands for the KubernetesPodOperator pods if using KubernetesExecutor
 
 ### v0.23.0
 
