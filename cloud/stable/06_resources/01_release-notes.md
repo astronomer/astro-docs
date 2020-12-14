@@ -30,6 +30,8 @@ FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild
 
 For detailed guidelines on how to upgrade Airflow on Astronomer, read [“Manage Airflow Versions”](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.14, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.14) or the corresponding [AC 1.10.14 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md).
 
+> **Note:** In an effort to standardize our offering and optimize for reliability, we will only support a Debian-based image for AC 1.10.14. Alpine-based images for AC 1.10.5 - 1.10.12 will continue to be supported.
+
 #### Improvements to Airflow 2.0 Upgrade Path
 
 In preparation for Airflow 2.0, we've continued to enhance the expected migration experience for users on Airflow 1.10.
@@ -43,7 +45,7 @@ The migration path to Airflow 2.0 on Astronomer follows all recommendations publ
 
 #### Bug Fixes & Improvements
 
-- Add clear messaging to Astronomer UI aroundss steps required to finalize Airflow upgrade
+- Add clear messaging to Astronomer UI around steps required to finalize Airflow upgrade
 - Opt-in users to **Email Alerts** by default
 - BugFix: `pod_mutation_hook` overrides commands for the KubernetesPodOperator pods if using KubernetesExecutor
 
