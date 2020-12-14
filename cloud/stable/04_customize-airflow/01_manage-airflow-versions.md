@@ -24,15 +24,15 @@ Read below for details.
 
 Astronomer Certified offers support for the following versions of Apache Airflow:
 
-- [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
-- [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
-- [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
-- [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
 - [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14)
+- [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
+- [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
+- [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
+- [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
 
 ## Upgrade Airflow
 
-### 1. Initialize the Upgrade Process
+### Step 1. Initialize the Upgrade Process
 
 The first step to upgrading your Deployment to a higher version of Apache Airflow is to indicate your intent to do so via the Astronomer UI or CLI.
 
@@ -121,7 +121,7 @@ Airflow upgrade process has been successfully canceled. Your Deployment was not 
 
 Canceling the Airflow upgrade process will NOT interrupt or otherwise impact your Airflow Deployment or code that's running with it. To re-initialize an upgrade, follow the steps above.
 
-### 2. Deploy a New Astronomer Certified Image
+### Step 2: Deploy a New Astronomer Certified Image
 
 #### Locate your Dockerfile in your Project Directory
 
@@ -163,7 +163,7 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 
 > **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
 
-### 3. Re-Build your Image
+### Step 3: Rebuild your Image
 
 #### Local Development
 
@@ -187,7 +187,7 @@ $ astro deploy
 
 This will bundle your updated directory, re-build your image and push it to your remote Airflow deployment on Astronomer.
 
-### 4. Confirm your version in the Airflow UI
+### Step 4: Confirm your version in the Airflow UI
 
 Once you've issued that command, navigate to your Airflow UI to confirm that you're now running the correct Airflow version.
 
@@ -210,7 +210,7 @@ If you're on Astronomer Cloud, navigate to your Airflow Deployment via Astronome
 
 > **Note:** In Airflow 2.0, the **Version** page referenced above will be deprecated. Check the footer of the Airflow UI to validate Airflow version instead.
 
-### Patch Versions of Astronomer Certified
+## Patch Versions of Astronomer Certified
 
 In addition to supporting the latest versions of open source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
@@ -222,7 +222,7 @@ For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional pa
 
 All generally available patch releases are listed in a corresponding changelog, which specifies the date the patch was released and all individual changes made to it. Bugs that are reported by the wider Airflow community are often backported by our team and made available prior to the subsequent open source release.
 
-#### Upgrade to an Astronomer Certified Patch Version
+### Upgrade to an AC Patch Version
 
 To upgrade to the latest patch version of Astronomer Certified, replace the image referenced in your `Dockerfile` with a pinned version that specifies a particular patch.
 
