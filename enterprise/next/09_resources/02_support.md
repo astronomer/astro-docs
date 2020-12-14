@@ -1,7 +1,7 @@
 ---
-title: "Support for Astronomer"
+title: "Support"
 navTitle: "Support"
-description: "How to work with Astronomer Support."
+description: "How to get the most from Astronomer Support."
 ---
 
 Our mission at Astronomer is to help organizations adopt [Apache Airflow](https://airflow.apache.org/).
@@ -40,16 +40,16 @@ If you're working with a team, make sure to create an account with your work ema
 
 When you submit a ticket to Astronomer's Support Portal, keep the following best practices in mind.
 
-**1. Always indicate Severity**
+**1. Always Indicate Priority**
 
 In order for our team to serve yours most effectively, it's critical that we understand the impact of all reported issues. Generally speaking, here are the guidelines we operate under:
 
-- **S1:** Mission-Critical
-- **S2:** Major functionality impacted
-- **S3:** Partial/Non-Critical Loss
-- **S4:** General Inquiry
+- **P1:** Critical Impact (Service Unusable in Production)
+- **P2:** High Impact (Service Use Severely Impaired)
+- **P3:** Medium Impact (Service Use Partially Impaired)
+- **P4:** Low Impact (Service Fully Usable)
 
-**2. Be as descriptive as possible**
+**2. Be As Descriptive As Possible**
 
 The more you can tell us about the issue you're facing, the more quickly we can jump in. Consider including the following:
 

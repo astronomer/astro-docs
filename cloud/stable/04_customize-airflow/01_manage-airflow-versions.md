@@ -28,6 +28,7 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
 - [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
 - [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
+- [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14)
 
 ## Upgrade Airflow
 
@@ -113,12 +114,12 @@ $ astro deployment airflow upgrade --cancel --deployment-id=<deployment-id>
 For example, if a user cancels an initialized upgrade from Airflow 1.10.7 to Airflow 1.10.12 via the CLI, they would see the following:
 
 ```bash
-astro deployment airflow upgrade --cancel --deployment-id=ckguogf6x0685ewxtebr4v04x
+$ astro deployment airflow upgrade --cancel --deployment-id=ckguogf6x0685ewxtebr4v04x
 
 Airflow upgrade process has been successfully canceled. Your Deployment was not interrupted and you are still running Airflow 1.10.7.
 ```
 
-Canceling the Airflow Upgrade process will NOT interrupt or otherwise impact your Airflow Deployment or code that's running with it. To re-initialize an upgrade, follow the steps above.
+Canceling the Airflow upgrade process will NOT interrupt or otherwise impact your Airflow Deployment or code that's running with it. To re-initialize an upgrade, follow the steps above.
 
 ### 2. Deploy a New Astronomer Certified Image
 
@@ -158,6 +159,7 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 | [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild |
 | [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
 | [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild |
+| [v1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md)         | N/A | FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild |
 
 > **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
 
@@ -198,7 +200,7 @@ If you're developing locally, you can:
 
 Once there, you should see your correct Airflow version listed.
 
-**Note:** The URL listed above assumes your Webserver is at Port 8080 (default). To change that default, read [this forum post](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
+> **Note:** The URL listed above assumes your Webserver is at Port 8080 (default). To change that default, read [this forum post](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
 #### On Astronomer
 
