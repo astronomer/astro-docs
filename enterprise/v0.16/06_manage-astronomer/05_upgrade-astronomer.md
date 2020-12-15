@@ -130,12 +130,14 @@ When you have finished updating the key-value pairs, ensure that they have the s
 
 Save `config.yaml`, then run the following command:
 
+```sh
+$ helm -n <your-namespace> upgrade <your-platform-release-name> astronomer/astronomer --version=<your-platform-version> -f config.yaml
 ```
-$ helm -n <your-namespace> upgrade <your-plarform-release-name> astronomer/astronomer --version=<your-platform-version> -f config.yaml
-```
+
+If you don't know the value for `<your-platform-release-name>`, you can find it by running `helm ls -n <your-namespace>`.
 
 To see the updated key-value pairs in your terminal, you can run:
 
-```
+```sh
 $ helm get values -n <your-namespace> <your-platform-release-name>
 ```
