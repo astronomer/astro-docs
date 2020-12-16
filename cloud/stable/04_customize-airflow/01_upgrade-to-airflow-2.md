@@ -50,7 +50,7 @@ To upgrade to 1.10.14,
 1. Initialize the Airflow upgrade process via the Astronomer UI or CLI
 2. Deploy the AC 1.10.14 image (Debian-only):
 
-```
+```dockerfile
 FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild
 ```
 
@@ -159,7 +159,7 @@ To upgrade to 2.0.0,
 1. Initialize the Airflow upgrade process via the Astronomer UI or CLI
 2. Deploy the AC 2.0.0 image (Debian-only) in your Dockerfile:
 
-```
+```dockerfile
 FROM quay.io/astronomer/ap-airflow:2.0.0-buster-onbuild
 ```
 
