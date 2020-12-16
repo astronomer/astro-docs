@@ -196,8 +196,6 @@ $ docker ps
 
 To check out the Airflow UI of your local Airflow project, go to http://localhost:8080/ and log in with `admin` as both your username and password.
 
-#### See your Example DAG
-
 The example DAG in your directory should be populated in the Airflow UI on your local machine.
 
 ![Example DAG](https://assets2.astronomer.io/main/docs/getting-started/sample_dag.png)
