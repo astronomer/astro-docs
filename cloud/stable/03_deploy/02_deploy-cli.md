@@ -18,7 +18,7 @@ In order to push up code to a Deployment on Astronomer, you must have:
 
 To create an Airflow Deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
 
-![Workspace Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/workspace_dashboard.png)
+![Workspace Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-deployments.png)
 
 ## Step 2: Configure your Airflow Deployment
 
@@ -28,11 +28,13 @@ Use the **New Deployment** menu to configure the following:
 * **Airflow Version**: We recommend using the latest version.
 * **Executor**: We recommend starting with Local.
 
+![New Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-config.png)
+
 When you've finished, click **Create Deployment**.
 
 Once you've initialized your Deployment, give it a few moments to spin up. Afterwards, you'll have access to your Deployment dashboard:
 
-![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/new_deployment_celery_dashboard.png)
+![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
 
 From this dashboard, you can:
 
@@ -101,4 +103,4 @@ While the specific needs of your organization might require a slightly different
 
 **Deployments:** Most use cases will call for a `production` and `dev` Deployment, both of which exist within a single Workspace and are accessible to the same set of users. From there, you can [set permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) to give users in the Workspace access to specific Deployments.
 
-**Code:** Across Deployments, we generally recommend one parent directory per project. That way, you can still configure [CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd) in the future. When creating child directories, we recommend having code directories partitioned by function and/or business case. For instance, you can have one directory for SQL, one for data processing tasks, and one for data validation.
+**Code:** As for the code itself, we’ve seen effective organization where external code is partitioned by function and/or business case, so one directly for SQL, one for data processing tasks, one for data validation, etc.

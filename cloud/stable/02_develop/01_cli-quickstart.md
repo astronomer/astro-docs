@@ -16,26 +16,23 @@ If you're an Astronomer user, you might use the Astronomer CLI to do the followi
 - List Astronomer Workspaces and Deployments you have access to
 - Deploy to an Airflow Deployment on Astronomer
 - Create Astronomer Service Accounts, Users and Deployments
-- Append annotations to your Deployment's Pods (Enterprise only)
 
-This guide will walk you through how to install the CLI, initialize an Astronomer project, and deploy to an Airflow instance on your local machine.
+The guidelines belows will walk you through how to install the CLI, initialize an Astronomer project, and deploy to an Airflow instance on your local machine.
 
-## Prerequisites
-
-To install the CLI, make sure you've installed:
-
-- [Docker](https://www.docker.com/) (v18.09 or higher)
-
-## 1. Install the Astronomer CLI
+## Step 1: Install the Astronomer CLI
 
 There are two ways to install any version of the Astronomer CLI:
 
-1. Using [Homebrew](https://brew.sh/)
-2. Using a simple cURL command
+- [Homebrew](https://brew.sh/)
+- cURL
 
 > **Note:** Both methods only work for Unix (Linux+Mac) based systems. If you're running on Windows 10, follow [this guide](/docs/cloud/stable/develop/cli-install-windows-10/) to get set up with Docker for WSL.
 
-### Install Using Homebrew
+### Prerequisites
+
+The Astronomer CLI installation process requires [Docker](https://www.docker.com/) (v18.09 or higher).
+
+### Install with Homebrew
 
 If you have Homebrew installed, run:
 
@@ -43,24 +40,24 @@ If you have Homebrew installed, run:
 $ brew install astronomer/tap/astro
 ```
 
-To install a specific version of the Astro CLI, you'll have to specify `@major.minor.patch`. To install v0.13.1, for example, run:
+To install a specific version of the Astro CLI, you'll have to specify `@major.minor.patch`. To install v0.16.1, for example, run:
 
 ```sh
-$ brew install astronomer/tap/astro@0.13.1
+$ brew install astronomer/tap/astro@0.16.1
 ```
 
-### Install Using cURL
+### Install with cURL
 
-To install the latest version of our CLI, run:
+To install the latest version of the Astronomer CLI, run:
 
 ```
 $ curl -sSL https://install.astronomer.io | sudo bash
 ```
 
-To install a specific version of the Astro CLI, specify `-s -- major.minor.patch` as a flag at the end of the curl command. To install v0.13.1, for example, run:
+To install a specific version of the Astronomer CLI, specify `-s -- major.minor.patch` as a flag at the end of the cURL command. To install v0.16.1, for example, run:
 
 ```
-$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.13.1
+$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.16.1
 ```
 
 #### Note for MacOS Catalina Users:
@@ -76,15 +73,15 @@ If you're running macOS Catalina and beyond, do the following:
 $ curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
 ```
 
-## 2. Confirm the Install
+## Step 2: Confirm the Install
 
-To make sure that you have the Astro CLI installed on your machine and have a project to work from, run:
+To make sure that you have the Astronomer CLI installed on your machine, run:
 
 ```bash
 $ astro version
 ```
 
-If the installation was successful, you should see the version of the CLI you installed in the output:
+If the installation was successful, you should see the version of the CLI that you installed in the output:
 
 ```
 Astro CLI Version: 0.15.0
@@ -119,19 +116,19 @@ Flags:
 Use "astro [command] --help" for more information about a command.
 ```
 
-## 3. Initialize an Airflow Project
+## Step 3: Initialize an Airflow Project
 
 Once the Astronomer CLI is installed, the next step is to initialize an Airflow project on Astronomer. Follow the guidelines below.
 
-#### a) Create a new directory on your machine.
+### a. Create a New Directory on Your Machine
+
+To do this in a single command, run:
 
 ```
 $ mkdir <directory-name> && cd <directory-name>
 ```
 
-This is what you should check into your version control tool.
-
-#### b) Create the necessary project files.
+### b. Create the Necessary Project Files
 
 Once you're in that project directory, run:
 
@@ -139,7 +136,7 @@ Once you're in that project directory, run:
 $ astro dev init
 ```
 
-This will generate a collection of files within your directory:
+This will generate the following files in that directory:
 
 ```py
 .
@@ -147,16 +144,19 @@ This will generate a collection of files within your directory:
 │   ├── example-dag.py # An example dag that comes with the initialized project
 ├── Dockerfile # For Astronomer's Docker image and runtime overrides
 ├── include # For any other files you'd like to include
-├── packages.txt # For OS-level packages
 ├── plugins # For any custom or community Airflow plugins
+├──airflow_settings.yaml #For your Airflow Connections, Variables and Pools (local only)
+├──packages.txt # For OS-level packages
 └── requirements.txt # For any Python packages
 ```
 
-These files collectively make up the Docker image you'll then push to the Airflow instance on your local machine, or to a Deployment on Astronomer Cloud or Enterprise.
+These files make up the Docker image you'll then push to the Airflow instance on your local machine or to an Airflow Deployment on Astronomer Cloud.
 
-## 4. Start Airflow Locally
+## Step 4: Start Airflow Locally
 
-To spin up a local Airflow Deployment on your machine, run:
+### a. Start Airflow
+
+To start Airflow on your local machine, run:
 
 ```
 $ astro dev start
@@ -168,45 +168,84 @@ This command will spin up 3 Docker containers on your machine, each for a differ
 - **Webserver:** The Airflow component responsible for rendering the Airflow UI
 - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
-Run `docker ps` to verify that these containers were created. Once you've run `astro dev start`, you'll be able to access the following components locally:
+The image might take some time to build the first time you run this command on your machine. After that, it will build from cached layers.
 
-- Airflow Webserver: http://localhost:8080/admin/ (Credentials are `admin:admin` by default)
-- Postgres Database: localhost:5432/postgres
+As your image builds, you should see the following output:
+
+```
+$ astro dev start
+Env file ".env" found. Loading...
+Sending build context to Docker daemon  10.75kB
+Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
+# Executing 5 build triggers
+ ---> Using cache
+ ---> Using cache
+ ---> Using cache
+ ---> Using cache
+ ---> Using cache
+ ---> 5160cfd00623
+Successfully built 5160cfd00623
+Successfully tagged astro-trial_705330/airflow:latest
+INFO[0000] [0/3] [postgres]: Starting
+INFO[0002] [1/3] [postgres]: Started
+INFO[0002] [1/3] [scheduler]: Starting
+INFO[0003] [2/3] [scheduler]: Started
+INFO[0003] [2/3] [webserver]: Starting
+INFO[0004] [3/3] [webserver]: Started
+Airflow Webserver: http://localhost:8080
+Postgres Database: localhost:5432/postgres
+The default credentials are admin:admin
+```
+
+For guidelines on accessing your Postgres database both locally and on Astronomer, read [Access the Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/).
+
+### b. Verify Docker Containers
+
+To verify that all 3 Docker containers were created, run:
+
+```
+$ docker ps
+```
+
+> **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432.
+>
+> If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
+
+### c. Open the Airflow UI
+
+To access the Airflow UI of your local Airflow project, go to http://localhost:8080/ and log in with `admin` as both your Username and Password.
+
+You should also be able to access your Postgres Database at: `localhost:5432/postgres`.
 
 For guidelines on accessing your Postgres database both locally and on Astronomer, refer to the [Access Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/) guide.
 
-> **Note:** The image might take some time to build the first time. After that, it will build from cached layers.
+## Step 5: Authenticate to Astronomer
 
-
-## 5. Authenticate to Astronomer
-
-To authenticate to Astronomer Cloud via the CLI, run:
+To authenticate to Astronomer Cloud via the Astronomer CLI, run:
 
 ```
 $ astro auth login gcp0001.us-east4.astronomer.io
 ```
 
-If you created your account with a username and password, you'll be prompted to enter them directly in your terminal. If you did so via OAuth (Google, GitHub, Okta, etc.), you'll be prompted to grab a temporary token from the Astronomer UI in your browser.
+If you created your account with a username and password, you'll be prompted to enter them directly in your terminal. If you did so via Google or GitHub, you'll be prompted to grab a temporary token from the Astronomer UI in your browser.
+
+If you do not yet have an account on Astronomer, ask a Workspace Admin on your team to send you an invitation or [reach out to us](/get-astronomer?ref=docs) to start a free 14-day trial on Astronomer Cloud.
 
 > **Note:** Once you run this command once, it should stay cached and allow you to just run `astro auth login` to authenticate more easily in the future.
 
-If you do not yet have an account on Astronomer, ask your System Administrator for access, [start a new trial on Astronomer Cloud](/trial/), or [reach out to us](https://support.astronomer.io/hc/en-us).
-
-## Apply Changes using the CLI
+## Next Steps: Apply Changes using the CLI
 
 As you develop locally, it's worth noting that some changes made to your image are automatically applied, while other changes made to a certain set of files require rebuilding your image in order for them to render.
 
-Read below for guidelines on both.
-
 ### Code Changes
 
-All changes made to the following files will be picked up automatically:
+All changes made to the following files will be picked up as soon as they're saved to your code editor:
 
 - `dags`
 - `plugins`
 - `include`
 
-Make sure to save changes in your code editor and refresh the Airflow Webserver in your browser to see them render.
+Once you save your changes, refresh the Airflow Webserver in your browser to see them render.
 
 ### Other Changes
 
@@ -231,18 +270,18 @@ $ astro dev start
 
 ## Additional Resources
 
-For more information on our CLI specifically, feel free to reference:
+For more information on the Astronomer CLI, feel free to reference:
 
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
 * [CLI README on GitHub](https://github.com/astronomer/astro-cli#astronomer-cli----)
 
-### Beyond the CLI
+## Beyond the CLI
 
-Looking for next steps after installing the Astronomer CLI? We recommend reading through the following guides:
+Looking for additional next steps after installing the Astronomer CLI? We recommend reading through the following guides:
 
 * [Deploying to Astronomer](/docs/cloud/stable/deploy/deploy-cli/)
-* [Customizing your Image](/docs/cloud/stable/develop/customize-image/)
+* [Customizing Your Image](/docs/cloud/stable/develop/customize-image/)
 * [Manage Airflow Versions](/docs/cloud/stable/customize-airflow/manage-airflow-versions/)
-* [CI/CD](/docs/cloud/stable/deploy/ci-cd/)
+* [Deploy to Astronomer via CI/CD](/docs/cloud/stable/deploy/ci-cd/)
 
-As always, don't hesitate to reach out to the [Astronomer Support Portal](https://support.astronomer.io/hc/en-us) or [Astronomer Forum](https://forum.astronomer.io/) for additional questions.
+As always, don't hesitate to reach out to [Astronomer Support](https://support.astronomer.io/hc/en-us) or post in our [Astronomer Forum](https://forum.astronomer.io/) for additional questions.
