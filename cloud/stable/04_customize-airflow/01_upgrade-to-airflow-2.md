@@ -124,7 +124,7 @@ Problems:
 ```
 
 For more information on upgrade check functionality, read [Upgrade Check Script](
-]http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/upgrade-check.html#upgrade-check) from Apache Airflow.
+]https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html#upgrade-check) from Apache Airflow.
 
 ## Step 3: Prepare Airflow 2.0 DAGs
 
