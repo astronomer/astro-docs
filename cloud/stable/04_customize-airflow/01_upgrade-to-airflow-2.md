@@ -1,12 +1,12 @@
 ---
-title: "Upgrade to Airflow 2.0 on Astronomer"
+title: "Upgrade to Apache Airflow 2.0 on Astronomer"
 navTitle: "Upgrade to Airflow 2.0"
 description: "How to prepare for and upgrade to Airflow 2.0 on Astronomer."
 ---
 
 ## Overview
 
-Airflow 2.0 is a momentous open-source release that we're thrilled to support. For those eager to learn more about Airflow 2.0 and upgrade an existing Airflow Deployment on Astronomer, read the guidelines below.
+Apache Airflow 2.0 is a momentous open-source release that we're thrilled to support. For those eager to learn more about Airflow 2.0 and upgrade an existing Airflow Deployment on Astronomer, read the guidelines below.
 
 At a high-level, the recommended upgrade path is as follows:
 
@@ -24,10 +24,10 @@ Following a section that highlights the biggest features included in Airflow 2.0
 
 Airflow 2.0 is built to be faster, more reliable, and significantly more scalable than 1.10. Among the hundreds of new features both large and small, Airflow 2.0 includes:
 
-- [Refactored Airflow Scheduler](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/scheduler.html#running-more-than-one-scheduler) for enhanced performance and high-availability.
-- [Full REST API](https://airflow.readthedocs.io/en/latest/stable-rest-api-ref.html) that enables opportunity for automation.
-- [Smart Sensors](https://airflow.readthedocs.io/en/latest/smart-sensor.html) that execute as single, long-running tasks.
-- [TaskFlow API](https://airflow.readthedocs.io/en/latest/concepts.html#taskflow-api) for a simpler way to pass information between tasks.
+- [Refactored Airflow Scheduler](https://airflow.apache.org/docs/apache-airflow/stable/scheduler.html#running-more-than-one-scheduler) for enhanced performance and high-availability.
+- [Full REST API](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html) that enables opportunity for automation.
+- [Smart Sensors](https://airflow.apache.org/docs/apache-airflow/stable/smart-sensor.html) that execute as single, long-running tasks.
+- [TaskFlow API](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#taskflow-api) for a simpler way to pass information between tasks.
 - [Independent Providers](https://github.com/apache/airflow/tree/master/airflow/providers) for improved usability and a more agile release cadence.
 - Simplified KubernetesExecutor for ultimate flexibility in configuration.
 - [UI/UX Improvements](https://github.com/apache/airflow/pull/11195) including a new Airflow UI and auto-refresh button in the **Graph** view.
@@ -36,7 +36,7 @@ Airflow 2.0 is built to be faster, more reliable, and significantly more scalabl
 
 For more information on Airflow 2.0, we highly recommend the following:
 
-- ["Introducing Airflow 2.0"](https://www.astronomer.io/blog/introducing-airflow-2-0) Blog Post from Astronomer
+- ["Introducing Airflow 2.0" blog post](https://www.astronomer.io/blog/introducing-airflow-2-0) from Astronomer
 - [Airflow 2.0 YouTube Series](https://www.youtube.com/playlist?list=PLCi-q9vYo4x-PESoBcXN0tXCMgzh5c_Pj) from Astronomer
 - Official Airflow 2.0 Changelog
 - Airflow 2.0 Blog Post from the Apache Airflow Project
@@ -188,7 +188,6 @@ You're all set! If you have any questions or issues, feel free to:
 Our team is here to help alongside the open source community.
 
 If you find a bug or problem in Airflow, file a GitHub issue in the [Apache Airflow GitHub repo]((https://github.com/apache/airflow/issues)). We'll be working with open source contributors towards subsequent 2.0 releases and are committed to regularly triaging community-reported issues.
-
 
 
 
