@@ -91,7 +91,7 @@ and can return any of the fields under `Type Details`:
 
 For instance, you can run the following:
 
-```
+```gql
 query workspaceDeployments {
   workspaceDeployments(
     releaseName: "mathematical-probe-2087"
@@ -116,7 +116,7 @@ To view results, press the "Play" button in middle of the page and see them rend
 
 To query for information about a user on the platform (e.g. "When was this user created?" "Does this user exist?" "What roles do they have on any Workspace?"), run a variation of the following:
 
-```
+```gql
 query GetUser {
   users(email:"<name@mycompany.com>")
   {
@@ -154,7 +154,7 @@ If you don't already have a `deploymentUuid`, first run the query in the "Query 
 
 With the `deploymentUuid`, run the following:
 
-```
+```gql
 mutation DeleteDeployment {
   deleteDeployment (
     deploymentUuid: "<DEPLOYMENTUUID>"
@@ -173,7 +173,7 @@ To delete a User, you'll need:
 
 With a `userUuid`, run the following:
 
-```
+```gql
 mutation removeUser {
 	removeUser (
     userUuid: "<USERUUID>"
@@ -196,7 +196,7 @@ To run this mutation, you'll need:
 
 With the email address in question, run the following:
 
-```
+```gql
 mutation verifyEmail {
 	verifyEmail (
     email: "<USERUUID>"
@@ -217,7 +217,7 @@ System Admins can be added either via the Astronomer UI ('System Admin' > 'User'
 
 With the `uuid` you pulled above, call the `createSystemRoleBinding` mutation by running:
 
-```
+```gql
 mutation AddAdmin {
   createSystemRoleBinding(
     userId: "<uuid>"
@@ -248,7 +248,7 @@ As input, you need:
 
 With that information, run the following:
 
-```
+```gql
 mutation WorkspaceAddUser {
 	workspaceAddUser (
     workspaceUuid: "<WORKSPACEUUID>"

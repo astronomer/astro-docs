@@ -82,14 +82,14 @@ You can make requests via the method of your choosing. Below, we'll walk through
 If you'd like to externally trigger a DAG run, you can start with a generic cURL command to Airflow's POST endpoint: 
 
 ```
-POST /api/experimental/dags/<DAG_ID>/dag_runs
+POST /airflow/api/experimental/dags/<DAG_ID>/dag_runs
 ```
 
 This command would look like this:
 
 ```
 curl -v -X POST
-https://AIRFLOW_DOMAIN/api/experimental/dags/<DAG_ID>/dag_runs
+https://AIRFLOW_DOMAIN/airflow/api/experimental/dags/<DAG_ID>/dag_runs
 -H 'Authorization: <API_Key> ’
 -H ‘Cache-Control: no-cache’
 -H ‘content-type: application/json’ -d ‘{}’

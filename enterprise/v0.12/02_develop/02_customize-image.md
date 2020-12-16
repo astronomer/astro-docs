@@ -298,7 +298,7 @@ RUN pip install --no-cache-dir -q -r requirements.txt
 FROM stage1 AS stage3
 # Copy requirements directory
 COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
-ONBUILD COPY . .
+COPY . .
 ```
 
 In 3 stages, this file is bundling up your SSH keys, OS-Level packages in `packages.txt` and Python Packages in `requirements.txt` from your private directory into a Docker image.
