@@ -6,6 +6,14 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.23
 
+### v0.23.6
+
+Release Date: December 16, 2020
+
+#### Bug Fixes & Improvements
+
+- BugFix: Error on Deployment page in Astronomer UI if Deployment was created before August 10th, 2020 and Webserver resources have not been modified (`Cannot read property 'limits' of undefined`)
+
 ### v0.23.5
 
 Release Date: December 14, 2020
