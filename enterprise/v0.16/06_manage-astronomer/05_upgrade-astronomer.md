@@ -41,19 +41,19 @@ Read below for specific guidelines.
 >
 > Now, Airflow Chart changes only take effect when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
 
-#### 1. Ensure you have a copy of your Astronomer config.yaml file.
+### 1. Ensure You Have a Copy of Your Astronomer config.yaml File
 
 First, ensure you have a copy of the `config.yaml` file of your platform namespace if you don't already.
 
 To do this, you can run:
 
 ```sh
-$ helm get values -n <namespace> <release name of astronomer> > config.yaml
+$ helm get values <your-platform-release-name> -n <your-platform-namespace>  > config.yaml
 ```
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-#### 2. Verify your current platform version.
+### 2. Verify Your Current Platform Version
 
 To verify the version of Astronomer you're currently operating with, run:
 
@@ -61,7 +61,7 @@ To verify the version of Astronomer you're currently operating with, run:
 $ helm list --all-namespaces | grep astronomer
 ```
 
-#### 3. Run Astronomer's patch upgrade script.
+### 3. Run Astronomer's Patch Upgrade Script
 
 Now, review and run the script below to upgrade to the patch version of your choice.
 
@@ -103,16 +103,16 @@ We're working on a more robust and reliable upgrade process for our next Astrono
 
 ## Configure Platform Settings Between Upgrades
 
-You can configure platform-wide settings without needing to upgrade Astronomer versions. Using Helm, any of the settings your platform uses, including ones available in the Astronomer UI, can be updated through a few simple commands. For example, you can use Helm to:
+You can configure platform-wide settings without needing to upgrade Astronomer versions. Using Helm, any of the settings for your platform can be updated through a few simple commands. For example, you can use Helm to:
 
 * [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system)
 * [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/registry-backend)
 * [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources)
 * Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml)
 
-To do so:
+To configure these settings without upgrading, follow the steps below.
 
-#### 1. Open your config.yaml file.
+### 1. Open Your config.yaml File
 
 This file was created when you installed Astronomer using one of the following guides:
 
@@ -120,24 +120,32 @@ This file was created when you installed Astronomer using one of the following g
 * [GCP GKE Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
 * [Azure AKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/azure/install-azure-standard#6-configure-your-helm-chart)
 
-#### 2. Update key-value pairs in config.yaml.
+### 2. Update Key-Value Pairs in config.yaml
 
 To update any of your existing settings, modify them directly in `config.yaml`. To update a setting you haven't already specified, copy the corresponding key-value pair from the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml) into your `config.yaml` file and modify the value from there.
 
 When you have finished updating the key-value pairs, ensure that they have the same relative order and indentation as they do in the default configuration file. If they don't, your changes might not be properly applied.
 
-#### 3. Push the changes to your Astronomer platform.
+### 3. Push the Changes to Your Astronomer Platform
 
 Save `config.yaml`, then run the following command:
 
 ```sh
-$ helm -n <your-namespace> upgrade <your-platform-release-name> astronomer/astronomer --version=<your-platform-version> -f config.yaml
+$ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml -n <your-platform-namespace> --version=<your-platform-version>
 ```
 
-If you don't know the value for `<your-platform-release-name>`, you can find it by running `helm ls -n <your-namespace>`.
+>**Tip:** The value for `<your-platform-namespace>` can be found in your list of active namespaces. To show this list, run:
+```
+kubectl get ns
+```
+>
+>To get the value for `<your-platform-release-name>`, run:
+```
+helm ls -n <your-platform-namespace>
+```
 
-To see the updated key-value pairs in your terminal, you can run:
+To see the updated key-value pairs in your terminal, run the following:
 
 ```sh
-$ helm get values -n <your-namespace> <your-platform-release-name>
+$ helm get values <your-platform-release-name> -n <your-platform-namespace>
 ```
