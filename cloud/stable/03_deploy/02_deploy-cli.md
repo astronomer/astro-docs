@@ -12,7 +12,7 @@ In order to push up code to a Deployment on Astronomer, you must have:
 
 * [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) Installed
 * An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
-* A [Workspace](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces).
+* A [Workspace](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## Step 1: Create an Airflow Deployment
 
@@ -24,7 +24,8 @@ To create an Airflow Deployment on Astronomer, log into [Astronomer Cloud](https
 
 Use the **New Deployment** menu to configure the following:
 
-* **Name** and **Description** (optional)
+* **Name**
+* **Description** (optional)
 * **Airflow Version**: We recommend using the latest version.
 * **Executor**: We recommend starting with Local.
 
@@ -38,14 +39,17 @@ Once you've initialized your Deployment, give it a few moments to spin up. After
 
 From this dashboard, you can:
 
+- Modify your Resources
+- Initialize the Airflow upgrade process
+- Configure **Email Alerts**
 - Access the Airflow UI
-- Reallocate your resources.
-- Open the Kubernetes or Celery (if you configured your Deployment to use one of those executors).
+- Access your Celery Dashboard (if using CeleryExecutor)
+- Delete your Deployment
 
 
 ## Step 3: Deploy Code from the CLI
 
-First, authenticate to the CLI:
+First, authenticate to Astronomer Cloud via CLI:
 
 
 ```
@@ -53,7 +57,7 @@ $ astro auth login gcp0001.us-east4.astronomer.io
 ```
 
 
-From the Astronomer CLI, you have access to any Workspace you have access to on the Astronomer UI.
+From the Astronomer CLI, you have access to any Workspace that you have access to in the Astronomer UI.
 
 To see the list of all the Workspaces you have access to push code to, run:
 
@@ -64,24 +68,22 @@ $ astro workspace list
 To switch between Workspaces, run:
 
 ```
-$ astro workspace switch [UUID]
+$ astro workspace switch
 ```
 
 To see a list of Deployments in a Workspace, run:
 
 ```
 $ astro deployment list
- NAME             RELEASE NAME             ASTRO      DEPLOYMENT ID
- demo_cluster     infrared-photon-7780     v0.17.0     c2436025-d501-4944-9c29-19ca61e7f359
 ```
 
-To deploy on Astronomer, go to your Airflow project directory and run:
+To deploy on Astronomer, first make sure you're in your Airflow project directory. Then, run:
 
 ```
 $ astro deploy
 ```
 
-If it's your first time deploying, expect to wait a minute or two for the Docker Image to build. If the deployment was successful, your code changes will appear directly in Airflow.
+If it's your first time deploying, expect to wait a few minutes for the Docker Image to build. To confirm that the deployment was successful, open your Deployment in the Astronomer UI and click **Open Airflow** to see your changes in the Airflow UI.
 
 ### What gets Deployed?
 
@@ -101,6 +103,6 @@ While the specific needs of your organization might require a slightly different
 
 **Workspaces:** We recommend having 1 Workspace per team of Airflow users, so that anyone on this team has access to the same set of Deployments under that Workspace.
 
-**Deployments:** Most use cases will call for a `production` and `dev` Deployment, both of which exist within a single Workspace and are accessible to the same set of users. From there, you can [set permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) to give users in the Workspace access to specific Deployments.
+**Deployments:** Most use cases will call for a "Production" and "Dev" Deployment, both of which exist within a single Workspace and are accessible to a shared set of users. From there, you can [set permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) to give users in the Workspace access to specific Deployments.
 
 **Code:** As for the code itself, we’ve seen effective organization where external code is partitioned by function and/or business case, so one directly for SQL, one for data processing tasks, one for data validation, etc.
