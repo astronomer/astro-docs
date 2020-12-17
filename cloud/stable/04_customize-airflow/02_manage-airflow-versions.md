@@ -24,6 +24,7 @@ Read below for details.
 
 Astronomer Certified offers support for the following versions of Apache Airflow:
 
+- [Airflow 2.0.0](https://airflow.apache.org/blog/airflow-two-point-oh-is-here/)
 - [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14)
 - [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
 - [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
@@ -152,16 +153,16 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 
 > **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
 
+| Airflow Version                                                                       | Debian-based Image                                        | Alpine-based Image                                            |
+| ------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------- |
+| [v1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)   | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild  | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild  |
+| [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)   | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild  | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild  |
+| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild |
+| [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild | ROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild  |
+| [v1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild | N/A                                                           |
+| [v2.0.0](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md)     | FROM quay.io/astronomer/ap-airflow:2.0.0-buster-onbuild   | N/A                                                           |
 
-| Airflow Version | Alpine-based Image                          | Debian-based Image
-|-----------------|-----------------------------------------------------|-----------------------------------------------------|
-| [v1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild |
-| [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild |
-| [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
-| [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild |
-| [v1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md)         | N/A | FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild |
-
-> **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
+> **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
 
 ### Step 3: Rebuild your Image
 
@@ -214,7 +215,7 @@ If you're on Astronomer Cloud, navigate to your Airflow Deployment via Astronome
 
 In addition to supporting the latest versions of open source Airflow on Astronomer Certified (AC), our team regularly ships bug and security fixes to AC images as _patch_ releases.
 
-For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release: 
+For example, Astronomer Certified 1.10.10 has been enhanced with 4 additional patches since its initial release:
 
 - 1.10.10-2
 - 1.10.10-3
@@ -235,5 +236,5 @@ If you're looking for the latest Astronomer Certified 1.10.10, for example, you 
 In this case, that would be: `FROM quay.io/astronomer/ap-airflow:1.10.10-5-buster-onbuild` (Debian).
 
 > **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Certified image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
-> 
+>
 > If a patch release becomes available _after_ you've already built an Astronomer Certified image for the first time, subsequent code pushes will _not_ automatically pull the latest corresponding patch. You must follow the process above to pin your image to a particular version.
