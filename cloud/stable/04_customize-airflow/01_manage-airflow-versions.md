@@ -24,7 +24,7 @@ Read below for details.
 
 Astronomer Certified offers support for the following versions of Apache Airflow:
 
-- [Airflow 2.0.0](https://airflow.apache.org/blog/airflow-two-point-oh-is-here/index.md)
+- [Airflow 2.0.0](https://airflow.apache.org/blog/airflow-two-point-oh-is-here/)
 - [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14)
 - [Airflow 1.10.12](https://airflow.apache.org/blog/airflow-1.10.12/)
 - [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
