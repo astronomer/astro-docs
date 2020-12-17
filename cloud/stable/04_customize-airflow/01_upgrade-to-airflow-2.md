@@ -92,7 +92,7 @@ Once you've upgraded to 1.10.14, you're ready to start making your DAGs and conf
 
 For a comprehensive list of recommended and required changes specific to your existing project, run the Airflow upgrade check script via the Astronomer CLI. The script reviews your DAG code, deployment-level configuration and Environment Variables, as well as metadata from the Airflow Database.
 
-#### a. Run the Upgrade Check from the Astronomer CLI
+### a. Run the Upgrade Check from the Astronomer CLI
 
 To run the Airflow 2.0 upgrade check script, run:
 
@@ -102,7 +102,7 @@ $ astro dev upgrade-check
 
 This command will automatically install the latest version of the `apache-airflow-upgrade-check` package at runtime and output results from the corresponding Airflow CLI command. It is only supported locally.
 
-#### b. Review Upgrade Check Recommendations
+### b. Review Upgrade Check Recommendations
 
 In response to the command above, you should see something like the following:
 
