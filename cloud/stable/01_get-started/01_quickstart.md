@@ -89,7 +89,7 @@ Create a new project directory on your machine and `cd` to it:
 $ mkdir <directory-name> && cd <directory-name>
 ```
 
-This project directory is where you'll store all the necessary files files to build and deploy your Airflow image.
+This project directory is where you'll store all the necessary files to build and deploy your Airflow image.
 
 In the project directory, run:
 
