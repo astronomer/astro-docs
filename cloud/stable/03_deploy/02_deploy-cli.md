@@ -106,7 +106,7 @@ When you're ready to deploy your DAGs, run:
 $ astro deploy
 ```
 
-This command will return a list of Airflow Deployments available in your Workspace and prompt you to pick one.
+This command returns a list of Airflow Deployments available in your Workspace and prompts you to pick one.
 
 ### d. Validate your changes
 
