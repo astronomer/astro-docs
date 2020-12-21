@@ -97,7 +97,7 @@ A few important notes:
 - Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on GKE.
 - We recommend using the [`n1-standard-8` machine type](https://cloud.google.com/compute/docs/machine-types#n1_standard_machine_types) with a minimum of 3 nodes (24 CPUs) as a starting point.
 - The Astronomer platform and all components within it will consume ~11 CPUs and ~40GB of memory as the default overhead, so we generally recommend using larger vs smaller nodes.
-- For more detailed instructions and a full list of optional flags, refer to GKE's ["Creating a Cluster"](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster). 
+- For more detailed instructions and a full list of optional flags, refer to GKE's ["Creating a Cluster"](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster).
 
 If you work with multiple Kubernetes environments, `kubectx` is an incredibly useful tool for quickly switching between Kubernetes clusters. Learn more [here](https://github.com/ahmetb/kubectx).
 
@@ -275,7 +275,7 @@ Note - the SMTP URI will take the form:
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
-For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/016_patch/configs).
+For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.16/configs).
 
 Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
 
