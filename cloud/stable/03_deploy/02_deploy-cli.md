@@ -32,7 +32,7 @@ To create an Airflow Deployment on Astronomer, log into [Astronomer Cloud](https
 
 ![Workspace Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-deployments.png)
 
-## Step 2: Configure your Airflow Deployment
+## Step 2: Configure Your Airflow Deployment
 
 Use the **New Deployment** menu to configure the following:
 
@@ -98,7 +98,7 @@ For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/cloud
 
 ### c. Deploy to Astronomer
 
-Finally, make sure you're in the correct Airflow project directory. 
+Finally, make sure you're in the correct Airflow project directory.
 
 When you're ready to deploy your DAGs, run:
 
@@ -108,7 +108,7 @@ $ astro deploy
 
 This command will return a list of Airflow Deployments available in your Workspace and prompt you to pick one.
 
-### d. Validate your Changes
+### d. Validate your changes
 
 If it's your first time deploying, expect to wait a few minutes for the Docker Image to build.
 
