@@ -57,7 +57,7 @@ Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you s
 To verify the version of Astronomer you're currently operating with, run:
 
 ```sh
-helm list --all-namespaces | grep astronomer
+$ helm list --all-namespaces | grep astronomer
 ```
 
 ### 3. Run Astronomer's patch upgrade script
