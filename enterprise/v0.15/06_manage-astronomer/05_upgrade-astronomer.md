@@ -12,7 +12,7 @@ For a detailed breakdown of individual releases, refer to [Astronomer Enterprise
 
 ## Upgrade to Astronomer v0.16
 
-If you're running Astronomer on a version below 0.16, reach out to [Astronomer Support](support.astronomer.io) to request an upgrade. Once you get in touch, our Support and Customer Succcess teams will connect with you to:
+If you're running Astronomer on a version below 0.16, reach out to [Astronomer Support](https://support.astronomer.io) to request an upgrade. Once you get in touch, our Support and Customer Succcess teams will connect with you to:
 
 - Confirm your current platform configurations (Cloud provider, database, Airflow image, # of Airflow Deployments, etc.)
 - Book time with our Infrastructure Engineering team to assist with an upgrade

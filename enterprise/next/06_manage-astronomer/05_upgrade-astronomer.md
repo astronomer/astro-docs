@@ -14,7 +14,6 @@ To help you maintain Astronomer up-to-date, the guide below will walk you throug
 - How to upgrade to a patch version on Astronomer
 - How to upgrade to a minor version on Astronomer
 
-
 For a detailed breakdown of individual releases, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/stable/resources/release-notes/).
 
 ## Astronomer Platform Versioning
@@ -48,7 +47,7 @@ First, ensure you have a copy of the `config.yaml` file of your platform namespa
 To do this, you can run:
 
 ```sh
-$ helm3 get values -n <namespace> <release name of astronomer> >config.yaml
+$ helm get values <your-platform-release-name> -n <your-platform-namespace>  > config.yamls
 ```
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
@@ -58,7 +57,7 @@ Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you s
 To verify the version of Astronomer you're currently operating with, run:
 
 ```sh
-helm3 list --all-namespaces | grep astronomer
+helm list --all-namespaces | grep astronomer
 ```
 
 ### 3. Run Astronomer's patch upgrade script

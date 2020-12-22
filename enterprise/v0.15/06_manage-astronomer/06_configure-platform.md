@@ -1,17 +1,23 @@
 ---
-title: "Apply a Platform Configuration Change"
-navTitle: "Configure the Platform"
-description: "How to push configuration changes via Helm to an Astronomer platform."
+title: "Apply a Platform Configuration Change on Astronomer"
+navTitle: "Apply a Config Change"
+description: "How to apply platform-wide configuration changes to Astronomer via Helm."
 ---
 
-You can configure platform-wide settings without needing to upgrade Astronomer versions. Using Helm, any of the settings for your platform can be updated through a few simple commands. For example, you can use Helm to:
+## Overview
+
+When you install Astronomer, a number of platform-level settings will be set by default. If you'd like to change any of those settings based on the needs of your organization, you can do so at any time using Helm.
+
+For example, you can:
 
 * [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.15/manage-astronomer/integrate-auth-system)
 * [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.15/manage-astronomer/registry-backend)
 * [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.15/manage-astronomer/configure-platform-resources)
 * Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.15/reference/default.yaml)
 
-To configure these settings without upgrading, follow the steps below.
+To configure these settings, follow the steps below.
+
+> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade Astronomer](https://www.astronomer.io/docs/enterprise/v0.15/manage-astronomer/upgrade-astronomer).
 
 ## Step 1: Open Your config.yaml File
 
@@ -36,14 +42,15 @@ $ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml
 ```
 
 > **Tip:** The value for `<your-platform-namespace>` can be found in your list of active namespaces. To show this list, run:
-```sh
-$ kubectl get ns
-```
 >
->To get the value for `<your-platform-release-name>`, run:
-```sh
-$ helm ls -n <your-platform-namespace>
-```
+> ```sh
+> $ kubectl get ns
+> ```
+>
+> To get the value for `<your-platform-release-name>`, run:
+> ```sh
+> $ helm ls -n <your-platform-namespace>
+> ```
 
 To see the updated key-value pairs in your terminal, run the following:
 
