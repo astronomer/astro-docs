@@ -47,7 +47,7 @@ First, ensure you have a copy of the `config.yaml` file of your platform namespa
 To do this, you can run:
 
 ```sh
-$ helm get values <your-platform-release-name> -n <your-platform-namespace>  > config.yamls
+$ helm get values <your-platform-release-name> -n <your-platform-namespace>  > config.yaml
 ```
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.

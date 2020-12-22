@@ -13,7 +13,7 @@ For example, you can:
 * [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.12/manage-astronomer/integrate-auth-system)
 * [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.12/manage-astronomer/registry-backend)
 * [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.12/manage-astronomer/configure-platform-resources)
-* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.13/reference/default.yaml)
+* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.12/reference/default.yaml)
 
 To configure these settings without upgrading, follow the steps below.
 
