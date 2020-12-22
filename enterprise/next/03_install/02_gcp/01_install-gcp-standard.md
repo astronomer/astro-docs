@@ -306,7 +306,7 @@ Note - the SMTP URI will take the form:
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
-For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.17/configs).
+For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.23/configs).
 
 Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
 
