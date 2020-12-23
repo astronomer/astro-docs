@@ -35,25 +35,23 @@ When you have finished updating the key-value pairs, ensure that they have the s
 
 ## Step 3: Push Changes to Your Astronomer Platform
 
-Save your `config.yaml` file, then run the following command:
+1. Find the values for your platform's namespace and release name. The platform release name can be found in your list of active namespaces. To show this list, run:
+```sh
+$ kubectl get ns
+```
+To get the value for the platform release name, run:
+```sh
+$ helm ls -n <your-platform-namespace>
+````
 
+2. Save your `config.yaml` file, then run:
 ```sh
 $ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml -n <your-platform-namespace> --version=<your-platform-version>
 ```
 
-> **Tip:** The value for `<your-platform-namespace>` can be found in your list of active namespaces. To show this list, run:
->
-> ```sh
-> $ kubectl get ns
->```
->
-> To get the value for `<your-platform-release-name>`, run:
-> ```sh
-> $ helm ls -n <your-platform-namespace>
-> ```
-
-To see the updated key-value pairs in your terminal, run the following:
-
+3. Confirm that the key-value pairs were successfully updated by running:
 ```sh
 $ helm get values <your-platform-release-name> -n <your-platform-namespace>
 ```
+
+> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer).
