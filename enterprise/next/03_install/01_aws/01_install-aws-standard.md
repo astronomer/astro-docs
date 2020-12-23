@@ -52,7 +52,7 @@ As you follow the guide linked above, keep in mind:
 
 > **Note:** If you work with multiple Kubernetes environments, `kubectx` is an incredibly useful tool for quickly switching between Kubernetes clusters. Learn more [here](https://github.com/ahmetb/kubectx).
 
-## 3. Create a Namespace
+## Step 3: Create a Namespace
 
 Now that you have a base domain and an EKS cluster up and running, you'll need to create a namespace to host the core Astronomer Platform.
 
@@ -64,11 +64,11 @@ The initial namespace we're creating below will just contain the core Astronomer
 $ kubectl create ns astronomer
 ```
 
-## 4. Configure SSL
+## Step 4: Configure SSL
 
 We recommend running Astronomer Enterprise on a dedicated domain (`BASEDOMAIN`) or subdomain (`astro.BASEDOMAIN`).
 
-As mentioned above, you'll need an SSL Certificate that covers the following subdomians:
+As mentioned above, you'll need a TLS Certificate that covers the following subdomians:
 
 ```
 BASEDOMAIN
@@ -87,42 +87,57 @@ Read below for guidelines on how to obtain a free SSL Cert from [Let's Encrypt](
 
 > **Note:** You're free to use a wildcard cert for your domain (e.g. `*.astro.BASEDOMAIN.com`), but you _cannot_ use a self-signed certificate.
 
-### Obtain a Free SSL Certificate from Let's Encrypt
+### Option 1: Obtain a TLS Certificate from Let's Encrypt
 
-Let's Encrypt is a free and secure service that provides automated SSL Certificates.
+Let's Encrypt is a free and secure service that provides automated SSL Certificates. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security authority.
 
-If you are on a Mac, run the following:
-
-```bash
+1. If you are on a Mac, run the following:
+```sh
 $ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
-
-If you are running Linux:
-
-```bash
+If you are on Linux, run the following:
+```sh
 $ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
-Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
+2. Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
 
-### Create a TLS Secret
-
-Finally, create a Kubernetes Secret named `astronomer-tls` that points to your certificates.
-
-If you used LetsEncrypt, the command looks like the following:
-
-```bash
-sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.mydomain.com/privkey.pem --cert /etc/letsencrypt/live/astro.mydomain.com/fullchain.pem --namespace <my-namespace>
+3. Create a Kubernetes Secret named `astronomer-tls` that points to your certificates:
+```sh
+$ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.BASEDOMAIN.com/privkey.pem --cert /etc/letsencrypt/live/astro.BASEDOMAIN.com/fullchain.pem --namespace <your-namespace>
 ```
 
-Make sure to subsitute the appropriate values for your domain.
 
 > **Note:** If you'd like to use another SSL Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
 > ```bash
 > kubectl create secret tls astronomer-tls --key <path_to_key> --cert <path_to_cert> --namespace <my-namespace>
 > ```
 
-## 5. Configure the Database
+### Option 2: Request a certificate from your enterprise security team
+
+If you are installing Astronomer for a large organization, you'll need to request an SAN certificate from your enterprise security team. The certificate you request needs to be valid for your organization's `BASEDOMAIN` and the subdomains listed above. You should be given a `.pem` file that includes the encrypted certificate.
+
+To confirm that your enterprise security team generated the correct certificate, run the following command using the openssl command line tool:
+
+```sh
+openssl x509 -in  <your-pem-filepath>.pem -text -noout
+```
+
+This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either the subdomains listed above or a single `*.BASEDOMAIN` wildcard domain, then the certificate was generated correctly.
+
+Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, you can proceed to the Create a TLS Secret section. If you received a certificate from a private certificate authority, complete the following additional setup:
+
+1. Run the following command to generate Astronomer certificates:
+```sh
+openssl x509 -req -in astronomer.csr -CA privateCA.pem -CAkey privateCA.key -CAcreateserial \ -out astronomer.crt -days 825 -sha256 -extfile astronomer.ext
+```
+2. Add the root certificate provided by your security team to a secret in the Astronomer namespace:
+```sh
+kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-pem-filepath>.pem
+```
+3. When configuring the Helm chart for installing Astronomer, be sure to specify the `privateCaCerts` key value pair with `private-root-ca`.
+
+## Step 5: Configure the Database
 
 Astronomer by default requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
 
@@ -144,7 +159,7 @@ kubectl create secret generic astronomer-bootstrap \
 
 > **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size.
 
-## 6. Configure your Helm Chart
+## Step 6: Configure your Helm Chart
 
 As a next step, create a file named `config.yaml` in an empty directory.
 
@@ -158,44 +173,56 @@ In the newly created file, copy the example below and replace `baseDomain` and `
 ### Astronomer global configuration
 #################################
 global:
-  # Base domain for all subdomains exposed through ingress
-  baseDomain: astro.mydomain.com
+  # Base domain for all subdomains exposed through ingress
+  baseDomain: astro.mydomain.com
 
-  # Name of secret containing TLS certificate
-  tlsSecret: astronomer-tls
+  # Name of secret containing TLS certificate
+  tlsSecret: astronomer-tls
+  # Only configure privateCaCerts if your enterprise security team
+  # generated a certificate from a private certificate authority.
+  privateCaCerts:
+  - private-root-ca
+  # Only enable privateCaCertsAddToHost when your nodes do not already
+  # include the private CA in their docker trust store.
+  # Most enterprises already have this configured,
+  # and in that case 'enabled' should be false.
+  privateCaCertsAddToHost:
+    enabled: true
+    hostDirectory: /etc/docker/certs.d
+  postgresqlEnabled: true
 
 #################################
 ### Nginx configuration
 #################################
 nginx:
-  # IP address the nginx ingress should bind to
-  loadBalancerIP: ~
+  # IP address the nginx ingress should bind to
+  loadBalancerIP: ~
 
 #################################
 ### SMTP configuration
 #################################
 
 astronomer:
-  houston:
-    config:
-      publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
-      emailConfirmation: true # Users get an email verification before accessing Astronomer
-      deployments:
-        manualReleaseNames: true # Allows you to set your release names
-        serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
-      email:
-        enabled: true
-        smtpUrl: YOUR_URI_HERE
-        reply: "noreply@astronomer.io" # Emails will be sent from this address
-      auth:
-        # Local database (user/pass) configuration.
-        github:
-          enabled: true # Lets users authenticate with Github
-        local:
-          enabled: false # Disables logging in with just a username and password
-        openidConnect:
-          google:
-            enabled: true # Lets users authenticate with Google
+  houston:
+    config:
+      publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
+      emailConfirmation: true # Users get an email verification before accessing Astronomer
+      deployments:
+        manualReleaseNames: true # Allows you to set your release names
+        serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
+      email:
+        enabled: true
+        smtpUrl: YOUR_URI_HERE
+        reply: "noreply@astronomer.io" # Emails will be sent from this address
+      auth:
+        # Local database (user/pass) configuration.
+        github:
+          enabled: true # Lets users authenticate with Github
+        local:
+          enabled: false # Disables logging in with just a username and password
+        openidConnect:
+          google:
+            enabled: true # Lets users authenticate with Google
 ```
 
  SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
@@ -211,7 +238,7 @@ Information on other auth systems can be found [here](/docs/enterprise/v0.16/man
 
 ## 7. Install Astronomer
 
-Now that you have an EKS cluster set up and your `config.yaml` defined, you're ready to deploy all components of our platform.
+Now that you have an EKS cluster set up and your `config.yaml` file defined, you're ready to deploy all components of our platform.
 
 First, run:
 
@@ -353,11 +380,27 @@ curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <toke
 
 > **Note:** The `-k` flag will run the command without looking for SSL
 
-Finally, to make sure the registry accepted SSL, try to log into the registry:
+Finally, to make sure the registry is accepted by Astronomer's local docker client, try logging into Astronomer with the Astronomer CLI:
 
 ```
-docker login registry.BASEDOMAIN -u _ -p <token>
+astro auth login <your-astronomer-base-domain>
 ```
+
+If you can log in, then your Docker client trusts the registry. If docker does not trust the Astronomer registry, run the following and restart Docker:
+```
+$ mkdir -p /etc/docker/certs.d
+$ cp privateCA.pem /etc/docker/certs.d/
+```
+Next, try running `astro deploy` on a test deployment. Create a deployment in the Astronomer UI, then run:
+```
+$ mkdir demo
+$ cd demo
+$ astro airflow init
+$ astro deploy -f
+```
+Check the Airflow namespace. If pods are changing at all, then the Houston API trusts the registry.
+
+If you have Airflow pods in the state "ImagePullBackoff", check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, refer to X to add them later.
 
 ## 12. What's Next
 
