@@ -12,7 +12,7 @@ For a detailed breakdown of individual releases, refer to [Astronomer Enterprise
 
 ## Upgrade to Astronomer v0.16
 
-If you're running Astronomer on a version below 0.16, reach out to [Astronomer Support](support.astronomer.io) to request an upgrade. Once you get in touch, our Support and Customer Succcess teams will connect with you to:
+If you're running Astronomer on a version below 0.16, reach out to [Astronomer Support](https://support.astronomer.io) to request an upgrade. Once you get in touch, our Support and Customer Succcess teams will connect with you to:
 
 - Confirm your current platform configurations (Cloud provider, database, Airflow image, # of Airflow Deployments, etc.)
 - Book time with our Infrastructure Engineering team to assist with an upgrade
@@ -30,4 +30,3 @@ Astronomer platform releases follow a semantic versioning scheme. All versions a
 - Z: Patch/Hotfix
 
 For example, upgrading Astronomer from `v0.16.4` to `v0.16.5` would be considered upgrading to a "patch" version whereas upgrading from `v0.15.0` to `v0.16.0` would be considered upgrading to the latest "minor" version.
-

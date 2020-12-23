@@ -40,27 +40,27 @@ Read below for specific guidelines.
 >
 > Now, Airflow Chart changes only take effect when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
 
-### Ensure you have a copy of your Astronomer `config.yaml`
+### 1. Ensure you have a copy of your Astronomer config.yaml file
 
 First, ensure you have a copy of the `config.yaml` file of your platform namespace if you don't already.
 
 To do this, you can run:
 
 ```sh
-$ helm3 get values -n <namespace> <release name of astronomer> > config.yaml
+$ helm get values <your-platform-release-name> -n <your-platform-namespace>  > config.yaml
 ```
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### Verify your current Platform Version
+### 2. Verify your current platform version
 
 To verify the version of Astronomer you're currently operating with, run:
 
 ```sh
-helm3 list --all-namespaces | grep astronomer
+$ helm list --all-namespaces | grep astronomer
 ```
 
-### Run Astronomer's Patch Upgrade Script
+### 3. Run Astronomer's patch upgrade script
 
 Now, review and run the script below to upgrade to the patch version of your choice.
 
@@ -99,5 +99,4 @@ helm3 upgrade --namespace $NAMESPACE \
 
 If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/stable/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](https://support.astronomer.io).
 
-We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Fall 2020.
-
+We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Winter 2021.
