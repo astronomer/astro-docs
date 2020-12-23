@@ -241,11 +241,13 @@ Now, test your new change locally via the Astronomer CLI by running:
 1. `$ astro dev stop`, then
 2. `$ astro dev start`
 
-If your image does not build successfully, it's likely you're missing additional dependencies.
+If your image does not build successfully, it's likely you're missing additional dependencies, Add them as needed.
+
+For help from our team, reach out to [Astronomer Support](https://support.astronomer.io).
 
 ### Step 5. Push to Astronomer.
 
-If your image *does* build successfully, you're ready to push it to Astronomer.
+If your image *does* build successfully, you're ready to push it to your Airflow Deployment Astronomer.
 
 To do so, simply run:
 
