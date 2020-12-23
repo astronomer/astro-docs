@@ -39,7 +39,8 @@ When you have finished updating the key-value pairs, ensure that they have the s
 ```sh
 $ kubectl get ns
 ```
-To get the value for the platform release name, run:
+To identify the value for your platform release name, run:
+
 ```sh
 $ helm ls -n <your-platform-namespace>
 ````
