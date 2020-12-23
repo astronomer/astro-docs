@@ -35,7 +35,8 @@ When you have finished updating the key-value pairs, ensure that they have the s
 
 ## Step 3: Push Changes to Your Astronomer Platform
 
-1. Find the values for your platform's namespace and release name. The platform release name can be found in your list of active namespaces. To show this list, run:
+1. Find the values for your platform's namespace and release name. Your platform release name can be found in your list of active namespaces. To show this list, run:
+
 ```sh
 $ kubectl get ns
 ```
