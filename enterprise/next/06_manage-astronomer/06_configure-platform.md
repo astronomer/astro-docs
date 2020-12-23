@@ -1,0 +1,53 @@
+---
+title: "Apply a Platform Configuration Change"
+navTitle: "Apply a Platform Configuration"
+description: "How to push configuration changes via Helm to an Astronomer platform."
+---
+
+## Overview
+
+When you install Astronomer, a number of platform-level settings will be set by default. If you'd like to change any of those settings based on the needs of your organization, you can do so at any time using Helm. For example, you can:
+
+* [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system)
+* [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/registry-backend)
+* [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources)
+* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/stable/reference/default.yaml)
+
+To update a setting and push it to your platform follow the steps below.
+
+## Step 1: Open Your config.yaml File
+
+This file was created when you installed Astronomer using one of the following guides:
+
+* [AWS EKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/aws/install-aws-standard#6-configure-your-helm-chart)
+* [GCP GKE Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
+* [Azure AKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/azure/install-azure-standard#6-configure-your-helm-chart)
+
+## Step 2: Update Key-Value Pairs
+
+To update any of your existing settings, modify them directly in your `config.yaml` file. To update a setting you haven't already specified, copy the corresponding key-value pair from the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/stable/reference/default.yaml) into your `config.yaml` file and modify the value from there.
+
+When you have finished updating the key-value pairs, ensure that they have the same relative order and indentation as they do in the default configuration file. If they don't, your changes might not be properly applied.
+
+## Step 3: Push Changes to Your Astronomer Platform
+
+1. Find the values for your platform's namespace and release name. The platform release name can be found in your list of active namespaces. To show this list, run:
+```sh
+$ kubectl get ns
+```
+To get the value for the platform release name, run:
+```sh
+$ helm ls -n <your-platform-namespace>
+````
+
+2. Save your `config.yaml` file, then run:
+```sh
+$ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml -n <your-platform-namespace> --version=<your-platform-version>
+```
+
+3. Confirm that the key-value pairs were successfully updated by running:
+```sh
+$ helm get values <your-platform-release-name> -n <your-platform-namespace>
+```
+
+> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer).
