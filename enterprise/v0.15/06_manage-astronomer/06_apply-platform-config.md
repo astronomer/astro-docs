@@ -38,6 +38,7 @@ When you have finished updating the key-value pairs, ensure that they have the s
 ### 1. Identify the values for your platform namespace and release name.
 
 Your platform release name can be found in your list of active namespaces. To show this list, run:
+
 ```sh
 $ kubectl get ns
 ```
