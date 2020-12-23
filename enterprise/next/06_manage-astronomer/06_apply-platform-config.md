@@ -54,5 +54,3 @@ $ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml
 ```sh
 $ helm get values <your-platform-release-name> -n <your-platform-namespace>
 ```
-
-> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer).
