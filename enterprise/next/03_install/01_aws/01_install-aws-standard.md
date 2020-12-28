@@ -10,16 +10,15 @@ This guide describes the steps to install Astronomer Enterprise on Amazon Web Se
 
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
-* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-* [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+* The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* The [OpenSSL CLI](https://www.openssl.org/docs/man1.0.2/man1/openssl.html)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
-* SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
+* An SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
 * Permission to create and modify resources on AWS
 * Permission to generate a certificate (not self-signed) that covers a defined set of subdomains
 
-From here, follow the steps below.
-
-## 1. Choose a Base Domain
+## Step 1: Choose a Base Domain
 
 All Astronomer services will be tied to a base domain of your choice, under which you will need the ability to add and edit DNS records.
 
@@ -32,9 +31,9 @@ For the base domain `astro.mydomain.com`, for example, here are some correspondi
 * Grafana Dashboard: `grafana.astro.mydomain.com`
 * Kibana Dashboard: `kibana.astro.mydomain.com`
 
-For the full list of subdomains you need a certificate for, read below.
+For the full list of subdomains, see Step 4.
 
-## 2. Spin up the EKS Control Plane and a Kubernetes Cluster
+## Step 2: Spin up the EKS Control Plane and a Kubernetes Cluster
 
 To proceed with the installation, you'll need to spin up an [EKS Control Plane](https://aws.amazon.com/eks/) as well as worker nodes in your Kubernetes cluster by following [this AWS guide](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html).
 
@@ -64,11 +63,11 @@ The initial namespace we're creating below will just contain the core Astronomer
 $ kubectl create ns astronomer
 ```
 
-## Step 4: Configure SSL
+## Step 4: Configure TLS
 
 We recommend running Astronomer Enterprise on a dedicated domain (`BASEDOMAIN`) or subdomain (`astro.BASEDOMAIN`).
 
-As mentioned above, you'll need a TLS Certificate that covers the following subdomians:
+In order for users to access the web applications they'll use to manage Astronomer, you'll need a TLS Certificate that covers the following subdomains:
 
 ```
 BASEDOMAIN
@@ -83,15 +82,17 @@ alertmanager.BASEDOMAIN
 prometheus.BASEDOMAIN
 ```
 
-Read below for guidelines on how to obtain a free SSL Cert from [Let's Encrypt](https://letsencrypt.org/) (optional) and how to create a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that points to your certificates (required).
+To obtain a TLS certificate, you can :
+* **Option 1:** Obtain a TLS certificate from Let's Encrypt. We recommend this option for smaller organizations where your DNS administrator and Kubernetes cluster administrator are either the same person or on the same team.
+* **Option 2:** Request a TLS certificate from your organization's security team. We recommend this option for large organizations with their own  protocols for generating TLS certificates.
 
-> **Note:** You're free to use a wildcard cert for your domain (e.g. `*.astro.BASEDOMAIN.com`), but you _cannot_ use a self-signed certificate.
+Complete one of the two setups below based on your organization's needs.
 
-### Option 1: Obtain a TLS Certificate from Let's Encrypt
+### Option 1: Obtain a TLS certificate from Let's Encrypt
 
-Let's Encrypt is a free and secure service that provides automated SSL Certificates. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security authority.
+Let's Encrypt is a free and secure service that provides automated TLS Certificates. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
 
-1. If you are on a Mac, run the following:
+1. Obtain a Free SSL Certificate from Let's Encrypt. If you are on a Mac, run the following:
 ```sh
 $ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
@@ -100,46 +101,50 @@ If you are on Linux, run the following:
 $ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
-2. Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
+2. Follow the on-screen prompts and create a TXT record through your DNS provider.
 
 3. Create a Kubernetes Secret named `astronomer-tls` that points to your certificates:
 ```sh
 $ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.BASEDOMAIN.com/privkey.pem --cert /etc/letsencrypt/live/astro.BASEDOMAIN.com/fullchain.pem --namespace <your-namespace>
 ```
 
-
-> **Note:** If you'd like to use another SSL Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+> **Note:** If you'd like to use another TLS Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
 > ```bash
 > kubectl create secret tls astronomer-tls --key <path_to_key> --cert <path_to_cert> --namespace <my-namespace>
 > ```
 
-### Option 2: Request a certificate from your enterprise security team
+### Option 2: Request a TLS certificate from your security team
 
-If you are installing Astronomer for a large organization, you'll need to request an SAN certificate from your enterprise security team. The certificate you request needs to be valid for your organization's `BASEDOMAIN` and the subdomains listed above. You should be given a `.pem` file that includes the encrypted certificate.
+If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for your organization's `BASEDOMAIN`, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files: one for the encrypted certificate and one for the private key.
 
 To confirm that your enterprise security team generated the correct certificate, run the following command using the openssl command line tool:
 
 ```sh
-openssl x509 -in  <your-pem-filepath>.pem -text -noout
+openssl x509 -in  <your-certificate-filepath> -text -noout
 ```
 
-This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either the subdomains listed above or a single `*.BASEDOMAIN` wildcard domain, then the certificate was generated correctly.
+This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either the subdomains listed above or a single `*.BASEDOMAIN` wildcard domain, then the certificate creation was successful.
 
-Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, you can proceed to the Create a TLS Secret section. If you received a certificate from a private certificate authority, complete the following additional setup:
+Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
+```sh
+kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
+```
 
-1. Run the following command to generate Astronomer certificates:
+If you received a certificate from a private certificate authority, complete the following setup instead:
+
+1. Generate Astronomer certificates using the following command:
 ```sh
 openssl x509 -req -in astronomer.csr -CA privateCA.pem -CAkey privateCA.key -CAcreateserial \ -out astronomer.crt -days 825 -sha256 -extfile astronomer.ext
 ```
-2. Add the root certificate provided by your security team to a secret in the Astronomer namespace:
+2. Add the root certificate provided by your security team to a Kubernetes secret in the Astronomer namespace using the following command:
 ```sh
-kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-pem-filepath>.pem
+kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
 ```
-3. When configuring the Helm chart for installing Astronomer, be sure to specify the `privateCaCerts` key value pair with `private-root-ca`.
+> **Note:** When you receive a certificate from a private certificate authority, you'll need to additionally specify the `privateCaCerts` key-value pair with `private-root-ca` in your Helm chart. For more information, refer to Step 6.
 
 ## Step 5: Configure the Database
 
-Astronomer by default requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
+By default, Astronomer requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
 
 While you're free to configure any database, most AWS users on Astronomer run [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). For production environments, we _strongly_ recommend a managed Postgres solution.
 
@@ -178,7 +183,7 @@ global:
 
   # Name of secret containing TLS certificate
   tlsSecret: astronomer-tls
-  # Only configure privateCaCerts if your enterprise security team
+  # Only enable privateCaCerts if your enterprise security team
   # generated a certificate from a private certificate authority.
   privateCaCerts:
   - private-root-ca
@@ -236,7 +241,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 
 Information on other auth systems can be found [here](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/). For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
 
-## 7. Install Astronomer
+## Step 7. Install Astronomer
 
 Now that you have an EKS cluster set up and your `config.yaml` file defined, you're ready to deploy all components of our platform.
 
@@ -246,7 +251,7 @@ First, run:
 $ helm repo add astronomer https://helm.astronomer.io/
 ```
 
-Now, run:
+Then, run:
 
 ```
 $ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
@@ -311,7 +316,7 @@ astronomer-registry-0                                      1/1     Running      
 
 If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.16/troubleshoot/debug-install/).
 
-## 9. Configure DNS
+## Step 9: Configure DNS
 
 Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.
 
@@ -358,15 +363,15 @@ prometheus.astro.mydomain.com
 Example wildcard CNAME record:
 ![aws-elb](https://assets2.astronomer.io/main/docs/ee/route53.png)
 
-## 10. Verify You Can Access the Astronomer UI
+## Step 10: Verify You Can Access the Astronomer UI
 
 Go to `app.BASEDOMAIN` to see the Astronomer UI.
 
 Consider this your new Airflow control plane. From the Astronomer UI, you'll be able to both invite and manage users as well as create and monitor Airflow Deployments on the platform.
 
-## 11. Verify SSL
+## Step 11: Verify TLS
 
-To make sure that the certificates were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
+To check if your TLS certificates were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
 
 ```
 curl -v -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
@@ -386,7 +391,7 @@ Finally, to make sure the registry is accepted by Astronomer's local docker clie
 astro auth login <your-astronomer-base-domain>
 ```
 
-If you can log in, then your Docker client trusts the registry. If docker does not trust the Astronomer registry, run the following and restart Docker:
+If you can log in, then your Docker client trusts the registry. If Docker does not trust the Astronomer registry, run the following and restart Docker:
 ```
 $ mkdir -p /etc/docker/certs.d
 $ cp privateCA.pem /etc/docker/certs.d/
@@ -400,12 +405,13 @@ $ astro deploy -f
 ```
 Check the Airflow namespace. If pods are changing at all, then the Houston API trusts the registry.
 
-If you have Airflow pods in the state "ImagePullBackoff", check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, refer to X to add them later.
+If you have Airflow pods in the state "ImagePullBackoff", check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config) to add them after installation.
 
-## 12. What's Next
+## What's Next
 
-To help you make the most of Astronomer Enterprise, take note of the following resources:
+To help you make the most of Astronomer Enterprise, check out the following additional resources:
 
+* [Renew SSL Certificates on Astronomer Enterprise]((/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
 * [Integrating an Auth System](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
 * [Configuring Platform Resources](/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/)
 * [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/)
