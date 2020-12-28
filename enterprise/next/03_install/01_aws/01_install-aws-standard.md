@@ -82,12 +82,10 @@ alertmanager.BASEDOMAIN
 prometheus.BASEDOMAIN
 ```
 
-To obtain a TLS certificate, you can:
+To obtain a TLS certificate, complete one of the following setup options:
 
 * **Option 1:** Obtain a TLS certificate from Let's Encrypt. We recommend this option for smaller organizations where your DNS administrator and Kubernetes cluster administrator are either the same person or on the same team.
 * **Option 2:** Request a TLS certificate from your organization's security team. We recommend this option for large organizations with their own  protocols for generating TLS certificates.
-
-Complete one of the two setups below based on your organization's needs.
 
 ### Option 1: Obtain a TLS certificate from Let's Encrypt
 
@@ -413,7 +411,7 @@ If you have Airflow pods in the state "ImagePullBackoff", check the pod descript
 
 To help you make the most of Astronomer Enterprise, check out the following additional resources:
 
-* [Renew SSL Certificates on Astronomer Enterprise]((/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
+* [Renew TLS Certificates on Astronomer Enterprise]((/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
 * [Integrating an Auth System](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
 * [Configuring Platform Resources](/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/)
 * [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/)
