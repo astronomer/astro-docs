@@ -1,23 +1,22 @@
 ---
 title: "Renew TLS Certificates on Astronomer Enterprise"
 navTitle: "Renew a TLS Certificate"
-description: "How to update and auto-renew your organization's SSL Certificate for Astronomer"
+description: "How to update and auto-renew your organization's TLS Certificate for Astronomer"
 ---
 
 ## Overview
 
-Once you set up an SSL certificate for your Astronomer platform, you'll need to establish a process for renewing the certificate. This can be done in one of two ways:
+Once you set up an TLS certificate for your Astronomer platform, you'll need to establish a process for periodically renewing the certificate. This can be done in one of two ways:
 
-* **Automatic renewal**: Let's Encrypt provides a service which automatically renews your SLL certificate every 90 days. We recommend this option for smaller organizations where your DNS administrator and Kubernetes cluster administrator are either the same person or on the same team.
-* **Manual renewal**: We recommend that large organizations manually follow their normal protocol for renewing certificates. This should be done within 90 days of your certificate's expiration date.
+* **Automatic renewal**: Let's Encrypt provides a service which automatically renews your TLS certificate every 90 days. We recommend this option for smaller organizations where your DNS administrator and cluster administrator are either the same person or on the same team.
+* **Manual renewal**: Manual renewal looks very similar to the initial certificate creation process, except you additionally need to delete your current certificate and update your systems to begin using the new certificate. We recommend this method for large organizations that have their own protocols for issuing certificates.
 
-Refer to the following topics for more information on these two options:
-
-## Automatically Renew SSL Certificates Using Let's Encrypt
+## Automatically Renew TLS Certificates Using Let's Encrypt
 
 Let's Encrypt is a Certificate Authority that provides free, 90-day certificates using the ACME protocol. You can use the Cert Manager project for Kubernetes to automatically renew certificates.
 
 1. Install the Kubernetes Cert Manager by following [the official installation guide](https://cert-manager.io/docs/installation/kubernetes/).
+
 2. If you use AWS, grant Cert Manager access to your nodes by updating your `NodeInstanceRole` to include the following policies (if you don't use AWS, skip this step):
 ```yaml
 Type: "AWS::IAM::Role"
@@ -50,23 +49,24 @@ Properties:
           - "sts:AssumeRole"
 ```
 For more information on how to complete this setup, refer to the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html).
+
 3. Create a "ClusterIssuer" resource that declares how requests for certificates will be fulfilled. To do so, first create the a `clusterissuer.yaml` file with the following values:
 ```yaml
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
+    name: letsencrypt-prod
 spec:
-  acme:
-    email: <your-email>
-    server: https://acme-v02.api.letsencrypt.org/directory
+    acme:
+        email: <your-email>
+        server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: cert-manager-issuer-secret-key
+        name: cert-manager-issuer-secret-key
     solvers:
-    - selector: {}
-      dns01:
-        route53:
-          region: <your-server-region>
+        - selector: {}
+        dns01:
+            route53:
+                region: <your-server-region>
 ```
 Then, create the cluster by running the following command:
 ```sh
@@ -77,41 +77,41 @@ kubectl apply -f clusterissuer.yaml
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: acme-crt
+    name: acme-crt
 spec:
-  secretName: astronomer-tls
-  dnsNames:
-  - BASE_DOMAIN
-  - app.BASE_DOMAIN
-  - deployments.BASE_DOMAIN
-  - registry.BASE_DOMAIN
-  - houston.BASE_DOMAIN
-  - grafana.BASE_DOMAIN
-  - kibana.BASE_DOMAIN
-  - install.BASE_DOMAIN
-  - prometheus.BASE_DOMAIN
-  - alertmanager.BASE_DOMAIN
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-    group: cert-manager.io
+    secretName: astronomer-tls
+    dnsNames:
+        - BASE_DOMAIN
+        - app.BASE_DOMAIN
+        - deployments.BASE_DOMAIN
+        - registry.BASE_DOMAIN
+        - houston.BASE_DOMAIN
+        - grafana.BASE_DOMAIN
+        - kibana.BASE_DOMAIN
+        - install.BASE_DOMAIN
+        - prometheus.BASE_DOMAIN
+        - alertmanager.BASE_DOMAIN
+    issuerRef:
+        name: letsencrypt-prod
+        kind: ClusterIssuer
+        group: cert-manager.io
 ```
-Then, create the cluster by running the following command:
+Then, create the cluster by running the following command and waiting a few minutes:
 ```sh
 kubectl apply -f certificate.yaml
 ```
-5. After a few minutes, ensure that the certificate was created by running:
+5. Ensure that the certificate was created by running:
 ```sh
 kubectl get certificates
 ```
 
-## Manually Renew SSL certificates
+## Manually Renew TLS certificates
 
-Larger organizations with dedicated security teams will likely have their own process for requesting and renewing SSL certificates. Regardless of your own process for this, there are steps you will always have to take for your Astronomer platform when renewing SSL/TSL certificates:
+Larger organizations with dedicated security teams will likely have their own processes for requesting and renewing TLS certificates. Regardless, there are specific steps you have to complete for Astronomer when renewing TLS certificates:
 
-1. Delete your current SSL certificate by running the following command:
+1. Delete your current TLS certificate by running the following command:
 ```sh
 kubectl delete secret astronomer-tls
 ```
-2. Follow the instructions for requesting an SSL certificate from your organization's security team as described in [Option 2 of Step 4: Configure SSL](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard#step-4-configure-ssl). The linked guide is for setting up with AWS, but this step is the same regardless of your cloud service.
-3. Restart your Houston, nginx, and registry pods to ensure they are using the new certificate.
+2. Follow the instructions for requesting an TLS certificate from your organization's security team as described in [Step 4: Configure TLS](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard#step-4-configure-tls). The linked guide is for setting up with AWS, but this step is the same regardless of which service you use.
+3. Restart your Houston, nginx, and registry pods to begin using the new certificate.

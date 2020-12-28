@@ -67,7 +67,7 @@ $ kubectl create ns astronomer
 
 We recommend running Astronomer Enterprise on a dedicated domain (`BASEDOMAIN`) or subdomain (`astro.BASEDOMAIN`).
 
-In order for users to access the web applications they'll use to manage Astronomer, you'll need a TLS Certificate that covers the following subdomains:
+In order for users to access the web applications they need to manage Astronomer, you'll need a TLS certificate that covers the following subdomains:
 
 ```
 BASEDOMAIN
@@ -82,7 +82,8 @@ alertmanager.BASEDOMAIN
 prometheus.BASEDOMAIN
 ```
 
-To obtain a TLS certificate, you can :
+To obtain a TLS certificate, you can:
+
 * **Option 1:** Obtain a TLS certificate from Let's Encrypt. We recommend this option for smaller organizations where your DNS administrator and Kubernetes cluster administrator are either the same person or on the same team.
 * **Option 2:** Request a TLS certificate from your organization's security team. We recommend this option for large organizations with their own  protocols for generating TLS certificates.
 
@@ -90,7 +91,7 @@ Complete one of the two setups below based on your organization's needs.
 
 ### Option 1: Obtain a TLS certificate from Let's Encrypt
 
-Let's Encrypt is a free and secure service that provides automated TLS Certificates. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
+Let's Encrypt is a free and secure service that provides automated TLS certificates. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
 
 1. Obtain a Free SSL Certificate from Let's Encrypt. If you are on a Mac, run the following:
 ```sh
@@ -103,19 +104,19 @@ $ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v
 
 2. Follow the on-screen prompts and create a TXT record through your DNS provider.
 
-3. Create a Kubernetes Secret named `astronomer-tls` that points to your certificates:
+3. Create a Kubernetes Secret named `astronomer-tls` that points to your certificate:
 ```sh
 $ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.BASEDOMAIN.com/privkey.pem --cert /etc/letsencrypt/live/astro.BASEDOMAIN.com/fullchain.pem --namespace <your-namespace>
 ```
 
-> **Note:** If you'd like to use another TLS Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
+> **Note:** If you'd like to use another TLS certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
 > ```bash
-> kubectl create secret tls astronomer-tls --key <path_to_key> --cert <path_to_cert> --namespace <my-namespace>
+> kubectl create secret tls astronomer-tls --key <your-private-key-filepath> --cert <your-certificate-filepath> --namespace <your-namespace>
 > ```
 
 ### Option 2: Request a TLS certificate from your security team
 
-If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for your organization's `BASEDOMAIN`, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files: one for the encrypted certificate and one for the private key.
+If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for your organization's `BASEDOMAIN`, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files: one for your encrypted certificate and one for your private key.
 
 To confirm that your enterprise security team generated the correct certificate, run the following command using the openssl command line tool:
 
@@ -123,9 +124,10 @@ To confirm that your enterprise security team generated the correct certificate,
 openssl x509 -in  <your-certificate-filepath> -text -noout
 ```
 
-This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either the subdomains listed above or a single `*.BASEDOMAIN` wildcard domain, then the certificate creation was successful.
+This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either a single `*.BASEDOMAIN` wildcard domain or the subdomains listed at the beginning of Step 4, then the certificate creation was successful.
 
 Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
+
 ```sh
 kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
 ```
@@ -369,7 +371,7 @@ Go to `app.BASEDOMAIN` to see the Astronomer UI.
 
 Consider this your new Airflow control plane. From the Astronomer UI, you'll be able to both invite and manage users as well as create and monitor Airflow Deployments on the platform.
 
-## Step 11: Verify TLS
+## Step 11: Verify Your TLS Setup Was Successful
 
 To check if your TLS certificates were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
 
