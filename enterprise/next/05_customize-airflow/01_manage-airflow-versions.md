@@ -59,9 +59,10 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 | [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild |
 | [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)         | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild |
 
-To upgrade an Airflow Deployment to Astronomer Certified 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
+To upgrade an Airflow Deployment to Astronomer Certified 1.10.12 you _must_ be running  [v0.16.9](https://www.astronomer.io/docs/enterprise/stable/resources/release-notes/)+ of the Astronomer Platform. For instructions on how to upgrade the platform, refer to ["Upgrade Astronomer"](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer/) or [reach out to us](https://support.astronomer.io).
 
 > **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change]((https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/)) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer or otherwise pull a Platform  Docker Image (e.g. `toomanyrequests: You have reached your pull rate limit`).
+
 ### 3. Re-Build your Image
 
 #### Local Development
@@ -133,5 +134,5 @@ If you're looking for the latest Astronomer Certified 1.10.10, for example, you 
 In this case, that would be: `FROM quay.io/astronomer/ap-airflow:1.10.10-5-buster-onbuild` (Debian).
 
 > **Note:** If you're pushing code to an Airflow Deployment via the Astronomer CLI and install a new Astronomer Certified image for the first time _without_ pinning a specific patch, the latest version available will automatically be pulled.
-> 
+>
 > If a patch release becomes available _after_ you've already built an Astronomer Certified image for the first time, subsequent code pushes will _not_ automatically pull the latest corresponding patch. You must follow the process above to pin your image to a particular version.

@@ -22,7 +22,7 @@ If your team isn't already using an SMTP service, we recommend the following:
 
 For step-by-step instructions on how to integrate either of these two services with Astronomer, refer to the steps below. If your team prefers another email delivery tool, you're more than free to use it.
 
-> **Note:** By default, email alerts for process failures are sent whenever individual Airflow tasks fail. To receive only 1 email per DAG failure, refer to the Limit Alerts to the DAG Level topic below. For more information and best practices on Airflow alerts, refer to our Guide on [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/).
+> **Note:** By default, email alerts for process failures are sent whenever individual tasks fail. To receive only 1 email per DAG failure, refer to the Limit Alerts to the DAG Level topic below. For more information and best practices on Airflow alerts, refer to our Guide on [Error Notifications in Airflow](https://www.astronomer.io/guides/error-notifications-in-airflow/).
 
 ### Integrate SendGrid with Astronomer
 
