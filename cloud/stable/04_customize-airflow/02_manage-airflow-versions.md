@@ -13,7 +13,7 @@ Included in that build is your `Dockerfile`, a file that is automatically genera
 To upgrade your Airflow Deployment to a higher version of Airflow, there are three steps:
 
 1. Initialize the upgrade by selecting a new Airflow version via the Astronomer UI or CLI
-2. Change the FROM statement in your project's Dockerfile to reference an AC image that corresponds to the Airflow version indicated in Step 1
+2. Change the FROM statement in your project's `Dockerfile` to reference an AC image that corresponds to the Airflow version indicated in Step 1
 3. Deploy to Astronomer
 
 Read below for details.
@@ -94,7 +94,7 @@ The upgrade from Airflow 1.10.5 to 1.10.12 has been started. To complete this pr
 
 As noted above, this action will NOT interrupt or otherwise impact your Airflow Deployment or trigger a code change - it is simply a signal to our platform that you _intend_ to upgrade such that we can guide your experience through the rest of the process.
 
-To complete the upgrade, all you have to do is add a corresponding AC image to your Dockerfile.
+To complete the upgrade, all you have to do is add a corresponding AC image to your `Dockerfile`.
 
 ## Step 2: Deploy a New Astronomer Certified Image
 
@@ -113,7 +113,7 @@ First, open the `Dockerfile` within your Astronomer directory. When you initiali
 └── requirements.txt # For any Python packages
 ```
 
-Depending on the OS distribution and version of Airflow you want to run, you'll want to reference the corresponding Astronomer Certified image in the FROM statement of your Dockerfile.
+Depending on the OS distribution and version of Airflow you want to run, you'll want to reference the corresponding Astronomer Certified image in the FROM statement of your `Dockerfile`.
 
 ### 2. Choose your new Astronomer Certified Image
 
@@ -261,7 +261,7 @@ To do so, trigger your [CI/CD process](https://www.astronomer.io/docs/cloud/stab
 
 ## Cancel Airflow Upgrade Initialization
 
-If you begin the upgrade process for your Airflow Deployment and would like to cancel it, you can do so at any time either via the Astronomer UI or CLI as long as you have NOT changed the Astronomer Certified Image in your Dockerfile and deployed it.
+If you begin the upgrade process for your Airflow Deployment and would like to cancel it, you can do so at any time either via the Astronomer UI or CLI as long as you have NOT changed the Astronomer Certified Image in your `Dockerfile` and deployed it.
 
 Via the Astronomer UI, select **Cancel** next to **Airflow Version**.
 
