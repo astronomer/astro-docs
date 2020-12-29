@@ -1,7 +1,7 @@
 import { hasPermission } from "rbac";
-import { prisma } from "generated/client";
 import log from "logger";
 import { createJWT } from "jwt";
+import prisma from "prisma-client";
 import { ENTITY_DEPLOYMENT, RELEASE_NAME_AIRFLOW_PATTERN } from "constants";
 import url from "url";
 
@@ -33,12 +33,14 @@ export default async function(req, res) {
   if (matches && subdomain === "deployments") {
     const releaseName = matches[1];
     // Get the deploymentId for the parsed releaseName.
-    const deploymentId = await prisma
-      .deployment({ releaseName: releaseName })
-      .id();
+    const { id } = await prisma.deployment.findOne({
+      where: {
+        releaseName: releaseName
+      }
+    });
 
     // Check if we have deployment level access to it.
-    const airflowRoles = mapLocalRolesToAirflow(user, deploymentId);
+    const airflowRoles = mapLocalRolesToAirflow(user, id);
 
     // Prepare audience based on https://tools.ietf.org/html/rfc7519#section-4.1.3
     const audience = [hostname, releaseName].join("/");

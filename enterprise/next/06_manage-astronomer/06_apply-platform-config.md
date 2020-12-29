@@ -13,7 +13,7 @@ For example, you can:
 * [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system)
 * [Add a registry backend](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/registry-backend)
 * [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/configure-platform-resources)
-* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml)
+* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/next/reference/default.yaml)
 
 To configure these settings, follow the steps below.
 
@@ -29,7 +29,7 @@ This file was created when you installed Astronomer using one of the following g
 
 ## Step 2: Update Key-Value Pairs
 
-To update any of your existing settings, modify them directly in your `config.yaml` file. To update a setting you haven't already specified, copy the corresponding key-value pair from the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml) into your `config.yaml` file and modify the value from there.
+To update any of your existing settings, modify them directly in your `config.yaml` file. To update a setting you haven't already specified, copy the corresponding key-value pair from the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/next/reference/default.yaml) into your `config.yaml` file and modify the value from there.
 
 When you have finished updating the key-value pairs, ensure that they have the same relative order and indentation as they do in the default configuration file. If they don't, your changes might not be properly applied.
 

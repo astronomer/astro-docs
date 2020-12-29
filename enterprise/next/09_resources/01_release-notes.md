@@ -179,7 +179,7 @@ Historically, upgrades to Astronomer (major, minor or patch) that have included 
 
 This change allows for Airflow Deployments to remain unaffected through the upgrade and for Airflow Chart changes to take effect _only_ when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
 
-More specifically, this changes the behavior of our API's `updateDeployment` mutation to perform the Airflow Helm Chart version upgrade only if/when a Houston config is updated. [Source Code here](https://github.com/astronomer/docs/blob/9cd8da9a4382bc89d7b8c07f5585ad1daa64a250/enterprise/v0.16/reference/update-deployment-index.js#L86).
+More specifically, this changes the behavior of our API's `updateDeployment` mutation to perform the Airflow Helm Chart version upgrade only if/when a Houston config is updated. [Source Code here](https://github.com/astronomer/docs/blob/9cd8da9a4382bc89d7b8c07f5585ad1daa64a250/enterprise/next/reference/update-deployment-index.js#L86).
 
 #### Bug Fixes and Improvements
 
