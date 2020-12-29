@@ -14,7 +14,7 @@ More specifically, this doc includes instructions for how to:
 - Add dependencies
 - Run commands on build
 - Access the Airflow CLI
-- Add Environment Variables Locally
+- Add Environment Variables locally
 - Build from a Private Repository
 
 > **Note:** The guidelines below assume that you've initialized a project on Astronomer via `$ astro dev init`. If you haven't done so already, refer to our ["CLI Quickstart" doc](/docs/enterprise/stable/develop/cli-quickstart/).

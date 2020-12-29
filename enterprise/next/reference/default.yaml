@@ -16,23 +16,6 @@ prisma:
   secret: ~
   debug: false
 
-# NATS configuration.
-nats:
-  servers: ["nats://localhost:4222"]
-  clusterID: houston
-  ackTimeout: 120000
-  ackWait: 120000
-  connectTimeout: 3000
-  maxPubAcksInflight: 16384
-  maxReconnectAttempts: 200
-  stanMaxPingOut: 20
-  stanPingInterval: 5000
-  reconnect: true
-  reconnectTimeWait: 5000
-  reconnectJitter: 150
-  reconnectJitterTLS: 1000
-  waitOnFirstConnect: true
-
 # Logging configuration.
 logging:
   level: "debug"
@@ -41,9 +24,6 @@ logging:
 # This is mostly for knexfile now.
 # Also defined for Prisma service separately.
 database:
-  schema: houston$default
-  # this is for enabling ssl connection for database
-  ssl: false
   # Knex migrations
   migrations:
     # Table to store migrations
@@ -97,11 +77,6 @@ stripe:
 # Analytics configuration
 analytics:
   writeKey: ~
-
-# Apollo schema reporting configuration
-apollo:
-  key: ~
-  graphVariant: ~
 
 # Set the length of a Cloud Trial
 trial:
@@ -272,7 +247,6 @@ roles:
     name: System Viewer
     permissions: &PERMS__SYSTEM_VIEWER
       ? system.airflow.get
-      ? system.deployment.variables.get
       ? system.deployments.get
       ? system.invites.get
       ? system.invite.get
@@ -286,7 +260,6 @@ roles:
     name: System Editor
     permissions: &PERMS__SYSTEM_EDITOR
       <<: *PERMS__SYSTEM_VIEWER
-      ? system.deployment.variables.update
       ? system.iam.update
       ? system.serviceAccounts.update
       ? system.airflow.user
@@ -354,7 +327,6 @@ roles:
       ? deployment.images.pull
       ? deployment.metrics.get
       ? deployment.serviceAccounts.get
-      ? deployment.variables.get
 
   DEPLOYMENT_EDITOR:
     name: Deployment Editor
@@ -367,7 +339,6 @@ roles:
       ? deployment.serviceAccounts.create
       ? deployment.serviceAccounts.update
       ? deployment.serviceAccounts.delete
-      ? deployment.variables.update
 
   DEPLOYMENT_ADMIN:
     name: Deployment Admin
