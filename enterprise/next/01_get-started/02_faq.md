@@ -48,7 +48,7 @@ You can find a list of all components used by the platform in the [Astronomer Pl
 No. Astronomer makes use of Kubernetes cluster-level features (including K8s RBAC) by design. These features include creating / deleting namespaces, daemonsets, roles, cluster-roles, service-accounts, resource-quotas, limit-ranges, etc. Additionally, Astronomer dynamically creates new airflow instances in separate namespaces, which protects data engineer users from noisy neighbors.
 
 * Roles
-  * [Houston](https://github.com/astronomer/astronomer/blob/master/charts/astronomer/templates/houston/houston-bootstrap-role.yaml)
+  * [Houston](https://github.com/astronomer/astronomer/blob/master/charts/astronomer/templates/houston/api/houston-bootstrap-role.yaml)
   * [Prisma](https://github.com/astronomer/astronomer/blob/master/charts/astronomer/templates/prisma/prisma-bootstrap-role.yaml)
   * [Kubed](https://github.com/astronomer/astronomer/blob/master/charts/kubed/templates/kubed-clusterrole.yaml)
   * [NGINX](https://github.com/astronomer/astronomer/blob/master/charts/nginx/templates/nginx-role.yaml)
