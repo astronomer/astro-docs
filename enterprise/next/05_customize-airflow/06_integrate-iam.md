@@ -75,13 +75,13 @@ If you're running Astronomer on EKS, follow ["Specify Service Account Role"](htt
 
 Now that your IAM Role is functional, you're ready to apply it to an Airflow Deployment on Astronomer. From here, you'll need to:
 
-- Specify your cloud provider by setting `serviceAccountAnnotationKey` in your `config.yaml`
+- Specify your cloud provider by setting `serviceAccountAnnotationKey` in your `config.yaml` file
 - Create or update an Airflow Deployment with an annotated IAM Role via the `--cloud-role` flag from the Astro CLI
 - Confirm the role was passed successfully
 
 Read below for guidelines.
 
-#### Set `serviceAccountAnnotationKey` in your `config.yaml`
+#### Set serviceAccountAnnotationKey in your config.yaml file
 
 In order to apply an IAM role to any Airflow Deployment on Astronomer, you need to explicitly pass a cloud provider config to the platform. To do so, set the following in your `config.yaml` file under `astronomer`, depending on your cloud provider:
 
@@ -113,7 +113,7 @@ For example:
         auth:
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 
 [Source code here](https://github.com/astronomer/docs/blob/main/enterprise/next/reference/default.yaml#L576).
@@ -148,7 +148,7 @@ To confirm the role was passed successfully to all pods within your Airflow Depl
 
 1. Run a `kubectl describe po/<pod>` on any new pod created in your namespace and see `Annotations` within the output
 
-2. At the bottom of your `config.yaml`, you should see the role listed ([source code here](https://github.com/astronomer/docs/blob/082e949/enterprise/next/reference/default.yaml#L587-L590)).
+2. At the bottom of your `config.yaml` file, you should see the role listed ([source code here](https://github.com/astronomer/docs/blob/082e949/enterprise/next/reference/default.yaml#L587-L590)).
 
 ```
 astronomer_houston=# select config from houston$default."Deployment";

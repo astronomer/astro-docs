@@ -36,7 +36,7 @@ astronomer:
       emailConfirmation: false # If you wish to also disable other SMTP-dependent features
 ```
 
-An example `config.yaml` would look like:
+An example `config.yaml` file would look like:
 
 ```
 global:
@@ -54,7 +54,7 @@ astronomer:
 
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ### User Roles on Astronomer
 
@@ -103,7 +103,7 @@ If you'd like to reserve the ability to create a Workspace _only_ to System Admi
 
 To configure and apply this change, follow the steps below.
 
-### Modify your `config.yaml`
+### Modify your config.yaml file
 
 Now, apply the role and permission change to your platform's `config.yaml` file. Following the `deployment.images.push` example above, that would mean specifying this:
 
@@ -131,7 +131,7 @@ astronomer:
             deployment.images.push: true
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ## System Roles
 

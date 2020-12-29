@@ -30,19 +30,17 @@ To use Google Cloud Storage (GCS) as a registry backend solution, you'll need:
 - Your Google Cloud Platform Service Account JSON Key
 - Ability to create a Kubernetes Secret in your cluster
 
-### Add to your config.yaml
+### Update your config.yaml file
 
-**1. Download your Google Cloud Platform service account JSON key from [Google Console](https://console.cloud.google.com/apis/credentials/serviceaccountkey)**
+1. Download your Google Cloud Platform service account JSON key from [Google Console](https://console.cloud.google.com/apis/credentials/serviceaccountkey). Make sure the service account you use has both the `Storage Legacy Bucket Owner` and `Storage Object Admin` roles.
 
-Make sure the service account you use has both the `Storage Legacy Bucket Owner` and `Storage Object Admin` roles.
-
-**2. Create a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) using the downloaded key:**
+2. Create a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) using the downloaded key:
 
 ```
 kubectl create secret generic astronomer-gcs-keyfile --from-file astronomer-gcs-keyfile=/path/to/key.json -n <your-namespace>
 ```
 
-**3. Add the following to your `config.yaml`:**
+3. Add the following to your config.yaml file:
 
 ```yaml
 astronomer:
@@ -88,7 +86,7 @@ astronomer:
       bucket: my-gcs-bucket
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+4. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ## AWS S3
 
@@ -154,7 +152,7 @@ astronomer:
       bucket: my-s3-bucket
 ```
 
-4. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+4. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ### Enable Encryption (_Optional_)
 
@@ -162,7 +160,7 @@ To enable encryption, follow the steps below.
 
 1. Create a key in AWS Key Management Service (KMS). During the key creation process you'll be asked to add "key users". Add the user created above as a "key user".
 
-2. Enable Encryption in your `config.yaml` file:
+2. Enable encryption by adding the following values to your `config.yaml` file:
 
 ```yaml
 astronomer:
@@ -177,7 +175,7 @@ astronomer:
       keyid: my-kms-key-id
 ```
 
-3. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+3. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ## Azure Blob Storage
 
@@ -209,4 +207,4 @@ astronomer:
       realm: core.windows.net
 ```
 
-2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).

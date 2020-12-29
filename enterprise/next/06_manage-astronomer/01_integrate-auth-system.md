@@ -50,7 +50,7 @@ astronomer:
         github:
           enabled: false
 ```
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 **Note:** The `discoveryURL` includes the tenant ID in this example
 ![ids.png](https://assets2.astronomer.io/main/docs/auth/ids.png)
@@ -86,7 +86,7 @@ astronomer:
             discoveryUrl: "https://<okta-base-domain>/.well-known/openid-configuration"
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 Note that your okta-base-domain will be different from the basedomain of your Astronomer installation. You can read [Okta's docs on finding your domain](https://developer.okta.com/docs/api/getting_started/finding_your_domain/) if you are unsure what this value should be.
 
@@ -150,7 +150,7 @@ astronomer:
             discoveryUrl: https://<tenant-name>.auth0.com
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ## Running behind an HTTPS Proxy
 
@@ -158,7 +158,7 @@ The Identity provider integration of the Astronomer platform requires that Houst
 
 If your install is configured without a direct connection to the internet you will need to configure an HTTPS proxy server for Houston.
 
-To configure the proxy server used we need to set the `GLOBAL_AGENT_HTTPS_PROXY` environment variable for the Houston deployment, which we do by adding the following to your `config.yaml` file in your `astronomer/` directory. The houston section of this file should now look something like this:
+To configure the proxy server used we need to set the `GLOBAL_AGENT_HTTPS_PROXY` environment variable for the Houston deployment, which we do by adding the following to your `config.yaml` file in your `astronomer/` directory. The `houston` section of this file should now look something like this:
 
 
 ```yaml
@@ -176,4 +176,4 @@ astronomer:
         value: http://my-proxy:3129
 ```
 
-Once you've made the change, follow the instructions above to run `helm upgrade` and upgrade the Astronomer platform with your changes.
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).

@@ -103,7 +103,7 @@ Add the following section to the role created in the section above:
 
 This will allow your EKS nodes to assume the role created above, giving them the necessary permissions to write to S3.
 
-### Enable Fluentd to S3 in your `config.yaml`
+### Enable Fluentd to S3 in your config.yaml file
 
 In your `config.yaml` file, add the following values:
 
@@ -117,4 +117,4 @@ fluentd:
     s3_region: us-east-1
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
