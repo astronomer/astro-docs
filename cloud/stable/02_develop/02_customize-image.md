@@ -335,7 +335,7 @@ FROM custom-<airflow-image>
 If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
 
 ```
-FROM custom-ap-airflow:1.10.10-alpine3.10
+FROM custom-ap-airflow:1.10.12-buster
 ```
 
 ### Step 4. Push your Custom Image to Astronomer
@@ -345,4 +345,4 @@ Now, let's push your new image to Astronomer.
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
-For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](/docs/cloud/stable/deploy/deploy-cli/).
+For more detail on the Astronomer deployment process, refer to [Deploy to Astronomer via the CLI](/docs/cloud/stable/deploy/deploy-cli/).
