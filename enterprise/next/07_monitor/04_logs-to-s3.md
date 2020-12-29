@@ -105,7 +105,7 @@ This will allow your EKS nodes to assume the role created above, giving them the
 
 ### Enable Fluentd to S3 in your `config.yaml`
 
-In the `config.yaml` file of Astronomer Enterprise, add the following:
+In your `config.yaml` file, add the following values:
 
 ```
 fluentd:
@@ -117,26 +117,4 @@ fluentd:
     s3_region: us-east-1
 ```
 
-Make sure to replace all values above with your own.
-
-### Apply your Changes
-
-Once you save your changes to your `config.yaml` file, you'll need to upgrade the platform to apply them.
-
-First, identify your platform release name:
-
-```
-$ helm ls
-```
-
-Now, run the upgrade command:
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
-
-Make sure to substitute the values above with your own. For example, if you're running Astronomer v0.16.0 and your platform release name is `astronomer`, you might run:
-
-```
-$ helm upgrade astronomer -f config.yaml --version=0.16.0 astronomer/astronomer -n astronomer
-```
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).

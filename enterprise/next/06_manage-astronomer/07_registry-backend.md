@@ -36,7 +36,7 @@ To use Google Cloud Storage (GCS) as a registry backend solution, you'll need:
 
 Make sure the service account you use has both the `Storage Legacy Bucket Owner` and `Storage Object Admin` roles.
 
-**2. Create a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) using the downloaded key:** 
+**2. Create a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) using the downloaded key:**
 
 ```
 kubectl create secret generic astronomer-gcs-keyfile --from-file astronomer-gcs-keyfile=/path/to/key.json -n <your-namespace>
@@ -88,23 +88,7 @@ astronomer:
       bucket: my-gcs-bucket
 ```
 
-### Apply your Changes
-
-From here, find your platform release name and apply your changes.
-
-```
-$ helm ls
-```
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
-
-For example, if you're running Astronomer v0.15.5 and your platform release name is `astronomer`, you might run:
-
-```
-$ helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
-```
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
 
 ## AWS S3
 
@@ -125,9 +109,7 @@ To use AWS S3 as a registry backend solution, you'll need:
 
 To grant the registry appropriate push and pull permissions, follow the steps below.
 
-**1. Create an AWS IAM Policy**
-
-Use the definition below, making sure to replace `S3_BUCKET_NAME` with your own S3 bucket's name.
+1. Use the following definition to create a new AWS IAM policy, making sure to replace `S3_BUCKET_NAME` with your own S3 bucket's name:
 
 ```
 {
@@ -157,13 +139,9 @@ Use the definition below, making sure to replace `S3_BUCKET_NAME` with your own 
 }
 ```
 
-**2. Create a new IAM User and attach the Policy**
+2. Create a new IAM User and attach the Policy. Your access key and secret key will be generated and displayed after the user is created.
 
-Your access key and secret key will be generated and displayed after the user is created.
-
-### Add to your `config.yaml`
-
-Now, add the following to your `config.yaml`:
+3. Add the following to your `config.yaml` file:
 
 ```yaml
 astronomer:
@@ -176,17 +154,15 @@ astronomer:
       bucket: my-s3-bucket
 ```
 
+4. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+
 ### Enable Encryption (_Optional_)
 
 To enable encryption, follow the steps below.
 
-**1. Create a key in AWS Key Management Service (KMS)**
+1. Create a key in AWS Key Management Service (KMS). During the key creation process you'll be asked to add "key users". Add the user created above as a "key user".
 
-During the key creation process you'll be asked to add "key users". Add the user created above as a "key user".
-
-**2. Enable Encryption in your `config.yaml`**
-
-Now, set `encrypt: true` in your Astronomer `config.yaml`:
+2. Enable Encryption in your `config.yaml` file:
 
 ```yaml
 astronomer:
@@ -201,23 +177,7 @@ astronomer:
       keyid: my-kms-key-id
 ```
 
-### Apply your Changes
-
-From here, find your platform release name and apply your changes.
-
-```
-$ helm ls
-```
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
-
-For example, if you're running Astronomer v0.15.5 and your platform release name is `astronomer`, you might run:
-
-```
-$ helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
-```
+3. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
 
 ## Azure Blob Storage
 
@@ -234,9 +194,9 @@ To use Azure Blog Storage as a registry backend solution, you'll need:
 - Azure Account Access Key
 - Azure Container Name
 
-### Add to your `config.yaml`
+### Configure the registry backend
 
-Now, add the following to your `config.yaml`:
+1. Add the following to your `config.yaml` file:
 
 ```yaml
 astronomer:
@@ -249,20 +209,4 @@ astronomer:
       realm: core.windows.net
 ```
 
-### Apply your Changes
-
-From here, find your platform release name and apply your changes.
-
-```
-$ helm ls
-```
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
-
-For example, if you're running Astronomer v0.15.5 and your platform release name is `astronomer`, you might run:
-
-```
-$ helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
-```
+2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).

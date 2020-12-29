@@ -50,11 +50,7 @@ astronomer:
         github:
           enabled: false
 ```
-To apply the configuration:
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
 
 **Note:** The `discoveryURL` includes the tenant ID in this example
 ![ids.png](https://assets2.astronomer.io/main/docs/auth/ids.png)
@@ -89,6 +85,8 @@ astronomer:
             clientId: "<okta-client-id>"
             discoveryUrl: "https://<okta-base-domain>/.well-known/openid-configuration"
 ```
+
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
 
 Note that your okta-base-domain will be different from the basedomain of your Astronomer installation. You can read [Okta's docs on finding your domain](https://developer.okta.com/docs/api/getting_started/finding_your_domain/) if you are unsure what this value should be.
 
@@ -152,17 +150,7 @@ astronomer:
             discoveryUrl: https://<tenant-name>.auth0.com
 ```
 
-#### Upgrade your Astronomer Deployment
-
-If you're already running Astronomer, list your deployment release names and upgrade your deployment:
-
-```
-$ helm ls --namespace <your-namespace>
-
-```
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
 
 ## Running behind an HTTPS Proxy
 

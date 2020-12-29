@@ -113,6 +113,9 @@ For example:
         auth:
 ```
 
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/apply-platform-config).
+
+
 [Source code here](https://github.com/astronomer/docs/blob/main/enterprise/next/reference/default.yaml#L576).
 
 #### Create or update an Airflow Deployment with an annotated IAM Role
@@ -135,7 +138,7 @@ As you run these commands make sure to:
 
 - Insert your own `role-arn` for the IAM role in question after the `--cloud-role` flag
 - Specify your Airflow Executor (Celery, Local, Kubernetes) if you create a Deployment
-- Specify the release name you'd like to give to your new Airflow Deployment if applicable (e.g. `new-deployment-1234)
+- Specify the release name you'd like to give to your new Airflow Deployment if applicable (e.g. `new-deployment-1234`)
 
 > **Note:** To customize an Airflow Deployment's release name when you create it, make sure you've set `manualReleaseNames: true` in the `config.yaml` file of your Astronomer directory. Enabling that configuration should make applying the IAM role to that Airflow Deployment easier to automate. If you _don't_ enable `manualReleaseNames`, the release name for any Aiflow Deployment you create will be generated automatically and at random.
 
