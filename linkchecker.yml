@@ -1,0 +1,14 @@
+on:
+  schedule:
+    - cron: '0 8 1 * *'  # Runs on the 1st of every month at 8AM GMT
+
+name: Check markdown links
+jobs:
+  my-broken-link-checker:
+    name: Check broken links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check
+        uses: ruzickap/action-my-broken-link-checker@v1
+        with:
+          url: https://astronomer.io
