@@ -79,17 +79,17 @@ You can make requests via the method of your choosing. Below, we'll walk through
 
 ### Trigger DAG
 
-If you'd like to externally trigger a DAG run, you can start with a generic cURL command to Airflow's POST endpoint: 
+If you'd like to externally trigger a DAG run, you can start with a generic cURL command to Airflow's POST endpoint:
 
 ```
-POST /api/experimental/dags/<DAG_ID>/dag_runs
+POST /airflow/api/experimental/dags/<DAG_ID>/dag_runs
 ```
 
 This command would look like this:
 
 ```
 curl -v -X POST
-https://AIRFLOW_DOMAIN/api/experimental/dags/<DAG_ID>/dag_runs
+https://AIRFLOW_DOMAIN/airflow/api/experimental/dags/<DAG_ID>/dag_runs
 -H 'Authorization: <API_Key> ’
 -H ‘Cache-Control: no-cache’
 -H ‘content-type: application/json’ -d ‘{}’
@@ -133,7 +133,7 @@ https://AIRFLOW_DOMAIN/api/experimental/dags/customer_health_score/dag_runs
 
 ### Get all Pools
 
-If you'd like to get all existing Pools from your Airflow Deployment, you can start with a generic Python command to Airflow's GET endpoint: 
+If you'd like to get all existing Pools from your Airflow Deployment, you can start with a generic Python command to Airflow's GET endpoint:
 
 ```
 GET /api/experimental/pools

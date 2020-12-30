@@ -14,7 +14,7 @@ More specifically, this doc includes instructions for how to:
 - Add dependencies
 - Run commands on build
 - Access the Airflow CLI
-- Add Environment Variables Locally
+- Add Environment Variables locally
 - Build from a Private Repository
 
 > **Note:** The guidelines below assume that you've initialized a project on Astronomer via `$ astro dev init`. If you haven't done so already, refer to our ["CLI Quickstart" doc](/docs/enterprise/stable/develop/cli-quickstart/).
@@ -298,7 +298,7 @@ RUN pip install --no-cache-dir -q -r requirements.txt
 FROM stage1 AS stage3
 # Copy requirements directory
 COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
-ONBUILD COPY . .
+COPY . .
 ```
 
 In 3 stages, this file is bundling up your SSH keys, OS-Level packages in `packages.txt` and Python Packages in `requirements.txt` from your private directory into a Docker image.

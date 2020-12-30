@@ -76,6 +76,9 @@ module "astronomer-enterprise" {
   astronomer:
     houston:
       config:
+        deployments:
+          manualReleaseNames: true # Allows you to set your release names
+          serviceAccountAnnotationKey: eks.amazonaws.com/role-arn # Flag to enable using IAM roles (don't enter a specific role)
         email:
           enabled: true
           smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true
@@ -92,6 +95,8 @@ provider "kubernetes" {
   version = "1.10.0"
 }
 ```
+
+Information on other auth systems can be found [here.](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
 
 **Note:** If you are using Amazon SES, your URL will look like:
 `smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`
@@ -190,27 +195,6 @@ helm ls -n astronomer
 
 The kubeconfig file along with other secrets such as the TLS certificate are backed up in the remote Terraform state S3 bucket (if applicable).
 
-## Configuring the platform
+## Configuring the Platform
 
-Astronomer is deployed on Kubernetes with a package manager, ['Helm'](https://helm.sh).
-
-All reconfiguration options that are intended for the Astronomer platform rather than Terraform or infrastructure (`astronomer_helm_values`) are passed in YAML. For all reconfigurations, you can make use of the Terraform option astronomer_helm_values, which should be a YAML block in a Terraform string.
-
-Once the platform is deployed, the current `astronomer_helm_values` for the platform can be found with:
-
-```
-helm get values astronomer
-global:
-  baseDomain: deployment-id.your-domain.com
-  tlsSecret: astronomer-tls
-nginx:
-  privateLoadBalancer: false
-astronomer:
-    houston:
-      config:
-        email:
-          enabled: true
-          smtpUrl: YOUR_URI_HERE
-
-```
-*Note: You will need to download the helm client to directly call helm commands*
+We recommend using Terraform only for your initial installation of Astronomer. Afterwards, all post-install upgrades and configurations to Astronomer should be completed using the [Helm](https://helm.sh) package manager. For more information on how to configure Astronomer after installation, read [Apply a Platform Configuration Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
