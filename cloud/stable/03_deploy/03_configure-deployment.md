@@ -4,9 +4,39 @@ navTitle: "Configure a Deployment"
 description: "How to configure your Airflow Deployment's Resources on Astronomer."
 ---
 
-Once you've created your Airflow Deployment, you can configure it for the use case at hand.
+In Astronomer, the term **Airflow Deployment** describes an instance of Airflow that you've spun up either via the Astronomer UI or the [Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/). Under the hood, each Airflow Deployment gets its own Kubernetes namespace and has a reserved set of dedicated resources and an underlying Postgres Metadata Database.
 
-## Choosing an Executor for Your Deployment
+This guide walks you through the process of creating and managing Deployments using the Astronomer UI.
+
+
+## Create an Airflow Deployment
+
+1. Log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
+![Workspace Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-deployments.png)
+
+2. Use the **New Deployment** menu to configure the following:
+    * **Name**
+    * **Description** (Optional)
+    * **Airflow Version**: We recommend using the latest version.
+
+3. Click **Create Deployment**.
+
+## Accessing your Deployment Dashboard
+
+Once you've spun up your Deployment, you'll have access to your Deployment dashboard:
+
+![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
+
+From this dashboard, you can:
+
+- Modify your Resources
+- Initialize the Airflow upgrade process
+- Configure **Email Alerts**
+- Access the Airflow UI
+- Access your Celery Dashboard (if using CeleryExecutor)
+- Delete your Deployment
+
+## Choose an Executor for Your Deployment
 
 The type of Executor you choose for your Airflow Deployment determines how that Deployment uses computing resources to execute DAGs. Read [Airflow Executors Explained](/guides/airflow-executors-explained/) to learn more about the function of Executors, as well as which architectures are best suited for each type of Executor.
 
@@ -18,7 +48,7 @@ As you scale up the number of tasks or the resources your workflows require, suc
 
 Regardless of which Executor you choose, each of your tasks runs in a temporary container. No tasks will have access to any locally stored file created by a separate task.
 
-## Allocating Resources
+## Allocate Resources for a Deployment
 
 You can use Astronomer to adjust your resource components and freely scale your Airflow Deployment up or down as needed. The following actions are available from the **Settings** tab for your Deployment:
 
@@ -29,7 +59,7 @@ You can use Astronomer to adjust your resource components and freely scale your 
 * Adjusting your Worker Termination Grace Period (Celery only)
 * Adding Extra Capacity (Kubernetes or KubernetesPodOperator only)
 
-## Scale the Scheduler and Webserver
+## Scale your Deployment's Scheduler and Webserver
 
 If the Gantt Chart in the Airflow UI shows delays in task scheduling, or if you receive an [Airflow Alert](/docs/cloud/stable/customize-airflow/airflow-alerts/) indicating that your Scheduler is low on resources, it's probably time to scale up your Scheduler.
 
@@ -51,7 +81,7 @@ At their core, both the Kubernetes Executor and KubernetesPodOperator dynamicall
 
 ## Configure Your Airflow Deployment Using Environment Variables
 
-Environment Variables are key-value pairs that allow you to dynamically fine-tune your Airflow Deployment. Your Deployment's Environment Variables can be configured in the **Variables** tab in the Astronomer UI.
+Environment Variables are key-value pairs that allow you to dynamically fine-tune your Airflow Deployment. Your Deployment's Environment Variables can be configured in the **Variables** tab in the Astronomer UI:
 ![Astro UI Env Vars Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.16-Astro-UI-EnvVars.png)
 
 As scale your use of Airflow, consider adding any of the following Environment Variables to your Deployment:
