@@ -26,14 +26,15 @@ https://github.com/astronomer/terraform-aws-astronomer-enterprise
 
 ## Prerequisites
 
-Install the necessary tools:
+To install Astronomer with Terraform, you'll need the following:
 
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
-* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 - 0.12.28*
-* [Helm client](https://github.com/helm/helm#install) *Use version 3.2.1*
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) *Use the version appropriate for your Kubernetes cluster version*
-* [Python 3](https://www.python.org/download/releases/3.0/) *Must be available under the name `python3`*
+* [Terraform](https://www.terraform.io/downloads.html) (Use version 0.12.3 - 0.12.28)
+* [Helm client](https://github.com/helm/helm#install) (Use version 3.2.1)
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) (Use the version appropriate for your Kubernetes cluster version)
+* [Python 3](https://www.python.org/download/releases/3.0/) (Must be available under the name `python3`)
+* A top-level domain (TLD) for implementing Route 53
 
 ## Installation
 

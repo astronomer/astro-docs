@@ -170,7 +170,9 @@ global:
 ### Nginx configuration
 #################################
 nginx:
-  # IP address the nginx ingress should bind to
+  # IP address the nginx ingress should bind to.
+  # When using subnets, ensure that each subnet has at
+  # least 30 IP addresses.
   loadBalancerIP: ~
 
 #################################
