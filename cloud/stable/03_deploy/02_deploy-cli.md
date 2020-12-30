@@ -4,65 +4,17 @@ navTitle: "Deploy Code"
 description: "How to push code to your Airflow Deployment on Astronomer via the Astronomer CLI."
 ---
 
-## Deployment on Astronomer
+Astronomer's CLI allows you easily deploy your code onto an Airflow Deployment.
 
-### Pre-Requisites
+## Step 1: Authenticate to the CLI
 
-In order to push up code to a deployment on Astronomer, you must have:
-
-1. [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) Installed
-2. An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
-
-### Create a Deployment
-
-To create a deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/).
-
-From your Workspace on Astronomer, click "New Deployment".
-
-![Workspace Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/workspace_dashboard.png)
-
-### Configure your Airflow Deployment
-
-To finish creating your Deployment, you'll have to:
-
-- Give it a name and description
-- Pick an Airflow Executor (Celery or Local)
-- Set Initial Resources
-
-![New Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/V0.15-new_deployment-config.png)
-
-### Deployment Dashboard
-
-Once you've initialized your deployment, give it a few moments to provision.
-
-You should soon have access to your deployment dashboard:
-
-![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/new_deployment_celery_dashboard.png)
-
-From this dashboard, you can:
-
-- Access the Airflow UI (left)
-- Access the Celery UI for Worker Monitoring (right)
-
-> **Note**: You'll only see a tab for the Celery Dashboard if your Airflow Deployment is running the Celery Executor.
-
-## Deploy Code from the CLI
-
-Astronomer's CLI allows you easily deploy your code onto an Airflow Deployment on Astronomer.
-
-### Authentication
-
-To start, authenticate to the CLI.
-
-**Astronomer Cloud**
+Run the following command:
 
 ```
 $ astro auth login gcp0001.us-east4.astronomer.io
 ```
 
-### Select your Workspace & Deployment
-
-#### Workspace
+## Step 2: Select Your Workspace & Deployment
 
 Any Workspace you have access to on the Astronomer UI, you'll have access to via the Astronomer CLI.
 
@@ -78,7 +30,7 @@ To switch between workspaces, run:
 $ astro workspace switch [UUID]
 ```
 
-#### Deployment
+When you're in the appropriate workspace, run the following command to show a list of available deployments.
 
 ```
 $ astro deployment list
@@ -86,7 +38,7 @@ $ astro deployment list
  demo_cluster     infrared-photon-7780     v0.17.0     c2436025-d501-4944-9c29-19ca61e7f359
 ```
 
-### Deploy
+## Step 3: Deploy Your Code
 
 To deploy on Astronomer, run:
 
@@ -94,17 +46,15 @@ To deploy on Astronomer, run:
 $ astro deploy
 ```
 
-A few notes:
-- If it's your first time deploying, expect to wait a minute or two for the Docker Image to build
-- To know if your deploy was successful, ensure no errors in the output and check your Airflow UI to see your code changes reflected
+If it's your first time deploying, expect to wait a few minutes for the Docker image to build. If you can see your code changes in the Airflow UI, then the deploy was successful.
 
-#### What gets Deployed?
+### What gets Deployed?
 
-Everything in your top level directory (and all children directory) in which you ran `$ astro dev init` will get bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud.
+Everything in your top level directory (and all children directories) where you ran `$ astro dev init` will get bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud.
 
-We do _not_ deploy any of the Metadata associated with your local Airflow deployment, only the code.
+We don't deploy any of the Metadata associated with your local Airflow deployment, only the code.
 
-For more information on what gets built into your image, jump over to our doc on [Customizing your Image](/docs/cloud/stable/develop/customize-image/).
+For more information on what gets built into your image, read [Customizing your Image](/docs/cloud/stable/develop/customize-image/).
 
 ## Deployments & Kubernetes Namespaces
 
