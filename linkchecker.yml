@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: '0 8 1 * *'  # Runs on the 1st of every month at 8AM GMT
+    - cron: '0 8 * * 0'  # Runs every Sunday at 8AM GMT
 
 name: Check markdown links
 jobs:
