@@ -2,10 +2,10 @@ on:
   schedule:
     - cron: '0 8 * * 0'  # Runs every Sunday at 8AM GMT
 
-name: Check markdown links
+name: Check for broken Markdown links
 jobs:
   my-broken-link-checker:
-    name: Check broken links
+    name: Astronomer docs, blogs, and guides 
     runs-on: ubuntu-latest
     steps:
       - name: Check
