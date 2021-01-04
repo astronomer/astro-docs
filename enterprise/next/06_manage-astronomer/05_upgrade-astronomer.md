@@ -24,7 +24,7 @@ Astronomer platform releases follow a semantic versioning scheme. All versions a
 - Y: Minor Version
 - Z: Patch/Hotfix
 
-For example, upgrading Astronomer from `v0.16.4` to `v0.16.5` would be considered upgrading to a "patch" version whereas upgrading from `v0.15.0` to `v0.16.0` would be considered upgrading to the latest "minor" version.
+For example, upgrading Astronomer from v0.16.4 to v0.16.5 would be considered upgrading to a "patch" version whereas upgrading from v0.15.0 to v0.16.0 would be considered upgrading to the latest "minor" version.
 
 ## Upgrade to a Patch Version
 
@@ -93,7 +93,6 @@ helm3 upgrade --namespace $NAMESPACE \
             $RELEASE_NAME \
             astronomer/astronomer
 ```
-
 
 ## Upgrade to a Minor Version
 

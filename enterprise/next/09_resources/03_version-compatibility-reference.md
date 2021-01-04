@@ -17,7 +17,7 @@ It's worth noting that while the tables below reference the minimum compatible v
 | v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14        | 3.6, 3.7, 3.8 |
 | v0.23 (*Coming Soon*)| 1.16, 1.17, 1.18 | 3    | 0.12      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 2.0.0 | 3.6, 3.7, 3.8 |
 
-> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12. For instructions on how to upgrade to the latest version of Astronomer, refer to our ["Enterprise Upgrade Guide"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
+> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12. For instructions on how to upgrade to the latest version of Astronomer, refer to our ["Enterprise Upgrade Guide"](https://www.astronomer.io/docs/enterprise/next/manage-astronomer/upgrade-astronomer/).
 
 ## Astronomer Certified
 
@@ -30,13 +30,13 @@ It's worth noting that while the tables below reference the minimum compatible v
 | 1.10.14 (*Coming Soon*) | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              |
 | 2.0.0 (*Coming Soon*)   | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              |
 
-For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions/).
+For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/next/customize-airflow/manage-airflow-versions/).
 
 > **Note:** MySQL 5.7 is compatible with Airflow and Astronomer Certified 2.0 but it does NOT support the ability to run more than 1 Scheduler and is not recommended. If you'd like to leverage Airflow's new Highly-Available Scheduler, make sure you're running MySQL 8.0+.
 
 ## Additional Resources
 
-The table above lists long-term support (LTS) versions of Astronomer and does not specify _patch_ versions that our engineering team releases on a regular basis. For more detail on changes between patches, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/).
+The table above lists long-term support (LTS) versions of Astronomer and does not specify _patch_ versions that our engineering team releases on a regular basis. For more detail on changes between patches, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/next/resources/release-notes/).
 
 > **Note:** If you're running on a legacy version of Astronomer (pre-v0.16), reach out to [Astronomer Support](https://support.astronomer.io) to schedule an upgrade with our team.
 

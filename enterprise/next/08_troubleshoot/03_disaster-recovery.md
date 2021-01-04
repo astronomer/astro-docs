@@ -50,7 +50,7 @@ We’ll cover both on-demand and scheduled backups below. For more information o
 
 The following instructions assume you have:
 
-* Velero installed in your cluster 
+* Velero installed in your cluster
 * The Velero CLI
 * `kubectl` accesss to your cluster
 
@@ -61,7 +61,7 @@ If you do not already have both, reference [Velero's documentation](https://vele
 If you need to create a backup on demand, run the following via the Velero CLI:
 
 ```
-$ velero backup create <BACKUP NAME> 
+$ velero backup create <BACKUP NAME>
 ```
 
 By default, the command above makes disk snapshots of any persistent volumes. You can adjust the snapshots by specifying additional flags. To see available flags, run:
@@ -82,7 +82,7 @@ We recommend that you start with at least daily backups and adjust the frequency
 $ velero schedule create <SCHEDULE NAME> --schedule "0 1 * * *"
 ```
 
-The command above will schedule a daily backup of the entire cluster at 1am UTC. Velero uses standard Unix cron syntax to specify the schedule frequency and occurrence. 
+The command above will schedule a daily backup of the entire cluster at 1am UTC. Velero uses standard Unix cron syntax to specify the schedule frequency and occurrence.
 
 ### Database Backup
 
@@ -101,7 +101,7 @@ Refer to the following links to Cloud Provider documentation for creating Postgr
 *   GCP: [Create automatic backups in GCP](https://cloud.google.com/sql/docs/postgres/backup-recovery/backing-up)
 *   Azure: [Azure Postgres backup and restore](https://docs.microsoft.com/en-us/azure/postgresql/concepts-backup)
 
-Similar to Velero, one-off snapshots can also be created that will represent the database at that specific time, rather than at the normal scheduled intervals. 
+Similar to Velero, one-off snapshots can also be created that will represent the database at that specific time, rather than at the normal scheduled intervals.
 
 #### Traditional Backup Tool (`pg_dump`):
 
@@ -126,7 +126,7 @@ In the case of an incident, you’re always free to restore either:
 
 The guidelines below will cover both, including specifics for restoring both deleted and non-deleted Airflow Deployments.
 
-### Single Deployment 
+### Single Deployment
 
 The steps below are valid for the Astronomer Platform on Helm3 (Astronomer v0.14+).
 
@@ -140,7 +140,7 @@ To restore a previous version of a deployment that has NOT been deleted via the 
     $ velero backup get
     ```
 
-2. Identify the Kubernetes namespace in question, which corresponds to your Airflow Deployment’s “release name” and has your platform’s namespace (typically “astronomer”) prepended to the front. 
+2. Identify the Kubernetes namespace in question, which corresponds to your Airflow Deployment’s “release name” and has your platform’s namespace (typically “astronomer”) prepended to the front.
 
     For example, the namespace for an Airflow Deployment with the release name `weightless-meteor-5042` would be `astronomer-weightless-meteor-5042`.
 
@@ -171,28 +171,28 @@ Once that is complete, the Astronomer Database needs to be updated to mark that 
 3. Then run the following command to connect to the database:
 
     ```
-    $ psql <YOUR CONNECTION STRING> 
+    $ psql <YOUR CONNECTION STRING>
     ```
 
-    Example: 
+    Example:
 
     ```
     $ psql postgres://airflow:XXXXXXX@database1.cloud.com:5432/astronomer_houston
     ```
 
-4. Update the record for the deployment you wish to restore. 
+4. Update the record for the deployment you wish to restore.
 
     ```
     $ UPDATE houston$default."Deployment" SET "deletedAt" = NULL WHERE "releaseName" = '<YOUR RELEASE NAME>';
     ```
 
-Following these steps, the restored Airflow Deployment should render in the Astronomer UI with its corresponding Workspace. All associated pods should be running in the cluster. 
+Following these steps, the restored Airflow Deployment should render in the Astronomer UI with its corresponding Workspace. All associated pods should be running in the cluster.
 
 ### Whole Platform
 
 In case your team ever needs to migrate to new infrastructure or your existing infrastructure is no longer accessible and you need to restore the Astronomer Platform in its entirety, including all Airflow Deployments within it, follow the steps below.
 
-1. Create a new Kubernetes Cluster _without_ Astronomer installed 
+1. Create a new Kubernetes Cluster _without_ Astronomer installed
 2. Install Velero into the new cluster, ensuring that it can reach the previous backups in their storage location (e.g. S3 storage or GCS Bucket)
 3. Set the Velero backup storage location to `readonly` to prevent accidentally overwriting any backups by running:
 
@@ -203,15 +203,16 @@ In case your team ever needs to migrate to new infrastructure or your existing i
     --patch '{"spec":{"accessMode":"ReadOnly"}}'
 ```
 
-From here, 
+From here,
 
-1. Restore database snapshots to a new Postgres database or create a new database and restore from `pg_dump` backups. 
-2. Perform velero full cluster restore by running: 
+1. Restore database snapshots to a new Postgres database or create a new database and restore from `pg_dump` backups.
+2. Perform velero full cluster restore by running:
 
     ```
     $ velero restore create --from-backup <BACKUP NAME>
     ```
 
 3. If the database endpoint has changed (e.g. it has a new hostname), it needs to be provided to the platform.
-    * **AWS** - Update the `astronomer-bootstrap` secret to have the new connection string. Then the pods in the astronomer namespace will need to be restarted to pick up this change. The `pgbouncer-config `secret in each release namespace will also need to be updated with the new endpoint in the connection string. 
-    * **GCP**  - The `pg-sqlproxy-gcloud-sqlproxy `deployment needs to be updated to put the new database instance name in the `instances` argument passed to the container 
+
+    * **AWS** - Update the `astronomer-bootstrap` secret to have the new connection string. Then the pods in the astronomer namespace will need to be restarted to pick up this change. The `pgbouncer-config `secret in each release namespace will also need to be updated with the new endpoint in the connection string.
+    * **GCP**  - The `pg-sqlproxy-gcloud-sqlproxy `deployment needs to be updated to put the new database instance name in the `instances` argument passed to the container

@@ -151,8 +151,7 @@ Problems:
 1.  Using ``airflow.operators.python_operator.PythonOperator`` will be replaced by ``airflow.operators.python.PythonOperator``. Affected file:
 ```
 
-For more information on upgrade check functionality, read [Upgrade Check Script](
-]https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html#upgrade-check) in Apache Airflow documentation.
+For more information on upgrade check functionality, read [Upgrade Check Script](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html#upgrade-check) in Apache Airflow documentation.
 
 > **Note:** In the upgrade check output above, you can ignore the `Fernet is enabled by default` failure, as that value is taken care of on Astronomer.
 
