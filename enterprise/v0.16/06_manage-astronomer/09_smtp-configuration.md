@@ -54,7 +54,7 @@ email:
 ```
 email:
         enabled: true
-        smtpUrl:smtps://postmaster%40mg.astronomer.io:daf255573ca4f22c699c6c0c4ab2dfb0@smtp.mailgun.org/?pool=true
+        smtpUrl:smtps://xyz%40example.com:password@smtp.mailgun.org/?pool=true
 ```
 ​
 #### Office365:
