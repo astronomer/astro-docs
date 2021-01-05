@@ -22,10 +22,9 @@ The doc below will walk through how to both enable local authentication and conf
 
 ## Local Auth
 
-If you'd like to enable the ability for users to authenticate to Astronomer with a local username and password, follow the steps below.
+To let users authenticate to Astronomer with a local username and password", follow the steps below."
 
-### Enable Local Auth in your `config.yaml`:
-
+1. Enable Local Auth in your `config.yaml` file:
 ```yaml
 astronomer:
   houston:
@@ -35,13 +34,7 @@ astronomer:
           enabled: true
 ```
 
-### Apply your Changes
-
-To apply the changes to your `config.yaml`, run the following:
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
+2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ## General OIDC Configuration
 
@@ -86,7 +79,7 @@ Example:
 
 ![authentication.png](https://assets2.astronomer.io/main/docs/auth/authentication.png)
 
-### Enable Azure AD in your `config.yaml`
+### Enable Azure AD in your config.yaml file
 
 Make sure the `config.yaml` file in your `astronomer` directory is updated with the proper values:
 
@@ -125,7 +118,7 @@ Follow the steps below.
 
 4. Save the `Client ID` generated for this Okta app for use in the next steps
 
-### Enable Okta in your `config.yaml`
+### Enable Okta in your config.yaml file
 
 Add the following to your `config.yaml` file in your `astronomer` directory:
 
@@ -143,7 +136,7 @@ astronomer:
 
 Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
-Note that your okta-base-domain will be different from the basedomain of your Astronomer installation. You can read [Okta's docs on finding your domain](https://developer.okta.com/docs/api/getting_started/finding_your_domain/) if you are unsure what this value should be.
+>> **Note:** `okta-base-domain` will be different from the basedomain of your Astronomer installation. You can read [Okta's docs on finding your domain](https://developer.okta.com/docs/api/getting_started/finding_your_domain/) if you are unsure what this value should be.
 
 ## Auth0
 
@@ -190,7 +183,7 @@ For instructions, navigate to Auth0's [connection guides](https://auth0.com/docs
 * Under `Identifier`, enter `astronomer-ee`.
 * Leave the value under `Signing Algorithm` as `RS256`.
 
-### Enable Auth0 in your `config.yaml`
+### Enable Auth0 in your config.yaml file
 
 Add the following to your `config.yaml` file in your `astronomer` directory:
 
@@ -205,10 +198,9 @@ astronomer:
             clientId: "<default-app-client-id>"
             discoveryUrl: https://<tenant-name>.auth0.com
 ```
-
-Noe that you can find your `clientID` value at `https://manage.auth0.com/dashboard/us/<tenant-name>/applications` listed next to 'Default App'.
-
 Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+
+>> **Note:** You can find your `clientID` value at `https://manage.auth0.com/dashboard/us/<tenant-name>/applications` listed next to 'Default App'.
 
 ## Running behind an HTTPS Proxy
 
