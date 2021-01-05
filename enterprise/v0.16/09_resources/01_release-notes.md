@@ -22,7 +22,7 @@ Release Date: January 5, 2021
 
 #### Support for Airflow 1.10.14
 
-Airflow 1.10.14 was built to make testing and migration to Airflow 2.0 as easy as possible. Highlights include:
+Airflow 1.10.14 was built to make testing and migration to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) as easy as possible. Highlights include:
 
 - "Warning" to users with duplicate Airflow Connections ([commit](https://github.com/apache/airflow/commit/0e40ddd8e))
 - Enable [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html) by default ([commit](https://github.com/apache/airflow/commit/8a265067e))
@@ -43,13 +43,13 @@ For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade A
 
 #### Support for latest Astronomer Certified Patch Releases
 
-In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes support for the latest versions of existing minor releases:
+In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes support for the latest patch versions of existing Astronomer Certified images:
 
 - [1.10.12-2](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)
 - [1.10.10-6](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
 - [1.10.7-16](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
 
-For instructions on how to upgrade to the latest patch version of any release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
+For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
 
 #### Support for Docker Images on Quay.io + DockerHub
 
