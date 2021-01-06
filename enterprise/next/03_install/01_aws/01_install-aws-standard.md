@@ -16,6 +16,7 @@ To install Astronomer on EKS, you'll need access to the following tools and perm
 * SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
 * Permission to create and modify resources on AWS
 * Permission to generate a certificate (not self-signed) that covers a defined set of subdomains
+* At least 30 IP addresses per subnet (if using subnets)
 
 From here, follow the steps below.
 
@@ -171,8 +172,6 @@ global:
 #################################
 nginx:
   # IP address the nginx ingress should bind to.
-  # When using subnets, ensure that each subnet has at
-  # least 30 IP addresses.
   loadBalancerIP: ~
 
 #################################
