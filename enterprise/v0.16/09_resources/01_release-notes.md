@@ -12,9 +12,17 @@ For instructions on how to upgrade to a patch version, refer to ["Upgrade Astron
 
 We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliability and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
 
-## Astronomer v0.16 Release Notes
+## Astronomer v0.16
 
-Latest Patch Release: **v0.16.11**
+Latest Patch Release: **v0.16.12**
+
+### v0.16.12
+
+Release Date: November 16, 2020
+
+#### Bug Fixes & Improvements
+
+- BugFix: Typo in Pod Security Policy (PSP) for Private CA 
 
 ### v0.16.11
 
@@ -236,7 +244,7 @@ To learn more, reference ["Auth Systems on Astronomer"](/docs/enterprise/stable/
 - BugFix: CLI Install command should point to BASEDOMAIN (not `install.astronomer.io`) for Enterprise users
 - BugFix: SysAdmin can't revoke SysAdmin permissions from another user
 
-## Astronomer v0.15 Release Notes
+## Astronomer v0.15
 
 Release Date: June 8, 2020
 

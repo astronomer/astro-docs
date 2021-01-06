@@ -10,11 +10,13 @@ We've designed the Astronomer UI as a place for you to easily and effectively ma
 
 Once logged in, you'll land on a view that will direct you to create a new **Workspace**. From this view, you can:
 
+![Account Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.12-empty-dashboard.png)
+
+From this dashboard, you can:
+
 1. Create a new Workspace
 2. View the Workspaces you have access to in the left-hand navigation
 3. Access "Documentation," "Account Settings" and more in the Account drop-down menu
-
-![Account Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.12-empty-dashboard.png)
 
 ## Workspaces
 

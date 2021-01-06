@@ -9,7 +9,7 @@ description: "How to update and auto-renew your organization's TLS Certificate f
 Once you set up an TLS certificate for your Astronomer platform, you'll need to establish a process for periodically renewing the certificate. This can be done in one of two ways:
 
 * **Automatic renewal**: Let's Encrypt provides a service which automatically renews your TLS certificate every 90 days. We recommend this option for smaller organizations where your DNS administrator and cluster administrator are either the same person or on the same team.
-* **Manual renewal**: Manual renewal looks very similar to the initial certificate creation process, except you additionally need to delete your current certificate and update your systems to begin using the new certificate. We recommend this method for large organizations that have their own protocols for issuing certificates.
+* **Manual renewal**: Manual renewal looks very similar to the initial certificate creation process, except you replace your existing current certificate by creating a new certificate. We recommend this method for large organizations that have their own processes for issuing certificates.
 
 ## Automatically Renew TLS Certificates Using Let's Encrypt
 
@@ -17,7 +17,7 @@ Let's Encrypt is a Certificate Authority that provides free, 90-day certificates
 
 1. Install the Kubernetes Cert Manager by following [the official installation guide](https://cert-manager.io/docs/installation/kubernetes/).
 
-2. If you use AWS, grant Cert Manager access to your nodes by updating your `NodeInstanceRole` to include the following policies (if you don't use AWS, skip this step):
+2. If you use AWS, grant your nodes access Route 53 by adding the following CloudFormation snippet to your nodes' Instance Profile (if you don't use AWS, skip this step):
 ```yaml
 Type: "AWS::IAM::Role"
 Properties:
@@ -34,6 +34,7 @@ Properties:
             Action:
               - route53:ChangeResourceRecordSets
               - route53:ListResourceRecordSets
+            # Use the second Resource format if you're updating this through the AWS UI
             Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneIdLookup.HostedZoneId}
           - Effect: Allow
             Action: route53:ListHostedZonesByName
@@ -60,11 +61,11 @@ spec:
     acme:
         email: <your-email>
         server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-        name: cert-manager-issuer-secret-key
-    solvers:
+        privateKeySecretRef:
+            name: cert-manager-issuer-secret-key
+        solvers:
         - selector: {}
-        dns01:
+          dns01:
             route53:
                 region: <your-server-region>
 ```
@@ -72,7 +73,7 @@ Then, create the cluster by running the following command:
 ```sh
 kubectl apply -f clusterissuer.yaml
 ```
-4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create the a `certificate.yaml` file, replacing `BASE_DOMAIN` with your organization's own base domain:
+4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create the a `certificate.yaml` file, replacing `BASE_DOMAIN`:
 ```yaml
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -114,4 +115,8 @@ Larger organizations with dedicated security teams will likely have their own pr
 kubectl delete secret astronomer-tls
 ```
 2. Follow the instructions for requesting an TLS certificate from your organization's security team as described in [Step 4: Configure TLS](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard#step-4-configure-tls). The linked guide is for setting up with AWS, but this step is the same regardless of which service you use.
-3. Restart your Houston, nginx, and registry pods to begin using the new certificate.
+3. Restart your Houston, nginx, and registry pods to begin using the new certificate by running the following commands:
+```sh
+kubectl rollout restart deployments -n <your-namespace>
+kubectl rollout restart statefulsets -n <your-namespace>
+```
