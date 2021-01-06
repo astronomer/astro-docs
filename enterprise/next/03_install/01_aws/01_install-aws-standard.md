@@ -364,7 +364,7 @@ Verify that this output matches with:
 curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
 ```
 
-> **Note:** The `-k` flag will run the command without looking for SSL
+> **Note:** The `-k` flag will run the command without looking for TLS
 
 Finally, to make sure the registry is accepted by Astronomer's local docker client, try logging into Astronomer with the Astronomer CLI:
 
