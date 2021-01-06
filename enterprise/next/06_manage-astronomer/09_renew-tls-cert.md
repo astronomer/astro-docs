@@ -17,7 +17,7 @@ Let's Encrypt is a Certificate Authority that provides free, 90-day certificates
 
 1. Install the Kubernetes Cert Manager by following [the official installation guide](https://cert-manager.io/docs/installation/kubernetes/).
 
-2. If you use AWS, grant your nodes access Route 53 by adding the following CloudFormation snippet to your nodes' Instance Profile (if you don't use AWS, skip this step):
+2. If you use AWS, grant your nodes access Route 53 by adding the following CloudFormation snippet to your nodes' Instance Profile (if you don't use AWS, complete whatever setup is necessary to authenticate Cert Manager to your DNS):
 ```yaml
 Type: "AWS::IAM::Role"
 Properties:
@@ -69,7 +69,7 @@ spec:
             route53:
                 region: <your-server-region>
 ```
-Then, create the cluster by running the following command:
+Then, create the ClusterIssuer by running the following command:
 ```sh
 kubectl apply -f clusterissuer.yaml
 ```
