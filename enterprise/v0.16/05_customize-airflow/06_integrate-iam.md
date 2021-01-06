@@ -200,10 +200,8 @@ astronomer:
         serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
 ```
 
-2. Run `helm upgrade` to apply changes.
-```bash
-$ helm upgrade astronomer -f config.yaml --version=0.16.7 astronomer/astronomer --namespace astronomer
-```
+
+2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/apply-platform-config).
 
 ### Create or update an Airflow Deployment with an attached IAM Role
 
@@ -230,6 +228,7 @@ $ kubectl describe po arithmetic-radiation-6756-worker-6d89b49f87-48nt4 -n astro
 ```
 
 You should see the following in your output:
+
 
 ```yaml
 AWS_ROLE_ARN: arn:aws:iam::123456789:role/example-role
