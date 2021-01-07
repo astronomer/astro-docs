@@ -61,9 +61,9 @@ email:
 ​
 ```
 email:
-        reply: "xyz@example.com"
-        enabled: true
-        smtpUrl: smtp://xyz%40example.com:password@smtp.office365.com:587/?requireTLS=true
+  reply: "xyz@example.com"
+  enabled: true
+  smtpUrl: smtp://xyz%40example.com:password@smtp.office365.com:587/?requireTLS=true
  ```       
         
 #### Custom SMTP-relay:
