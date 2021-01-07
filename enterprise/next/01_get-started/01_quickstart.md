@@ -6,16 +6,16 @@ description: "A guide to getting started on Astronomer Enterprise."
 
 Welcome to Astronomer.
 
-This guide will help you kick off your trial on Astronomer by walking through a sample DAG deployment from start to finish.
+This guide will help you get started on Astronomer by walking through a sample DAG deployment from start to finish.
 
 Whether you're exploring our Enterprise or Cloud offering, we've designed this to be a great way to become familiar with our platform.
 
 ## Step 1: Start with Astronomer Cloud
 
-If you want to get a sense of Astronomer Enterprise without going through the installation process, try out Cloud by [starting a 14-Day Trial](/trial/). At its core, Astronomer Cloud is a large-scale deployment of Astronomer Enterprise that is fully managed by our team. Cloud provides parallel Airflow functionality to Enterprise with just a few key differences:
+If you want to get a sense of Astronomer Enterprise without going through the installation process, try out Cloud by [starting a 14-day Trial](/trial/). At its core, Astronomer Cloud is a large-scale deployment of Astronomer Enterprise that is fully managed by our team. Cloud provides parallel Airflow functionality to Enterprise with just a few key differences:
 
 - Astronomer Cloud runs in Astronomer's VPC and uses the public internet, whereas Astronomer Enterprise runs in your own environment according to your own security settings.
-- Astronomer Cloud is billed by usage, whereas Enterprise is billed through an annual license.
+- Astronomer Cloud is billed on CPU and Memory usage on a monthly basis, whereas Enterprise is billed through an annual license.
 - Astronomer Cloud doesn't give users access to the same Grafana/ Kibana monitoring stack that you have in Astronomer Enterprise.
 
 ## Step 2: Install the Astronomer CLI
@@ -56,9 +56,9 @@ For more information on the Astronomer CLI, read [CLI Quickstart](https://www.as
 If you are in charge of setting up Astronomer for your team, follow one of our Enterprise installation guides to get Astronomer running on your Kubernetes Cluster.
 
 We have documentation for deploying Astronomer on:
-- AWS EKS ([Manually](/docs/enterprise/stable/install/aws/install-aws-standard/) or through [Terraform](/docs/enterprise/stable/install/aws/install-aws-terraform/))
-- [GCP Google Kubernetes Service](/docs/enterprise/stable/install/gcp/install-gcp-standard/)
-- [Azure Kubernetes Service](/docs/enterprise/stable/install/azure/install-azure-standard/)
+- AWS Elastic Kubernetes Service (EKS) ([Manually](/docs/enterprise/stable/install/aws/install-aws-standard/) or through [Terraform](/docs/enterprise/stable/install/aws/install-aws-terraform/))
+- [GCP Google Kubernetes Service (GKE)](/docs/enterprise/stable/install/gcp/install-gcp-standard/)
+- [Azure Kubernetes Service (AKS)](/docs/enterprise/stable/install/azure/install-azure-standard/)
 
 
 ## Step 4: Create a Project
@@ -130,9 +130,9 @@ You can authenticate to Astronomer using the following command:
 $ astro auth login BASEDOMAIN
 ```
 
-You'll be prompted to authenticate and select the Workspace that you want to log in to.
+You'll be prompted to authenticate and select the Workspace that you want to operate in.
 
-The first user to log in will become the System Admin. Additional users can be added from the Astronomer UI. For more information on Astronomer's users and permissions model, read [Manage Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/).
+The first user to log in to the Astronomer platform will become a System Admin. Additional users can be added from the Astronomer UI. For more information on Astronomer's users and permissions model, read [Manage Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/).
 
 ## Step 8: Create an Airflow Deployment
 
