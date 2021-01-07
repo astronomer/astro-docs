@@ -44,9 +44,9 @@ email:
 ​
 ```
 email:
-	enabled: true
-	reply: “signedemail@mydomain.com”
-	smtpUrl: “smtps://apikey:SG.sometoken@smtp.sendgrid.net:465/?pool=true”
+  enabled: true
+  reply: “signedemail@mydomain.com”
+  smtpUrl: “smtps://apikey:SG.sometoken@smtp.sendgrid.net:465/?pool=true”
 ```
 ​
 #### Mailgun:
