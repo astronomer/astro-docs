@@ -14,9 +14,9 @@ Whether you're exploring our Enterprise or Cloud offering, we've designed this t
 
 If you want to get a sense of Astronomer Enterprise without going through the installation process, try out Cloud by [starting a 14-Day Trial](/trial/). At its core, Astronomer Cloud is a large-scale deployment of Astronomer Enterprise that is fully managed by our team. Cloud provides parallel Airflow functionality to Enterprise with just a few key differences:
 
-- Astronomer Cloud runs in Astronomer's VPC and uses the public internet, whereas Astronomer Enterprise runs in your own environment according to your own security settings
-- Astronomer Cloud is billed by usage, whereas Enterprise is billed through an annual license
-- Astronomer Cloud doesn't not give users access to the same monitoring stack you have in Astronomer Enterprise
+- Astronomer Cloud runs in Astronomer's VPC and uses the public internet, whereas Astronomer Enterprise runs in your own environment according to your own security settings.
+- Astronomer Cloud is billed by usage, whereas Enterprise is billed through an annual license.
+- Astronomer Cloud doesn't give users access to the same Grafana/ Kibana monitoring stack that you have in Astronomer Enterprise.
 
 ## Step 2: Install the Astronomer CLI
 
@@ -53,7 +53,7 @@ For more information on the Astronomer CLI, read [CLI Quickstart](https://www.as
 
 ## Step 3: Install Astronomer Enterprise
 
-If you are in charge of setting up Astronomer for your org, follow one of our Enterprise installation guides to get Astronomer running on your Kubernetes Cluster.
+If you are in charge of setting up Astronomer for your team, follow one of our Enterprise installation guides to get Astronomer running on your Kubernetes Cluster.
 
 We have documentation for deploying Astronomer on:
 - AWS EKS ([Manually](/docs/enterprise/stable/install/aws/install-aws-standard/) or through [Terraform](/docs/enterprise/stable/install/aws/install-aws-terraform/))
@@ -104,9 +104,9 @@ To help you get started, your initialized project includes an `example-dag` in `
 If you'd like to deploy some more functional DAGs, upload your own or check out [example DAGs we've open sourced](https://github.com/airflow-plugins/example-dags).
 
 
-## Step 5: Identify Your Base Domain and Log In
+## Step 5: Go to Your Base Domain and Log In
 
-Since Astronomer is running entirely on your infrastructure, it will be located at a base domain specific to your organization. Head to `app.BASEDOMAIN` in your web browser and log in. You're in the right place if you see the following login screen:
+Since Astronomer is running entirely on your infrastructure, the Astronomer UI will be located at a base domain specific to your organization. Head to `app.BASEDOMAIN` in your web browser and log in. You're in the right place if you see the following login screen:
 
 ![Log In](https://assets2.astronomer.io/main/docs/enterprise_quickstart/log_into_astro.png)
 
@@ -127,12 +127,12 @@ For more information, read [Manage Workspaces and Deployments](/docs/enterprise/
 
 You can authenticate to Astronomer using the following command:
 ```sh
-astro auth login BASEDOMAIN
+$ astro auth login BASEDOMAIN
 ```
 
 You'll be prompted to authenticate and select the Workspace that you want to log in to.
 
-The first user to log in will become the Admin. Additional users can be added from the Astronomer UI. For more information on Astronomer's users and permissions model, read [Manage Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/).
+The first user to log in will become the System Admin. Additional users can be added from the Astronomer UI. For more information on Astronomer's users and permissions model, read [Manage Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/).
 
 ## Step 8: Create an Airflow Deployment
 
@@ -182,14 +182,13 @@ $ astro deploy
 
 ## Step 10: Access Metrics
 
-Once you've turned on the `example-dag` in the Airflow UI, go to the **Metrics** tab in the Astronomer UI to see the Grafana metrics for your Deployment in real time. For a full breakdown of the Grafana dashboard, read [Metrics in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/stable/monitor/grafana-metrics).
+Once you've turned on the `example-dag` in the Airflow UI, go to the **Metrics** tab in the Astronomer UI to see metrics for your Deployment in real time.
 
 The **Metrics** tab only shows metrics for a given Deployment. If you are the first user to authenticate to Astronomer, you'll additionally have access to administrative views of Grafana and Kibana via the dropdown menu in the Astronomer UI:
 
 ![Admin](https://assets2.astronomer.io/main/docs/enterprise_quickstart/admin_panel.png)
 
-These views show logs and metrics across all Deployments running on your Astronomer platform. To learn more about using Kibana, read [Logging in Astronomer Enterprise](/docs/enterprise/stable/monitor/kibana-logging/)
-
+These views show logs and metrics across all Deployments running on your Astronomer platform. To learn more about using Grafana, read [Metrics in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/stable/monitor/grafana-metrics). To learn more about using Kibana, read [Logging in Astronomer Enterprise](/docs/enterprise/stable/monitor/kibana-logging/).
 
 ## What's Next?
 
@@ -198,3 +197,4 @@ Once you've successfully installed your Astronomer platform, we recommend doing 
 * [Invite new users to Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/manage-platform-users)
 * [Manage permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions) for your new users
 * Integrate an [Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
+* Set up [CI/CD](https://www.astronomer.io/docs/enterprise/stable/deploy/ci-cd)
