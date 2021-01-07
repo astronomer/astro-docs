@@ -10,13 +10,13 @@ Astronomer's [open source CLI](https://github.com/astronomer/astro-cli) is the e
 
 From the CLI, both Astronomer and non-Astronomer users can create a local Apache Airflow instance with a dedicated Webserver, Scheduler and Postgres Database. Once you initialize a project on Astronomer, you can easily customize your image (e.g. add Python or OS-level packages, plugins etc.) and push that image to run on your local machine.
 
-If you're an Astronomer user, you might use the Astronomer CLI to do the following:
+If you're an Astronomer Enterprise user, you might use the Astronomer CLI to do the following:
 
 - Authenticate to Astronomer
 - List Astronomer Workspaces and Deployments you have access to
 - Deploy to an Airflow Deployment on Astronomer
 - Create Astronomer Service Accounts, Users and Deployments
-- Append annotations to your Deployment's Pods (Enterprise only)
+- Append annotations to your Deployment's Pods
 
 
 The guidelines below will walk you through how to install the CLI, initialize an Astronomer project, and deploy to an Airflow instance on your local machine.
@@ -158,21 +158,18 @@ This command will spin up 3 Docker containers on your machine, each for a differ
  - **Webserver:** The Airflow component responsible for rendering the Airflow UI
  - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
- For guidelines on accessing your Postgres database both locally and on Astronomer, read [Access the Airflow Database](/docs/enterprise/stable/customize-airflow/access-airflow-database/).
-
 2. Verify that all 3 Docker containers were created by running:
 ```
 $ docker ps
 ```
-> **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432.
->
-> If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
 3. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with `admin` for both your Username and Password.
 
- You should also be able to access your Postgres Database at: `localhost:5432/postgres`.
+    You should also be able to access your Postgres Database at: `localhost:5432/postgres`. For guidelines on accessing your Postgres database both locally and on Astronomer, refer to the [Access Airflow Database](/docs/enterprise/stable/customize-airflow/access-airflow-database/) guide.
 
- For guidelines on accessing your Postgres database both locally and on Astronomer, refer to the [Access Airflow Database](/docs/enterprise/stable/customize-airflow/access-airflow-database/) guide.
+    > **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432.
+    >
+    > If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
 ## Step 5: Authenticate to Astronomer
 
@@ -184,7 +181,7 @@ $ astro auth login BASEDOMAIN
 
 If you created your account with a username and password, you'll be prompted to enter them directly in your terminal. If you did so via Google or GitHub, you'll be prompted to grab a temporary token from the Astronomer UI in your browser.
 
-If you do not yet have an account on Astronomer, ask a Workspace Admin on your team to send you an invitation or [reach out to us](/get-astronomer?ref=docs) to start a free 14-day trial on Astronomer Cloud.
+If you do not yet have an account on Astronomer, ask a Workspace Admin on your team to send you an invitation.
 
 > **Note:** Once you run this command once, it should stay cached and allow you to just run `astro auth login` to authenticate more easily in the future.
 
