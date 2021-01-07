@@ -56,7 +56,7 @@ For more information on the Astronomer CLI, read [CLI Quickstart](https://www.as
 If you are in charge of setting up Astronomer for your team, follow one of our Enterprise installation guides to get Astronomer running on your Kubernetes Cluster.
 
 We have documentation for deploying Astronomer on:
-- AWS EKS ([Manually](/docs/enterprise/stable/install/aws/install-aws-standard/) or through [Terraform](/docs/enterprise/stable/install/aws/install-aws-terraform/))
+- AWS EKS (via [Helm](/docs/enterprise/stable/install/aws/install-aws-standard/) or [Terraform](/docs/enterprise/stable/install/aws/install-aws-terraform/))
 - [GCP Google Kubernetes Service](/docs/enterprise/stable/install/gcp/install-gcp-standard/)
 - [Azure Kubernetes Service](/docs/enterprise/stable/install/azure/install-azure-standard/)
 
