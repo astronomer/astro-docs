@@ -53,8 +53,8 @@ email:
 ​
 ```
 email:
-        enabled: true
-        smtpUrl:smtps://xyz%40example.com:password@smtp.mailgun.org/?pool=true
+  enabled: true
+  smtpUrl:smtps://xyz%40example.com:password@smtp.mailgun.org/?pool=true
 ```
 ​
 #### Office365:
