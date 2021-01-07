@@ -35,9 +35,9 @@ Note: By default From address will be noreply@astronomer.io, but can be modified
 ​
 ```
 email:
-	enabled: true
-	reply: "xyz@example.com"
-	smtpUrl: smtp://AWS_SMTP_Username:AWS_SMTP_Password@email-smtp.us-east-1.amazonaws.com/?requireTLS=true
+  enabled: true
+  reply: "xyz@example.com"
+  smtpUrl: smtp://AWS_SMTP_Username:AWS_SMTP_Password@email-smtp.us-east-1.amazonaws.com/?requireTLS=true
 ```
 ​
 #### SendGrid:
