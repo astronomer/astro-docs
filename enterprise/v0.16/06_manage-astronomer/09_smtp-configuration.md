@@ -70,7 +70,7 @@ email:
 ​
 ```
 email:
-	enabled: true
-	reply: "xyz@example.com"
-	smtpUrl: smtp://smtp-relay.example.com:25/?ignoreTLS=true
+  enabled: true
+  reply: "xyz@example.com"
+  smtpUrl: smtp://smtp-relay.example.com:25/?ignoreTLS=true
 ```
