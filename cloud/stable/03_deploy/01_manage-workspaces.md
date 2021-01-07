@@ -18,11 +18,11 @@ Once logged in, you'll land on a view that will direct you to create a new **Wor
 
 ## Workspaces
 
-**The Astronomer Workspace:** A personal or shared space that is home to a collection of Airflow deployments. User access to deployments is managed at the Workspace level on Astronomer.
+**The Astronomer Workspace:** A personal or shared space that is home to a collection of Airflow Deployments. User access to Deployments is managed at the Workspace level on Astronomer.
 
-A **Workspace** is an Astronomer-specific term. You can think of your Workspaces the same way you'd think of teams - they're just collections of Airflow deployments that specific user groups have access to. When you create an account on Astronomer, a default personal Workspace is automatically created. Airflow deployments are hierarchically lower - from a Workspace, you can create one or more Airflow deployments, and grant or restrict user access to those deployments accordingly.
+A **Workspace** is an Astronomer-specific term. You can think of your Workspaces the same way you'd think of teams - they're just collections of Airflow Deployments that specific user groups have access to. When you create an account on Astronomer, a default personal Workspace is automatically created. Airflow Deployments are hierarchically lower - from a Workspace, you can create one or more Airflow Deployments, and grant or restrict user access to those Deployments accordingly.
 
-If you were a solo agent, you could have multiple Airflow deployments within that single Workspace and have no need for additional Workspaces. Teams, however, often share one or more Workspaces labeled as such, and have multiple Airflow deployments from there.
+If you were a solo agent, you could have multiple Airflow Deployments within that single Workspace and have no need for additional Workspaces. Teams, however, often share one or more Workspaces labeled as such, and have multiple Airflow Deployments from there.
 
 Deployments cannot be used or shared across Workspaces. While you’re free to push local DAGs and code anywhere you wish at any time, there is currently no way to move an existing Airflow instance from one Workspace to another once deployed.
 
@@ -30,16 +30,16 @@ Once you click into a Workspace, you'll land on another dashboard that we'll cal
 
 ![Workspace Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.12-deployments.png)
 
-Here, you have a high-level overview of all of the active Airflow deployments you have running in that given Workspace. In this case, we only have one cluster spun up.
+Here, you have a high-level overview of all of the active Airflow Deployments you have running in that given Workspace. In this case, we only have one cluster spun up.
 
 From this screen, you can:
 
-1. Create new Airflow deployments
+1. Create new Airflow Deployments
 2. Manage user access to the Workspace
 3. Generate tokens for CI/CD systems via service accounts.
 4. Rename your Workspace
 
-Since all of our app activity is routed through a GraphQL API, you're free to create deployments, switch Workspaces, and add users via our [CLI](/docs/cloud/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
+Since all of our app activity is routed through a GraphQL API, you're free to create Deployments, switch Workspaces, and add users via our [CLI](/docs/cloud/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
 
 > **Note:** The concept of a "Workspace" only exists at the API level to support role-based access control and user permissions. It will not affect Airflow task execution.
 
@@ -53,7 +53,7 @@ You're able to adjust the resources given to your Airflow deployment directly fr
 
 From the Workspace dashboard, navigate back to the "Deployments" tab.
 
-If you click into one of your Airflow deployments, you'll land on a page that looks like this:
+If you click into one of your Airflow Deployments, you'll land on a page that looks like this:
 
 ![Deployments](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.15-deployment.png)
 
@@ -72,7 +72,7 @@ For a breakdown the Airflow UI itself, check out [this guide](/guides/airflow-ui
 
 If you navigate over to the "Users" tab of your Workspace Dashboard, you'll be able to see who has access to the Workspace.
 
-If you'd like to share access to other members of your organization, invite them to a Workspace you're a part of. Once members, they'll have access to _all_ Airflow deployments under that Workspace with varying permissions.
+If you'd like to share access to other members of your organization, invite them to a Workspace you're a part of. Once members, they'll have access to _all_ Airflow Deployments under that Workspace with varying permissions.
 
 ### Workspace Permissions
 
