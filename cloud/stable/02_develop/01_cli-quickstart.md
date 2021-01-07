@@ -184,7 +184,7 @@ If you created your account with a username and password, you'll be prompted to 
 
 If you do not yet have an account on Astronomer, ask a Workspace Admin on your team to send you an invitation or [reach out to us](/get-astronomer?ref=docs) to start a free 14-day trial on Astronomer Cloud.
 
-> **Note:** Once you run this command once, it should stay cached and allow you to just run `astro auth login` to authenticate more easily in the future.
+> **Note:** Once you run this command once, it should stay cached and allow you to just run `$ astro auth login` to authenticate more easily in the future.
 
 ## Next Steps: Apply Changes using the CLI
 
