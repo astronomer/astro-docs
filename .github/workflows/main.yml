@@ -63,4 +63,4 @@ jobs:
         run: |
           yarn install
           for file in ${{ steps.get_file_changes.outputs.files }}  do \
-          node_modules/.bin/mdspell \"file\" -n -a --en-us -r"
+          node_modules/.bin/mdspell \"file\" -n -a --en-us -r
