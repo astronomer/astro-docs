@@ -220,6 +220,9 @@ global:
   tlsSecret: astronomer-tls
 
   postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
+  
+  azure:
+    enabled: true
 
 # Settings for database deployed on AKS cluster.
 postgresql:
