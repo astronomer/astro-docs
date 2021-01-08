@@ -72,7 +72,7 @@ For a breakdown the Airflow UI itself, check out [this guide](/guides/airflow-ui
 
 If you navigate over to the "Users" tab of your Workspace Dashboard, you'll be able to see who has access to the Workspace.
 
-If you'd like to share access to other members of your organization, invite them to a Workspace you're a part of. Once members, they'll have access to _all_ Airflow Deployments under that Workspace with varying permissions.
+If you'd like to share access to other members of your organization, invite them to a Workspace you're a part of. Once they are part of your Workspace, Deployment Admins can grant them varying levels of access to Airflow Deployments within the Workspace.
 
 ### Workspace Permissions
 
