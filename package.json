@@ -1,5 +1,13 @@
 {
   "name": "astro-docs",
   "version": "0.0.1",
-  "scripts": {}
+  "scripts": {
+    "lint": "node_modules/.bin/markdownlint ./ac/next ./cloud/stable ./enterprise/next",
+    "spellcheck": "node_modules/.bin/mdspell \"./enterprise/next/*/*.md\" \"./cloud/stable/*/*.md\" \"./cloud/stable/*/*.md\" \"./enterprise/next/*/*.md\" -n -a --en-us -r",
+    "spellcheck-interactive": "node_modules/.bin/mdspell \"./enterprise/next/*/*.md\" \"./cloud/stable/*/*.md\" \"./cloud/stable/*/*.md\" \"./enterprise/next/*/*.md\" -n -a --en-us"
+  },
+  "dependencies": {
+    "markdown-spellcheck": "^1.3.1",
+    "markdownlint-cli": "^0.26.0"
+  }
 }
