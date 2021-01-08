@@ -1,4 +1,5 @@
 # This is a basic workflow to help you get started with Actions
+# <!-- markdownlint-disable-file -->
 
 name: CI
 
@@ -63,4 +64,4 @@ jobs:
         run: |
           yarn install
           echo ${{ steps.get_file_changes.outputs.files }}
-          node_modules/.bin/mdspell ${{ steps.get_file_changes.outputs.files }} -n -a --en-us -r
+          node_modules/.bin/mdspell grep .md ${{ steps.get_file_changes.outputs.files }} -n -a --en-us -r
