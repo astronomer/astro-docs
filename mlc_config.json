@@ -25,6 +25,15 @@
       "pattern":"https://github.com/mik-laj"
     },
     {
+      "pattern":"/docs/.+"
+    },
+    {
+      "pattern":"/trial/.+"
+    },
+    {
+      "pattern":"/guides/.+"
+    },
+    {
       "pattern":"support.astronomer.io"
     },
     {
@@ -37,7 +46,7 @@
       "pattern":"https://app.+"
     },
     {
-      "pattern":"/.+"
+      "pattern":"/enterprise/.+"
     }
   ],
   "timeout": "20s",
