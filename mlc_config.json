@@ -28,10 +28,10 @@
       "pattern":"/docs/.+"
     },
     {
-      "pattern":"/trial/.+"
+      "pattern":"/trial.+"
     },
     {
-      "pattern":"/guides/.+"
+      "pattern":"/guides.+"
     },
     {
       "pattern":"support.astronomer.io"
