@@ -63,5 +63,5 @@ jobs:
       - name: Check spelling
         run: |
           yarn install
-          echo ${{ steps.get_file_changes.outputs.files }}
-          node_modules/.bin/mdspell grep .md ${{ steps.get_file_changes.outputs.files }} -n -a --en-us -r
+          echo ${{ steps.get_file_changes.outputs.files }} | grep .md
+          node_modules/.bin/mdspell ${{ steps.get_file_changes.outputs.files }} -n -a --en-us -r
