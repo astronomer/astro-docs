@@ -22,10 +22,18 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@main
+      - name: Get file changes
+        id: get_file_changes
+        uses: trilom/file-changes-action@v1.2.3
+        with:
+          output: ' '
+      - name: Echo file changes
+        run: |
+          echo Changed files: ${{ steps.get_file_changes.outputs.files }}
       - name: lint all mardownfiles
         run: |
           yarn install
-          yarn lint
+          node_modules/.bin/markdownlint ${{ steps.get_file_changes.outputs.files }}
   link-check:
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +43,7 @@ jobs:
         uses: gaurav-nelson/github-action-markdown-link-check@1.0.8
         with:
           config-file: './mlc_config.json'
-          check-modified-files-only: 'no'
+          check-modified-files-only: 'yes'
           base-branch: 'main'
           folder-path: './enterprise/next/, ./cloud/stable/, ./cloud/stable/ ./enterprise/next/'
   spell-check:
@@ -43,7 +51,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@main
+      - name: Get file changes
+        id: get_file_changes
+        uses: trilom/file-changes-action@v1.2.3
+        with:
+          output: ' '
+      - name: Echo file changes
+        run: |
+          echo Changed files: ${{ steps.get_file_changes.outputs.files }}
       - name: Check spelling
         run: |
           yarn install
-          yarn spellcheck
+          for file in ${{ steps.get_file_changes.outputs.files }}  do \
+          node_modules/.bin/mdspell \"file\" -n -a --en-us -r"

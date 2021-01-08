@@ -47,6 +47,15 @@
     },
     {
       "pattern":"/enterprise/.+"
+    },
+    {
+      "pattern":"/get-astronomer.+"
+    },
+    {
+      "pattern":"/contact"
+    },
+    {
+      "pattern":"/enterprise.+"
     }
   ],
   "timeout": "20s",
