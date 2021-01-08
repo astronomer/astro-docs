@@ -23,6 +23,21 @@
     },
     {
       "pattern":"https://github.com/mik-laj"
+    },
+    {
+      "pattern":"support.astronomer.io"
+    },
+    {
+      "pattern":"downloads"
+    },
+    {
+      "pattern":"https://houston.+"
+    },
+    {
+      "pattern":"https://app.+"
+    },
+    {
+      "pattern":"/.+"
     }
   ],
   "timeout": "20s",
