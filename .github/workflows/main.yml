@@ -66,6 +66,7 @@ jobs:
           for i in ${{ steps.get_file_changes.outputs.files }}
           do 
             if [[ $i == *".yml"* ]]; then
+              echo $i
               node_modules/.bin/mdspell \"$i\" -n -a --en-us -r
             fi
           done
