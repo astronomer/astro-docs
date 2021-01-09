@@ -67,6 +67,6 @@ jobs:
           do 
             if [[ $i == *".yml"* ]]; then
               echo $i
-              node_modules/.bin/mdspell \"$i\" -n -a --en-us -r
+              node_modules/.bin/mdspell $i -n -a --en-us -r
             fi
           done
