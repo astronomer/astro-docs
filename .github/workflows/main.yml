@@ -63,5 +63,8 @@ jobs:
       - name: Check spelling
         run: |
           yarn install
-          ${{ steps.get_file_changes.outputs.files }} | grep -i '.md'
+          for i in ${{ steps.get_file_changes.outputs.files }}
+          do 
+            echo i
+          done
           node_modules/.bin/mdspell ${{ steps.get_file_changes.outputs.files }} -n -a --en-us -r
