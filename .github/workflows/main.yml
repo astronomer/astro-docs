@@ -65,7 +65,7 @@ jobs:
           yarn install
           for i in ${{ steps.get_file_changes.outputs.files }}
           do 
-            if [$i = *json*]
+            if [[$i = *'.json'*]]
             then
               node_modules/.bin/mdspell $i -n -a --en-us -r
           done
