@@ -4,53 +4,66 @@ navTitle: "Configure a Deployment"
 description: "How to configure your Airflow Deployment's Resources on Astronomer."
 ---
 
-Once you've created your deployment, you can configure it for the use case at hand.
+Once you've [created your Airflow Deployment](https://www.astronomer.io/docs/enterprise/stable/deploy/deploy-cli), you can configure it based on the needs of your organization via the Astronomer UI.
 
-## Allocating Resources
+## Allocate Resources
 
-The "Settings" tab allows you to adjust your resource components - empowering you to freely scale your deployment up or down as you wish. To this end, you can:
+In the **Settings** tab for your Airflow Deployment, you can adjust the amounts of resources your Deployment uses for various functions. This empowers you to freely scale your Deployment up or down as you wish. To this end, you can:
 
 1. Choose your Executor (Local, Celery, or Kubernetes)
 2. Adjust resources to your Scheduler and Webserver
 3. Adjust Worker Count (*Celery only*)
 4. Adjust your Worker Termination Grace Period (*Celery only*)
-5. Add Extra Capacity (*Kubernetes or KubernetesPodOperator only*)
+5. Add Extra Capacity
 
-![Astro UI Executor Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.15-Astro-UI-Executor.png)
+![Astro UI Executor Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.23-astro-UI-executor.png)
 
-You can adjust the AUs (Astronomer Units of CPU and memory) you want to allocate towards your Scheduler, Webserver, and Celery Workers (if applicable).
+To adjust resources, you can either use a slider or specify a specific number of AUs (Astronomer Units of CPU and memory) you want to allocate towards your Scheduler, Webserver, and Celery Workers (if applicable).
 
-If you're running Astronomer Enterprise, you can watch these in real time with your Grafana dashboards.
+If you're running Astronomer Enterprise, you can watch your Deployment's use of AUs in real time on your [Grafana dashboards](https://www.astronomer.io/docs/enterprise/v0.16/monitor/grafana-metrics).
 
-### Airflow Executors 101
+### Which executor should I use?
 
-Check out this [guide](/guides/airflow-executors-explained/) for a summary on each executor.
+Generally speaking, we recommend the Local Executor for any development environments and the Celery and Kubernetes Executors for any production environments.
 
-#### Which executor should I be using?
+The Local Executor will execute DAGs within the Scheduler process. If you are only running a few light tasks a day that don't use much memory, the Local Executor might be sufficient for running your DAGs.
 
-Generally speaking, we recommend the local executor for any "dev" environments and the Celery and Kubernetes executors for any "production" environments.
+As you scale up the number of tasks or the resources your workflows require, we recommend moving over to Celery or Kubernetes. For more information on each type of Executor, read Astronomer's [Airflow Executors Explained](https://www.astronomer.io/guides/airflow-executors-explained) guide.
 
-The local executor will execute your DAGs in the same pod as the scheduler. If you are only running a few light tasks a day that don't use much memory, it may give you what you need to run your DAGs successfully. As you scale up the number of tasks or the resources your workflows require, we recommend moving over to Celery or Kubernetes.
+> **Note:** Regardless of which Airflow Executor you choose, each task will run in a temporary container. No tasks will have access to any locally stored file created by a separate task.
 
-**Regardless of which executor you are using, each task will run in a temporary container. No tasks will have access to the any locally stored file created by a separate task.**
+## Scale Core Resources
 
-## Scaling the Scheduler and Webserver
+If Airflow is slowing down after adding new tasks, it's likely time to scale up either your Scheduler or Webserver via the Astronomer UI. The settings for these resources are available in the **Core Resources** section of your Airflow Deployment's **Settings** tab. When you need to scale a resource, simply adjust the slider for the resource to increase its available computing power.
 
-If you are seeing delays in tasks being scheduled (check the Gantt Chart), it's usually time to scale up your scheduler. You can also receive email alerts when your scheduler is underprovisioned (more on this in the Alerting section).
+Read the following sections to help you determine which core resources to scale and when.
 
-If your Airflow UI is really slow or crashes when you try to load a large DAG, you'll want to scale up your webserver.
+### Webserver Resources
 
+The Webserver is responsible for rendering the Airflow UI. If you notice that it's taking longer than usual for DAGs to render in the Airflow UI, or if your Airflow UI crashes when loading a DAG, it might be time to scale your Webserver.
 
-### Extra Capacity
+### Scheduler Resources
+
+If you are seeing delays in tasks being scheduled on the [Gantt Chart](https://airflow.apache.org/docs/apache-airflow/stable/ui.html#gantt-chart) in the Airflow UI, it's likely time to scale your Scheduler.
+
+If you want to set up email alerts to be notified when your Scheduler is underprovisioned, refer to our [Airflow Alerts doc](/docs/enterprise/stable/customize-airflow/airflow-alerts/).
+
+### Scheduler Count
+
+Increasing the **Scheduler Count** slider creates multiple schedulers that run simultaneously on your Deployment. If you want to significantly increase the speed at which you schedule tasks, scaling your Scheduler Count is the fastest way to do so. Each Scheduler uses the amount of resources you've provisioned using **Scheduler Resources** setting. For instance, if you provision 2 CPUs in Scheduler resources and have 2 Schedulers, you'll be using 4 CPUs of Scheduler resources total.
+
+You also might want multiple Schedulers to eliminate single points of failure in your Deployment. If one Scheduler is down, you can keep scheduling and executing tasks through additional Schedulers.
+
+We generally recommend having only one Scheduler for development environments and multiple Schedulers for production environments.  
+
+## Scale Extra Capacity
 
 The **Extra Capacity** setting is tied to the [KubernetesPodOperator](/docs/enterprise/stable/customize-airflow/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider affects:
 
 1. CPU and memory quotas
 2. Database connection limits.
 
-![Astro UI Executor Config](https://assets2.astronomer.io/main/docs/astronomer-ui/Astro-UI-Resources.png)
-
-#### Environment Variables
+## Configure Environment Variables
 
 Environment Variables are a set of configurable values that allow you to dynamically fine tune your Airflow Deployment. As you think about scaling your use of Airflow, you might consider customizing any of the following Environment Variables:
 

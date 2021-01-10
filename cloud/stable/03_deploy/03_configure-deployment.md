@@ -6,7 +6,7 @@ description: "How to configure your Airflow Deployment's Resources on Astronomer
 
 Once you've [created your Airflow Deployment](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli), you can configure it based on the needs of your organization via the Astronomer UI.
 
-## Allocating Resources
+## Allocate Resources
 
 In the **Settings** tab for your Airflow Deployment, you can adjust the amounts of resources your Deployment uses for various functions. This empowers you to freely scale your Deployment up or down as you wish. To this end, you can:
 
@@ -30,25 +30,25 @@ The Local Executor will execute DAGs within the Scheduler process. If you are on
 
 As you scale up the number of tasks or the resources your workflows require, we recommend moving over to Celery or Kubernetes. For more information on each type of Executor, read Astronomer's [Airflow Executors Explained](https://www.astronomer.io/guides/airflow-executors-explained) guide.
 
-> **Note:** Regardless of which Airflow Executor you choose, each task will run in a temporary container. No tasks will have access to the any locally stored file created by a separate task.
+> **Note:** Regardless of which Airflow Executor you choose, each task will run in a temporary container. No tasks will have access to any locally stored file created by a separate task.
 
-## Scaling Core Resources
+## Scale Core Resources
 
 If Airflow is slowing down after adding new tasks, it's likely time to scale up either your Scheduler or Webserver via the Astronomer UI. The settings for these resources are available in the **Core Resources** section of your Airflow Deployment's **Settings** tab. When you need to scale a resource, simply adjust the slider for the resource to increase its available computing power.
 
-Read the following sections to help you determine which resources to scale and when.
+Read the following sections to help you determine which core resources to scale and when.
 
-### Scaling Webserver Resources
+### Webserver Resources
 
 The Webserver is responsible for rendering the Airflow UI. If you notice that it's taking longer than usual for DAGs to render in the Airflow UI, or if your Airflow UI crashes when loading a DAG, it might be time to scale your Webserver.
 
-### Scaling Scheduler Resources
+### Scheduler Resources
 
 If you are seeing delays in tasks being scheduled on the [Gantt Chart](https://airflow.apache.org/docs/apache-airflow/stable/ui.html#gantt-chart) in the Airflow UI, it's likely time to scale your Scheduler.
 
 If you want to set up email alerts to be notified when your Scheduler is underprovisioned, refer to our [Airflow Alerts doc](/docs/cloud/stable/customize-airflow/airflow-alerts/).
 
-### Scaling Scheduler Count
+### Scheduler Count
 
 Increasing the **Scheduler Count** slider creates multiple schedulers that run simultaneously on your Deployment. If you want to significantly increase the speed at which you schedule tasks, scaling your Scheduler Count is the fastest way to do so. Each Scheduler uses the amount of resources you've provisioned using **Scheduler Resources** setting. For instance, if you provision 2 CPUs in Scheduler resources and have 2 Schedulers, you'll be using 4 CPUs of Scheduler resources total.
 
@@ -56,14 +56,14 @@ You also might want multiple Schedulers to eliminate single points of failure in
 
 We generally recommend having only one Scheduler for development environments and multiple Schedulers for production environments.  
 
-## Extra Capacity
+## Scale Extra Capacity
 
 The **Extra Capacity** setting is tied to the [KubernetesPodOperator](/docs/cloud/stable/customize-airflow/kubepodoperator/) and the KubernetesExecutor, as it maps to extra pods created in the cluster. Namely, the slider affects:
 
 1. CPU and memory quotas
 2. Database connection limits.
 
-## Environment Variables
+## Configure Environment Variables
 
 Environment Variables are a set of configurable values that allow you to dynamically fine tune your Airflow Deployment. As you think about scaling your use of Airflow, you might consider customizing any of the following Environment Variables:
 
