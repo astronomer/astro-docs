@@ -18,7 +18,7 @@ To upgrade your Airflow Deployment to a higher version of Airflow, there are thr
 
 Read below for details.
 
-> **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](/docs/enterprise/stable/develop/customize-image/).
+> **Note:** For more thorough guidelines on customizing your image, reference our ["Customize Your Image" doc](/docs/enterprise/v0.16/develop/customize-image/).
 
 ## Available Astronomer Certified Versions
 
@@ -242,13 +242,13 @@ For help from our team, reach out to [Astronomer Support](https://support.astron
 
 If your image *does* build successfully, you're ready to push it to your Airflow Deployment Astronomer.
 
-To do so, trigger your [CI/CD process](https://www.astronomer.io/docs/enterprise/stable/deploy/ci-cd) or simply run:
+To do so, trigger your [CI/CD process](https://www.astronomer.io/docs/enterprise/v0.16/deploy/ci-cd) or simply run:
 
 ```bash
  $ astro deploy
  ```
 
- For more information on deploying to Astronomer, refer to [Deploy to Astronomer via the CLI](https://www.astronomer.io/docs/enterprise/stable/deploy/deploy-cli).
+ For more information on deploying to Astronomer, refer to [Deploy to Astronomer via the CLI](https://www.astronomer.io/docs/enterprise/v0.16/deploy/deploy-cli).
 
 ## Cancel Airflow Upgrade Initialization
 
