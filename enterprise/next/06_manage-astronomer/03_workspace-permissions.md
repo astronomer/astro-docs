@@ -30,7 +30,7 @@ A user who creates a Workspace is automatically granted the _Admin_ role for the
 
 #### via Astronomer UI
 
-To invite a user to a Workspace via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to **Workspace** > **Users** > **Invite User**.
+To invite a user to a Workspace via the Astronomer UI, navigate to **Workspace** > **Users** > **Invite User**.
 
 When a Workspace _Admin_ invites a user to a Workspace in which one or more Airflow Deployments exist, they'll have the opportunity to set that user's deployment-level roles as well, though it is not required.
 
@@ -51,7 +51,7 @@ Only Workspace _Admins_ can invite other users and set their permissions.
 To find **Workspace ID**, you can:
 
 - Run `$ astro workspace list`
-- Find it in the Workspace URL from your browser after the `/w/` (e.g. `https://app.gcp0001.us-east4.astronomer.io/w/<workspace-id>`)
+- Find it in the Workspace URL from your browser after the `/w/` (e.g. `https://app.basedomain/w/<workspace-id>`)
 
 To set a **Role**, add a flag in the following format:
 
@@ -69,7 +69,7 @@ The ability to invite Workspace users to an Airflow Deployment within it is limi
 
 #### via Astronomer UI
 
-To invite a Workspace user to an Airflow Deployment via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to: **Workspace** > **Deployment** > **Access**.
+To invite a Workspace user to an Airflow Deployment via the Astronomer UI, navigate to: **Workspace** > **Deployment** > **Access**.
 
 From there:
 
@@ -107,7 +107,7 @@ If you do _not_ specify a role in this command, `DEPLOYMENT_VIEWER` will be set 
 
 #### View Workspace Users
 
-To view roles within a Workspace via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to **Workspace** > **Users**. All Workspace users have access to this view and can see the roles of other users.
+To view roles within a Workspace via the Astronomer UI, navigate to **Workspace** > **Users**. All Workspace users have access to this view and can see the roles of other users.
 
 ![View Workspace Users](https://assets2.astronomer.io/main/docs/astronomer-ui/view-workspace-users.png)
 
@@ -196,7 +196,6 @@ Workspace _Admins_ are the highest-tiered role at the Workspace level. Admins:
 - Can manage users and their permissions in a Workspace
 - Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name)
 - Can create Airflow Deployments in the Workspace
-- Can manage **Billing**
 - Can perform CRUD operations on any Service Account in the Workspace
 
 Workspace _Admins_ do not automatically have CRUD access to all Airflow Deployments within it - they must either create or be added to those Deployments and will be held to the restrictions of their deployment-level role. For example, a Workspace _Admin_ could be a Deployment _Viewer_ and not have access to push code to that Deployment.
@@ -211,7 +210,6 @@ Below a Workspace _Admin_, an _Editor_:
 - Can perform CRUD operations on any Service Account in the Workspace
 - Can create Airflow Deployments in the Workspace
 - Cannot manage other users in the Workspace
-- Cannot add, edit or remove information in **Billing**
 - Cannot delete the Workspace
 
 #### Workpace Viewer
