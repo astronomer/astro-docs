@@ -17,7 +17,7 @@ If you're an Astronomer user, you might use the Astronomer CLI to do the followi
 - Deploy to an Airflow Deployment on Astronomer
 - Create Astronomer Service Accounts, Users and Deployments
 
-The guidelines belows will walk you through how to install the CLI, initialize an Astronomer project, and deploy to an Airflow instance on your local machine.
+The guidelines below will walk you through how to install the CLI, initialize an Astronomer project, and deploy to an Airflow instance on your local machine.
 
 ## Step 1: Install the Astronomer CLI
 
@@ -118,26 +118,18 @@ Use "astro [command] --help" for more information about a command.
 
 ## Step 3: Initialize an Airflow Project
 
-Once the Astronomer CLI is installed, the next step is to initialize an Airflow project on Astronomer. Follow the guidelines below.
+Once the Astronomer CLI is installed, the next step is to initialize an Airflow project on Astronomer. To do so:
 
-### a. Create a New Directory on Your Machine
-
-To do this in a single command, run:
-
-```
+1. Create a new directory on your machine by running the following command:
+```sh
 $ mkdir <directory-name> && cd <directory-name>
 ```
 
-### b. Create the Necessary Project Files
-
-Once you're in that project directory, run:
-
-```
+2. Create the necessary project files in your new directory by running the following command:
+```sh
 $ astro dev init
 ```
-
 This will generate the following files in that directory:
-
 ```py
 .
 ├── dags # Where your DAGs go
@@ -149,75 +141,36 @@ This will generate the following files in that directory:
 ├──packages.txt # For OS-level packages
 └── requirements.txt # For any Python packages
 ```
-
-These files make up the Docker image you'll then push to the Airflow instance on your local machine or to an Airflow Deployment on Astronomer Cloud.
+These files make up the Docker image you'll then push to the Airflow instance on your local machine or to an Airflow Deployment on Astronomer Enterprise.
 
 ## Step 4: Start Airflow Locally
 
-### a. Start Airflow
+You can now push your project to a local instance of Airflow. To do so:
 
-To start Airflow on your local machine, run:
-
+1. Start Airflow on your local machine by running the following command in your project directory:
 ```
 $ astro dev start
 ```
+This command will spin up 3 Docker containers on your machine, each for a different Airflow component:
+ - **Postgres:** Airflow's Metadata Database
+ - **Webserver:** The Airflow component responsible for rendering the Airflow UI
+ - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
 
-This command will spin up 3 Docker containers on your machine, each for a different Airflow component.
+ For guidelines on accessing your Postgres database both locally and on Astronomer, read [Access the Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/).
 
-- **Postgres:** Airflow's Metadata Database
-- **Webserver:** The Airflow component responsible for rendering the Airflow UI
-- **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
-
-The image might take some time to build the first time you run this command on your machine. After that, it will build from cached layers.
-
-As your image builds, you should see the following output:
-
-```
-$ astro dev start
-Env file ".env" found. Loading...
-Sending build context to Docker daemon  10.75kB
-Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
-# Executing 5 build triggers
- ---> Using cache
- ---> Using cache
- ---> Using cache
- ---> Using cache
- ---> Using cache
- ---> 5160cfd00623
-Successfully built 5160cfd00623
-Successfully tagged astro-trial_705330/airflow:latest
-INFO[0000] [0/3] [postgres]: Starting
-INFO[0002] [1/3] [postgres]: Started
-INFO[0002] [1/3] [scheduler]: Starting
-INFO[0003] [2/3] [scheduler]: Started
-INFO[0003] [2/3] [webserver]: Starting
-INFO[0004] [3/3] [webserver]: Started
-Airflow Webserver: http://localhost:8080
-Postgres Database: localhost:5432/postgres
-The default credentials are admin:admin
-```
-
-For guidelines on accessing your Postgres database both locally and on Astronomer, read [Access the Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/).
-
-### b. Verify Docker Containers
-
-To verify that all 3 Docker containers were created, run:
-
+2. Verify that all 3 Docker containers were created by running:
 ```
 $ docker ps
 ```
-
 > **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432.
 >
 > If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
-### c. Open the Airflow UI
+3. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with `admin` for both your Username and Password.
 
-To access the Airflow UI of your local Airflow project, go to http://localhost:8080/ and log in with `admin` as both your Username and Password.
+ You should also be able to access your Postgres Database at: `localhost:5432/postgres`.
 
-You should also be able to access your Postgres Database at: `localhost:5432/postgres`.
-
-For guidelines on accessing your Postgres database both locally and on Astronomer, refer to the [Access Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/) guide.
+ For guidelines on accessing your Postgres database both locally and on Astronomer, refer to the [Access Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/) guide.
 
 ## Step 5: Authenticate to Astronomer
 
@@ -231,7 +184,7 @@ If you created your account with a username and password, you'll be prompted to 
 
 If you do not yet have an account on Astronomer, ask a Workspace Admin on your team to send you an invitation or [reach out to us](/get-astronomer?ref=docs) to start a free 14-day trial on Astronomer Cloud.
 
-> **Note:** Once you run this command once, it should stay cached and allow you to just run `astro auth login` to authenticate more easily in the future.
+> **Note:** Once you run this command once, it should stay cached and allow you to just run `$ astro auth login` to authenticate more easily in the future.
 
 ## Next Steps: Apply Changes using the CLI
 

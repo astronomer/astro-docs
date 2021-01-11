@@ -74,10 +74,10 @@ If you set your **Extra Capacity** slider to 30AU but the Pods spun up within yo
 
 ### Node Limits on Astronomer Cloud
 
-On Astronomer Cloud, the node limits for any single task (based on Google's [standard-16 machine type](https://cloud.google.com/compute/docs/machine-types)) are:
+On Astronomer Cloud, the node limits for any single task (based on Google's [n1-standard-32 machine type](https://cloud.google.com/compute/docs/machine-types#n1_standard_machine_types)) are:
 
-- 58 GB of Memory/RAM
-- 15 CPU
+- 90 GB of Memory/RAM
+- 24 vCPUs
 
 ## Billing
 

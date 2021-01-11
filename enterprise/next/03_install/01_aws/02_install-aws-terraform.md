@@ -30,7 +30,7 @@ Install the necessary tools:
 
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
-* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.12.3 - 0.12.28*
+* [Terraform](https://www.terraform.io/downloads.html) *Use version 0.13.5*
 * [Helm client](https://github.com/helm/helm#install) *Use version 3.2.1*
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) *Use the version appropriate for your Kubernetes cluster version*
 * [Python 3](https://www.python.org/download/releases/3.0/) *Must be available under the name `python3`*
@@ -85,14 +85,18 @@ module "astronomer-enterprise" {
   EOM
 
 }
+terraform {
+  required_providers {
+    acme = {
+      source = "terraform-providers/acme"
+    }
+  }
+}
 provider "aws" {
   region = "<region>"
 }
 provider "acme" {
   server_url = "https://acme-v02.api.letsencrypt.org/directory"
-}
-provider "kubernetes" {
-  version = "1.10.0"
 }
 ```
 
