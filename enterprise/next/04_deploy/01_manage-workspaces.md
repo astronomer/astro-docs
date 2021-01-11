@@ -20,7 +20,7 @@ Once logged in, you'll land on a view that will direct you to create a new **Wor
 
 **The Astronomer Workspace:** A personal or shared space that is home to a collection of Airflow Deployments. User access to Deployments is managed at the Workspace level on Astronomer.
 
-A **Workspace** is an Astronomer-specific term. You can think of your Workspaces the same way you'd think of teams - they're just collections of Airflow deployments that specific user groups have access to. When you create an account on Astronomer, a default personal Workspace is automatically created. Airflow Deployments are hierarchically lower - from a Workspace, you can create one or more Airflow Deployments, and grant or restrict user access to those Deployments accordingly.
+A **Workspace** is an Astronomer-specific term. You can think of your Workspaces the same way you'd think of teams - they're just collections of Airflow Deployments that specific user groups have access to. When you create an account on Astronomer, a default personal Workspace is automatically created. Airflow Deployments are hierarchically lower - from a Workspace, you can create one or more Airflow Deployments, and grant or restrict user access to those Deployments accordingly.
 
 If you were a solo agent, you could have multiple Airflow Deployments within that single Workspace and have no need for additional Workspaces. Teams, however, often share one or more Workspaces labeled as such, and have multiple Airflow Deployments from there.
 
@@ -36,7 +36,7 @@ From this screen, you can:
 
 1. Create new Airflow Deployments
 2. Manage user access to the Workspace
-3. Generate tokens for CI/CD systems via service accounts.
+3. Generate tokens for CI/CD systems via service accounts
 4. Rename your Workspace
 
 Since all of our app activity is routed through a GraphQL API, you're free to create Deployments, switch Workspaces, and add users via our [CLI](/docs/enterprise/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
@@ -74,6 +74,6 @@ If you go to the **Users** tab of your Workspace Dashboard, you'll see who has a
 
 If you'd like to share access to other members of your organization, invite them to a Workspace you're a part of. Once your team members are part of your Workspace, Deployment Admins can grant them varying levels of access to Airflow Deployments within the Workspace. Likewise, Workspace Admins can grant them varying levels of access to the entire Workspace.
 
-An exact breakdown of user roles and their respective levels of access can be found in [Manage User Permissions on Astronomer Cloud](/docs/cloud/stable/manage-astronomer/workspace-permissions/).
+An exact breakdown of user roles and their respective levels of access can be found in [Manage User Permissions on an Astronomer Workspace](/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
 
 In addition, Enterprise admins can add or remove specific permissions for each type of user role. For more information on this feature, read [Customize Permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/manage-platform-users#customize-permissions).
