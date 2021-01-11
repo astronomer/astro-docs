@@ -69,7 +69,7 @@ The ability to invite Workspace users to an Airflow Deployment within it is limi
 
 #### via Astronomer UI
 
-To invite a Workspace user to an Airflow Deployment via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to: **Workspace** > **Deployment** > **Access**.
+To invite a Workspace user to an Airflow Deployment via the Astronomer UI, navigate to: **Workspace** > **Deployment** > **Access**.
 
 From there:
 
@@ -210,7 +210,6 @@ Below a Workspace _Admin_, an _Editor_:
 - Can perform CRUD operations on any Service Account in the Workspace
 - Can create Airflow Deployments in the Workspace
 - Cannot manage other users in the Workspace
-- Cannot add, edit or remove information in **Billing**
 - Cannot delete the Workspace
 
 #### Workpace Viewer
