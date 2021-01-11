@@ -72,13 +72,15 @@ If you set your **Extra Capacity** slider to 30AU but the Pods spun up within yo
 
 > **Note:** While **Extra Capacity** is dynamically priced, resources needed for the Scheduler, Webserver, PgBouncer & StatsD will remain fixed costs that are not affected by downtime/uptime.
 
-## Scheduler Count
+## Scheduler and Worker Count
 
-Setting the **Scheduler Count** slider affects how many Schedulers run on your Airflow Deployment. Unlike other resource settings, the **Scheduler Count** setting is not specified in AUs. Instead, the number of AUs used for multiple schedulers is based on the amount of AUs you specify in the **Scheduler Resources** setting.
+Setting the **Scheduler Count** slider determines how many Schedulers run on your Airflow Deployment. Similarly, setting the **Worker Count** slider determines how many Workers run on your Airflow Deployment. Unlike other resource settings, these settings are not specified in AUs. Instead, the number of AUs used for these resources is based on the amount of AUs you specify in their respective **Resources** settings.
 
-### Scheduler Count pricing
+### Scheduler and Worker Count pricing
 
-The total price you pay for Scheduler resources can be calculated by multiplying your **Scheduler Count** by your **Scheduler Resources** pricing. For instance, if you've provisioned $100 per month in Scheduler resources and have 3 Schedulers, you'll be paying $300 per month total for Scheduler resources.
+The total price you pay for Scheduler resources can be calculated by multiplying your **Scheduler Count** by your **Scheduler Resources** pricing. For instance, if you provision $100 per month in Scheduler resources and have 3 Schedulers, you're paying $300 per month total for Scheduler resources.
+
+Similarly, the total price you pay for Worker resources can be calculated by multiplying your **Worker Count** by your **Worker Resources** pricing.  For instance, if you provision $200 per month in Worker resources and have 2 Workers, you're paying $400 per month total for Worker resources.
 
 ### Node limits on Astronomer Cloud
 
