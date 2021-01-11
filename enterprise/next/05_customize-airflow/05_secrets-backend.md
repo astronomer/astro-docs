@@ -1,5 +1,5 @@
 ---
-title: "External Secrets Backends"
+title: "Configure an External Secrets Backend on Astronomer"
 navTitle: "Configure a Secrets Backend"
 description: "Configure a secret backend tool on Astronomer to store Airflow Connections and Variables."
 ---
@@ -30,7 +30,7 @@ If you do not already have a Vault server deployed but would like to test this f
 
 1. Deploying a light-weight server using [this Heroku Element](https://elements.heroku.com/buttons/pallavkothari/vault)
 2. Deploying a local server via the instructions in [our Airflow and Vault guide](/guides/airflow-and-hashicorp-vault)
-  
+
 ### Write a Connection to Vault
 
 To start, you'll need to write an [Airflow connection URI](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-connection-uri) to your Vault server.
@@ -97,30 +97,32 @@ To set this configuration up, follow the steps below.
 
 > **Note:** By default, Airflow uses `"kv_engine_version": 2`, but we've written this secret using v1. You're welcome to change this to accommodate how you write and read your secrets.
 
-If you'd like to further customize what the interaction between Airflow and Vault server will look like, you read [the full list of available kwargs for this integration](https://airflow.readthedocs.io/en/latest/_api/airflow/providers/hashicorp/secrets/vault/index.html).
+If you'd like to further customize what the interaction between Airflow and Vault server will look like, you read [the full list of available kwargs for this integration](https://airflow.apache.org/docs/stable/_api/airflow/contrib/secrets/hashicorp_vault/index.html).
 
 ### Test Your Connection
 
 To test your connection to Vault locally, add the code below as a new DAG in your `/dags` directory. This will print your connection information to the task logs and confirm that your connection has been established successfully.
 
-    from airflow import DAG
-    from airflow.operators.python_operator import PythonOperator
-    from datetime import datetime
-    from airflow.hooks.base_hook import BaseHook
-    
-    
-    def get_secrets(**kwargs):
-        conn = BaseHook.get_connection(kwargs['my_conn_id'])
-        print(f"Password: {conn.password}, Login: {conn.login}, URI: {conn.get_uri()}, Host: {conn.host}")
-    
-    with DAG('example_secrets_dags', start_date=datetime(2020, 1, 1), schedule_interval=None) as dag:
-    
-    
-        test_task = PythonOperator(
-            task_id='test-task',
-            python_callable=get_secrets,
-            op_kwargs={'my_conn_id': 'smtp_default'},
-     )
+```python
+from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
+from datetime import datetime
+from airflow.hooks.base_hook import BaseHook
+
+
+def get_secrets(**kwargs):
+    conn = BaseHook.get_connection(kwargs['my_conn_id'])
+    print(f"Password: {conn.password}, Login: {conn.login}, URI: {conn.get_uri()}, Host: {conn.host}")
+
+with DAG('example_secrets_dags', start_date=datetime(2020, 1, 1), schedule_interval=None) as dag:
+
+
+    test_task = PythonOperator(
+        task_id='test-task',
+        python_callable=get_secrets,
+        op_kwargs={'my_conn_id': 'smtp_default'},
+ )
+```
 
 Once you've added this DAG to your project:
 
@@ -156,9 +158,9 @@ You now should be able to see your connection information being pulled from Vaul
 
 While the above section required that you add your connection information as a `conn_uri` to Vault, you can also pull Airflow Variables from Vault. To do so, you'll need to add your variable to vault via the following syntax:
 
+```console
+$  vault kv put airflow/variables/hello value=world
 ```
-   $  vault kv put airflow/variables/hello value=world
-   ```
 
 This works because we set the `variables_path` in our `AIRFLOW__SECRETS__BACKEND_KWARGS` to be `variables`. You are welcome to change this path name if you'd prefer to access variables from a different Vault directory.
 
@@ -205,11 +207,11 @@ To do so, follow the steps below.
         ENV AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
         ENV AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
         ENV AIRFLOW__SECRETS__BACKEND="airflow.contrib.secrets.aws_systems_manager.SystemsManagerParameterStoreBackend"
-        ENV AIRFLOW__SECRETS__BACKEND_KWARGS="{"connections_prefix": "/airflow/connections", "variables_prefix": "/airflow/variables"}"
+        ENV AIRFLOW__SECRETS__BACKEND_KWARGS='{"connections_prefix": "/airflow/connections", "variables_prefix": "/airflow/variables"}'
 
 This tells Airflow to look for connection information at the `airflow/connections/*` path in your SSM instance.
 
-If you're interested in further customizing what the interaction between Airflow and your SSM server looks like, learn more by reading [the full list of available kwargs for this integration](https://airflow.readthedocs.io/en/latest/_api/airflow/providers/amazon/aws/secrets/systems_manager/index.html).
+If you're interested in further customizing what the interaction between Airflow and your SSM server looks like, learn more by reading [the full list of available kwargs for this integration](https://airflow.apache.org/docs/stable/_api/airflow/contrib/secrets/aws_systems_manager/index.html).
 
 > **Note:** If you'd like to reference an AWS profile instead of connecting via Environment Variables, you can also [add the `profile` param to your kwargs](https://airflow.apache.org/docs/1.10.10/howto/use-alternative-secrets-backend.html).
 

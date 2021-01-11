@@ -11,9 +11,9 @@ This page is the source of truth for any CVE (Common Vulnerabilities and Exposur
 Currently, our officially supported Astronomer Certified images are listed in two places:
 
 - [Astronomer Downloads](/downloads/)
-- [Astronomer's DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow)
+- [Astronomer's Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
 
-If you run on Astronomer Cloud or Enterprise, you can refer to our [Airflow Versioning Doc](/docs/enterprise/stable/customize-airflow/airflow-versioning/) for detailed guidelines on how to upgrade between Airflow versions on the platform.
+If you run on Astronomer Cloud or Enterprise, you can refer to our [Airflow Versioning Doc](/docs/enterprise/stable/customize-airflow/manage-airflow-versions/) for detailed guidelines on how to upgrade between Airflow versions on the platform.
 
 ## Reporting Vulnerabilities and Security Concerns
 
@@ -31,7 +31,11 @@ Once a resolution has been confirmed, we'll release it in the next major or mino
 
 | CVE | Date | Versions Affected | Description | Remediation |
 |---|---|---|---|---|
-| CVE-2020-13944 | 2020-09-16 | Apache Airflow versions < 1.10.12 | In Apache Airflow < 1.10.12, the "origin" parameter passed to some of the endpoints like '/trigger' was vulnerable to XSS exploit. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-13944)) | Use Docker image with one of the following AC Versions: <ul><li>1.10.10-5</li><li>1.10.7-15</li></ul> |
+| CVE-2020-17526 | 2020-12-21 | <ul><li>1.10.12-1</li><li>1.10.10-1 to 1.10.10-5</li><li>1.10.7-1 to 1.10.7-15</li><li>1.10.5-1 to 1.10.5-11</li></ul> | Incorrect Session Validation in Airflow Webserver with default config allows a malicious airflow user on site A where they log in normally, to access unauthorized Airflow Webserver on Site B through the session from Site A. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17526)) | Use one of the following AC Versions: <ul><li>1.10.14-1</li><li>1.10.12-2</li><li>1.10.10-6</li><li>1.10.7-16</li></ul> |
+| CVE-2020-17513 | 2020-12-11 | <ul><li>1.10.12-1</li><li>1.10.10-1 to 1.10.10-5</li><li>1.10.7-1 to 1.10.7-15</li><li>1.10.5-1 to 1.10.5-11</li></ul> | The Charts and Query View of the old (Flask-admin based) UI were vulnerable for SSRF attack. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17513)) | Use one of the following AC Versions: <ul><li>1.10.14-1</li><li>1.10.12-2</li><li>1.10.10-6</li><li>1.10.7-16</li></ul> |
+| CVE-2020-17511 | 2020-12-11 | <ul><li>1.10.12-1</li><li>1.10.10-1 to 1.10.10-5</li><li>1.10.7-1 to 1.10.7-15</li><li>1.10.5-1 to 1.10.5-11</li></ul> | Apache Airflow Admin password gets logged in plain text. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17511)) | Use one of the following AC Versions: <ul><li>1.10.14-1</li><li>1.10.12-2</li><li>1.10.10-6</li><li>1.10.7-16</li></ul> |
+| CVE-2020-17515 | 2020-12-11 | <ul><li>1.10.12-1</li><li>1.10.10-1 to 1.10.10-5</li><li>1.10.7-1 to 1.10.7-15</li><li>1.10.5-1 to 1.10.5-11</li></ul> | The "origin" parameter passed to some of the endpoints like '/trigger' was vulnerable to XSS exploit. This is same as CVE-2020-13944 but the implemented fix in Airflow 1.10.13 did not fix the issue completely. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17515)) | Use one of the following AC Versions: <ul><li>1.10.14-1</li><li>1.10.12-2</li><li>1.10.10-6</li><li>1.10.7-16</li></ul> |
+| CVE-2020-13944 | 2020-09-16 | Apache Airflow versions < 1.10.12 | In Apache Airflow < 1.10.12, the "origin" parameter passed to some of the endpoints like '/trigger' was vulnerable to XSS exploit. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-13944)) | Use one of the following AC Versions: <ul><li>1.10.10-5</li><li>1.10.7-15</li></ul> |
 
 ### Astronomer Certified Docker Images
 

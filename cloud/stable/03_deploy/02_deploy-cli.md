@@ -4,130 +4,136 @@ navTitle: "Deploy Code"
 description: "How to push code to your Airflow Deployment on Astronomer via the Astronomer CLI."
 ---
 
-## Deployment on Astronomer
+## Overview
 
-### Pre-Requisites
+For those who have used the Astronomer CLI to develop locally, the process by which you can deploy code to an Airflow Deployment on Astronomer Cloud is built to be similarly easy.
 
-In order to push up code to a deployment on Astronomer, you must have:
+This guide will walk you through the following:
 
-1. [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) Installed
-2. An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
+- How to create an Airflow Deployment on Astronomer
+- How to set initial Deployment Configurations
+- How to deploy to Astronomer via the Astronomer CLI
 
-### Create a Deployment
+For those looking to automate the deploy process, refer to [Deploy to Astronomer via CI/CD](/docs/cloud/stable/deploy/ci-cd/).
 
-To create a deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/).
+> **Note:** We recommend that all users test their code locally via the Astronomer CLI before pushing it to an Airflow Deployment on Astronomer. For guidelines on developing locally, refer to [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart/).
 
-From your Workspace on Astronomer, click "New Deployment".
+## Prerequisites
 
-![Workspace Dashboard](https://assets2.astronomer.io/main/docs/astronomer-ui/workspace_dashboard.png)
+In order to push up code to a Deployment on Astronomer, you must have:
 
-### Configure your Airflow Deployment
+* [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) Installed
+* An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/)
+* An Astronomer [Workspace](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
-To finish creating your Deployment, you'll have to:
+## Step 1: Create an Airflow Deployment
 
-- Give it a name and description
-- Pick an Airflow Executor (Celery or Local)
-- Set Initial Resources
+To create an Airflow Deployment on Astronomer, log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
 
-![New Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/V0.15-new_deployment-config.png)
+![Workspace Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-deployments.png)
 
-### Deployment Dashboard
+## Step 2: Configure Your Airflow Deployment
 
-Once you've initialized your deployment, give it a few moments to provision.
+Use the **New Deployment** menu to configure the following:
 
-You should soon have access to your deployment dashboard:
+* **Name**
+* **Description** (Optional)
+* **Airflow Version**: We recommend using the latest version.
+* **Executor**: We recommend starting with Local.
 
-![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/new_deployment_celery_dashboard.png)
+![New Deployment Config](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-config.png)
+
+When you've finished, click **Create Deployment**.
+
+Once you've initialized your Deployment, give it a few moments to spin up. Afterwards, you'll have access to your Deployment dashboard:
+
+![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
 
 From this dashboard, you can:
 
-- Access the Airflow UI (left)
-- Access the Celery UI for Worker Monitoring (right)
+- Modify your Resources
+- Initialize the Airflow upgrade process
+- Configure **Email Alerts**
+- Access the Airflow UI
+- Access your Celery Dashboard (if using CeleryExecutor)
+- Delete your Deployment
 
-> **Note**: You'll only see a tab for the Celery Dashboard if your Airflow Deployment is running the Celery Executor.
+For more information on deployment configuration, read [Configure an Airflow Deployment on Astronomer](/docs/cloud/stable/deploy/configure-deployment/).
 
-## Deploy Code from the CLI
+## Step 3: Deploy Code from the CLI
 
-Astronomer's CLI allows you easily deploy your code onto an Airflow Deployment on Astronomer.
+### a. Authenticate via the Astronomer CLI
 
-### Authentication
-
-To start, authenticate to the CLI.
-
-**Astronomer Cloud**
+To authenticate via the Astronomer CLI, run:
 
 ```
 $ astro auth login gcp0001.us-east4.astronomer.io
 ```
 
-### Select your Workspace & Deployment
+### b. Confirm Your Workspace and Deployment
 
-#### Workspace
+From the Astronomer CLI, you're free to push code to any Airflow Deployment you have access to as long as you have the appropriate deployment-level permissions to do so.
 
-Any Workspace you have access to on the Astronomer UI, you'll have access to via the Astronomer CLI.
+Before you deploy to Astronomer, make sure that the Airflow Deployment you'd like to push code to is within the Workspace you're operating in.
 
-To see the list of all the Workspaces you have access to push code to, run:
+To see the list of Workspaces you have access to, run:
 
 ```
 $ astro workspace list
 ```
 
-To switch between workspaces, run:
+To switch between Workspaces, run:
 
 ```
-$ astro workspace switch [UUID]
+$ astro workspace switch
 ```
 
-#### Deployment
+To see the list of Deployments within a particular Workspace, run:
 
 ```
 $ astro deployment list
- NAME             RELEASE NAME             ASTRO      DEPLOYMENT ID
- demo_cluster     infrared-photon-7780     v0.17.0     c2436025-d501-4944-9c29-19ca61e7f359
 ```
 
-### Deploy
+For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart/).
 
-To deploy on Astronomer, run:
+### c. Deploy to Astronomer
+
+Finally, make sure you're in the correct Airflow project directory.
+
+When you're ready to deploy your DAGs, run:
 
 ```
 $ astro deploy
 ```
 
-A few notes:
-- If it's your first time deploying, expect to wait a minute or two for the Docker Image to build
-- To know if your deploy was successful, ensure no errors in the output and check your Airflow UI to see your code changes reflected
+This command returns a list of Airflow Deployments available in your Workspace and prompts you to pick one.
+
+### d. Validate your changes
+
+If it's your first time deploying, expect to wait a few minutes for the Docker Image to build.
+
+To confirm that your deploy was successful, navigate to your Deployment in the Astronomer UI and click **Open Airflow** to see your changes in the Airflow UI.
 
 #### What gets Deployed?
 
-Everything in your top level directory (and all children directory) in which you ran `$ astro dev init` will get bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud.
+Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud. We don't deploy any of the metadata associated with your local Airflow environment (e.g. task history, Airflow Connections and Variables set in the Airflow UI, etc.) - just the code.
 
-We do _not_ deploy any of the Metadata associated with your local Airflow deployment, only the code.
+For more information about what gets built into your image, read [Customize your Image](/docs/cloud/stable/develop/customize-image/).
 
-For more information on what gets built into your image, jump over to our doc on [Customizing your Image](/docs/cloud/stable/develop/customize-image/).
-
-## Deployments & Kubernetes Namespaces
+## Additional Considerations
 
 ### Kubernetes Namespaces
 
 Airflow Deployments live within their own Kubernetes [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) - each completely unaware of the rest.
 
-Each Airflow Deployment is allocated separate resources, is configured in isolation and maintains its own metadata.
+Each Airflow Deployment is allocated separate resources, configured in isolation, and maintains its own metadata.
 
-## Organizing your Code
+### Organizing Astronomer
 
-This is largely dependent on personal preference and your particular use case.
+While the specific needs of your organization might require a slightly different structure than what's described here, these are some general best practices to consider when working with Astronomer:
 
-### Workspace Level
+**Workspaces:** We recommend having 1 Workspace per team of Airflow users, so that anyone on this team has access to the same set of Deployments under that Workspace.
 
-At a Workspace level, we recommend having 1 Astronomer Workspace per team of Airflow users. That way, anyone on each team has access to the same set of deployments under that Workspace (RBAC will soon allow you to adjust that access at a deployment level if you'd like).
+**Deployments:** Most use cases will call for a "Production" and "Dev" Deployment, both of which exist within a single Workspace and are accessible to a shared set of users. From there, you can [set permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) to give users in the Workspace access to specific Deployments.
 
-### Deployment Level
-
-Most use cases will call for a `production` and `dev` deployment, both of which exist within a single Workspace and are therefore accessible to a set of users, each with varying permissions.
-
-### Code Level
-
-Across deployments, we'd generally recommend one repository/parent directory per project. That way, you leave the door open for CI/CD down the line if that's something you ever want to set up.
-
-As for the code itself, we’ve seen effective organization where external code is partitioned by function and/or business case, so one directly for SQL, one for data processing tasks, one for data validation, etc.
+**Code:** As for the code itself, we’ve seen effective organization where external code is partitioned by function and/or business case, so one directly for SQL, one for data processing tasks, one for data validation, etc.

@@ -159,7 +159,7 @@ If you're connecting to an external database, you will need to create a secret n
 $ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <my-namespace>
 ```
 
-> **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6. 
+> **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6.
 
 ### Create a TLS Secret
 
@@ -189,7 +189,6 @@ For context, this `config.yaml` file will assume a set of default values for our
 
 In the newly created file, copy the example below and replace `baseDomain` and `smtpUrl` with your own values. If you would like to use your own external IP address, add the address to `loadBalancerIP`. An IP address will be dynamically generated in Azure if this value is left blank. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.14/configs).
 
-
 ```yaml
 #################################
 ### Astronomer global configuration
@@ -204,14 +203,12 @@ global:
   postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
 
 # Settings for database deployed on AKS cluster.
-  postgresql:
-    replication:
-      enabled: true
-      slaveReplicas: 2
-      synchronousCommit: on
-      numSynchronousReplicas: 1
-    metrics:
-      enabled: true
+postgresql:
+  replication:
+    enabled: true
+    slaveReplicas: 2
+    synchronousCommit: "on"
+    numSynchronousReplicas: 1
 
 #################################
 ### Nginx configuration
@@ -404,7 +401,7 @@ curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <toke
 Finally, to make sure the registry accepted SSL, try to log into the registry:
 
 ```
-docker login registry.BASEDOMAIN -u _ p <token>
+docker login registry.BASEDOMAIN -u _ -p <token>
 ```
 
 ## 12. What's Next

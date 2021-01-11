@@ -71,7 +71,7 @@ $ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 pymongo==3.7.2
 ```
 
-> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.12/customize-airflow/airflow-versioning/).
+> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.12/customize-airflow/manage-airflow-versions/).
 
 ## Add Other Dependencies
 
@@ -169,7 +169,7 @@ If you're interested in running any extra commands when your Airflow Image build
 For example, if you wanted to run `ls` when your image builds, your `Dockerfile` would look like this:
 
 ```
-FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
+FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild
 RUN ls
 ```
 
@@ -177,14 +177,14 @@ RUN ls
 
 The Astronomer CLI is built on top of [Docker Compose](https://docs.docker.com/compose/), a tool for defining and running multi-container Docker applications. If you're interested in overriding any of our CLI's default configurations ([found here](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go)), you're free to do so by adding a `docker-compose.override.yml` file to your Astronomer project directory. Any values in this file wil override default settings run upon every `$ astro dev start`.
 
-To add another volume mount for a directory named `custom_depedencies`, for example, add the following to your `docker-compose.override.yml`:
+To add another volume mount for a directory named `custom_dependencies`, for example, add the following to your `docker-compose.override.yml`:
 
 ```
 version: "2"
 services:
   scheduler:
     volumes:
-      - /home/astronomer_project/custom_depedencies:/usr/local/airflow/custom_depedencies:ro
+      - /home/astronomer_project/custom_dependencies:/usr/local/airflow/custom_dependencies:ro
 ```
 
 Make sure to specify `version: "2"` and mimic the format of the source code file linked above.
@@ -264,10 +264,10 @@ If you haven't initialized an Airflow Project on Astronomer (by running `astro d
 If you're running the Alpine-based, Airflow 1.10.10 Astronomer Certified image, this would be:
 
 ```
-FROM astronomerinc/ap-airflow:1.10.10-alpine3.10 AS stage1
+FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10 AS stage1
 ```
 
-For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](/docs/enterprise/v0.12/customize-airflow/airflow-versioning/).
+For a list of all Airflow Images supported on Astronomer, refer to our ["Manage Airflow Versions" doc](/docs/enterprise/v0.12/customize-airflow/manage-airflow-versions/).
 
 > **Note:**  Do NOT include `on-build` at the end of your Airflow Image as you typically would in your Dockerfile.
 
@@ -298,7 +298,7 @@ RUN pip install --no-cache-dir -q -r requirements.txt
 FROM stage1 AS stage3
 # Copy requirements directory
 COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
-ONBUILD COPY . .
+COPY . .
 ```
 
 In 3 stages, this file is bundling up your SSH keys, OS-Level packages in `packages.txt` and Python Packages in `requirements.txt` from your private directory into a Docker image.
@@ -320,7 +320,7 @@ Run the following in your terminal:
 $ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-<airflow-image> .
 ```
 
-If you have `astronomerinc/ap-airflow:1.10.10-alpine3.10` in your `Dockerfile.build`, for example, this command would be:
+If you have `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` in your `Dockerfile.build`, for example, this command would be:
 
 ```
 $ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow:1.10.10-alpine3.10 .
@@ -334,7 +334,7 @@ Now that we've built your custom image, let's reference that custom image in you
 FROM custom-<airflow-image>
 ```
 
-If you're running `astronomerinc/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
+If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
 
 ```
 FROM custom-ap-airflow:1.10.10-alpine3.10

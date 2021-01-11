@@ -20,7 +20,7 @@ This guide will walk you through the setup and configuration process for using t
  - You have the [the WSL enabled](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
  - You're on Windows 10
 
-**Note:** We use Ubuntu as our Linux flavor of choice, but this giude should work for other distrubutions as well.
+**Note:** We use Ubuntu as our Linux flavor of choice, but this guide should work for other distributions as well.
 
 Much of the setup process is borrowed from a guide written by Nick Janetakis. Find the full guide here: [Setting Up Docker for Windows and WSL to Work Flawlessly](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
@@ -123,7 +123,7 @@ As a Windows user, you might see the following error when trying to call `astro 
 
 ```
 Sending build context to Docker daemon  8.192kB
-Step 1/1 : FROM astronomerinc/ap-airflow:latest-onbuild
+Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
 # Executing 5 build triggers
  ---> Using cache
  ---> Using cache

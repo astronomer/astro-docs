@@ -51,6 +51,7 @@ You can view Microsoft Azure's Web Portal at https://portal.azure.com/.
 A resource group is a collection of related resources for an Azure solution. Your AKS cluster will reside in the resource group you create. Learn more about resource groups [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview#resource-groups).
 
 Login to your Azure account with the `az` CLI:
+
 ```
 $ az login
 ```
@@ -79,7 +80,6 @@ Astronomer will deploy to Azure's Kubernetes service (AKS). Learn more about AKS
 You can choose the machine type to use, but we recommend using larger nodes vs smaller nodes.
 
 Create your Kubernetes cluster:
-
 ```
 $ az aks create --name <my_cluster_name> --resource-group <my_resource_group> --node-vm-size Standard_D8s_v3 --node-count 3
 ```
@@ -159,7 +159,7 @@ If you're connecting to an external database, you will need to create a secret n
 $ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <my-namespace>
 ```
 
-> **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6. 
+> **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6.
 
 ### Create a TLS Secret
 
@@ -202,16 +202,17 @@ global:
   tlsSecret: astronomer-tls
 
   postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
+  
+  azure:
+    enabled: true
 
 # Settings for database deployed on AKS cluster.
-  postgresql:
-    replication:
-      enabled: true
-      slaveReplicas: 2
-      synchronousCommit: on
-      numSynchronousReplicas: 1
-    metrics:
-      enabled: true
+postgresql:
+  replication:
+    enabled: true
+    slaveReplicas: 2
+    synchronousCommit: "on"
+    numSynchronousReplicas: 1
 
 #################################
 ### Nginx configuration
@@ -254,7 +255,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 
 > **Note:** If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
-Information on other auth systems can be found [here](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/). For more insight into how you might be able to customize Astronomer for your team, refer to step 11 at the bottom of this guide.
+Information on other auth systems can be found [here](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/). For more insight into how you might be able to customize Astronomer for your team, refer to step 11 at the bottom of this guide.
 
 ## 7. Install Astronomer
 
@@ -329,7 +330,7 @@ astronomer-prometheus-blackbox-exporter-65f6c5f456-szr4s   1/1     Running      
 astronomer-registry-0                                      1/1     Running             0          24m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.16/troubleshoot/debug-install/).
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/stable/troubleshoot/debug-install/).
 
 ## 9. Configure DNS
 
@@ -404,16 +405,16 @@ curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <toke
 Finally, to make sure the registry accepted SSL, try to log into the registry:
 
 ```
-docker login registry.BASEDOMAIN -u _ p <token>
+docker login registry.BASEDOMAIN -u _ -p <token>
 ```
 
 ## 12. What's Next
 
 To help you make the most of Astronomer Enterprise, take note of the following resources:
 
-* [Integrating an Auth System](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/)
-* [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/)
+* [Integrating an Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
+* [Configuring Platform Resources](/docs/enterprise/stable/manage-astronomer/configure-platform-resources/)
+* [Managing Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
 
@@ -422,4 +423,5 @@ If you have any feedback or need help during this process and aren't in touch wi
 * [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.16/resources/support/).
+
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/stable/resources/support/).

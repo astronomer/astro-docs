@@ -11,7 +11,7 @@ This guide describes the steps to install Astronomer on Google Cloud Platform (G
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Google Cloud SDK](https://cloud.google.com/sdk/install)
 * [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [Helm v2.16.1](https://github.com/helm/helm/releases/tag/v2.14.1)
+* [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
 * SMTP Creds (Mailgun, Sendgrid) or any service will  work!
 * Permissions to create / modify resources on Google Cloud Platform
 * A wildcard SSL cert (we'll show you how to create a free 90 day cert in this guide)!
@@ -97,7 +97,7 @@ A few important notes:
 - Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on GKE.
 - We recommend using the [`n1-standard-8` machine type](https://cloud.google.com/compute/docs/machine-types#n1_standard_machine_types) with a minimum of 3 nodes (24 CPUs) as a starting point.
 - The Astronomer platform and all components within it will consume ~11 CPUs and ~40GB of memory as the default overhead, so we generally recommend using larger vs smaller nodes.
-- For more detailed instructions and a full list of optional flags, refer to GKE's ["Creating a Cluster"](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster). 
+- For more detailed instructions and a full list of optional flags, refer to GKE's ["Creating a Cluster"](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster).
 
 If you work with multiple Kubernetes environments, `kubectx` is an incredibly useful tool for quickly switching between Kubernetes clusters. Learn more [here](https://github.com/ahmetb/kubectx).
 
@@ -124,51 +124,6 @@ Create a namespace to host the core Astronomer Platform. If you are running thro
 
 ```
 $ kubectl create namespace <my-namespace>
-```
-
-### Create a tiller Service Account
-
-Save the following in a file named `rbac-config.yaml`:
-
-```
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
-```
-
-Run the following command to apply these configurations to your Kubernetes cluster:
-
-```
-$ kubectl create -f rbac-config.yaml
-```
-
-### Deploy a tiller pod
-
-Your Helm client communicates with your kubernetes cluster through a `tiller` pod.  To deploy your tiller, run:
-
-```
-$ helm init --service-account tiller
-```
-
-Confirm your `tiller` pod was deployed successfully:
-
-```
-$ helm version
 ```
 
 ## 5. SSL Configuration
@@ -269,7 +224,7 @@ Add the following line in the `nginx:` section:
 
 Here is an example of what your `config.yaml` might look like:
 
-```
+```yaml
 #################################
 ### Astronomer global configuration
 #################################
@@ -285,8 +240,7 @@ global:
 #################################
 nginx:
   # IP address the nginx ingress should bind to
-  loadBalancerIP: 0.0.0.0
-  preserveSourceIP: true
+  loadBalancerIP: ~
 
 #################################
 ### SMTP configuration
@@ -294,10 +248,25 @@ nginx:
 
 astronomer:
   houston:
+    publicSignups: false # Users need to be invited to have access to Astronomer. Set to true otherwise
+    emailConfirmation: true # Users get an email verification before accessing Astronomer
     config:
+      deployments:
+        manualReleaseNames: true # Allows you to set your release names
+        serviceAccountAnnotationKey: iam.gke.io/gcp-service-account # Flag to enable using IAM roles (don't enter a specific role)
       email:
         enabled: true
         smtpUrl: YOUR_URI_HERE
+        reply: "noreply@astronomer.io" # Emails will be sent from this address
+      auth:
+        # Local database (user/pass) configuration.
+        github:
+          enabled: true # Lets users authenticate with Github
+        local:
+          enabled: false # Disables logging in with just a username and password
+        openidConnect:
+          google:
+            enabled: true # Lets users authenticate with Github
 ```
 
 Note - the SMTP URI will take the form:
@@ -306,15 +275,30 @@ Note - the SMTP URI will take the form:
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
-For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/016_patch/configs).
+For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/master/configs).
 
 Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
 
 ## 8. Install Astronomer
 
+Now that you have a GCP cluster set up and your `config.yaml` defined, you're ready to deploy all components of our platform.
+
+First, run:
+
 ```
-$ helm install -f config.yaml . --namespace <my-namespace>
+$ helm repo add astronomer https://helm.astronomer.io/
 ```
+
+Now, run:
+
+
+```
+$ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
+```
+
+Replace <platform-version> above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+
+Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
 
 ## 9. Verify all pods are up
 
@@ -379,5 +363,5 @@ Verify that this output matches with:
 Finally, to make sure the registry accepted SSL, try to log into the registry:
 
 ```
-docker login registry.BASEDOMAIN -u _ p <token>
+docker login registry.BASEDOMAIN -u _ -p <token>
 ```

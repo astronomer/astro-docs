@@ -4,11 +4,155 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
-## Astronomer v0.21 Release Notes
+## Astronomer v0.23
 
-Release Date: October 15, 2020
+### v0.23.6
+
+Release Date: December 16, 2020
+
+#### Bug Fixes & Improvements
+
+- BugFix: Error on Deployment page in Astronomer UI if Deployment was created before August 10th, 2020 and Webserver resources have not been modified (`Cannot read property 'limits' of undefined`)
+
+### v0.23.5
+
+Release Date: December 14, 2020
+
+#### Support for Airflow 1.10.14
+
+Support for Airflow 1.10.14 as an Astronomer Certified image was introduced on December 11th, a few days prior to the release of Astronomer v0.23.5.
+
+Airflow 1.10.14 was built to make testing and migration to Airflow 2.0 as easy as possible. Highlights include:
+
+- "Warning" to users with duplicate Airflow Connections ([commit](https://github.com/apache/airflow/commit/0e40ddd8e))
+- Enable [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html) by default ([commit](https://github.com/apache/airflow/commit/8a265067e))
+- Support for Airflow 2.0 CLI commands ([commit](https://github.com/apache/airflow/pull/12725))
+- Bugfix: Unable to import Airflow plugins on Python 3.8 ([commit](https://github.com/apache/airflow/pull/12859))
+- BugFix: Tasks with depends_on_past or task_concurrency are stuck ([commit](https://github.com/apache/airflow/pull/12663))
+- Security Fix: Incorrect Session Validation in Airflow Webserver with default config allows a an authorized Airflow user on site A access an unauthorized Airflow Webserver on Site B through the session from Site A. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17526))
+
+To upgrade to AC 1.10.14, add our new Debian image to your Dockerfile:
+
+```
+FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild
+```
+
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [“Manage Airflow Versions”](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.14, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.14) or the corresponding [AC 1.10.14 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md).
+
+> **Note:** In an effort to standardize our offering and optimize for reliability, we will only support a Debian-based image for AC 1.10.14. Alpine-based images for AC 1.10.5 - 1.10.12 will continue to be supported.
+
+#### Support for latest Astronomer Certified Patch Releases
+
+In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes support for the latest patch versions of existing Astronomer Certified images:
+
+- [1.10.12-2](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)
+- [1.10.10-6](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
+- [1.10.7-16](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
+
+For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
+
+#### Improvements to Airflow 2.0 Upgrade Path
+
+In preparation for Airflow 2.0, we've continued to enhance the expected migration experience for users on Airflow 1.10.
+
+As of Astronomer v0.23.5, we:
+
+- Enforce that all users migrate to Astronomer Certified 1.10.14 before upgrading to 2.0
+- Support Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
+
+The migration path to Airflow 2.0 on Astronomer follows all recommendations published by the Apache Airflow project. We expect to publish an official "Upgrade to Airflow 2.0 on Astronomer" guide as soon as Airflow 2.0 is generally available.
+
+#### Bug Fixes & Improvements
+
+- Raise Maximum Node Size to 24 vCPUs, 90 GB Memory/RAM (Read more in [Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing)) 
+- Add clear messaging to Astronomer UI around steps required to finalize Airflow upgrade
+- Opt-in users to **Email Alerts** by default
+- BugFix: `pod_mutation_hook` overrides commands for the KubernetesPodOperator pods if using KubernetesExecutor
+
+### v0.23.0
+
+Release Date: November 24, 2020
+
+#### Support for Docker Images on Quay.io + DockerHub
+
+Astronomer recently migrated from [Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow/tags) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our platform’s primary Docker Registry in light of Docker Hub’s [new rate-limit policy](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/), effective Nov 2nd, 2020.
+
+Astronomer v0.23 supports Airflow images that are pulled from _either_ Docker registry, though we strongly encourage users to switch to Quay.io images to avoid rate limiting errors from Docker Hub. If you're running a legacy image that pulls from `astronomerinc/ap-airflow`, all it takes is modifying that image in your Dockerfile to read `quay.io/astronomer/ap-airflow`. Both have the exact same functionality.
+
+For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/) or [this forum post](https://forum.astronomer.io/t/docker-hub-rate-limit-error-toomanyrequests-you-have-reached-your-pull-rate-limit/887).
+
+#### Bug Fixes & Improvements
+
+- Improvement: Default to latest available version of Airflow on Deployment Creation via Astro UI/CLI
+- BugFix: `$ astro dev init` shows `No module named 'airflow.api.auth.backend.basic_auth` (_CLI v0.23_)
+- Bugfix: Deployment "Viewer" Access erroneously given to Workspace user
+- BugFix: Variables and Connections declared in `airflow_settings.yaml` are not properly passed to Airflow's Metadata Database via the Astro CLI (_CLI v0.23_)
+
+## Astronomer v0.22
+
+### v0.22.4
+
+Release Date: November 16, 2020
+
+#### Bug Fixes & Improvements
+
+- BugFix: Workspace-level Service Account unable to trigger action on any Airflow Deployment (`denied: You do not have deployment.images.push permission`)
+
+### v0.22.3
+
+Release Date: November 12, 2020
+
+#### New Deployment-level Permissions
+
+Astronomer v0.22 introduces deployment-level permissions, a much-awaited feature for teams running multiple Airflow Deployments on Astronomer.
+
+Users can now configure and be assigned 1 of 3 user roles within each Deployment - _Admin_, _Editor_ and _Viewer_. If you have a "Prod" and "Dev" Airflow Deployment, for example, you can restrict a user's access to "Prod" as a _Viewer_ but grant them full access to "Dev" as an _Admin_ - all within the same Workspace. Similarly, the level of access that Workspace _Admins_ have to the Airflow Deployments within that Workpace can now be customized without limiting their ability to manage Billing and Workspace user invites, for example.
+
+This new framework comes with support via the Astronomer UI/API and a new set of commands for the Astro CLI. For more information, refer to our re-factored ["User Permissions" doc](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions/).
+
+#### Airflow Version Selection & Upgrade in Astronomer UI/CLI
+
+This release formally introduces "Airflow Version" to the Astronomer UI, CLI and API for an enhanced version selection and Airflow upgrade experience.
+
+Users can now see the version of Airflow they're running in the **Settings** page of a Deployment and indicate interest in upgrading to a higher version. Users who initialize the upgrade process via the Astronomer UI or CLI will be instructed to update the Astronomer Certified (AC) Docker image in their Dockerfile and be given feedback along the way.
+
+For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
+
+#### Support for Multiple Schedulers (_Airflow 2.0+_)
+
+Airflow 2.0 is around the corner and will allow users to provision multiple Airflow Schedulers for ultimate high-availability and scale. While Airflow 2.0 is not generally available just yet, Astronomer v0.22 pre-emptively supports the ability to provision up to 4 Schedulers via the Astronomer UI for Airflow Deployments running Airflow 2.0+.
+
+Once Airflow 2.0 is released, you'll be able to leverage this feature as an Astronomer Cloud user as soon as you upgrade Airflow versions. To read more on Airflow 2.0, check out our blog post, ["Introducing Airflow 2.0"](https://www.astronomer.io/blog/introducing-airflow-2-0/).
+
+#### Bug Fixes & Improvements
+
+- Improved error handling on `$ astro auth login` when Docker isn't running
+- BugFix: Alert are not triggered when Airflow components resource threshold is breached
+- BugFix: Some Airflow metrics not rendering in Astronomer UI (`Zombies Killed`, `Task Stream`, `DagBag Count`, `Task Success Rate`, `Task Failure Rate`).
+
+## Astronomer v0.21
+
+### v0.21.2
+
+Release Date: October 29, 2020
+
+#### Bug Fixes & Improvements
+
+BugFix: Reset password flow triggers incorrect email for users who use local username/password to authenticate
+
+### v0.21.1
+
+Release Date: October 22, 2020
+
+#### Bug Fixes & Improvements
+
+- BugFix: "User" query in Astro UI + API broken with filter for email address
+- BugFix: Ability to update user role locked if a Workspace Admin creates Service Account with view access
+- BugFix: User can still access the Airflow Webserver of a deleted Deployment
 
 ### v0.21.0
+
+Release Date: October 15, 2020
 
 #### A New "Deploment Status" Framework
 
@@ -30,7 +174,7 @@ More specifically, Astronomer v0.21 will include:
 - BugFix: Calling the `createWorkspace` Houston API mutation with a system Service Account returns an error (`No Node for the model User`)
 - BugFix: Some Airflow Metrics unavailable in the "Metrics" tab of the Astronomer UI (DagBag Count, Zombies Killed, Task Success Rate, Task Failure Rate, Task Stream)
 
-## Astronomer v0.20 Release Notes
+## Astronomer v0.20
 
 ### v0.20.1
 
@@ -56,7 +200,7 @@ Airflow 1.10.12 notably includes:
 - Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit]((https://github.com/apache/airflow/pull/9645)))
 - Support for AirfowClusterPolicyViolation support in Airflow local settings ([commit](https://github.com/apache/airflow/pull/10282)).
 
-For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/airflow-versioning/).
+For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
 > **Note:** AC 1.10.12 will be the _last_ version to support an Alpine-based image. In an effort to standardize our offering and optimize for reliability, we'll exclusively build, test and support Debian-based images starting with AC 1.10.13. A guide for how to migrate from Alpine to Debian coming soon.
 
@@ -70,7 +214,7 @@ For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](htt
 - BugFix: Navigating to the Airflow Webserver if not authenticated redirects to Astro UI homepage after login
 - BugFix: Intermittent errors with Workspace "Trial" functionality and "Billing" tab (`Minified React Error #310`)
 
-## Astronomer v0.19 Release Notes
+## Astronomer v0.19
 
 ### v0.19.4
 
@@ -97,7 +241,7 @@ Release Date: August 27, 2020
 - BugFix: User Invite redirects to "Public Signups Disabled"
 - BugFix: Error on "Inspect" of the 'Metrics' tab of the Astronomer UI: `Error with Feature-Policy header`
 
-## Astronomer v0.18 Release Notes
+## Astronomer v0.18
 
 Release Date: August 10, 2020
 
@@ -113,7 +257,7 @@ Astronomer v0.18 includes support for the latest patch releases from Astronomer 
 
 For a full list, reference the changelogs in our [`ap-airflow` repo](https://github.com/astronomer/ap-airflow) for the AC version of your choice (e.g. changelog for 1.10.10 [here](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)).
 
-To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Airflow Versioning" doc](/docs/cloud/stable/customize-airflow/airflow-versioning/).
+To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Manage Airflow Versions" doc](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
 #### Houston API Improvements
 
@@ -136,7 +280,7 @@ Fixes to the Astronomer Platform shipped in 0.18:
 - BugFix: API error (400) on `$ astro workspace user add` and `$ astro workspace user remove` in Astro CLI
 - BugFix: `Error: failed to find a valid role` on Service Account creation (CLI + Astro UI)
 
-## Astronomer v0.17 Release Notes
+## Astronomer v0.17
 
 Release Date: July 27, 2020
 
@@ -156,7 +300,7 @@ This has been resolved in 0.17.
 
 As reported [here](https://forum.astronomer.io/t/error-http-do-failed-i-o-timeout/706/2) and [here](https://forum.astronomer.io/t/local-airflow-instance-using-astro-cli-on-linux/711/6), v0.16.1 of the Astronomer CLI introduced a bug that blocked users from running `$ astro dev init` and `$ astro version` commands if not authenticated to Astronomer.
 
-The Astronomer CLI is open-source and open to _all_ developers looking to run Apache Airflow locally, so we've made sure to patch this up in v0.17 and will backport changes to 0.16.2 of the CLI.
+The Astronomer CLI is open source and open to _all_ developers looking to run Apache Airflow locally, so we've made sure to patch this up in v0.17 and will backport changes to 0.16.2 of the CLI.
 
 #### Bug Fixes & Improvements
 
@@ -167,7 +311,7 @@ The Astronomer CLI is open-source and open to _all_ developers looking to run Ap
 - BugFix: Users able to create 2+ Service Accounts with the same label
 - Improvement: Increased Test Coverage for Houston API + Astro CLI
 
-## Astronomer v0.16 Release Notes
+## Astronomer v0.16
 
 ### v0.16.3
 

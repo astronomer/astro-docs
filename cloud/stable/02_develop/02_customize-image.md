@@ -71,7 +71,7 @@ $ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 pymongo==3.7.2
 ```
 
-> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/cloud/stable/customize-airflow/airflow-versioning/).
+> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
 ## Add Other Dependencies
 
@@ -118,7 +118,7 @@ airflow.cfg  dags  include  packages.txt  requirements.txt
 
 Notice that `helper_functions` folder has been built into your image.
 
-## Configure `airflow_settings.yaml`
+## Configure airflow_settings.yaml
 
 When you first initialize a new Airflow project on Astronomer, a file titled `airflow_settings.yaml` will be automatically generated. With this file you can configure and programmatically generate Airflow Connections, Pools, and Variables when you're developing locally.
 
@@ -169,7 +169,7 @@ If you're interested in running any extra commands when your Airflow Image build
 For example, if you wanted to run `ls` when your image builds, your `Dockerfile` would look like this:
 
 ```
-FROM astronomerinc/ap-airflow:0.8.2-1.10.3-onbuild
+FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild
 RUN ls
 ```
 
@@ -177,14 +177,14 @@ RUN ls
 
 The Astronomer CLI is built on top of [Docker Compose](https://docs.docker.com/compose/), a tool for defining and running multi-container Docker applications. If you're interested in overriding any of our CLI's default configurations ([found here](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go)), you're free to do so by adding a `docker-compose.override.yml` file to your Astronomer project directory. Any values in this file wil override default settings run upon every `$ astro dev start`.
 
-To add another volume mount for a directory named `custom_depedencies`, for example, add the following to your `docker-compose.override.yml`:
+To add another volume mount for a directory named `custom_dependencies`, for example, add the following to your `docker-compose.override.yml`:
 
 ```
 version: "2"
 services:
   scheduler:
     volumes:
-      - /home/astronomer_project/custom_depedencies:/usr/local/airflow/custom_depedencies:ro
+      - /home/astronomer_project/custom_dependencies:/usr/local/airflow/custom_dependencies:ro
 ```
 
 Make sure to specify `version: "2"` and mimic the format of the source code file linked above.
@@ -241,35 +241,33 @@ $ astro dev start --env .env
 
 ## Build from a Private Repository
 
-If you're interested in bringing in custom Python Packages stored in a Private GitHub Repo, you're free to do that on Astronomer.
+If you're interested in bringing in custom Python Packages stored in a Private GitHub repo, you're free to do that on Astronomer.
 
 Read below for guidelines.
 
-## Pre-Requisites
+### Prerequisites
 
 - The Astronomer CLI
 - An intialized Astronomer Airflow project and corresponding directory
-- An [SSH Key](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to your Private GitHub Repo
+- An [SSH Key](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to your Private GitHub repo
 
 If you haven't initialized an Airflow Project on Astronomer (by running `$ astro dev init`), reference our [CLI Quickstart Guide](/docs/cloud/stable/develop/cli-quickstart/).
 
-## Building your Image
-
-### Create a file called `Dockerfile.build`
+### Step 1. Create a file called Dockerfile.build
 
 1. In your directory, create a file called `Dockerfile.build` that's parallel to your `Dockerfile`.
 
 2. To the first line of that file, add a "FROM" statement that specifies the Airflow Image you want to run on Astronomer and ends with `AS stage`.
 
-If you're running the Alpine-based, Airflow 1.10.10 Astronomer Certified image, this would be:
+If you're running the Debian-based Astronomer Certified image for Airflow 1.10.12, this would be:
 
 ```
-FROM astronomerinc/ap-airflow:1.10.10-alpine3.10 AS stage1
+FROM quay.io/astronomer/ap-airflow:1.10.12-buster AS stage1
 ```
 
-For a list of all Airflow Images supported on Astronomer, refer to our ["Airflow Versioning" doc](/docs/cloud/stable/customize-airflow/airflow-versioning/).
+For a list of all Airflow Images supported on Astronomer, refer to [Upgrade Apache Airflow on Astronomer](/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
 
-> **Note:**  Do NOT include `on-build` at the end of your Airflow Image as you typically would in your Dockerfile.
+> **Note:** Do NOT include `-onbuild` at the end of your Airflow Image as you typically would in your `Dockerfile`.
 
 3. Immediately below the `FROM...` line specified above, add the folllowing:
 
@@ -298,7 +296,7 @@ RUN pip install --no-cache-dir -q -r requirements.txt
 FROM stage1 AS stage3
 # Copy requirements directory
 COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
-ONBUILD COPY . .
+COPY . .
 ```
 
 In 3 stages, this file is bundling up your SSH keys, OS-Level packages in `packages.txt` and Python Packages in `requirements.txt` from your private directory into a Docker image.
@@ -310,7 +308,7 @@ A few notes:
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
 - If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `# Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
 
-### 2. Build your Image
+### Step 2. Build your Image
 
 Now, let's build a Docker image based on the requirements above that we'll then reference in your Dockerfile, tag, and push to Astronomer.
 
@@ -320,13 +318,13 @@ Run the following in your terminal:
 $ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-<airflow-image> .
 ```
 
-If you have `astronomerinc/ap-airflow:1.10.10-alpine3.10` in your `Dockerfile.build`, for example, this command would be:
+If you have `quay.io/astronomer/ap-airflow:1.10.12-buster` in your `Dockerfile.build`, for example, this command would be:
 
 ```
-$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow:1.10.10-alpine3.10 .
+$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow:1.10.12-buster .
 ```
 
-### 3. Replace your Dockerfile
+### Step 3. Replace your Dockerfile
 
 Now that we've built your custom image, let's reference that custom image in your `Dockerfile`. Replace the current contents of your `Dockerfile` with the following:
 
@@ -334,17 +332,17 @@ Now that we've built your custom image, let's reference that custom image in you
 FROM custom-<airflow-image>
 ```
 
-If you're running `astronomerinc/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
+If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
 
 ```
-FROM custom-ap-airflow:1.10.10-alpine3.10
+FROM custom-ap-airflow:1.10.12-buster
 ```
 
-### 4. Push your Custom Image to Astronomer
+### Step 4. Push your Custom Image to Astronomer
 
 Now, let's push your new image to Astronomer.
 
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
-For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](/docs/cloud/stable/deploy/deploy-cli/).
+For more detail on the Astronomer deployment process, refer to [Deploy to Astronomer via the CLI](/docs/cloud/stable/deploy/deploy-cli/).

@@ -52,7 +52,7 @@ default_args = {
 
 namespace = conf.get('kubernetes', 'NAMESPACE')
 
-# This will detect the default namespace locally and read the 
+# This will detect the default namespace locally and read the
 # environment namespace when deployed to Astronomer.
 if namespace =='default':
     config_file = '/usr/local/airflow/include/.kube/config'
@@ -75,7 +75,7 @@ with dag:
         name="airflow-test-pod",
         task_id="task-one",
         in_cluster=in_cluster, # if set to true, will look in the cluster, if false, looks for file
-        cluster_context='docker-for-desktop', # is ignored when in_cluster is set to True
+        cluster_context='docker-desktop', # is ignored when in_cluster is set to True
         config_file=config_file,
         is_delete_operator_pod=True,
         get_logs=True)
@@ -90,7 +90,7 @@ If you are on Linux, the `cluster_context` will be `microk8s`
 
 ### Windows and Mac
 
-You can use `kubectl get pods -n $namespace` and `kubectl logs {pod_name} -n $namespace` to examine the logs for the pod that just ran. By default, `docker-for-desktop` and `microk8s` will run pods in the `default` namespace. 
+You can use `kubectl get pods -n $namespace` and `kubectl logs {pod_name} -n $namespace` to examine the logs for the pod that just ran. By default, `docker-for-desktop` and `microk8s` will run pods in the `default` namespace.
 
 ### Linux
 

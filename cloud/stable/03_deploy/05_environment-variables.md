@@ -44,6 +44,12 @@ To add Environment Variables locally,
 2. Add your Environment Variables of choice to that `.env` file
 3. Rebuild your image to apply those changes by running `$ astro dev start --env .env`
 
+In your `.env` file, insert the value and key beginning with `ENV`, ensuring all-caps for all characters. For example:
+
+```
+ENV AIRFLOW__CORE__DAG_CONCURRENCY=5
+```
+
 > **Note:** If your Environment Variables contain secrets you don't want to expose in plain-text, you may want to add your `.env` file to `.gitignore` if and when you deploy these changes to your version control tool.
 
 #### Confirm your Environment Variables were Applied
@@ -107,7 +113,7 @@ If you're working on an Airflow project locally but intend to deploy to Astronom
 To add Environment Variables, insert the value and key in your `Dockerfile` beginning with `ENV`, ensuring all-caps for all characters. With your Airflow image commonly referenced as a "FROM" statement at the top, your Dockerfile might look like this:
 
 ```
-FROM astronomerinc/ap-airflow:1.10.7-buster-onbuild
+FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild
 ENV AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=1
 ENV AIRFLOW__CORE__DAG_CONCURRENCY=5
 ENV AIRFLOW__CORE__PARALLELISM=25
