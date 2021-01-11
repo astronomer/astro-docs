@@ -187,7 +187,7 @@ As a next step, create a file named `config.yaml` in an empty directory.
 
 For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
-In the newly created file, copy the example below and replace `baseDomain` and `smtpUrl` with your own values. If you would like to use your own external IP address, add the address to `loadBalancerIP`. If you want Azure to make one for you, leave this section blank. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.14/configs).
+In the newly created file, copy the example below and replace `baseDomain` and `smtpUrl` with your own values. If you would like to use your own external IP address, add the address to `loadBalancerIP`. An IP address will be dynamically generated in Azure if this value is left blank. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.14/configs).
 
 
 ```yaml
@@ -218,7 +218,7 @@ global:
 #################################
 nginx:
   # IP address the nginx ingress should bind to
-  loadBalancerIP:
+  loadBalancerIP: ~
 
 #################################
 ### SMTP configuration
@@ -335,7 +335,7 @@ If you are seeing issues here, check out our [guide on debugging your installati
 
 Now that you've successfully installed Astronomer, a new Load Balancer will have spun up in your Azure account. This Load Balancer routes incoming traffic to our NGINX ingress controller.
 
-Run `kubectl get svc -n astronomer` to view your Load Balencer's External IP Address, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
+Run `kubectl get svc -n astronomer` to view your Load Balancer's External IP Address, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
 
 ```
 
