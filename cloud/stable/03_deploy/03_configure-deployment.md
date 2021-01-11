@@ -82,20 +82,16 @@ The number of AUs (CPU and Memory) allocated to **Extra Capacity** maps to [reso
 
 The AUs allocated to **Extra Capacity** do not represent actual usage, will not be charged as a fixed resource, and do not affect Scheduler or Webserver performance.
 
-## Set Environment Variables
+## Environment Variables
 
-Environment Variables are a set of configurable values that allow you to dynamically fine tune your Airflow Deployment. As you think about scaling your use of Airflow, you might consider customizing any of the following Environment Variables:
+Environment Variables can be used to set both [Airflow configurations](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) or custom values, both of which can be applied to your Airflow Deployment either locally or on Astronomer.
 
-- `AIRFLOW__CORE__PARALLELISM`
-- `AIRFLOW__CORE__DAG_CONCURRENCY`
-- `AIRFLOW__CELERY__WORKER_CONCURRENCY`
-- `AIRFLOW__SCHEDULER__MAX_THREADS`
+These can include setting Airflow Parallelism, an SMTP service for Alerts, or a [secrets backend](https://www.astronomer.io/docs/cloud/stable/customize-airflow/secrets-backend) to manage Airflow Connections and Variables.
+
+To set Environment Variables on Astronomer, refer to the **Variables** tab of your Airflow Deployment in the Astronomer UI.
 
 ![Astro UI Env Vars Config](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.16-Astro-UI-EnvVars.png)
 
-To learn more, consider the following two resources:
+To learn more, read [Environment Variables on Astronomer](/docs/cloud/stable/deploy/environment-variables/).
 
-- ["Environment Variables on Astronomer"](/docs/cloud/stable/deploy/environment-variables/) Doc
-- ["Scaling out Airflow"](/guides/airflow-scaling-workers/) Guide
-
-> **Note**: Environment Variables are distinct from Airflow Variables/XComs, which you can configure directly via the Airflow UI and are used for inter-task communication.
+> **Note**: Environment Variables are distinct from [Airflow Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html?highlight=variables) and [XComs](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html?highlight=xcom#concepts-xcom), which you can configure directly via the Airflow UI and are used for inter-task communication.
