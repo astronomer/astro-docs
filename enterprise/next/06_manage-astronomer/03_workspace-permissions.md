@@ -270,3 +270,10 @@ Deployment _Viewers_ are limited to read-only mode. They:
 Viewers _cannot_ push code to an Airflow Deployment or create Service Accounts to do so. Attempts to view logs, trigger DAGs, etc. will result in a `403` and an `Access is Denied` message.
 
 ![Access Denied](https://assets2.astronomer.io/main/docs/astronomer-ui/access_denied.png)
+
+## What's Next
+
+As an Astronomer Enterprise user, you're free to customize all user permissions at the platform-level. For more information, read:
+
+- [Manage Users on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/manage-platform-users#customize-permissions)
+- [Integrate an Auth System](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system)
