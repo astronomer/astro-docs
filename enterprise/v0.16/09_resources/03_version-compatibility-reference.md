@@ -14,10 +14,10 @@ It's worth noting that while the tables below reference the minimum compatible v
 
 | Astronomer Platform  | Kubernetes        | Helm | Terraform | Postgres | Astronomer Certified                             | Python       |
 |----------------------|------------------|------|-----------|----------|--------------------------------------------------|---------------|
-| v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14        | 3.6, 3.7, 3.8 |
-| v0.23 (*Coming Soon*)| 1.16, 1.17, 1.18 | 3    | 0.12      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 2.0.0 | 3.6, 3.7, 3.8 |
+| v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14        | 3.6, 3.7, 3.8 |
+| v0.23 (*Coming Soon*)| 1.16, 1.17, 1.18 | 3    | 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 2.0.0 | 3.6, 3.7, 3.8 |
 
-> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12. For instructions on how to upgrade to the latest version of Astronomer, refer to our ["Enterprise Upgrade Guide"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
+> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12, and Astronomer v0.16.15+ is required to run Astronomer Certified 1.10.14. For instructions on how to upgrade to the latest version of Astronomer, refer to our ["Enterprise Upgrade Guide"](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
 
 ## Astronomer Certified
 
