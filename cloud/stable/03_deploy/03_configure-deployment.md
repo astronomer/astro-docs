@@ -4,9 +4,9 @@ navTitle: "Configure a Deployment"
 description: "How to configure your Airflow Deployment's Resources on Astronomer."
 ---
 
-Once you've [created an Airflow Deployment](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli), you can configure it based on the needs of your organization via the Astronomer UI.
-
 ## Overview
+
+Once you've [created an Airflow Deployment](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli), you can configure it via the Astronomer UI based on the needs of your organization.
 
 The **Settings** tab of your Airflow Deployment on Astronomer is the best place to modify resources for your Deployment. Specifically, you can:
 
@@ -42,7 +42,7 @@ Apache Airflow requires two primary components:
 1. The Airflow Webserver
 2. The Airflow Scheduler
 
-To scale either resource, simply adjust the slider for the resource to increase its available computing power.
+To scale either resource, simply adjust the corresponding slider in the Astronomer UI to increase its available computing power.
 
 Read the following sections to help you determine which core resources to scale and when.
 
@@ -50,9 +50,7 @@ Read the following sections to help you determine which core resources to scale 
 
 The Airflow Webserver is responsible for rendering the [Airflow UI](https://airflow.apache.org/docs/apache-airflow/stable/ui.html), where users can monitor DAGs, view task logs, and set various non-code configurations. 
 
-If a function within the Airflow UI is slow or unavailable, we recommend raising the AUs allocated towards the Webserver. The default resource allocation is 5 AU.
-
-To acceess the Airflow UI, click **Open Airflow** on the top, right-hand side of any Deployment page in the Astronomer UI.
+If a function within the Airflow UI is slow or unavailable, we recommend increasing the AU allocated towards the Webserver. The default resource allocation is 5 AU.
 
 > **Note:** Introduced in Airflow 1.10.7, [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html?highlight=dag%20serialization) removes the need for the Webserver to regularly parse all DAG files, making the component significantly more light-weight and performant. DAG Serialization is enabled by default in Airflow 1.10.12+ and is required in Airflow 2.0.
 
@@ -60,7 +58,7 @@ To acceess the Airflow UI, click **Open Airflow** on the top, right-hand side of
 
 The [Airflow Scheduler](https://airflow.apache.org/docs/apache-airflow/stable/scheduler.html) is responsible for monitoring task execution and triggering downstream tasks once dependencies have been met.
 
-If you experience delays in task execution, which you can track via the [Gantt Chart](https://airflow.apache.org/docs/apache-airflow/stable/ui.html#gantt-chart) view of the Airflow UI, we recommend increasing the AUs allocated towards the Scheduler. The default resource allocation is 10 AU.
+If you experience delays in task execution, which you can track via the [Gantt Chart](https://airflow.apache.org/docs/apache-airflow/stable/ui.html#gantt-chart) view of the Airflow UI, we recommend increasing the AU allocated towards the Scheduler. The default resource allocation is 10 AU.
 
 > **Tip:** To set alerts that notify you via email when your Airflow Scheduler is underprovisioned, refer to [Airflow Alerts](/docs/cloud/stable/customize-airflow/airflow-alerts/).
 
@@ -68,7 +66,7 @@ If you experience delays in task execution, which you can track via the [Gantt C
 
 [Airflow 2.0](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2) comes with the ability for users to run multiple Schedulers concurrently to ensure high-availability, zero recovery time, and faster performance. By adjusting the **Scheduler Count** slider in the Astronomer UI, users can provision up to 4 Schedulers on any Deployment running Airflow 2.0+ on Astronomer.
 
-Each individual Scheduler will be provisioned with the AU specified in **Scheduler Resources**. For example, if you set **Scheduler Resources** to 10AU and **Scheduler Count** to 2, your Airflow Deployment will run with 2 Airflow Schedulers using 10 AU each for a total of 20 AU.
+Each individual Scheduler will be provisioned with the AU specified in **Scheduler Resources**. For example, if you set **Scheduler Resources** to 10 AU and **Scheduler Count** to 2, your Airflow Deployment will run with 2 Airflow Schedulers using 10 AU each for a total of 20 AU.
 
 To increase the speed at which tasks are scheduled and ensure high-availability, we recommend provisioning 2 or more Airflow Schedulers for production environments. For more information on the Airflow 2.0 Scheduler, refer to Astronomer's ["The Airflow 2.0 Scheduler" blog post](https://www.astronomer.io/blog/airflow-2-scheduler).
 
@@ -78,18 +76,16 @@ On Astronomer, resources required for the [KubernetesPodOperator](https://www.as
 
 The Kubernetes Executor and KubernetesPodOperator each spins up an individual Kubernetes pod for each task that needs to be executed and spins the pod down once that task is completed.
 
-The number of AUs (CPU and Memory) allocated to **Extra Capacity** maps to [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) on the [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in which your Airflow Deployment lives on Astronomer. More specifically, **Extra Capacity** represents the maximum possible resources that could be provisioned to a single or set of pods at any given time.
+The amount of AU (CPU and Memory) allocated to **Extra Capacity** maps to [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) on the [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in which your Airflow Deployment lives on Astronomer. More specifically, **Extra Capacity** represents the maximum possible resources that could be provisioned to a single or set of pods at any given time.
 
-The AUs allocated to **Extra Capacity** do not represent actual usage, will not be charged as a fixed resource, and do not affect Scheduler or Webserver performance.
+AU allocated to **Extra Capacity** does not affect Scheduler or Webserver performance and does not represent actual usage. It will not be charged as a fixed resource.
 
-## Environment Variables
+## Set Environment Variables
 
 Environment Variables can be used to set both [Airflow configurations](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) or custom values, both of which can be applied to your Airflow Deployment either locally or on Astronomer.
 
 These can include setting Airflow Parallelism, an SMTP service for Alerts, or a [secrets backend](https://www.astronomer.io/docs/cloud/stable/customize-airflow/secrets-backend) to manage Airflow Connections and Variables.
 
 Environment Variables can be set for your Airflow Deployment either in the **Variables** tab of the Astronomer UI or in your `Dockerfile`. If you're developing locally, they can also be added to a local `.env` file. For more information on configuring Environment Variables, read [Environment Variables on Astronomer](/docs/cloud/stable/deploy/environment-variables/).
-
-
 
 > **Note**: Environment Variables are distinct from [Airflow Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html?highlight=variables) and [XComs](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html?highlight=xcom#concepts-xcom), which you can configure directly via the Airflow UI and are used for inter-task communication.
