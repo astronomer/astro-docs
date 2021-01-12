@@ -36,6 +36,10 @@ Here, you have a high-level overview of all of the active Airflow deployments yo
 
 From this screen, you can:
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 22cac7fae0641eb3625823824c6d6f7511d7b0d4
 1. Create new Airflow Deployments
 2. Manage user access to the Workspace
 3. Generate tokens for CI/CD systems via service accounts
@@ -75,6 +79,10 @@ For a breakdown the Airflow UI itself, check out [this guide](/guides/airflow-ui
 
 If you navigate over to the "Users" tab of your Workspace Dashboard, you'll be able to see who has access to the Workspace. If you'd like to share access to other members of your organization, invite them to a workspace you're a part of. Once members, they'll have access to _all_ Airflow deployments under that workspace.
 
+<<<<<<< HEAD
 ## Workspace Permissions
+=======
+An exact breakdown of user roles and their respective levels of access can be found in [Manage User Permissions on an Astronomer Workspace](/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
+>>>>>>> 22cac7fae0641eb3625823824c6d6f7511d7b0d4
 
 Users in a Workspace can be given the role of a **Viewer**, **Editor**, or **Admin***. An exact breakdown of these roles can be found in the [User Roles and Permissions](/docs/enterprise/stable/manage-astronomer/workspace-permissions/) section. Astronomer Enterprise admins can [configure the exact permissions](/docs/enterprise/stable/manage-astronomer/manage-platform-users/) for each Astronomer role.
