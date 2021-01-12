@@ -35,6 +35,24 @@ Though it largely depends on your use case, we recommend the Local Executor for 
 
 For a detailed breakdown of each Executor, read Astronomer's [Airflow Executors Explained](https://www.astronomer.io/guides/airflow-executors-explained).
 
+## Set Celery Worker Configuration
+
+To optimize for flexibility and availability, the Celery Executor works with a set of independent Celery Workers across which it can delegate tasks. On Astronomer, you're free to configure your Celery Workers to fit your use case.
+
+### Worker Count
+
+By adjusting the **Worker Count** slider in the Astronomer UI, users can provision up to 20 Celery Workers on any Airflow Deployment.
+
+Each individual Worker will be provisioned with the AU specified in **Worker Resources**. If you set **Worker Resources** to 10 AU and **Worker Count** to 3, for example, your Airflow Deployment will run with 3 Celery Workers using 10 AU each for a total of 30 AU. **Worker Resources** has a maximum of 100 AU (10 CPU, 37.5 GB Memory).
+
+### Worker Termination Grace Period
+
+On Astronomer, Celery Workers restart following every code push to your Airflow Deployment. This is to make sure that Workers are executing with the most up-to-date code. To minimuze disruption during task execution, however, Astronomer supports the ability to set a **Worker Termination Grace Period**.
+
+If a deploy is triggered while a Celery Worker is executing a task and **Worker Termination Grace Period** is set, the Worker will continue to process that task up to a certain number of minutes before restarting itself. The default grace period is 10 minutes by default but is configurable up to 600 minutes.
+
+> **Tip:** The **Worker Termination Grace Period** is an advantage to the Celery Executor. If your Airfow Deployment runs on the Local Executor, the Scheduler will restart immediately upon every code push or configuration change and potentially interrupt task execution.
+
 ## Scale Core Resources
 
 Apache Airflow requires two primary components:
