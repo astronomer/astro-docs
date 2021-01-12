@@ -22,7 +22,7 @@ From this dashboard, you can:
 
 **The Astronomer Workspace:** A personal or shared space that is home to a collection of Airflow deployments. User access to deployments is managed at the workspace level on Astronomer.
 
-A **Workspace** is an Astronomer-specific term. You can think of your workspaces the same way you'd think of teams - they're just collections of Airflow deployments that specific user groups have access to. When you create an account on Astronomer, a default personal workspace is automatically created. Airflow deployments are hierarchically lower - from a workspace, you can create one or more Airflow deployments, and grant or restrict user access to those deployments accordingly.
+A **Workspace** is an Astronomer-specific term. You can think of your Workspaces the same way you'd think of teams - they're just collections of Airflow Deployments that specific user groups have access to. When you create an account on Astronomer, a default personal Workspace is automatically created. Airflow Deployments are hierarchically lower - from a Workspace, you can create one or more Airflow Deployments, and grant or restrict user access to those Deployments accordingly.
 
 If you were a solo agent, you could have multiple Airflow deployments within that single workspace and have no need for additional workspaces. Teams, however, often share one or more workspaces labeled as such, and have multiple Airflow deployments from there.
 
@@ -36,9 +36,9 @@ Here, you have a high-level overview of all of the active Airflow deployments yo
 
 From this screen, you can:
 
-1. Create new Airflow deployments
-2. Manage user access to the workspace
-3. Generate tokens for CI/CD systems via service accounts.
+1. Create new Airflow Deployments
+2. Manage user access to the Workspace
+3. Generate tokens for CI/CD systems via service accounts
 4. Rename your Workspace
 
 Since all of our app activity is routed through a GraphQL API, you're free to create deployments, switch workspaces, and add users via our [CLI](/docs/enterprise/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
