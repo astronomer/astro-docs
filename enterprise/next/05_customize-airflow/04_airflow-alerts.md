@@ -49,7 +49,7 @@ c) Verify your integration in SendGrid to confirm that the key was activated. If
 
 #### 4. Add SendGrid Credentials to your Airflow Deployment
 
-Now, navigate to your Airflow Deployment in [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/login). Go to **Variables** and add the following Environment Variables using the **+Add** button:
+Now, navigate to your Airflow Deployment in the Astronomer UI. Go to **Variables** and add the following Environment Variables using the **+Add** button:
 
 ```
 AIRFLOW__SMTP__SMTP_HOST=smtp.sendgrid.net
@@ -94,7 +94,7 @@ Refer to [Amazon's list of available regions and servers](https://docs.aws.amazo
 
 #### 4. Add SES Credentials to your Astronomer Deployment
 
-Now, navigate to your Airflow Deployment in [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/login). Go to **Variables** and add the following Environment Variables using the **+Add** button:
+Now, navigate to your Airflow Deployment in the Astronomer UI. Go to **Variables** and add the following Environment Variables using the **+Add** button:
 ```
 AIRFLOW__SMTP__SMTP_HOST={Your SMTP host}
 AIRFLOW__SMTP__SMTP_PORT=587
