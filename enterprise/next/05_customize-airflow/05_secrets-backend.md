@@ -1,5 +1,5 @@
 ---
-title: "External Secrets Backends"
+title: "Configure an External Secrets Backend on Astronomer"
 navTitle: "Configure a Secrets Backend"
 description: "Configure a secret backend tool on Astronomer to store Airflow Connections and Variables."
 ---
@@ -103,24 +103,26 @@ If you'd like to further customize what the interaction between Airflow and Vaul
 
 To test your connection to Vault locally, add the code below as a new DAG in your `/dags` directory. This will print your connection information to the task logs and confirm that your connection has been established successfully.
 
-    from airflow import DAG
-    from airflow.operators.python_operator import PythonOperator
-    from datetime import datetime
-    from airflow.hooks.base_hook import BaseHook
+```python
+from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
+from datetime import datetime
+from airflow.hooks.base_hook import BaseHook
 
 
-    def get_secrets(**kwargs):
-        conn = BaseHook.get_connection(kwargs['my_conn_id'])
-        print(f"Password: {conn.password}, Login: {conn.login}, URI: {conn.get_uri()}, Host: {conn.host}")
+def get_secrets(**kwargs):
+    conn = BaseHook.get_connection(kwargs['my_conn_id'])
+    print(f"Password: {conn.password}, Login: {conn.login}, URI: {conn.get_uri()}, Host: {conn.host}")
 
-    with DAG('example_secrets_dags', start_date=datetime(2020, 1, 1), schedule_interval=None) as dag:
+with DAG('example_secrets_dags', start_date=datetime(2020, 1, 1), schedule_interval=None) as dag:
 
 
-        test_task = PythonOperator(
-            task_id='test-task',
-            python_callable=get_secrets,
-            op_kwargs={'my_conn_id': 'smtp_default'},
-     )
+    test_task = PythonOperator(
+        task_id='test-task',
+        python_callable=get_secrets,
+        op_kwargs={'my_conn_id': 'smtp_default'},
+ )
+```
 
 Once you've added this DAG to your project:
 
@@ -156,9 +158,9 @@ You now should be able to see your connection information being pulled from Vaul
 
 While the above section required that you add your connection information as a `conn_uri` to Vault, you can also pull Airflow Variables from Vault. To do so, you'll need to add your variable to vault via the following syntax:
 
+```console
+$  vault kv put airflow/variables/hello value=world
 ```
-   $  vault kv put airflow/variables/hello value=world
-   ```
 
 This works because we set the `variables_path` in our `AIRFLOW__SECRETS__BACKEND_KWARGS` to be `variables`. You are welcome to change this path name if you'd prefer to access variables from a different Vault directory.
 
