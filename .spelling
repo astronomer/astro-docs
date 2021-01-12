@@ -5,6 +5,11 @@
 # where filename is relative to this configuration file
 # <!-- markdownlint-disable-file -->
 graphql
+Workspace
+Workspaces
+Scheduler
+Webserver
+Webservers
 pinterest
 shopify
 nosql
@@ -22,7 +27,6 @@ mesos
 containerizer
 microservices
 kubernetes
-webserver
 mysql
 mailchimp
 clickstream
@@ -863,7 +867,6 @@ parameterized
 rollouts
 performant
 Datasource
-webservers
 liveness
 failover
 AirflowPlugin
