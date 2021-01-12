@@ -54,8 +54,6 @@ See below for out-of-the-box configurations and corresponding AU count:
 
 ## Extra Capacity
 
-### Kubernetes Executor & KubernetesPodOperator
-
 On Astronomer, resources needed for either the [KubernetesPodOperator](/docs/cloud/stable/customize-airflow/kubepodoperator/) or the KubernetesExecutor are mapped to the **Extra Capacity** slider on the **Settings** tab of your Airflow Deployment in the Astronomer UI.
 
 The AU allocated to **Extra Capacity** maps to [*resource quotas*](https://kubernetes.io/docs/concepts/policy/resource-quotas/) on the [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in which your Airflow Deployment lives.
@@ -80,7 +78,7 @@ Setting the **Scheduler Count** slider determines how many Schedulers run on you
 
 The total price you pay for Scheduler resources is calculated by multiplying your **Scheduler Count** by the amount of AU allocated to **Scheduler Resources**. For instance, if you provision $100 per month in **Scheduler Resources** and you set **Scheduler Count** to 3, you can expect to pay $300 per month total towards Airflow Scheduler functionality.
 
-Similarly, the total price you pay for Celery Workers is calculated by multiplying your **Worker Count** by the amount of AU allocated to **Worker Resources**.  For instance, if you provision $200 per month in **Worker Resources** and you set **Worker Count** to 2, you can expect to pa $400 per month total towards Celery Worker functionality.
+Similarly, the total price you pay for Celery Workers is calculated by multiplying your **Worker Count** by the amount of AU allocated to **Worker Resources**.  For instance, if you provision $200 per month in **Worker Resources** and you set **Worker Count** to 2, you can expect to pay $400 per month total towards Celery Worker functionality.
 
 ## Node limits on Astronomer Cloud
 

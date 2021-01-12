@@ -23,7 +23,7 @@ The **Settings** tab of your Airflow Deployment on Astronomer is the best place 
 
 ## Select an Executor
 
-The Airflow [Executor](https://airflow.apache.org/docs/apache-airflow/stable/executor/index.html) works closely with the Airflow Scheduler to decide what resources will complete tasks as they're queued. The difference between Executors comes down to the resources they have at hand and how they utilize those resources to distribute work.
+The Airflow [Executor](https://airflow.apache.org/docs/apache-airflow/stable/executor/index.html) works closely with the Airflow Scheduler to decide what resources will complete tasks as they're queued. The difference between Executors comes down to their available resources and how they utilize those resources to distribute work.
 
 Astronomer supports 3 Executors:
 
@@ -41,17 +41,17 @@ To optimize for flexibility and availability, the Celery Executor works with a s
 
 ### Worker Count
 
-By adjusting the **Worker Count** slider in the Astronomer UI, users can provision up to 20 Celery Workers on any Airflow Deployment.
+By adjusting the **Worker Count** slider, users can provision up to 20 Celery Workers on any Airflow Deployment.
 
 Each individual Worker will be provisioned with the AU specified in **Worker Resources**. If you set **Worker Resources** to 10 AU and **Worker Count** to 3, for example, your Airflow Deployment will run with 3 Celery Workers using 10 AU each for a total of 30 AU. **Worker Resources** has a maximum of 100 AU (10 CPU, 37.5 GB Memory).
 
 ### Worker Termination Grace Period
 
-On Astronomer, Celery Workers restart following every code push to your Airflow Deployment. This is to make sure that Workers are executing with the most up-to-date code. To minimuze disruption during task execution, however, Astronomer supports the ability to set a **Worker Termination Grace Period**.
+On Astronomer, Celery Workers restart following every code deploy to your Airflow Deployment. This is to make sure that Workers are executing with the most up-to-date code. To minimize disruption during task execution, however, Astronomer supports the ability to set a **Worker Termination Grace Period**.
 
-If a deploy is triggered while a Celery Worker is executing a task and **Worker Termination Grace Period** is set, the Worker will continue to process that task up to a certain number of minutes before restarting itself. The default grace period is 10 minutes by default but is configurable up to 600 minutes.
+If a deploy is triggered while a Celery Worker is executing a task and **Worker Termination Grace Period** is set, the Worker will continue to process that task up to a certain number of minutes before restarting itself. By default, the grace period is ten minutes.
 
-> **Tip:** The **Worker Termination Grace Period** is an advantage to the Celery Executor. If your Airfow Deployment runs on the Local Executor, the Scheduler will restart immediately upon every code push or configuration change and potentially interrupt task execution.
+> **Tip:** The **Worker Termination Grace Period** is an advantage to the Celery Executor. If your Airflow Deployment runs on the Local Executor, the Scheduler will restart immediately upon every code deploy or configuration change and potentially interrupt task execution.
 
 ## Scale Core Resources
 
@@ -66,7 +66,7 @@ Read the following sections to help you determine which core resources to scale 
 
 ### Airflow Webserver
 
-The Airflow Webserver is responsible for rendering the [Airflow UI](https://airflow.apache.org/docs/apache-airflow/stable/ui.html), where users can monitor DAGs, view task logs, and set various non-code configurations. 
+The Airflow Webserver is responsible for rendering the [Airflow UI](https://airflow.apache.org/docs/apache-airflow/stable/ui.html), where users can monitor DAGs, view task logs, and set various non-code configurations.
 
 If a function within the Airflow UI is slow or unavailable, we recommend increasing the AU allocated towards the Webserver. The default resource allocation is 5 AU.
 
@@ -88,13 +88,13 @@ Each individual Scheduler will be provisioned with the AU specified in **Schedul
 
 To increase the speed at which tasks are scheduled and ensure high-availability, we recommend provisioning 2 or more Airflow Schedulers for production environments. For more information on the Airflow 2.0 Scheduler, refer to Astronomer's ["The Airflow 2.0 Scheduler" blog post](https://www.astronomer.io/blog/airflow-2-scheduler).
 
-## Extra Capacity
+## Set Extra Capacity
 
 On Astronomer, resources required for the [KubernetesPodOperator](https://www.astronomer.io/docs/cloud/stable/customize-airflow/kubepodoperator) or the Kubernetes Executor are set as **Extra Capacity**.
 
-The Kubernetes Executor and KubernetesPodOperator each spins up an individual Kubernetes pod for each task that needs to be executed and spins the pod down once that task is completed.
+The Kubernetes Executor and KubernetesPodOperator each spin up an individual Kubernetes pod for each task that needs to be executed, then spin down the pod once that task is completed.
 
-The amount of AU (CPU and Memory) allocated to **Extra Capacity** maps to [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) on the [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in which your Airflow Deployment lives on Astronomer. More specifically, **Extra Capacity** represents the maximum possible resources that could be provisioned to a single or set of pods at any given time.
+The amount of AU (CPU and Memory) allocated to **Extra Capacity** maps to [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) on the [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) in which your Airflow Deployment lives on Astronomer. More specifically, **Extra Capacity** represents the maximum possible resources that could be provisioned to a pod at any given time.
 
 AU allocated to **Extra Capacity** does not affect Scheduler or Webserver performance and does not represent actual usage. It will not be charged as a fixed resource.
 
