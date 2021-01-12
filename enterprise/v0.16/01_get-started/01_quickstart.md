@@ -57,21 +57,27 @@ If you are in charge of setting up Astronomer for your team, follow one of our E
 
 We have documentation for deploying Astronomer on:
 
-- AWS EKS (via [Helm](/docs/enterprise/v0.16/install/aws/install-aws-standard/) or [Terraform](/docs/enterprise/v0.16/install/aws/install-aws-terraform/))
-- [GCP Google Kubernetes Service](/docs/enterprise/v0.16/install/gcp/install-gcp-standard/)
-- [Azure Kubernetes Service](/docs/enterprise/v0.16/install/azure/install-azure-standard/)
-
+- Amazon Elastic Kubernetes Service (EKS) (via [Helm](/docs/enterprise/v0.16/install/aws/install-aws-standard/) or [Terraform](/docs/enterprise/v0.16/install/aws/install-aws-terraform/))
+- [Google Kubernetes Engine (GKE)](/docs/enterprise/v0.16/install/gcp/install-gcp-standard/)
+- [Azure Kubernetes Service (AKS)](/docs/enterprise/v0.16/install/azure/install-azure-standard/)
 
 ## Step 4: Create a Project
 
-Using the Astronomer CLI, create a project to work from that lives on your local machine:
+Using the Astronomer CLI, create an Airflow project to work from that lives on your local machine:
+
  ```sh
-mkdir hello-astro && cd hello-astro
-astro dev init
+$ mkdir <your-new-directory> && cd <your-new-directory>
  ```
 
-This will generate the following files:
+Then, run:
+
 ```
+$ astro dev init
+```
+
+This will generate the following files:
+
+```py
 .
 ├── dags # Where your DAGs go
 │   ├── example-dag.py # An example dag that comes with the initialized project
@@ -92,11 +98,12 @@ Your Dockerfile will include reference to an Astronomer Certified Docker Image. 
 This Docker image is hosted on [Astronomer's Docker Registry](https://quay.io/repository/astronomer/ap-airflow?tab=tags) and allows you to run Airflow on Astronomer. Additionally, the image you include in your Dockerfile dictates the version of Airflow you'd like to run both when you're developing locally and pushing up to Astronomer Cloud.
 
 The Docker image you'll find in your Dockerfile by default is:
+
 ```
 FROM quay.io/astronomer/ap-airflow:latest-onbuild
 ```
 
-This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, read [Manage Airflow Versions](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions) and the _Customize your Image_ topic below.
+This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions) and the _Customize your Image_ topic below.
 
 ### Example DAG
 
@@ -104,13 +111,11 @@ To help you get started, your initialized project includes an `example-dag` in `
 
 If you'd like to deploy some more functional DAGs, upload your own or check out [example DAGs we've open sourced](https://github.com/airflow-plugins/example-dags).
 
-
-## Step 5: Go to Your Base Domain and Log In
+## Step 5: Identify your Base Domain and Log in
 
 Since Astronomer is running entirely on your infrastructure, the Astronomer UI will be located at a base domain specific to your organization. Head to `app.BASEDOMAIN` in your web browser and log in. You're in the right place if you see the following login screen:
 
 ![Log In](https://assets2.astronomer.io/main/docs/enterprise_quickstart/log_into_astro.png)
-
 
 > **Note:** If you are not the first person to log in, you will need an email invite to the platform.
 
@@ -124,16 +129,17 @@ You can think of Workspaces the same way you'd think of teams - a space that spe
 
 For more information, read [Manage Workspaces and Deployments](/docs/enterprise/v0.16/deploy/manage-workspaces/).
 
-## Step 7: Authenticate from the CLI
+## Step 7: Authenticate to Astronomer from the CLI
 
 You can authenticate to Astronomer using the following command:
+
 ```sh
 $ astro auth login BASEDOMAIN
 ```
 
 You'll be prompted to authenticate and select the Workspace that you want to operate in.
 
-The first user to log in to the Astronomer platform will become a System Admin. Additional users can be added from the Astronomer UI. For more information on Astronomer's users and permissions model, read [Manage Users on Astronomer Enterprise](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/).
+The first user to log in to the Astronomer platform will become a System Admin by default. Additional users can be added via the Astronomer UI or CLI. For more information on user permissions at the platform level, read [Manage Users on Astronomer Enterprise](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/).
 
 ## Step 8: Create an Airflow Deployment
 
@@ -148,38 +154,38 @@ Once you've finished, click **Create Deployment**. After it spins up, your new D
 
 ![Create an Airflow Deployment on Astronomer](https://assets2.astronomer.io/main/docs/getting-started/create-deployment.png)
 
-For production Deployments, you'll likely need to reconfigure the Deployment to fit the needs of your organization. For more information on configuring Deployments, read [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/deploy/configure-deployment).
+For a production environment, you'll likely need to set resources and configure your Airflow Deployment to fit the needs of your organization. For more information on configuring Deployments, read [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/deploy/configure-deployment).
 
 ## Step 9: Deploy a DAG
 
 You can now use Astronomer to start Airflow locally and deploy code. To do so:
 
-1. Go to the `hello-astro` project directory you created in Step 4 and run the following command:
-```sh
-$ astro dev start
-```
-This command spins up 3 Docker containers on your machine, each for a different Airflow component:
+1. Go to the Airflow project directory you created in **Step 4** and run the following command:
+   ```sh
+   $ astro dev start
+   ```
+   This command spins up 3 Docker containers on your machine, each for a different Airflow component:
 
-- **Postgres:** [Airflow's Metadata Database](/docs/enterprise/v0.16/customize-airflow/access-airflow-database/)
-- **Webserver:** The Airflow component responsible for rendering the Airflow UI
-- **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
-> **Note:** If you’re running the Astronomer CLI with the [buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature enabled in Docker, you may see an error (`buildkit not supported by daemon`). Learn more in [this forum post](https://forum.astronomer.io/t/buildkit-not-supported-by-daemon-error-command-docker-build-t-airflow-astro-bcb837-airflow-latest-failed-failed-to-execute-cmd-exit-status-1/857).
+   - **Postgres:** [Airflow's Metadata Database](/docs/enterprise/v0.16/customize-airflow/access-airflow-database/)
+   - **Webserver:** The Airflow component responsible for rendering the Airflow UI
+   - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
+   > **Note:** If you’re running the Astronomer CLI with the [buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature enabled in Docker, you may see an error (`buildkit not supported by daemon`). Learn more in [this forum post](https://forum.astronomer.io/t/buildkit-not-supported-by-daemon-error-command-docker-build-t-airflow-astro-bcb837-airflow-latest-failed-failed-to-execute-cmd-exit-status-1/857).
 
 2. Verify that all 3 Docker containers were created by running the following command:
-```
-$ docker ps
-```
-> **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432.
->
-> If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
+   ```
+   $ docker ps
+   ```
+   > **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432. If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
 
 3. Deploy the `example-dag` from `hello-astro` to Airflow by running the following command:
-```sh
-$ astro deploy
-```
+   ```sh
+   $ astro deploy
+   ```
 
-4. Confirm the deploy was successful by going to your local Airflow instance at `http://localhost:8080`. You should be able to view `example-dag` in the Airflow UI. You should also be able to turn on `example-dag` and see task runs begin to accumulate in the **Recent Tasks** column.
+4. Confirm the deploy was successful by going to your local Airflow instance at `http://localhost:8080`.
+
+    You should be able to view `example-dag` in the Airflow UI. You should also be able to turn on `example-dag` and see task runs begin to accumulate in the **Recent Tasks** column.
 
 ## Step 10: Access Metrics
 
