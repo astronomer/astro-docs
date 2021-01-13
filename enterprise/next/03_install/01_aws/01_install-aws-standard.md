@@ -130,7 +130,7 @@ By default, Astronomer requires a central Postgres database that will act as the
 While you're free to configure any database, most AWS users on Astronomer run [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). For production environments, we _strongly_ recommend a managed Postgres solution.
 
 > **Note:** If you're setting up a development environment, this step is optional. Astronomer can be configured to deploy the PostgreSQL helm chart as the backend database with the following set in your `config.yaml`:
-> ```
+> ```yml
 > global:
 >   postgresqlEnabled: true
 > ```
@@ -180,11 +180,11 @@ global:
   # For development or proof-of-concept, you can use an in-cluster database
   postgresqlEnabled: false
 
-   # SSL support for using SSL connections to
-   # encrypt client/server communication
-   # between database and the Astronomer platform.
-   # If your database enforces SSL for connections,
-   # change this value to true
+  # SSL support for using SSL connections to
+  # encrypt client/server communication
+  # between database and the Astronomer platform.
+  # If your database enforces SSL for connections,
+  # change this value to true
   ssl:
     enabled: false
 #################################
@@ -222,7 +222,7 @@ astronomer:
 
  SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
 
-```
+```yml
 smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ```
 
@@ -231,19 +231,19 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 
 Information on other auth systems can be found [here](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/). For more insight into how you might be able to customize Astronomer for your team, refer to step 12 at the bottom of this guide.
 
-## Step 7. Install Astronomer
+## Step 7: Install Astronomer
 
 Now that you have an EKS cluster set up and your `config.yaml` file defined, you're ready to deploy all components of our platform.
 
 First, run:
 
-```
+```sh
 $ helm repo add astronomer https://helm.astronomer.io/
 ```
 
 Then, run:
 
-```
+```sh
 $ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
 ```
 
@@ -251,11 +251,11 @@ Replace `<platform-version>` above with the version of the Astronomer platform y
 
 Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
 
-## 8. Verify Pods are Up
+## Sstep 8: Verify Pods are Up
 
 To verify all pods are up and running, run:
 
-```
+```sh
 $ kubectl get pods --namespace <my-namespace>
 ```
 
@@ -310,10 +310,9 @@ If you are seeing issues here, check out our [guide on debugging your installati
 
 Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.
 
-Run `kubectl get svc -n astronomer` to view your ELB's CNAME, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
+Run `$ kubectl get svc -n astronomer` to view your ELB's CNAME, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
 
-```
-
+```sh
 $ kubectl get svc -n astronomer
 NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                                      AGE
 astronomer-alertmanager              ClusterIP      172.20.48.232    <none>                                                                    9093/TCP                                     24d
@@ -338,7 +337,7 @@ astronomer-registry                  ClusterIP      172.20.100.102   <none>     
 
 You will need to create a new CNAME record through your DNS provider using the ELB CNAME listed above. You can create a single wildcard CNAME record such as `*.astro.mydomain.com`, or alternatively create individual CNAME records for the following routes:
 
-```
+```sh
 app.astro.mydomain.com
 deployments.astro.mydomain.com
 registry.astro.mydomain.com
@@ -387,7 +386,7 @@ $ mkdir -p /etc/docker/certs.d
 $ cp privateCA.pem /etc/docker/certs.d/
 ```
 Next, try running `astro deploy` on a test deployment. Create a deployment in the Astronomer UI, then run:
-```
+```sh
 $ mkdir demo
 $ cd demo
 $ astro airflow init
@@ -401,16 +400,10 @@ If you have Airflow pods in the state "ImagePullBackoff", check the pod descript
 
 To help you make the most of Astronomer Enterprise, check out the following additional resources:
 
-<<<<<<< HEAD
 * [Renew TLS Certificates on Astronomer Enterprise]((/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
 * [Integrating an Auth System](/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system/)
 * [Configuring Platform Resources](/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources/)
 * [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.16/manage-astronomer/manage-platform-users/)
-=======
-* [Integrating an Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](/docs/enterprise/stable/manage-astronomer/configure-platform-resources/)
-* [Managing Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/)
->>>>>>> 7e8d2b3013c12d294bc2bb88182a75cc8fba751d
 
 ### Astronomer Support Team
 
