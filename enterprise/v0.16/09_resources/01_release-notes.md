@@ -14,7 +14,55 @@ We're committed to testing all quarterly Astronomer Enterprise versions for scal
 
 ## Astronomer v0.16
 
-Latest Patch Release: **v0.16.12**
+Latest Patch Release: **v0.16.15**
+
+### v0.16.15
+
+Release Date: January 5, 2021
+
+#### Support for Airflow 1.10.14
+
+Airflow 1.10.14 was built to make testing and migration to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) as easy as possible. Highlights include:
+
+- "Warning" to users with duplicate Airflow Connections ([commit](https://github.com/apache/airflow/commit/0e40ddd8e))
+- Enable [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html) by default ([commit](https://github.com/apache/airflow/commit/8a265067e))
+- Support for Airflow 2.0 CLI commands ([commit](https://github.com/apache/airflow/pull/12725))
+- Bugfix: Unable to import Airflow plugins on Python 3.8 ([commit](https://github.com/apache/airflow/pull/12859))
+- BugFix: Tasks with depends_on_past or task_concurrency are stuck ([commit](https://github.com/apache/airflow/pull/12663))
+- Security Fix: Incorrect Session Validation in Airflow Webserver with default config allows a an authorized Airflow user on site A access an unauthorized Airflow Webserver on Site B through the session from Site A. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17526))
+
+To upgrade to AC 1.10.14, add our new Debian image to your Dockerfile:
+
+```
+FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild
+```
+
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions). For more information on 1.10.14, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.14) or the corresponding [AC 1.10.14 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md).
+
+> **Note:** In an effort to standardize our offering and optimize for reliability, we will only support a Debian-based image for AC 1.10.14. Alpine-based images for AC 1.10.5 - 1.10.12 will continue to be supported. For guidelines on how to migrate from Alpine, go to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
+
+#### Support for latest Astronomer Certified Patch Releases
+
+In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes support for the latest patch versions of existing Astronomer Certified images:
+
+- [1.10.12-2](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)
+- [1.10.10-6](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
+- [1.10.7-16](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
+
+For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
+
+#### Support for Docker Images on Quay.io + DockerHub
+
+Astronomer recently migrated from [Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow/tags) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our platform’s primary Docker Registry in light of Docker Hub’s [new rate-limit policy](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/), effective Nov 2nd, 2020.
+
+Astronomer v0.16.15 supports Docker images that are pulled from _either_ Docker registry, though we strongly encourage users to switch to Quay.io images to avoid rate limiting errors from Docker Hub. This change affects both Airflow images (`ap-airflow`) as well as all Docker images required to run the Astronomer platform, including `ap-grafana`, `ap-registry`, `ap-pgbouncer`, etc. If you're running a legacy Airflow image that pulls from `astronomerinc/ap-airflow`, for example, all it takes is modifying that image in your Dockerfile to read `quay.io/astronomer/ap-airflow`. Both have the exact same functionality.
+
+For more information, refer to [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/) or [this forum post](https://forum.astronomer.io/t/docker-hub-rate-limit-error-toomanyrequests-you-have-reached-your-pull-rate-limit/887).
+
+#### Bug Fixes & Improvements
+
+- Improvement: Support Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`) (_v0.16.5_)
+- Improvement: Support for [Airflow 2.0 in the Astronomer CLI](https://www.astronomer.io/guides/get-started-airflow-2) (_v0.16.5_)
 
 ### v0.16.12
 

@@ -88,24 +88,6 @@ You may need to increase your resource quota in order to provision these nodes.
 
 > **Note:** If you work with multiple Kubernetes environments, `kubectx` is an incredibly useful tool for quickly switching between Kubernetes clusters. Learn more [here](https://github.com/ahmetb/kubectx).
 
-### Create a Static IP Address
-
-You'll need to create a static IP address within your cluster's infrastructure resource group. This resource group is different than the one previously created.
-
-List the name of your cluster's infrastructure resource group:
-
-```
-$ az aks show --resource-group <my-resource-group> --name <my_cluster_name> --query nodeResourceGroup -o tsv
-```
-
-Create a static IP in your infrastructure resource group:
-
-```
-$ az network public-ip create --resource-group <infrastructure-resource-group-name> --name astro-ip --allocation-method static --sku Standard
-```
-
-Save the output from this command - we'll use it again later in this guide.
-
 ### Authenticate with your AKS Cluster
 
 Run the following command to set your AKS cluster as current context in your kubeconfig. This will configure `kubectl` to point to your new AKS cluster:
@@ -205,8 +187,7 @@ As a next step, create a file named `config.yaml` in an empty directory.
 
 For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
-In the newly created file, copy the example below and replace `baseDomain` and `smtpUrl` with your own values. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.16/configs).
-
+In the newly created file, copy the example below and replace `baseDomain` and `smtpUrl` with your own values. If you would like to use your own external IP address, add the address to `loadBalancerIP`. An IP address will be dynamically generated in Azure if this value is left blank. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/release-0.14/configs).
 
 ```yaml
 #################################
@@ -234,7 +215,7 @@ postgresql:
 #################################
 nginx:
   # IP address the nginx ingress should bind to
-  loadBalancerIP: YOUR_EXTERNAL_IP_HERE
+  loadBalancerIP: ~
 
 #################################
 ### SMTP configuration
@@ -347,14 +328,61 @@ astronomer-registry-0                                      1/1     Running      
 
 If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.16/troubleshoot/debug-install/).
 
+## 9. Configure DNS
 
-## 9. Verify You Can Access the Astronomer UI
+Now that you've successfully installed Astronomer, a new Load Balancer will have spun up in your Azure account. This Load Balancer routes incoming traffic to our NGINX ingress controller.
+
+Run `kubectl get svc -n astronomer` to view your Load Balancer's External IP Address, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
+
+```
+
+$ kubectl get svc -n astronomer
+NAME                                          TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                      AGE
+astronomer-alertmanager                       ClusterIP      10.0.184.29    <none>          9093/TCP                                     6m48s
+astronomer-astro-ui                           ClusterIP      10.0.107.212   <none>          8080/TCP                                     6m48s
+astronomer-cli-install                        ClusterIP      10.0.181.211   <none>          80/TCP                                       6m48s
+astronomer-commander                          ClusterIP      10.0.201.246   <none>          8880/TCP,50051/TCP                           6m48s
+astronomer-elasticsearch                      ClusterIP      10.0.47.56     <none>          9200/TCP,9300/TCP                            6m48s
+astronomer-elasticsearch-exporter             ClusterIP      10.0.130.79    <none>          9108/TCP                                     6m48s
+astronomer-elasticsearch-headless-discovery   ClusterIP      None           <none>          9300/TCP                                     6m48s
+astronomer-elasticsearch-nginx                ClusterIP      10.0.218.244   <none>          9200/TCP                                     6m48s
+astronomer-grafana                            ClusterIP      10.0.42.156    <none>          3000/TCP                                     6m48s
+astronomer-houston                            ClusterIP      10.0.57.247    <none>          8871/TCP                                     6m48s
+astronomer-kibana                             ClusterIP      10.0.15.226    <none>          5601/TCP                                     6m48s
+astronomer-kube-state                         ClusterIP      10.0.132.0     <none>          8080/TCP,8081/TCP                            6m48s
+astronomer-kubed                              ClusterIP      10.0.254.39    <none>          443/TCP                                      6m48s
+astronomer-nginx                              LoadBalancer   10.0.146.24    20.185.14.181   80:30318/TCP,443:31515/TCP,10254:32454/TCP   6m48s
+astronomer-nginx-default-backend              ClusterIP      10.0.132.182   <none>          8080/TCP                                     6m48s
+astronomer-postgresql                         ClusterIP      10.0.0.252     <none>          5432/TCP                                     6m48s
+astronomer-postgresql-headless                ClusterIP      None           <none>          5432/TCP                                     6m48s
+astronomer-prisma                             ClusterIP      10.0.30.160    <none>          4466/TCP                                     6m48s
+astronomer-prometheus                         ClusterIP      10.0.128.170   <none>          9090/TCP                                     6m48s
+astronomer-prometheus-blackbox-exporter       ClusterIP      10.0.125.142   <none>          9115/TCP                                     6m48s
+astronomer-prometheus-node-exporter           ClusterIP      10.0.2.116     <none>          9100/TCP                                     6m48s
+astronomer-registry                           ClusterIP      10.0.154.62    <none>          5000/TCP                                     6m48s
+```
+
+You will need to create a new A record through your DNS provider using the external IP address listed above. You can create a single wildcard A record such as `*.astro.mydomain.com`, or alternatively create individual A records for the following routes:
+
+```
+app.astro.mydomain.com
+deployments.astro.mydomain.com
+registry.astro.mydomain.com
+houston.astro.mydomain.com
+grafana.astro.mydomain.com
+kibana.astro.mydomain.com
+install.astro.mydomain.com
+alertmanager.astro.mydomain.com
+prometheus.astro.mydomain.com
+```
+
+## 10. Verify You Can Access the Astronomer UI
 
 Go to `app.BASEDOMAIN` to see the Astronomer UI.
 
 Consider this your new Airflow control plane. From the Astronomer UI, you'll be able to both invite and manage users as well as create and monitor Airflow Deployments on the platform.
 
-## 10. Verify SSL
+## 11. Verify SSL
 
 To make sure that the certificates were accepted, log into the platform and head to `app.BASEDOMAIN/token` and run:
 
@@ -376,7 +404,7 @@ Finally, to make sure the registry accepted SSL, try to log into the registry:
 docker login registry.BASEDOMAIN -u _ -p <token>
 ```
 
-## 11. What's Next
+## 12. What's Next
 
 To help you make the most of Astronomer Enterprise, take note of the following resources:
 

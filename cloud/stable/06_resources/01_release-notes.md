@@ -29,6 +29,7 @@ Airflow 1.10.14 was built to make testing and migration to Airflow 2.0 as easy a
 - Support for Airflow 2.0 CLI commands ([commit](https://github.com/apache/airflow/pull/12725))
 - Bugfix: Unable to import Airflow plugins on Python 3.8 ([commit](https://github.com/apache/airflow/pull/12859))
 - BugFix: Tasks with depends_on_past or task_concurrency are stuck ([commit](https://github.com/apache/airflow/pull/12663))
+- Security Fix: Incorrect Session Validation in Airflow Webserver with default config allows a an authorized Airflow user on site A access an unauthorized Airflow Webserver on Site B through the session from Site A. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17526))
 
 To upgrade to AC 1.10.14, add our new Debian image to your Dockerfile:
 
@@ -40,6 +41,16 @@ For detailed guidelines on how to upgrade Airflow on Astronomer, read [“Manage
 
 > **Note:** In an effort to standardize our offering and optimize for reliability, we will only support a Debian-based image for AC 1.10.14. Alpine-based images for AC 1.10.5 - 1.10.12 will continue to be supported.
 
+#### Support for latest Astronomer Certified Patch Releases
+
+In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes support for the latest patch versions of existing Astronomer Certified images:
+
+- [1.10.12-2](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)
+- [1.10.10-6](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
+- [1.10.7-16](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
+
+For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
+
 #### Improvements to Airflow 2.0 Upgrade Path
 
 In preparation for Airflow 2.0, we've continued to enhance the expected migration experience for users on Airflow 1.10.
@@ -47,12 +58,13 @@ In preparation for Airflow 2.0, we've continued to enhance the expected migratio
 As of Astronomer v0.23.5, we:
 
 - Enforce that all users migrate to Astronomer Certified 1.10.14 before upgrading to 2.0
-- Support Airflow's ["upgrade check"](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
+- Support Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
 
 The migration path to Airflow 2.0 on Astronomer follows all recommendations published by the Apache Airflow project. We expect to publish an official "Upgrade to Airflow 2.0 on Astronomer" guide as soon as Airflow 2.0 is generally available.
 
 #### Bug Fixes & Improvements
 
+- Raise Maximum Node Size to 24 vCPUs, 90 GB Memory/RAM (Read more in [Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing)) 
 - Add clear messaging to Astronomer UI around steps required to finalize Airflow upgrade
 - Opt-in users to **Email Alerts** by default
 - BugFix: `pod_mutation_hook` overrides commands for the KubernetesPodOperator pods if using KubernetesExecutor

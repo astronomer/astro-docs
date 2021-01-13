@@ -22,15 +22,11 @@ On Astronomer, administrators have the option to either open the platform to pub
 
 ### Enable Public Signups
 
-As noted above, public signups allow any user with access to the platform URL (the Astronomer UI) to create an account. If public signups are *disabled*, users that try to access Astronomer without an invitation from another user will be met with an error.
+As noted above, public signups allow any user with access to the platform URL (the Astronomer UI) to create an account. If public signups are disabled, users that try to access Astronomer without an invitation from another user will be met with an error.
 
 In cases where SMTP credentials are difficult to acquire, enabling this flag might facilitate initial setup, as disabling public signups requires that a user accept an email invitation. Public signups are a configuration available in Astronomer's Houston API and can be enabled in the `config.yaml` file of your Helm chart.
 
-To enable or disable public signups, follow the guidelines below.
-
-#### Modify your `config.yaml`
-
-To *enable* public signups, add the following yaml snippet to your `config.yaml` file:
+To enable public signups, add the following yaml snippet to your `config.yaml` file:
 
 ```
 astronomer:
@@ -40,7 +36,7 @@ astronomer:
       emailConfirmation: false # If you wish to also disable other SMTP-dependent features
 ```
 
-An example `config.yaml` would look like:
+An example `config.yaml` file would look like:
 
 ```
 global:
@@ -58,27 +54,7 @@ astronomer:
 
 ```
 
-#### Run a Platform Upgrade
-
-To push the new configuration, run a platform upgrade from the `astronomer` repo:
-
-```
-$ helm ls
-```
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
-
-For example, you might run:
-
-```
-$ helm ls
-NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE
-calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.10.3     	astro
-
-$ helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
-```
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/apply-platform-config).
 
 ### User Roles on Astronomer
 
@@ -87,7 +63,7 @@ Once on the platform, administrators can customize permissions across teams. On 
 1. Workspace Level (Viewer, Editor, Admin)
 2. System Level (Viewer, Editor, Admin)
 
-Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace-level roles on Astronomer (Viewer, Editor and Admin), refer to our ["Manage User Permissions on an Astronomer Workspace"](/docs/enterprise/v0.16/manage-astronomer/workspace-permissions/) doc.
+Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace-level roles on Astronomer (Viewer, Editor and Admin), read [Manage User Permissions on an Astronomer Workspace](/docs/enterprise/v0.16/manage-astronomer/workspace-permissions/).
 
 ## Customize Permissions
 
@@ -112,7 +88,7 @@ First, take a look at our default roles and permissions linked above and identif
 
 For example, you might want to block a `DEPLOYMENT_EDITOR` (and therefore `WORKSPACE_EDITOR`) from deploying code to all Airflow Deployments within a Workspace and instead limit that action to users assigned the `DEPLOYMENT_ADMIN` role.
 
-#### Limit Workspace Creation
+### Limit Workspace Creation
 
 Unless otherwise configured, a user who creates a Workspace on Astronomer is automatically granted the `WORKSPACE_ADMIN` role and is thus able to create an unlimited number of Airflow Deployments within that Workspace. For teams looking to more strictly control resources, our platform supports limiting the Workspace creation function via a `USER` role.
 
@@ -127,7 +103,7 @@ If you'd like to reserve the ability to create a Workspace _only_ to System Admi
 
 To configure and apply this change, follow the steps below.
 
-### Modify your `config.yaml`
+### Modify your config.yaml file
 
 Now, apply the role and permission change to your platform's `config.yaml` file. Following the `deployment.images.push` example above, that would mean specifying this:
 
@@ -141,7 +117,7 @@ astronomer:
             deployment.images.push: false
 ```
 
-In the same way you can _remove_ permissions from a particular role by setting any permission to `:false`, you can _add_ permissions to a role at any time.
+In the same way you can remove permissions from a particular role by setting a permission to `:false`, you can add permissions to a role at any time by setting a permission to `:true`.
 
 For example, if you want to allow any `DEPLOYMENT_VIEWER` (and therefore `WORKSPACE_VIEWER`) to push code directly to any Airflow Deployment within a Workspace, you'd specify the following:
 
@@ -155,27 +131,7 @@ astronomer:
             deployment.images.push: true
 ```
 
-### Apply your Changes
-
-Once you've made changes to your `config.yaml` file, trigger a platform upgrade from the `astronomer` repo by running:
-
-```
-$ helm ls
-```
-
-```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
-```
-
-For example, you might run:
-
-```
-$ helm ls
-NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE
-calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.16.4     	astro
-
-$ helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
-```
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/apply-platform-config).
 
 ## System Roles
 
