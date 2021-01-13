@@ -8,7 +8,7 @@ description: "How to grant Astronomer Cloud access to your VPC."
 
 All Airflow Deployments on Astronomer Cloud route traffic through a single NAT (Network Address Translation). In other words, we have 1 NAT gateway out of our VPC through which all internet-bound traffic goes through.
 
-> **Note**: If you need or would like Private IP access, consider [Astronomer Enterprise](/enterprise/) or [reach out to us](https://support.astronomer.io).
+> **Note**: If you need or would like Private IP access, [reach out to us](https://support.astronomer.io) about deploying Astronomer Enterprise in your environment.
 
 ## Allow Astronomer Cloud Access to your VPC
 
