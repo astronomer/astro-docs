@@ -251,7 +251,7 @@ Replace `<platform-version>` above with the version of the Astronomer platform y
 
 Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
 
-## Sstep 8: Verify Pods are Up
+## Step 8: Verify Pods are Up
 
 To verify all pods are up and running, run:
 
