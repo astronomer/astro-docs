@@ -121,7 +121,7 @@ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certi
 ```
 > **Note:** The root certificate is you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
 
-> **Note:** When you receive a certificate from a private certificate authority, you'll need to additionally specify the `privateCaCerts` key-value pair with `private-root-ca` in your Helm chart. For more information, refer to Step 6.
+2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 6. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
 ## Step 5: Configure the Database
 
@@ -151,7 +151,7 @@ As a next step, create a file named `config.yaml` in an empty directory.
 
 For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
-In the newly created file, copy the example below and replace `baseDomain` and `smtpUrl` with your own values. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/master/configs).
+In the newly created file, copy the example below and replace `baseDomain`, `private-root-ca`, `/etc/docker/certs.d`, and `smtpUrl` with your own values. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/master/configs).
 
 
 ```yaml

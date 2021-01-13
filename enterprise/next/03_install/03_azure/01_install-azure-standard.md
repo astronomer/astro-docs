@@ -108,11 +108,11 @@ The initial namespace we're creating below will just contain the core Astronomer
 $ kubectl create ns astronomer
 ```
 
-## 4. Configure SSL
+## Step 4: Configure TLS
 
 We recommend running Astronomer Enterprise on a dedicated domain (`BASEDOMAIN`) or subdomain (`astro.BASEDOMAIN`).
 
-As mentioned above, you'll need an SSL Certificate that covers the following subdomians:
+In order for users to access the web applications they need to manage Astronomer, you'll need a TLS certificate that covers the following subdomains:
 
 ```
 BASEDOMAIN
@@ -127,59 +127,66 @@ alertmanager.BASEDOMAIN
 prometheus.BASEDOMAIN
 ```
 
-Read below for guidelines on how to obtain a free SSL Cert from [Let's Encrypt](https://letsencrypt.org/) (optional) and how to create a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that points to your certificates (required).
+To obtain a TLS certificate, complete one of the following setup options:
 
-> **Note:** You're free to use a wildcard cert for your domain (e.g. `*.astro.BASEDOMAIN.com`), but you _cannot_ use a self-signed certificate.
+* **Option 1:** Obtain a TLS certificate from Let's Encrypt. We recommend this option for smaller organizations where your DNS administrator and Kubernetes cluster administrator are either the same person or on the same team.
+* **Option 2:** Request a TLS certificate from your organization's security team. We recommend this option for large organizations with their own  protocols for generating TLS certificates.
 
-### Obtain a Free SSL Certificate from Let's Encrypt
+### Option 1: Create automatically renewed TLS certificates using Let's Encrypt
 
-Let's Encrypt is a free and secure service that provides automated SSL Certificates.
+Let's Encrypt is a free and secure service that provides automatically renewed TLS certificates. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
 
-If you are on a Mac, run the following:
+To set up TLS certificates this way, complete the setup in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt).
+
+### Option 2: Request a TLS certificate from your security team
+
+If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for your the `BASEDOMAIN` your organization uses for Astronomer, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files: one for your encrypted certificate and one for your private key.
+
+To confirm that your enterprise security team generated the correct certificate, run the following command using the openssl command line tool:
+
+```sh
+openssl x509 -in  <your-certificate-filepath> -text -noout
+```
+
+This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either a single `*.BASEDOMAIN` wildcard domain or the subdomains listed at the beginning of Step 4, then the certificate creation was successful.
+
+Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
+
+```sh
+kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
+```
+
+If you received a certificate from a private certificate authority, complete the following setup instead:
+
+1. Add the root certificate provided by your security team to a Kubernetes secret in the Astronomer namespace using the following command:
+```sh
+kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+```
+> **Note:** The root certificate is you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 6. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
+
+## Step 5: Configure the Database
+
+By default, Astronomer requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
+
+While you're free to configure any database, most AWS users on Astronomer run [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). For production environments, we _strongly_ recommend a managed Postgres solution.
+
+> **Note:** If you're setting up a development environment, this step is optional. Astronomer can be configured to deploy the PostgreSQL helm chart as the backend database with the following set in your `config.yaml`:
+> ```
+> global:
+>   postgresqlEnabled: true
+> ```
+
+To connect to an external database to your EKS cluster, create a Kubernetes Secret named `astronomer-bootstrap` that points to your database.
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+kubectl create secret generic astronomer-bootstrap \
+  --from-literal connection="postgres://USERNAME:$PASSWORD@host:5432" \
+  --namespace astronomer
 ```
 
-If you are running Linux:
-
-```bash
-$ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
-```
-
-Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
-
-## 5. Create Kubernetes Secrets
-
-### Create a Bootstrap Secret (Database Connection)
-
-If you're connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
-
-```
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <my-namespace>
-```
-
-> **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6.
-
-### Create a TLS Secret
-
-Finally, create a TLS Kubernetes Secret named `astronomer-tls` that points to your certificates.
-
-If you used LetsEncrypt, the command looks like the following:
-
-```bash
-sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.mydomain.com/privkey.pem --cert /etc/letsencrypt/live/astro.mydomain.com/fullchain.pem --namespace <my-namespace>
-```
-
-Make sure to subsitute the appropriate values for your domain.
-
-If you'd like to use another SSL Certificate authority, replace the paths to the Let's Encrypt cert and key .pem files with the paths to your certification's files in the command above.
-
-```bash
-kubectl create secret tls astronomer-tls --key <path_to_key> --cert <path_to_cert> --namespace <my-namespace>
-```
-
-> **Note:** If you generated your certs using LetsEncrypt, you will need to run the command above as `sudo`.
+> **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size.
 
 ## 6. Configure your Helm Chart
 
@@ -200,12 +207,26 @@ global:
 
   # Name of secret containing TLS certificate
   tlsSecret: astronomer-tls
+  # Only enable privateCaCerts if your enterprise security team
+    # generated a certificate from a private certificate authority.
+    privateCaCerts:
+    - private-root-ca
 
+    # Enable privateCaCertsAddToHost only when your nodes do not already
+    # include the private CA in their docker trust store.
+    # Most enterprises already have this configured,
+    # and in that case 'enabled' should be false.
+    privateCaCertsAddToHost:
+      enabled: true
+      hostDirectory: /etc/docker/certs.d
   postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
-  
+
   azure:
     enabled: true
-
+  # SSL support for using SSL connections to encrypt client/server communication between database and Astronomer platform
+  ssl:
+    enabled: true
+    mode: "required"
 # Settings for database deployed on AKS cluster.
 postgresql:
   replication:
