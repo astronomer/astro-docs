@@ -89,7 +89,7 @@ AU allocated to **Extra Capacity** does not affect Scheduler or Webserver perfor
 
 ## Set Environment Variables
 
-Environment Variables can be used to set both [Airflow configurations](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) or custom values, both of which can be applied to your Airflow Deployment either locally or on Astronomer.
+Environment Variables can be used to set [Airflow configurations](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) and custom values, both of which can be applied to your Airflow Deployment either locally or on Astronomer.
 
 These can include setting Airflow Parallelism, an SMTP service for Alerts, or a [secrets backend](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/secrets-backend) to manage Airflow Connections and Variables.
 
