@@ -151,7 +151,7 @@ As a next step, create a file named `config.yaml` in an empty directory.
 
 For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
-In the newly created file, copy the example below and replace `baseDomain`, `private-root-ca`, `/etc/docker/certs.d`, and `smtpUrl` with your own values. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/master/configs).
+In the newly created file, copy the example below and replace `baseDomain`, `private-root-ca`, `/etc/docker/certs.d`, `ssl.enabled`, and `smtpUrl` with your own values. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/master/configs).
 
 
 ```yaml
@@ -164,11 +164,13 @@ global:
 
   # Name of secret containing TLS certificate
   tlsSecret: astronomer-tls
-  # Only enable privateCaCerts if your enterprise security team
+
+  # Enable privateCaCerts only if your enterprise security team
   # generated a certificate from a private certificate authority.
   privateCaCerts:
   - private-root-ca
-  # Only enable privateCaCertsAddToHost when your nodes do not already
+
+  # Enable privateCaCertsAddToHost only when your nodes do not already
   # include the private CA in their docker trust store.
   # Most enterprises already have this configured,
   # and in that case 'enabled' should be false.
@@ -178,6 +180,13 @@ global:
   # For development or proof-of-concept, you can use an in-cluster database
   postgresqlEnabled: false
 
+   # SSL support for using SSL connections to
+   # encrypt client/server communication
+   # between database and the Astronomer platform.
+   # If your database enforces SSL for connections,
+   # change this value to true
+     ssl:
+     enabled: false
 #################################
 ### Nginx configuration
 #################################
