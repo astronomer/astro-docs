@@ -72,7 +72,7 @@ If you set your **Extra Capacity** slider to 30 AU but the Pods spun up within y
 
 ## Scheduler and Worker Count
 
-Setting the **Scheduler Count** slider determines how many Schedulers run on your Airflow Deployment, while the **Worker Count** slider determines the number of Celery Workers provisioned for your Airflow Deployment. The cost for each is based on the amount of AU specified in their respective **Resources** settings.
+Setting the **Scheduler Count** slider determines how many Schedulers run on your Airflow Deployment concurrently, while the **Worker Count** slider determines the number of Celery Workers provisioned for your Airflow Deployment. The cost for each is based on the amount of AU specified in their respective **Resources** settings.
 
 ### Scheduler and Worker Count pricing
 

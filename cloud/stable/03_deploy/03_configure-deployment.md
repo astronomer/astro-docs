@@ -80,7 +80,7 @@ If you experience delays in task execution, which you can track via the [Gantt C
 
 > **Tip:** To set alerts that notify you via email when your Airflow Scheduler is underprovisioned, refer to [Airflow Alerts](/docs/cloud/stable/customize-airflow/airflow-alerts/).
 
-### Scheduler Count
+#### Scheduler Count
 
 [Airflow 2.0](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2) comes with the ability for users to run multiple Schedulers concurrently to ensure high-availability, zero recovery time, and faster performance. By adjusting the **Scheduler Count** slider in the Astronomer UI, users can provision up to 4 Schedulers on any Deployment running Airflow 2.0+ on Astronomer.
 
@@ -100,7 +100,7 @@ AU allocated to **Extra Capacity** does not affect Scheduler or Webserver perfor
 
 ## Set Environment Variables
 
-Environment Variables can be used to set both [Airflow configurations](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) or custom values, both of which can be applied to your Airflow Deployment either locally or on Astronomer.
+Environment Variables can be used to set [Airflow configurations](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) and custom values, both of which can be applied to your Airflow Deployment either locally or on Astronomer.
 
 These can include setting Airflow Parallelism, an SMTP service for Alerts, or a [secrets backend](https://www.astronomer.io/docs/cloud/stable/customize-airflow/secrets-backend) to manage Airflow Connections and Variables.
 
