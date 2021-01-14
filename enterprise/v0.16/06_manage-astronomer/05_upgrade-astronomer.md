@@ -8,26 +8,6 @@ description: "How to upgrade your Astronomer Enterprise Platform to a new patch 
 
 As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases. Patch releases will be made available _between_ quarterly LTS releases and require a simple upgrade process.
 
-To help you maintain Astronomer up-to-date, the guide below will walk you through:
-
-- Astronomer Platform Versioning
-- How to upgrade to a patch version on Astronomer
-- How to upgrade to a minor version on Astronomer
-
-For a detailed breakdown of individual releases, refer to [Astronomer Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/v0.16/resources/release-notes/).
-
-## Astronomer Platform Versioning
-
-Astronomer platform releases follow a semantic versioning scheme. All versions are written as a 3-component number in the format of `x.y.z`. In this syntax,
-
-- X: Major Version
-- Y: Minor Version
-- Z: Patch/Hotfix
-
-For example, upgrading Astronomer from v0.16.4 to v0.16.5 would be considered upgrading to a "patch" version whereas upgrading from v0.15.0 to v0.16.0 would be considered upgrading to the latest "minor" version.
-
-## Upgrade to a Patch Version
-
 If you're already on Astronomer's latest minor version (v0.16), you're free to upgrade the platform to a patch release as soon as it's made available.
 
 A few notes before you get started:
@@ -40,7 +20,19 @@ Read below for specific guidelines.
 >
 > Now, Airflow Chart changes only take effect when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
 
-### 1. Ensure you have a copy of your Astronomer config.yaml file
+## Astronomer Platform Versioning
+
+Astronomer platform releases follow a semantic versioning scheme. All versions are written as a 3-component number in the format of `x.y.z`. In this syntax,
+
+- X: Major Version
+- Y: Minor Version
+- Z: Patch/Hotfix
+
+For example, upgrading Astronomer from v0.16.4 to v0.16.5 would be considered upgrading to a patch version, whereas upgrading from v0.15.0 to v0.16.0 would be considered upgrading to the latest minor version.
+
+The following setup is only for upgrading to the latest patch version. To upgrade to the latest minor version, read [Upgrade to Astronomer Enterprise v0.23](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-to-0-23)
+
+## Step 1: Ensure You Have a Copy of Your Astronomer config.yaml File
 
 First, ensure you have a copy of the `config.yaml` file of your platform namespace if you don't already.
 
@@ -52,7 +44,7 @@ $ helm get values <your-platform-release-name> -n <your-platform-namespace>  > c
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### 2. Verify your current platform version
+### Step 2: Verify Your Current Platform Version
 
 To verify the version of Astronomer you're currently operating with, run:
 
@@ -60,7 +52,7 @@ To verify the version of Astronomer you're currently operating with, run:
 $ helm list --all-namespaces | grep astronomer
 ```
 
-### 3. Run Astronomer's patch upgrade script
+## Step 3: Run Astronomer's Patch Upgrade Script
 
 Now, review and run the script below to upgrade to the patch version of your choice.
 
@@ -93,9 +85,3 @@ helm3 upgrade --namespace $NAMESPACE \
             $RELEASE_NAME \
             astronomer/astronomer
 ```
-
-## Upgrade to a Minor Version
-
-If you're looking to upgrade to Astronomer Enterprise [v0.16 (latest)](/docs/enterprise/v0.16/resources/release-notes) from an earlier minor version, submit a request to [Astronomer Support](https://support.astronomer.io).
-
-We're working on a more robust and reliable upgrade process for our next Astronomer Enterprise "Long-term Support" quarterly release scheduled for Winter 2021.
