@@ -145,7 +145,7 @@ If you're installing Astronomer for a large organization, you'll need to request
 To confirm that your security team generated the correct certificate, run the following command using the openssl command line tool:
 
 ```sh
-openssl x509 -in  <your-certificate-filepath> -text -noout
+$ openssl x509 -in  <your-certificate-filepath> -text -noout
 ```
 
 This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either a single `*.BASEDOMAIN` wildcard domain or the subdomains listed at the beginning of Step 4, then the certificate creation was successful.
@@ -153,14 +153,14 @@ This command will generate a report. If the `X509v3 Subject Alternative Name` se
 Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
 
 ```sh
-kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
+$ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
 ```
 
 If you received a certificate from a private certificate authority, complete the following setup instead:
 
 1. Add the root certificate provided by your security team to a Kubernetes secret in the Astronomer namespace using the following command:
 ```sh
-kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
 ```
 > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
 
@@ -395,13 +395,13 @@ Consider this your new Airflow control plane. From the Astronomer UI, you'll be 
 To check if your TLS certificates were accepted, log in to the Astronomer UI. Then, go to `app.BASEDOMAIN/token` and run:
 
 ```
-curl -v -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
+$ curl -v -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
 ```
 
 Verify that this output matches with that of the following command, which doesn't look for TLS:
 
 ```
-curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
+$ curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
 ```
 
 Next, to make sure the registry is accepted by Astronomer's local docker client, try authenticating to Astronomer with the Astronomer CLI:

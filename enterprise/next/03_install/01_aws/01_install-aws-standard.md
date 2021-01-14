@@ -110,14 +110,14 @@ This command will generate a report. If the `X509v3 Subject Alternative Name` se
 Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
 
 ```sh
-kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
+$ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
 ```
 
 If you received a certificate from a private certificate authority, complete the following setup instead:
 
 1. Add the root certificate provided by your security team to a Kubernetes secret in the Astronomer namespace using the following command:
 ```sh
-kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
 ```
 > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
 
@@ -363,13 +363,13 @@ Consider this your new Airflow control plane. From the Astronomer UI, you'll be 
 To check if your TLS certificates were accepted, log in to the Astronomer UI. Then, go to `app.BASEDOMAIN/token` and run:
 
 ```
-curl -v -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
+$ curl -v -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
 ```
 
 Verify that this output matches with that of the following command, which doesn't look for TLS:
 
 ```
-curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
+$ curl -v -k -X POST https://houston.BASEDOMAIN/v1 -H "Authorization: Bearer <token>"
 ```
 
 Next, to make sure the registry is accepted by Astronomer's local docker client, try authenticating to Astronomer with the Astronomer CLI:
@@ -394,7 +394,7 @@ $ astro deploy -f
 ```
 Check the Airflow namespace. If pods are changing at all, then the Houston API trusts the registry.
 
-If you have Airflow pods in the state "ImagePullBackoff", check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config) to add them after installation.
+If you have Airflow pods in an `ImagePullBackoff` state, check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config) to add them after installation.
 
 ## What's Next
 

@@ -13,7 +13,7 @@ Once you set up an TLS certificate for your Astronomer platform, you'll need to 
 
 ## Automatically Renew TLS Certificates Using Let's Encrypt
 
-Let's Encrypt is a Certificate Authority that provides free, 90-day certificates using the ACME protocol. You can use the Cert Manager project for Kubernetes to automatically renew certificates.
+[Let's Encrypt](https://letsencrypt.org/) is a Certificate Authority that provides free, 90-day certificates using the ACME protocol. You can use the Cert Manager project for Kubernetes to automatically renew certificates.
 
 1. Install the Kubernetes Cert Manager by following [the official installation guide](https://cert-manager.io/docs/installation/kubernetes/).
 
