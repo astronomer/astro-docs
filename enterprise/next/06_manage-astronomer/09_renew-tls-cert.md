@@ -116,7 +116,9 @@ Larger organizations with dedicated security teams will likely have their own pr
 ```sh
 $ kubectl delete secret astronomer-tls
 ```
+
 2. Follow the instructions for requesting an TLS certificate from your organization's security team as described in [Step 4: Configure TLS](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard#step-4-configure-tls). The linked guide is for setting up with AWS, but this step is the same regardless of which service you use.
+
 3. Restart your Houston, nginx, and registry pods to begin using the new certificate by running the following commands:
 ```sh
 $ kubectl rollout restart deployments -n <your-namespace>
