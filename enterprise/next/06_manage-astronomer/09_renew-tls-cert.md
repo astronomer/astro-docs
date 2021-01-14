@@ -71,8 +71,9 @@ spec:
 ```
 Then, create the ClusterIssuer by running the following command:
 ```sh
-kubectl apply -f clusterissuer.yaml
+$ kubectl apply -f clusterissuer.yaml
 ```
+
 4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create the a `certificate.yaml` file, replacing `BASE_DOMAIN`:
 ```yaml
 apiVersion: cert-manager.io/v1
@@ -99,11 +100,12 @@ spec:
 ```
 Then, create the cluster by running the following command and waiting a few minutes:
 ```sh
-kubectl apply -f certificate.yaml
+$ kubectl apply -f certificate.yaml
 ```
+
 5. Ensure that the certificate was created by running:
 ```sh
-kubectl get certificates
+$ kubectl get certificates
 ```
 
 ## Manually Renew TLS certificates
@@ -112,11 +114,11 @@ Larger organizations with dedicated security teams will likely have their own pr
 
 1. Delete your current TLS certificate by running the following command:
 ```sh
-kubectl delete secret astronomer-tls
+$ kubectl delete secret astronomer-tls
 ```
 2. Follow the instructions for requesting an TLS certificate from your organization's security team as described in [Step 4: Configure TLS](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard#step-4-configure-tls). The linked guide is for setting up with AWS, but this step is the same regardless of which service you use.
 3. Restart your Houston, nginx, and registry pods to begin using the new certificate by running the following commands:
 ```sh
-kubectl rollout restart deployments -n <your-namespace>
-kubectl rollout restart statefulsets -n <your-namespace>
+$ kubectl rollout restart deployments -n <your-namespace>
+$ kubectl rollout restart statefulsets -n <your-namespace>
 ```
