@@ -1,7 +1,7 @@
 ---
-title: "Enterprise Upgrade Guide"
-navTitle: "Upgrade Astronomer"
-description: "How to upgrade the Astronomer Enterprise Platform."
+title: "Upgrade to a Patch Version of Astronomer Enterprise"
+navTitle: "Upgrade to a Patch Version"
+description: "How to upgrade your Astronomer Enterprise Platform to a new patch version."
 ---
 
 ## Overview
