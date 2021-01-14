@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check
-        uses: ruzickap/action-my-broken-link-checker@v1
+        uses: ruzickap/action-my-broken-link-checker@v2
         with:
           url: https://astronomer.io
