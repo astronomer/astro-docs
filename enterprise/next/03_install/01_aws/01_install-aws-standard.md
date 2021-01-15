@@ -115,7 +115,7 @@ $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --
 
 If you received a certificate from a private certificate authority, complete the following setup instead:
 
-1. Add the root certificate provided by your security team to a Kubernetes secret in the Astronomer namespace using the following command:
+1. Add the root certificate provided by your security team to an Opaque Kubernetes secret in the Astronomer namespace using the following command:
 ```sh
 $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
 ```

@@ -158,7 +158,7 @@ $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --
 
 If you received a certificate from a private certificate authority, complete the following setup instead:
 
-1. Add the root certificate provided by your security team to a Kubernetes secret in the Astronomer namespace using the following command:
+1. Add the root certificate provided by your security team to an Opaque Kubernetes secret in the Astronomer namespace using the following command:
 ```sh
 $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
 ```
@@ -174,7 +174,7 @@ If you're connecting to an external database, you will need to create a secret n
 $ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <your-namespace>
 ```
 
-> **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6.
+> **Note:** If you want to use Azure Database for PostgreSQL with Astronomer, you must use the [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) service.
 
 ## Step 6: Configure Your Helm Chart
 
