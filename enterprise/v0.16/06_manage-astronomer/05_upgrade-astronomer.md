@@ -6,15 +6,14 @@ description: "How to upgrade your Astronomer Enterprise Platform to a new patch 
 
 ## Overview
 
-As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases. Patch releases will be made available _between_ quarterly LTS releases and require a simple upgrade process.
+As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases.
 
-If you're already on Astronomer's latest minor version (v0.16), you're free to upgrade the platform to a patch release as soon as it's made available.
+Patch releases will be made available between quarterly LTS releases and require a simple upgrade process. If you're on Astronomer v0.16, follow this guide to upgrade to a patch release as soon as it's made available.
 
 A few notes before you get started:
+- The following setup is only for upgrading to the latest patch version. To upgrade to the latest minor version, read [Upgrade to Astronomer Enterprise v0.23](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-to-0-23). To determine whether the latest version of Astronomer is a minor or patch version, read the Astronomer Platform Versioning guidelines below.
 - The patch upgrade process will NOT affect running tasks if `upgradeDeployments.enabled=false`
 - Patch version updates will NOT cause any downtime to Astronomer services (UI, API, etc.)
-
-Read below for specific guidelines.
 
 > **Note:** Astronomer v0.16.5 and beyond includes an improved upgrade process that allows Airflow Deployments to remain unaffected through a platform upgrade that includes changes to [the Airflow Chart](https://github.com/astronomer/airflow-chart).
 >
@@ -30,7 +29,7 @@ Astronomer platform releases follow a semantic versioning scheme. All versions a
 
 For example, upgrading Astronomer from v0.16.4 to v0.16.5 would be considered upgrading to a patch version, whereas upgrading from v0.15.0 to v0.16.0 would be considered upgrading to the latest minor version.
 
-The following setup is only for upgrading to the latest patch version. To upgrade to the latest minor version, read [Upgrade to Astronomer Enterprise v0.23](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-to-0-23)
+This guide walks through the process of upgrading Astronomer to a patch version, to upgrade to the latest minor version, read [Upgrade to Astronomer Enterprise v0.23](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-to-0-23).
 
 ## Step 1: Ensure You Have a Copy of Your Astronomer config.yaml File
 
