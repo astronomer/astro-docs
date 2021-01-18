@@ -86,14 +86,18 @@ module "astronomer-enterprise" {
   EOM
 
 }
+terraform {
+  required_providers {
+    acme = {
+      source = "terraform-providers/acme"
+    }
+  }
+}
 provider "aws" {
   region = "<region>"
 }
 provider "acme" {
   server_url = "https://acme-v02.api.letsencrypt.org/directory"
-}
-provider "kubernetes" {
-  version = "1.10.0"
 }
 ```
 
