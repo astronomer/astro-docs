@@ -71,9 +71,9 @@ Lets you modify certain settings on your Astronomer Enterprise platform without 
 
 ### Usage
 
-Run `$ astro config get` to see the current values for settings that you can configure with the command. When you want to update a value, run `$ astro config set <value name>:<value>`
+Run `$ astro config get` to see the current values for settings in your `config.yaml` file that you can reconfigure with the command. When you want to update a value, run `$ astro config set <value name>:<value>`
 
-The list contains all possible values that you can update via the command line:
+The values that you can update via the command line are:
 
 - cloud.api.protocol
 - cloud.api.port
@@ -108,7 +108,7 @@ Deploys local code to an Airflow Deployment.
 
 Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer. A Deployment's release name can be found in the Astronomer UI under **Settings**>**Basics**>**Release Name**.
 
-Alternatively, you can run the command without specifying `<your-deployment>` to select from a list of possible Deployments.
+Alternatively, you can run the command without specifying `<your-deployment-release-name>` to select from a list of possible Deployments.
 
 ### Flags
 
@@ -280,9 +280,7 @@ Gets a Service Account for a given Deployment.
 
 ## astro deployment update
 
-Updates the IAM role for a Deployment. Used only for Deployments hosted on AWS.
-
-[Needs elaboration]
+Updates the IAM role for a Deployment. This is used only for Deployments hosted on Amazon EKS.
 
 ### Usage:
 
@@ -293,6 +291,10 @@ Updates the IAM role for a Deployment. Used only for Deployments hosted on AWS.
 | Flag           | Value Type | Usage                     |
 | -------------- | ---------- | ------------------------- |
 | `--cloud-role` | String     | The ARN for the IAM role. |
+
+### Related Documentation
+
+- [Integrate IAM Roles](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/integrate-iam)
 
 ## astro deployment user add
 
