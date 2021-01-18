@@ -8,23 +8,15 @@ description: "How to upgrade the Astronomer Enterprise Platform."
 
 As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model.
 
-This guide walks through the process of upgrading your Astronomer Enterprise platform to v0.23, which is the latest minor version.
+This guide walks through the process of upgrading your Astronomer Enterprise platform from 0.16.x to [v0.23](https://www.astronomer.io/docs/enterprise/0.23/resources/release-notes), which is the latest minor version.
 
-## Astronomer Platform Versioning
-
-Astronomer platform releases follow a semantic versioning scheme. All versions are written as a 3-component number in the format of `x.y.z`. In this syntax,
-
-- X: Major Version
-- Y: Minor Version
-- Z: Patch/Hotfix
-
-For example, upgrading Astronomer from v0.16.4 to v0.16.5 would be considered upgrading to a patch version, whereas upgrading from v0.15.0 to v0.16.0 would be considered upgrading to the latest minor version.
-
-The following setup is only for upgrading to the latest minor version. To upgrade to a patch version, read [Upgrade to a Patch Version of Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer)
+A few notes before you start:
+- You must be on Astronomer Enterprise v0.16.x in order to complete this upgrade.
+- The following setup is only for upgrading to the latest minor version. To upgrade to the latest patch version, read [Upgrade to a Patch Version of Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer).
 
 ## Step 1: Check Version Compatibility
 
-Ensure that the following software
+Ensure that the following software is updated to the appropriate version:
 
 - **Kubernetes**: Your version must be greater than or equal to 1.14 and less than 1.19. If you need to upgrade Kubernetes, contact your cloud provider's support or your Kubernetes administrator.
 - **Airflow Images**: You must be using an Astronomer Certified Airflow Image, and the version of your Image must be 1.10.5 or greater. In addition, your image should be in the following format:
