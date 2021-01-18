@@ -10,9 +10,9 @@ Using the Astronomer CLI is the most efficient way to create new Airflow Deploym
 
 This document contains information about every possible command and setting available in the CLI, including sample commands and flags.
 
-This document doesn't contain specific setup instructions for the setup that each command is used for. Additional information on a command, if it exists, will be in the command's **Related Documentation** section.
+This document doesn't contain specific setup instructions for the setup that each command is used for. Additional information on a command, if it exists, will be in the a **Related Documentation** section.
 
-This document also does not contain installation instructions for the CLI itself. For installation instructions, see [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart).
+Additionally, this document does not contain installation instructions for the CLI itself. For installation instructions, see [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart).
 
 ## astro auth
 
@@ -23,10 +23,11 @@ Authenticates the current user to your Astronomer platform.
 Run `$ astro auth <subcommand>` in your terminal to log in or out of your Astronomer platform. This is equivalent to using the login screen of the Astronomer UI.
 
 ### Subcommands
-|Subcommand |Usage|
-|--------- -|-------|
-|`login`    | For your initial login, run `$ astro auth login gcp0001.us-east4.astronomer.io` to authenticate to a cluster. Then, enter your username and password. Alternatively, press Enter to use OAuth for login. |
-|`logout`   |After logging in, run `$ astro auth logout` to log out of Astronomer.|
+
+| Subcommand | Usage                                                                                                                                                                                                    |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `login`    | For Cloud login, run `$ astro auth login gcp0001.us-east4.astronomer.io` to authenticate to a cluster. For Enterprise, run `$ astro auth login BASEDOMAIN`. |
+| `logout`   | After logging in, run `$ astro auth logout` to log out of Astronomer.                                                                                                                                    |
 
 ## astro cluster
 
@@ -37,10 +38,11 @@ Navigates between multiple installations of Astronomer on an Astronomer Enterpri
 Run `$ astro cluster <subcommand>` in your terminal to see or access available clusters on your platform. This command is primarily used for Enterprise platforms with multiple clusters.
 
 ### Subcommands
-|Subcommand |Usage|
-|--------- -|-------|
-|`list`     | Run `$ astro cluster list` to retrieve a list of all available clusters. |
-|`switch`   | Run `$ astro cluster switch` to retrieve a list of available clusters, then enter the ID of the cluster you want to switch to.|
+
+| Subcommand | Usage                                                                                                                          |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `list`     | Run `$ astro cluster list` to retrieve a list of all available clusters.                                                       |
+| `switch`   | Run `$ astro cluster switch` to retrieve a list of available clusters, then enter the ID of the cluster you want to switch to. |
 
 ## astro completion
 
@@ -51,15 +53,17 @@ Generates autocompletion scripts for Astronomer.
 Use `$ astro completion <subcommand>` to generate autocompletion scripts for Astronomer.
 
 Note that MacOS users need to install [Bash Completion](https://github.com/scop/bash-completion) before creating autocompletion scripts. To install Bash Completion via Homebrew, run the following command:
+
 ```
 brew install bash-Completion
 ```
 
 ### Subcommands
-|Subcommand |Usage|
-|--------- -|-------|
-|`bash`    | Run `$ astro completion bash` to show the bash shell script for autocompletion in Astronomer. Use this output to modify or view your autocompletion scripts. |
-|`zsh`   |Run `$ astro completion bash` to show the zsh shell script for autocompletion in Astronomer. Use this output to modify or view your autocompletion scripts.|
+
+| Subcommand | Usage                                                                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `bash`     | Run `$ astro completion bash` to show the bash shell script for autocompletion in Astronomer. Use this output to modify or view your autocompletion scripts. |
+| `zsh`      | Run `$ astro completion bash` to show the zsh shell script for autocompletion in Astronomer. Use this output to modify or view your autocompletion scripts.  |
 
 ## astro config
 
@@ -70,30 +74,31 @@ Lets you modify certain settings on your Astronomer Enterprise platform without 
 Run `$ astro config get` to see the current values for settings that you can configure with the command. When you want to update a value, run `$ astro config set <value name>:<value>`
 
 The list contains all possible values that you can update via the command line:
-* cloud.api.protocol
-* cloud.api.port
-* cloud.api.ws_protocol
-* cloud.api.token
-* context
-* contexts
-* local.houston
-* local.orbit
-* postgres.user
-* postgres.password
-* postgres.host
-* postgres.port
-* project.deployment
-* project.name
-* project.workspace
-* webserver.port
-* show_warnings
+
+- cloud.api.protocol
+- cloud.api.port
+- cloud.api.ws_protocol
+- cloud.api.token
+- context
+- contexts
+- local.houston
+- local.orbit
+- postgres.user
+- postgres.password
+- postgres.host
+- postgres.port
+- project.deployment
+- project.name
+- project.workspace
+- webserver.port
+- show_warnings
 
 ### Subcommands
-|Subcommand |Usage|
-|--------- -|-------|
-|`get`    | Shows your current configuration |
-|`set`   | Updates a setting in your configuration to a new value |
 
+| Subcommand | Usage                                                  |
+| ---------- | ------------------------------------------------------ |
+| `get`      | Shows your current configuration                       |
+| `set`      | Updates a setting in your configuration to a new value |
 
 ## astro deploy
 
@@ -107,16 +112,16 @@ Alternatively, you can run the command without specifying `<your-deployment>` to
 
 ### Flags
 
-|Flag |Usage|
-|--------- -|-------|
-|`--force`    | Forces deploy even if there are uncommitted changes. |
-|`--prompt`   | Forces prompt to choose target Deployment |
-|`--save`     | Saves deployment in config for future deploys |
-|`--workspace-id + <your-workspace-name>` | Specifies the Workspace that the Airflow Deployment belongs to. Useful if you want to deploy without switching Workspaces |
+| Flag                                     | Usage                                                                                                                     |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--force`                                | Forces deploy even if there are uncommitted changes.                                                                      |
+| `--prompt`                               | Forces prompt to choose target Deployment                                                                                 |
+| `--save`                                 | Saves deployment in config for future deploys                                                                             |
+| `--workspace-id + <your-workspace-name>` | Specifies the Workspace that the Airflow Deployment belongs to. Useful if you want to deploy without switching Workspaces |
 
 ### Related documentation
 
-* [Deploy to Astronomer via the CLI](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli)
+- [Deploy to Astronomer via the CLI](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli)
 
 ## astro deployment
 
@@ -130,21 +135,22 @@ Alternatively, you can run the command without specifying `<your-deployment>` to
 
 ### Related documentation
 
-* [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro deployment airflow
 
 Upgrades the Airflow version for a Deployment.
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--deployment-id` | String| The name of the Deployment you're upgrading. |
-|`--desired-airflow-version`   | String | The Airflow version you're upgrading to.|
+
+| Flag                        | Value Type | Usage                                        |
+| --------------------------- | ---------- | -------------------------------------------- |
+| `--deployment-id`           | String     | The name of the Deployment you're upgrading. |
+| `--desired-airflow-version` | String     | The Airflow version you're upgrading to.     |
 
 ### Related documentation
 
-* [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions)
+- [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions)
 
 ## astro deployment create
 
@@ -155,16 +161,17 @@ Creates a new Deployment on Astronomer.
 `$ astro deployment create <new-deployment-name> <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--airflow-version` | String| The Airflow version for the new Deployment. |
-|`--cloud-role`   | String | The role that annotates service accounts in the Deployment|
-|`--executor`   | String | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`.|
-|`--release-name`   | String | A custom `release-name`. Only applies to Deployments using the `kubernetes` Executor.|
+
+| Flag                | Value Type | Usage                                                                                 |
+| ------------------- | ---------- | ------------------------------------------------------------------------------------- |
+| `--airflow-version` | String     | The Airflow version for the new Deployment.                                           |
+| `--cloud-role`      | String     | The role that annotates service accounts in the Deployment                            |
+| `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`.      |
+| `--release-name`    | String     | A custom `release-name`. Only applies to Deployments using the `kubernetes` Executor. |
 
 ### Related documentation
 
-* [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro deployment delete
 
@@ -183,9 +190,10 @@ Generates a list of Deployments from a single Workspace.
 `$ astro deployment list <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-|`--all`| None | Generates a list of Deployments from all Workspaces.
+
+| Flag    | Value Type | Usage                                                |
+| ------- | ---------- | ---------------------------------------------------- |
+| `--all` | None       | Generates a list of Deployments from all Workspaces. |
 
 ## astro deployment logs
 
@@ -194,20 +202,22 @@ Returns logs from the given Deployment component.
 ### Usage
 
 You can run any of the following commands depending on which logs you want to return:
-* `$ astro deployment logs scheduler <flags>`
-* `$ astro deployment logs webserver <flags>`
-* `$ astro deployment logs workers <flags>`
+
+- `$ astro deployment logs scheduler <flags>`
+- `$ astro deployment logs webserver <flags>`
+- `$ astro deployment logs workers <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--follow` | None | Subscribe to watch more logs |
-| `--search` | String | Searches for the specified string inside the logs you're following. |
-|`--since`| Lookback time in `h` or `m` (e.g. `5m`, `2h`) | Limits past logs to those generated in the lookback window. |
+
+| Flag       | Value Type                                    | Usage                                                               |
+| ---------- | --------------------------------------------- | ------------------------------------------------------------------- |
+| `--follow` | None                                          | Subscribe to watch more logs                                        |
+| `--search` | String                                        | Searches for the specified string inside the logs you're following. |
+| `--since`  | Lookback time in `h` or `m` (e.g. `5m`, `2h`) | Limits past logs to those generated in the lookback window.         |
 
 ### Related documentation
 
-* [Deployment Logs](https://www.astronomer.io/docs/cloud/stable/deploy/deployment-logs)
+- [Deployment Logs](https://www.astronomer.io/docs/cloud/stable/deploy/deployment-logs)
 
 ## astro deployment service-account create
 
@@ -218,18 +228,19 @@ Creates a Service Account for a given Deployment.
 `$ astro deployment service-account create <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--category` | String | The Category for the Service Account. The default value is `default`.|
-| `--deployment-id` (Required) | String | The Deployment you're creating a Service Account for. |
-|`--label` (Required)| String | A label for the Service Account.  |
-|`--role`| String | The User Role for the Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`.|
-|`--system-sa`| None | ??|
-|`--user-id`| String | ?? |
+
+| Flag                         | Value Type | Usage                                                                                                        |
+| ---------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ |
+| `--category`                 | String     | The Category for the Service Account. The default value is `default`.                                        |
+| `--deployment-id` (Required) | String     | The Deployment you're creating a Service Account for.                                                        |
+| `--label` (Required)         | String     | A label for the Service Account.                                                                             |
+| `--role`                     | String     | The User Role for the Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`. |
+| `--system-sa`                | None       | ??                                                                                                           |
+| `--user-id`                  | String     | ??                                                                                                           |
 
 ### Related documentation
 
-* [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
 
 ## astro deployment service-account delete
 
@@ -240,13 +251,14 @@ Deletes a Service Account for a given Deployment.
 `$ astro deployment service-account delete <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--deployment-id` | String | The Deployment you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`.|
+
+| Flag              | Value Type | Usage                                                                                                                              |
+| ----------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `--deployment-id` | String     | The Deployment you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
 
 ### Related documentation
 
-* [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
 
 ## astro deployment service-account get
 
@@ -257,13 +269,14 @@ Gets a Service Account for a given Deployment.
 `$ astro deployment service-account get <your-service-account-id>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--deployment-id` | String | The Deployment you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`.|
+
+| Flag              | Value Type | Usage                                                                                                                              |
+| ----------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `--deployment-id` | String     | The Deployment you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
 
 ### Related documentation
 
-* [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
 
 ## astro deployment update
 
@@ -276,9 +289,10 @@ Updates the IAM role for a Deployment. Used only for Deployments hosted on AWS.
 `$ astro deployment update <your-deployment-id> <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--cloud-role` | String | The ARN for the IAM role.|
+
+| Flag           | Value Type | Usage                     |
+| -------------- | ---------- | ------------------------- |
+| `--cloud-role` | String     | The ARN for the IAM role. |
 
 ## astro deployment user add
 
@@ -289,14 +303,15 @@ Adds an existing user from the Workspace to a given Deployment.
 `$ astro deployment user add <flags> <user-email-address>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--deployment-id` (Required) | String | The Deployment that the user will be added to. |
-| `--role` (Required) | String | The role assigned to the user. Can be `DEPLOYMENT_VIEWER`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_ADMIN`. The default value is `DEPLOYMENT_VIEWER`. |
+
+| Flag                         | Value Type | Usage                                                                                                                                            |
+| ---------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--deployment-id` (Required) | String     | The Deployment that the user will be added to.                                                                                                   |
+| `--role` (Required)          | String     | The role assigned to the user. Can be `DEPLOYMENT_VIEWER`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_ADMIN`. The default value is `DEPLOYMENT_VIEWER`. |
 
 ### Related documentation
 
-* [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
 
 ## astro deployment user delete
 
@@ -307,13 +322,14 @@ Removes an existing user from the Workspace to a given Deployment.
 `$ astro deployment user delete <flags> <user-email-address>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--deployment-id` (Required) | String | The Deployment that the user will be removed from. |
+
+| Flag                         | Value Type | Usage                                              |
+| ---------------------------- | ---------- | -------------------------------------------------- |
+| `--deployment-id` (Required) | String     | The Deployment that the user will be removed from. |
 
 ### Related documentation
 
-* [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
 
 ## astro deployment user list
 
@@ -324,16 +340,17 @@ Searches for users on a given Deployment.
 `$ astro deployment user list USERS <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--deployment-id` (Required) | String | The Deployment that you're searching in. |
-| `--email` | String | The email for the user you're searching for. |
-| `--name` | String | The name of the user to search for. |
-| `--user-id`| String | The ID of the user to search for. |
+
+| Flag                         | Value Type | Usage                                        |
+| ---------------------------- | ---------- | -------------------------------------------- |
+| `--deployment-id` (Required) | String     | The Deployment that you're searching in.     |
+| `--email`                    | String     | The email for the user you're searching for. |
+| `--name`                     | String     | The name of the user to search for.          |
+| `--user-id`                  | String     | The ID of the user to search for.            |
 
 ### Related documentation
 
-* [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
 
 ## astro deployment user update
 
@@ -344,14 +361,15 @@ Updates a user's role in a given Deployment.
 `$ astro deployment user update <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--deployment-id` (Required) | String | The Deployment that you're searching in. |
-| `--role` | String | The role you're updating the user to. Possible values are `DEPLOYMENT_VIEWER`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_ADMIN`. |
+
+| Flag                         | Value Type | Usage                                                                                                                      |
+| ---------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--deployment-id` (Required) | String     | The Deployment that you're searching in.                                                                                   |
+| `--role`                     | String     | The role you're updating the user to. Possible values are `DEPLOYMENT_VIEWER`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_ADMIN`. |
 
 ### Related documentation
 
-* [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
 
 ## astro dev
 
@@ -372,6 +390,7 @@ Creates a new Airflow project in the directory you're in.
 `$ astro dev init <flags>`
 
 When you run this command, the following skeleton files are generated in your current directory:
+
 ```py
 .
 ├── dags # Where your DAGs go
@@ -386,10 +405,10 @@ When you run this command, the following skeleton files are generated in your cu
 
 ### Flags
 
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--airflow-version`| String | The version of Airflow you want to use. The default is to use the latest version. |
-| `--name` | String | The name for the Airflow project. |
+| Flag                | Value Type | Usage                                                                             |
+| ------------------- | ---------- | --------------------------------------------------------------------------------- |
+| `--airflow-version` | String     | The version of Airflow you want to use. The default is to use the latest version. |
+| `--name`            | String     | The name for the Airflow project.                                                 |
 
 ## astro dev kill
 
@@ -409,11 +428,11 @@ Shows the output log for a locally running Airflow cluster. This command can onl
 
 ### Flags
 
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--follow` | None | Continues to show the latest outputs from the log.  |
-| `--scheduler` | None | Outputs only Scheduler logs. |
-| `--webserver` | None | Outputs only Webserver logs. |
+| Flag          | Value Type | Usage                                              |
+| ------------- | ---------- | -------------------------------------------------- |
+| `--follow`    | None       | Continues to show the latest outputs from the log. |
+| `--scheduler` | None       | Outputs only Scheduler logs.                       |
+| `--webserver` | None       | Outputs only Webserver logs.                       |
 
 ## astro dev ps
 
@@ -425,7 +444,7 @@ Lists all locally running Airflow containers for an Airflow project. This comman
 
 ## astro dev run
 
-Runs a single [Airflow command] (https://airflow.apache.org/docs/apache-airflow/stable/cli-ref.html) on a locally running Airflow webserver.
+Runs a single [Airflow command](https://airflow.apache.org/docs/apache-airflow/stable/cli-ref.html) on a locally running Airflow webserver.
 
 ### Usage
 
@@ -441,9 +460,9 @@ Starts an Airflow cluster locally using `docker-compose`
 
 ### Flags
 
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--env` | String | Specifies the filepath containing environment variables for the Airflow cluster.  |
+| Flag    | Value Type | Usage                                                                            |
+| ------- | ---------- | -------------------------------------------------------------------------------- |
+| `--env` | String     | Specifies the filepath containing environment variables for the Airflow cluster. |
 
 ## astro dev stop
 
@@ -463,7 +482,7 @@ Runs a test which checks whether a local Airflow project is ready to be upgraded
 
 ### Related documentation
 
-* [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2)
+- [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2)
 
 ## astro upgrade
 
@@ -474,6 +493,7 @@ Checks for a newer version of the Astronomer CLI.
 `$ astro upgrade`
 
 > **Note:** This command only checks if a new version of the CLI is available. To actually upgrade the CLI, you have to run an additional Homebrew command:
+
 ```sh
 $ brew install astronomer/tap/astro
 ```
@@ -488,14 +508,14 @@ Creates a new user on your Astronomer platform. After specifying an email addres
 
 ### flags
 
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--email` | String | Specifies the email address for the new user. If not specified, you'll be prompted to enter an address during runtime. |
-| `--password` | String | Specifies a password for the new user to access Astronomer with. If not specified, you'll be prompted to enter a password during runtime.  |
+| Flag         | Value Type | Usage                                                                                                                                     |
+| ------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `--email`    | String     | Specifies the email address for the new user. If not specified, you'll be prompted to enter an address during runtime.                    |
+| `--password` | String     | Specifies a password for the new user to access Astronomer with. If not specified, you'll be prompted to enter a password during runtime. |
 
 ### Related documentation
 
-* [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
 
 ## astro version
 
@@ -525,13 +545,13 @@ Creates a new Workspace.
 
 ### Flags
 
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--desc` | String | The description for the new Workspace. |
+| Flag     | Value Type | Usage                                  |
+| -------- | ---------- | -------------------------------------- |
+| `--desc` | String     | The description for the new Workspace. |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro workspace delete
 
@@ -543,7 +563,7 @@ Deletes a Workspace.
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro workspace list
 
@@ -555,7 +575,7 @@ Generates a list of all Workspaces.
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro workspace service-account create
 
@@ -566,19 +586,20 @@ Creates a Service Account for a given workspace.
 `$ astro workspace service-account create <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--category` | String | The Category for the Service Account. The default value is `default`.|
-| `--workspace-id` (Required) | String | The Workspace you're creating a Service Account for. |
-|`--label` (Required)| String | A label for the Service Account.  |
-|`role`| String | The User Role for the Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`.|
-|`--system-sa`| None | ??|
-|`--user-id`| String | ??|
+
+| Flag                        | Value Type | Usage                                                                                                        |
+| --------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ |
+| `--category`                | String     | The Category for the Service Account. The default value is `default`.                                        |
+| `--workspace-id` (Required) | String     | The Workspace you're creating a Service Account for.                                                         |
+| `--label` (Required)        | String     | A label for the Service Account.                                                                             |
+| `role`                      | String     | The User Role for the Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`. |
+| `--system-sa`               | None       | ??                                                                                                           |
+| `--user-id`                 | String     | ??                                                                                                           |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
-* [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
 
 ## astro workspace service-account delete
 
@@ -589,14 +610,15 @@ Deletes a Service Account for a given Workspace.
 `$ astro workspace service-account delete <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--workspace-id` | String | The Workspace you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`.|
+
+| Flag             | Value Type | Usage                                                                                                                             |
+| ---------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `--workspace-id` | String     | The Workspace you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
-* [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
 
 ## astro workspace service-account get
 
@@ -607,14 +629,15 @@ Gets a Service Account for a given Workspace.
 `$ astro workspace service-account get <your-service-account-id>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--workspace-id` | String | The Workspace you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`.|
+
+| Flag             | Value Type | Usage                                                                                                                             |
+| ---------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `--workspace-id` | String     | The Workspace you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
-* [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/cloud/stable/deploy/ci-cd)
 
 ## astro workspace update
 
@@ -625,13 +648,14 @@ Updates the IAM role for a Workspace. Used only for Workspaces hosted on AWS.
 `$ astro workspace update <your-workspace-id> <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--cloud-role` | String | The ARN for the IAM role.|
+
+| Flag           | Value Type | Usage                     |
+| -------------- | ---------- | ------------------------- |
+| `--cloud-role` | String     | The ARN for the IAM role. |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro workspace user add
 
@@ -642,14 +666,15 @@ Adds an existing user from the Workspace to a given Workspace.
 `$ astro workspace user add <flags> <user-email-address>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--workspace-id` (Required) | String | The Workspace that the user will be added to. |
-| `--role` (Required) | String | The role assigned to the user. Can be `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. The default value is `WORKSPACE_VIEWER`. |
+
+| Flag                        | Value Type | Usage                                                                                                                                        |
+| --------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--workspace-id` (Required) | String     | The Workspace that the user will be added to.                                                                                                |
+| `--role` (Required)         | String     | The role assigned to the user. Can be `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. The default value is `WORKSPACE_VIEWER`. |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro workspace user delete
 
@@ -660,13 +685,14 @@ Removes an existing user from the Workspace to a given Workspace.
 `$ astro workspace user delete <flags> <user-email-address>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--workspace-id` (Required) | String | The Workspace that the user will be removed from. |
+
+| Flag                        | Value Type | Usage                                             |
+| --------------------------- | ---------- | ------------------------------------------------- |
+| `--workspace-id` (Required) | String     | The Workspace that the user will be removed from. |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro workspace user list
 
@@ -677,16 +703,17 @@ Searches for users on a given Workspace.
 `$ astro workspace user list USERS <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--workspace-id` (Required) | String | The Workspace that you're searching in. |
-| `--email` | String | The email for the user you're searching for. |
-| `--name` | String | The name of the user to search for. |
-| `--user-id`| String | The ID of the user to search for. |
+
+| Flag                        | Value Type | Usage                                        |
+| --------------------------- | ---------- | -------------------------------------------- |
+| `--workspace-id` (Required) | String     | The Workspace that you're searching in.      |
+| `--email`                   | String     | The email for the user you're searching for. |
+| `--name`                    | String     | The name of the user to search for.          |
+| `--user-id`                 | String     | The ID of the user to search for.            |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
 
 ## astro workspace user update
 
@@ -697,11 +724,12 @@ Updates a user's role in a given Workspace.
 `$ astro workspace user update <flags>`
 
 ### Flags
-|Flag | Value Type | Usage|
-|-----|------------|------|
-| `--workspace-id` (Required) | String | The Workspace that you're searching in. |
-| `--role` | String | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. |
+
+| Flag                        | Value Type | Usage                                                                                                                   |
+| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `--workspace-id` (Required) | String     | The Workspace that you're searching in.                                                                                 |
+| `--role`                    | String     | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. |
 
 ### Related documentation
 
-* [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces)
