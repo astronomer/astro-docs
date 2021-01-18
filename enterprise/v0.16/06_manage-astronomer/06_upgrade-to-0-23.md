@@ -11,7 +11,7 @@ As of Astronomer v0.16, Astronomer releases will be made generally available to 
 This guide walks through the process of upgrading your Astronomer Enterprise platform from 0.16.x to [v0.23](https://www.astronomer.io/docs/enterprise/0.23/resources/release-notes), which is the latest minor version.
 
 A few notes before you start:
-- You must be on Astronomer Enterprise v0.16.x in order to complete this upgrade.
+- You must be on Astronomer Enterprise v0.16.x in order to complete this setup. If you are running a version of Astronomer that's lower than v0.16, submit a request to Astronomer Support. Our team will help you upgrade from your earlier version to v0.23.
 - The following setup is only for upgrading to the latest minor version. To upgrade to the latest patch version, read [Upgrade to a Patch Version of Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer).
 
 ## Step 1: Check Version Compatibility
@@ -19,7 +19,7 @@ A few notes before you start:
 Ensure that the following software is updated to the appropriate version:
 
 - **Kubernetes**: Your version must be greater than or equal to 1.14 and less than 1.19. If you need to upgrade Kubernetes, contact your cloud provider's support or your Kubernetes administrator.
-- **Airflow Images**: You must be using an Astronomer Certified Airflow Image, and the version of your Image must be 1.10.5 or greater. In addition, your image should be in the following format:
+- **Airflow Images**: You must be using an Astronomer Certified Airflow image, and the version of your image must be 1.10.5 or greater. In addition, your image should be in the following format:
 ```
 astronomerinc/ap-airflow:<airflow-version>-<build-number>-<distribution>-onbuild
 ```
@@ -34,11 +34,11 @@ astronomerinc/ap-airflow:1.10.5-9-buster
 
 ## Step 2: Check Permissions
 
-Minor version upgrades can be initiated only by Astronomer Admins. To confirm you're an Astronomer Admin, confirm that you have access to **System Admin** features in the in the Astronomer UI:
+Minor version upgrades can be initiated only by a user with System Admin permissions on Astronomer. To confirm you're an Astronomer SysAdmin, confirm that you have access to **System Admin** features in the in the Astronomer UI:
 
 ![Admin](https://assets2.astronomer.io/main/docs/enterprise_quickstart/admin_panel.png)
 
-You also need permission to create Kubernetes resources. These permissions can be confirmed by running the following commands:
+You also need permission to create Kubernetes resources. To confirm you have those permissions, run the following commands:
 
 ```
 $ kubectl auth can-i create pods --namespace <your-astronomer-namespace>
@@ -54,7 +54,7 @@ Backup your database using your cloud provider's functionality for doing so, or 
 
 ## Step 4: Check the Status of Your Kubernetes Pods
 
-All pods should be either `Running` or `Completed`. If you have any pods that are crashing, but this is expected behavior and you want to proceed anyways, make note of which pods are crashing before upgrading.
+All pods should be either `Running`, `Completed`, or in `CrashLoopBackOff`. If you have any pods that are crashing, but this is expected behavior and you want to proceed anyways, make note of which ones before before proceeding.
 
 ## Step 5: Switch to Your Default Namespace
 
@@ -68,8 +68,8 @@ $ kubectl config set-context --current --namespace=default
 
 Run the following command to begin the upgrade process:
 
-```
-kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade.yaml
+```sh
+$ kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade.yaml
 ```
 
 While your platform is upgrading, monitor your pods to ensure that no errors occur. To do so, first find the names of your pods by running the following command:
@@ -78,7 +78,7 @@ While your platform is upgrading, monitor your pods to ensure that no errors occ
 $ kubectl get pods | grep upgrade-astronomer
 ```
 
-Then, run the following command to see each pod while you upgrade:
+Then, run the following command for each pod you find:
 
 ```sh
 $ kubectl logs <your-pod-name>
@@ -88,17 +88,17 @@ $ kubectl logs <your-pod-name>
 
 If the upgrade was successful, you should be able to:
 
-* Log in to Astronomer at `astronomer.BASEDOMAIN`
-* See Workspaces and Airflow Deployments in the Astronomer UI
-* Access the settings of your Airflow Deployments
-* See metrics on the **Metrics** tab in the Astronomer UI
-* Successfully run `$ astro deploy` using the Astronomer CLI
-* Open a Deployment in the Airflow UI
-* Access logs for your DAGs in the Airflow UI
+* Log in to Astronomer at `astronomer.BASEDOMAIN`.
+* See Workspaces and Airflow Deployments in the Astronomer UI.
+* Access the **Settings** tab for each of your Deployments in the Astronomer UI.
+* See metrics on the **Metrics** tab in the Astronomer UI.
+* Successfully run `$ astro deploy` using the Astronomer CLI.
+* Open the Airflow UI for each of your Deployments
+* Access logs for your DAGs in the Airflow UI.
 
 ## Roll Back to Enterprise v0.16
 
-If the upgrade has some issues and you need to recover your platform, you can roll back to v0.16. To do so:
+If you encounter an issue during your upgrade that requires you to recover your original platform, you can roll back to Astronomer v0.16. To do so:
 
 1. Apply the rollback automation script by running the following command:
 ```sh
