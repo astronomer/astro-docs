@@ -69,7 +69,7 @@ To ensure plenty of room to run Airflow environments and hefty jobs, these estim
 
 | Component         | Item                                                       | Yearly Cost (annual upfront pricing) |
 | ----------------- | ---------------------------------------------------------- | ------------------------------------ |
-| Compute           | 6 m5.xlarge or 3 m5.2xlarge (8 vCPU 32 GiB)                | \$529.98                             |
+| Compute           | 6 m5.xlarge or 3 m5.2xlarge (24 vCPU 96 GiB)                | \$529.98                             |
 | EKS Control Plane | \$0.20 _ 24 _ 365                                          | \$1752                               |
 | Database          | db.t2.medium Postgres, Multi-AZ at \$0.29/hr \*24hr \* 365 | \$424                                |
 | Total             |                                                            | \$2705.98                            |
