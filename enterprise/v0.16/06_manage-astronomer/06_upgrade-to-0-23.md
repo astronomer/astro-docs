@@ -30,7 +30,7 @@ astronomerinc/ap-airflow:1.10.12-1-alpine3.10
 astronomerinc/ap-airflow:1.10.5-9-buster-onbuild
 astronomerinc/ap-airflow:1.10.5-9-buster
 ```
-> **Note:** While `-onbuild` and `<build-number>` are optional, we recommend including them for most upgrades. If you have your own build, test, and publish workflows that are layered on top of the Astronomer Airflow images, then removing `<build-number>` is appropriate.
+> **Note:** While `-onbuild` and `<build-number>` are optional, we recommend including them for most upgrades. If you have your own build, test, and publish workflows that are layered on top of the Astronomer Airflow images, then removing `<build-number>` is appropriate because images including `<build-number>` are immutable.
 
 ## Step 2: Check Permissions
 
@@ -50,11 +50,15 @@ If all commands return `yes`, then you have the appropriate Kubernetes permissio
 
 ## Step 3: Backup Your Database
 
-Backup your database using your cloud provider's functionality for doing so, or make a request to your database administrator to backup based on your organization's own guidelines.
+Backup your entire Astronomer database instance using your cloud provider's functionality for doing so, or make a backup request to your database administrator based on your organization's guidelines.
 
 ## Step 4: Check the Status of Your Kubernetes Pods
 
-All pods should be either `Running`, `Completed`, or in `CrashLoopBackOff`. If you have any pods that are crashing, but this is expected behavior and you want to proceed anyways, make note of which ones before before proceeding.
+Before you proceed with the upgrade, ensure that the Kubernetes Pods in your platform namespace are healthy. To do so, run:
+```
+$ kubectl get pods -n <your-astronomer-namespace>
+```
+All pods should be in either the `Running` or `Completed` state. If any of your pods are in a `CrashLoopBackOff` state or are otherwise unhealthy, make sure that's expected behavior before you proceed.
 
 ## Step 5: Switch to Your Default Namespace
 
@@ -104,6 +108,7 @@ If you encounter an issue during your upgrade that requires you to recover your 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/rollback.yaml
 ```
+This restores the platform database and the Helm state of the Astronomer Helm chart.
 
 2. Wait a few minutes for your platform to come back up.
 
