@@ -22,35 +22,35 @@ Release Date: January 19, 2020
 
 #### Platform Support for Airflow 2.0
 
-Astronomer v0.23.9 offers full support for [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0/) on Astronomer. Already available for local development, Airflow 2.0 is a momentous open-source release that includes a refactored Scheduler, over 30 UI/UX improvements, a new REST API and much more.
+Astronomer Enterprise v0.23 offers full support for [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0/). Already available for local development, Airflow 2.0 is a momentous open-source release that includes a refactored Scheduler, over 30 UI/UX improvements, a new REST API and much more.
 
-In support of Airflow 2.0, Astronomer v0.23.9 includes:
+In support of Airflow 2.0, Astronomer v0.23 includes:
 
 - Support for Multiple Schedulers
-- Enforcement for users to migrate to Airflow 1.10.14 prior to upgrading to 2.0
+- A mechanism to enforce that users to migrate to Airflow 1.10.14 prior to upgrading to 2.0
 - Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
 
-For local guidelines, read [Get Started with Airflow 2.0](https://www.astronomer.io/guides/get-started-airflow-2).
+For local development guidelines, read [Get Started with Airflow 2.0](https://www.astronomer.io/guides/get-started-airflow-2).
 
 #### Support for Multiple Schedulers (_Airflow 2.0+_)
 
 Airflow 2.0 allows users to provision multiple Airflow Schedulers for ultimate high-availability and scale. In tandem with full support for Airflow 2.0 on Astronomer, v0.23 supports the ability to provision up to 4 Schedulers via the Astronomer UI for Airflow Deployments running Airflow 2.0+.
 
-For guidelines, refer to [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/deploy/configure-deployment#scale-core-resources). For Scheduler performance benchmarks and technical deep-dive into Airflow's critical component, read ["The Airflow 2.0 Scheduler"](https://www.astronomer.io/blog/airflow-2-scheduler).
+For guidelines, refer to [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/deploy/configure-deployment#scale-core-resources). For Scheduler performance benchmarks and a technical deep-dive into Airflow's critical component, read ["The Airflow 2.0 Scheduler"](https://www.astronomer.io/blog/airflow-2-scheduler).
 
 #### Airflow Version Selection & Upgrade in Astronomer UI/CLI
 
 Astronomer v0.23 formally introduces **Airflow Version** to the Astronomer UI, CLI and API for an enhanced version selection and Airflow upgrade experience.
 
-To see the version of Airflow your Deployment is running, refer to the corresponding **Settings** page of the Astronomer UI. If you're interested in upgrading versions, you now initialize the upgrade process via the Astronomer UI or CLI for a guided experience. From there, you'll receive instructions to update the Astronomer Certified (AC) image in your Dockerfile and complete the process.
+To see the version of Airflow your Deployment is running, refer to the corresponding **Settings** page of the Astronomer UI. If you're interested in upgrading versions, you now initialize the upgrade process via the Astronomer UI or CLI for a guided experience. From there, you'll receive instructions to complete the process by updating the Astronomer Certified (AC) image in your `Dockerfile`.
 
 For more information, refer to [Manage Airflow Versions](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions/).
 
 #### Real-time Support for Latest Astronomer Certified Versions
 
-In contrast with v0.16, Astronomer Enterprise v0.23+ does not require that a release be shipped with explicit support for any Astronomer Certified version or set of Docker images. Decoupling these components helps you stay current with less toil.
+In contrast with v0.16, Astronomer Enterprise v0.23 does not require that a release be shipped with explicit support for any Astronomer Certified version or set of Docker images. Decoupling these components helps you stay current with less overhead.
 
-As soon as a version of Astronomer Certified is published to our [updates service](http://updates.astronomer.io/astronomer-certified), all corresponding Astronomer Certified images and tags will immediately become available for selection in the Astronomer UI and CLI.
+As soon as a version of Astronomer Certified is published to our [updates service](http://updates.astronomer.io/astronomer-certified), all corresponding Astronomer Certified images and tags will become available for selection in the Astronomer UI and CLI within 24 hours.
 
 For more information, refer to [Manage Airflow Versions](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions/).
 
@@ -87,14 +87,14 @@ If calling our API programmatically is critical to your use case, reference our 
 
 #### Support for v0.23.3 of the Astronomer CLI
 
-Astronomer v0.23.9 is fully compatible with the latest version of the Astronomer CLI, v0.23.3.
+Astronomer Enterprise v0.23 is fully compatible with the latest version of the Astronomer CLI, v0.23.3.
 
-In addition to bug fixes already addressed in v0.16 versions, v0.23.3 of the Astronomer CLI includes:
+In addition to bug fixes already addressed in v0.16, v0.23.3 of the Astronomer CLI includes:
 
- - Improvement: Add email validation to `$ astro workspace user add` command in Astro CLI
-- BugFix: Variables and Connections declared in `airflow_settings.yaml` are not properly passed to Airflow's Metadata Database via the Astro CLI
+ - Improvement: Add email validation to `$ astro workspace user add` command
+- BugFix: Variables and Connections declared in `airflow_settings.yaml` are not properly passed to Airflow's Metadata Database via the Astronomer CLI
 - BugFix: Inaccurate CLI version output on `$ astro upgrade`
-- BugFix: Correct Astro CLI output for `deployment service-account create --help` subcommand to read `--deployment-id`
+- BugFix: Correct output for `deployment service-account create --help` subcommand to read `--deployment-id`
 
 For a full reference of Astronomer CLI releases, go to [Astronomer's corresponding GitHub repo](https://github.com/astronomer/astro-cli/releases).
 
