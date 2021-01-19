@@ -232,7 +232,7 @@ Set the following values in `config.yaml`:
 * `baseDomain: astro.mydomain.com`
 * `tlsSecret: astronomer-tls`
 * `loadBalancerIP: <my-static-ip>`
-* SMTP credentails as a houston config
+* SMTP credentials as a houston config
 
 Here is an example of what your `config.yaml` might look like:
 ```
