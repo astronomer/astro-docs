@@ -146,7 +146,7 @@ To delete a Deployment, you'll need:
 1. Permission (SysAdmin or Workspace Admin)
 2. `deploymentUuid`
 
-> **Note:** For more information about the SysAdmin role, reference our ["User Management" doc](/docs/enterprise/stable/manage-astronomer/manage-platform-users/).
+> **Note:** For more information about the SysAdmin role, reference our ["User Management" doc](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/).
 
 #### Query for `deploymentUuid`
 

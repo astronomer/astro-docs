@@ -12,7 +12,7 @@ Environment Variables can be used to set any of the following (and much more):
 
 - SMTP to enable email alerts
 - Airflow Parallelism and DAG Concurrency
-- [A Secret Backend](/docs/enterprise/stable/customize-airflow/secrets-backend/) to manage your Airflow Connections and Variables
+- [A Secret Backend](/docs/enterprise/v0.23/customize-airflow/secrets-backend/) to manage your Airflow Connections and Variables
 - Store Airflow Connections and Variables
 - Customize your default DAG view in the Airflow UI (Tree, Graph, Gantt etc.)
 
@@ -36,7 +36,7 @@ Read below for instructions on how to configure them via all 3 methods.
 
 ### via `.env` (_Local Only_)
 
-The [Astronomer CLI](/docs/enterprise/stable/develop/cli-quickstart/) comes with the ability to bring in Environment Variables from a specified `.env` file, which was automatically generated when you initialized an Airflow project on Astronomer via `$ astro dev init`.
+The [Astronomer CLI](/docs/enterprise/v0.23/develop/cli-quickstart/) comes with the ability to bring in Environment Variables from a specified `.env` file, which was automatically generated when you initialized an Airflow project on Astronomer via `$ astro dev init`.
 
 To add Environment Variables locally,
 
@@ -165,7 +165,7 @@ A few additional notes:
 
 Read below for more detail on how Environment Variables are encrypted on Astronomer.
 
-> **Note:** As noted above, Workspace roles and permissions apply to actions in the "Variables" tab. For a full breakdown of permissions for each role, reference Astronomer's ["Roles and Permissions" doc](/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
+> **Note:** As noted above, Workspace roles and permissions apply to actions in the "Variables" tab. For a full breakdown of permissions for each role, reference Astronomer's ["Roles and Permissions" doc](/docs/enterprise/v0.23/manage-astronomer/workspace-permissions/).
 
 ### Precedence amongst 3 Methods
 

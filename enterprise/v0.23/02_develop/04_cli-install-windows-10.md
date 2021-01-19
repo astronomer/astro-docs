@@ -66,7 +66,7 @@ You're all set! You can now run `docker run hello-world` through your WSL instan
 
 ### Step 6. Final Install
 
-Once you've completed the steps above, head over to our [CLI Quickstart Guide](/docs/enterprise/stable/develop/cli-quickstart/) to finish the installation and start deployment DAGs.
+Once you've completed the steps above, head over to our [CLI Quickstart Guide](/docs/enterprise/v0.23/develop/cli-quickstart/) to finish the installation and start deployment DAGs.
 
 ## Astronomer CLI on Windows 10
 

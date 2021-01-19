@@ -117,4 +117,4 @@ fluentd:
     s3_region: us-east-1
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).

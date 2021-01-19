@@ -100,7 +100,7 @@ provider "acme" {
 }
 ```
 
-Information on other auth systems can be found [here.](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
+Information on other auth systems can be found [here.](/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system/)
 
 **Note:** If you are using Amazon SES, your URL will look like:
 `smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`
@@ -201,4 +201,4 @@ The kubeconfig file along with other secrets such as the TLS certificate are bac
 
 ## Configuring the Platform
 
-We recommend using Terraform only for your initial installation of Astronomer. Afterwards, all post-install upgrades and configurations to Astronomer should be completed using the [Helm](https://helm.sh) package manager. For more information on how to configure Astronomer after installation, read [Apply a Platform Configuration Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+We recommend using Terraform only for your initial installation of Astronomer. Afterwards, all post-install upgrades and configurations to Astronomer should be completed using the [Helm](https://helm.sh) package manager. For more information on how to configure Astronomer after installation, read [Apply a Platform Configuration Change](/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).

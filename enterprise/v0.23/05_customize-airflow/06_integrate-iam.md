@@ -20,7 +20,7 @@ A few clarifying notes:
 
 ## Prerequisites
 
-* [The Astronomer CLI](/docs/enterprise/stable/develop/cli-quickstart/)
+* [The Astronomer CLI](/docs/enterprise/v0.23/develop/cli-quickstart/)
 * Admin access on an Astronomer Workspace
 * Direct access to your Kubernetes Cluster (e.g. permission to run `$ kubectl describe po`)
 * Kubernetes 1.14+
@@ -201,7 +201,7 @@ astronomer:
 ```
 
 
-2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).
 
 ### Create or update an Airflow Deployment with an attached IAM Role
 

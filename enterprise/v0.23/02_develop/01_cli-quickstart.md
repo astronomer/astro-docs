@@ -28,7 +28,7 @@ There are two ways to install any version of the Astronomer CLI:
 - [Homebrew](https://brew.sh/)
 - cURL
 
-> **Note:** Both methods only work for Unix (Linux+Mac) based systems. If you're running on Windows 10, follow [this guide](/docs/enterprise/stable/develop/cli-install-windows-10/) to get set up with Docker for WSL.
+> **Note:** Both methods only work for Unix (Linux+Mac) based systems. If you're running on Windows 10, follow [this guide](/docs/enterprise/v0.23/develop/cli-install-windows-10/) to get set up with Docker for WSL.
 
 ### Prerequisites
 
@@ -165,7 +165,7 @@ $ docker ps
 
 3. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with `admin` for both your Username and Password.
 
-   You should also be able to access your Postgres Database at: `localhost:5432/postgres`. For guidelines on accessing your Postgres database both locally and on Astronomer, refer to the [Access Airflow Database](/docs/enterprise/stable/customize-airflow/access-airflow-database/) guide.
+   You should also be able to access your Postgres Database at: `localhost:5432/postgres`. For guidelines on accessing your Postgres database both locally and on Astronomer, refer to the [Access Airflow Database](/docs/enterprise/v0.23/customize-airflow/access-airflow-database/) guide.
 
    > **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432.
    >
@@ -231,9 +231,9 @@ For more information on the Astronomer CLI, feel free to reference:
 
 Looking for additional next steps after installing the Astronomer CLI? We recommend reading through the following guides:
 
-* [Deploying to Astronomer](/docs/enterprise/stable/deploy/deploy-cli/)
-* [Customizing Your Image](/docs/enterprise/stable/develop/customize-image/)
-* [Manage Airflow Versions](/docs/enterprise/stable/customize-airflow/manage-airflow-versions/)
-* [Deploy to Astronomer via CI/CD](/docs/enterprise/stable/deploy/ci-cd/)
+* [Deploying to Astronomer](/docs/enterprise/v0.23/deploy/deploy-cli/)
+* [Customizing Your Image](/docs/enterprise/v0.23/develop/customize-image/)
+* [Manage Airflow Versions](/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/)
+* [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.23/deploy/ci-cd/)
 
 As always, don't hesitate to reach out to [Astronomer Support](https://support.astronomer.io/hc/en-us) or post in our [Astronomer Forum](https://forum.astronomer.io/) for additional questions.

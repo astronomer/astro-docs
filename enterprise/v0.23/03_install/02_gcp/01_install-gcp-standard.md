@@ -145,7 +145,7 @@ To obtain a TLS certificate, complete one of the following setups:
 
 Let's Encrypt is a free and secure service that provides TLS certificates which automatically renew every 90 days. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
 
-To set up TLS certificates this way, complete the setup in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt).
+To set up TLS certificates this way, complete the setup in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt).
 
 ### Option 2: Request a TLS certificate from your security team
 
@@ -295,7 +295,7 @@ Now, run:
 $ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
 ```
 
-Replace <platform-version> above with the version of the Astronomer platform you want to install in the format of `0.23.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+Replace <platform-version> above with the version of the Astronomer platform you want to install in the format of `0.23.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/v0.23/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
 
 Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
 
@@ -342,7 +342,7 @@ newbie-norse-prometheus-0                              1/1     Running     0    
 newbie-norse-registry-0                                1/1     Running     0          30m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/stable/troubleshoot/debug-install/)
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.23/troubleshoot/debug-install/)
 
 ## Step 9: Verify You Can Access the Astronomer UI
 
@@ -386,16 +386,16 @@ $ astro deploy -f
 ```
 Check the Airflow namespace. If pods are changing at all, then the Houston API trusts the registry.
 
-If you have Airflow pods in the state "ImagePullBackoff", check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config) to add them after installation.
+If you have Airflow pods in the state "ImagePullBackoff", check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config) to add them after installation.
 
 ## What's Next
 
 To help you make the most of Astronomer Enterprise, check out the following additional resources:
 
-* [Renew TLS Certificates on Astronomer Enterprise]((/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
-* [Integrating an Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](/docs/enterprise/stable/manage-astronomer/configure-platform-resources/)
-* [Managing Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/)
+* [Renew TLS Certificates on Astronomer Enterprise]((/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert/)
+* [Integrating an Auth System](/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system/)
+* [Configuring Platform Resources](/docs/enterprise/v0.23/manage-astronomer/configure-platform-resources/)
+* [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
 
@@ -404,4 +404,4 @@ If you have any feedback or need help during this process and aren't in touch wi
 * [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
 * [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/stable/resources/support/).
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.23/resources/support/).

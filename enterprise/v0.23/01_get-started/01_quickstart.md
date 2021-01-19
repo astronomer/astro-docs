@@ -27,7 +27,7 @@ There are two ways to install any version of the Astronomer CLI:
 - cURL
 - [Homebrew](https://brew.sh/)
 
-> **Note:** If you're running on Windows, check out our [Windows Install Guide](/docs/enterprise/stable/develop/cli-install-windows-10/).
+> **Note:** If you're running on Windows, check out our [Windows Install Guide](/docs/enterprise/v0.23/develop/cli-install-windows-10/).
 
 ### Prerequisites
 
@@ -49,7 +49,7 @@ To install the latest version of the Astronomer CLI via [Homebrew](https://brew.
 $ brew install astronomer/tap/astro
 ```
 
-For more information on the Astronomer CLI, read [CLI Quickstart](https://www.astronomer.io/docs/enterprise/stable/develop/cli-quickstart).
+For more information on the Astronomer CLI, read [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.23/develop/cli-quickstart).
 
 ## Step 3: Install Astronomer Enterprise
 
@@ -57,9 +57,9 @@ If you are in charge of setting up Astronomer for your team, follow one of our E
 
 We have documentation for deploying Astronomer on:
 
-- Amazon Elastic Kubernetes Service (EKS) (via [Helm](/docs/enterprise/stable/install/aws/install-aws-standard/) or [Terraform](/docs/enterprise/stable/install/aws/install-aws-terraform/))
-- [Google Kubernetes Engine (GKE)](/docs/enterprise/stable/install/gcp/install-gcp-standard/)
-- [Azure Kubernetes Service (AKS)](/docs/enterprise/stable/install/azure/install-azure-standard/)
+- Amazon Elastic Kubernetes Service (EKS) (via [Helm](/docs/enterprise/v0.23/install/aws/install-aws-standard/) or [Terraform](/docs/enterprise/v0.23/install/aws/install-aws-terraform/))
+- [Google Kubernetes Engine (GKE)](/docs/enterprise/v0.23/install/gcp/install-gcp-standard/)
+- [Azure Kubernetes Service (AKS)](/docs/enterprise/v0.23/install/azure/install-azure-standard/)
 
 ## Step 4: Create a Project
 
@@ -103,7 +103,7 @@ The Docker image you'll find in your Dockerfile by default is:
 FROM quay.io/astronomer/ap-airflow:latest-onbuild
 ```
 
-This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions) and the _Customize your Image_ topic below.
+This will install a Debian-based AC image for the latest version of Airflow we support. To specify a particular Airflow version, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions) and the _Customize your Image_ topic below.
 
 ### Example DAG
 
@@ -127,7 +127,7 @@ If you're the first person to log in to the Astronomer UI, click **New Workspace
 
 You can think of Workspaces the same way you'd think of teams - a space that specific user groups have access to with varying levels of permissions. From within a Workspace you can create one or more Airflow Deployments, each of which hosts a collection of DAGs.
 
-For more information, read [Manage Workspaces and Deployments](/docs/enterprise/stable/deploy/manage-workspaces/).
+For more information, read [Manage Workspaces and Deployments](/docs/enterprise/v0.23/deploy/manage-workspaces/).
 
 ## Step 7: Authenticate to Astronomer from the CLI
 
@@ -139,7 +139,7 @@ $ astro auth login BASEDOMAIN
 
 You'll be prompted to authenticate and select the Workspace that you want to operate in.
 
-The first user to log in to the Astronomer platform will become a System Admin by default. Additional users can be added via the Astronomer UI or CLI. For more information on user permissions at the platform level, read [Manage Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/).
+The first user to log in to the Astronomer platform will become a System Admin by default. Additional users can be added via the Astronomer UI or CLI. For more information on user permissions at the platform level, read [Manage Users on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/).
 
 ## Step 8: Create an Airflow Deployment
 
@@ -154,7 +154,7 @@ Once you've finished, click **Create Deployment**. After it spins up, your new D
 
 ![Create an Airflow Deployment on Astronomer](https://assets2.astronomer.io/main/docs/getting-started/create-deployment.png)
 
-For a production environment, you'll likely need to set resources and configure your Airflow Deployment to fit the needs of your organization. For more information on configuring Deployments, read [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/stable/deploy/configure-deployment).
+For a production environment, you'll likely need to set resources and configure your Airflow Deployment to fit the needs of your organization. For more information on configuring Deployments, read [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/deploy/configure-deployment).
 
 ## Step 9: Deploy a DAG
 
@@ -166,7 +166,7 @@ You can now use Astronomer to start Airflow locally and deploy code. To do so:
    ```
    This command spins up 3 Docker containers on your machine, each for a different Airflow component:
 
-   - **Postgres:** [Airflow's Metadata Database](/docs/enterprise/stable/customize-airflow/access-airflow-database/)
+   - **Postgres:** [Airflow's Metadata Database](/docs/enterprise/v0.23/customize-airflow/access-airflow-database/)
    - **Webserver:** The Airflow component responsible for rendering the Airflow UI
    - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
    > **Note:** If you’re running the Astronomer CLI with the [buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature enabled in Docker, you may see an error (`buildkit not supported by daemon`). Learn more in [this forum post](https://forum.astronomer.io/t/buildkit-not-supported-by-daemon-error-command-docker-build-t-airflow-astro-bcb837-airflow-latest-failed-failed-to-execute-cmd-exit-status-1/857).
@@ -195,13 +195,13 @@ The **Metrics** tab only shows metrics for a given Deployment. If you are the fi
 
 ![Admin](https://assets2.astronomer.io/main/docs/enterprise_quickstart/admin_panel.png)
 
-These views show logs and metrics across all Deployments running on your Astronomer platform. To learn more about using Grafana, read [Metrics in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/stable/monitor/grafana-metrics). To learn more about using Kibana, read [Logging in Astronomer Enterprise](/docs/enterprise/stable/monitor/kibana-logging/).
+These views show logs and metrics across all Deployments running on your Astronomer platform. To learn more about using Grafana, read [Metrics in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/monitor/grafana-metrics). To learn more about using Kibana, read [Logging in Astronomer Enterprise](/docs/enterprise/v0.23/monitor/kibana-logging/).
 
 ## What's Next?
 
 Once you've successfully installed your Astronomer platform, we recommend doing the following:
 
-* [Invite new users to Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/manage-platform-users)
-* [Manage permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions) for your new users
-* Integrate an [Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
-* Set up [CI/CD](https://www.astronomer.io/docs/enterprise/stable/deploy/ci-cd)
+* [Invite new users to Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/manage-platform-users)
+* [Manage permissions](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/workspace-permissions) for your new users
+* Integrate an [Auth System](/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system/)
+* Set up [CI/CD](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd)

@@ -56,7 +56,7 @@ As you're creating a Service Account, you'll be asked to specify its:
 
 ![Name Service Account](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-name-service-account.png)
 
-> **Note:** In order for a Service Account to have permission to push code to your Airflow Deployment, it must have either the "Editor" or "Admin" role. For more information on Workspace roles, refer to our ["Roles and Permissions"](/docs/enterprise/stable/manage-astronomer/workspace-permissions/) doc.
+> **Note:** In order for a Service Account to have permission to push code to your Airflow Deployment, it must have either the "Editor" or "Admin" role. For more information on Workspace roles, refer to our ["Roles and Permissions"](/docs/enterprise/v0.23/manage-astronomer/workspace-permissions/) doc.
 
 #### Copy the API Key
 

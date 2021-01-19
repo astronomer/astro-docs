@@ -69,7 +69,7 @@ To prevent unauthorized users in your Workspace from seeing sensitive informatio
 
 Lastly, click **Deploy Changes** to push your configuration to your Airflow Deployment.
 
-> **Note:** For more information on how to configure Environment Variables both locally and on Astronomer, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/stable/deploy/environment-variables/).
+> **Note:** For more information on how to configure Environment Variables both locally and on Astronomer, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/v0.23/deploy/environment-variables/).
 
 ### Integrate Amazon SES with Astronomer
 
@@ -112,7 +112,7 @@ To prevent unauthorized users in your Workspace from seeing sensitive informatio
 
 Lastly, click **Deploy Changes** to push your configuration to your Airflow Deployment.
 
-> **Note:** For more information on how to configure Environment Variables both locally and on Astronomer, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/stable/deploy/environment-variables/).
+> **Note:** For more information on how to configure Environment Variables both locally and on Astronomer, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/v0.23/deploy/environment-variables/).
 
 ## Limit Alerts to the Airflow DAG Level
 

@@ -275,5 +275,5 @@ Viewers _cannot_ push code to an Airflow Deployment or create Service Accounts t
 
 As an Astronomer Enterprise user, you're free to customize all user permissions at the platform-level. For more information, read:
 
-- [Manage Users on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/manage-platform-users#customize-permissions)
-- [Integrate an Auth System](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system)
+- [Manage Users on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/manage-platform-users#customize-permissions)
+- [Integrate an Auth System](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system)

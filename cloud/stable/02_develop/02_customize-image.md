@@ -124,7 +124,7 @@ When you first initialize a new Airflow project on Astronomer, a file titled `ai
 
 For security reasons, the `airflow_settings.yaml` file is currently _only_ for local development and should not be used for pushing up code to Astronomer via `$ astro deploy`. For the same reason, we'd recommend adding this file to your `.gitignore`.
 
-> **Note:** If you're interested in programmatically managing Airflow Connections, Variables or Environment Variables, we'd recommend integrating a ["Secret Backend"](/docs/enterprise/stable/customize-airflow/secrets-backend) to help you do so.
+> **Note:** If you're interested in programmatically managing Airflow Connections, Variables or Environment Variables, we'd recommend integrating a ["Secret Backend"](/docs/cloud/stable/customize-airflow/secrets-backend) to help you do so.
 
 ### Add Airfow Connections, Pools, Variables
 

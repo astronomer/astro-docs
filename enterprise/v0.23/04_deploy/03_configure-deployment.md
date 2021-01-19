@@ -6,7 +6,7 @@ description: "How to configure your Airflow Deployment's Resources on Astronomer
 
 ## Overview
 
-Once you've [created an Airflow Deployment](https://www.astronomer.io/docs/enterprise/stable/deploy/deploy-cli), you can configure it via the Astronomer UI based on the needs of your organization.
+Once you've [created an Airflow Deployment](https://www.astronomer.io/docs/enterprise/v0.23/deploy/deploy-cli), you can configure it via the Astronomer UI based on the needs of your organization.
 
 The **Settings** tab of your Airflow Deployment on Astronomer is the best place to modify resources for your Deployment. Specifically, you can:
 
@@ -76,11 +76,11 @@ The [Airflow Scheduler](https://airflow.apache.org/docs/apache-airflow/stable/sc
 
 If you experience delays in task execution, which you can track via the [Gantt Chart](https://airflow.apache.org/docs/apache-airflow/stable/ui.html#gantt-chart) view of the Airflow UI, we recommend increasing the AU allocated towards the Scheduler. The default resource allocation is 10 AU.
 
-> **Tip:** To set alerts that notify you via email when your Airflow Scheduler is underprovisioned, refer to [Airflow Alerts](/docs/enterprise/stable/customize-airflow/airflow-alerts/).
+> **Tip:** To set alerts that notify you via email when your Airflow Scheduler is underprovisioned, refer to [Airflow Alerts](/docs/enterprise/v0.23/customize-airflow/airflow-alerts/).
 
 #### Scheduler Count
 
-[Airflow 2.0](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/upgrade-to-airflow-2) comes with the ability for users to run multiple Schedulers concurrently to ensure high-availability, zero recovery time, and faster performance. By adjusting the **Scheduler Count** slider in the Astronomer UI, users can provision up to 4 Schedulers on any Deployment running Airflow 2.0+ on Astronomer.
+[Airflow 2.0](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/upgrade-to-airflow-2) comes with the ability for users to run multiple Schedulers concurrently to ensure high-availability, zero recovery time, and faster performance. By adjusting the **Scheduler Count** slider in the Astronomer UI, users can provision up to 4 Schedulers on any Deployment running Airflow 2.0+ on Astronomer.
 
 Each individual Scheduler will be provisioned with the AU specified in **Scheduler Resources**. For example, if you set **Scheduler Resources** to 10 AU and **Scheduler Count** to 2, your Airflow Deployment will run with 2 Airflow Schedulers using 10 AU each for a total of 20 AU.
 
@@ -88,7 +88,7 @@ To increase the speed at which tasks are scheduled and ensure high-availability,
 
 ## Set Extra Capacity
 
-On Astronomer, resources required for the [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/kubepodoperator) or the Kubernetes Executor are set as **Extra Capacity**.
+On Astronomer, resources required for the [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/kubepodoperator) or the Kubernetes Executor are set as **Extra Capacity**.
 
 The Kubernetes Executor and KubernetesPodOperator each spin up an individual Kubernetes pod for each task that needs to be executed, then spin down the pod once that task is completed.
 
@@ -100,8 +100,8 @@ AU allocated to **Extra Capacity** does not affect Scheduler or Webserver perfor
 
 Environment Variables can be used to set [Airflow configurations](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) and custom values, both of which can be applied to your Airflow Deployment either locally or on Astronomer.
 
-These can include setting Airflow Parallelism, an SMTP service for Alerts, or a [secrets backend](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/secrets-backend) to manage Airflow Connections and Variables.
+These can include setting Airflow Parallelism, an SMTP service for Alerts, or a [secrets backend](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/secrets-backend) to manage Airflow Connections and Variables.
 
-Environment Variables can be set for your Airflow Deployment either in the **Variables** tab of the Astronomer UI or in your `Dockerfile`. If you're developing locally, they can also be added to a local `.env` file. For more information on configuring Environment Variables, read [Environment Variables on Astronomer](/docs/enterprise/stable/deploy/environment-variables/).
+Environment Variables can be set for your Airflow Deployment either in the **Variables** tab of the Astronomer UI or in your `Dockerfile`. If you're developing locally, they can also be added to a local `.env` file. For more information on configuring Environment Variables, read [Environment Variables on Astronomer](/docs/enterprise/v0.23/deploy/environment-variables/).
 
 > **Note**: Environment Variables are distinct from [Airflow Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html?highlight=variables) and [XComs](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html?highlight=xcom#concepts-xcom), which you can configure directly via the Airflow UI and are used for inter-task communication.

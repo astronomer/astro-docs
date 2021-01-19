@@ -39,7 +39,7 @@ From this screen, you can:
 3. Generate tokens for CI/CD systems via service accounts
 4. Rename your Workspace
 
-Since all of our app activity is routed through a GraphQL API, you're free to create Deployments, switch Workspaces, and add users via our [CLI](/docs/enterprise/stable/develop/cli-quickstart/) if you prefer staying in your terminal.
+Since all of our app activity is routed through a GraphQL API, you're free to create Deployments, switch Workspaces, and add users via our [CLI](/docs/enterprise/v0.23/develop/cli-quickstart/) if you prefer staying in your terminal.
 
 > **Note:** The concept of a "Workspace" only exists at the API level to support role-based access control and user permissions. It will not affect Airflow task execution.
 
@@ -47,7 +47,7 @@ Since all of our app activity is routed through a GraphQL API, you're free to cr
 
 An [Apache Airflow](https://airflow.apache.org/) Deployment is made up of a Scheduler, a Webserver and, if you're running the Celery or Kubernetes Executors, one or more Workers. An Airflow Deployment within a Workspace has the capacity to host a collection of DAGs.
 
-In the context of Astronomer, the term **Airflow Deployment** is used to describe an instance of Airflow that you've spun up either via the Astronomer UI or [CLI](/docs/enterprise/stable/develop/cli-quickstart/) as part of a Workspace. Under the hood, each Airflow Deployment gets its own Kubernetes namespace and has a reserved set of dedicated resources and an underlying Postgres Metadata Database.
+In the context of Astronomer, the term **Airflow Deployment** is used to describe an instance of Airflow that you've spun up either via the Astronomer UI or [CLI](/docs/enterprise/v0.23/develop/cli-quickstart/) as part of a Workspace. Under the hood, each Airflow Deployment gets its own Kubernetes namespace and has a reserved set of dedicated resources and an underlying Postgres Metadata Database.
 
 You're able to adjust the resources given to your Airflow deployment directly from the UI. This functionality allows you to choose executor (local or celery) and easily provision additional resources as you scale up.
 
@@ -74,6 +74,6 @@ If you go to the **Users** tab of your Workspace Dashboard, you'll see who has a
 
 If you'd like to share access to other members of your organization, invite them to a Workspace you're a part of. Once your team members are part of your Workspace, Deployment Admins can grant them varying levels of access to Airflow Deployments within the Workspace. Likewise, Workspace Admins can grant them varying levels of access to the entire Workspace.
 
-An exact breakdown of user roles and their respective levels of access can be found in [Manage User Permissions on an Astronomer Workspace](/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
+An exact breakdown of user roles and their respective levels of access can be found in [Manage User Permissions on an Astronomer Workspace](/docs/enterprise/v0.23/manage-astronomer/workspace-permissions/).
 
-In addition, Enterprise admins can add or remove specific permissions for each type of user role. For more information on this feature, read [Customize Permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/manage-platform-users#customize-permissions).
+In addition, Enterprise admins can add or remove specific permissions for each type of user role. For more information on this feature, read [Customize Permissions](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/manage-platform-users#customize-permissions).

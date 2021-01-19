@@ -6,7 +6,7 @@ description: "How to add and customize user permissions on the platform, enable 
 
 ## Overview
 
-In addition to Workspace-level [role-based access control (RBAC) functionality](/docs/enterprise/stable/manage-astronomer/workspace-permissions/) core to our platform, Astronomer Enterprise allows teams to customize *how* they want users to create accounts on Astronomer and what they're able to do on the platform - both on Astronomer and Airflow.
+In addition to Workspace-level [role-based access control (RBAC) functionality](/docs/enterprise/v0.23/manage-astronomer/workspace-permissions/) core to our platform, Astronomer Enterprise allows teams to customize *how* they want users to create accounts on Astronomer and what they're able to do on the platform - both on Astronomer and Airflow.
 
 Read below for a high-level overview of user management and guidelines around public signups, role customization and adding System Admins.
 
@@ -54,7 +54,7 @@ astronomer:
 
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).
 
 ### User Roles on Astronomer
 
@@ -63,7 +63,7 @@ Once on the platform, administrators can customize permissions across teams. On 
 1. Workspace Level (Viewer, Editor, Admin)
 2. System Level (Viewer, Editor, Admin)
 
-Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace-level roles on Astronomer (Viewer, Editor and Admin), read [Manage User Permissions on an Astronomer Workspace](/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
+Workspace roles apply to all Airflow Deployments within a single Workspace, whereas System Roles apply to *all* Workspaces across a single cluster. For a detailed breakdown of the 3 Workspace-level roles on Astronomer (Viewer, Editor and Admin), read [Manage User Permissions on an Astronomer Workspace](/docs/enterprise/v0.23/manage-astronomer/workspace-permissions/).
 
 ## Customize Permissions
 
@@ -131,7 +131,7 @@ astronomer:
             deployment.images.push: true
 ```
 
-Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+Then, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).
 
 ## System Roles
 
@@ -169,7 +169,7 @@ Keep in mind that:
 - Only existing System Admins can grant the SysAdmin role to another user
 - The user must have a verified email address and already exist in the system
 
-> **Note:** If you'd like to assign a user a different System-Level Role (either [`SYSTEM_VIEWER`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/next/reference/default.yaml#L246) or [`SYSTEM_EDITOR`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/next/reference/default.yaml#L259)), you'll have to do so via an API call from your platform's GraphQL playground. For guidelines, refer to our ["Houston API" doc](/docs/enterprise/stable/manage-astronomer/houston-api/).
+> **Note:** If you'd like to assign a user a different System-Level Role (either [`SYSTEM_VIEWER`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/next/reference/default.yaml#L246) or [`SYSTEM_EDITOR`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/next/reference/default.yaml#L259)), you'll have to do so via an API call from your platform's GraphQL playground. For guidelines, refer to our ["Houston API" doc](/docs/enterprise/v0.23/manage-astronomer/houston-api/).
 
 #### Verify SysAdmin Access
 
