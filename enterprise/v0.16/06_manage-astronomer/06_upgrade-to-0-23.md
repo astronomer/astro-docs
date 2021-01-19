@@ -8,11 +8,11 @@ description: "How to upgrade the Astronomer Enterprise Platform."
 
 As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model.
 
-This guide walks through the process of upgrading your Astronomer Enterprise platform from 0.16.x to [v0.23](https://www.astronomer.io/docs/enterprise/0.23/resources/release-notes), which is the latest minor version.
+This guide walks through the process of upgrading your Astronomer Enterprise platform from 0.16.x to [v0.23](https://www.astronomer.io/docs/enterprise/0.23/resources/release-notes), which is the latest available LTS release.
 
 A few notes before you start:
-- You must be on Astronomer Enterprise v0.16.x in order to complete this setup. If you are running a version of Astronomer that's lower than v0.16, submit a request to Astronomer Support. Our team will help you upgrade from your earlier version to v0.23.
-- The following setup is only for upgrading to the latest minor version. To upgrade to the latest patch version, read [Upgrade to a Patch Version of Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer).
+- You must be on Astronomer Enterprise v0.16.x in order to upgrade to Astronomer 0.23+. If you are running a version of Astronomer that's lower than v0.16, submit a request to [Astronomer Support](https://support.astronomer.io) and our team will help you define an alternate upgrade path.
+- The guidelines below only apply to users who are upgrading to the Astronomer v0.23 series for the first time. Once you've completed the upgrade to any v0.23 version, you'll be free to upgrade to subsequent v0.23.x patch versions as they are released by our team. For instructions, read [Upgrade to a Patch Version of Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer).
 
 ## Step 1: Check Version Compatibility
 
