@@ -31,7 +31,7 @@ Astronomer Enterprise v0.23 offers full support for [Airflow 2.0](https://www.as
 In support of Airflow 2.0, Astronomer v0.23 includes:
 
 - Support for Multiple Schedulers
-- A mechanism to enforce that users to migrate to Airflow 1.10.14 prior to upgrading to 2.0
+- A mechanism to enforce that users migrate to Airflow 1.10.14 prior to upgrading to 2.0
 - Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
 
 For local development guidelines, read [Get Started with Airflow 2.0](https://www.astronomer.io/guides/get-started-airflow-2).
@@ -62,7 +62,7 @@ For more information, refer to [Manage Airflow Versions](https://www.astronomer.
 
 Astronomer Enterprise v0.23 introduces Deployment-level permissions, a much-awaited feature for large teams running multiple Airflow Deployments on Astronomer.
 
-Users can now configure and be assigned 1 of 3 user roles within each individual Airflow Deployment - _Admin_, _Editor_ and _Viewer_. If you operate with production and development environments, for example, you can restrict a user's access to your production Airflow Deployment as a _Viewer_ but grant them full access to your development Airflow Deployment as an _Admin_ - all within the same Workspace. Users who exclusively need Workspace permissions do not require permissions to any or all Airflow Deployments within it.
+Users can now configure and be assigned 1 of 3 user roles within each individual Airflow Deployment - _Admin_, _Editor_ and _Viewer_. If you operate with production and development environments, for example, you can restrict a user's access to your production Airflow Deployment as a _Viewer_ but grant them full access to your development Airflow Deployment as an _Admin_ all within the same Workspace. Users who exclusively need Workspace permissions do not require permissions to any or all Airflow Deployments within it.
 
 This new permissions framework comes with support via the Astronomer UI/API and a new set of commands for the Astronomer CLI. For more information, refer to [User Permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
 
@@ -80,7 +80,7 @@ While this change largely sets the foundation for new features in later releases
 
 Astronomer Enterprise v0.23 includes an improvement to the process by which new Celery Workers are created and begin to pick up tasks following a deploy to an Airflow Deployment on Astronomer.
 
-Previously, the number of Celery Worker replicas that could be immediately created following a deploy was restricted to 25% of the total number of desired Celery Workers - until the original Workers shut down. This meant that it took longer for replacement Celery Workers to be created and start picking up Airflow tasks. Defined as `maxSurge`, that percentage is now set to 100%, allowing the maximum number of Celery Worker replicas to exist and push your data pipelines forward.
+Previously, the number of Celery Worker replicas that could be immediately created following a deploy was restricted to 25% of the total number of desired Celery Workers, until the original Workers shut down. This meant that it took longer for replacement Celery Workers to be created and start picking up Airflow tasks. Defined as `maxSurge`, that percentage is now set to 100%, allowing the maximum number of Celery Worker replicas to exist and push your data pipelines forward.
 
 For users, this change will result in a quicker, more efficient and more graceful deploy process.
 
@@ -88,7 +88,7 @@ For users, this change will result in a quicker, more efficient and more gracefu
 
 #### Houston API Improvements
 
-Astronomer v0.23 includes standardization of the following 2 mutations to be more strongly typed and reliable:
+Astronomer v0.23 includes standardization of the following two mutations to be more strongly typed and reliable:
 
 - `updateDeployment`
 - `createDeployment`
@@ -99,7 +99,7 @@ As we strive to polish and standardize the schema more generally, our API will u
 
 If calling our API programmatically is critical to your use case, reference our [Houston API Documentation](/docs/enterprise/stable/manage-astronomer/houston-api/) for details and stay in close touch with our team.
 
-#### Support for v0.23.3 of the Astronomer CLI
+#### Support for v0.23 of the Astronomer CLI
 
 Astronomer Enterprise v0.23 is fully compatible with the latest version of the Astronomer CLI, v0.23.2.
 
@@ -110,7 +110,13 @@ In addition to functionality already available in v0.16, v0.23 of the Astronomer
 - BugFix: Inaccurate CLI version output on `$ astro upgrade`
 - BugFix: Correct output for `deployment service-account create --help` subcommand to read `--deployment-id`
 
-For a full reference of Astronomer CLI releases, go to [Astronomer's corresponding GitHub repo](https://github.com/astronomer/astro-cli/releases).
+Users running Astronomer Enterprise v0.23 MUST upgrade to the latest version of the Astronomer CLI. To do so, run:
+
+```
+$ curl -sSL https://install.astronomer.io | sudo bash
+```
+
+For detailed instructions, refer to [CLI Quickstart](https://www.astronomer.io/docs/enterprise/stable/develop/cli-quickstart). For a full reference of Astronomer CLI releases, go to the [Astronomer CLI GitHub repo](https://github.com/astronomer/astro-cli/releases).
 
 #### Bug Fixes & Improvements
 
