@@ -72,6 +72,16 @@ While this change largely sets the foundation for new features in later releases
 - Refined logic for **Deployment Health Status** (Unhealthy/Red, Healthy/Green, Deploying/Blue and Unknown/Gray) that's visible as a "bubble" next to all Airflow Deployments in the Astronomer UI.
 - A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete.
 
+#### Improved Celery Worker Update Strategy
+
+Astronomer Enterprise v0.23 includes an improvement to the process by which new Celery Workers are created and begin to pick up tasks following a deploy to an Airflow Deployment on Astronomer.
+
+Previously, the number of Celery Worker replicas that could be immediately created following a deploy was restricted to 25% of the total number of desired Celery Workers - until the original Workers shut down. This meant that it took longer for replacement Celery Workers to be created and start picking up Airflow tasks. Defined as `maxSurge`, that percentage is now set to 100%, allowing the maximum number of Celery Worker replicas to exist and push your data pipelines forward.
+
+For users, this change will result in a quicker, more efficient and more graceful deploy process.
+
+> **Note:** This improvemenet is only applicable to those running Airflow with the Celery Executor on Astronomer. For more information on Airflow Executors, refer to ["Airflow Executors Explained"](https://www.astronomer.io/guides/airflow-executors-explained) or [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/stable/deploy/configure-deployment).
+
 #### Houston API Improvements
 
 Astronomer v0.23 includes standardization of the following 2 mutations to be more strongly typed and reliable:
@@ -87,12 +97,12 @@ If calling our API programmatically is critical to your use case, reference our 
 
 #### Support for v0.23.3 of the Astronomer CLI
 
-Astronomer Enterprise v0.23 is fully compatible with the latest version of the Astronomer CLI, v0.23.3.
+Astronomer Enterprise v0.23 is fully compatible with the latest version of the Astronomer CLI, v0.23.2.
 
-In addition to bug fixes already addressed in v0.16, v0.23.3 of the Astronomer CLI includes:
+In addition to functionality already available in v0.16, v0.23 of the Astronomer CLI includes:
 
- - Improvement: Add email validation to `$ astro workspace user add` command
-- BugFix: Variables and Connections declared in `airflow_settings.yaml` are not properly passed to Airflow's Metadata Database via the Astronomer CLI
+- Email validation on `$ astro workspace user add`
+- Clarify "success" output on `$ astro deploy`
 - BugFix: Inaccurate CLI version output on `$ astro upgrade`
 - BugFix: Correct output for `deployment service-account create --help` subcommand to read `--deployment-id`
 
@@ -100,13 +110,15 @@ For a full reference of Astronomer CLI releases, go to [Astronomer's correspondi
 
 #### Bug Fixes & Improvements
 
-- Opt-in users to **Email Alerts** by default
 - Default to latest available version of Airflow on Deployment Creation via Astronomer UI/CLI
+- Opt-in users to **Email Alerts** by default
 - Improved user search in Astronomer UI
-- Updated doc links in Astronomer UI
-- Platform Upgrade to [Prisma 2](https://www.prisma.io/) (Database Toolkit for our Houston API)
-- Display toast message in Astronomer UI following Deployment deletion
-- Replace `workspaceUuid` with `deploymentUuid` in arg for `deploymentVariables` Houston API mutation
 - Ability to search Deployment users by role via Houston API
+- Updated documentation links in Astronomer UI
+- Display toast message in Astronomer UI following Deployment deletion
+- Platform Upgrade to [Prisma 2](https://www.prisma.io/) (Database Toolkit for our Houston API)
+- Replace `workspaceUuid` with `deploymentUuid` in arg for `deploymentVariables` Houston API mutation
 - Houston and Commander Images now created with a non-root user
 - Support for new configuration options in Fluentd S3 Plugin (S3 path where Airflow logs are stored and server side encryption)
+- Improved OpenShift support
+- Support for [Azure Database for PostgreSQL - Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/)

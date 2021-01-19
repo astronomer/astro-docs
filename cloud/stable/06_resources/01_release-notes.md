@@ -81,6 +81,16 @@ Astronomer v0.23 supports Airflow images that are pulled from _either_ Docker re
 
 For more information, refer to ["Manage Airflow Versions"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/) or [this forum post](https://forum.astronomer.io/t/docker-hub-rate-limit-error-toomanyrequests-you-have-reached-your-pull-rate-limit/887).
 
+#### Improved Celery Worker Update Strategy
+
+Astronomer v0.23 includes an improvement to the process by which new Celery Workers are created and begin to pick up tasks following a deploy to an Airflow Deployment on Astronomer.
+
+Previously, the number of Celery Worker replicas that could be immediately created following a deploy was restricted to 25% of the total number of desired Celery Workers - until the original Workers shut down. This meant that it took longer for replacement Celery Workers to be created and start picking up Airflow tasks. Defined as `maxSurge`, that percentage is now set to 100%, allowing the maximum number of Celery Worker replicas to exist and push your data pipelines forward.
+
+For users, this change will result in a quicker, more efficient and more graceful deploy process.
+
+> **Note:** This improvemenet is only applicable to those running Airflow with the Celery Executor on Astronomer. For more information on Airflow Executors, refer to ["Airflow Executors Explained"](https://www.astronomer.io/guides/airflow-executors-explained) or [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/configure-deployment).
+
 #### Bug Fixes & Improvements
 
 - Improvement: Default to latest available version of Airflow on Deployment Creation via Astro UI/CLI
