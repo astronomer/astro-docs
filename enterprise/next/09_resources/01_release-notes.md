@@ -34,7 +34,7 @@ For local guidelines, read [Get Started with Airflow 2.0](https://www.astronomer
 
 #### Support for Multiple Schedulers (_Airflow 2.0+_)
 
-As mentioned above, Airflow 2.0 allows users to provision multiple Airflow Schedulers for ultimate high-availability and scale. In tandem with full support for Airflow 2.0 on Astronomer, v0.23 supports the ability to provision up to 4 Schedulers via the Astronomer UI for Airflow Deployments running Airflow 2.0+.
+Airflow 2.0 allows users to provision multiple Airflow Schedulers for ultimate high-availability and scale. In tandem with full support for Airflow 2.0 on Astronomer, v0.23 supports the ability to provision up to 4 Schedulers via the Astronomer UI for Airflow Deployments running Airflow 2.0+.
 
 For guidelines, refer to [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/deploy/configure-deployment#scale-core-resources). For Scheduler performance benchmarks and technical deep-dive into Airflow's critical component, read ["The Airflow 2.0 Scheduler"](https://www.astronomer.io/blog/airflow-2-scheduler).
 
@@ -42,13 +42,13 @@ For guidelines, refer to [Configure an Airflow Deployment on Astronomer](https:/
 
 Astronomer v0.23 formally introduces **Airflow Version** to the Astronomer UI, CLI and API for an enhanced version selection and Airflow upgrade experience.
 
-To see version of Airflow your Deployment is running, refer to the corresponding **Settings** page of the Astronomer UI. If you're interested in upgrading versions, you can initialize the upgrade process via the Astronomer UI or CLI for a guided experience. From there, you'll receive instructions to update the Astronomer Certified (AC) image in your Dockerfile and complete the process.
+To see the version of Airflow your Deployment is running, refer to the corresponding **Settings** page of the Astronomer UI. If you're interested in upgrading versions, you now initialize the upgrade process via the Astronomer UI or CLI for a guided experience. From there, you'll receive instructions to update the Astronomer Certified (AC) image in your Dockerfile and complete the process.
 
 For more information, refer to [Manage Airflow Versions](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions/).
 
 #### Real-time Support for Latest Astronomer Certified Versions
 
-In contrast with Astronomer v0.16, Astronomer v0.23+ does not require that a release be shipped with explicit support for any Astronomer Certified version or set of Docker images.
+In contrast with v0.16, Astronomer Enterprise v0.23+ does not require that a release be shipped with explicit support for any Astronomer Certified version or set of Docker images. Decoupling these components helps you stay current with less toil.
 
 As soon as a version of Astronomer Certified is published to our [updates service](http://updates.astronomer.io/astronomer-certified), all corresponding Astronomer Certified images and tags will immediately become available for selection in the Astronomer UI and CLI.
 
