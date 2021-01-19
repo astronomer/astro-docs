@@ -6,6 +6,12 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.23
 
+### v0.23.9
+
+Release Date: January 18, 2021
+
+This release was exclusively infrastructure maintenance in preparation for Astronomer Enterprise v0.23.9 release. Stay tuned for v0.24!
+
 ### v0.23.6
 
 Release Date: December 16, 2020
