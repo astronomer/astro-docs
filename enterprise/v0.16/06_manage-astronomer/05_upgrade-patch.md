@@ -43,7 +43,7 @@ $ helm get values <your-platform-release-name> -n <your-platform-namespace>  > c
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
 
-### Step 2: Verify Your Current Platform Version
+## Step 2: Verify Your Current Platform Version
 
 To verify the version of Astronomer you're currently operating with, run:
 
