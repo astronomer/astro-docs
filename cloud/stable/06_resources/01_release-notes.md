@@ -253,7 +253,7 @@ Astronomer v0.18 includes support for the latest patch releases from Astronomer 
 
 - BugFix: Broken `/landing_times` view in the Airflow UI rendering with plain HTML ([commit](https://github.com/astronomer/airflow/commit/6567df3))
 - BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/ap-airflow/commit/c2536db))
-- BugFix: Broken PapermillOperator ([commit](https://github.com/astronomer/astronomer-airflow-version-check/commit/811cc75) - 1.10.10 only).
+- BugFix: Broken PapermillOperator (1.10.10 only).
 
 For a full list, reference the changelogs in our [`ap-airflow` repo](https://github.com/astronomer/ap-airflow) for the AC version of your choice (e.g. changelog for 1.10.10 [here](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)).
 

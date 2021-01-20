@@ -217,7 +217,7 @@ These patch releases most notably include:
 
 - BugFix: Broken `/landing_times` view in the Airflow UI rendering with plain HTML ([commit](https://github.com/astronomer/airflow/commit/6567df3))
 - BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/ap-airflow/commit/c2536db))
-- BugFix: Broken PapermillOperator ([commit](https://github.com/astronomer/astronomer-airflow-version-check/commit/811cc75) - 1.10.10 only).
+- BugFix: Broken PapermillOperator (1.10.10 only).
 
 To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Manage Airflow Versions" doc](/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions/).
 
