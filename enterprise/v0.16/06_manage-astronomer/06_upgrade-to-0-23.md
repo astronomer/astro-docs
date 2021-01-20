@@ -79,7 +79,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/maste
 While your platform is upgrading, monitor your pods to ensure that no errors occur. To do so, first find the names of your pods by running the following command:
 
 ```sh
-$ kubectl get pods | grep upgrade-patch
+$ kubectl get pods | grep upgrade-astronomer
 ```
 
 Then, run the following command for each pod you find:
