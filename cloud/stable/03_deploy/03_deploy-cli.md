@@ -30,7 +30,7 @@ In order to push up code to a Deployment on Astronomer, you must have:
 
 To authenticate via the Astronomer CLI, run:
 
-```
+```sh
 $ astro auth login gcp0001.us-east4.astronomer.io
 ```
 
