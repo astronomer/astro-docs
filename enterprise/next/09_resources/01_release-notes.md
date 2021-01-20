@@ -58,7 +58,7 @@ Astronomer v0.16.9 comes with support for [Airflow 1.10.12](https://airflow.apac
 Airflow 1.10.12 notably includes:
 
 - The ability to configure and launch pods via YAML files with the Kubernetes Executor and KubernetesPodOperator ([commit](https://github.com/apache/airflow/pull/6230))
-- A new `on_kill` method that ensures a KubernetesPodOperator task is killed when it's cleared in the Airflow UI ([commit]((https://github.com/apache/airflow/commit/ce94497cc) ))
+- A new `on_kill` method that ensures a KubernetesPodOperator task is killed when it's cleared in the Airflow UI ([commit](https://github.com/apache/airflow/commit/ce94497cc))
 - Ability to define a custom XCom class ([commit](https://github.com/apache/airflow/pull/8560))
 - Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit](https://github.com/apache/airflow/pull/9645))
 - Support for AirfowClusterPolicyViolation support in Airflow local settings ([commit](https://github.com/apache/airflow/pull/10282)).
