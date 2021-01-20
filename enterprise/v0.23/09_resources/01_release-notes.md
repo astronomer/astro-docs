@@ -20,7 +20,7 @@ Latest Patch Release: **v0.23.9**
 
 ### v0.23.9
 
-Release Date: January 20, 2020
+Release Date: January 20, 2021
 
 #### Platform Support for Airflow 2.0
 
