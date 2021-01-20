@@ -66,7 +66,7 @@ As of Astronomer v0.23.5, we:
 - Enforce that all users migrate to Astronomer Certified 1.10.14 before upgrading to 2.0
 - Support Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
 
-To get started, read [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2). The migration path to Airflow 2.0 on Astronomer follows all recommendations published by the Apache Airflow project.
+To get started, read [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2). The migration path to Airflow 2.0 on Astronomer follows [recommendations published by the Apache Airflow project](https://airflow.apache.org/docs/apache-airflow/stable/upgrading-to-2.html).
 
 #### Bug Fixes & Improvements
 
@@ -154,7 +154,7 @@ Release Date: October 29, 2020
 
 #### Bug Fixes & Improvements
 
-- BugFix: Reset password flow triggers incorrect email for users who use local username/password to authenticate
+- BugFix: Reset password flow triggered incorrect email for users who use local username/password to authenticate
 
 ### v0.21.1
 
