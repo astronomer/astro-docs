@@ -78,7 +78,7 @@ If it's your first time deploying, expect to wait a few minutes for the Docker I
 
 To confirm that your deploy was successful, navigate to your Deployment in the Astronomer UI and click **Open Airflow** to see your changes in the Airflow UI.
 
-### What gets Deployed?
+### What gets deployed?
 
 Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud. We don't deploy any of the metadata associated with your local Airflow environment (e.g. task history, Airflow Connections and Variables set in the Airflow UI, etc.) - just the code.
 
