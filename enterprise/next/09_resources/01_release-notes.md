@@ -31,7 +31,7 @@ Astronomer Enterprise v0.23 offers full support for [Airflow 2.0](https://www.as
 In support of Airflow 2.0, Astronomer v0.23 includes:
 
 - Support for Multiple Schedulers
-- A mechanism to enforce that users migrate to Airflow 1.10.14 prior to upgrading to 2.0
+- A mechanism to ensure that users migrate to Airflow 1.10.14 prior to upgrading to 2.0
 - Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
 
 For local development guidelines, read [Get Started with Airflow 2.0](https://www.astronomer.io/guides/get-started-airflow-2).
@@ -44,9 +44,9 @@ For guidelines, refer to [Configure an Airflow Deployment on Astronomer](https:/
 
 #### Airflow Version Selection & Upgrade in Astronomer UI/CLI
 
-Astronomer v0.23 formally introduces **Airflow Version** to the Astronomer UI, CLI and API for an enhanced version selection and Airflow upgrade experience.
+Astronomer v0.23 formally introduces **Airflow Version** to the Astronomer UI, CLI, and API for an enhanced version selection and Airflow upgrade experience.
 
-To see the version of Airflow your Deployment is running, refer to the corresponding **Settings** page of the Astronomer UI. If you're interested in upgrading versions, you now initialize the upgrade process via the Astronomer UI or CLI for a guided experience. From there, you'll receive instructions to complete the process by updating the Astronomer Certified (AC) image in your `Dockerfile`.
+To see the version of Airflow your Deployment is running, refer to its **Settings** page in the Astronomer UI. If you're interested in upgrading versions, you can now initialize the upgrade process via the Astronomer UI or CLI for a guided experience. From there, you'll receive instructions to complete the process by updating the Astronomer Certified (AC) image in your `Dockerfile`.
 
 For more information, refer to [Manage Airflow Versions](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions/).
 
@@ -62,7 +62,7 @@ For more information, refer to [Manage Airflow Versions](https://www.astronomer.
 
 Astronomer Enterprise v0.23 introduces Deployment-level permissions, a much-awaited feature for large teams running multiple Airflow Deployments on Astronomer.
 
-Users can now configure and be assigned 1 of 3 user roles within each individual Airflow Deployment - _Admin_, _Editor_ and _Viewer_. If you operate with production and development environments, for example, you can restrict a user's access to your production Airflow Deployment as a _Viewer_ but grant them full access to your development Airflow Deployment as an _Admin_ all within the same Workspace. Users who exclusively need Workspace permissions do not require permissions to any or all Airflow Deployments within it.
+Within each individual Airflow Deployment, users can now configure and be assigned 1 of 3 user roles:  _Admin_, _Editor_, or _Viewer_. If you operate with production and development environments, for example, you can restrict a user's access to your production Airflow Deployment as a _Viewer_ but grant them full access to your development Airflow Deployment as an _Admin_ all within the same Workspace. Users who exclusively need Workspace permissions do not require permissions to any or all Airflow Deployments within it.
 
 This new permissions framework comes with support via the Astronomer UI/API and a new set of commands for the Astronomer CLI. For more information, refer to [User Permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions/).
 
@@ -72,9 +72,9 @@ A significant infrastructural change in Astronomer v0.23 is the introduction of 
 
 While this change largely sets the foundation for new features in later releases, Astronomer v0.23 includes:
 
-- A new banner in the **Deployment** view of the Astronomer UI if a deploy to that Airflow Deployment is in progress.
+- A new banner in the **Deployment** view of the Astronomer UI that indicates if a deploy is in progress.
 - Refined logic for **Deployment Health Status** (Unhealthy/Red, Healthy/Green, Deploying/Blue and Unknown/Gray) that's visible as a "bubble" next to all Airflow Deployments in the Astronomer UI.
-- A set of error messages to alert you if a deploy has failed or was otherwise _not_ complete.
+- A set of error messages to alert you if a deploy failed or was otherwise not completed.
 
 #### Improved Celery Worker Update Strategy
 
