@@ -266,7 +266,13 @@ $ helm repo add astronomer https://helm.astronomer.io/
 Then, run:
 
 ```sh
-$ helm install astronomer -f config.yaml --version=0.16 astronomer/astronomer --namespace astronomer
+$ helm repo update
+```
+
+This will ensure you're pulling the latest from our Helm repository. Finally, run:
+
+```sh
+$ helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
 This command will install the latest available patch version of Astronomer Enterprise v0.16. To specify a patch, add it to the `--version=` flag in the format of `0.16.x`. To install Astronomer Enterprise v0.16.9, for example, specify `--version=0.16.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.16/resources/release-notes/).
