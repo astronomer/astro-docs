@@ -8,11 +8,9 @@ description: "Astronomer Enterprise release notes."
 
 Astronomer v0.23 is the latest available minor version in our long-term support (LTS) release model for Astronomer Enterprise.
 
-If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/v0.23/manage-astronomer/upgrade-to-0-23/).
+If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/v0.23/manage-astronomer/upgrade-to-0-23/). For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/upgrade-patch/). 
 
-For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/upgrade-patch/). 
-
-We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
+We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](https://support.astronomer.io).
 
 > **Note:** The perceived version gap between Astronomer Enterprise v0.16 and v0.23 is due to the nature of Astronomer's release schedule. To optimize for security and reliability, Astronomer Cloud releases are made available to Enterprise users only after they've passed a dedicated testing process. Astronomer Enterprise v0.23 includes _all_ changes made available on Astronomer Cloud between v0.16 and v0.23, in addition to Enterprise-only functionality.
 
@@ -22,7 +20,7 @@ Latest Patch Release: **v0.23.9**
 
 ### v0.23.9
 
-Release Date: January 19, 2020
+Release Date: January 20, 2020
 
 #### Platform Support for Airflow 2.0
 
