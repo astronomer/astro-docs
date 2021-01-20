@@ -107,7 +107,15 @@ openssl x509 -in  <your-certificate-filepath> -text -noout
 
 This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either a single `*.BASEDOMAIN` wildcard domain or the subdomains listed at the beginning of Step 4, then the certificate creation was successful.
 
-Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
+Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. The certificate may include intermediate certificates, and a root certificate. To confrim that your certificate has the proper certificate order, run the following command using the openssl command line tool:
+
+```sh
+openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout 
+```
+
+This command will generate a report of all certificates included. You can verify that the order of these certificates is domain, intermediate (optional for some certificates), root certificate.
+
+If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
 
 ```sh
 $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
