@@ -42,7 +42,7 @@ There are many tools at your disposal for administrating Astronomer:
 * [Using Kibana](https://www.astronomer.io/docs/enterprise/stable/monitor/kibana-logging/)
 * [Using kubectl](https://www.astronomer.io/docs/enterprise/stable/troubleshoot/kubectl/)
 * [Pulling Postgres Credentials](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/access-airflow-database/)
-* [Upgrading](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer/)
+* [Upgrading](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-patch/)
 * [Migrating An Airflow Deployment to Astronomer](https://www.astronomer.io/docs/enterprise/)
 
 ## License

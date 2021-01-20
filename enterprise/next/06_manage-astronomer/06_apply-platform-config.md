@@ -17,7 +17,7 @@ For example, you can:
 
 To configure these settings, follow the steps below.
 
-> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer).
+> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-patch).
 
 ## Step 1: Open Your config.yaml File
 
