@@ -8,61 +8,13 @@ description: "Astronomer Enterprise release notes."
 
 As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases. Patch releases will be made available between quarterly LTS releases and require a simple upgrade process.
 
-For instructions on how to upgrade to a patch version, refer to ["Upgrade Astronomer"](/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
+For instructions on how to upgrade to a patch version, refer to ["Upgrade Astronomer"](/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer/).
 
 We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliability and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
 
 ## Astronomer v0.16
 
-Latest Patch Release: **v0.16.15**
-
-### v0.16.15
-
-Release Date: January 5, 2021
-
-#### Support for Airflow 1.10.14
-
-Airflow 1.10.14 was built to make testing and migration to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) as easy as possible. Highlights include:
-
-- "Warning" to users with duplicate Airflow Connections ([commit](https://github.com/apache/airflow/commit/0e40ddd8e))
-- Enable [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html) by default ([commit](https://github.com/apache/airflow/commit/8a265067e))
-- Support for Airflow 2.0 CLI commands ([commit](https://github.com/apache/airflow/pull/12725))
-- Bugfix: Unable to import Airflow plugins on Python 3.8 ([commit](https://github.com/apache/airflow/pull/12859))
-- BugFix: Tasks with depends_on_past or task_concurrency are stuck ([commit](https://github.com/apache/airflow/pull/12663))
-- Security Fix: Incorrect Session Validation in Airflow Webserver with default config allows a an authorized Airflow user on site A access an unauthorized Airflow Webserver on Site B through the session from Site A. ([Details](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-17526))
-
-To upgrade to AC 1.10.14, add our new Debian image to your Dockerfile:
-
-```
-FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild
-```
-
-For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions). For more information on 1.10.14, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.14) or the corresponding [AC 1.10.14 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md).
-
-> **Note:** In an effort to standardize our offering and optimize for reliability, we will only support a Debian-based image for AC 1.10.14. Alpine-based images for AC 1.10.5 - 1.10.12 will continue to be supported. For guidelines on how to migrate from Alpine, go to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
-
-#### Support for latest Astronomer Certified Patch Releases
-
-In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes support for the latest patch versions of existing Astronomer Certified images:
-
-- [1.10.12-2](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md)
-- [1.10.10-6](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
-- [1.10.7-16](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
-
-For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
-
-#### Support for Docker Images on Quay.io + DockerHub
-
-Astronomer recently migrated from [Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow/tags) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our platform’s primary Docker Registry in light of Docker Hub’s [new rate-limit policy](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/), effective Nov 2nd, 2020.
-
-Astronomer v0.16.15 supports Docker images that are pulled from _either_ Docker registry, though we strongly encourage users to switch to Quay.io images to avoid rate limiting errors from Docker Hub. This change affects both Airflow images (`ap-airflow`) as well as all Docker images required to run the Astronomer platform, including `ap-grafana`, `ap-registry`, `ap-pgbouncer`, etc. If you're running a legacy Airflow image that pulls from `astronomerinc/ap-airflow`, for example, all it takes is modifying that image in your Dockerfile to read `quay.io/astronomer/ap-airflow`. Both have the exact same functionality.
-
-For more information, refer to [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/) or [this forum post](https://forum.astronomer.io/t/docker-hub-rate-limit-error-toomanyrequests-you-have-reached-your-pull-rate-limit/887).
-
-#### Bug Fixes & Improvements
-
-- Improvement: Support Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`) (_v0.16.5_)
-- Improvement: Support for [Airflow 2.0 in the Astronomer CLI](https://www.astronomer.io/guides/get-started-airflow-2) (_v0.16.5_)
+Latest Patch Release: **v0.16.12**
 
 ### v0.16.12
 
@@ -70,7 +22,7 @@ Release Date: November 16, 2020
 
 #### Bug Fixes & Improvements
 
-- BugFix: Typo in Pod Security Policy (PSP) for Private CA 
+- BugFix: Typo in Pod Security Policy (PSP) for Private CA
 
 ### v0.16.11
 
@@ -140,7 +92,7 @@ Release Date: September 25, 2020
 
 Astronomer leverages [Fluentd](https://www.fluentd.org/) as a data collector that is responsible for scraping and cleaning Airflow task logs to then send to [Elasticsearch](https://www.elastic.co/elasticsearch/), a search engine used to centralize and index logs from Airflow. As of v0.16, Astronomer now supports a Fluentd to S3 plugin that allows users to forward Airflow logs to Amazon S3 while ensuring they're also sent to Elasticsearch and otherwise supported by the platform.
 
-For step-by-step guidelines, refer to ["Forward Logs to S3"](https://www.astronomer.io/docs/enterprise/v0.16/monitor/logs-to-s3/).
+For step-by-step guidelines, refer to ["Forward Logs to S3"](https://www.astronomer.io/docs/enterprise/v0.23/monitor/logs-to-s3/).
 
 ### v0.16.7
 
@@ -187,9 +139,9 @@ prometheus:
           description: "If more than 2 Airflow Schedulers are not heartbeating for more than 5 minutes, this alarm fires."
 ```
 
-For more information on alerts that are generated by default, refer to our ["Alerts" doc](/docs/enterprise/v0.16/monitor/platform-alerts/).
+For more information on alerts that are generated by default, refer to our ["Alerts" doc](/docs/enterprise/v0.23/monitor/platform-alerts/).
 
-> **Note:** These alerts are NOT Airflow task-level alerts that require definition at the Airflow code level. For more information on how to set up `email_on_failure` within Airflow, for example, refer to our ["Airflow Alerts" doc](/docs/enterprise/v0.16/customize-airflow/airflow-alerts/).
+> **Note:** These alerts are NOT Airflow task-level alerts that require definition at the Airflow code level. For more information on how to set up `email_on_failure` within Airflow, for example, refer to our ["Airflow Alerts" doc](/docs/enterprise/v0.23/customize-airflow/airflow-alerts/).
 
 #### Bug Fixes and Improvements
 
@@ -219,7 +171,7 @@ These patch releases most notably include:
 - BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/ap-airflow/commit/c2536db))
 - BugFix: Broken PapermillOperator (1.10.10 only).
 
-To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Manage Airflow Versions" doc](/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions/).
+To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Manage Airflow Versions" doc](/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/).
 
 #### Airflow Chart: Improved Upgrade Process
 
@@ -227,7 +179,7 @@ Historically, upgrades to Astronomer (major, minor or patch) that have included 
 
 This change allows for Airflow Deployments to remain unaffected through the upgrade and for Airflow Chart changes to take effect _only_ when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
 
-More specifically, this changes the behavior of our API's `updateDeployment` mutation to perform the Airflow Helm Chart version upgrade only if/when a Houston config is updated. [Source Code here](https://github.com/astronomer/docs/blob/9cd8da9a4382bc89d7b8c07f5585ad1daa64a250/enterprise/v0.16/reference/update-deployment-index.js#L86).
+More specifically, this changes the behavior of our API's `updateDeployment` mutation to perform the Airflow Helm Chart version upgrade only if/when a Houston config is updated. [Source Code here](https://github.com/astronomer/docs/blob/9cd8da9a4382bc89d7b8c07f5585ad1daa64a250/enterprise/next/reference/update-deployment-index.js#L86).
 
 #### Bug Fixes and Improvements
 
@@ -273,13 +225,13 @@ Astronomer v0.16 comes with significant improvements to the experience of settin
 
 With the new tab comes the ability for Workspace Admins and Editors to create and mark a value as 'secret', permanently hiding the value from the Astronomer UI (and from the client). From the same tab, users can now export Environment Variables as 'JSON' as well.
 
-For more details on this new feature, reference our ["Environment Variables" doc](/docs/enterprise/stable/deploy/environment-variables).
+For more details on this new feature, reference our ["Environment Variables" doc](/docs/enterprise/v0.23/deploy/environment-variables).
 
 #### Support for AD FS
 
 Astronomer v0.16 for Astronomer Enterprise users comes with support for Microsoft's [Active Directory Federation services (AD FS)](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), as an alternative authentication system.
 
-To learn more, reference ["Auth Systems on Astronomer"](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/).
+To learn more, reference ["Auth Systems on Astronomer"](/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system/).
 
 #### Bug Fixes and Improvements
 
@@ -316,7 +268,7 @@ To activate this feature on the platform, refer to the `manualReleaseNames` valu
 
 As of Astronomer v0.15, IAM roles can now be appended to all pods within any individual Airflow Deployment on the platform. Users who integrate Airflow with some resource or set of resources (e.g. an AWS S3 bucket or Secret Backend) can now configure them to be accessible only to a subset of Kubernetes pods within your wider Astronomer cluster.
 
-Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](/docs/enterprise/stable/customize-airflow/integrate-iam/).
+Leverage this feature by specifying an existing IAM role `arn` when you create or update an Airflow Deployment via the Astro CLI. For guidelines, go [here](/docs/enterprise/v0.23/customize-airflow/integrate-iam/).
 
 #### Bug Fixes & Improvements
 
