@@ -113,7 +113,11 @@ Depending on your organization, you might receive either a globally trusted cert
 openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout 
 ```
 
-This command will generate a report of all certificates included. You can verify that the order of these certificates is domain, intermediate (optional for some certificates), root certificate.
+This command will generate a report of all certificates included. You can verify that the order of these certificates is:
+
+1. Domain
+1. Intermediate (optional for some certificates)
+1. Root 
 
 If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
 
