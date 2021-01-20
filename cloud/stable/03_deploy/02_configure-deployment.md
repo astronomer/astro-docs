@@ -22,9 +22,9 @@ To create a Deployment, you'll need:
 To create an Airflow Deployment on Astronomer:
 
 1. Log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
-![Workspace Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-deployments.png)
 
 2. Use the **New Deployment** menu to configure the following:
+
   * **Name**
   * **Description** (Optional)
   * **Airflow Version**: We recommend using the latest version.
@@ -42,7 +42,7 @@ The **Settings** tab of your Airflow Deployment is the best place to modify reso
 - Set Worker Count (*Celery only*)
 - Adjust your Worker Termination Grace Period (*Celery only*)
 
-Refer to the following sections for additional guidance for configuring each of these settings.
+The rest of this guide provides additional guidance for configuring each of these settings.
 
 > **Note:** Adjusting resources will affect your monthly bill on Astronomer Cloud. For more information on resource cost and pricing, refer to [Cloud Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing).
 
