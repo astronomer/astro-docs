@@ -295,7 +295,7 @@ Then, run:
 $ helm repo update
 ```
 
-This will ensure you're pulling the latest from our Helm repository. Finally, run:
+This will ensure that you pull the latest from our Helm repository. Finally, run:
 
 ```sh
 $ helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
