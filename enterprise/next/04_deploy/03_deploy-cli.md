@@ -10,24 +10,24 @@ If you've used the Astronomer CLI to develop locally, you'll find it similarly e
 
 This guide will walk you through the process of deploying code to Astronomer using the Astronomer CLI.
 
-For those looking to automate the deploy process, refer to [Deploy to Astronomer via CI/CD](/docs/cloud/stable/deploy/ci-cd/).
+For those looking to automate the deploy process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/stable/deploy/ci-cd/).
 
-> **Note:** We recommend that all users test their code locally via the Astronomer CLI before pushing it to an Airflow Deployment on Astronomer. For guidelines on developing locally, refer to [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart/).
+> **Note:** We recommend that all users test their code locally via the Astronomer CLI before pushing it to an Airflow Deployment on Astronomer. For guidelines on developing locally, refer to [CLI Quickstart](/docs/enterprise/stable/develop/cli-quickstart/).
 
 ## Prerequisites
 
 In order to push up code to a Deployment on Astronomer, you must have:
 
-* [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) installed.
-* An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/).
-* An Astronomer [Workspace](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces) with at least one active [Airflow Deployment](https://www.astronomer.io/docs/cloud/stable/deploy/configure-deployment).
+* [The Astronomer CLI](/docs/enterprise/stable/develop/cli-quickstart/) installed.
+* An Astronomer platform at `app.BASEDOMAIN`.
+* An Astronomer [Workspace](https://www.astronomer.io/docs/enterprise/stable/deploy/manage-workspaces) with at least one active [Airflow Deployment](https://www.astronomer.io/docs/enterprise/stable/deploy/configure-deployment).
 
 ## Step 1: Authenticate to Astronomer
 
 To authenticate via the Astronomer CLI, run:
 
 ```sh
-$ astro auth login gcp0001.us-east4.astronomer.io
+$ astro auth login app.BASEDOMAIN
 ```
 
 ## Step 2: Confirm Your Workspace and Deployment
@@ -54,7 +54,7 @@ To see the list of Deployments within a particular Workspace, run:
 $ astro deployment list
 ```
 
-For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart/).
+For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/enterprise/stable/develop/cli-quickstart/).
 
 ## Step 3: Deploy to Astronomer
 
@@ -76,9 +76,9 @@ To confirm that your deploy was successful, navigate to your Deployment in the A
 
 ### What gets deployed?
 
-Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on Astronomer Cloud. Astronomer exclusively deploys the code in your project and does not push any of the metadata associated with your local Airflow environment, including task history and Airflow Connections or variables set locally in the Airflow UI.
+Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on your Astronomer platform. Astronomer exclusively deploys the code in your project and does not push any of the metadata associated with your local Airflow environment, including task history and Airflow Connections or variables set locally in the Airflow UI.
 
-For more information about what gets built into your image, read [Customize your Image](/docs/cloud/stable/develop/customize-image/).
+For more information about what gets built into your image, read [Customize your Image](/docs/enterprise/stable/develop/customize-image/).
 
 ## Next Steps: Organize Astronomer
 
@@ -86,6 +86,6 @@ While the specific needs of your organization might require a slightly different
 
 **Workspaces:** We recommend having 1 Workspace per team of Airflow users, so that anyone on this team has access to the same set of Deployments under that Workspace.
 
-**Deployments:** Most use cases will call for a "Production" and "Dev" Deployment, both of which exist within a single Workspace and are accessible to a shared set of users. From there, you can [set permissions](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions) to give users in the Workspace access to specific Deployments.
+**Deployments:** Most use cases will call for a "Production" and "Dev" Deployment, both of which exist within a single Workspace and are accessible to a shared set of users. From there, you can [set permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions) to give users in the Workspace access to specific Deployments.
 
 **Code:** As for the code itself, we’ve seen effective organization where external code is partitioned by function and/or business case, so one directly for SQL, one for data processing tasks, one for data validation, etc.
