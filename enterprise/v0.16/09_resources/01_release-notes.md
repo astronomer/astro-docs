@@ -8,7 +8,7 @@ description: "Astronomer Enterprise release notes."
 
 As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases. Patch releases will be made available between quarterly LTS releases and require a simple upgrade process.
 
-For instructions on how to upgrade to a patch version, refer to ["Upgrade Astronomer"](/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
+For instructions on how to upgrade to the latest v0.16 patch version of Astronomer, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-patch). If you're interested in upgrading from Astronomer v0.16.x to the latest minor version of the platform, read [Upgrade to Astronomer Enterprise v0.23](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-to-0-23).
 
 We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliability and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
 
@@ -70,7 +70,7 @@ Release Date: November 16, 2020
 
 #### Bug Fixes & Improvements
 
-- BugFix: Typo in Pod Security Policy (PSP) for Private CA 
+- BugFix: Typo in Pod Security Policy (PSP) for Private CA
 
 ### v0.16.11
 
