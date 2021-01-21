@@ -85,14 +85,6 @@ If you experience delays in task execution, which you can track via the [Gantt C
 
 > **Tip:** To set alerts that notify you via email when your Airflow Scheduler is underprovisioned, refer to [Airflow Alerts](/docs/enterprise/v0.16/customize-airflow/airflow-alerts/).
 
-#### Scheduler Count
-
-[Airflow 2.0](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/upgrade-to-airflow-2) comes with the ability for users to run multiple Schedulers concurrently to ensure high-availability, zero recovery time, and faster performance. By adjusting the **Scheduler Count** slider in the Astronomer UI, users can provision up to 4 Schedulers on any Deployment running Airflow 2.0+ on Astronomer.
-
-Each individual Scheduler will be provisioned with the AU specified in **Scheduler Resources**. For example, if you set **Scheduler Resources** to 10 AU and **Scheduler Count** to 2, your Airflow Deployment will run with 2 Airflow Schedulers using 10 AU each for a total of 20 AU.
-
-To increase the speed at which tasks are scheduled and ensure high-availability, we recommend provisioning 2 or more Airflow Schedulers for production environments. For more information on the Airflow 2.0 Scheduler, refer to Astronomer's ["The Airflow 2.0 Scheduler" blog post](https://www.astronomer.io/blog/airflow-2-scheduler).
-
 ## Kubernetes Executor: Set Extra Capacity
 
 On Astronomer, resources required for the [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/kubepodoperator) or the Kubernetes Executor are set as **Extra Capacity**.
