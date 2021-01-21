@@ -8,7 +8,7 @@ description: "Astronomer Enterprise release notes."
 
 Astronomer v0.23 is the latest available minor version in our long-term support (LTS) release model for Astronomer Enterprise.
 
-If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/v0.23/manage-astronomer/upgrade-to-0-23/). For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/upgrade-patch/). 
+If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/v0.23/manage-astronomer/upgrade-to-0-23/). For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer-patch/). 
 
 We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](https://support.astronomer.io).
 
