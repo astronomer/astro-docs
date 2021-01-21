@@ -7,7 +7,7 @@ note: "Consider updating https://github.com/astronomer/astronomer when you updat
 
 Astronomer makes it easy to run, monitor, and scale [Apache Airflow](https://github.com/apache/airflow) deployments in our cloud or yours. Source code is made available for the benefit of customers.
 
-If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](/trial) and run through our [getting started guide](https://www.astronomer.io/docs/enterprise/stable/get-started/quickstart/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
+If you'd like to see the platform in action, [start a free trial on our SaaS service, Astronomer Cloud](https://www.astronomer.io/get-astronomer/) and run through our [getting started guide](https://www.astronomer.io/docs/enterprise/stable/get-started/quickstart/). This is a good first step, even if you're ultimately interested in running Astronomer Enterprise in your own Kubernetes cluster.
 
 ## Architecture
 
@@ -67,7 +67,6 @@ Astronomer Enterprise brings together best-of-class components into a complete "
 * [Kibana](https://github.com/elastic/kibana) - A web dashboard to help visualize all of your Airflow logs powered by ElasticSearch. Create your own dashboards to centralize your logs across all of your deployments.
 * [Prisma ORM](https://www.prisma.io/) - An interface between the HoustonGraphQL API and your Postgres database. This handles read/writes to the database as well as migrations for upgrades.
 * [Astronomer Helm](https://github.com/astronomer/astronomer) - Helm charts for the Astronomer Platform
-* [db-bootstrapper](https://github.com/astronomer/db-bootstrapper) - Init container for bootstrapping system databases
 * [Docker images](https://quay.io/astronomer/) - Docker images for deploying and running Astronomer on DockerHub.
 
 ## Airflow Components
