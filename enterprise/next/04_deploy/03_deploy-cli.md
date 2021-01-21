@@ -6,7 +6,7 @@ description: "How to push code to your Airflow Deployment on Astronomer via the 
 
 ## Overview
 
-If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy code to an Airflow Deployment on Astronomer Cloud.
+If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy code to an Airflow Deployment on Astronomer Enterprise.
 
 This guide will walk you through the process of deploying code to Astronomer using the Astronomer CLI.
 
