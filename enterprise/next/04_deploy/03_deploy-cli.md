@@ -27,12 +27,12 @@ In order to push up code to a Deployment on Astronomer, you must have:
 To authenticate via the Astronomer CLI, run:
 
 ```sh
-$ astro auth login app.BASEDOMAIN
+$ astro auth login BASEDOMAIN
 ```
 
 ## Step 2: Confirm Your Workspace and Deployment
 
-From the Astronomer CLI, you're free to push code to any Airflow Deployment you have access to as long as you have the appropriate deployment-level permissions to do so.
+From the Astronomer CLI, you're free to push code to any Airflow Deployment you have access to as long as you have the appropriate deployment-level permissions to do so. For more information on both Workspace and Deployment-level permissions on Astronomer, refer to [User Permissions](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions).
 
 Before you deploy to Astronomer, make sure that the Airflow Deployment you'd like to deploy to is within the Workspace you're operating in.
 
