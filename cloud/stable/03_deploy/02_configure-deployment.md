@@ -6,13 +6,13 @@ description: "How to configure your Airflow Deployment's Resources on Astronomer
 
 ## Overview
 
-An Airflow Deployment is an instance of Airflow that you've spun up either via the Astronomer UI or the Astronomer CLI. Under the hood, each Airflow Deployment gets its own Kubernetes namespace and has a reserved set of dedicated resources and an underlying Postgres Metadata Database.
+An Airflow Deployment on Astronomer is an instance of Apache Airflow that was created either via the Astronomer UI or the Astronomer CLI. Each Airflow Deployment on Astronomer is hosted on a single Kubernetes namespace, has a dedicated set of resources, and operates with an isolated Postgres Metadata Database.
 
-This guide walks you through the process of creating and configuring Deployments on Astronomer.
+This guide walks you through the process of creating and configuring an Airflow Deployment on Astronomer.
 
 ## Prerequisites
 
-To create a Deployment, you'll need:
+To create an Airflow Deployment, you'll need:
 * [The Astronomer CLI](/docs/cloud/stable/develop/cli-quickstart/) installed.
 * An account on [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/).
 * An Astronomer [Workspace](https://www.astronomer.io/docs/cloud/stable/deploy/manage-workspaces).
@@ -21,7 +21,7 @@ To create a Deployment, you'll need:
 
 To create an Airflow Deployment on Astronomer:
 
-1. Log into [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
+1. Log in to [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
 
 2. Use the **New Deployment** menu to configure the following:
 
@@ -30,10 +30,10 @@ To create an Airflow Deployment on Astronomer:
   * **Airflow Version**: We recommend using the latest version.
   * **Executor**: We recommend starting with Local.
 
-3. Click **Create Deployment** and give the Deployment a few moments to spin up. Afterwards, you'll have access to your Deployment dashboard:
+3. Click **Create Deployment** and give the Deployment a few moments to spin up. Within a few seconds, you'll have access to the **Settings** page of your new Deployment:
 ![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
 
-The **Settings** tab of your Airflow Deployment is the best place to modify resources for your Deployment. Specifically, you can:
+This tab is the best place to modify resources for your Deployment. Specifically, you can:
 
 - Select an Airflow Executor
 - Allocate resources to your Airflow Scheduler and Webserver
