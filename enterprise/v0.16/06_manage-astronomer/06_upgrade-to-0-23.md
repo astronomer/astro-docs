@@ -12,7 +12,7 @@ This guide walks through the process of upgrading your Astronomer Enterprise pla
 
 A few notes before you start:
 - You must be on Astronomer Enterprise v0.16.x in order to upgrade to Astronomer 0.23+. If you are running a version of Astronomer that's lower than v0.16, submit a request to [Astronomer Support](https://support.astronomer.io) and our team will help you define an alternate upgrade path.
-- The guidelines below only apply to users who are upgrading to the Astronomer v0.23 series for the first time. Once you've completed the upgrade to any v0.23 version, you'll be free to upgrade to subsequent v0.23.x patch versions as they are released by our team. For instructions, read [Upgrade to a Patch Version of Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer).
+- The guidelines below only apply to users who are upgrading to the Astronomer v0.23 series for the first time. Once you've completed the upgrade to any v0.23 version, you'll be free to upgrade to subsequent v0.23.x patch versions as they are released by our team. For instructions, read [Upgrade to a Patch Version](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-patch).
 
 ## Step 1: Check Version Compatibility
 
@@ -73,7 +73,7 @@ $ kubectl config set-context --current --namespace=default
 Run the following command to begin the upgrade process:
 
 ```sh
-$ kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade-0.16-to-0.23.yaml
 ```
 
 While your platform is upgrading, monitor your pods to ensure that no errors occur. To do so, first find the names of your pods by running the following command:
@@ -106,7 +106,7 @@ If you encounter an issue during your upgrade that requires you to recover your 
 
 1. Apply the rollback automation script by running the following command:
 ```sh
-$ kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/rollback.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/rollback-0.16-to-0.23.yaml
 ```
 This restores the platform database and the Helm state of the Astronomer Helm chart.
 
