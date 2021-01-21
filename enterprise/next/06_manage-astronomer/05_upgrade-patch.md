@@ -8,13 +8,14 @@ description: "How to update your Astronomer Enterprise Platform to a new patch v
 
 Astronomer releases are available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases.
 
-Patch releases will be made available between quarterly LTS releases and require a simple upgrade process. If you're on Astronomer v0.23, follow this guide to upgrade to a patch release as soon as it's made available.
+Patch releases will be made available between quarterly LTS releases and require a simple upgrade process. If you're on Astronomer v0.23, follow the instructions below to upgrade to any v0.23 patch version as soon as it is made available. For information on all patch releases, refer to [Enterprise Release Notes](https://www.astronomer.io/docs/enterprise/v0.23/resources/release-notes).
 
 A few notes before you get started:
-- The patch upgrade process will NOT affect running tasks if `upgradeDeployments.enabled=false`
-- Patch version updates will NOT cause any downtime to Astronomer services (UI, API, etc.)
+- The following guidelines are only for upgrading to the latest Astronomer v0.23 patch version. If you're running Astronomer v0.16 and would like to upgrade, read [Upgrade to Astronomer Enterprise v0.23](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-to-0-23). To determine whether the latest version of Astronomer is a minor or patch version, read the Astronomer Platform Versioning guidelines below.
+- The patch upgrade process will NOT affect running Airflow tasks as long as `upgradeDeployments.enabled=false` is set in the script below.
+- Patch version updates will NOT cause any downtime to Astronomer services (Astronomer UI, Houston API, Astronomer CLI).
 
-> **Note:** Astronomer v0.16.5 and beyond includes an improved upgrade process that allows Airflow Deployments to remain unaffected through a platform upgrade that includes changes to [the Airflow Chart](https://github.com/astronomer/airflow-chart).
+> **Note:** Astronomer v0.16.5 and beyond includes an improved upgrade process that allows Airflow Deployments to remain unaffected through a platform upgrade that includes changes to the [Astronomer Airflow Chart](https://github.com/astronomer/airflow-chart).
 >
 > Now, Airflow Chart changes only take effect when another restart event is triggered by a user (e.g. a code push, Environment Variable change, resource or executor adjustment, etc).
 
@@ -81,3 +82,5 @@ helm3 upgrade --namespace $NAMESPACE \
             $RELEASE_NAME \
             astronomer/astronomer
 ```
+
+> **Note:** If you do not specify a patch version above, the script will automatically pull the latest Astronomer Enterprise v0.23 patch available in the [Astronomer Helm Chart](https://github.com/astronomer/astronomer/releases). If you set `ASTRO_VERSION=0.23` and `--version 0.23`, for example, Astronomer v0.23.9 will be installed if it is the latest v0.23 patch available.
