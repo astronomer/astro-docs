@@ -110,9 +110,9 @@ $ openssl x509 -in  <your-certificate-filepath> -text -noout
 
 This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either a single `*.BASEDOMAIN` wildcard domain or the subdomains listed at the beginning of Step 4, then the certificate creation was successful.
 
-#### Verify certificate order (private CA only)
+Depending on your organization, you may receive either a globally trusted certificate or a certificate from a private CA. The certificate from your private CA may include a domain certificate, a root certificate, and/or intermediate certificates, all of which need to be in proper certificate order. To verify certificate order, follow the guidelines below.
 
-Depending on your organization, you may receive either a globally trusted certificate or a certificate from a private CA. The certificate from your private CA may include a domain certificate, a root certificate, and/or intermediate certificates, all of which need to be in proper certificate order.
+#### Verify certificate order (private CA only)
 
 To confirm that your certificate has the proper certificate order, first run the following command using the `openssl` CLI:
 
@@ -136,7 +136,7 @@ If you received a globally trusted certificate, simply run the following command
 $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
 ```
 
-If you received a certificate from a private CA, follow the steps below:
+If you received a certificate from a private CA, follow the steps below instead:
 
 1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
 ```sh
