@@ -143,15 +143,18 @@ To obtain a TLS certificate, complete one of the following setups:
 
 ### Option 1: Create TLS certificates using Let's Encrypt
 
-Let's Encrypt is a free and secure service that provides TLS certificates which automatically renew every 90 days. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
+[Let's Encrypt](https://letsencrypt.org/) is a free and secure certificate authority (CA) service that provides TLS certificates that renew automatically every 90 days. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
 
-To set up TLS certificates this way, complete the setup in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt).
+To set up TLS certificates this way, follow the guidelines in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt).
 
 ### Option 2: Request a TLS certificate from your security team
 
-If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for the `BASEDOMAIN` your organization uses for Astronomer, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files: one for your encrypted certificate and one for your private key.
+If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for the `BASEDOMAIN` your organization uses for Astronomer, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files:
 
-To confirm that your security team generated the correct certificate, run the following command using the openssl command line tool:
+- One for your encrypted certificate
+- One for your private key
+
+To confirm that your enterprise security team generated the correct certificate, run the following command using the `openssl` CLI:
 
 ```sh
 $ openssl x509 -in  <your-certificate-filepath> -text -noout
@@ -159,15 +162,35 @@ $ openssl x509 -in  <your-certificate-filepath> -text -noout
 
 This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either a single `*.BASEDOMAIN` wildcard domain or the subdomains listed at the beginning of Step 4, then the certificate creation was successful.
 
-Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
+Depending on your organization, you may receive either a globally trusted certificate or a certificate from a private CA. The certificate from your private CA may include a domain certificate, a root certificate, and/or intermediate certificates, all of which need to be in proper certificate order. To verify certificate order, follow the guidelines below.
+
+#### Verify certificate order (private CA only)
+
+To confirm that your certificate has the proper certificate order, first run the following command using the `openssl` CLI:
+
+```sh
+$ openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout 
+```
+
+This command will generate a report of all certificates included. Verify that the order of these certificates is as follows:
+
+1. Domain
+2. Intermediate (optional)
+3. Root
+
+If the order of all certificates is correct, read below for instructions on how to create a Kubernetes secret using your new root certificate.
+
+#### Create a Kubernetes secret
+
+If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
 
 ```sh
 $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
 ```
 
-If you received a certificate from a private certificate authority, complete the following setup instead:
+If you received a certificate from a private CA, follow the steps below instead:
 
-1. Add the root certificate provided by your security team to an Opaque Kubernetes secret in the Astronomer namespace using the following command:
+1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
 ```sh
 $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
 ```
