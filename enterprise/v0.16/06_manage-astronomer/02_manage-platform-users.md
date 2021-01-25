@@ -171,46 +171,6 @@ Keep in mind that:
 
 > **Note:** If you'd like to assign a user a different System-Level Role (either [`SYSTEM_VIEWER`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.16/reference/default.yaml#L246) or [`SYSTEM_EDITOR`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/v0.16/reference/default.yaml#L259)), you'll have to do so via an API call from your platform's GraphQL playground. For guidelines, refer to our ["Houston API" doc](/docs/enterprise/v0.16/manage-astronomer/houston-api/).
 
-<<<<<<< Updated upstream
-=======
-#### Create SysAdmin User via CLI
-
-To assign exisiting user SysAdmin role via the Astronomer CLI, follow the steps below.
-
-1. List all pods in your platform namespace (e.g. `astronomer`)
-```
-$ kubectl get pods -n astronomer
-```
-
-Take note of your Houston Pod.
-
-2. Now, grab a Prisma security token by running:
-```
-$ kubectl -n astronomer exec astronomer-houston-****** -ti -- npm run token
-```
-
-Make sure to substitute your full Houston pod name above.
-
-3. Then, run:
-```
-$ kubectl -n astronomer port-forward svc/astronomer-prisma 4466:4466
-```
-
-4. Visit http://localhost:4466/houston
-5. Click on `HTTP Headers` in the bottom left and set `{"Authorization": "<prisma-security-token>"}`
-6. Now, run the mutation below:
-
-```
-mutation makeSysAdmin {
- createRoleBinding(data: {
-       user: { connect: { username: "a.xxxxxx@XXX.com"} },
-       role: SYSTEM_ADMIN
-     }
- ) { id }
-}
-```
-
->>>>>>> Stashed changes
 #### Verify SysAdmin Access
 
 To verify a user was successfully granted the SysAdmin role, ensure they can do the following:
