@@ -137,22 +137,28 @@ Manages various deployment-level actions on Astronomer.
 
 Run `$ astro deployment <subcommand>` in your terminal to create, delete, or manage an Airflow Deployment on Astronomer. See the following entries of this guide for more information on each subcommand.
 
-Alternatively, you can run the command without specifying `<your-deployment>` to select from a list of possible Deployments.
+When managing an existing Deployment using subcommands such as `delete` and `logs`, you additionally need to specify a Deployment in your command. In this case, you would run `$ astro deployment <subcommand> <your-deployment>`.
 
 ### Related documentation
 
 - [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/stable/deploy/manage-workspaces)
 
-## astro deployment airflow
+## astro deployment airflow upgrade
 
-Upgrades the Airflow version for a Deployment.
+Initializes the Airflow version upgrade process on any Airflow Deployment on Astronomer.
+
+### Usage
+
+Run `$ astro deployment airflow upgrade --deployment-id` to initialize the Airflow upgrade process. To finalize the Airflow upgrade process, complete all of the steps as described in [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions).
+
+If you do not specify `--desired-airflow-version`, this command will output a list of available versions of Airflow you can choose from and prompt you to pick one. The Astronomer CLI will only make available versions of Airflow that are higher than the version you're currently running in your `Dockerfile`.
 
 ### Flags
 
 | Flag                        | Value Type | Usage                                        |
 | --------------------------- | ---------- | -------------------------------------------- |
-| `--deployment-id`           | String     | The name of the Deployment you're upgrading. |
-| `--desired-airflow-version` | String     | The Airflow version you're upgrading to.     |
+| `--deployment-id`           | String     | The ID of the Deployment you want to upgrade Airflow for. To find the ID of your Deployment, run `$ astro deployment list`. |
+| `--desired-airflow-version` | String     | The Airflow version you're upgrading to (e.g. `1.10.14`).     |
 
 ### Related documentation
 
@@ -172,7 +178,7 @@ Creates a new Deployment on Astronomer.
 | ------------------- | ---------- | ------------------------------------------------------------------------------------- |
 | `--airflow-version` | String     | The Airflow version for the new Deployment.                                           |
 | `--cloud-role`      | String     | The role that annotates service accounts in the Deployment                            |
-| `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`.      |
+| `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`. If no executor is specified, then `celery` is used. |
 | `--release-name`    | String     | A custom `release-name`. Only applies to Deployments using the `kubernetes` Executor. |
 
 ### Related documentation
@@ -181,15 +187,15 @@ Creates a new Deployment on Astronomer.
 
 ## astro deployment delete
 
-Deletes a Deployment.
+Deletes a Deployment from your current Astronomer Workspace.
 
 ### Usage
 
-`$ astro deployment delete <your-deployment-name>`
+`$ astro deployment delete <your-deployment-id>`
 
 ## astro deployment list
 
-Generates a list of Deployments from a single Workspace.
+Generates a list of Deployments from your current Workspace.
 
 ### Usage
 
@@ -254,7 +260,7 @@ Deletes a Service Account for a given Deployment.
 
 ### Usage
 
-`$ astro deployment service-account delete <flags>`
+`$ astro deployment service-account delete <your-service-account-id> <flags>`
 
 ### Flags
 
@@ -268,11 +274,11 @@ Deletes a Service Account for a given Deployment.
 
 ## astro deployment service-account get
 
-Gets a Service Account for a given Deployment.
+Shows the name, ID, and API key for each Service Account on a given Deployment.
 
 ### Usage
 
-`$ astro deployment service-account get <your-service-account-id>`
+Run `$ astro deployment service-account get <service-account-id> --deployment-id=<your-deployment-id>` to get information on a single Service Account within a Deployment. To see a list of all Service Accounts on a Deployment, run `$ astro deployment service-account get --deployment-id=<your-deployment-id>`.
 
 ### Flags
 
