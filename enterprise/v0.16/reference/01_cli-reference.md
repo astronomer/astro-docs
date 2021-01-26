@@ -6,17 +6,15 @@ description: "A list of every command and setting in the Astronomer CLI."
 
 ## Overview
 
-Using the Astronomer CLI is the most efficient way to create new Airflow Deployments and configure existing Deployments.
+Astronomer's [open source CLI](https://github.com/astronomer/astro-cli) is the easiest way to run Apache Airflow on your local machine. From the CLI, you can create a local Apache Airflow instance with a dedicated Webserver, Scheduler and Postgres Database. If you're an Astronomer customer, you can use the Astronomer CLI to create and manage users, Workspaces, Airflow Deployments, Service Accounts, and more.
 
-This document contains information about every possible command and setting available in the CLI, including sample commands and flags.
-
-This document doesn't contain specific setup instructions for the setup that each command is used for. Additional information on a command, if it exists, will be in the a **Related Documentation** section.
+This document contains information about all commands and settings available in the Astronomer CLI, including examples and flags. It does not contain detailed guidelines on each command, but each section provides resources for additional information in a **Related Documentation** section if it's available.
 
 Additionally, this document does not contain installation instructions for the CLI itself. For installation instructions, see [CLI Quickstart](/docs/enterprise/stable/develop/cli-quickstart).
 
 ## astro auth
 
-Authenticates the current user to your Astronomer platform.
+Authenticates the current user to Astronomer.
 
 ### Usage
 
@@ -73,7 +71,7 @@ Lets you modify certain settings on your Astronomer Enterprise platform without 
 
 ### Usage
 
-Run `$ astro config get` to see the current values for settings in your `config.yaml` file that you can reconfigure with the command. When you want to update a value, run `$ astro config set <value name>:<value>`
+Run `$ astro config get` to list values for all settings in your `config.yaml` file. To update or override a value, run `$ astro config set <value-name>:<value>`
 
 The values that you can update via the command line are:
 
@@ -116,7 +114,7 @@ Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to 
 
 To identify your Deployment's release name, go to **Settings** >**Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
 
-Alternatively, you can run the command without specifying `<your-deployment-release-name>` to select from a list of possible Deployments.
+If you run `$ astro deploy` without specifying `your-deployment-release-name`, the Astronomer CLI will output a list of Airflow Deployments in your Workspace to choose from.
 
 ### Flags
 
@@ -133,11 +131,11 @@ Alternatively, you can run the command without specifying `<your-deployment-rele
 
 ## astro deployment
 
-Manages various aspects of your Airflow Deployments.
+Manages various deployment-level actions on Astronomer.
 
 ### Usage
 
-Run `$ astro deployment <subcommand>` in your terminal to create, delete, or manage Deployments. See the following entries of this guide for more information on each subcommand.
+Run `$ astro deployment <subcommand>` in your terminal to create, delete, or manage an Airflow Deployment on Astronomer. See the following entries of this guide for more information on each subcommand.
 
 Alternatively, you can run the command without specifying `<your-deployment>` to select from a list of possible Deployments.
 
