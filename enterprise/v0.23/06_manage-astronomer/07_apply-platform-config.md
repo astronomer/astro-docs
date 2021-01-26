@@ -10,26 +10,26 @@ When you install Astronomer, a number of platform-level settings will be set by 
 
 For example, you can:
 
-* [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/integrate-auth-system)
-* [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/registry-backend)
-* [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/configure-platform-resources)
-* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml)
+* [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system)
+* [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/registry-backend)
+* [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/configure-platform-resources)
+* Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/next/reference/default.yaml)
 
 To configure these settings, follow the steps below.
 
-> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer).
+> **Note:** If you're interested in upgrading to the latest Astronomer v0.23 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer-patch).
 
 ## Step 1: Open Your config.yaml File
 
 This file was created when you installed Astronomer using one of the following guides:
 
-* [AWS EKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/aws/install-aws-standard#6-configure-your-helm-chart)
-* [GCP GKE Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
-* [Azure AKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.16/install/azure/install-azure-standard#6-configure-your-helm-chart)
+* [AWS EKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.23/install/aws/install-aws-standard#6-configure-your-helm-chart)
+* [GCP GKE Installation Guide](https://www.astronomer.io/docs/enterprise/v0.23/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
+* [Azure AKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.23/install/azure/install-azure-standard#6-configure-your-helm-chart)
 
 ## Step 2: Update Key-Value Pairs
 
-To update any of your existing settings, modify them directly in your `config.yaml` file. To update a setting you haven't already specified, copy the corresponding key-value pair from the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/v0.16/reference/default.yaml) into your `config.yaml` file and modify the value from there.
+To update any of your existing settings, modify them directly in your `config.yaml` file. To update a setting you haven't already specified, copy the corresponding key-value pair from the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/next/reference/default.yaml) into your `config.yaml` file and modify the value from there.
 
 When you have finished updating the key-value pairs, ensure that they have the same relative order and indentation as they do in the default configuration file. If they don't, your changes might not be properly applied.
 
