@@ -131,7 +131,7 @@ If you run `$ astro deploy` without specifying `your-deployment-release-name`, t
 
 ## astro deployment
 
-Manages various deployment-level actions on Astronomer.
+Manages various Deployment-level actions on Astronomer.
 
 ### Usage
 
@@ -541,7 +541,7 @@ Displays the current versions for both the Astronomer CLI and your Astronomer Se
 
 ## astro workspace
 
-Creates, deletes, and manages Astronomer Workspaces.
+Manages various Workspace-level actions on Astronomer.
 
 ### Usage
 
@@ -593,7 +593,7 @@ Generates a list of all Workspaces.
 
 ## astro workspace service-account create
 
-Creates a Service Account for a given workspace.
+Creates a Service Account for a given Workspace.
 
 ### Usage
 
@@ -621,13 +621,13 @@ Deletes a Service Account for a given Workspace.
 
 ### Usage
 
-`$ astro workspace service-account delete <flags>`
+`$ astro workspace service-account delete <your-service-account-id> <flags>`
 
 ### Flags
 
 | Flag             | Value Type | Usage                                                                                                                             |
 | ---------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `--workspace-id` | String     | The Workspace you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
+| `--workspace-id` | String     | The Workspace you're getting the Service Account from. If this flag is used instead of specifying `<your-service-account-id>`, you'll be prompted to select a Service Account from a list of all Service Accounts on the Workspace. |
 
 ### Related documentation
 
@@ -636,12 +636,11 @@ Deletes a Service Account for a given Workspace.
 
 ## astro workspace service-account get
 
-Gets a Service Account for a given Workspace.
+Shows the name, ID, and API key for each Service Account on a given Workspace.
 
 ### Usage
 
-`$ astro workspace service-account get <your-service-account-id>`
-
+Run `$ astro deployment service-account get <service-account-id> --workspace-id=<your-workspace-id>` to get information on a single Service Account within a Workspace. To see a list of all Service Accounts on a Workspace, run `$ astro deployment service-account get --workspace-id=<your-workspace-id>`.
 ### Flags
 
 | Flag             | Value Type | Usage                                                                                                                             |
@@ -655,17 +654,15 @@ Gets a Service Account for a given Workspace.
 
 ## astro workspace update
 
-Updates the IAM role for a Workspace. Used only for Workspaces hosted on AWS.
+Updates a Workspace name, as well as the users and roles assigned to a Workspace.
 
 ### Usage
 
-`$ astro workspace update <your-workspace-id> <flags>`
+`$ astro workspace update <flags>`
 
 ### Flags
 
-| Flag           | Value Type | Usage                     |
-| -------------- | ---------- | ------------------------- |
-| `--cloud-role` | String     | The ARN for the IAM role. |
+[These flags are undocumented].
 
 ### Related documentation
 
@@ -690,19 +687,13 @@ Adds an existing user from the Workspace to a given Workspace.
 
 - [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/stable/deploy/manage-workspaces)
 
-## astro workspace user delete
+## astro workspace user remove
 
-Removes an existing user from the Workspace to a given Workspace.
+Removes an existing user from your current Workspace.
 
 ### Usage
 
-`$ astro workspace user delete <flags> <user-email-address>`
-
-### Flags
-
-| Flag                        | Value Type | Usage                                             |
-| --------------------------- | ---------- | ------------------------------------------------- |
-| `--workspace-id` (Required) | String     | The Workspace that the user will be removed from. |
+`$ astro workspace user remove <user-email-address> <flags>`
 
 ### Related documentation
 
@@ -731,18 +722,17 @@ Searches for users on a given Workspace.
 
 ## astro workspace user update
 
-Updates a user's role in a given Workspace.
+Updates a user's role in your current Workspace.
 
 ### Usage
 
-`$ astro workspace user update <flags>`
+`$ astro workspace user update <user-id> <flags>`
 
 ### Flags
 
 | Flag                        | Value Type | Usage                                                                                                                   |
-| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `--workspace-id` (Required) | String     | The Workspace that you're searching in.                                                                                 |
-| `--role`                    | String     | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. |
+| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |                                                                              |
+| `--role` (Required)                    | String     | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. |
 
 ### Related documentation
 
