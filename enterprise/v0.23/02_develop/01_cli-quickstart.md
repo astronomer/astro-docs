@@ -185,7 +185,7 @@ If you do not yet have an account on Astronomer, ask a Workspace Admin on your t
 
 > **Note:** Once you run this command once, it should stay cached and allow you to just run `$ astro auth login` to authenticate more easily in the future.
 
-## Next Steps: Apply Changes using the CLI
+## Apply Changes to your Airflow Project
 
 As you develop locally, it's worth noting that some changes made to your image are automatically applied, while other changes made to a certain set of files require rebuilding your image in order for them to render.
 
@@ -208,7 +208,9 @@ All changes made to the following files require rebuilding your image:
 - `requirements.txt`
 - `airflow_settings.yaml`
 
-This includes changing the Airflow image in your `Dockerfile`, adding Python Packages to `requirements.txt` or OS-level packages to `packages.txt`, etc. To rebuild your image, first run the following command:
+This includes changing the Airflow image in your `Dockerfile` and adding Python Packages to `requirements.txt` or OS-level packages to `packages.txt`.
+
+To rebuild your image after making a change to any of these files, first run the following command:
 
 ```
 $ astro dev stop
@@ -220,14 +222,18 @@ Then, restart the Docker containers by running:
 $ astro dev start
 ```
 
-## Additional Resources
+## Astronomer CLI and Platform Versioning
 
-For more information on the Astronomer CLI, feel free to reference:
+For every minor version of the Astronomer Platform, a corresponding minor version of the Astronomer CLI is made available. To ensure reliability and proper access to our latest features, Astronomer users should always upgrade to the corresponding minor version of the Astronomer CLI. If you're on Astronomer v0.23+, for example, Astronomer CLI v0.23+ is required.
+
+While corresponding minor versions of the Astronomer Platform and the Astronomer CLI are required, subsequent patch versions do not need to match and will not introduce breaking changes. The release of Astronomer v0.23.9, for example, does not mean that v0.23.9 of the Astronomer CLI exists or is required.
+
+For more information on Astronomer Platform and CLI releases, refer to:
 
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
-* [CLI README on GitHub](https://github.com/astronomer/astro-cli#astronomer-cli----)
+* [Astronomer Release Notes](https://www.astronomer.io/docs/enterprise/v0.23/resources/release-notes)
 
-## Beyond the CLI
+### Beyond the Astronomer CLI
 
 Looking for additional next steps after installing the Astronomer CLI? We recommend reading through the following guides:
 
