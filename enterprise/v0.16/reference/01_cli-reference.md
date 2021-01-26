@@ -20,7 +20,9 @@ Authenticates the current user to your Astronomer platform.
 
 ### Usage
 
-Run `$ astro auth <subcommand>` in your terminal to log in or out of your Astronomer platform. This is equivalent to using the login screen of the Astronomer UI.
+Run `$ astro auth <subcommand> <base-domain>` in your terminal to log in or out of your Astronomer platform. This is equivalent to using the login screen of the Astronomer UI.
+
+If you have access to more than one Astronomer platform, you'll have access to multiple `<base-domains>`. When switching between platforms, make sure to log out of one `<base domain>` before logging into another.
 
 ### Subcommands
 
@@ -31,18 +33,18 @@ Run `$ astro auth <subcommand>` in your terminal to log in or out of your Astron
 
 ## astro cluster
 
-Navigates between multiple installations of Astronomer on an Astronomer Enterprise platform.
+Allows Astronomer Enterprise users to switch between the Astronomer clusters they have access to.  
 
 ### Usage
 
-Run `$ astro cluster <subcommand>` in your terminal to see or access available clusters on your platform. This command is primarily used for Enterprise platforms with multiple clusters.
+Run `$ astro cluster <subcommand>` in your terminal to see or access available Astronomer clusters.
 
 ### Subcommands
 
 | Subcommand | Usage                                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `list`     | Run `$ astro cluster list` to retrieve a list of all available clusters.                                                       |
-| `switch`   | Run `$ astro cluster switch` to retrieve a list of available clusters, then enter the ID of the cluster you want to switch to. |
+| `switch`   | Run `$ astro cluster switch` to retrieve a list of available clusters, then enter the ID of the cluster you want to switch to. Once that command is successful, authenticate to that cluster by running `$ astro auth login <base-domain>`. |
 
 ## astro completion
 
@@ -54,8 +56,8 @@ Use `$ astro completion <subcommand>` to generate autocompletion scripts for Ast
 
 Note that MacOS users need to install [Bash Completion](https://github.com/scop/bash-completion) before creating autocompletion scripts. To install Bash Completion via Homebrew, run the following command:
 
-```
-brew install bash-Completion
+```sh
+$ brew install bash-Completion
 ```
 
 ### Subcommands
@@ -100,13 +102,19 @@ The values that you can update via the command line are:
 | `get`      | Shows your current configuration                       |
 | `set`      | Updates a setting in your configuration to a new value |
 
+### Related documentation
+
+- [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/apply-platform-config)
+
 ## astro deploy
 
-Deploys local code to an Airflow Deployment.
+Deploys code in your Airflow project directory to any Airflow Deployment on Astronomer.
 
 ### Usage
 
-Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer. A Deployment's release name can be found in the Astronomer UI under **Settings**>**Basics**>**Release Name**.
+Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer. If you have the appropriate Workspace and Deployment-level permissions, the code will begin to deploy.
+
+To identify your Deployment's release name, go to **Settings** >**Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
 
 Alternatively, you can run the command without specifying `<your-deployment-release-name>` to select from a list of possible Deployments.
 
@@ -115,9 +123,9 @@ Alternatively, you can run the command without specifying `<your-deployment-rele
 | Flag                                     | Usage                                                                                                                     |
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `--force`                                | Forces deploy even if there are uncommitted changes.                                                                      |
-| `--prompt`                               | Forces prompt to choose target Deployment                                                                                 |
-| `--save`                                 | Saves deployment in config for future deploys                                                                             |
-| `--workspace-id + <your-workspace-name>` | Specifies the Workspace that the Airflow Deployment belongs to. Useful if you want to deploy without switching Workspaces |
+| `--prompt`                               | Forces prompt to choose target Deployment.                                                                                 |
+| `--save`                                 | Associates which Deployment you chose with the directory you're in so that you don't have to specify a Deployment release name in the future.                                                                          |
+| `--workspace-id + <your-workspace-name>` | Specifies the Workspace that the Airflow Deployment belongs to. Useful if you want to deploy without switching Workspaces. |
 
 ### Related documentation
 
