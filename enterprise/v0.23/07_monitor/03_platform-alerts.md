@@ -35,51 +35,18 @@ Alertmanager is the Astronomer platform component that manages alerts, including
 
 You can configure [Alertmanager](https://prometheus.io/docs/alerting/configuration/) to send alerts to email, HipChat, PagerDuty, Pushover, Slack, OpsGenie, and more by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml).
 
-### Configure an alert route
-
-You can configure Alertmanager's `route` block by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml). The `route` block determines which alerts should be sent to which receivers, as well as settings such as how often alerts should be sent. You can find more information on the `route` block in the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/#route).
-
-This example `route` first checks whether an alert has a `status` of `critical`. If the alert is `critical`, then another check is made to determine the alert's `tier`. This allows the `route` to send the alert to different receivers depending on its `status` and `tier`.
-
-```yaml
-alertmanager.yaml: |-
-  route:
-    group_wait: 30s
-    group_interval: 5m
-    group_by: [alertname]
-    repeat_interval: 3h
-    receiver: default-receiver
-    routes:
-{{ if .Values.customRoutes }}
-{{ toYaml .Values.customRoutes | trim | indent 6 }}
-{{ end }}
-    {{ if .Values.receivers.platformCritical }}
-    - receiver: platform-critical-receiver
-      continue: true  # allows alert to continue down the tree matching any additional child routes
-      match:
-        severity: critical
-        tier: platform
-    {{ end }}
-    - receiver: {{ if .Values.receivers.platform }} platform-receiver {{ else }} blackhole-receiver {{ end }} ## routes alert to a platform-specific receiver if its tier is platform
-      match_re:
-        tier: platform
-    - receiver: {{ if .Values.receivers.airflow }} airflow-receiver {{ else }} default-receiver {{ end }} ## routes alert to an airflow-specific receiver if its tier is airflow
-      group_by: [deployment, alertname]
-      match_re:
-        tier: airflow
-    - receiver: blackhole-receiver
-      match:
-        silence: cre
-```
-
 ### Configure an alert receiver
 
-Admins can subscribe to platform alerts by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml).
+You can subscribe to platform alerts by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml) via your `config.yaml` file.
 
-You'll receive all possible platform alerts at the `receiver` you specify. For example, coupled with the `route` in the previous section, the following configuration would cause platform alerts with a `critical` severity to appear in a specified Slack channel:
+The Alertmanager Helm chart contains a section where you can specify different alert receivers. For example, the following configuration would cause platform alerts with a `critical` severity to appear in a specified Slack channel:
 
-```
-{{- if .Values.receivers.platformCritical }}
+```yaml
+receivers:
+  # Configs for platform alerts
+  platform: {}
+
+  platformCritical: {
     - name: platform-critical-receiver
       slack_configs:
       - api_url: https://hooks.slack.com/services/T02J89GPR/BDBSG6L1W/4Vm7zo542XYgvv3
@@ -88,9 +55,10 @@ You'll receive all possible platform alerts at the `receiver` you specify. For e
           {{ range .Alerts }}{{ .Annotations.description }}
           {{ end }}
         title: '{{ .CommonAnnotations.summary }}'
+  }
 ```
 
-For more information on configuring the Alertmanager ConfigMap, read the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).
+To add a new receiver to Astronomer Enterprise, add the receiver object to your `config.yaml` file and push the changes to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). For more information on building and configuring receivers, read the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).
 
 ## Built-in Alerts
 
