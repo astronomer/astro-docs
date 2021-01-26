@@ -24,7 +24,7 @@ Run `$ astro auth <subcommand>` in your terminal to log in or out of your Astron
 
 | Subcommand | Usage                                                                                                                                                                                                    |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `login`    | For Cloud login, run `$ astro auth login gcp0001.us-east4.astronomer.io` to authenticate to a cluster. For Enterprise, run `$ astro auth login BASEDOMAIN`. |
+| `login`    | To authenticate to Astronomer Cloud, run `$ astro auth login gcp0001.us-east4.astronomer.io`. For Enterprise, run `$ astro auth login <base-domain>`. |
 | `logout`   | After logging in, run `$ astro auth logout` to log out of Astronomer.                                                                                                                                    |
 
 ## astro cluster
@@ -152,7 +152,7 @@ Upgrades the Airflow version for a Deployment.
 
 ## astro deployment create
 
-Creates a new Deployment on Astronomer.
+Creates a new Airflow Deployment in your current Astronomer Workspace.
 
 ### Usage
 
@@ -163,7 +163,7 @@ Creates a new Deployment on Astronomer.
 | Flag                | Value Type | Usage                                                                                 |
 | ------------------- | ---------- | ------------------------------------------------------------------------------------- |
 | `--airflow-version` | String     | The Airflow version for the new Deployment.                                           |
-| `--cloud-role`      | String     | The role that annotates service accounts in the Deployment                            |
+| `--cloud-role`      | String     | The role that annotates service accounts in the Deployment.                            |
 | `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`.      |
 | `--release-name`    | String     | A custom `release-name`. Only applies to Deployments using the `kubernetes` Executor. |
 
@@ -173,7 +173,7 @@ Creates a new Deployment on Astronomer.
 
 ## astro deployment delete
 
-Deletes a Deployment.
+Deletes an Airflow Deployment from an Astronomer Workspace. This is equivalent to the **Delete Deployment** action in the Astronomer UI.
 
 ### Usage
 
@@ -181,7 +181,7 @@ Deletes a Deployment.
 
 ## astro deployment list
 
-Generates a list of Deployments from a single Workspace.
+Generates a list of Airflow Deployments in your current Astronomer Workspace.
 
 ### Usage
 
@@ -195,7 +195,7 @@ Generates a list of Deployments from a single Workspace.
 
 ## astro deployment logs
 
-Returns logs from the given Deployment component.
+Returns logs from your Airflow Deployment's Scheduler, Webserver, and Celery Workers.
 
 ### Usage
 
@@ -209,7 +209,7 @@ You can run any of the following commands depending on which logs you want to re
 
 | Flag       | Value Type                                    | Usage                                                               |
 | ---------- | --------------------------------------------- | ------------------------------------------------------------------- |
-| `--follow` | None                                          | Subscribe to watch more logs                                        |
+| `--follow` | None                                          | Subscribe to watch more logs.                                        |
 | `--search` | String                                        | Searches for the specified string inside the logs you're following. |
 | `--since`  | Lookback time in `h` or `m` (e.g. `5m`, `2h`) | Limits past logs to those generated in the lookback window.         |
 
@@ -219,7 +219,7 @@ You can run any of the following commands depending on which logs you want to re
 
 ## astro deployment service-account create
 
-Creates a Service Account for a given Deployment.
+Creates a Deployment-level Service Account on Astronomer, which you can use to configure a CI/CD pipeline or otherwise interact with the Astronomer Houston API.
 
 ### usage
 
@@ -278,7 +278,7 @@ Gets a Service Account for a given Deployment.
 
 ## astro deployment update
 
-Updates the IAM role for a Deployment. This is used only for Deployments hosted on Amazon EKS.
+This command appends an IAM role to the Webserver, Scheduler and Worker pods within any individual Airflow Deployment on the platform. Only applicable to teams running Astronomer Enterprise on Amazon EKS.
 
 ### Usage
 
