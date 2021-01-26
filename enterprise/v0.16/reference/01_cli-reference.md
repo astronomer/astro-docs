@@ -26,7 +26,7 @@ If you have access to more than one Astronomer platform, you'll have access to m
 
 | Subcommand | Usage                                                                                                                                                                                                    |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `login`    | For Cloud login, run `$ astro auth login gcp0001.us-east4.astronomer.io` to authenticate to a cluster. For Enterprise, run `$ astro auth login BASEDOMAIN`. |
+| `login`    | To authenticate to Astronomer Cloud, run `$ astro auth login gcp0001.us-east4.astronomer.io`. For Enterprise, run `$ astro auth login <base-domain>`. |
 | `logout`   | After logging in, run `$ astro auth logout` to log out of Astronomer.                                                                                                                                    |
 
 ## astro cluster
@@ -166,7 +166,7 @@ If you do not specify `--desired-airflow-version`, this command will output a li
 
 ## astro deployment create
 
-Creates a new Deployment on Astronomer.
+Creates a new Airflow Deployment in your current Astronomer Workspace.
 
 ### Usage
 
@@ -187,7 +187,7 @@ Creates a new Deployment on Astronomer.
 
 ## astro deployment delete
 
-Deletes a Deployment from your current Astronomer Workspace.
+Deletes an Airflow Deployment from an Astronomer Workspace. This is equivalent to the **Delete Deployment** action in the Astronomer UI.
 
 ### Usage
 
@@ -195,7 +195,7 @@ Deletes a Deployment from your current Astronomer Workspace.
 
 ## astro deployment list
 
-Generates a list of Deployments from your current Workspace.
+Generates a list of Airflow Deployments in your current Astronomer Workspace.
 
 ### Usage
 
@@ -209,7 +209,7 @@ Generates a list of Deployments from your current Workspace.
 
 ## astro deployment logs
 
-Returns logs from the given Deployment component.
+Returns logs from your Airflow Deployment's Scheduler, Webserver, and Celery Workers.
 
 ### Usage
 
@@ -223,7 +223,7 @@ You can run any of the following commands depending on which logs you want to re
 
 | Flag       | Value Type                                    | Usage                                                               |
 | ---------- | --------------------------------------------- | ------------------------------------------------------------------- |
-| `--follow` | None                                          | Subscribe to watch more logs                                        |
+| `--follow` | None                                          | Subscribe to watch more logs.                                        |
 | `--search` | String                                        | Searches for the specified string inside the logs you're following. |
 | `--since`  | Lookback time in `h` or `m` (e.g. `5m`, `2h`) | Limits past logs to those generated in the lookback window.         |
 
@@ -233,7 +233,7 @@ You can run any of the following commands depending on which logs you want to re
 
 ## astro deployment service-account create
 
-Creates a Service Account for a given Deployment.
+Creates a Deployment-level Service Account on Astronomer, which you can use to configure a CI/CD pipeline or otherwise interact with the Astronomer Houston API.
 
 ### usage
 
@@ -292,7 +292,7 @@ Run `$ astro deployment service-account get <service-account-id> --deployment-id
 
 ## astro deployment update
 
-Updates the IAM role for a Deployment. This is used only for Deployments hosted on Amazon EKS.
+This command appends an IAM role to the Webserver, Scheduler and Worker pods within any individual Airflow Deployment on the platform. Only applicable to teams running Astronomer Enterprise on Amazon EKS.
 
 ### Usage
 
