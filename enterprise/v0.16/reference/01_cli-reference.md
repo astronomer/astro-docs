@@ -20,7 +20,7 @@ Authenticates the current user to Astronomer.
 
 Run `$ astro auth <subcommand> <base-domain>` in your terminal to log in or out of your Astronomer platform. This is equivalent to using the login screen of the Astronomer UI.
 
-If you have access to more than one Astronomer platform, you'll have access to multiple `<base-domains>`. When switching between platforms, make sure to log out of one `<base domain>` before logging into another.
+If you have access to more than one Astronomer platform, each will have a unique `<base-domain>`. When switching between platforms, make sure to log out of one `<base domain>` before logging into another.
 
 ### Subcommands
 
@@ -110,9 +110,9 @@ Deploys code in your Airflow project directory to any Airflow Deployment on Astr
 
 ### Usage
 
-Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer. If you have the appropriate Workspace and Deployment-level permissions, the code will begin to deploy.
+Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer in the form of a Docker image. If you have the appropriate Workspace and Deployment-level permissions, your code will be pushed to Astronomer's Docker Registry and applied to your Airflow Webserver, Scheduler(s), and Worker(s).
 
-To identify your Deployment's release name, go to **Settings** >**Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
+To identify your Deployment's release name, go to **Settings** > **Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
 
 If you run `$ astro deploy` without specifying `your-deployment-release-name`, the Astronomer CLI will output a list of Airflow Deployments in your Workspace to choose from.
 
