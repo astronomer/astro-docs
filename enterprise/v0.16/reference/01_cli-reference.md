@@ -333,7 +333,7 @@ Removes access to an Airflow Deployment for an existing Workspace user. To grant
 
 ### Usage
 
-`$ astro deployment user delete <flags> <user-email-address>`
+`$ astro deployment user delete --deployment-id=<deployment-id> <user-email-address>`
 
 ### Flags
 
@@ -464,9 +464,17 @@ Runs a single [Airflow command](https://airflow.apache.org/docs/apache-airflow/s
 
 `$ astro dev run`
 
+### Related documentation
+
+* [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.16/develop/cli-quickstart)
+
 ## astro dev start
 
-Starts an Airflow cluster locally using `docker-compose`
+Initializes a local Airflow environment on your machine by creating a Docker container for each of Airflow's 3 core components:
+
+- Postgres
+- Scheduler
+- Webserver
 
 ### Usage
 
@@ -480,7 +488,7 @@ Starts an Airflow cluster locally using `docker-compose`
 
 ## astro dev stop
 
-Stops a locally running Airflow cluster.
+Stops all 3 running Docker containers on your local Airflow environment. Running this command followed by `$ astro dev start` is required to finalize changes to an existing Airflow project directory. This command does not prune mounted volumes and will preserve data associated with your local Postgres Metadata Database.
 
 ### Usage
 
@@ -488,7 +496,7 @@ Stops a locally running Airflow cluster.
 
 ## astro dev upgrade-check
 
-Runs a test which checks whether a local Airflow project is ready to be upgraded to Airflow 2.0. You must be on Airflow 1.0.14 and in a project directory to run this command.
+Runs a script that checks whether all files in your local Airflow project are compatible with Airflow 2.0 by reviewing your DAG code, deployment-level configurations, and Environment Variables, as well as metadata from the Airflow Database. You must be on Airflow 1.0.14 and in a project directory to run this command.
 
 ### Usage
 
@@ -514,7 +522,7 @@ $ brew install astronomer/tap/astro
 
 ## astro user create
 
-Creates a new user on your Astronomer platform. After specifying an email address and a password, an invitation email will be sent to the address you specified.
+Creates a new user on Astronomer that's not associated with an existing Astronomer Workspace. An invitation email will be sent to the email address you specify. Once this user creates an account on Astronomer, they'll be able create a new Workspace and be a Workspace Admin within it.
 
 ### Usage
 
@@ -538,6 +546,10 @@ Displays the current versions for both the Astronomer CLI and your Astronomer Se
 ### Usage
 
 `$ astro version`
+
+### Related documentation
+
+* [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.16/develop/cli-quickstart)
 
 ## astro workspace
 
