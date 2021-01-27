@@ -230,9 +230,9 @@ While corresponding minor versions of the Astronomer Platform and the Astronomer
 
 ### Check Running Astronomer CLI and Platform Versions
 
-To check your working version of the Astronomer CLI (`Astro CLI`) and the Astronomer Platform (`Astro Server Version`), run:
+To check your working versions of Astronomer (`Astro Server Version`) and the Astronomer CLI (`Astro CLI`), run:
 
-```
+```sh
 $ astro version
 ```
 
@@ -245,9 +245,9 @@ Astro Server Version: 0.23.9
 Git Commit: 748ca2e9de1e51e9f48f9d85eb8315b023debc2f
 ```
 
-If the minor versions between the two don't match, you'll receive an error message in your command line with instructions to either upgrade or downgrade. If you have access to more than one Astronomer Enterprise installation, `Astro Server Version` will correspond to the `<base-domain>` that you're currently authenticated into.
+If the minor versions for the two components don't match, you'll receive an error message in your command line with instructions to either upgrade or downgrade the Astronomer CLI accordingly. If you're running v0.16.10 of Astronomer and v0.23.2 of the Astronomer CLI, for example, you'll be instructed to downgrade the CLI to the latest in the v0.16 series. If you have access to more than one Astronomer Enterprise installation, `Astro Server Version` will correspond to the `<base-domain>` that you're currently authenticated into.
 
-For more information on Astronomer Platform and CLI releases, refer to:
+For more information on Astronomer and Astronomer CLI releases, refer to:
 
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
 * [Astronomer Release Notes](https://www.astronomer.io/docs/enterprise/v0.23/resources/release-notes)
