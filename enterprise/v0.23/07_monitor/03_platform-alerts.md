@@ -39,7 +39,7 @@ You can configure [Alertmanager](https://prometheus.io/docs/alerting/configurati
 
 You can subscribe to platform alerts by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml) via your `config.yaml` file.
 
-The Alertmanager Helm chart contains a section where you can specify different alert receivers. For example, the following configuration would cause platform alerts with a `critical` severity to appear in a specified Slack channel:
+The [Alertmanager Helm chart](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/values.yaml) contains a section where you can specify different alert receivers. For example, the following configuration would cause platform alerts with a `critical` severity to appear in a specified Slack channel:
 
 ```yaml
 receivers:
@@ -58,7 +58,7 @@ receivers:
   }
 ```
 
-To add a new receiver to Astronomer Enterprise, add the receiver object to your `config.yaml` file and push the changes to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). For more information on building and configuring receivers, read the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).
+To add a new receiver to Astronomer Enterprise, add the receiver object to your `config.yaml` file and push the changes to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). The receivers you add must be in the same order and format as they appear in the Alertmanager Helm chart. For more information on building and configuring receivers, read the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).
 
 ## Built-in Alerts
 
@@ -95,11 +95,11 @@ Alerts are created by adding a new `alert` object to your `config.yaml` file.
 Each `alert` object contains the following key-value pairs:
 
 * `expr`: The logic that determines when the alert will fire, written in PromQL.
-* `for`: How long the `expr` logic has to be true for the alert to fire. This can be defined in minutes or hours (e.g. `5m` or `2h`).
+* `for`: The length of time that the `expr` logic has to be true for the alert to fire. This can be defined in minutes or hours (e.g. `5m` or `2h`).
 * `labels.tier`: The level of your platform that the alert should operate at. Can be either `airflow` or `platform`.
-* `labels.severity`: How severe the alert is. Possible values are `info`, `warning`, and `critical`.
+* `labels.severity`: The severity of the alert. Can be either `critical` or null.
 * `annotations.summary`: The text for the alert that's sent via Alertmanager.
-* `annotations.description`: Human-readable description of what the alert does.
+* `annotations.description`: A human-readable description of what the alert does.
 
 For example, the following platform alert will fire if more than 2 Airflow Schedulers across the platform are not heartbeating for more than 5 minutes:
 
@@ -124,4 +124,4 @@ additionalAlerts:
 
 Because platform alerts are built in .yaml, you can push them to your platform in the same way you push other platform configuration changes: Add the alert to your `config.yaml` file and push the file via Helm as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
-Once you've pushed the alert to your platform, make sure that you've configured your Alertmanager `route` to send the alert to an appropriate receiver based on either its `tier` or `severity`. For more information, read [Configure AlertManager](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts#configure-alertmanager).
+Once you've pushed the alert to your platform, make sure that you've configured Alertmanager to send the alert to an appropriate receiver based on either its `tier` or `severity`. For more information, read [Configure AlertManager](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts#configure-alertmanager).
