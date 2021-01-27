@@ -100,7 +100,7 @@ If the upgrade was successful, you should be able to:
 * Open the Airflow UI for each of your Deployments
 * Access logs for your DAGs in the Airflow UI.
 
-## Step 8: Upgrade your Astronomer CLI
+## Step 8: Upgrade the Astronomer CLI to v0.23
 
 To ensure reliability and full access to features included in Astronomer v0.23, all users must upgrade to v0.23 of the Astronomer CLI. We recommend the latest available version, though you may choose to install a particular patch release within the v0.23 series.
 
