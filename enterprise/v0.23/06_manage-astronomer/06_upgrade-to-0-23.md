@@ -102,7 +102,7 @@ If the upgrade was successful, you should be able to:
 
 ## Step 8: Upgrade the Astronomer CLI to v0.23
 
-To ensure reliability and full access to features included in Astronomer v0.23, all users must upgrade to v0.23 of the Astronomer CLI. We recommend the latest available version, though you may choose to install a particular patch release within the v0.23 series.
+To ensure reliability and full access to features included in Astronomer v0.23, all users must upgrade to v0.23 of the Astronomer CLI following an upgrade from v0.16. We recommend the latest available version, though you may choose to install a particular patch release within the v0.23 series.
 
 To upgrade to the latest available v0.23 version of the Astronomer CLI, run:
 

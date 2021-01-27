@@ -252,13 +252,13 @@ For more information on Astronomer Platform and CLI releases, refer to:
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
 * [Astronomer Release Notes](https://www.astronomer.io/docs/enterprise/v0.23/resources/release-notes)
 
-### Beyond the Astronomer CLI
+## Beyond the Astronomer CLI
 
 Looking for additional next steps after installing the Astronomer CLI? We recommend reading through the following guides:
 
-* [Deploying to Astronomer](/docs/enterprise/v0.23/deploy/deploy-cli/)
-* [Customizing Your Image](/docs/enterprise/v0.23/develop/customize-image/)
-* [Manage Airflow Versions](/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/)
+* [Deploy to Astronomer](/docs/enterprise/v0.23/deploy/deploy-cli/)
+* [Customize Your Image](/docs/enterprise/v0.23/develop/customize-image/)
+* [Upgrade Apache Airflow on Astronomer](/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/)
 * [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.23/deploy/ci-cd/)
 
 As always, don't hesitate to reach out to [Astronomer Support](https://support.astronomer.io/hc/en-us) or post in our [Astronomer Forum](https://forum.astronomer.io/) for additional questions.
