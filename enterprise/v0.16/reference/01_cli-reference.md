@@ -500,12 +500,12 @@ Runs a script that checks whether all files in your local Airflow project are co
 
 ### Usage
 
-`$astro dev upgrade-check`
+`$ astro dev upgrade-check`
 
 ### Related documentation
 
 - [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/upgrade-to-airflow-2)
-
+- [Running the Airflow Upgrade Check Package](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html#upgrade-check)
 ## astro upgrade
 
 Checks for a newer version of the Astronomer CLI.
@@ -514,12 +514,11 @@ Checks for a newer version of the Astronomer CLI.
 
 `$ astro upgrade`
 
-> **Note:** This command only checks if a new version of the CLI is available. To actually upgrade the CLI, you have to run an additional Homebrew command:
-
-```sh
-$ brew install astronomer/tap/astro
-```
-
+> **Note:** This command only checks whether or not a new version of the Astronomer CLI is available. To actually upgrade the CLI to the latest version, run:
+> 
+> ```sh
+> $ brew install astronomer/tap/astro
+> ```
 ## astro user create
 
 Creates a new user on Astronomer that's not associated with an existing Astronomer Workspace. An invitation email will be sent to the email address you specify. Once this user creates an account on Astronomer, they'll be able create a new Workspace and be a Workspace Admin within it.
@@ -537,11 +536,12 @@ Creates a new user on Astronomer that's not associated with an existing Astronom
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
+- [Manage Workspace Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
+- [Manage Users on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/manage-platform-users)
 
 ## astro version
 
-Displays the current versions for both the Astronomer CLI and your Astronomer Server.
+Displays the running versions of both the Astronomer CLI and the Astronomer platform to which you are authenticated. If the minor versions of the Astronomer CLI and your Astronomer platform don't match, we encourage you to upgrade.
 
 ### Usage
 
