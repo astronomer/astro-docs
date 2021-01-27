@@ -137,7 +137,7 @@ Manages various Deployment-level actions on Astronomer.
 
 Run `$ astro deployment <subcommand>` in your terminal to create, delete, or manage an Airflow Deployment on Astronomer. See the following entries of this guide for more information on each subcommand.
 
-When managing an existing Deployment using subcommands such as `delete` and `logs`, you additionally need to specify a Deployment in your command. In this case, you would run `$ astro deployment <subcommand> <your-deployment>`.
+When applying subcommands such as `delete` and `logs`, you'll have to specify which of your Airflow Deployments the command should apply to. In this case, you would run `$ astro deployment <subcommand> <your-deployment>`.
 
 ### Related documentation
 
@@ -149,7 +149,7 @@ Initializes the Airflow version upgrade process on any Airflow Deployment on Ast
 
 ### Usage
 
-Run `$ astro deployment airflow upgrade --deployment-id` to initialize the Airflow upgrade process. To finalize the Airflow upgrade process, complete all of the steps as described in [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions).
+Run `$ astro deployment airflow upgrade --deployment-id` to initialize an upgrade to a new version of Apache Airflow. To finalize the change, complete the steps described in [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions).
 
 If you do not specify `--desired-airflow-version`, this command will output a list of available versions of Airflow you can choose from and prompt you to pick one. The Astronomer CLI will only make available versions of Airflow that are higher than the version you're currently running in your `Dockerfile`.
 
@@ -223,7 +223,7 @@ You can run any of the following commands depending on which logs you want to re
 
 | Flag       | Value Type                                    | Usage                                                               |
 | ---------- | --------------------------------------------- | ------------------------------------------------------------------- |
-| `--follow` | None                                          | Subscribe to watch more logs.                                        |
+| `--follow` | None                                          | Subscribe to watch logs populate your command line in real-time.                                       |
 | `--search` | String                                        | Searches for the specified string inside the logs you're following. |
 | `--since`  | Lookback time in `h` or `m` (e.g. `5m`, `2h`) | Limits past logs to those generated in the lookback window.         |
 
@@ -284,7 +284,7 @@ Run `$ astro deployment service-account get <service-account-id> --deployment-id
 
 | Flag              | Value Type | Usage                                                                                                                              |
 | ----------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `--deployment-id` | String     | The Deployment you're getting the Service Account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
+| `--deployment-id` | String     | The Airflow Deployment in which the Service Account is configured. Use this flag as an alternative to specifying `<your-service-account-id>`. |
 
 ### Related documentation
 
@@ -347,7 +347,7 @@ Removes an existing user from the Workspace to a given Deployment.
 
 ## astro deployment user list
 
-Searches for users on a given Deployment.
+Lists all users with access to a given Airflow Deployment in your current Astronomer Workspace.
 
 ### Usage
 
