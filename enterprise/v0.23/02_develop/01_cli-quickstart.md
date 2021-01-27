@@ -228,6 +228,8 @@ For every minor version of the Astronomer Platform, a corresponding minor versio
 
 While corresponding minor versions of the Astronomer Platform and the Astronomer CLI are required, subsequent patch versions do not need to match and will not introduce breaking changes. The release of Astronomer v0.23.9, for example, does not mean that v0.23.9 of the Astronomer CLI exists or is required.
 
+### Check Running Astronomer CLI and Platform Versions
+
 To check your working version of the Astronomer CLI (`Astro CLI`) and the Astronomer Platform (`Astro Server Version`), run:
 
 ```
