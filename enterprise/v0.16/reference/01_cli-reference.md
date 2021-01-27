@@ -237,16 +237,16 @@ Creates a Deployment-level Service Account on Astronomer, which you can use to c
 
 ### usage
 
-`$ astro deployment service-account create <flags>`
+`$ astro deployment service-account create --deployment-id=<your-deployment-id> --label=<your-label> <flags>`
 
 ### Flags
 
 | Flag                         | Value Type | Usage                                                                                                        |
 | ---------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ |
-| `--category`                 | String     | The Category for the Service Account. The default value is `default`.                                        |
+| `--category`                 | String     | The Category for the new Service Account. The default value is `default`.                                        |
 | `--deployment-id` (Required) | String     | The Deployment you're creating a Service Account for.                                                        |
-| `--label` (Required)         | String     | A label for the Service Account.                                                                             |
-| `--role`                     | String     | The User Role for the Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`. |
+| `--label` (Required)         | String     | A label for the new Service Account.                                                                             |
+| `--role`                     | String     | The User Role for the new Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`. |
 | `--system-sa`                | None       | ??                                                                                                           |
 | `--user-id`                  | String     | ??                                                                                                           |
 
@@ -314,7 +314,7 @@ Gives an existing Workspace user access to an Airflow Deployment within that Wor
 
 ### Usage
 
-`$ astro deployment user add <flags> <user-email-address>`
+`$ astro deployment user add--deployment-id=<user-deployment-id> --role<user-role> <user-email-address> `
 
 ### Flags
 
@@ -372,7 +372,7 @@ Updates a user's role in a given Deployment.
 
 ### Usage
 
-`$ astro deployment user update <flags>`
+`$ astro deployment user update --deployment-id=<deployment-id> <flags>`
 
 ### Flags
 
@@ -515,7 +515,7 @@ Checks for a newer version of the Astronomer CLI.
 `$ astro upgrade`
 
 > **Note:** This command only checks whether or not a new version of the Astronomer CLI is available. To actually upgrade the CLI to the latest version, run:
-> 
+>
 > ```sh
 > $ brew install astronomer/tap/astro
 > ```
@@ -609,7 +609,7 @@ Creates a Service Account for a given Workspace.
 
 ### Usage
 
-`$ astro workspace service-account create <flags>`
+`$ astro workspace service-account create --workspace-id=<your-workspace> --label=<your-label> <flags>`
 
 ### Flags
 
@@ -687,14 +687,14 @@ Adds an existing user from the Workspace to a given Workspace.
 
 ### Usage
 
-`$ astro workspace user add <flags> <user-email-address>`
+`$ astro workspace user add --workspace-id=<your-workspace-id> <flags> <user-email-address>`
 
 ### Flags
 
 | Flag                        | Value Type | Usage                                                                                                                                        |
 | --------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--workspace-id` (Required) | String     | The Workspace that the user will be added to.                                                                                                |
-| `--role` (Required)         | String     | The role assigned to the user. Can be `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. The default value is `WORKSPACE_VIEWER`. |
+| `--role`        | String     | The role assigned to the user. Can be `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. If `--role` is not specified, the default role is `WORKSPACE_VIEWER`. |
 
 ### Related documentation
 
@@ -718,7 +718,7 @@ Searches for users on a given Workspace.
 
 ### Usage
 
-`$ astro workspace user list USERS <flags>`
+`$ astro workspace user list --workspace-id=<your-workspace-id> <flags>`
 
 ### Flags
 
@@ -745,7 +745,7 @@ Updates a user's role in your current Workspace.
 
 | Flag | Value Type | Usage |
 | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- | |
-| `--role` (Required) | String | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. |
+| `--role` | String | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. If `--role` is not specified, the user is updated to `WORKSPACE_VIEWER` by default. |
 
 ### Related documentation
 
