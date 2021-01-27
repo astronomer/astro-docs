@@ -14,24 +14,24 @@ Additionally, this document does not contain installation instructions for the C
 
 ## astro auth
 
-Authenticates the current user to Astronomer.
+Authenticates you to Astronomer.
 
 ### Usage
 
 Run `$ astro auth <subcommand> <base-domain>` in your terminal to log in or out of your Astronomer platform. This is equivalent to using the login screen of the Astronomer UI.
 
-If you have access to more than one Astronomer platform, each will have a unique `<base-domain>`. When switching between platforms, make sure to log out of one `<base domain>` before logging into another.
+If you have access to more than one Astronomer platform, you'll have access to multiple `<base-domains>`. When switching between platforms, make sure to log out of one `<base domain>` before logging into another.
 
 ### Subcommands
 
-| Subcommand | Usage                                                                                                                                                                                                    |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Subcommand | Usage                                                                                                                                                 |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `login`    | To authenticate to Astronomer Cloud, run `$ astro auth login gcp0001.us-east4.astronomer.io`. For Enterprise, run `$ astro auth login <base-domain>`. |
-| `logout`   | After logging in, run `$ astro auth logout` to log out of Astronomer.                                                                                                                                    |
+| `logout`   | After logging in, run `$ astro auth logout` to log out of Astronomer.                                                                                 |
 
 ## astro cluster
 
-Allows Astronomer Enterprise users to switch between the Astronomer clusters they have access to.  
+Allows Astronomer Enterprise users to switch between the Astronomer clusters they have access to.
 
 ### Usage
 
@@ -39,9 +39,9 @@ Run `$ astro cluster <subcommand>` in your terminal to see or access available A
 
 ### Subcommands
 
-| Subcommand | Usage                                                                                                                          |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `list`     | Run `$ astro cluster list` to retrieve a list of all available clusters.                                                       |
+| Subcommand | Usage                                                                                                                                                                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `list`     | Run `$ astro cluster list` to retrieve a list of all available clusters.                                                                                                                                                                    |
 | `switch`   | Run `$ astro cluster switch` to retrieve a list of available clusters, then enter the ID of the cluster you want to switch to. Once that command is successful, authenticate to that cluster by running `$ astro auth login <base-domain>`. |
 
 ## astro completion
@@ -67,7 +67,7 @@ $ brew install bash-Completion
 
 ## astro config
 
-Lets you modify certain settings on your Astronomer Enterprise platform without needing to push an entirely new configuration.
+Modifies certain platform-level settings on Astronomer Enterprise without you needing to manually adjust settings in your `config.yaml` and apply them.
 
 ### Usage
 
@@ -110,20 +110,20 @@ Deploys code in your Airflow project directory to any Airflow Deployment on Astr
 
 ### Usage
 
-Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer in the form of a Docker image. If you have the appropriate Workspace and Deployment-level permissions, your code will be pushed to Astronomer's Docker Registry and applied to your Airflow Webserver, Scheduler(s), and Worker(s).
+Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer. If you have the appropriate Workspace and Deployment-level permissions, the code will begin to deploy.
 
-To identify your Deployment's release name, go to **Settings** > **Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
+To identify your Deployment's release name, go to **Settings** >**Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
 
 If you run `$ astro deploy` without specifying `your-deployment-release-name`, the Astronomer CLI will output a list of Airflow Deployments in your Workspace to choose from.
 
 ### Flags
 
-| Flag                                     | Usage                                                                                                                     |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `--force`                                | Forces deploy even if there are uncommitted changes.                                                                      |
-| `--prompt`                               | Forces prompt to choose target Deployment.                                                                                 |
-| `--save`                                 | Associates which Deployment you chose with the directory you're in so that you don't have to specify a Deployment release name in the future.                                                                          |
-| `--workspace-id + <your-workspace-name>` | Specifies the Workspace that the Airflow Deployment belongs to. Useful if you want to deploy without switching Workspaces. |
+| Flag             | Value Type | Usage                                                                                                                      |
+| ---------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--force`        | None       | Forces deploy even if there are uncommitted changes.                                                                       |
+| `--prompt`       | None       | Forces prompt for choosing a target Deployment.                                                                            |
+| `--save`         | None       | Saves this directory/Deployment combination for future deploys.                                                            |
+| `--workspace-id` | String     | Specifies the Workspace that the Airflow Deployment belongs to. Useful if you want to deploy without switching Workspaces. |
 
 ### Related documentation
 
@@ -155,10 +155,10 @@ If you do not specify `--desired-airflow-version`, this command will output a li
 
 ### Flags
 
-| Flag                        | Value Type | Usage                                        |
-| --------------------------- | ---------- | -------------------------------------------- |
+| Flag                        | Value Type | Usage                                                                                                                       |
+| --------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `--deployment-id`           | String     | The ID of the Deployment you want to upgrade Airflow for. To find the ID of your Deployment, run `$ astro deployment list`. |
-| `--desired-airflow-version` | String     | The Airflow version you're upgrading to (e.g. `1.10.14`).     |
+| `--desired-airflow-version` | String     | The Airflow version you're upgrading to (e.g. `1.10.14`).                                                                   |
 
 ### Related documentation
 
@@ -174,12 +174,12 @@ Creates a new Airflow Deployment in your current Astronomer Workspace.
 
 ### Flags
 
-| Flag                | Value Type | Usage                                                                                 |
-| ------------------- | ---------- | ------------------------------------------------------------------------------------- |
-| `--airflow-version` | String     | The Airflow version for the new Deployment.                                           |
-| `--cloud-role`      | String     | The role that annotates service accounts in the Deployment                            |
+| Flag                | Value Type | Usage                                                                                                                                |
+| ------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `--airflow-version` | String     | The Airflow version for the new Deployment.                                                                                          |
+| `--cloud-role`      | String     | The role that annotates service accounts in the Deployment                                                                           |
 | `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`. If no executor is specified, then `celery` is used. |
-| `--release-name`    | String     | A custom `release-name`. Only applies to Deployments using the `kubernetes` Executor. |
+| `--release-name`    | String     | A custom release name for the Airflow Deployment. Applies only to deployments on Astronomer Enterprise.                                            |
 
 ### Related documentation
 
@@ -205,7 +205,7 @@ Generates a list of Airflow Deployments in your current Astronomer Workspace.
 
 | Flag    | Value Type | Usage                                                |
 | ------- | ---------- | ---------------------------------------------------- |
-| `--all` | None       | Generates a list of Deployments from all Workspaces. |
+| `--all` | None       | Generates a list of running Airflow Deployments across all Workspaces that you have access to. |
 
 ## astro deployment logs
 
@@ -223,7 +223,7 @@ You can run any of the following commands depending on which logs you want to re
 
 | Flag       | Value Type                                    | Usage                                                               |
 | ---------- | --------------------------------------------- | ------------------------------------------------------------------- |
-| `--follow` | None                                          | Subscribe to watch more logs.                                        |
+| `--follow` | None                                          | Subscribe to watch more logs.                                       |
 | `--search` | String                                        | Searches for the specified string inside the logs you're following. |
 | `--since`  | Lookback time in `h` or `m` (e.g. `5m`, `2h`) | Limits past logs to those generated in the lookback window.         |
 
@@ -310,7 +310,7 @@ This command appends an IAM role to the Webserver, Scheduler and Worker pods wit
 
 ## astro deployment user add
 
-Adds an existing user from the Workspace to a given Deployment.
+Gives an existing Workspace user access to an Airflow Deployment within that Workspace. You must be a Deployment Admin to perform this action.
 
 ### Usage
 
@@ -325,11 +325,11 @@ Adds an existing user from the Workspace to a given Deployment.
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
 
 ## astro deployment user delete
 
-Removes an existing user from the Workspace to a given Deployment.
+Removes access to an Airflow Deployment for an existing Workspace user. To grant that same user a different set of permissions instead, modify their existing Deployment-level role by running `$ astro deployment user update`. You must be a Deployment Admin to perform this action.
 
 ### Usage
 
@@ -347,11 +347,11 @@ Removes an existing user from the Workspace to a given Deployment.
 
 ## astro deployment user list
 
-Searches for users on a given Deployment.
+Searches for users on a given Deployment. Use the optional flags to find specific users based on their name, email, or ID.
 
 ### Usage
 
-`$ astro deployment user list USERS <flags>`
+`$ astro deployment user list --deployment-id=<deployment-id> <flags>`
 
 ### Flags
 
@@ -364,7 +364,7 @@ Searches for users on a given Deployment.
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
 
 ## astro deployment user update
 
@@ -379,11 +379,11 @@ Updates a user's role in a given Deployment.
 | Flag                         | Value Type | Usage                                                                                                                      |
 | ---------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `--deployment-id` (Required) | String     | The Deployment that you're searching in.                                                                                   |
-| `--role`                     | String     | The role you're updating the user to. Possible values are `DEPLOYMENT_VIEWER`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_ADMIN`. |
+| `--role`                     | String     | The role you're updating the user to. Possible values are `DEPLOYMENT_VIEWER`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_ADMIN`. If `--role` is unspecified, then `DEPLOYMENT_VIEWER` is the default value. |
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
 
 ## astro dev
 
@@ -625,8 +625,8 @@ Deletes a Service Account for a given Workspace.
 
 ### Flags
 
-| Flag             | Value Type | Usage                                                                                                                             |
-| ---------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Flag             | Value Type | Usage                                                                                                                                                                                                                               |
+| ---------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--workspace-id` | String     | The Workspace you're getting the Service Account from. If this flag is used instead of specifying `<your-service-account-id>`, you'll be prompted to select a Service Account from a list of all Service Accounts on the Workspace. |
 
 ### Related documentation
@@ -641,6 +641,7 @@ Shows the name, ID, and API key for each Service Account on a given Workspace.
 ### Usage
 
 Run `$ astro deployment service-account get <service-account-id> --workspace-id=<your-workspace-id>` to get information on a single Service Account within a Workspace. To see a list of all Service Accounts on a Workspace, run `$ astro deployment service-account get --workspace-id=<your-workspace-id>`.
+
 ### Flags
 
 | Flag             | Value Type | Usage                                                                                                                             |
@@ -730,9 +731,9 @@ Updates a user's role in your current Workspace.
 
 ### Flags
 
-| Flag                        | Value Type | Usage                                                                                                                   |
-| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |                                                                              |
-| `--role` (Required)                    | String     | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. |
+| Flag | Value Type | Usage |
+| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- | |
+| `--role` (Required) | String | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. |
 
 ### Related documentation
 
