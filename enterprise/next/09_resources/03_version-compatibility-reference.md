@@ -1,7 +1,7 @@
 ---
 title: "Version Compatibility Reference for Astronomer Enterprise"
 navTitle: "Version Compatibility Reference"
-description: "A reference of all adjecent tooling required to run Astronomer Enterprise and corresponding version compatibility."
+description: "A reference of all adjacent tooling required to run Astronomer Enterprise and corresponding version compatibility."
 ---
 
 ## Overview
@@ -21,14 +21,14 @@ It's worth noting that while the tables below reference the minimum compatible v
 
 ## Astronomer Certified
 
-| Astronomer Certified    | Postgres | MySQL     | Python        | System Distribution             |
-|-------------------------|----------|-----------|---------------|---------------------------------|
-| 1.10.5                  | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) |
-| 1.10.7                  | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) |
-| 1.10.10                 | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) |
-| 1.10.12                 | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) |
-| 1.10.14 | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              |
-| 2.0.0 (*Coming Soon*)   | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              |
+| Astronomer Certified | Postgres | MySQL     | Python        | System Distribution             | Airflow Helm Chart |
+| -------------------- | -------- | --------- | ------------- | ------------------------------- | ------------------ |
+| 1.10.5               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.7               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.10              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
+| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6             |
 
 For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/next/customize-airflow/manage-airflow-versions/).
 
