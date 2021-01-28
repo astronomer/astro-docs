@@ -108,7 +108,7 @@ $ kubectl apply -f certificate.yaml
 $ kubectl get certificates
 ```
 
-6. Note your your certificate name (`acme-crt`) for when you create a Kubernetes TLS secret and push it to your Enterprise configuration as described in the Enterprise installation guide ([AWS](https://www.astronomer.io/docs/enterprise/v0.23/install/aws/install-aws-standard#step-5-create-a-kubernetes-tls-secret),[GCP](https://www.astronomer.io/docs/enterprise/v0.23/install/gcp/install-gcp-standard#step-5-create-a-kubernetes-tls-secret),[AKS](https://www.astronomer.io/docs/enterprise/v0.23/install/azure/install-azure-standard#step-5-create-a-kubernetes-tls-secret)).
+6. Note your certificate name for when you create a Kubernetes TLS secret and push it to your Enterprise configuration as described in the Enterprise installation guide ([AWS](https://www.astronomer.io/docs/enterprise/v0.23/install/aws/install-aws-standard#step-5-create-a-kubernetes-tls-secret),[GCP](https://www.astronomer.io/docs/enterprise/v0.23/install/gcp/install-gcp-standard#step-5-create-a-kubernetes-tls-secret),[AKS](https://www.astronomer.io/docs/enterprise/v0.23/install/azure/install-azure-standard#step-5-create-a-kubernetes-tls-secret)).
 
 ## Manually Renew TLS Certificates
 
