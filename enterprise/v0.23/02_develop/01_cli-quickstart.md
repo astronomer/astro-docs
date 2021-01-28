@@ -245,7 +245,7 @@ Astro Server Version: 0.23.9
 Git Commit: 748ca2e9de1e51e9f48f9d85eb8315b023debc2f
 ```
 
-If the minor versions for the two components do not match, you'll receive an error message in your command line with instructions to either upgrade or downgrade the Astronomer CLI accordingly. Here, the listed versions of Astronomer and the Astronomer CLI are compatible because they're both in the v0.23 series. If you're running v0.16.10 of Astronomer and v0.23.2 of the Astronomer CLI, for example, you'll be instructed to downgrade the CLI to the latest in the v0.16 series. If you have access to more than one Astronomer Enterprise installation, `Astro Server Version` will correspond to the `<base-domain>` that you're currently authenticated into.
+Here, the listed versions of Astronomer and the Astronomer CLI are compatible because they're both in the v0.23 series. If the minor versions for the two components do not match, you'll receive an error message in your command line with instructions to either upgrade or downgrade the Astronomer CLI accordingly. If you're running v0.16.10 of Astronomer and v0.23.2 of the Astronomer CLI, for example, you'll be instructed to downgrade the CLI to the latest in the v0.16 series. If you have access to more than one Astronomer Enterprise installation, `Astro Server Version` will correspond to the `<base-domain>` that you're currently authenticated into.
 
 For more information on Astronomer and Astronomer CLI releases, refer to:
 
