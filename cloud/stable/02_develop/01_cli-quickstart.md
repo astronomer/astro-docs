@@ -186,7 +186,7 @@ If you do not yet have an account on Astronomer, ask a Workspace Admin on your t
 
 > **Note:** Once you run this command once, it should stay cached and allow you to just run `$ astro auth login` to authenticate more easily in the future.
 
-## Next Steps: Apply Changes using the CLI
+## Apply Changes to your Airflow Project
 
 As you develop locally, it's worth noting that some changes made to your image are automatically applied, while other changes made to a certain set of files require rebuilding your image in order for them to render.
 
@@ -209,7 +209,9 @@ All changes made to the following files require rebuilding your image:
 - `requirements.txt`
 - `airflow_settings.yaml`
 
-This includes changing the Airflow image in your `Dockerfile`, adding Python Packages to `requirements.txt` or OS-level packages to `packages.txt`, etc. To rebuild your image, first run the following command:
+This includes changing the Airflow image in your `Dockerfile` and adding Python Packages to `requirements.txt` or OS-level packages to `packages.txt`.
+
+To rebuild your image after making a change to any of these files, first run the following command:
 
 ```
 $ astro dev stop
@@ -221,20 +223,43 @@ Then, restart the Docker containers by running:
 $ astro dev start
 ```
 
-## Additional Resources
+## Astronomer CLI and Platform Versioning
 
-For more information on the Astronomer CLI, feel free to reference:
+For every minor version of Astronomer, a corresponding minor version of the Astronomer CLI is made available. To ensure that you can continue to develop locally and deploy successfully, you should always upgrade to the corresponding minor version of the Astronomer CLI when a new minor version is released to Astronomer Cloud. When v0.23.1 is released to Astronomer Cloud, for instance, v0.23+ of the Astronomer CLI is recommended.
+
+While a new minor version of Astronomer requires upgrading the Astronomer CLI, subsequent patch versions will remain compatible. For instance, consider a system where Astronomer is on v0.23.9 and the Astronomer CLI is on v0.23.2. While we encourage users to always run the latest available version of all components, these patch versions of Astronomer and the Astronomer CLI remain compatible because they're both in the v0.23 series.
+
+### Check Running Versions of Astronomer and the Astronomer CLI
+
+To check your working versions of Astronomer (`Astro Server Version`) and the Astronomer CLI (`Astro CLI`), run:
+
+```sh
+$ astro version
+```
+
+This command will output something like the following:
+
+```sh
+$ astro version
+Astro CLI Version: 0.23.2
+Astro Server Version: 0.23.9
+Git Commit: 748ca2e9de1e51e9f48f9d85eb8315b023debc2f
+```
+
+Here, the listed versions of Astronomer and the Astronomer CLI are compatible because they're both in the v0.23 series. If you're on a version of the Astronomer CLI that's behind the current running minor version of Astronomer, you'll receive an error message in your command line with instructions to upgrade the Astronomer CLI.
+
+For more information on Astronomer and Astronomer CLI releases, refer to:
 
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
-* [CLI README on GitHub](https://github.com/astronomer/astro-cli#astronomer-cli----)
+* [Astronomer Release Notes](https://www.astronomer.io/docs/cloud/stable/resources/release-notes)
 
-## Beyond the CLI
+## Beyond the Astronomer CLI
 
 Looking for additional next steps after installing the Astronomer CLI? We recommend reading through the following guides:
 
-* [Deploying to Astronomer](/docs/cloud/stable/deploy/deploy-cli/)
-* [Customizing Your Image](/docs/cloud/stable/develop/customize-image/)
-* [Manage Airflow Versions](/docs/cloud/stable/customize-airflow/manage-airflow-versions/)
+* [Deploy to Astronomer](/docs/cloud/stable/deploy/deploy-cli/)
+* [Customize Your Image](/docs/cloud/stable/customize-airflow/customize-image/)
+* [Upgrade Apache Airflow on Astronomer](/docs/cloud/stable/customize-airflow/manage-airflow-versions/)
 * [Deploy to Astronomer via CI/CD](/docs/cloud/stable/deploy/ci-cd/)
 
 As always, don't hesitate to reach out to [Astronomer Support](https://support.astronomer.io/hc/en-us) or post in our [Astronomer Forum](https://forum.astronomer.io/) for additional questions.
