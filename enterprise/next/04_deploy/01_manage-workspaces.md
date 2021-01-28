@@ -17,7 +17,7 @@ This guide walks through the best practices for creating and managing Workspaces
 
 ## Deployments
 
-The most important function of Workspaces is creating and managing access to Airflow Deployments: instances of Airflow that you've spun up either via the Astronomer UI or [CLI](/docs/enterprise/stable/develop/cli-quickstart/). To create a new Deployment, simply click the **New Deployment** button in the **Deployments** tab and configure its settings. For more information on configuring Deployment settings, read [Configure a Deployment](https://www.astronomer.io/docs/enterprise/v0.23/deploy/configure-deployment).
+The most important function of Workspaces is creating and managing access to Airflow Deployments: instances of Airflow that you've spun up either via the Astronomer UI or [CLI](/docs/enterprise/stable/develop/cli-quickstart/). To create a new Deployment, click the **New Deployment** button in the **Deployments** tab and configure its settings. For more information on configuring Deployment settings, read [Configure a Deployment](https://www.astronomer.io/docs/enterprise/v0.23/deploy/configure-deployment).
 
 The **Deployments** tab also contains information on all of your existing Deployments, including names, Executor types, and Deployment status. A blue dot next to a Deployment's name indicates that the Deployment is still spinning up, while a green dot indicates that the Deployment is fully operational:
 
