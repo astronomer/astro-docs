@@ -186,6 +186,43 @@ If you do not yet have an account on Astronomer, ask a Workspace Admin on your t
 
 > **Note:** Once you run this command once, it should stay cached and allow you to just run `$ astro auth login` to authenticate more easily in the future.
 
+## Apply Changes to your Airflow Project
+
+As you develop locally, it's worth noting that some changes made to your image are automatically applied, while other changes made to a certain set of files require rebuilding your image in order for them to render.
+
+### Code Changes
+
+All changes made to the following files will be picked up as soon as they're saved to your code editor:
+
+- `dags`
+- `plugins`
+- `include`
+
+Once you save your changes, refresh the Airflow Webserver in your browser to see them render.
+
+### Other Changes
+
+All changes made to the following files require rebuilding your image:
+
+- `packages.txt`
+- `Dockerfile`
+- `requirements.txt`
+- `airflow_settings.yaml`
+
+This includes changing the Airflow image in your `Dockerfile` and adding Python Packages to `requirements.txt` or OS-level packages to `packages.txt`.
+
+To rebuild your image after making a change to any of these files, first run the following command:
+
+```
+$ astro dev stop
+```
+
+Then, restart the Docker containers by running:
+
+```
+$ astro dev start
+```
+
 ## Astronomer CLI and Platform Versioning
 
 For every minor version of Astronomer, a corresponding minor version of the Astronomer CLI is made available. To ensure that you can continue to develop locally and deploy successfully, you should always upgrade to the corresponding minor version of the Astronomer CLI when a new minor version is released to Astronomer Cloud. When v0.23.1 is released to Astronomer Cloud, for instance, v0.23+ of the Astronomer CLI is recommended.
