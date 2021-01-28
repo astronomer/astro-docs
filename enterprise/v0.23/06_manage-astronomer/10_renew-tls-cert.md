@@ -74,7 +74,7 @@ Then, create the ClusterIssuer by running the following command:
 $ kubectl apply -f clusterissuer.yaml
 ```
 
-4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create a `certificate.yaml` file, replacing `BASE_DOMAIN` with yours:
+4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create a `certificate.yaml` file, replacing `BASE_DOMAIN` with your own value:
 ```yaml
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -107,6 +107,8 @@ $ kubectl apply -f certificate.yaml
 ```sh
 $ kubectl get certificates
 ```
+
+6. Note your your certificate name (`acme-crt`) for when you create a Kubernetes TLS secret and push it to your Enterprise configuration as described in the Enterprise installation guide ([AWS](https://www.astronomer.io/docs/enterprise/v0.23/install/aws/install-aws-standard#step-5-create-a-kubernetes-tls-secret),[GCP](https://www.astronomer.io/docs/enterprise/v0.23/install/gcp/install-gcp-standard#step-5-create-a-kubernetes-tls-secret),[AKS](https://www.astronomer.io/docs/enterprise/v0.23/install/azure/install-azure-standard#step-5-create-a-kubernetes-tls-secret)).
 
 ## Manually Renew TLS Certificates
 
