@@ -42,7 +42,7 @@ To get started with SendGrid:
 
 5. Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can't find the test email, try rerunning the cURL code in your terminal before retrying the verification.
 
-6. Open to your Airflow Deployment in the Astronomer UI, then go to the **Variables** tab and add the following Environment Variables using the **+Add** button:
+6. Open your Airflow Deployment in the Astronomer UI, then go to the **Variables** tab and add the following Environment Variables using the **+Add** button:
 
    ```
    AIRFLOW__SMTP__SMTP_HOST=smtp.sendgrid.net
