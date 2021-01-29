@@ -3,7 +3,7 @@ title: "Deploy to Astronomer via CI/CD"
 navTitle: "CI/CD"
 description: "Automate the deploy process to your Airflow Deployment by setting up a CI/CD pipeline with a Service Account on Astronomer."
 ---
-
+<!-- markdownlint-disable-file -->
 Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
 
 This guide will walk you through configuring your CI/CD pipeline on Astronomer Enterprise.
@@ -113,7 +113,7 @@ Once you've created your new Service Account, grab the API Key that was immediat
 
 The first step of this pipeline will authenticate against the Docker registry that stores an individual Docker image for every code push or configuration change:
 
-```
+```bash
 docker login registry.$${BASE_DOMAIN} -u _ -p $${API_KEY_SECRET}
 ```
 

@@ -6,11 +6,10 @@
 # <!-- markdownlint-disable-file -->
 Pre-Requisites
 DroneCI
-BitBucket
+bitbucket
 CircleCI
 Das42
 Codebuild
-
 graphql
 Workspace
 Workspaces
