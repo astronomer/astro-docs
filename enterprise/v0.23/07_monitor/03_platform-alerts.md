@@ -6,13 +6,13 @@ description: "Route common Airflow Deployment and platform alerts to your prefer
 
 ## Overview
 
-You can subscribe to two different types of alerts on Astronomer: Airflow alerts and platform alerts. Platform alerts can be used to monitor the health of platform components such as ElasticSearch and DockerRegistry, while Airflow alerts can be used to monitor the health and performance of individual Deployments.
+You can subscribe to two different types of alerts on Astronomer: Deployment alerts and platform alerts. Platform alerts can be used to monitor the health of platform components such as ElasticSearch and DockerRegistry, while Deployment alerts can be used to monitor the health and performance of individual Deployments.
 
-Both Airflow and platform alerts are:
+Both Deployment and platform alerts are:
 - Defined in Helm using [PromQL query language](https://prometheus.io/docs/prometheus/latest/querying/basics/).
 - Fire via [Prometheus Alertmanager](https://prometheus.io/docs/alerting/alertmanager).
 
-Astronomer offers built-in Airflow and platform alerts, as well as the ability to create custom alerts. This guide provides all of the information you need to configure Prometheus Alertmanager, subscribe to existing alerts, and create custom alerts.
+Astronomer offers built-in Deployment and platform alerts, as well as the ability to create custom alerts. This guide provides all of the information you need to configure Prometheus Alertmanager, subscribe to existing alerts, and create custom alerts.
 
 Additionally, Airflow offers its own alerting service for individual DAGs and tasks. For more information on configuring this feature, read [Airflow Alerts](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/airflow-alerts).
 
@@ -33,29 +33,30 @@ After running these commands, a user in this namespace could go to `localhost:90
 
 Alertmanager is the Astronomer platform component that manages alerts, including silencing, inhibiting, aggregating and sending out notifications via methods such as email, on-call notification systems, and chat platforms.
 
-You can configure [Alertmanager](https://prometheus.io/docs/alerting/configuration/) to send alerts to email, HipChat, PagerDuty, Pushover, Slack, OpsGenie, and more by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml).
+You can configure [Alertmanager](https://prometheus.io/docs/alerting/configuration/) to send alerts to email, HipChat, PagerDuty, Pushover, Slack, OpsGenie, and more by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml).
 
 ### Configure an alert receiver
 
-You can subscribe to platform alerts by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml) via your `config.yaml` file.
+You can subscribe to platform alerts by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml) via your `config.yaml` file.
 
 The [Alertmanager Helm chart](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/values.yaml) contains a section where you can specify different alert receivers. For example, the following configuration would cause platform alerts with a `critical` severity to appear in a specified Slack channel:
 
 ```yaml
-receivers:
-  # Configs for platform alerts
-  platform: {}
+alertmanager:
+  receivers:
+    # Configs for platform alerts
+    platform: {}
 
-  platformCritical: {
-    - name: platform-critical-receiver
-      slack_configs:
-      - api_url: https://hooks.slack.com/services/T02J89GPR/BDBSG6L1W/4Vm7zo542XYgvv3
-        channel: '#astronomer_platform_alerts'
-        text: |-
-          {{ range .Alerts }}{{ .Annotations.description }}
-          {{ end }}
-        title: '{{ .CommonAnnotations.summary }}'
-  }
+    platformCritical: {
+      - name: platform-critical-receiver
+        slack_configs:
+        - api_url: https://hooks.slack.com/services/T02J89GPR/BDBSG6L1W/4Vm7zo542XYgvv3
+          channel: '#astronomer_platform_alerts'
+          text: |-
+            {{ range .Alerts }}{{ .Annotations.description }}
+            {{ end }}
+          title: '{{ .CommonAnnotations.summary }}'
+    }
 ```
 
 To add a new receiver to Astronomer Enterprise, add the receiver object to your `config.yaml` file and push the changes to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). The receivers you add must be in the same order and format as they appear in the Alertmanager Helm chart. For more information on building and configuring receivers, read the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).

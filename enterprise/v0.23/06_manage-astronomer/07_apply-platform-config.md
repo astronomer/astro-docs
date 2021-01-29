@@ -10,22 +10,22 @@ When you install Astronomer, a number of platform-level settings will be set by 
 
 For example, you can:
 
-* [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/integrate-auth-system)
-* [Add a registry backend](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/registry-backend)
-* [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/configure-platform-resources)
+* [Integrate an Auth system](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system)
+* [Add a registry backend](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/registry-backend)
+* [Change resource allocation limits](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/configure-platform-resources)
 * Update any other key-value pair specified in the [default configuration file](https://github.com/astronomer/docs/blob/main/enterprise/next/reference/default.yaml)
 
 To configure these settings, follow the steps below.
 
-> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade to a Patch Version](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer-patch).
+> **Note:** If you're interested in upgrading Astronomer to a new version of the platform, read [Upgrade to a Patch Version](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer-patch).
 
 ## Step 1: Open Your config.yaml File
 
 This file was created when you installed Astronomer using one of the following guides:
 
-* [AWS EKS Installation Guide](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard#6-configure-your-helm-chart)
-* [GCP GKE Installation Guide](https://www.astronomer.io/docs/enterprise/stable/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
-* [Azure AKS Installation Guide](https://www.astronomer.io/docs/enterprise/stable/install/azure/install-azure-standard#6-configure-your-helm-chart)
+* [AWS EKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.23/install/aws/install-aws-standard#6-configure-your-helm-chart)
+* [GCP GKE Installation Guide](https://www.astronomer.io/docs/enterprise/v0.23/install/gcp/install-gcp-standard#7-configure-your-helm-chart)
+* [Azure AKS Installation Guide](https://www.astronomer.io/docs/enterprise/v0.23/install/azure/install-azure-standard#6-configure-your-helm-chart)
 
 ## Step 2: Update Key-Value Pairs
 

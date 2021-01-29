@@ -11,7 +11,7 @@ Whether you're just starting to use Apache Airflow or your team is running it at
 - Task and DAG-level alerts notify you via email when an Airflow task or DAG fails, succeeds, or retries. These require an SMTP (Simple Mail Transfer Protocol) service.
 - Platform and Airflow alerts notify when the health of an Airflow Deployment is low or any of the underlying components of your Astronomer platform are underperforming.
 
-This guide focuses on configuring and subscribing to task and DAG-level alerts. For information on configuring platform and Airflow alerts, read [Alerting in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts).
+This guide focuses on configuring task and DAG-level alerts. For information on configuring platform and Deployment alerts, read [Alerting in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts).
 
 ## Subscribe to Task-Level Alerts
 
@@ -49,9 +49,8 @@ To get started with SendGrid:
    AIRFLOW__SMTP__SMTP_STARTTLS=True
    AIRFLOW__SMTP__SMTP_SSL=False
    AIRFLOW__SMTP__SMTP_USER=apikey
-   AIRFLOW__SMTP__SMTP_PASSWORD={Your SendGrid API Key from step 3}
-   AIRFLOW__SMTP__SMTP_PORT=587
-   AIRFLOW__SMTP__SMTP_MAIL_FROM={Your SendGrid email sender from step 2}
+   AIRFLOW__SMTP__SMTP_PASSWORD=<your-api-key>   AIRFLOW__SMTP__SMTP_PORT=587
+   AIRFLOW__SMTP__SMTP_MAIL_FROM=<your-sendgrid-email>
    ```
 
    Your Environment Variables should look something like this:
@@ -68,11 +67,11 @@ To get started with SendGrid:
 
 This setup requires an AWS account and use of the [AWS Management Console](https://aws.amazon.com/console/).
 
-1. In the AWS Management Console, go to **AWS Console** > **Simple Email Service** > **Email Addresses** to add and verify the email addresses you want to receive alerts to.
+1. In the AWS Management Console, go to **AWS Console** > **Simple Email Service** > **Email Addresses** to add and verify the email addresses you want to receive alerts.
 
 2. Open the inbox of each email address you specified and verify them through the emails sent by Amazon.
 
-3. In the AWS Console, go to **Simple Email Service** > **SMTP Settings** and use the **Create My SMTP Credentials** button to generate a username and password. This will look similar to an access and secret access key. Write down this username and password for later, as well as the **Server Name** and **Port**.
+3. In the AWS Console, go to **Simple Email Service** > **SMTP Settings** and use the **Create My SMTP Credentials** button to generate a username and password. This will look similar to an access and secret access key. Write down this username and password for step 5, as well as the **Server Name** and **Port**.
 
    > **Note:** You won't be able to access these values again, so consider storing them in a password manager.
 
@@ -81,13 +80,13 @@ This setup requires an AWS account and use of the [AWS Management Console](https
 5. Open your Airflow Deployment in the Astronomer UI and go to the **Variables** tab, then add the following Environment Variables using the **+Add** button:
 
    ```
-   AIRFLOW__SMTP__SMTP_HOST={Your SMTP host}
+   AIRFLOW__SMTP__SMTP_HOST=<your-smtp-host>
    AIRFLOW__SMTP__SMTP_PORT=587
    AIRFLOW__SMTP__SMTP_STARTTLS=True
    AIRFLOW__SMTP__SMTP_SSL=False
-   AIRFLOW__SMTP__SMTP_USER={Your username from step 2}
-   AIRFLOW__SMTP__SMTP_PASSWORD={Your password from step 2}
-   AIRFLOW__SMTP__SMTP_MAIL_FROM={Your verified email address from step 1}
+   AIRFLOW__SMTP__SMTP_USER=<your-aws-username>
+   AIRFLOW__SMTP__SMTP_PASSWORD=<your-aws-password>
+   AIRFLOW__SMTP__SMTP_MAIL_FROM=<your-email-address>
    ```
 
    Your Environment Variables should look something like this:
