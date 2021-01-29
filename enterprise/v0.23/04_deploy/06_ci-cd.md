@@ -364,6 +364,29 @@ jobs:
         registry: registry.gcp0001.us-east4.astronomer.io
 ```
 
+## Azure DevOps
+
+The following example uses Azure Key Vault to store secretes as varible groups avalible to the pipeline.
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+ 
+variables:
+- group: Variable-Group
+- group: Key-Vault-Group
+steps:
+- script: |
+    echo "Building container.."
+    docker build -t registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_IID .
+    docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $(SERVICE-ACCOUNT-KEY)
+    docker push registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_IID
+
+```
+
 > **Note:** Make sure to replace `infrared-photon-7780` in the example above with your deployment's release name and to store your Service Account Key in your GitHub repo's secrets according to [this GitHub guide]( https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables).
 
 ### Video Tutorial
