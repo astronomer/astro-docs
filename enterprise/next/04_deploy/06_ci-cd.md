@@ -28,7 +28,7 @@ Read below for instructions on how to create a Service Account and what your CI/
 
 Before we get started, make sure you:
 
-- Have access to a running Airflow Deployment on either Astronmer Enterprise
+- Have access to a running Airflow Deployment on either Astronomer Enterprise
 - Installed the [Astronomer CLI](https://github.com/astronomer/astro-cli)
 - Are familiar with your CI/CD tool of choice
 
