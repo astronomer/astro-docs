@@ -4,7 +4,7 @@
 # one word per line, to define a file override use ' - filename'
 # where filename is relative to this configuration file
 # <!-- markdownlint-disable-file -->
-Pre-Requisites
+Prerequisites
 DroneCI
 bitbucket
 CircleCI

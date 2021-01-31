@@ -24,7 +24,7 @@ From there, a webhook triggers an update to your Airflow Deployment. At its core
 
 Read below for instructions on how to create a Service Account and what your CI/CD script should look like.
 
-## Pre-Requisites
+## Prerequisites
 
 Before we get started, make sure you:
 
@@ -384,9 +384,9 @@ variables:
 steps:
 - script: |
     echo "Building container.."
-    docker build -t registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_IID .
+    docker build -t registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID .
     docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $(DEPLOYMENT-SERVICE-ACCOUNT-KEY)
-    docker push registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_IID
+    docker push registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID
 ```
 
 ### Video Tutorial
