@@ -39,7 +39,6 @@ The steps below will walk you through how to:
 
 - Create an Azure Resource Group
 - Create an AKS Cluster
-- Create a Static IP Address
 - Authenticate with your AKS Cluster
 
 You can view Microsoft Azure's Web Portal at https://portal.azure.com/.

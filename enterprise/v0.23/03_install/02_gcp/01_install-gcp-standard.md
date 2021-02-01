@@ -93,18 +93,6 @@ A few important notes:
 If you work with multiple Kubernetes environments, `kubectx` is an incredibly useful tool for quickly switching between Kubernetes clusters. Learn more [here](https://github.com/ahmetb/kubectx).
 
 
-### Create a Static IP Address
-
-Generate a static IP address:
-```
-$ gcloud compute addresses create astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID]
-```
-
-View your newly generated IP address and record the output for use later on:
-```
-$ gcloud compute addresses describe astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID] --format 'value(address)'
-```
-
 ## Step 3: Configure Helm with Your GKE Cluster
 
 Helm is a package manager for Kubernetes. It allows you to easily deploy complex Kubernetes applications. You'll use helm to install and manage the Astronomer platform. Learn more about helm [here](https://helm.sh/).
