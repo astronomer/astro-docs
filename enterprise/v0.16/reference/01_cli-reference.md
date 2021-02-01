@@ -314,7 +314,7 @@ Gives an existing Workspace user access to an Airflow Deployment within that Wor
 
 ### Usage
 
-`$ astro deployment user add--deployment-id=<user-deployment-id> --role<user-role> <user-email-address> `
+`$ astro deployment user add --deployment-id=<user-deployment-id> --role<user-role> <user-email-address> `
 
 ### Flags
 
@@ -664,6 +664,14 @@ Run `$ astro deployment service-account get <service-account-id> --workspace-id=
 
 - [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/stable/deploy/manage-workspaces)
 - [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/stable/deploy/ci-cd)
+
+## astro workspace switch
+
+Switches your current Workspace.
+
+### Usage
+
+`$ astro workspace switch <workspace-id>`
 
 ## astro workspace update
 
