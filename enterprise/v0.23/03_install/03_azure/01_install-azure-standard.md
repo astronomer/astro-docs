@@ -186,7 +186,7 @@ $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-cer
 ```
 > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
 
-2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 6. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
+2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 7. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
 ## Step 6: Configure the Database
 
