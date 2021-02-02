@@ -55,7 +55,7 @@ Use `$ astro completion <subcommand>` to generate autocompletion scripts for Ast
 Note that MacOS users need to install [Bash Completion](https://github.com/scop/bash-completion) before creating autocompletion scripts. To install Bash Completion via Homebrew, run the following command:
 
 ```sh
-$ brew install bash-Completion
+$ brew install bash-completion
 ```
 
 ### Subcommands
@@ -112,7 +112,7 @@ Deploys code in your Airflow project directory to any Airflow Deployment on Astr
 
 Run `$ astro deploy <your-deployment-release-name> <flags>` in your terminal to push a local Airflow project to your Airflow Deployment on Astronomer. If you have the appropriate Workspace and Deployment-level permissions, the code will begin to deploy.
 
-To identify your Deployment's release name, go to **Settings** >**Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
+To identify your Deployment's release name, go to **Settings** > **Basics** > **Release Name** in the Astronomer UI or run `$ astro deployment list`.
 
 If you run `$ astro deploy` without specifying `your-deployment-release-name`, the Astronomer CLI will output a list of Airflow Deployments in your Workspace to choose from.
 
