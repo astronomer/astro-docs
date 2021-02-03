@@ -20,8 +20,8 @@ _What is the purpose of the document/enhancement? Select all that apply:_
 - [ ] Information for an existing feature that isn't yet documented.
 - [ ] Additional considerations/ reference material for an existing feature or document.
 
-**Describe the problem/ feature that requires documentation:**
+**Problem/feature that requires documentation:**
   
-**What key information should be included in the document?**
+**Information to be added/included**
   
 **Are you the right person to review a draft of the document for technical accuracy? If not, who is?**
