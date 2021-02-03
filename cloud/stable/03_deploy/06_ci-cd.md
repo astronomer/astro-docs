@@ -3,7 +3,7 @@ title: "Deploy to Astronomer via CI/CD"
 navTitle: "CI/CD"
 description: "Automate the deploy process to your Airflow Deployment by setting up a CI/CD pipeline with a Service Account on Astronomer."
 ---
-
+<!-- markdownlint-disable-file -->
 Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
 
 This guide will walk you through configuring your CI/CD pipeline on Astronomer Cloud.
@@ -24,7 +24,7 @@ From there, a webhook triggers an update to your Airflow Deployment. At its core
 
 Read below for instructions on how to create a Service Account and what your CI/CD script should look like.
 
-## Pre-Requisites
+## Prerequisites
 
 Before we get started, make sure you:
 
@@ -113,7 +113,7 @@ Once you've created your new Service Account, grab the API Key that was immediat
 
 The first step of this pipeline will authenticate against the Docker registry that stores an individual Docker image for every code push or configuration change:
 
-```
+```bash
 docker login registry.$${BASE_DOMAIN} -u _ -p $${API_KEY_SECRET}
 ```
 
@@ -366,6 +366,28 @@ jobs:
 ```
 
 > **Note:** Make sure to replace `infrared-photon-7780` in the example above with your deployment's release name and to store your Service Account Key in your GitHub repo's secrets according to [this GitHub guide]( https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables).
+
+## Azure DevOps
+
+This example uses [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/) to store secrets as variable groups that are then made available to the CI/CD pipeline running on [Azure Devops](https://azure.microsoft.com/en-us/services/devops/).
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+ 
+variables:
+- group: Variable-Group
+- group: Key-Vault-Group
+steps:
+- script: |
+    echo "Building container.."
+    docker build -t registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID .
+    docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $(DEPLOYMENT-SERVICE-ACCOUNT-KEY)
+    docker push registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID
+```
 
 ### Video Tutorial
 
