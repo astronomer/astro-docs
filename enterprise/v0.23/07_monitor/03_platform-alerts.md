@@ -6,40 +6,43 @@ description: "Route common Airflow Deployment and platform alerts to your prefer
 
 ## Overview
 
-You can subscribe to two different types of alerts on Astronomer: Deployment alerts and platform alerts. Platform alerts can be used to monitor the health of platform components such as ElasticSearch and DockerRegistry, while Deployment alerts can be used to monitor the health and performance of individual Deployments.
+You can use two built-in alerting solutions for monitoring the health of your Astronomer platform:
 
-Both Deployment and platform alerts are:
-- Defined in Helm using [PromQL query language](https://prometheus.io/docs/prometheus/latest/querying/basics/).
-- Fire via [Prometheus Alertmanager](https://prometheus.io/docs/alerting/alertmanager).
+- Deployment-level alerts notify you when the health of an Airflow Deployment is low or if any of Airflow's underlying components are underperforming, including the Airflow Scheduler.
+- Platform-level alerts notify you when a component of your Astronomer installation is unhealthy, such as Elasticsearch, Astronomer's Houston API, or your Docker Registry.
 
-Astronomer offers built-in Deployment and platform alerts, as well as the ability to create custom alerts. This guide provides all of the information you need to configure Prometheus Alertmanager, subscribe to existing alerts, and create custom alerts.
+These alerts fire based on metrics collected from the KubeAPI by Prometheus. If the conditions of an alert are met, [Prometheus Alertmanager](https://prometheus.io/docs/alerting/alertmanager) handles the entire process of sending the alert to the appropriate communication channel.
 
-Additionally, Airflow offers its own alerting service for individual DAGs and tasks. For more information on configuring this feature, read [Airflow Alerts](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/airflow-alerts).
+Astronomer offers built-in Deployment and platform alerts, as well as the ability to create custom alerts in Helm using [PromQL query language](https://prometheus.io/docs/prometheus/latest/querying/basics/). This guide provides all of the information you need to configure Prometheus Alertmanager, subscribe to built-in alerts, and create custom alerts.
 
-## Access the Prometheus and Alertmanager UIs
+In addition to configuring platform and Deployment-level alerts, you can also set email alerts that trigger on DAG and task-based events. For more information on configuring Airflow alerts, read [Airflow Alerts](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/airflow-alerts).
 
-You can access the Prometheus & Alertmanager UIs that are deployed in the Astronomer platform using Kubectl to port forward. For example, the following commands can be used to access these UIs in the `astronomer` namespace.
+## Anatomy of an Alert
 
-```
-kubectl port-forward svc/cantankerous-gecko-prometheus -n astronomer 9090:9090
-```
-```
-kubectl port-forward svc/cantankerous-gecko-alertmanager -n astronomer 9093:9093
-```
+Platform and Deployment alerts are defined in YAML and use [PromQL queries](https://prometheus.io/docs/prometheus/latest/querying/basics/) for alerting conditions. Each `alert` YAML object contains the following key-value pairs:
 
-After running these commands, a user in this namespace could go to `localhost:9090` or `localhost:9093` in their browser to access the UIs.
+* `expr`: The logic that determines when the alert will fire, written in PromQL.
+* `for`: The length of time that the `expr` logic has to be true for the alert to fire. This can be defined in minutes or hours (e.g. `5m` or `2h`).
+* `labels.tier`: The level of your platform that the alert should operate at. Deployment alerts have a tier of `airflow`, while platform alerts have a tier of `platform`.
+* `labels.severity`: The severity of the alert. Can be `info`, `warning`, `high`, or `critical`.
+* `annotations.summary`: The text for the alert that's sent via Alertmanager.
+* `annotations.description`: A human-readable description of what the alert does.
+
+By default, your Astronomer platform checks for all alerts defined in [the Prometheus configmap](https://github.com/astronomer/astronomer/blob/master/charts/prometheus/templates/prometheus-alerts-configmap.yaml).
 
 ## Configure Alertmanager
 
-Alertmanager is the Astronomer platform component that manages alerts, including silencing, inhibiting, aggregating and sending out notifications via methods such as email, on-call notification systems, and chat platforms.
+Alertmanager is the Astronomer platform component that manages alerts, including silencing, inhibiting, aggregating, and sending out notifications via methods such as email, on-call notification systems, and chat platforms.
 
-You can configure [Alertmanager](https://prometheus.io/docs/alerting/configuration/) to send alerts to email, HipChat, PagerDuty, Pushover, Slack, OpsGenie, and more by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml).
+You can configure [Alertmanager](https://prometheus.io/docs/alerting/configuration/) to send alerts to email, HipChat, PagerDuty, Pushover, Slack, OpsGenie, and more by defining alert receivers in the [Alertmanager Helm chart](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/values.yaml) and pushing them to the [Alertmanager ConfigMap](#https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml).
 
-### Configure an alert receiver
+### Create alert receivers
 
-You can subscribe to platform alerts by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml) via your `config.yaml` file.
+Alertmanager users [receivers](https://prometheus.io/docs/alerting/latest/configuration/#receiver) to integrate with different messaging platforms. To begin sending notifications for alerts, you first need to define `receivers` in YAML using the [Alertmanager Helm chart](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/values.yaml).
 
-The [Alertmanager Helm chart](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/values.yaml) contains a section where you can specify different alert receivers. For example, the following configuration would cause platform alerts with a `critical` severity to appear in a specified Slack channel:
+This Helm chart contains groups for each possible alert type based on `labels.tier` and `labels.severity`. Each receiver must be defined within one or multiple alert types.
+
+For example, adding the following receiver to `receivers.platformCritical` would cause platform alerts with a `critical` severity to appear in a specified Slack channel:
 
 ```yaml
 alertmanager:
@@ -59,50 +62,28 @@ alertmanager:
     }
 ```
 
-To add a new receiver to Astronomer Enterprise, add the receiver object to your `config.yaml` file and push the changes to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). The receivers you add must be in the same order and format as they appear in the Alertmanager Helm chart. For more information on building and configuring receivers, read the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).
+By default, the Alertmanager Helm Chart contains groups for platform, critical platform, and Deployment alerts. To configure a receiver for another type of alert, such as Deployment alerts with `labels.severity: high`, add that receiver to the `customRoutes` list with the appropriate `match_re` values. For example:
 
-## Built-in Alerts
+```yaml
+customRoutes: {}
+  - name: deployment-high-receiver
+    match_re:
+      tier: airflow
+      severity: high
+    email-configs: # etc.
+```
 
-The following table contains some of the most common platform alerts that users subscribe to on Astronomer:
+For more information on building and configuring receivers, read the [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).
 
-| Alert | Description |
-| ------------- | ------------- |
-| `PrometheusDiskUsage` | Prometheus high disk usage, has less than 10% disk space available. |
-| `RegistryDiskUsage` | Docker Registry high disk usage, has less than 10% disk space available. |
-| `ElasticsearchDiskUsage` | Elasticsearch high disk usage, has less than 10% disk space available. |
-| `IngressCertificateExpiration` | TLS Certificate expiring soon, expiring in less than a week. |
+### Push alert receivers to your platform
 
-The following table contains popular alerts that you might want to subscribe to:
-
-| Alert                                     | Description                                                                                                                        | Follow-Up                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AirflowDeploymentUnhealthy`              | Your Airflow Deployment is unhealthy or not completely available.                                                                  | Reach out to [Astronomer Support](https://support.astronomer.io).                                                                                                                                                                                                                                                                                                                                                                                               |
-| `AirflowEphemeralStorageLimit`            | Your Airflow Deployment has been using more than 5GB of its ephemeral storage for over 10 minutes.                                 | Make sure to continually remove unused temporary data in your Airflow tasks.                                                                                                                                                                                                                                                                                                                                                                                    |
-| `AirflowPodQuota`                         | Your Airflow Deployment has been using over 95% of its pod quota for over 10 minutes.                                              | Either increase your Deployment's Extra Capacity in the Astronomer UI or update your DAGs to use less resources. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management.                                                                                                                                                                                            |
-| `AirflowSchedulerUnhealthy`               | The Airflow Scheduler has not emitted a heartbeat for over 1 minute.                                                               | Reach out to [Astronomer Support](https://support.astronomer.io).                                                                                                                                                                                                                                                                                                                                                                                               |
-| `AirflowTasksPendingIncreasing`           | Your Airflow Deployment created tasks faster than it was clearing them for over 30 minutes.                                        | Ensure that your tasks are running and completing correctly. If your tasks are running as expected, [raise concurrency and parallelism in Airflow](https://www.astronomer.io/guides/airflow-scaling-workers), then consider increasing one of the following resources to handle the increase in performance: <ul><li>Kubernetes: Extra Capacity</li><li>Celery: Worker Count or Worker Resources</li></ul><ul><li>Local Executor: Scheduler Resources</li></ul> |
-| `ContainerMemoryNearTheLimitInDeployment` | A container in your Airflow Deployment is near its memory quota; it's been using over 95% of its memory quota for over 60 minutes. | Either increase your Deployment's allocated resources in the Astronomer UI or update your DAGs to use less memory. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management.                                                                                                                                                                                          |
-
-For a list of all built-in Airflow and platform alerts, refer to [the full Prometheus configmap](https://github.com/astronomer/astronomer/blob/master/charts/prometheus/templates/prometheus-alerts-configmap.yaml).
+To add a new receiver to your Astronomer platform, add your receiver configuration to your `config.yaml` file and push the changes to your installation as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). The receivers you add must be specified in the same order and format as they appear in the Alertmanager Helm chart. Once you push the alerts to your platform, they are automatically added to the [Alertmanager ConfigMap](#https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml).
 
 ## Create Custom Alerts
 
 In addition to subscribing to Astronomer's built-in alerts, you can also create custom alerts and push them to your Astronomer platform.
 
-### Build a custom alert
-
-Alerts are created by adding a new `alert` object to your `config.yaml` file.
-
-Each `alert` object contains the following key-value pairs:
-
-* `expr`: The logic that determines when the alert will fire, written in PromQL.
-* `for`: The length of time that the `expr` logic has to be true for the alert to fire. This can be defined in minutes or hours (e.g. `5m` or `2h`).
-* `labels.tier`: The level of your platform that the alert should operate at. Can be either `airflow` or `platform`.
-* `labels.severity`: The severity of the alert. Can be either `critical` or null.
-* `annotations.summary`: The text for the alert that's sent via Alertmanager.
-* `annotations.description`: A human-readable description of what the alert does.
-
-For example, the following platform alert will fire if more than 2 Airflow Schedulers across the platform are not heartbeating for more than 5 minutes:
+Platform and Deployment alerts are defined in YAML via the Prometheus Helm chart. For example, the following alert will fire if more than 2 Airflow Schedulers across the platform are not heartbeating for more than 5 minutes:
 
 ```yaml
 additionalAlerts:
@@ -121,8 +102,32 @@ additionalAlerts:
         description: If more than 2 Airflow Schedulers are not heartbeating for more than 5 minutes, this alert fires.
 ```
 
-### Push a custom alert to your platform
-
-Because platform alerts are built in .yaml, you can push them to your platform in the same way you push other platform configuration changes: Add the alert to your `config.yaml` file and push the file via Helm as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+To push custom alerts to your platform, add them to the `AdditionalAlerts` section of your `config.yaml` file and push the file via Helm as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 Once you've pushed the alert to your platform, make sure that you've configured Alertmanager to send the alert to an appropriate receiver based on either its `tier` or `severity`. For more information, read [Configure AlertManager](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts#configure-alertmanager).
+
+## Reference: Common Built-in Alerts
+
+Refer to the following tables for some of the most common alerts that you might receive from your Astronomer platform.
+
+For a complete list of built-in Airflow and platform alerts, refer to the [Prometheus configmap](https://github.com/astronomer/astronomer/blob/master/charts/prometheus/templates/prometheus-alerts-configmap.yaml).
+
+### Platform alerts
+
+| Alert | Description |
+| ------------- | ------------- |
+| `PrometheusDiskUsage` | Prometheus high disk usage, has less than 10% disk space available. |
+| `RegistryDiskUsage` | Docker Registry high disk usage, has less than 10% disk space available. |
+| `ElasticsearchDiskUsage` | Elasticsearch high disk usage, has less than 10% disk space available. |
+| `IngressCertificateExpiration` | TLS Certificate expiring soon, expiring in less than a week. |
+
+### Deployment alerts
+
+| Alert                                     | Description                                                                                                                        | Follow-Up                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AirflowDeploymentUnhealthy`              | Your Airflow Deployment is unhealthy or not completely available.                                                                  | Reach out to [Astronomer Support](https://support.astronomer.io).                                                                                                                                                                                                                                                                                                                                                                                               |
+| `AirflowEphemeralStorageLimit`            | Your Airflow Deployment has been using more than 5GB of its ephemeral storage for over 10 minutes.                                 | Make sure to continually remove unused temporary data in your Airflow tasks.                                                                                                                                                                                                                                                                                                                                                                                    |
+| `AirflowPodQuota`                         | Your Airflow Deployment has been using over 95% of its pod quota for over 10 minutes.                                              | Either increase your Deployment's Extra Capacity in the Astronomer UI or update your DAGs to use less resources. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management.                                                                                                                                                                                            |
+| `AirflowSchedulerUnhealthy`               | The Airflow Scheduler has not emitted a heartbeat for over 1 minute.                                                               | Reach out to [Astronomer Support](https://support.astronomer.io).                                                                                                                                                                                                                                                                                                                                                                                               |
+| `AirflowTasksPendingIncreasing`           | Your Airflow Deployment created tasks faster than it was clearing them for over 30 minutes.                                        | Ensure that your tasks are running and completing correctly. If your tasks are running as expected, [raise concurrency and parallelism in Airflow](https://www.astronomer.io/guides/airflow-scaling-workers), then consider increasing one of the following resources to handle the increase in performance: <ul><li>Kubernetes: Extra Capacity</li><li>Celery: Worker Count or Worker Resources</li></ul><ul><li>Local Executor: Scheduler Resources</li></ul> |
+| `ContainerMemoryNearTheLimitInDeployment` | A container in your Airflow Deployment is near its memory quota; it's been using over 95% of its memory quota for over 60 minutes. | Either increase your Deployment's allocated resources in the Astronomer UI or update your DAGs to use less memory. If you have not already done so, upgrade to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) for improved resource management.                                                                                                                                                                                          |
