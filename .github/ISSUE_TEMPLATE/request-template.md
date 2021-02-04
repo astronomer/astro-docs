@@ -14,7 +14,7 @@ assignees: ''
 
 **What is the purpose of the document/enhancement? Select all that apply:**
 
-- [ ] Setup steps a new feature for an upcoming release (Add the appropriate version label to this issue). 
+- [ ] Document a new feature for an upcoming release. Add the appropriate release version label to this issue. 
 - [ ] Information for an existing feature that isn't yet documented.
 - [ ] Additional considerations/ reference material for an existing feature or document.
 
