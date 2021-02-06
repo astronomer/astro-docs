@@ -223,7 +223,7 @@ jobs:
             pycodestyle .
   deploy:
     docker:
-      - image:  quay.io/astronomer/ap-airflow:1.10.12-buster
+      - image: cimg/base:2021.02
     steps:
       - checkout
       - setup_remote_docker:
