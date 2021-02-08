@@ -298,6 +298,8 @@ This command appends an IAM role to the Webserver, Scheduler and Worker pods wit
 
 `$ astro deployment update <your-deployment-id> <flags>`
 
+> **Note:** Only the `--cloud-role` flag is specified with a `--`. Additional flags should be written without a leading `--`.
+
 ### Flags
 
 | Flag           | Value Type | Usage                     |
@@ -305,7 +307,11 @@ This command appends an IAM role to the Webserver, Scheduler and Worker pods wit
 | `--cloud-role` | String     | The ARN for the IAM role. |
 | `label` | String     | The label for the Deployment. |
 | `description` | String     | The description for a Deployment. |
-| `version` | String | The Airflow version for the Deployment (e.g. `v2.0.0`)|
+| `version` | String | The Airflow version for the Deployment (e.g. `v2.0.0`).|
+| `releaseName` | String | The release name for the Deployment (e.g. `planetary-fusion-1382`).|
+| `alert_emails` | String | An email address which receives Airflow alerts from the Deployment. |
+| `type` | String | The type of Deployment. Can be either `airflow` or `flower`. |
+| `executor` | String | The Executor type for the Deployment. Can be either `local`, `kubernetes`, or `celery`. |
 
 ### Related Documentation
 
