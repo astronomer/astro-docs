@@ -160,7 +160,7 @@ To create a trust relationship between your IAM role and OIDC identity provider:
         {
           "Effect": "Allow",
           "Principal": {
-            "Federated": "arn:aws:iam::123456789:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90"
+            "Federated": "arn:aws:iam::<your-iam-id>:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90"
           },
           "Action": "sts:AssumeRoleWithWebIdentity",
           "Condition": {
@@ -208,13 +208,13 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
 1. To create a new Airflow Deployment with your IAM role attached, run the following Astronomer CLI command:
 
     ```sh
-    $ astro deployment create <deployment-name> --executor=celery --cloud-role=arn:aws:iam::123456789:role/example-role
+    $ astro deployment create <deployment-name> --executor=celery --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
     ```
 
     Alternatively, to update an existing Airflow Deployment with your IAM role attached, run the following:
 
     ```sh
-    $ astro deployment update <deployment-name> --cloud-role=arn:aws:iam::123456789:role/example-role
+    $ astro deployment update <deployment-name> --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
     ```
 
 2. Confirm the role was passed successfully to all Webserver, Scheduler and Worker pods within your Airflow Deployment by running the following command:
@@ -226,7 +226,7 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
     You should see the following in your output:
 
     ```yaml
-    AWS_ROLE_ARN: arn:aws:iam::123456789:role/example-role
+    AWS_ROLE_ARN: arn:aws:iam::<your-iam-id>:role/<your-role>
     AWS_WEB_IDENTITY_TOKEN_FILE: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
     ```
 
