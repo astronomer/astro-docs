@@ -179,7 +179,7 @@ Creates a new Airflow Deployment in your current Astronomer Workspace.
 | `--airflow-version` | String     | The Airflow version for the new Deployment.                                                                                          |
 | `--cloud-role`      | String     | The role that annotates service accounts in the Deployment                                                                           |
 | `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`. If no executor is specified, then `celery` is used. |
-| `--release-name`    | String     | A custom release name for the Airflow Deployment. Applies only to deployments on Astronomer Enterprise.                                            |
+| `--release-name`    | String     | A custom release name for the Airflow Deployment. Applies only to deployments on Astronomer Enterprise.                              |
 
 ### Related documentation
 
@@ -203,8 +203,8 @@ Generates a list of Airflow Deployments in your current Astronomer Workspace.
 
 ### Flags
 
-| Flag    | Value Type | Usage                                                |
-| ------- | ---------- | ---------------------------------------------------- |
+| Flag    | Value Type | Usage                                                                                          |
+| ------- | ---------- | ---------------------------------------------------------------------------------------------- |
 | `--all` | None       | Generates a list of running Airflow Deployments across all Workspaces that you have access to. |
 
 ## astro deployment logs
@@ -241,14 +241,14 @@ Creates a Deployment-level Service Account on Astronomer, which you can use to c
 
 ### Flags
 
-| Flag                         | Value Type | Usage                                                                                                        |
-| ---------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ |
+| Flag                         | Value Type | Usage                                                                                                            |
+| ---------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------- |
 | `--category`                 | String     | The Category for the new Service Account. The default value is `default`.                                        |
-| `--deployment-id` (Required) | String     | The Deployment you're creating a Service Account for.                                                        |
+| `--deployment-id` (Required) | String     | The Deployment you're creating a Service Account for.                                                            |
 | `--label` (Required)         | String     | A label for the new Service Account.                                                                             |
 | `--role`                     | String     | The User Role for the new Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`. |
-| `--system-sa`                | None       | ??                                                                                                           |
-| `--user-id`                  | String     | ??                                                                                                           |
+| `--system-sa`                | Boolean    | Whether this Service Account is a System Service Account. Default value is `false`.                              |
+| `--user-id`                  | String     | The ID for the new Service Account.                                                                              |
 
 ### Related documentation
 
@@ -303,6 +303,9 @@ This command appends an IAM role to the Webserver, Scheduler and Worker pods wit
 | Flag           | Value Type | Usage                     |
 | -------------- | ---------- | ------------------------- |
 | `--cloud-role` | String     | The ARN for the IAM role. |
+| `label` | String     | The label for the Deployment. |
+| `description` | String     | The description for a Deployment. |
+| `version` | String | The Airflow version for the Deployment (e.g. `v2.0.0`)|
 
 ### Related Documentation
 
@@ -314,7 +317,7 @@ Gives an existing Workspace user access to an Airflow Deployment within that Wor
 
 ### Usage
 
-`$ astro deployment user add --deployment-id=<user-deployment-id> --role<user-role> <user-email-address> `
+`$ astro deployment user add --deployment-id=<user-deployment-id> --role<user-role> <user-email-address>`
 
 ### Flags
 
@@ -376,9 +379,9 @@ Updates a user's role in a given Deployment.
 
 ### Flags
 
-| Flag                         | Value Type | Usage                                                                                                                      |
-| ---------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--deployment-id` (Required) | String     | The Deployment that you're searching in.                                                                                   |
+| Flag                         | Value Type | Usage                                                                                                                                                                                                 |
+| ---------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--deployment-id` (Required) | String     | The Deployment that you're searching in.                                                                                                                                                              |
 | `--role`                     | String     | The role you're updating the user to. Possible values are `DEPLOYMENT_VIEWER`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_ADMIN`. If `--role` is unspecified, then `DEPLOYMENT_VIEWER` is the default value. |
 
 ### Related documentation
@@ -466,7 +469,7 @@ Runs a single [Airflow command](https://airflow.apache.org/docs/apache-airflow/s
 
 ### Related documentation
 
-* [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.16/develop/cli-quickstart)
+- [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.16/develop/cli-quickstart)
 
 ## astro dev start
 
@@ -506,6 +509,7 @@ Runs a script that checks whether all files in your local Airflow project are co
 
 - [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/upgrade-to-airflow-2)
 - [Running the Airflow Upgrade Check Package](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html#upgrade-check)
+
 ## astro upgrade
 
 Checks for a newer version of the Astronomer CLI.
@@ -519,6 +523,7 @@ Checks for a newer version of the Astronomer CLI.
 > ```sh
 > $ brew install astronomer/tap/astro
 > ```
+
 ## astro user create
 
 Creates a new user on Astronomer that's not associated with an existing Astronomer Workspace. An invitation email will be sent to the email address you specify. Once this user creates an account on Astronomer, they'll be able create a new Workspace and be a Workspace Admin within it.
@@ -549,7 +554,7 @@ Displays the running versions of both the Astronomer CLI and the Astronomer plat
 
 ### Related documentation
 
-* [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.16/develop/cli-quickstart)
+- [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.16/develop/cli-quickstart)
 
 ## astro workspace
 
@@ -619,8 +624,8 @@ Creates a Service Account for a given Workspace.
 | `--workspace-id` (Required) | String     | The Workspace you're creating a Service Account for.                                                         |
 | `--label` (Required)        | String     | A label for the Service Account.                                                                             |
 | `role`                      | String     | The User Role for the Service Account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`. |
-| `--system-sa`               | None       | ??                                                                                                           |
-| `--user-id`                 | String     | ??                                                                                                           |
+| `--system-sa`               | Boolean    | Whether this Service Account is a System Service Account. Default value is `false`.                          |
+| `--user-id`                 | String     | The ID for the new Service Account.                                                                          |
 
 ### Related documentation
 
@@ -681,9 +686,15 @@ Updates a Workspace name, as well as the users and roles assigned to a Workspace
 
 `$ astro workspace update <flags>`
 
+At least one flag must be specified.
+
 ### Flags
 
-[These flags are undocumented].
+| Flag          | Value Type | Usage                            |
+| ------------- | ---------- | -------------------------------- |
+| id          | String     | The ID for the Workspace.        |
+| description | String     | A description for the Workspace. |
+| label       | String     | A label for the Workspace        |
 
 ### Related documentation
 
@@ -699,10 +710,10 @@ Adds an existing user from the Workspace to a given Workspace.
 
 ### Flags
 
-| Flag                        | Value Type | Usage                                                                                                                                        |
-| --------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--workspace-id` (Required) | String     | The Workspace that the user will be added to.                                                                                                |
-| `--role`        | String     | The role assigned to the user. Can be `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. If `--role` is not specified, the default role is `WORKSPACE_VIEWER`. |
+| Flag                        | Value Type | Usage                                                                                                                                                                     |
+| --------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--workspace-id` (Required) | String     | The Workspace that the user will be added to.                                                                                                                             |
+| `--role`                    | String     | The role assigned to the user. Can be `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. If `--role` is not specified, the default role is `WORKSPACE_VIEWER`. |
 
 ### Related documentation
 
