@@ -106,7 +106,7 @@ For additional information, refer to [Enable IAM Roles for service accounts](htt
 3. In the **Select type of trusted entity** section, choose **AWS service** and **EC2**. Choose **Next: Permissions**.
 4. In the **Attach Policy** section, select your policy created in the previous section. Choose **Next: Tags.**
 5. On the Add tags (optional) screen, you can add tags for the account. Choose **Next: Review.**
-6. Enter a name for your role and choose **Create Role**.
+6. Enter a name for your role and click **Create Role**.
 
 For additional information, refer to [Create service account IAM Policy and Role](https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html).
 
@@ -205,7 +205,7 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
 
 ### Step 5: Create or update an Airflow Deployment with an attached IAM role
 
-1. To create a new Airflow Deployment with your IAM role attached, run the following command:
+1. To create a new Airflow Deployment with your IAM role attached, run the following Astronomer CLI command:
 
     ```sh
     $ astro deployment create <deployment-name> --executor=celery --cloud-role=arn:aws:iam::123456789:role/example-role
@@ -217,7 +217,7 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
     $ astro deployment update <deployment-name> --cloud-role=arn:aws:iam::123456789:role/example-role
     ```
 
-2. Confirm the role was passed successfully to Webserver, Scheduler and Worker pods within your Airflow Deployment by running the following run the following command:
+2. Confirm the role was passed successfully to all Webserver, Scheduler and Worker pods within your Airflow Deployment by running the following command:
 
     ```bash
     $ kubectl describe po <pod-name> -n <airflow-namespace>
@@ -308,7 +308,7 @@ astronomer:
 1. Create an interactive session by running the following command:
 
     ```bash
-    kubectl run -it \
+  $ kubectl run -it \
       --image google/cloud-sdk:slim \
       --serviceaccount <worker-serviceaccount> \
       --namespace <your-airflow-namespace> \
@@ -318,7 +318,7 @@ astronomer:
 2. In the interactive session, confirm you're able to authenticate successfully via Workload Identity by running the following command:
 
     ```bash
-    gcloud auth list
+  $ gcloud auth list
     ```
 
     If Workload Identity is working, you should see a list of credentialed accounts related to your GCP service account.
