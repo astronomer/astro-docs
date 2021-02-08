@@ -42,7 +42,7 @@ Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll ne
     $ aws eks list-clusters
     {
         "clusters": [
-            "astronomer-cluster"
+            "<your-cluster>"
         ]
     }
     ```
@@ -68,7 +68,7 @@ For additional information, refer to [Enable IAM Roles for service accounts](htt
 3. Open the **JSON** tab.
 4. In the Policy Document field, specify the permissions you'd like to apply (or restrict) to the resource in question (e.g. read / write access to an AWS S3 bucket) You can also use the visual editor to construct your own policy.
 
-    The following example allows permission to an S3 bucket named `astronomer-bucket`:
+    The following example will grant your IAM role read/write permissions to an S3 bucket named `astronomer-bucket`:
     ```json
     {
         "Version": "2012-10-17",
@@ -102,7 +102,7 @@ For additional information, refer to [Enable IAM Roles for service accounts](htt
 ### Step 2: Create an IAM role
 
 1. Open the IAM console at https://console.aws.amazon.com/iam/.
-2. In the navigation panel, choose **Roles** and **Create Role**.
+2. In the navigation panel, go to **Roles** > **Create Role**.
 3. In the **Select type of trusted entity** section, choose **AWS service** and **EC2**. Choose **Next: Permissions**.
 4. In the **Attach Policy** section, select your policy created in the previous section. Choose **Next: Tags.**
 5. On the Add tags (optional) screen, you can add tags for the account. Choose **Next: Review.**
