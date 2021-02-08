@@ -6,14 +6,18 @@ description: "Manage Astronomer Workspaces and Airflow Deployments via the Astro
 
 ## Overview
 
-A Workspace is the highest level of organization on Astronomer. From a Workspace, you can manage a collection of Airflow Deployments and a set of users with varying levels of access to those Deployments. If you're not a member of any Workspaces already, you'll be prompted to create one as soon as you log in to the Astronomer UI. If you already have access to at least 1 Workspace, you can create a new one using the **New Workspace** button in the sidebar of the Astronomer UI.
+A Workspace is the highest level of organization on Astronomer. From a Workspace, you can manage a collection of Airflow Deployments and a set of users with varying levels of access to those Deployments.
 
-This guide walks through the best practices for creating and managing Workspaces as a Workspace admin. It's organized by the 4 tabs you can access from the Workspace menu in the Astronomer UI:
+If you're not a member of any Workspaces already, you'll be prompted to create one as soon as you log in to the Astronomer UI. If you already have access to at least 1 Workspace, you can create a new one using the **New Workspace** button in the sidebar of the Astronomer UI.
+
+This guide walks through the best practices for creating and managing Workspaces as a Workspace admin. It's organized by the 4 tabs you can access from a Workspace's menu in the Astronomer UI:
 
 * Deployments
 * Settings
 * Users
 * Service Accounts
+
+![Workspace configuration tab location](https://assets2.astronomer.io/main/docs/astronomer-ui/v0.23-workspace.png)
 
 ## Deployments
 
