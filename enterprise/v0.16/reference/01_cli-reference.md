@@ -213,7 +213,7 @@ Returns logs from your Airflow Deployment's Scheduler, Webserver, and Celery Wor
 
 ### Usage
 
-You can run any of the following commands depending on which logs you want to return:
+You can run any of the following commands depending on which logs you want to stream:
 
 - `$ astro deployment logs scheduler <flags>`
 - `$ astro deployment logs webserver <flags>`
@@ -223,8 +223,8 @@ You can run any of the following commands depending on which logs you want to re
 
 | Flag       | Value Type                                    | Usage                                                               |
 | ---------- | --------------------------------------------- | ------------------------------------------------------------------- |
-| `--follow` | None                                          | Subscribe to watch more logs.                                       |
-| `--search` | String                                        | Searches for the specified string inside the logs you're following. |
+| `--follow` | None                                          | Subscribes to watch more logs.                                       |
+| `--search` | String                                        | Searches for the specified string within the logs you're following. |
 | `--since`  | Lookback time in `h` or `m` (e.g. `5m`, `2h`) | Limits past logs to those generated in the lookback window.         |
 
 ### Related documentation
@@ -693,6 +693,8 @@ Updates a Workspace name, as well as the users and roles assigned to a Workspace
 `$ astro workspace update <flags>`
 
 At least one flag must be specified.
+
+> **Note:** Unlike other commands, do not specify flags for this command with a leading `--`.
 
 ### Flags
 
