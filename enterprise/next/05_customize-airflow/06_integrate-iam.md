@@ -49,6 +49,11 @@ Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll ne
 
     ```bash
     $ aws eks describe-cluster --name astronomer-cluster --query "cluster.identity.oidc.issuer" --output text
+    ```
+
+    The second command should return an OIDC issuer URL that looks something like this:
+
+    ```bash
     https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90
     ```
 
@@ -260,9 +265,9 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
       --workload-metadata=GKE_METADATA
     ```
 
-### Step 2: Create a Google service account
+### Step 2: Create a GCP service account
 
-To create a Google service account, run the following command:
+To create a GCP service account, run the following command:
 
 ```bash
 $ gcloud iam service-accounts create <gsa-name>
@@ -282,19 +287,19 @@ astronomer:
 
 ### Step 4: Create an Airflow Deployment
 
-1. Create an Airflow Deployment with your Google service account attached by running the following command:
+1. Create an Airflow Deployment with your GCP service account attached by running the following command:
 
     ```bash
     $ astro deployment create <deployment-name> --executor=celery --cloud-role=<gsa-name>@<project-id>.iam.gserviceaccount.com
     ```
 
-2. Note the name of each GKE service account that appears when you run the following command:
+2. Note the name of the Worker and Scheduler service accounts that appear when you run the following command:
 
     ```bash
     $ kubectl get sa -n <your-airflow-namespace>
     ```
 
-3. Create an IAM policy binding your Google and GKE service accounts by running the following command for each of the GKE service accounts you noted:
+3. Create an IAM policy binding your Google and GKE service accounts by running the following command for both the Worker and Scheduler GKE service accounts you noted:
 
     ```bash
     gcloud iam service-accounts add-iam-policy-binding \
