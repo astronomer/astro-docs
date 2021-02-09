@@ -313,7 +313,7 @@ astronomer:
 1. Create an interactive session by running the following command:
 
     ```bash
-  $ kubectl run -it \
+      $ kubectl run -it \
       --image google/cloud-sdk:slim \
       --serviceaccount <worker-serviceaccount> \
       --namespace <your-airflow-namespace> \
@@ -323,7 +323,7 @@ astronomer:
 2. In the interactive session, confirm you're able to authenticate successfully via Workload Identity by running the following command:
 
     ```bash
-  $ gcloud auth list
+    $ gcloud auth list
     ```
 
     If Workload Identity is working, you should see a list of credentialed accounts related to your GCP service account.
