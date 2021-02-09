@@ -65,12 +65,12 @@ Once you set up a TLS certificate for Astronomer, you'll need to establish a pro
             email: <your-email>
             server: https://acme-v02.api.letsencrypt.org/directory
             privateKeySecretRef:
-               name: cert-manager-issuer-secret-key
+                name: cert-manager-issuer-secret-key
             solvers:
             - selector: {}
-            dns01:
-                route53:
-                     region: <your-server-region>
+              dns01:
+                 route53:
+                    region: <your-server-region>
     ```
 
     Then, create the ClusterIssuer by running the following command:
@@ -112,10 +112,9 @@ Once you set up a TLS certificate for Astronomer, you'll need to establish a pro
     ```
 
 5. Ensure that the certificate was created by running:
-
-    ```sh
-    $ kubectl get certificates
-    ```
+```sh
+$ kubectl get certificates
+```
 
 ## Manually Renew TLS Certificates
 
