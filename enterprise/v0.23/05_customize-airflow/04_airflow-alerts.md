@@ -10,7 +10,7 @@ Whether you're just starting to use Apache Airflow or your team is running it at
 
 - Airflow task and DAG-level alerts notify you via email when an Airflow task or DAG fails, succeeds, or retries. These require an SMTP (Simple Mail Transfer Protocol) service.
 - Deployment-level alerts notify you when the health of an Airflow Deployment is low or if any of Airflow's underlying components are underperforming, including the Airflow Scheduler.
-- Platform-level alerts notify you when a component of your Astronomer installation is unhealthy, such as Elasticsearch, Astronomer's Houston API, or your Docker Registry.
+- Platform-level alerts notify you when a component of your Astronomer platform is unhealthy, such as Elasticsearch, Astronomer's Houston API, or your Docker Registry.
 
 This guide focuses on configuring task and DAG-level alerts. For information on configuring platform and Deployment alerts, read [Alerting on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts).
 
