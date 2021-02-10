@@ -12,7 +12,7 @@ Whether you're just starting to use Apache Airflow or your team is running it at
 - Deployment-level alerts notify you when the health of an Airflow Deployment is low or if any of Airflow's underlying components are underperforming, including the Airflow Scheduler.
 - Platform-level alerts notify you when a component of your Astronomer installation is unhealthy, such as Elasticsearch, Astronomer's Houston API, or your Docker Registry.
 
-This guide focuses on configuring task and DAG-level alerts. For information on configuring platform and Deployment alerts, read [Alerting in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts).
+This guide focuses on configuring task and DAG-level alerts. For information on configuring platform and Deployment alerts, read [Alerting on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts).
 
 ## Subscribe to Task-Level Alerts
 
@@ -33,17 +33,17 @@ For step-by-step instructions on how to integrate either of these two services w
 
 To get started with SendGrid:
 
-1. [Create a SendGrid Account](https://signup.sendgrid.com). When you create an account, be prepared to disclose some standard information about yourself and your organization.
+1. [Create a SendGrid account](https://signup.sendgrid.com). When you create an account, be prepared to disclose some standard information about yourself and your organization.
 
 2. [Verify a Single Sender Identity](https://sendgrid.com/docs/ui/sending-email/sender-verification/). Because you're sending emails only for internal administrative purposes, a single sender identity is sufficient for integrating with Astronomer. The email address you verify here is used as the sender for your Airflow alert emails.
 
-3. Create a Key Using SendGrid's Web API. In SendGrid, go to **Email API** > **Integration Guide**. Follow the steps to generate a new API key using SendGrid's Web API and cURL.
+3. Create a key using SendGrid's web API. In SendGrid, go to **Email API** > **Integration Guide**. Follow the steps to generate a new API key using SendGrid's Web API and cURL.
 
 4. Skip the step for exporting your API Key to your development environment. Instead, execute the generated curl code directly in your command line, making sure to replace `$SENDGRID_API_KEY` in the `--header` field with your copied key.
 
 5. Verify your integration in SendGrid to confirm that the key was activated. If you get an error indicating that SendGrid can't find the test email, try rerunning the cURL code in your terminal before retrying the verification.
 
-6. Open your Airflow Deployment in the Astronomer UI, then go to the **Variables** tab and add the following Environment Variables using the **+Add** button:
+6. In the Astronomer UI, go to the **Variables** tab of your Deployment and add the following Environment Variables using the **+Add** button:
 
    ```
    AIRFLOW__SMTP__SMTP_HOST=smtp.sendgrid.net

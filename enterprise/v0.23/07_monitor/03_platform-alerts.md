@@ -6,7 +6,7 @@ description: "Route common Airflow Deployment and platform alerts to your prefer
 
 ## Overview
 
-You can use two built-in alerting solutions for monitoring the health of your Astronomer platform:
+You can use two built-in alerting solutions for monitoring the health of Astronomer:
 
 - Deployment-level alerts notify you when the health of an Airflow Deployment is low or if any of Airflow's underlying components are underperforming, including the Airflow Scheduler.
 - Platform-level alerts notify you when a component of your Astronomer installation is unhealthy, such as Elasticsearch, Astronomer's Houston API, or your Docker Registry.
@@ -28,7 +28,7 @@ Platform and Deployment alerts are defined in YAML and use [PromQL queries](http
 * `annotations.summary`: The text for the alert that's sent via Alertmanager.
 * `annotations.description`: A human-readable description of what the alert does.
 
-By default, your Astronomer platform checks for all alerts defined in [the Prometheus configmap](https://github.com/astronomer/astronomer/blob/master/charts/prometheus/templates/prometheus-alerts-configmap.yaml).
+By default, Astronomer checks for all alerts defined in [the Prometheus configmap](https://github.com/astronomer/astronomer/blob/master/charts/prometheus/templates/prometheus-alerts-configmap.yaml).
 
 ## Subscribe to Built-in Alerts
 
@@ -81,7 +81,7 @@ To add a new receiver to Astronomer, add your receiver configuration to your `co
 
 ## Create Custom Alerts
 
-In addition to subscribing to Astronomer's built-in alerts, you can also create custom alerts and push them to your Astronomer platform.
+In addition to subscribing to Astronomer's built-in alerts, you can also create custom alerts and push them to Astronomer.
 
 Platform and Deployment alerts are defined in YAML via the Prometheus Helm chart. For example, the following alert will fire if more than 2 Airflow Schedulers across the platform are not heartbeating for more than 5 minutes:
 
@@ -108,7 +108,7 @@ Once you've pushed the alert to your platform, make sure that you've configured 
 
 ## Reference: Common Built-in Alerts
 
-The following sections contain information on some of the most common alerts that you might receive from your Astronomer platform.
+The following sections contain information on some of the most common alerts that you might receive from Astronomer.
 
 For a complete list of built-in Airflow and platform alerts, refer to the [Prometheus configmap](https://github.com/astronomer/astronomer/blob/master/charts/prometheus/templates/prometheus-alerts-configmap.yaml).
 
