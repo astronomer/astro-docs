@@ -36,10 +36,15 @@ Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll ne
 
 ### Step 1: Create an IAM OIDC identity provider
 
-1. Retrieve your EKS cluster's OIDC issuer URL with the following AWS CLI commands:
+1. Retrieve your EKS cluster with the following AWS CLI command:
 
     ```bash
     $ aws eks list-clusters
+    ```
+
+    The output of this command should look something like this:
+
+    ```json
     {
         "clusters": [
             "<your-cluster>"
@@ -47,22 +52,20 @@ Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll ne
     }
     ```
 
-    ```bash
-    $ aws eks describe-cluster --name astronomer-cluster --query "cluster.identity.oidc.issuer" --output text
-    ```
-
-    The second command should return an OIDC issuer URL that looks something like this:
+2. Retrieve and make note of your cluster's OIDC issuer URL with the following AWS CLI command:
 
     ```bash
-    https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90
+    $ aws eks describe-cluster --name <your-cluster> --query "cluster.identity.oidc.issuer" --output text
     ```
 
-2. Open the [IAM console](https://console.aws.amazon.com/iam/).
-3. In the navigation pane, click **Identity Providers** > **Create Provider**.
-4. For **Provider Type**, click **Choose a provider type** > **OpenID Connect**.
-5. For **Provider URL**, use the OIDC issuer URL for your cluster.
-6. For **Audience**, use `sts.amazonaws.com`.
-7. Verify that the provider information is correct, and then click **Create** to create your identity provider.
+    The output of this command should be a URL starting with `https://oidc.eks`.
+
+3. Open the [IAM console](https://console.aws.amazon.com/iam/).
+4. In the navigation pane, click **Identity Providers** > **Create Provider**.
+5. For **Provider Type**, click **Choose a provider type** > **OpenID Connect**.
+6. For **Provider URL**, use the OIDC issuer URL for your cluster.
+7. For **Audience**, use `sts.amazonaws.com`.
+8. Verify that the provider information is correct, and then click **Create** to create your identity provider.
 
 For additional information, refer to [Enable IAM Roles for service accounts](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html).
 
@@ -71,7 +74,7 @@ For additional information, refer to [Enable IAM Roles for service accounts](htt
 1. Open the IAM console at https://console.aws.amazon.com/iam/.
 2. In the navigation panel, click **Policies** > **Create policy**.
 3. Open the **JSON** tab.
-4. In the Policy Document field, specify the permissions you'd like to apply (or restrict) to the resource in question (e.g. read / write access to an AWS S3 bucket) You can also use the visual editor to construct your own policy.
+4. In the Policy Document field, specify the permissions you'd like to apply (or restrict) to the resource in question (e.g. read / write access to an AWS S3 bucket). You can also use the visual editor to construct your own policy.
 
     The following example will grant your IAM role read/write permissions to an S3 bucket named `astronomer-bucket`:
     ```json
