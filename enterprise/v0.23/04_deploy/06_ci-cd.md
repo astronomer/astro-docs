@@ -305,8 +305,6 @@ pipelines:
 astro_deploy:
   stage: deploy
   image: docker:latest
-  services:
-    - docker:dind
   script:
     - echo "Building container.."
     - docker build -t registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:CI-$CI_PIPELINE_IID .
@@ -376,7 +374,7 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
- 
+
 variables:
 - group: Variable-Group
 - group: Key-Vault-Group
