@@ -65,12 +65,13 @@ alertmanager:
 By default, the Alertmanager Helm Chart contains groups for platform, critical platform, and Deployment alerts. To configure a receiver for another type of alert, such as Deployment alerts with `labels.severity: high`, add that receiver to the `customRoutes` list with the appropriate `match_re` values. For example:
 
 ```yaml
-customRoutes: {}
-  - name: deployment-high-receiver
-    match_re:
-      tier: airflow
-      severity: high
-    email-configs: # etc.
+alertmanager:
+  customRoutes: {}
+    - name: deployment-high-receiver
+      match_re:
+        tier: airflow
+        severity: high
+      email-configs: # etc.
 ```
 
 For more information on building and configuring receivers, refer to [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).

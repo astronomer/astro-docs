@@ -96,9 +96,9 @@ This setup requires an AWS account and use of the [AWS Management Console](https
 
    To prevent unauthorized users in your Workspace from seeing sensitive information, we recommend selecting the **Secret?** checkbox for your email and password profile variables.
 
-   Lastly, click **Deploy Changes** to push your configuration to your Airflow Deployment.
+    > **Note:** For more information on how to configure Environment Variables both locally and on Astronomer, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/v0.23/deploy/environment-variables/).
 
-   > **Note:** For more information on how to configure Environment Variables both locally and on Astronomer, refer to our ["Environment Variables" doc](https://www.astronomer.io/docs/enterprise/v0.23/deploy/environment-variables/).
+6. Click **Deploy Changes** to push your configuration to your Airflow Deployment.
 
 ## Limit Alerts to the Airflow DAG Level
 
