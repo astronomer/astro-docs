@@ -86,21 +86,21 @@ In addition to subscribing to Astronomer's built-in alerts, you can also create 
 Platform and Deployment alerts are defined in YAML via the Prometheus Helm chart. For example, the following alert will fire if more than 2 Airflow Schedulers across the platform are not heartbeating for more than 5 minutes:
 
 ```yaml
-additionalAlerts:
-  # Additional rules for the 'platform' alert group
-  # Provide as a block string in yaml list form
-  platform:
-    - alert: ExamplePlatformAlert
-      # If greater than 10% task failure
-      expr: count(rate(airflow_scheduler_heartbeat{}[1m]) <= 0) > 2
-      for: 5m
-      labels:
-        tier: platform
-        severity: critical  
-      annotations:
-        summary: {{ printf "%q" "{{value}} airflow schedulers are not heartbeating." }}
-        description: If more than 2 Airflow Schedulers are not heartbeating for more than 5 minutes, this alert fires.
-```
+prometheus:
+  additionalAlerts:
+    # Additional rules for the 'platform' alert group
+    # Provide as a block string in yaml list form
+    platform:
+      - alert: ExamplePlatformAlert
+        # If greater than 10% task failure
+        expr: count(rate(airflow_scheduler_heartbeat{}[1m]) <= 0) > 2
+        for: 5m
+        labels:
+          tier: platform
+          severity: critical  
+        annotations:
+          summary: {{ printf "%q" "{{value}} airflow schedulers are not heartbeating." }}
+          description: If more than 2 Airflow Schedulers are not heartbeating for more than 5 minutes, this alert fires.
 
 To push custom alerts to your platform, add them to the `AdditionalAlerts` section of your `config.yaml` file and push the file via Helm as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
