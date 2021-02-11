@@ -281,7 +281,7 @@ $ gcloud iam service-accounts create <gsa-name>
 
 ### Step 3: Configure Astronomer
 
-Add the following to your `config.yaml` file and push it to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config):
+Add the following to your `config.yaml` file and push it to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config):
 
 ```yaml
 astronomer:

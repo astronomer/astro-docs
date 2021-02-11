@@ -34,205 +34,302 @@ Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll ne
 - Create an IAM Role
 - Create a Trust Relationship
 
-### Create an IAM OIDC Identity Provider
+### Step 1: Create an IAM OIDC identity provider
 
-1. Retrieve your EKS cluster's OIDC issuer URL with the following AWS CLI commands:
+1. Retrieve your EKS cluster with the following AWS CLI command:
 
-```bash
-$ aws eks list-clusters
-{
-    "clusters": [
-        "astronomer-cluster"
-    ]
-}
-```
+    ```bash
+    $ aws eks list-clusters
+    ```
 
-```bash
-$ aws eks describe-cluster --name astronomer-cluster --query "cluster.identity.oidc.issuer" --output text
-https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90
-```
+    The output of this command should look something like this:
 
-2. Open the IAM console at [https://console.aws.amazon.com/iam/](https://console.aws.amazon.com/iam/)
-3. In the navigation pane, choose **Identity Providers**, and then choose **Create Provider**.
-4. For **Provider Type**, choose **Choose a provider type**, and then choose **OpenID Connect**.
-5. For **Provider URL**, use the OIDC issuer URL for your cluster.
-6. For **Audience**, use `sts.amazonaws.com`.
-7. Verify that the provider information is correct, and then choose **Create** to create your identity provider.
+    ```json
+    {
+        "clusters": [
+            "<your-cluster>"
+        ]
+    }
+    ```
 
-For additional information, refer to [Enable IAM Roles for Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html).
+2. Retrieve and make note of your cluster's OIDC issuer URL with the following AWS CLI command:
 
-### Create an IAM Policy
+    ```bash
+    $ aws eks describe-cluster --name <your-cluster> --query "cluster.identity.oidc.issuer" --output text
+    ```
+
+    The output of this command should be a URL starting with `https://oidc.eks`.
+
+3. Open the [IAM console](https://console.aws.amazon.com/iam/).
+4. In the navigation pane, click **Identity Providers** > **Create Provider**.
+5. For **Provider Type**, click **Choose a provider type** > **OpenID Connect**.
+6. For **Provider URL**, use the OIDC issuer URL for your cluster.
+7. For **Audience**, use `sts.amazonaws.com`.
+8. Verify that the provider information is correct, and then click **Create** to create your identity provider.
+
+For additional information, refer to [Enable IAM Roles for service accounts](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html).
+
+### Step 2: Create an IAM policy
 
 1. Open the IAM console at https://console.aws.amazon.com/iam/.
-2. In the navigation panel, choose **Policies** and **Create policy**.
-3. Choose the **JSON** tab.
-4. In the Policy Document field, specify the permissions you'd like to apply (or restrict) to the resource in question (e.g. read / write access to an AWS S3 bucket) You can also use the visual editor to construct your own policy.
+2. In the navigation panel, click **Policies** > **Create policy**.
+3. Open the **JSON** tab.
+4. In the Policy Document field, specify the permissions you'd like to apply (or restrict) to the resource in question (e.g. read / write access to an AWS S3 bucket). You can also use the visual editor to construct your own policy.
 
-The following example allows permission to an S3 bucket named `astronomer-bucket`:
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket",
-                "s3:GetBucketLocation",
-                "s3:ListBucketMultipartUploads"
-            ],
-            "Resource": "arn:aws:s3:::astronomer-bucket"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject",
-                "s3:ListMultipartUploadParts",
-                "s3:AbortMultipartUpload"
-            ],
-            "Resource": "arn:aws:s3:::astronomer-bucket/*"
-        }
-    ]
-}
-```
+    The following example will grant your IAM role read/write permissions to an S3 bucket named `astronomer-bucket`:
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListBucket",
+                    "s3:GetBucketLocation",
+                    "s3:ListBucketMultipartUploads"
+                ],
+                "Resource": "arn:aws:s3:::astronomer-bucket"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:DeleteObject",
+                    "s3:ListMultipartUploadParts",
+                    "s3:AbortMultipartUpload"
+                ],
+                "Resource": "arn:aws:s3:::astronomer-bucket/*"
+            }
+        ]
+    }
+    ```
 
 5. Review and create your policy.
 
-### Create an IAM Role
+### Step 2: Create an IAM role
 
 1. Open the IAM console at https://console.aws.amazon.com/iam/.
-2. In the navigation panel, choose **Roles** and **Create Role**.
+2. In the navigation panel, go to **Roles** > **Create Role**.
 3. In the **Select type of trusted entity** section, choose **AWS service** and **EC2**. Choose **Next: Permissions**.
 4. In the **Attach Policy** section, select your policy created in the previous section. Choose **Next: Tags.**
 5. On the Add tags (optional) screen, you can add tags for the account. Choose **Next: Review.**
-6. Enter a name for your role and choose **Create Role**.
+6. Enter a name for your role and click **Create Role**.
 
-For additional information, refer to [Create Service Account IAM Policy and Role](https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html).
+For additional information, refer to [Create service account IAM Policy and Role](https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html).
 
-### Create a Trust Relationship
+### Step 3: Create a trust relationship
 
-Create a trust relationship between your IAM role and OIDC identity provider.
+To create a trust relationship between your IAM role and OIDC identity provider:
 
 1. Open the IAM console at https://console.aws.amazon.com/iam/.
 2. In the navigation panel, choose **Roles** and select your role created in the previous section.
 3. Select the **Trust relationships** tab and choose **Edit trust relationship**.
 4. Create a trust relationship between your IAM role and OIDC identity provider with the following format:
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/OIDC_PROVIDER"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringLike": {
-          "OIDC_PROVIDER:sub": "system:serviceaccount:SERVICE_ACCOUNT_NAMESPACE:SERVICE_ACCOUNT_NAME"
-        }
-      }
-    }
-  ]
-}
-```
 
-Example:
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
+    ```json
     {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::123456789:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringLike": {
-          "oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90:sub": "system:serviceaccount:astronomer-*:*"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "ec2.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        },
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/OIDC_PROVIDER"
+          },
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringLike": {
+              "OIDC_PROVIDER:sub": "system:serviceaccount:SERVICE_ACCOUNT_NAMESPACE:SERVICE_ACCOUNT_NAME"
+            }
+          }
         }
-      }
+      ]
     }
-  ]
-}
-```
+    ```
+
+    Example:
+
+    ```json
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "ec2.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        },
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::<your-iam-id>:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90"
+          },
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringLike": {
+              "oidc.eks.us-west-2.amazonaws.com/id/EXAMPLEA829F4B2854D8DAE63782CE90:sub": "system:serviceaccount:astronomer-*:*"
+            }
+          }
+        }
+      ]
+    }
+    ```
 
 For additional information, refer to [IAM Role Configuration](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts-technical-overview.html#iam-role-configuration).
 
-### Integrate your IAM Role with Astronomer
+### Step 4: Integrate your IAM role with Astronomer
 
-In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll need to explicitly pass an annotation key to the platform.
+In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll need to explicitly pass an annotation key to the platform. To do so:
 
 1. Set the following in your `config.yaml` file under `astronomer.houston.config.deployments`:
 
-```yaml
-serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
-```
+    ```yaml
+    serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
+    ```
 
-Example:
-```yaml
-global:
-  baseDomain: astro.mydomain.com
-  tlsSecret: astronomer-tls
-  postgresqlEnabled: false
-nginx:
-  privateLoadBalancer: true
-astronomer:
-  houston:
-    config:
-      deployments:
-        serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
-```
+    Example:
+
+    ```yaml
+    global:
+      baseDomain: astro.mydomain.com
+      tlsSecret: astronomer-tls
+      postgresqlEnabled: false
+    nginx:
+      privateLoadBalancer: true
+    astronomer:
+      houston:
+        config:
+          deployments:
+            serviceAccountAnnotationKey: eks.amazonaws.com/role-arn
+    ```
 
 
 2. Push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/apply-platform-config).
 
-### Create or update an Airflow Deployment with an attached IAM Role
+### Step 5: Create or update an Airflow Deployment with an attached IAM role
 
-To _create_ a new Airflow Deployment with your IAM role attached:
+1. To create a new Airflow Deployment with your IAM role attached, run the following Astronomer CLI command:
 
-```
-$ astro deployment create <deployment-name> --executor=celery --cloud-role=arn:aws:iam::123456789:role/example-role
-```
+    ```sh
+    $ astro deployment create <deployment-name> --executor=celery --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
+    ```
 
-To _update_ an existing Airflow Deployment with your IAM role attached:
+    Alternatively, to update an existing Airflow Deployment with your IAM role attached, run the following:
 
-```
-$ astro deployment update <deployment-name> --cloud-role=arn:aws:iam::123456789:role/example-role
-```
+    ```sh
+    $ astro deployment update <deployment-name> --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
+    ```
 
-Confirm the role was passed successfully to Webserver, Scheduler and Worker pods within your Airflow Deployment:
-```bash
-$ kubectl describe po <pod-name> -n <airflow-namespace>
-```
+2. Confirm the role was passed successfully to all Webserver, Scheduler and Worker pods within your Airflow Deployment by running the following command:
 
-Example:
-```bash
-$ kubectl describe po arithmetic-radiation-6756-worker-6d89b49f87-48nt4 -n astronomer-arithmetic-radiation-6756
-```
+    ```bash
+    $ kubectl describe po <pod-name> -n <airflow-namespace>
+    ```
 
-You should see the following in your output:
+    You should see the following in your output:
 
-
-```yaml
-AWS_ROLE_ARN: arn:aws:iam::123456789:role/example-role
-AWS_WEB_IDENTITY_TOKEN_FILE: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
-```
+    ```yaml
+    AWS_ROLE_ARN: arn:aws:iam::<your-iam-id>:role/<your-role>
+    AWS_WEB_IDENTITY_TOKEN_FILE: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
+    ```
 
 > **Note:** If using Airflow `1.10.5`, you'll need to add `boto3 >=1.9` and `botocore >= 1.12` to your `requirements.txt` file.
+
+## GCP
+
+[Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) is a secure and manageable way to access Google Cloud services from applications running on GKE. This guide walks through the necessary steps for integrating IAM roles with Airflow Deployments running on GKE using Workload Identity.
+
+### Step 1: Enable workload identity on your GKE cluster
+
+1. Create a new cluster with Workload Identity enabled by running the following command:
+
+    ```bash
+    $ gcloud container clusters create <cluster-name> \
+      --workload-pool=<project-id>.svc.id.goog
+    ```
+
+    Alternatively, run the following to enable Workload Identity on an existing cluster:
+
+    ```bash
+    $ gcloud container clusters update <cluster-name> \
+      --workload-pool=<project-id>.svc.id.goog
+    ```
+
+2. Configure your node pool to use Workload Identity by running the following command:
+
+    ```bash
+    $ gcloud container node-pools update <nodepool-name> \
+      --cluster=<cluster-name> \
+      --workload-metadata=GKE_METADATA
+    ```
+
+### Step 2: Create a GCP service account
+
+To create a GCP service account, run the following command:
+
+```bash
+$ gcloud iam service-accounts create <gsa-name>
+```
+
+### Step 3: Configure Astronomer
+
+Add the following to your `config.yaml` file and push it to your platform as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/apply-platform-config):
+
+```yaml
+astronomer:
+  houston:
+    config:
+      deployments:
+        serviceAccountAnnotationKey: iam.gke.io/gcp-service-account
+```
+
+### Step 4: Create an Airflow Deployment
+
+1. Create an Airflow Deployment with your GCP service account attached by running the following command:
+
+    ```bash
+    $ astro deployment create <deployment-name> --executor=celery --cloud-role=<gsa-name>@<project-id>.iam.gserviceaccount.com
+    ```
+
+2. Note the name of the Worker and Scheduler service accounts that appear when you run the following command:
+
+    ```bash
+    $ kubectl get sa -n <your-airflow-namespace>
+    ```
+
+3. Create an IAM policy binding your Google and GKE service accounts by running the following command for both the Worker and Scheduler GKE service accounts you noted:
+
+    ```bash
+    gcloud iam service-accounts add-iam-policy-binding \
+    --role roles/iam.workloadIdentityUser \
+    --member "serviceAccount:<project-id>.svc.id.goog[<your-airflow-namespace>/<gke-service-account-name>]" \
+    <gsa-name>@<project-id>.iam.gserviceaccount.com
+    ```
+
+### Step 4: Confirm Workload Identity is working
+
+1. Create an interactive session by running the following command:
+
+    ```bash
+      $ kubectl run -it \
+      --image google/cloud-sdk:slim \
+      --serviceaccount <worker-serviceaccount> \
+      --namespace <your-airflow-namespace> \
+      workload-identity-test
+    ```
+
+2. In the interactive session, confirm you're able to authenticate successfully via Workload Identity by running the following command:
+
+    ```bash
+    $ gcloud auth list
+    ```
+
+    If Workload Identity is working, you should see a list of credentialed accounts related to your GCP service account.
