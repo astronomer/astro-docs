@@ -25,6 +25,7 @@ Release Date: February 11, 2021
 - BugFix: A SysAdmin Service Account created via the Houston API does not have right to see all Workspaces and can only be seen by a SysAdmin user in the Workspace(s) they're a part of.
 - BugFix: Workspace Service Account suddenly only available as a Deployment Service account (Error: `Insufficient Permissions`)
 - BugFix: The Houston DB migration pod stuck in interactive mode on upgrade to Astronomer v0.23
+- BugFix: Upgrade from Airflow 2.0.0 to Airflow 2.0.1 via the Astronomer CLI fails
 
 ## v0.23.9
 
