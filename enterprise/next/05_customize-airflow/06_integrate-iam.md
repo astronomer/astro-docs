@@ -126,34 +126,36 @@ To create a trust relationship between your IAM role and OIDC identity provider:
 2. In the navigation panel, choose **Roles** and select your role created in the previous section.
 3. Select the **Trust relationships** tab and choose **Edit trust relationship**.
 4. Create a trust relationship between your IAM role and OIDC identity provider with the following format:
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
+
+    ```json
     {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/OIDC_PROVIDER"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringLike": {
-          "OIDC_PROVIDER:sub": "system:serviceaccount:SERVICE_ACCOUNT_NAMESPACE:SERVICE_ACCOUNT_NAME"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "ec2.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        },
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/OIDC_PROVIDER"
+          },
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringLike": {
+              "OIDC_PROVIDER:sub": "system:serviceaccount:SERVICE_ACCOUNT_NAMESPACE:SERVICE_ACCOUNT_NAME"
+            }
+          }
         }
-      }
+      ]
     }
-  ]
-}
-```
+    ```
 
     Example:
+
     ```json
     {
       "Version": "2012-10-17",
@@ -194,6 +196,7 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
     ```
 
     Example:
+
     ```yaml
     global:
       baseDomain: astro.mydomain.com
