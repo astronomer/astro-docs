@@ -212,7 +212,11 @@ In the newly created file, copy the example below and replace `baseDomain`, `pri
 ### Astronomer global configuration
 #################################
 global:
-  # Base domain for all subdomains exposed through ingress
+
+  azure:
+    enabled: true
+
+  # Base domain for all subdomains exposed through ingress
   baseDomain: astro.mydomain.com
 
   # Name of secret containing TLS certificate
