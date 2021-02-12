@@ -212,7 +212,7 @@ In the newly created file, copy the example below and replace `baseDomain`, `pri
 ### Astronomer global configuration
 #################################
 global:
-
+  # Enables default values for Azure installations
   azure:
     enabled: true
 
