@@ -68,7 +68,7 @@ As for the code itself, we’ve seen effective organization where external code 
 
 ### What authentication methods does Astronomer Cloud support?
 
-We offer authentication via Google, Github, and Local Username/Password. Once you've created a Workspace on Astronomer, you'll use that same method to authenticate to the Astronomer CLI.
+We offer authentication via Google, Github, and local username/password. Once you've created a Workspace on Astronomer with a given authentication method, you'll use that same method to authenticate to the Astronomer CLI.
 
 ### Where do I log in?
 
@@ -83,4 +83,3 @@ Your first 14 days on Astronomer Cloud are entirely free of cost. When you creat
 After your first 14 days, you'll be required to input a payment method to continue usage. From there, we'll charge you based on exact resource usage per Airflow Deployment every 1st of the month, pro-rated for your first few weeks.
 
 For more information, refer to [Cloud Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing). If you want to cancel your account or trial and are having trouble accessing your Astronomer account,  please [reach out to us](https://support.astronomer.io).
-
