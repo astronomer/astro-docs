@@ -150,13 +150,15 @@ $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-cer
 
 ## Step 6: Retrieve Your SMTP URI
 
-A third-party SMTP service is required for Astronomer Enterprise so that email invitations to the platform can be sent and accepted by members of your team. To integrate your SMTP service with Astronomer, make note of your SMTP service's URI and add it to your `config.yaml` in Step 8. In general, an SMTP URI will take the following form:
+Astronomer Enterprise uses [Nodemailer](https://nodemailer.com/smtp/) to send emails via a third-party SMTP service of your choice. A third-party SMTP service is required so that invitations to Astronomer can be sent and accepted by members of your team.
+
+To integrate your SMTP service with Astronomer, make note of your SMTP service's URI and add it to your `config.yaml` in Step 8. In the abstract, an SMTP URI will take the following form:
 
 ```
 smtps://USERNAME:PASSWORD@HOST/?pool=true
 ```
 
-The following table contains examples of what the URI looks like for some of the most popular SMTP services:
+The following table contains specific examples of SMTP URIs for some of the most popular SMTP services:
 
 | Provider          | Example SMTP URL                                                                               |
 | ----------------- | ---------------------------------------------------------------------------------------------- |
