@@ -64,7 +64,7 @@ Now that you've created a Service Account, you're free to generate both `GET` or
 https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>
 ```
 
-In the examples below, we'll refer to this URL as the `AIRFLOW-DOMAIN`, where you'll replace `deployment-release-name` with your own (e.g. `galactic-stars-1234`).
+In the examples below, we'll refer to this URL as the `AIRFLOW-DOMAIN`, where you'll replace `<deployment-release-name>` with your own (e.g. `galactic-stars-1234`).
 
 You can make requests via the method of your choosing. Below, we'll walk through an example request via cURL to Airflow's "Trigger DAG" endpoint and an example request via Python to the "Get all Pools" endpoint.
 
@@ -88,9 +88,9 @@ https://<AIRFLOW-DOMAIN>/airflow/api/experimental/dags/<DAG-ID>/dag_runs
 
 To run this, replace:
 
-- `AIRFLOW-DOMAIN`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
-- `DAG-ID`: Name of your DAG (_case-sensitive_)
-- `API-Key`: API Key from your Service Account
+- `<AIRFLOW-DOMAIN>`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
+- `<DAG-ID>`: Name of your DAG (_case-sensitive_)
+- `<API-Key>`: API Key from your Service Account
 
 This will trigger a DAG run for your desired DAG with an `execution_date` value of `NOW()`, which is equivalent to clicking the “Play” button in the main "DAGs" view of the Airflow UI.
 
@@ -112,7 +112,7 @@ Where, `YYYY`: Year, `MM`: Month, `DD`: Day, `HH`: Hour, `MM`: Minute, `SS`: Sec
 For example:
 
 ```
-“2016-11-16T11:34:15”
+“2019-11-16T11:34:00”
 ```
 
 Here, your request becomes:
@@ -122,12 +122,12 @@ curl -v -X POST
 https://<AIRFLOW_DOMAIN>/api/experimental/dags/customer_health_score/dag_runs
 -H ‘Authorization: <API-Key>’
 -H ‘Cache-Control: no-cache’
--H ‘content-type: application/json’ -d ‘{“execution_date”:“2019-03-05T08:30:00”}’
+-H ‘content-type: application/json’ -d ‘{“execution_date”:“2019-11-16T11:34:00”}’
 ```
 
 ### Get all Pools
 
-If you'd like to get all existing Pools from your Airflow Deployment, you can start with a generic Python command to Airflow's GET endpoint: 
+If you'd like to get all existing Pools from your Airflow Deployment, you can start with a generic Python command to Airflow's `GET` endpoint: 
 
 ```
 GET /api/experimental/pools
@@ -151,8 +151,8 @@ print(resp.json())
 
 To run this, replace:
 
-- `API-Key`: API Key from your Service Account
-- `deployment-release-name`: Your Airflow Deployment Release Name
+- `<API-Key>`: API Key from your Service Account
+- `<deployment-release-name>`: Your Airflow Deployment Release Name
 
 ## Airflow 2.0 Stable REST API
 
@@ -188,5 +188,5 @@ https://<AIRFLOW-DOMAIN>/airflow/api/v1/config \
 
 To run this, replace:
 
-- `AIRFLOW-DOMAIN`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
-- **API-Key**: API Key from your Service Account
+- `<AIRFLOW-DOMAIN>`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
+- `<API-Key>`: API Key from your Service Account
