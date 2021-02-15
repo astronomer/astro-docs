@@ -89,8 +89,8 @@ https://<AIRFLOW-DOMAIN>/airflow/api/experimental/dags/<DAG-ID>/dag_runs
 To run this, replace:
 
 - `AIRFLOW-DOMAIN`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
-- **DAG-ID**: Name of your DAG (_case-sensitive_)
-- **API-Key**: API Key from your Service Account
+- `DAG-ID`: Name of your DAG (_case-sensitive_)
+- `API-Key`: API Key from your Service Account
 
 This will trigger a DAG run for your desired DAG with an `execution_date` value of `NOW()`, which is equivalent to clicking the “Play” button in the main "DAGs" view of the Airflow UI.
 
@@ -151,8 +151,8 @@ print(resp.json())
 
 To run this, replace:
 
-- **API-Key**: API Key from your Service Account
-- **deployment-release-name**: Your Airflow Deployment Release Name
+- `API-Key`: API Key from your Service Account
+- `deployment-release-name`: Your Airflow Deployment Release Name
 
 ## Airflow 2.0 Stable REST API
 
@@ -161,9 +161,9 @@ To run this, replace:
 As of its momentous [2.0 release](https://www.astronomer.io/blog/introducing-airflow-2-0), the Apache Airflow project now supports an official and more robust Stable REST API. Among other things, Airflow's new REST API:
 
 * Makes for easy access by third-parties.
-* Is based on the [Swagger/OpenAPI Spec](https://swagger.io/specification/)
-* Implements CRUD (Create, Update, Delete) operations on *all* Airflow resources
-* Includes authorization capabilities
+* Is based on the [Swagger/OpenAPI Spec](https://swagger.io/specification/).
+* Implements CRUD (Create, Update, Delete) operations on *all* Airflow resources.
+* Includes authorization capabilities.
 
 > **Note:** Astronomer makes it easy to upgrade to Airflow 2.0. For guidelines, read [Upgrade to Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2).
 
@@ -188,5 +188,5 @@ https://<AIRFLOW-DOMAIN>/airflow/api/v1/config \
 
 To run this, replace:
 
-- **AIRFLOW-DOMAIN**: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
+- `AIRFLOW-DOMAIN`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
 - **API-Key**: API Key from your Service Account
