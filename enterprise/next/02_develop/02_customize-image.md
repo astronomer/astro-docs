@@ -257,7 +257,7 @@ If you haven't initialized an Airflow Project on Astronomer (by running `$ astro
 
 2. To the first line of that file, add a "FROM" statement that specifies the Airflow Image you want to run on Astronomer and ends with `AS stage`.
 
-This setup assumes you're using a Debian-based image. For example, for Airflow 1.10.12 this would be:
+This setup assumes you're using a Debian-based Astronomer Certified image. With an Airflow 1.10.12 image, for example, this would be:
 
 ```
 FROM quay.io/astronomer/ap-airflow:1.10.12-buster AS stage1
