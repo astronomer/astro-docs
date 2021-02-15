@@ -11,7 +11,7 @@ This guide describes the steps to install Astronomer Enterprise on Amazon Web Se
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
 - The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-- Kubernetes 1.16 or later
+- Kubernetes 1.16, 1.17, or 1.18
 - The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - The [OpenSSL CLI](https://www.openssl.org/docs/man1.0.2/man1/openssl.html)
 - [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
@@ -42,7 +42,7 @@ EKS is built off of Amazon's pre-existing EC2 service, so you can manage your Ku
 
 As you follow the guide linked above, keep in mind:
 
-- Astronomer currently supports Kubernetes versions 1.14, 1.15, 1.16 and 1.17 on EKS.
+- Astronomer currently supports Kubernetes versions 1.16, 1.17, and 1.18 on EKS. For more information, refer to [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 - We generally advise running the EKS control plane in a single security group. The worker nodes you spin up should have the same setup as the EKS control plane.
 - All security and access settings needed for your worker nodes should be configured in your Cloud Formation template.
 - If you create an EKS cluster from the UI, `kubectl` access will be limited to the user who created the cluster by default.
@@ -93,7 +93,7 @@ To obtain a TLS certificate, complete one of the following setup options:
 
 [Let's Encrypt](https://letsencrypt.org/) is a free and secure certificate authority (CA) service that provides TLS certificates that renew automatically every 90 days. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
 
-To set up TLS certificates this way, follow the guidelines in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt). Make note of the certificate you create in this setup for Step 5.
+To set up TLS certificates this way, follow the guidelines in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt). Make note of the certificate you create in this setup for Step 5.
 
 ### Option 2: Request a TLS certificate from your security team
 
@@ -150,13 +150,13 @@ $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-cer
 
 ## Step 6: Retrieve Your SMTP URI
 
-An SMTP service is required so that users can send and accept email invites to and from Astronomer. To integrate your SMTP service with Astronomer, make note of your SMTP service's URI and add it to your Helm chart in Step 8. In general, an SMTP URI will take the following form:
+A third-party SMTP service is required for Astronomer Enterprise so that email invitations to the platform can be sent and accepted by members of your team. To integrate your SMTP service with Astronomer, make note of your SMTP service's URI and add it to your `config.yaml` in Step 8. In general, an SMTP URI will take the following form:
 
 ```
 smtps://USERNAME:PASSWORD@HOST/?pool=true
 ```
 
-The following table contains examples of what the URI will look like for some of the most popular SMTP services. If your SMTP provider is not listed, refer to the provider's documentation for information on creating an SMTP URI:
+The following table contains examples of what the URI looks like for some of the most popular SMTP services:
 
 | Provider          | Example SMTP URL                                                                               |
 | ----------------- | ---------------------------------------------------------------------------------------------- |
@@ -166,11 +166,13 @@ The following table contains examples of what the URI will look like for some of
 | Office365         | `smtp://xyz%40example.com:password@smtp.office365.com:587/?requireTLS=true`                   |
 | Custom SMTP-relay | `smtp://smtp-relay.example.com:25/?ignoreTLS=true`                                      |
 
+If your SMTP provider is not listed, refer to the provider's documentation for information on creating an SMTP URI.
+
 > **Note:** If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
 ## Step 7: Configure the Database
 
-By default, Astronomer requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
+By default, Astronomer requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments created on the platform.
 
 While you're free to configure any database, most AWS users on Astronomer run [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). For production environments, we _strongly_ recommend a managed Postgres solution.
 
