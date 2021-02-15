@@ -277,7 +277,7 @@ LABEL io.astronomer.docker.build.number=$BUILD_NUMBER
 LABEL io.astronomer.docker.airflow.onbuild=true
 # Install Python and OS-Level Packages
 COPY packages.txt .
-RUN cat packages.txt | xargs apt-get install --no-cache
+RUN cat packages.txt | xargs apt-get install
 
 FROM stage1 AS stage2
 RUN mkdir -p /root/.ssh
