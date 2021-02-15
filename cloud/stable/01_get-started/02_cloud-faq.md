@@ -17,7 +17,7 @@ Astronomer Cloud is officially compatible with Airflow v1.10.5 and higher. For o
 
 We currently support the Celery, Local and Kubernetes Executors. You can switch between the three freely via the Astronomer UI.
 
-If you're not sure which Executor to use, we generally recommend starting off with the Local Executor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](/guides/airflow-executors-explained/) for a ful analysis on each.
+If you're not sure which Executor to use, we generally recommend starting off with the Local Executor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](/guides/airflow-executors-explained/) for a full analysis on each.
 
 ## Networking
 
