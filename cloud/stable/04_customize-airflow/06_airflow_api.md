@@ -87,9 +87,9 @@ https://<AIRFLOW-DOMAIN>/airflow/api/experimental/dags/<DAG-ID>/dag_runs
 -H ‘content-type: application/json’ -d ‘{}’
 ```
 
-To run this, replace:
+To run this, replace the following placeholder values:
 
-- `<AIRFLOW-DOMAIN>`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
+- `<AIRFLOW-DOMAIN>`: Use `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
 - `<DAG-ID>`: Name of your DAG (_case-sensitive_)
 - `<API-Key>`: API Key from your Service Account
 
@@ -150,7 +150,7 @@ print(resp.json())
 >>>>  [{'description': 'Default pool', 'id': 1, 'pool': 'default_pool', 'slots': 128}]
 ```
 
-To run this, replace:
+To run this, replace the following placeholder values:
 
 - `<API-Key>`: API Key from your Service Account
 - `<deployment-release-name>`: Your Airflow Deployment Release Name
@@ -187,7 +187,7 @@ https://<AIRFLOW-DOMAIN>/airflow/api/v1/config \
 -H 'Cache-Control: no-cache'
 ```
 
-To run this, replace:
+To run this, replace the following placeholder values:
 
-- `<AIRFLOW-DOMAIN>`: `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
+- `<AIRFLOW-DOMAIN>`: Use `https://deployments.gcp0001.us-east4.astronomer.io/<deployment-release-name>`
 - `<API-Key>`: API Key from your Service Account

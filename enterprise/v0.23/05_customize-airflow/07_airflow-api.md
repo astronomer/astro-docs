@@ -86,9 +86,9 @@ https://<AIRFLOW-DOMAIN>/airflow/api/experimental/dags/<DAG-ID>/dag_runs
 -H ‘content-type: application/json’ -d ‘{}’
 ```
 
-To run this, replace:
+To run this, replace the following placeholder values:
 
-- `<AIRFLOW-DOMAIN>`: `https://<your-base-domain>/<deployment-release-name>`
+- `<AIRFLOW-DOMAIN>`: Use `https://<your-base-domain>/<deployment-release-name>`
 - `<DAG-ID>`: Name of your DAG (_case-sensitive_)
 - `<API-Key>`: API Key from your Service Account
 
@@ -107,7 +107,6 @@ The string needs to be in the following format (in UTC):
 ```
 
 Where, `YYYY`: Year, `MM`: Month, `DD`: Day, `HH`: Hour, `MM`: Minute, `SS`: Second.
-
 
 For example:
 
@@ -149,7 +148,7 @@ print(resp.json())
 >>>>  [{'description': 'Default pool', 'id': 1, 'pool': 'default_pool', 'slots': 128}]
 ```
 
-To run this, replace:
+To run this, replace the following placeholder values:
 
 - `<your-base-domain>`: Your Astronomer Enterprise base domain
 - `<API-Key>`: API Key from your Service Account
@@ -190,4 +189,4 @@ https://<AIRFLOW-DOMAIN>/airflow/api/v1/config \
 To run this, update the following placeholder values:
 
 - `<AIRFLOW-DOMAIN>`: Use `https://<your-base-domain>/<deployment-release-name>`
-- `<API-Key>`: Use the API Key from your Service Account
+- `<API-Key>`: API Key from your Service Account
