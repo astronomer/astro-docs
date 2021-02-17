@@ -1,7 +1,7 @@
 ---
-title: "Calling the Airflow API Programmatically"
+title: "Make a Request to the Apache Airflow API"
 navTitle: "Airflow API"
-description: "How to call the Airflow API on Astronomer."
+description: "How to call the Apache Airflow REST API on Astronomer."
 ---
 
 ## Overview
