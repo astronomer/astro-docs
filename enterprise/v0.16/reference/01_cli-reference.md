@@ -12,6 +12,105 @@ This document contains information about all commands and settings available in 
 
 Additionally, this document does not contain installation instructions for the CLI itself. For installation instructions, see [CLI Quickstart](/docs/enterprise/stable/develop/cli-quickstart).
 
+## Installation
+
+There are two ways to install any version of the Astronomer CLI:
+
+- [Homebrew](https://brew.sh/)
+- cURL
+
+> **Note:** Both methods only work for Unix (Linux+Mac) based systems. If you're running on Windows 10, follow [this guide](/docs/enterprise/v0.16/develop/cli-install-windows-10/) to get set up with Docker for WSL.
+
+### Prerequisites
+
+The Astronomer CLI installation process requires [Docker](https://www.docker.com/) (v18.09 or higher).
+
+### Install with Homebrew
+
+If you have Homebrew installed, run:
+
+```sh
+$ brew install astronomer/tap/astro
+```
+
+To install a specific version of the Astro CLI, you'll have to specify `@major.minor.patch`. To install v0.16.1, for example, run:
+
+```sh
+$ brew install astronomer/tap/astro@0.16.1
+```
+
+### Install with cURL
+
+To install the latest version of the Astronomer CLI, run:
+
+```
+$ curl -sSL https://install.astronomer.io | sudo bash
+```
+
+To install a specific version of the Astronomer CLI, specify `-s -- major.minor.patch` as a flag at the end of the cURL command. To install v0.16.1, for example, run:
+
+```
+$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.16.1
+```
+
+#### Note for MacOS Catalina Users:
+
+As of macOS Catalina, Apple [replaced bash with ZSH](https://www.theverge.com/2019/6/4/18651872/apple-macos-catalina-zsh-bash-shell-replacement-features) as the default shell. Our CLI install cURL command currently presents an incompatibility error with ZSH, sudo and the pipe syntax.
+
+If you're running macOS Catalina and beyond, do the following:
+
+1. Run `sudo -K` to reset/un-authenticate
+2. Run the following to install the CLI properly:
+
+```
+$ curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
+```
+
+### Confirm the install
+
+To make sure that you have the Astronomer CLI installed on your machine, run:
+
+```bash
+$ astro version
+```
+
+If the installation was successful, you should see the version of the CLI that you installed in the output:
+
+```
+Astro CLI Version: 0.15.0
+Git Commit: c4fdeda96501ac9b1f3526c97a1c5c9b3f890d71
+```
+
+For a breakdown of subcommands and corresponding descriptions, you can always run `$ astro` or `$ astro --help`.
+
+```
+astro is a command line interface for working with the Astronomer Platform.
+
+Usage:
+  astro [command]
+
+Available Commands:
+  auth            Manage astronomer identity
+  cluster         Manage Astronomer EE clusters
+  completion      Generate autocompletions script for the specified shell (bash or zsh)
+  config          Manage astro project configurations
+  deploy          Deploy an airflow project
+  deployment      Manage airflow deployments
+  dev             Manage airflow projects
+  help            Help about any command
+  upgrade         Check for newer version of Astronomer CLI
+  user            Manage astronomer user
+  version         Astronomer CLI version
+  workspace       Manage Astronomer workspaces
+
+Flags:
+  -h, --help   help for astro
+
+Use "astro [command] --help" for more information about a command.
+```
+
+Once you've successfully installed the CLI, use the remainder of this guide to learn more about the CLI's available commands.
+
 ## astro auth
 
 Authenticates you to Astronomer.
