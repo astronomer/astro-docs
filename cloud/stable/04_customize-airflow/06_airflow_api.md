@@ -109,7 +109,6 @@ The string needs to be in the following format (in UTC):
 
 Where, `YYYY`: Year, `MM`: Month, `DD`: Day, `HH`: Hour, `MM`: Minute, `SS`: Second.
 
-
 For example:
 
 ```
