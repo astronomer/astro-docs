@@ -37,7 +37,7 @@ To create a Service Account via the Astronomer UI:
 
 ### Create a Service Account via the Astronomer CLI
 
-To create a Deployment-level Service account via the Astronomer CLI, follow the steps below.
+To create a Deployment-level Service Account via the Astronomer CLI:
 
 1. Authenticate to the Astronomer CLI by running:
    ```

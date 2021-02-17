@@ -37,7 +37,7 @@ To create a Service Account via the Astronomer UI:
 
 ### Create a Service Account via the Astronomer CLI
 
-To create a Deployment-level Service account via the Astronomer CLI, follow the steps below.
+To create a Deployment-level Service Account via the Astronomer CLI:
 
 1. Authenticate to the Astronomer CLI by running:
    ```
@@ -187,7 +187,7 @@ https://<AIRFLOW-DOMAIN>/airflow/api/v1/config \
 -H 'Cache-Control: no-cache'
 ```
 
-To run this, replace:
+To run this, update the following placeholder values:
 
-- `<AIRFLOW-DOMAIN>`: `https://<your-base-domain>/<deployment-release-name>`
-- `<API-Key>`: API Key from your Service Account
+- `<AIRFLOW-DOMAIN>`: Use `https://<your-base-domain>/<deployment-release-name>`
+- `<API-Key>`: Use the API Key from your Service Account
