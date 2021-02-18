@@ -11,7 +11,7 @@ This guide describes the steps to install Astronomer Enterprise on Amazon Web Se
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
 * The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-* Kubernetes 1.16 or later
+* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference).
 * The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * The [OpenSSL CLI](https://www.openssl.org/docs/man1.0.2/man1/openssl.html)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
@@ -42,7 +42,7 @@ EKS is built off of Amazon's pre-existing EC2 service, so you can manage your Ku
 
 As you follow the guide linked above, keep in mind:
 
-* Each version of Astronomer Enterprise has its own version requirements for Kubernetes. For more information on version compatibility, refer to the [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference).
+* Each version of Astronomer Enterprise its own Kubernetes version compatibility. For more information on version compatibility, refer to Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 * We generally advise running the EKS control plane in a single security group. The worker nodes you spin up should have the same setup as the EKS control plane.
 * All security and access settings needed for your worker nodes should be configured in your Cloud Formation template.
 * If you create an EKS cluster from the UI, `kubectl` access will be limited to the user who created the cluster by default.
