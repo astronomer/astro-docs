@@ -43,7 +43,7 @@ The steps below will walk you through how to:
 
 You can view Microsoft Azure's Web Portal at https://portal.azure.com/.
 
-> Note: Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on AKS.
+> Note: AEach version of Astronomer Enterprise has its own version requirements for Kubernetes. For more information on version compatibility, refer to the [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/0.23/resources/version-compatibility-reference).
 
 ### Create an Azure Resource Group
 

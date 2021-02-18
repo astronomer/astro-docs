@@ -42,7 +42,7 @@ EKS is built off of Amazon's pre-existing EC2 service, so you can manage your Ku
 
 As you follow the guide linked above, keep in mind:
 
-* Astronomer currently supports Kubernetes versions 1.14, 1.15, 1.16 and 1.17 on EKS.
+* Each version of Astronomer Enterprise has its own version requirements for Kubernetes. For more information on version compatibility, refer to the [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 * We generally advise running the EKS control plane in a single security group. The worker nodes you spin up should have the same setup as the EKS control plane.
 * All security and access settings needed for your worker nodes should be configured in your Cloud Formation template.
 * If you create an EKS cluster from the UI, `kubectl` access will be limited to the user who created the cluster by default.
@@ -117,7 +117,7 @@ Depending on your organization, you may receive either a globally trusted certif
 To confirm that your certificate has the proper certificate order, first run the following command using the `openssl` CLI:
 
 ```sh
-$ openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout 
+$ openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout
 ```
 
 This command will generate a report of all certificates included. Verify that the order of these certificates is as follows:
