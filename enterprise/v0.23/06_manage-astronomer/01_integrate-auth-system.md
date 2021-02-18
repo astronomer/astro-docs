@@ -62,7 +62,7 @@ Replace the values above with those of the provider of your choice. If you want 
 
 ### Register the Application via `App Registrations` on Azure
 
-To start, register the application. As you do so, make sure to include the Redirect URI as the following: https://houston.BASEDOMAIN/v1/oauth/redirect.
+To start, register the application. As you do so, make sure to specify the Redirect URI as `https://houston.BASEDOMAIN/v1/oauth/redirect/`.
 
 Replace `BASEDOMAIN` with your own. For example, if your basedomain were `astronomer-development.com`, your registration would look like the following:
 
