@@ -11,7 +11,7 @@ This guide describes the steps to install Astronomer Enterprise on Amazon Web Se
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
 * The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference).
+* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference)
 * The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * The [OpenSSL CLI](https://www.openssl.org/docs/man1.0.2/man1/openssl.html)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
