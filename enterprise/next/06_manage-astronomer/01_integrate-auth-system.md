@@ -12,7 +12,7 @@ Astronomer Enterprise by default allows users to create an account with and auth
 - GitHub OAuth
 - Local username/password
 
-Authentication methods are entirely customizable. In addition to the 3 defaults above, we provide the option to integrate any provider that follows the [Open Id Connect (OIDC)](https://openid.net/connect/) protocol via [Implicit Flow](https://auth0.com/docs/flows/concepts/implicit). This includes (but is not limited to):
+Authentication methods are entirely customizable. In addition to the 3 defaults above, we provide the option to integrate any provider that follows the [Open Id Connect (OIDC)](https://openid.net/connect/) protocol via [Implicit Flow](https://auth0.com/docs/authorization/mitigate-replay-attacks-when-using-the-implicit-flow). This includes (but is not limited to):
 
 - [Microsoft Azure Active Directory (AD)](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc)
 - [Okta](https://www.okta.com)
@@ -62,7 +62,7 @@ Replace the values above with those of the provider of your choice. If you want 
 
 ### Register the Application via `App Registrations` on Azure
 
-To start, register the application. As you do so, make sure to include the Redirect URI as the following: https://houston.BASEDOMAIN/v1/oauth/redirect.
+To start, register the application. As you do so, make sure to specify the Redirect URI as `https://houston.BASEDOMAIN/v1/oauth/redirect/`.
 
 Replace `BASEDOMAIN` with your own. For example, if your basedomain were `astronomer-development.com`, your registration would look like the following:
 
@@ -112,7 +112,7 @@ Follow the steps below.
 
 2. Create a new web app in your Okta account for Astronomer
 
-3. Set your `login redirect URI` to be `https://houston.BASEDOMAIN/v1/oauth/redirect`, where the `BASEDOMAIN` is the domain at which you're hosting your Astronomer installation
+3. Set your `login redirect URI` to be `https://houston.BASEDOMAIN/v1/oauth/redirect/`, where the `BASEDOMAIN` is the domain at which you're hosting your Astronomer installation
 
 4. Enable `Implicit (Hybrid)` Flow on the Okta application
 
@@ -171,7 +171,7 @@ For instructions, navigate to Auth0's [connection guides](https://auth0.com/docs
 * Navigate to `https://manage.auth0.com/dashboard/us/<tenant-name>/applications`.
 * Under `Applications`, select `Default App`.
 * Click the `Settings` tab.
-* Under `Allowed Callback URLs`, add `https://houston.<your-astronomer-base-domain>/v1/oauth/redirect`.
+* Under `Allowed Callback URLs`, add `https://houston.<your-astronomer-base-domain>/v1/oauth/redirect/`.
 * Under `Allowed Logout URLs`, add `https://app.<your-astronomer-base-domain>/logout`.
 * Under `Allowed Origins (CORS)`, add `https://*.<your-astronomer-base-domain>`.
 
