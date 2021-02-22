@@ -126,7 +126,7 @@ For security reasons, the `airflow_settings.yaml` file is currently _only_ for l
 
 > **Note:** If you're interested in programmatically managing Airflow Connections, Variables or Environment Variables, we'd recommend integrating a ["Secret Backend"](/docs/enterprise/stable/customize-airflow/secrets-backend) to help you do so.
 
-### Add Airfow Connections, Pools, Variables
+### Add Airflow Connections, Pools, Variables
 
 By default, the `airflow_settings.yaml` file will be structured as following:
 

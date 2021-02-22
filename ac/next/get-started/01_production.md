@@ -85,7 +85,7 @@ Install the AC Python Package onto your machine by running:
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[postgres]==1.10.10.*'
 ```
 
-> **Note:** This command includes the `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies such as `[redis, crypto, aws, celery]` depending on your use case.
+This command includes the `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies such as `[redis, crypto, aws, celery]` depending on your use case.
 
 ### D. Configure a process supervisor
 
@@ -155,7 +155,7 @@ The password you specify here should be the same one you specified when prompted
 
 #### Alternative setup options
 
-* Your Airflow user password is stored written in this file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as HashiCorp's Vault, you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
+* Your Airflow user password is stored written in `/etc/default/astronomer-certified` (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as HashiCorp's Vault, you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
 
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
@@ -163,7 +163,7 @@ The password you specify here should be the same one you specified when prompted
 
     For more information on this feature, read [Integrating Airflow and Hashicorp Vault](/guides/airflow-and-hashicorp-vault).
 
-* In this example setup, the Environment Variables for the Celery Executor specify using the main database for communication. Alternatively, you could use [Redis](https://redis.io/), to take some of the load off of your main database.
+* In this example setup, the Environment Variables for the Celery Executor specify using the main database for communication. Alternatively, you could use [Redis](https://redis.io/) to take some of the load off of your main database.
 
 ## Step 3: Set Up the Scheduler
 
