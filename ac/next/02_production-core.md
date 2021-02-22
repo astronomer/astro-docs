@@ -1,12 +1,12 @@
 ---
-title: "Running Astronomer Certified in Production"
+title: "Running Astronomer Core in Production"
 navTitle: "Running in Production"
-description: "Running the Astronomer Certified distribution of Airflow in production with Systemd."
+description: "Running the Astronomer Core distribution of Airflow in production."
 ---
 
 ## Overview
 
-The specifics of your production environment will determine how you install and configure Astronomer Core.
+This guide walks through all of the necessary steps to install Astronomer Core and get Airflow running in a production environment. By the end of the setup, you'll be able to begin deploying and running DAGs across multiple machines.
 
 ## Prerequisites
 
