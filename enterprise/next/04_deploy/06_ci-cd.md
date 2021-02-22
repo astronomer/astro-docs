@@ -299,7 +299,7 @@ pipelines:
             - docker
 ```
 
-## Gitlab
+## GitLab
 
 ```yaml
 astro_deploy:
@@ -314,6 +314,38 @@ astro_deploy:
     - docker push registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:CI-$CI_PIPELINE_IID
   only:
     - master
+```
+
+## Kaniko + Gitlab
+
+Using [kaniko](https://github.com/GoogleContainerTools/kaniko), you can build container images from a Dockerfile without privileged root access. Coupled with Gitlab's CI tool, this enables you to more easily build container images without depending on a Docker daemon.
+
+>**Note:** This solution is currently incompatible with Astronomer's `onbuild` images. To use kaniko and GitLab for CI, your Dockerfile must pull from an Astronomer image without `onbuild`, such as `quay.io/astronomer/ap-airflow:2.0.0-buster`.
+
+### GitLab Deploy Authentication Token
+
+```json
+{"auths":{"https://harbor.domainname.com/":{"username":"<your-username>","password":"<your-password>","email":"<your-email>","auth":"<your token>"}}}
+```
+
+### Sample CI
+
+```yaml
+image:
+  name: gcr.io/kaniko-project/executor:debug-edge
+  entrypoint: [""]
+
+deploy_development:
+  stage: deploy
+  image:
+      name: gcr.io/kaniko-project/executor:debug-edge
+      entrypoint: [""]
+  script:
+    - echo "Building image and pushing to Astronomer's private Docker registry"
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$REGISTRY_URL\":{\"username\":\"_\",\"password\":\"$PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - cat /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $REGISTRY_URL/$DEPLOYMENT_ID/airflow:CI-$CI_PIPELINE_IID -v debug
 ```
 
 ## AWS Codebuild
@@ -376,7 +408,7 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
- 
+
 variables:
 - group: Variable-Group
 - group: Key-Vault-Group
