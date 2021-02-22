@@ -328,7 +328,7 @@ You can use [kaniko](https://github.com/GoogleContainerTools/kaniko) to build co
 {"auths":{"https://harbor.domainname.com/":{"username":"<your-username>","password":"<your-password>","email":"<your-email>","auth":"<your token>"}}}
 ```
 
-### Sample CI
+### Sample CI Configuration
 
 ```yaml
 image:
