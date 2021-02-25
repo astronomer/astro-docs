@@ -118,7 +118,7 @@ Follow the steps below.
 
 5. Save the `Client ID` generated for this Okta app for use in the next steps.
 
-6. (_Optional_) To have Astronomer appear as an Okta tile, set your Initiate login URI to `https://houston.BASEDOMAIN/v1/oauth/start?provider=okta`.
+6. Set your Initiate Login URI to `https://houston.BASEDOMAIN/v1/oauth/start?provider=okta`  (_Optional_).
 
 ### Enable Okta in your config.yaml file
 
