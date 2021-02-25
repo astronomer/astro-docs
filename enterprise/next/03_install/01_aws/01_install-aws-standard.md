@@ -117,7 +117,7 @@ Depending on your organization, you may receive either a globally trusted certif
 To confirm that your certificate has the proper certificate order, first run the following command using the `openssl` CLI:
 
 ```sh
-$ openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout 
+$ openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout
 ```
 
 This command will generate a report of all certificates included. Verify that the order of these certificates is as follows:
@@ -214,8 +214,10 @@ global:
 ### Nginx configuration
 #################################
 nginx:
-  # IP address the nginx ingress should bind to
-  loadBalancerIP: ~
+  # IP address the nginx ingress should bind to
+  loadBalancerIP: ~
+  #  Set to 'true' when deploying to a private EKS cluster
+  privateLoadBalancer: false
 
 #################################
 ### SMTP configuration
