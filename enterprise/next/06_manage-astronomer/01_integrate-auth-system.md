@@ -58,6 +58,48 @@ astronomer:
 
 Replace the values above with those of the provider of your choice. If you want to configure Azure AD, Okta or Auth0 read below for specific guidelines.
 
+## AWS Cognito
+
+### Create a user pool in Cognito
+
+Start by creating a user pool in Cognito. You can either review the default settings, or step through them to customize.
+
+Make sure that you create an `App client`, which is the OpenID client configuration that we will use to authenticate 
+against. You do not need to generate a client secret, as Astronomer is a public client that uses implicit flow.
+
+Once the pool and app client are created, head over to the `App integration` >`App client settings` tab and follow these
+steps:
+
+- Select an identity provider to use (either the built-in cognito user pool, or a federated identity provider);
+- Set the callback URL paarameter to `https://houston.BASEDOMAIN/v1/oauth/redirect/`.
+- Enable `Implicit grant` in `Allowed OAuth Flows`. Leave the other settings disabled.
+- Enable `email`, `openid` and `profile` in `Allowed OAuth Scopes`.
+
+Then switch over to the `Domain name` tab, and select a unique domain name to use for your hosted Cognito components.
+
+This should give you a minimally working user pool configuration.
+
+### Edit your Astronomer configuration
+
+Add the following values to `config.yaml` in the `astronomer/` directory:
+
+```yaml
+astronomer:
+  houston:
+    config:
+      auth:
+        openidConnect:
+          cognito:
+            enabled: true
+            clientId: <client_id>
+            discoveryUrl: https://cognito-idp.<AWS REGION>.amazonaws.com/<COGNITO POOL ID>/.well-known/openid-configuration
+            authUrlParams:
+              response_type: token
+```
+
+Your cognito pool ID can be found in the `General settings` tab of the Cognito portal. You client ID is found in the 
+`App clients` tab.
+
 ## Azure AD
 
 ### Register the Application via `App Registrations` on Azure
