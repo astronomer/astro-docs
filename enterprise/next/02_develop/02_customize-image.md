@@ -257,7 +257,7 @@ If you haven't initialized an Airflow Project on Astronomer (by running `$ astro
 
 2. To the first line of that file, add a "FROM" statement that specifies the Airflow Image you want to run on Astronomer and ends with `AS stage`.
 
-If you're running the Debian-based Astronomer Certified image for Airflow 1.10.12, this would be:
+This setup assumes you're using a Debian-based Astronomer Certified image. With an Airflow 1.10.12 image, for example, this would be:
 
 ```
 FROM quay.io/astronomer/ap-airflow:1.10.12-buster AS stage1
@@ -267,7 +267,7 @@ For a list of all Airflow Images supported on Astronomer, refer to [Upgrade Apac
 
 > **Note:** Do NOT include `-onbuild` at the end of your Airflow Image as you typically would in your `Dockerfile`.
 
-3. Immediately below the `FROM...` line specified above, add the folllowing:
+3. Immediately below the `FROM...` line specified above, add the following:
 
 ```
 LABEL maintainer="Astronomer <humans@astronomer.io>"
@@ -277,7 +277,7 @@ LABEL io.astronomer.docker.build.number=$BUILD_NUMBER
 LABEL io.astronomer.docker.airflow.onbuild=true
 # Install Python and OS-Level Packages
 COPY packages.txt .
-RUN cat packages.txt | xargs apk add --no-cache
+RUN cat packages.txt | xargs apt-get install
 
 FROM stage1 AS stage2
 RUN mkdir -p /root/.ssh
@@ -285,7 +285,7 @@ ARG PRIVATE_RSA_KEY=""
 ENV PRIVATE_RSA_KEY=${PRIVATE_RSA_KEY}
 RUN echo "${PRIVATE_RSA_KEY}" >> /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
-RUN apk update && apk add openssh-client
+RUN apt-get update && apt-get install openssh-client
 RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts
 # Install Python Packages
 COPY requirements.txt .
@@ -305,6 +305,7 @@ A few notes:
 - If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
 - If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `# Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
+- If you're using an Alpine-based image, replace the expression `xargs apt-get install --no-cache` with `xargs apk add --no-cache`. Additionally, replace the expression `RUN apk update && apk add openssh-client` with `RUN apt-get update && apt-get install openssh-client`.
 
 ### Step 2. Build your Image
 
