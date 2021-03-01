@@ -63,7 +63,7 @@ You can confirm that a package was installed by running a `$ docker exec` comman
 
 ## Add Other Dependencies
 
-In the same way you can build Python and OS-level Packages into your image, you're free to build additional dependencies and files for your DAGs to use.
+In the same way you can build Python and OS-level Packages into your image, you can also build additional dependencies and files for your DAGs to use.
 
 In the example below, we'll add a folder of `helper_functions` with a file (or set of files) that our Airflow DAGs can then use.
 

@@ -7,7 +7,7 @@ description: "Use open source automation tools to ensure that DAGs are accuratel
 
 Every machine running Airflow needs a copy of the DAG files, with all DAG files appearing in the same DAG folder (`/usr/local/airflow/` if you followed the naming convention in step 2A). There are many ways in which you can make this happen, but some popular options include:
 
-- Using automation tools such as Ansible, Puppet, or Chef.
+- Using automation tools such as Ansible.
 - Baking DAGs into the docker image alongside Airflow.
 - Using a job that refreshes the DAGs folder on a schedule ([this is how the folks at WePay do it](https://wecode.wepay.com/posts/airflow-wepay)).
 - Making the DAGs live on a shared filesystem such as NFS (but be aware of read performance penalties - Airflow can be quite heavy on read-ops).
@@ -53,3 +53,9 @@ We recommend using an automation tool to continuously pull new or updated DAGs t
     ```sh
     $ ansible-playbook playbook.yml -f 10
     ```
+
+## Kubernetes via Helm Chart
+
+DAGs are baked inside Dockerfile
+
+git sync https://github.com/apache/airflow/tree/master/chart#updating-dags
