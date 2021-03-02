@@ -6,24 +6,26 @@ description: "Spin up example pipelines on Astronomer Core in minutes."
 
 ## Overview
 
-Designed in close partnership with both Apache Airflow committers and users, Astronomer Core (AC) an image that combines Airflow's extensibility with industry standards for security, reliability, and scale.
+Designed in close partnership with the Airflow community, Astronomer Core (AC) is an open source distribution of Apache Airflow built for teams ready to leverage the Python-based workflow management tool in production. Built and maintained by Astronomer, AC combines Airflow’s extensibility and community-driven development with industry standards for security, reliability, and scale.
 
-Use this guide to quickly get started with AC on a local machine. You'll spin up the essential components of AC on your local machine and deploy an example DAG via the Astronomer CLI.
+To get started with AC on your local machine, follow this guide. We'll use the Astronomer CLI to create a local Airflow project and provision all essential components to get it running.
 
 There are two primary ways to obtain the Astronomer Core:
 
-- [Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab =tags)
-- [Python Package](https://pip.astronomer.io/simple/apache-airflow/)
+- [Debian-based Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab =tags)
+- [Python Wheel](https://pip.astronomer.io/simple/apache-airflow/)
 
-The recommended way to install Astronomer Core for a local environment, and the focus of this guide, is to install the latest version of the Astronomer-hosted Docker image which corresponds to the latest Apache Airflow release. For the Python Wheel setup, read to [Install via Python Wheel](/docs/ac/next/01_quickstart#install-via-python-wheel).
+This quickstart focuses on setting up Astronomer Core via Docker, which is the what we recommend for local installations. For the Python Wheel setup, read to [Install via Python Wheel](/docs/ac/next/01_quickstart#install-via-python-wheel).
 
 For Astronomer's full collection of Docker Images, reference our public [Quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
 
+> **Note: Astronomer Core is also hosted on Docker Hub, but pulling your image from there might result in rate limiting errors. Because of that, we recommend always pulling from the Quay.io repository.
+
 ## Prerequisites
 
-To run Astronomer Certified locally, you'll need the following on your machine:
+To run Astronomer Core locally, you'll need the following on your machine:
 
-- [Python 3](https://www.python.org/downloads/)
+- [Python 3.7](https://www.python.org/downloads/)
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Astronomer CLI](https://www.astronomer.io/docs/enterprise/v0.23/get-started/quickstart)
 
