@@ -56,6 +56,49 @@ We recommend using an automation tool to continuously pull new or updated DAGs t
 
 ## Kubernetes via Helm Chart
 
-DAGs are baked inside Dockerfile
+If you run Airflow on a Kubernetes cluster, you can deploy DAGs via the [Astronomer Core Helm chart](https://github.com/astronomer/airflow-chart). This is also known as "baking in" DAGs because you're installing DAGs as part of the image itself.  To use this method, you'll need:
 
-git sync https://github.com/apache/airflow/tree/master/chart#updating-dags
+- A Kubernetes cluster running Airflow
+- The kubectl command line tool
+- Helm
+- A Docker registry that you can push and pull custom images from
+
+1. Create a Helm repository using the following command:
+
+    ```sh
+    $ helm repo add astronomer https://helm.astronomer.io
+    ```
+
+2. Install the Helm chart using the following command:
+
+    ```sh
+    $ helm install --name <your-release-name>
+    ```
+
+3. Create or edit an existing Dockerfile with the following lines:
+
+    ```
+    FROM quay.io/astronomer/ap-airflow:latest-onbuild
+
+    COPY <your-dag-directory> ~astro/airflow-venv
+    ```
+
+4. Build the Dockerfile using the following command:
+
+    ```sh
+    docker build -t your-organization/ap-airflow:<your-tag>
+    ```
+
+5. Push the Dockerfile to your registry with the following command:
+
+    ```sh
+    docker push <your-filepath>/ap-airflow:<your-tag>
+    ```
+
+6. Upgrade your image using the following Helm command:
+
+    ```sh
+    helm upgrade <your-release-name> . \
+    --set images.airflow.repository=<your-filepath>/ap-airflow \
+    --set images.airflow.tag=<your-image-tag>
+    ```
