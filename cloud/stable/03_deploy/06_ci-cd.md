@@ -18,9 +18,9 @@ There are many benefits to deploying your DAGs or changes to Airflow itself thro
 - It increases the speed of deployment, allowing your team to quickly respond to changes in needs.
 - It facilitates continuous, automating testing, which ensures that changes don't break your DAGs in production.
 
-### Example CI/CD setup
+### Example CI/CD Flow
 
-For example, consider an Airflow project hosted on Github and deployed to Astronomer. In this scenario, `dev` and `main` branches of an Astronomer project are hosted on GitHub, and `dev` and `prd` Airflow Deployments are hosted on Astronomer.
+Consider an Airflow project hosted on Github and deployed to Astronomer. In this scenario, `dev` and `main` branches of an Astronomer project are hosted on GitHub, and `dev` and `prd` Airflow Deployments are hosted on Astronomer.
 
 Using CI/CD, you can automatically push DAGs to a Deployment whenever you push or merge code to its respective Github branch. The general setup would look something like this:
 
@@ -43,7 +43,7 @@ From there, you'll write a script that allows your Service Account to do the fol
 2. Authenticate to a Docker Registry
 3. Push your Image to that Docker Registry
 
-From there, a webhook triggers an update to your Airflow Deployment. At its core, the Astronomer CLI does the equivalent of the above upon every manual `astro deploy`.
+From there, a webhook triggers an update to your Airflow Deployment using the CI/CD tool of your choice. At its core, the Astronomer CLI does the equivalent of the above upon every manual `astro deploy`.
 
 The rest of this guide describes how to create a Service Account and what your CI/CD script should look like based on the tool you're using.
 
@@ -367,49 +367,28 @@ phases:
 
 GitHub supports a growing set of native CI/CD features in ["GitHub Actions"](https://github.com/features/actions), including a "Publish Docker" action that works well with Astronomer.
 
-This setup assumes your Astronomer repo on Github consists of one `dev` branch and one `master` branch. You will have to modify the Github Action slightly if you have a different branch architecture.
-
-Once you've [created a Service Account](/docs/cloud/stable/deploy/ci-cd#create-a-service-account), add the Service Account as a secret to your Github repository as described in GitHub's [Encrypted Secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) document. In this setup, the secret is named `SERVICE_ACCOUNT_KEY`.
-
-Then, create a new action in your repo at `.github/workflows/main.yml` with the following configuration:
+To use GitHub Actions on Astronomer, create a new action in your repo at `.github/workflows/main.yml` with the following:
 
 ```yaml
 name: CI
-on:
-  push:
-    branch: [dev, master]
+
+on: [push]
+
 jobs:
-  dev-push:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Push to registry
+    - name: Publish to Astronomer.io
       uses: elgohr/Publish-Docker-Github-Action@2.6
-      if: github.ref == 'refs/heads/dev'
       with:
-          name: ds-dev1/airflow:ci-${{ github.sha }}
-          username: _
-          password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-          registry: registry.astro.astronomerdemo.com
-  prod-push:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Push to registry
-      uses: elgohr/Publish-Docker-Github-Action@2.6
-      if: github.ref == 'refs/heads/master'
-      with:
-          name: ds-prd1/airflow:ci-${{ github.sha }}
-          username: _
-          password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-          registry: registry.astro.astronomerdemo.com
+        name: infrared-photon-7780/airflow:ci-${{ github.sha }}
+        username: _
+        password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+        registry: registry.gcp0001.us-east4.astronomer.io
 ```
 
-Ensure the branches match the names of the branches in your repository, and replace `ds-dev1` and `ds-prd1` with the release names of your development and production Airflow Deployments, respectively.
-
->**Note:** Note: The `prod-push` action will run on any push to the `master` branch, including a pull request and merge from the `dev` branch as recommended.
->
->To further restrict this to run only on a pull request, you can limit whether your users can push directly to the `master` branch within your repository or your CI tool, or you could modify the action to make it more limited.
+> **Note:** Make sure to replace `infrared-photon-7780` in the example above with your deployment's release name and to store your Service Account Key in your GitHub repo's secrets according to [this GitHub guide]( https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables).
 
 ## Azure DevOps
 
