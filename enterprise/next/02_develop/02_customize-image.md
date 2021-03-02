@@ -345,3 +345,15 @@ Now, let's push your new image to Astronomer.
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
 For more detail on the Astronomer deployment process, refer to [Deploy to Astronomer via the CLI](/docs/enterprise/stable/deploy/deploy-cli/).
+
+## Change Python Versions
+
+By default, Astronomer's Docker image has been tested and built only with Python 3.7. However, can also use Python version to 3.6 or 3.8 by specifying the `PYTHON_MAJOR_MINOR_VERSION` variable when building a custom version of the image.
+
+For example, running the following command would build your image with Python 3.6:
+
+```sh
+docker build --build arg PYTHON_MAJOR_MINOR_VERSION=3.6 -t astronomer-certified:python3.6-2.0.0-buster
+```
+
+> **Note:** While Astronomer's Docker image is compatible with both Python 3.6 and 3.8, it has been tested only with 3.7.
