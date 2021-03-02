@@ -14,8 +14,8 @@ It's worth noting that while the tables below reference the minimum compatible v
 
 | Astronomer Platform  | Kubernetes       | Helm | Terraform   | Postgres | Astronomer Certified                             | Python        | Astronomer CLI |
 |----------------------|------------------|------|-------------|----------|--------------------------------------------------|---------------|----------------|
-| v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5| 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14        | 3.6, 3.7 | 0.16           |
-| v0.23                | 1.16, 1.17, 1.18 | 3    | 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 2.0.0 | 3.6, 3.7 | 0.23           |
+| v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5| 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14        | 3.6, 3.7, 3.8 | 0.16           |
+| v0.23                | 1.16, 1.17, 1.18 | 3    | 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 2.0.0 | 3.6, 3.7, 3.8 | 0.23           |
 
 > **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12, and Astronomer v0.16.15+ is required to run Astronomer Certified 1.10.14. For instructions on how to upgrade to an Astronomer v0.16 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer-patch).
 
@@ -23,14 +23,16 @@ It's worth noting that while the tables below reference the minimum compatible v
 
 | Astronomer Certified | Postgres | MySQL     | Python        | System Distribution             | Airflow Helm Chart |
 | -------------------- | -------- | --------- | ------------- | ------------------------------- | ------------------ |
-| 1.10.5               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7 | Alpine 3.10, Debian 10 (Buster) | Any                |
-| 1.10.7               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7 | Alpine 3.10, Debian 10 (Buster) | Any                |
-| 1.10.10              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7 | Alpine 3.10, Debian 10 (Buster) | Any                |
-| 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7 | Alpine 3.10, Debian 10 (Buster) | Any                |
-| 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7 | Debian 10 (Buster)              | Any                |
-| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7 | Debian 10 (Buster)              | 0.18.6             |
+| 1.10.5               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8| Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.7               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.10              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
+| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6             |
 
 For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/next/customize-airflow/manage-airflow-versions/).
+
+> **Note:** While Astronomer Certified is compatible with Python 3.6, 3.7, and 3.8, the Docker image is built and tested only with Python 3.7. To use a different version of Python, you need to specify that version when building a custom image. For more information, read [Change Python Versions](/docs/enterprise/next/customize-image#change-python-versions).
 
 > **Note:** MySQL 5.7 is compatible with Airflow and Astronomer Certified 2.0 but it does NOT support the ability to run more than 1 Scheduler and is not recommended. If you'd like to leverage Airflow's new Highly-Available Scheduler, make sure you're running MySQL 8.0+.
 
