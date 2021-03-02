@@ -102,3 +102,5 @@ If you run Airflow on a Kubernetes cluster, you can deploy DAGs via the [Astrono
     --set images.airflow.repository=<your-filepath>/ap-airflow \
     --set images.airflow.tag=<your-image-tag>
     ```
+
+## Deploy DAGs via Git Sync
