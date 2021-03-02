@@ -4,30 +4,29 @@ navTitle: "CI/CD"
 description: "Automate the deploy process to your Airflow Deployment by setting up a CI/CD pipeline with a Service Account on Astronomer."
 ---
 <!-- markdownlint-disable-file -->
-Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
-
-This guide will walk you through configuring your CI/CD pipeline on Astronomer Cloud.
-
-For background and best practices on CI/CD, we recommend reading ["An Introduction to CI/CD Best Practices"](https://www.digitalocean.com/community/tutorials/an-introduction-to-ci-cd-best-practices) from DigitalOcean.
 
 ## Overview
 
-There are many benefits to deploying your DAGs or changes to Airflow itself through CI/CD, which mirror the general benefits of CI/CD itself:
+Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
 
-- It serves as a framework for deploying new and updated DAGs, which streamlines and organizes the development process between all team members.
-- It increases the speed of deployment, allowing your team to quickly respond to changes in needs.
-- It facilitates continuous, automating testing, which ensures that changes don't break your DAGs in production.
+There are many benefits to deploying DAGs and other changes to Airflow through CI/CD. Specifically, you can:
+
+- Deploy new and updated DAGs in a way which streamlines the development process amongst team members.
+- Decrease the maintenance cost of integrating changes, allowing your team to quickly respond in case of an error or failure.
+- Enforce continuous, automating testing, which increases code quality and protects your DAGs in production.
+
+This guide will walk you through configuring your CI/CD pipeline on Astronomer Cloud.
 
 ### Example CI/CD Flow
 
-Consider an Airflow project hosted on Github and deployed to Astronomer. In this scenario, `dev` and `main` branches of an Astronomer project are hosted on GitHub, and `dev` and `prd` Airflow Deployments are hosted on Astronomer.
+Consider an Airflow project hosted on Github and deployed to Astronomer. In this scenario, `dev` and `main` branches of an Astronomer project are hosted on GitHub, and `dev` and `prod` Airflow Deployments are hosted on Astronomer.
 
-Using CI/CD, you can automatically push DAGs to a Deployment whenever you push or merge code to its respective Github branch. The general setup would look something like this:
+Using CI/CD, you can automatically deploy DAGs to your Airflow Deployment on Astronomer by pushing or merging code a corresponding branch in GitHub. The general setup would look something like this:
 
-1. Create two Airflow Deployments within your Astronomer workspace, one for `dev` and one for `prd`.
-2. Create a code repository that will host your Astronomer project code for this workspace.
-3. Create a `dev` branch for your repository off of your `main` branch.
-4. Configure your CI/CD tool to deploy to your `dev` Airflow Deployment whenever you push to your `dev` branch, and to deploy to your `prd` Airflow Deployment whenever you merge your `dev` branch into `main`.
+1. Create two Airflow Deployments within your Astronomer Workspace, one for `dev` and one for `prod`.
+2. Create a repository in GitHub that hosts Airflow project code for the Workspace.
+3. In your GitHub code repository, create a `dev` branch off of your `main` branch.
+4. Configure your CI/CD tool to deploy to your `dev` Airflow Deployment whenever you push to your `dev` branch, and to deploy to your `prod` Airflow Deployment whenever you merge your `dev` branch into `main`.
 
 Visually, that would like something like this:
 
@@ -43,7 +42,7 @@ From there, you'll write a script that allows your Service Account to do the fol
 2. Authenticate to a Docker Registry
 3. Push your Image to that Docker Registry
 
-From there, a webhook triggers an update to your Airflow Deployment using the CI/CD tool of your choice. At its core, the Astronomer CLI does the equivalent of the above upon every manual `astro deploy`.
+From there, a webhook triggers an update to your Airflow Deployment using the CI/CD tool of your choice. At its core, the Astronomer CLI does the equivalent of the above upon every manual `$ astro deploy`.
 
 The rest of this guide describes how to create a Service Account and what your CI/CD script should look like based on the tool you're using.
 
