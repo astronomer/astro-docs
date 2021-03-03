@@ -352,20 +352,22 @@ While the Astronomer Certified (AC) Python Wheel supports Python versions 3.6, 3
 
 To create a custom Astronomer Certified Docker image, with a different Python version, you can:
 
-1. Clone the [astronomer/ap-airflow GitHub repository](https://github.com/astronomer/ap-airflow).
-
-2. In your command line, open a directory in the repo that corresponds to the version of Apache Airflow you'd like to run. For example, the folder for Apache Airflow 2.0.0 would be `ap-airflow/2.0.0/buster/`.
-
-3. Run `$ docker build` with `PYTHON_MAJOR_MINOR_VERSION` specified for the version of Python you'd like to support. For example, the command for building the image with Python 3.8 would look something like this:
+1. Using `docker build`, rebuild an [Astronomer Certified Docker image](https://github.com/astronomer/ap-airflow#master:2.0.0/buster) and specify `PYTHON_MAJOR_MINOR_VERSION` for the version of Python you'd like to support. For example, the command for rebuilding the Astronomer Certified image for Airflow 2.0.0 with Python 3.8 would look something like this:
 
     ```sh
-    $ docker build --build arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t astronomer-certified:python3.8-2.0.0-buster
+    $ docker build --build-arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t <your-registry>/ap-airflow:python-3.8_2.0.0_custom https://github.com/astronomer/ap-airflow.git#master:2.0.0/buster
     ```
 
-4. Update the `FROM` line of your `Dockerfile` to reference the custom image. Based on the previous example, the line would read:
+2. Push the custom image to your Docker registry. Based on the example in the previous step, the command to do so would look something like this:
+
+    ```sh
+    $ docker push <your-registry>/ap-airflow:python-3.8_1.10.10_custom
+    ```
+
+3. Update the `FROM` line of your `Dockerfile` to reference the custom image. Based on the previous example, the line would read:
 
     ```
-    FROM astronomer-certified:python3.8-2.0.0-buster
+    FROM <your-registry>/ap-airflow:python-3.8_1.10.10_custom
     ```
 
 > **Note:** Astronomer Certified Docker images for Apache Airflow 1.10.14+ are Debian-based only. To run Docker images based on Alpine-Linux for Airflow versions 1.10.7, 1.10.10, or 1.10.12, specify alpine3.10 instead of buster.
