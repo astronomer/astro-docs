@@ -1,7 +1,7 @@
 ---
-title: "Running Astronomer Core in Production"
-navTitle: "Running in Production"
-description: "Running the Astronomer Core distribution of Airflow in production."
+title: "Running Astronomer Core at Production Scale"
+navTitle: "Production Scale Installation"
+description: "Running the Astronomer Core distribution of Airflow at production scale."
 ---
 
 ## Overview
