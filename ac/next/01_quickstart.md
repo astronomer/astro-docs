@@ -12,7 +12,7 @@ To get started with AC on your local machine, follow this guide. We'll use the A
 
 There are two primary ways to obtain the Astronomer Core:
 
-- [Debian-based Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab =tags)
+- [Debian-based Docker Image](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
 - [Python Wheel](https://pip.astronomer.io/simple/apache-airflow/)
 
 This quickstart focuses on setting up Astronomer Core via Docker, which is the what we recommend for local installations. For the Python Wheel setup, read to [Install via Python Wheel](/docs/ac/next/01_quickstart#install-via-python-wheel).
@@ -25,11 +25,50 @@ For Astronomer's full collection of Docker Images, reference our public [Quay.io
 
 To run Astronomer Core locally, you'll need the following on your machine:
 
-- [Python 3.7 or 3.8](https://www.python.org/downloads/)
+- [Python 3.7](https://www.python.org/downloads/)
 - [Docker](https://www.docker.com/products/docker-desktop)
-- [Astronomer CLI](https://www.astronomer.io/docs/enterprise/v0.23/get-started/quickstart)
 
-## Install via Docker
+## Install the Astronomer CLI
+
+Astronomer's [open source CLI](https://github.com/astronomer/astro-cli) is the easiest way to run Airflow on your local machine. You'll need the CLI to complete this quickstart and create a local Airflow instance with a dedicated Webserver, Scheduler, and Postgres database.
+
+To install the latest version of the Astronomer CLI via cURL, run:
+
+```
+$ curl -sSL https://install.astronomer.io | sudo bash
+```
+
+To install the latest version of the Astronomer CLI via Homebrew, run:
+
+```
+$ brew install astronomer/tap/astro
+```
+
+To confirm that you have the Astronomer CLI installed on your machine, run:
+
+```bash
+$ astro version
+```
+
+If the installation was successful, the version of the CLI that you installed will appear in the output:
+
+```
+Astro CLI Version: 0.15.0
+Git Commit: c4fdeda96501ac9b1f3526c97a1c5c9b3f890d71
+```
+
+>**Note:** As of macOS Catalina, Apple [replaced bash with ZSH](https://www.theverge.com/2019/6/4/18651872/apple-macos-catalina-zsh-bash-shell-replacement-features) as the default shell. Our CLI install cURL command currently presents an incompatibility error with ZSH, sudo and the pipe syntax.
+>
+> If you're running macOS Catalina and beyond, do the following:
+>
+> 1. Run `sudo -K` to reset/un-authenticate
+> 2. Run the following to install the CLI properly:
+>
+>    ```
+>    $ curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
+>    ```
+
+## Install Astronomer Core via Docker
 
 To install and run the Astronomer Core distribution:
 
