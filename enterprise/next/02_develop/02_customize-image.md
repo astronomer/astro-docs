@@ -348,12 +348,18 @@ For more detail on the Astronomer deployment process, refer to [Deploy to Astron
 
 ## Change Python Versions
 
-By default, Astronomer's Docker image has been tested and built only with Python 3.7. However, can also use Python version to 3.6 or 3.8 by specifying the `PYTHON_MAJOR_MINOR_VERSION` variable when building a custom version of the image.
+While the Astronomer Certified (AC) Python Wheel supports Python versions 3.6, 3.7, and 3.8, AC Docker images have been tested and built only for Python 3.7. To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you need to create a custom version of the image and specify `PYTHON_MAJOR_MINOR_VERSION`. To do so:
 
-For example, running the following command would build your image with Python 3.6:
+To create a custom Astronomer Certified Docker image, with a different Python version, you can:
 
-```sh
-docker build --build arg PYTHON_MAJOR_MINOR_VERSION=3.6 -t astronomer-certified:python3.6-2.0.0-buster
-```
+1. Clone the [astronomer/ap-airflow GitHub repository](https://github.com/astronomer/ap-airflow).
 
-> **Note:** While Astronomer's Docker image is compatible with both Python 3.6 and 3.8, it has been tested only with 3.7.
+2. In your command line, open a directory in the repo that corresponds to the version of Apache Airflow you'd like to run. For example, the folder for Apache Airflow 2.0.0 would be `ap-airflow/2.0.0/buster/`.
+
+3. Run `$ docker build` with `PYTHON_MAJOR_MINOR_VERSION` specified for the version of Python you'd like to support. For example, the command for building the image with Python 3.8 would look something like this:
+
+    ```sh
+    $ docker build --build arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t astronomer-certified:python3.8-2.0.0-buster
+    ```
+
+> **Note:** Astronomer Certified Docker images for Apache Airflow 1.10.14+ are Debian-based only. To run Docker images based on Alpine-Linux for Airflow versions 1.10.7, 1.10.10, or 1.10.12, specify alpine3.10 instead of buster.
