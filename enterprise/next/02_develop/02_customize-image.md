@@ -348,7 +348,7 @@ For more detail on the Astronomer deployment process, refer to [Deploy to Astron
 
 ## Change Python Versions
 
-While the Astronomer Certified (AC) Python Wheel supports Python versions 3.6, 3.7, and 3.8, AC Docker images have been tested and built only for Python 3.7. To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you need to create a custom version of the image and specify `PYTHON_MAJOR_MINOR_VERSION`. To do so:
+While the Astronomer Certified (AC) Python Wheel supports Python versions 3.6, 3.7, and 3.8, AC Docker images have been tested and built only for Python 3.7. To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you need to create a custom version of the image, specify the `PYTHON_MAJOR_MINOR_VERSION` build argument, and push the custom image to an existing Docker registry. To do so:
 
 To create a custom Astronomer Certified Docker image, with a different Python version, you can:
 
