@@ -19,19 +19,19 @@ This quickstart focuses on setting up Astronomer Core via Docker, which is the w
 
 For Astronomer's full collection of Docker Images, reference our public [Quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
 
-> **Note: Astronomer Core is also hosted on Docker Hub, but pulling your image from there might result in rate limiting errors. Because of that, we recommend always pulling from the Quay.io repository.
+> **Note: Astronomer Core is also hosted on [Docker Hub](https://hub.docker.com/r/astronomerinc/ap-airflow), but pulling your image from there might result in rate limiting errors. Because of that, we recommend pulling from the Quay.io repository.
 
 ## Prerequisites
 
 To run Astronomer Core locally, you'll need the following on your machine:
 
-- [Python 3.7](https://www.python.org/downloads/)
+- [Python 3.7 or 3.8](https://www.python.org/downloads/)
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Astronomer CLI](https://www.astronomer.io/docs/enterprise/v0.23/get-started/quickstart)
 
 ## Install via Docker
 
-To install and run the Astronomer Certified distribution:
+To install and run the Astronomer Core distribution:
 
 1. Create and move into a new directory for your Airflow project:
 
@@ -90,7 +90,7 @@ To install and run the Astronomer Certified distribution:
 
 That's all it takes! You're now ready to begin testing DAGs and Airflow features on your local machine.
 
-## Install Via Python Wheel
+## Install via Python Wheel
 
 We also distribute Astronomer Core as a python wheel available on PyPi. This distribution can be run locally via the same mechanisms used to run the Apache Airflow package.
 
@@ -116,8 +116,10 @@ We also distribute Astronomer Core as a python wheel available on PyPi. This dis
 
 ## Next Steps
 
-Now that you have Astronomer Core Airflow running on your local machine, you might want to do one of the following:
+Now that you have Astronomer Core running on your local machine, you might want to do one of the following:
 
+* Learn about Airflow from the open source documentation.
+* Discover best practices through Airflow Guides.
 * Set up Astronomer Core in a production environment.
 * Try out key AC and Airflow features using one of our Airflow guides.
 * Learn more about what's in the AC image.

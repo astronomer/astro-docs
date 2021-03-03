@@ -34,7 +34,7 @@ This guide assumes that your database server is local to where you running these
 
 To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. You should also understand the security implications before editing this file.
 
-If your database server is running on the same machine, you can change `peer` to `md5` to allow connections with username/password from the same machine.
+If your database server is running on the same machine as your other Airflow components, you can change `peer` to `md5` to allow connections with username/password from the same machine.
 
 To setup the PostgreSQL database:
 
