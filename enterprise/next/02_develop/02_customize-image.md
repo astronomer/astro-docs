@@ -362,4 +362,10 @@ To create a custom Astronomer Certified Docker image, with a different Python ve
     $ docker build --build arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t astronomer-certified:python3.8-2.0.0-buster
     ```
 
+4. Update the `FROM` line of your `Dockerfile` to reference the custom image. Based on the previous example, the line would read:
+
+    ```
+    FROM astronomer-certified:python3.8-2.0.0-buster
+    ```
+
 > **Note:** Astronomer Certified Docker images for Apache Airflow 1.10.14+ are Debian-based only. To run Docker images based on Alpine-Linux for Airflow versions 1.10.7, 1.10.10, or 1.10.12, specify alpine3.10 instead of buster.
