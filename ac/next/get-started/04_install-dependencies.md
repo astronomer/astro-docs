@@ -4,7 +4,13 @@ navTitle: "Install Dependencies"
 description: "."
 ---
 
-## Add Python-level Packages to a Production Environment
+## Overview
+
+By default, the Astronomer Core (AC) image includes several additional third party packages in order to better integrate between applications. For a full list of built in packages, read our image breakdown.
+
+If you want to install additional packages,
+
+## Add Python-level Packages at Production Scale
 
 To build Python and OS-level packages into a production environment running AC, run the following command on all of your Airflow machines:
 
@@ -12,7 +18,7 @@ To build Python and OS-level packages into a production environment running AC, 
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[<your-dependency>]==1.10.10.*'
 ```
 
-## Add Python-level Packages to a Local Environment
+## Add Python-level Packages to a Local Installation
 
 If you installed AC locally using the [Quickstart] and the Astro CLI, you can add Python packages to your `requirements.txt` file and OS-level packages to your `packages.txt` file.
 
@@ -46,7 +52,7 @@ This process stops your running Docker containers and restarts them with your up
 
 ## Confirm a Package Installation
 
-You can confirm that a package was installed by running a `$ docker exec` command into your Scheduler. To do so:
+If you run Astronomer Core on Docker, you can confirm that a package was installed by running a `$ docker exec` command into your Scheduler. To do so:
 
 1. Run `$ docker ps` and retrieve the container ID of your Scheduler container.
 2. Run the following command:
@@ -61,11 +67,13 @@ You can confirm that a package was installed by running a `$ docker exec` comman
     <package-name>==<version>
     ```
 
-## Add Other Dependencies
+## Build Other Dependencies into an Image
 
 In the same way you can build Python and OS-level Packages into your image, you can also build additional dependencies and files for your DAGs to use.
 
 In the example below, we'll add a folder of `helper_functions` with a file (or set of files) that our Airflow DAGs can then use.
+
+### Local scale
 
 1. Add the folder into your project directory
 
@@ -99,8 +107,10 @@ In the example below, we'll add a folder of `helper_functions` with a file (or s
 
 To confirm the files were successfully installed:
 
-1. Run `$ docker ps` to identify the 3 running docker containers on your machine
-2. Grab the container ID of your Scheduler container
+1. Run `$ docker ps` to identify the 3 running docker containers on your machine.
+
+2. Grab the container ID of your Scheduler container.
+
 3. Run the following:
 
     ```bash
@@ -110,4 +120,26 @@ To confirm the files were successfully installed:
     airflow.cfg  dags  include  packages.txt  requirements.txt
     ```
 
-   Notice that the `helper_functions` folder has been built into your image.
+  Notice that the `helper_functions` folder has been built into your image.
+
+
+### Production scale
+
+Adding other dependencies at a production scale requires more thoroughly connecting the dependencies to your DAGs.
+
+We recommend creating a new `common` folder in your DAG repository that includes all DAG-level dependencies and an `init` file to import functions from the dependencies. That structure might look something like this:
+
+```bash
+.
+├── dags
+│   └── common
+│       └──__init__.py
+│       └──helper1.py
+│       └──helper2.py
+│   └── project1
+│       └──dag1.py
+│   └── project2
+│       └──dag2.py
+```
+
+You then have to import the functions in your helper method within the code for your DAGs.

@@ -4,54 +4,26 @@ navTitle: "Deploy DAGs"
 description: "Use open source automation tools to ensure that DAGs are accurately updated across all of your machines. ."
 ---
 
+Every machine running Airflow needs a copy of the DAG files, with all DAG files appearing in the same DAG folder. While there are many ways to make this happen, this guide will cover two of the most popular and recommended methods for deploying DAGs across your machines:
 
-Every machine running Airflow needs a copy of the DAG files, with all DAG files appearing in the same DAG folder (`/usr/local/airflow/` if you followed the naming convention in step 2A). There are many ways in which you can make this happen, but some popular options include:
+- Use a cron job to regularly pull DAGs into your local files. Note that this method requires hosting your DAGs in a Git repository. 
+- Add DAGs directly to a Docker image and rebuild the image whenever DAGs are updated. Note that this option is limited only to users running Airflow on Docker.
 
-- Using automation tools such as Ansible.
-- Baking DAGs into the docker image alongside Airflow.
-- Using a job that refreshes the DAGs folder on a schedule ([this is how the folks at WePay do it](https://wecode.wepay.com/posts/airflow-wepay)).
-- Making the DAGs live on a shared filesystem such as NFS (but be aware of read performance penalties - Airflow can be quite heavy on read-ops).
 
-## Automate DAG Deployment with Ansible
+## Automate DAG Deployment with a Cron Job
 
-We recommend using an automation tool to continuously pull new or updated DAGs to your Airflow machines. We configure an open source Ansible role ([source](https://github.com/idealista/airflow-role)) in this setup, though other automation tools such as Puppet or Chef also work here.
+We recommend using an automation tool to continuously pull new or updated DAGs to your Airflow machines. If you host your DAGs in a Git repository, you can use a cron job to pull new DAGs onto your machines on a regular basis. For each of your machines running Airflow:
 
-1. Install Ansible according to the [Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) on one of your machines.
+1. Open your DAGs directory and ensure that the folder is empty. If you followed the Installing at Production Scale guide, this folder would be `/usr/local/airflow`.
 
-2. Edit your `/etc/ansible/hosts` file to include the IP addresses of all machines running Airflow.
+2. Clone your DAG repository into the folder using `$ git clone`.
 
-3. Create a file named `requirements.yml`and add the following to it:
+3. As your `airflow` system user, run `crontab -e`.
 
-   ```yaml
-   - src: http://github.com/idealista/airflow-role.git
-     scm: git
-     version: 1.7.3
-     name: airflow
-   ```
+4. Create a cron job that continuously pulls from the DAG repository. For example, if you want to pull to the `/usr/local/airflow` folder every 3 minutes, your cron job would look something like this:
 
-4. Install the Ansible role using the following command:
-
-    ```sh
-    $ ansible-galaxy install -p roles -r requirements.yml -f
     ```
-
-5. Open the `defaults/main.yml` file for the role. In the `# Files & Paths` section, specify the `airflow_dags_folder` variable as the folder for your DAGs.
-
-6. Create a new `playbook.yml` file and add the following to it:
-
-    ```yaml
-    ---
-    - hosts: someserver
-      roles:
-        - { role: airflow }
-    ```
-
-7. Review the rest of the default values in `playbook.yml` and update any according to your use case.
-
-8. Run the playbook using the following command:
-
-    ```sh
-    $ ansible-playbook playbook.yml -f 10
+    * */3 * * * cd /usr/local/airflow && git pull
     ```
 
 ## Kubernetes via Helm Chart
@@ -61,7 +33,7 @@ If you run Airflow on a Kubernetes cluster, you can deploy DAGs via the [Astrono
 - A Kubernetes cluster running Airflow
 - The kubectl command line tool
 - Helm
-- A Docker registry that you can push and pull custom images from
+- A Docker registry where you can push and pull images
 
 1. Create a Helm repository using the following command:
 
@@ -103,4 +75,8 @@ If you run Airflow on a Kubernetes cluster, you can deploy DAGs via the [Astrono
     --set images.airflow.tag=<your-image-tag>
     ```
 
-## Deploy DAGs via Git Sync
+### Next Steps
+
+While baking DAGs into an image is a great way to keep all of the code for your project running in one place, it's labor-intensive to continuously rebuild.
+
+As a next step, we recommend hosting your DAG folder in a Git repository and implementing a CI/CD tool to automatically rebuild your image whenever code is pushed or merged to the repository.  
