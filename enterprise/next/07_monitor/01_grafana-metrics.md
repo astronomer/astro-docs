@@ -125,12 +125,16 @@ This dashboard tracks the performance of Fluentd.
 
 Because Astronomer's key metrics are distributed across several dashboards, you might want to create a custom dashboard that shows these metrics in one place. To create a custom dashboard:
 
-1. In the Grafana sidebar menu, click the dashboard icon button and click **New**
-2. Specify a visualization type and a title for your first panel.
-3. In the metric's **Query** tab, open the data source dropdown menu and select Prometheus.
-4. In the table below the data source dropdown menu. Specify the metric you want to visualize in the **Metrics** field.
-4. On the top menu, click the **Add panel** icon to add another panel to the dashboard. Repeat steps 2 and 3 for this panel.
-5. Click **Save** to finalize your changes.
+1. Ensure you're logged into Grafana. If you're on the Welcome page, you can log in via the **Sign In** button at the bottom of the sidebar menu. The default login credentials are `admin:admin`
+2. In the Grafana sidebar menu, click the **+** icon and click **Create Dashboard**.
+
+    ![Create Grafana Dashboard](https://assets2.astronomer.io/main/docs/grafana/create-dashboard.png)
+
+3. Specify a visualization type and a title for your first panel.
+4. In the metric's **Query** tab, open the data source dropdown menu and select Prometheus.
+5. In the table below the data source dropdown menu. Specify the metric you want to visualize in the **Metrics** field.
+6. On the top menu, click the **Add panel** icon to add another panel to the dashboard. Repeat steps 2 and 3 for this panel.
+7. Click **Save** to finalize your changes.
 
 As a starting point, we recommend creating a dashboard with the following metrics visualized as graphs for any organizations using the Kubernetes Executor or KubernetesPodOperator in an Airflow Deployment:
 
