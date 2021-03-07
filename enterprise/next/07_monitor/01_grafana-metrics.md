@@ -74,7 +74,9 @@ This will show the amount of persistent storage available to Prometheus, the reg
 
     ![1-day Airflow Task Volume Metric](https://assets2.astronomer.io/main/docs/grafana/task-volume.png)
 
-    In the following example, the query has been rewritten in the format `sum(increase(airflow_ti_successes[<time>]))`, which changes the time interval that appears in the metric. You could also write this as `sum by (deployment) (increase(airflow_ti_failures[<time-interval>]))` to view task volume across an entire Deployment, which is useful for monitoring potential system-wide problems.
+    In the following example, the query has been rewritten in the format `sum(increase(airflow_ti_successes[<time>]))`, which changes the time interval that appears in the metric. We recommend looking at trends across longer intervals to clearly trends in task failures and successes.
+
+    You could also write this query as `sum by (deployment) (increase(airflow_ti_failures[<time-interval>]))` to view task volume across an entire Deployment, which is useful for monitoring potential system-wide problems.
 
     In addition, the eye icon on the metric has been deselected so that only task failures are shown:
 
