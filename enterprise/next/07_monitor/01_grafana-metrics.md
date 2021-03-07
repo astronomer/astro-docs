@@ -12,30 +12,37 @@ Enterprise admins can access our Grafana dashboards on `grafana.BASEDOMAIN` to a
 
 ## Astronomer UI Dashboard
 
-Each of your Deployments has a built-in metrics dashboard in the Astronomer UI. To get there, open a Deployment and go to the **Metrics** tab.
+Each of your Deployments has a built-in metrics dashboard in the Astronomer UI. To get there, open a Deployment and go to the **Metrics** tab:
+
+![Astronomer Metrics Dashboard](https://assets2.astronomer.io/main/docs/grafana/astro-metrics.png)
 
 This dashboard is most useful for tracking the performance of individual Airflow Deployments, whereas Grafana dashboards are more useful for tracking performance at the platform level.
 
 ### Key Metrics
 
-**Pod / CPU / Memory Usage**: These metrics measure the amount of pods, CPUs, and memory being used by an individual Deployment in its Kubernetes namespace. The upper limits of these metrics are the maximum allowed resources defined in the Kubernetes cluster.
+- **Pod / CPU / Memory Usage**: These metrics measure the amount of pods, CPUs, and memory being used by an individual Deployment in its Kubernetes namespace. The upper limits of these metrics are the maximum allowed resources defined in the Kubernetes cluster.
 
-If you're using the Local or Celery Executors, these metrics should each show around 50% usage at all times.
+    If you're using the Local or Celery Executors, these metrics should each show around 50% usage at all times.
 
-If you're using the Kubernetes executor or the KubernetesPodOperator in your DAGs, these metrics should a fluctuation in usage based on how many tasks you're running. If these metrics increase to near-full usage when running your tasks, you can allocate more computing power by adjusting the **Extra Capacity** slider in the **Settings** tab for the Deployment.
+    If you're using the Kubernetes executor or the KubernetesPodOperator in your DAGs, these metrics should fluctuate in usage based on how many tasks you're running. If these metrics increase to near-full usage when running your tasks, you can allocate more computing power by adjusting the **Extra Capacity** slider in the **Settings** tab for the Deployment.
 
 ## Airflow State
+
 Monitor all of your deployments from the Kubernetes level, including a birds-eye view of resource usage and system stress levels. When you spin up new deployments, they'll first show as "Unhealthy" in this view before going to "Healthy" when it is ready to be used.
 
 ![Astronomer State](https://assets2.astronomer.io/main/docs/ee/airflow_state.png)
 
 ### Key Metrics
 
-**CPU Requests and Memory Requests:** These metrics appear in the **Quotas** panel of the dashboard. If you are executing your workflows in a cloud infrastructure, the typical paradigm is to pay for the resources you actually use, so it is important to monitor this usage and its associated costs. Due to the varying structure, tools, and pricing models of cloud provider solutions, the recommended values for these metrics will vary between organizations.
+- **CPU Requests and Memory Requests:** These metrics appear in the **Quotas** panel of the dashboard. If you are executing your workflows in a cloud infrastructure, the typical paradigm is to pay for the resources you actually use, so it is important to monitor this usage and its associated costs.
+
+    Due to the varying structure, tools, and pricing models of cloud provider solutions, the recommended values for these metrics will vary between organizations.
 
 ## Kubernetes Pods
 
-This dashboard shows the status of your Kubernetes pods in your environment.
+This dashboard shows the status of the Kubernetes pods in your environment.
+
+![Kubernetes Pod Dashboard](https://assets2.astronomer.io/main/docs/grafana/kube-pod.png)
 
 ### Key Metrics
 
@@ -63,9 +70,15 @@ This will show the amount of persistent storage available to Prometheus, the reg
 
 - **1-day Airflow Task Volume:** This metric is the single best tool for monitoring Airflow task successes and failures. It can also be adjusted to better find specific data points.
 
-    For instance, if you click **Edit** in the dropdown menu for the metric, you're able to update the **Metrics** query to show data for a different time frame, such as `1h` or `15m`. In addition, you can use the eye icons at the far right to show only failures, rather than both successes and failures.
+    For instance, if you click **Edit** in the dropdown menu for the metric, you're able to update the **Metrics** query to show data for a specific time, status, or Deployment.
 
-    To monitor task failures across all Deployments, you can update the failure query to be `sum by (deployment) (increase(airflow_ti_failures[<time-interval>]))`. This is especially useful for monitoring potential system-wide problems.
+    ![1-day Airflow Task Volume Metric](https://assets2.astronomer.io/main/docs/grafana/task-volume.png)
+
+    In the following example, the query has been rewritten in the format `sum(increase(airflow_ti_successes[<time>]))`, which changes the time interval that appears in the metric. You could also write this as `sum by (deployment) (increase(airflow_ti_failures[<time-interval>]))` to view task volume across an entire Deployment, which is useful for monitoring potential system-wide problems.
+
+    In addition, the eye icon on the metric has been deselected so that only task failures are shown:
+
+    ![Failures-Only Task Volume Metric](https://assets2.astronomer.io/main/docs/grafana/failures-only.png)
 
 - **Database Connections:** This metric can be found in the **Database** panel. It measures how often your database is reached out to by the Airflow Scheduler, Webserver, and Workers. The chart shows the sum total of connections coming from sqlpooling in all Airflow Deployments in your environment.
 
@@ -73,13 +86,15 @@ This will show the amount of persistent storage available to Prometheus, the reg
 
 - **PG Bouncer Waiting Clients:** This metric can be found in the **Database** panel. It measures how long specific actions are queued in a given Airflow Deployment before being executed. In healthy Deployments, this number should be very low.
 
-    Extended periods of waiting can degrade performance and should be investigated for potential problems. For example, the Deployments associated with the red and blue spikes in the following graph might be experiencing issues with successfully executing tasks:
+    Extended periods of waiting can degrade performance and should be investigated for potential problems. For example, the Deployments associated with the red and pink spikes in the following graph might be experiencing issues with successfully executing tasks:
+
+    ![PG Bouncer metrics](https://assets2.astronomer.io/main/docs/grafana/PGBouncer.png)
 
 - **Unhealthy Schedulers:**  This metric is available in the **Airflow Health** panel, but Scheduler health can also be assessed for each individual Deployment in the Astronomer UI's **Metrics** tab. This metric gives you info on when and for how long individual Airflow deployment schedulers restarted.  
 
     Scheduler restarts could be normal, such as during an update, but if you see a single scheduler continue to restart or stay in an unhealthy state for a significant amount of time, it is worth investigating further.
 
-    For example, an organization would want to investigate the green Scheduler in the following screen shot:
+    For example, an organization would want to investigate the green Scheduler in the following screenshot:
 
 
 - **DAG Parsing Time:** This metric is available in the **Airflow Health** panel. It measures how quickly the Scheduler is executing your DAGs, and it's an indicator for how well your Scheduler is scheduling jobs for execution.
@@ -100,14 +115,33 @@ This will show the amount of persistent storage available to Prometheus, the reg
 
 This dashboard tracks the performance of Fluentd.
 
+![Fluentd Dashboard](https://assets2.astronomer.io/main/docs/grafana/Fluentd.png)
+
 ### Key Metrics
 
-- **Buffer Size and Buffer Length:** These metrics track whether the fluentd buffer is getting backed up, which might indicate an issue with writing logs to Elasticsearch. These metrics should ideally be hovering around zero.
+- **Buffer Size and Buffer Length:** These metrics track whether the Fluentd buffer is getting backed up, which might indicate an issue with writing logs to Elasticsearch. These metrics should ideally be hovering around zero.
 
+## Creating Custom Dashboards
 
-## Custom Metric Scraping
+Because Astronomer's key metrics are distributed across several dashboards, you might want to create a custom dashboard that shows these metrics in one place. To create a custom dashboard:
 
-If admins on your platform want customize how or what Prometheus scrapes for metrics, the following link shows every endpoint that Prometheus hits: https://prometheus.<BASEDOMAIN>/targets
+1. In the Grafana sidebar menu, click the dashboard icon button and click **New**
+2. Specify a visualization type and a title for your first panel.
+3. In the metric's **Query** tab, open the data source dropdown menu and select Prometheus.
+4. In the table below the data source dropdown menu. Specify the metric you want to visualize in the **Metrics** field.
+4. On the top menu, click the **Add panel** icon to add another panel to the dashboard. Repeat steps 2 and 3 for this panel.
+5. Click **Save** to finalize your changes.
 
-Alongside this, the configurations for prometheus are defined in the following helm charts (prometheus & statsd-exporter).   https://github.com/astronomer/astronomer/blob/v0.16.12/charts/prometheus/values.yaml
-https://github.com/astronomer/ap-vendor/blob/main/statsd-exporter/include/mappings.yml
+As a starting point, we recommend creating a dashboard with the following metrics visualized as graphs for any organizations using the Kubernetes Executor or KubernetesPodOperator in an Airflow Deployment:
+
+- Node Disk Space Utilization
+- Node CPU/Memory Utilization
+- Disk IO Utilization
+- CPU Utilisation
+- Memory Utilisation
+- CPU Saturation (Load1 per CPU)
+- Memory Saturation (Major Page Fails)
+- Net Utilisation (Bytes Receive/ Transmit)
+- Net Saturation (Drops Receive/Transmit)
+
+These metrics can help you monitor resource usage and subsequent costs of your Kubernetes pods. The recommended steady-state values for these metrics all will be specific to your Kubernetes environment and dependent on available resources/configurations. However, if metrics disappear from this view, it is typically an indication of the node going away and worker pods being relocated to another Kubernetes node.
