@@ -6,7 +6,7 @@ description: "."
 
 ### 1. Locate your Dockerfile in your Project Directory
 
-First, open the `Dockerfile` within your Astronomer directory. When you initialized an Airflow project via the Astronomer CLI, the following files should have been automatially generated:
+First, open the `Dockerfile` within your Astronomer directory. When you initialized an Airflow project via the Astronomer CLI, the following files should have been automatically generated:
 
 ```
 .
