@@ -97,7 +97,7 @@ astronomer:
 
 Your Cognito pool ID can be found in the `General settings` tab of the Cognito portal. You client ID is found in the `App clients` tab.
 
-Once you've saved your `config.yaml` file with these values, push it to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+Once you've saved your `config.yaml` file with these values, push it to your platform as described in [Apply a Config Change](/docs/enterprise/v0.16/manage-astronomer/apply-platform-config).
 
 ## Azure AD
 
