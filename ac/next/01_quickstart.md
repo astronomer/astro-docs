@@ -114,7 +114,7 @@ To install and run the Astronomer Core distribution, follow these steps:
    * **Scheduler**: The Airflow component responsible for monitoring and triggering tasks
 
 
-4. Verify that the 3 Docker containers were succesfully created by running:
+4. Verify that the 3 Docker containers were successfully created by running:
 
     ```sh
     docker ps
@@ -124,7 +124,7 @@ To install and run the Astronomer Core distribution, follow these steps:
     >
     > If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
-5. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with `admin` for both your Username and Password. Your screen should look something like this:
+5. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with `admin` for both your username and password. Your screen should look something like this:
 
     ![Example DAG](https://assets2.astronomer.io/main/docs/getting-started/sample_dag.png)
 
