@@ -316,9 +316,9 @@ astro_deploy:
     - master
 ```
 
-## Kaniko + Gitlab
+## Kaniko + GitLab
 
-You can use [kaniko](https://github.com/GoogleContainerTools/kaniko) to build container images from a Dockerfile without privileged root access. Coupled with Gitlab's CI tool, this enables you to build container images without relying on a Docker daemon.
+You can use [kaniko](https://github.com/GoogleContainerTools/kaniko) to build container images from a Dockerfile without privileged root access. Coupled with GitLab's CI tool, this enables you to build container images without relying on a Docker daemon. For more information and configuration options, read the [GitLab documentation](https://docs.gitlab.com/ee/ci/docker/using_kaniko.html).
 
 >**Note:** This solution is currently incompatible with Astronomer's `onbuild` images. To use kaniko and GitLab for CI, your Dockerfile must pull from an Astronomer image without `onbuild`, such as `quay.io/astronomer/ap-airflow:2.0.0-buster`.
 
