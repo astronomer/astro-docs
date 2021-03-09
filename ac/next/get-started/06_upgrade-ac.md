@@ -4,9 +4,35 @@ navTitle: "Install Dependencies"
 description: "."
 ---
 
-### 1. Locate your Dockerfile in your Project Directory
+## Upgrade Airflow via Python Package
 
-First, open the `Dockerfile` within your Astronomer directory. When you initialized an Airflow project via the Astronomer CLI, the following files should have been automatically generated:
+Before upgrading, make sure all of the following are true:
+
+* Your Airflow meta database is backed up.
+* All DAGs have been paused; nothing is currently running.
+
+
+Then, for each machine running Airflow:
+
+1. Run the following command:
+
+    ```sh
+    pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[postgres]==2.0.0.*' --upgrade
+    ```
+
+2. Run the following command to upgrade your Airflow meta database:
+
+    ```sh
+    airflow upgrade db
+    ```
+
+## Upgrade Airflow in Docker
+
+If you're running Airflow in Docker, all you need to do is update the link to the image in your Dockerfile.
+
+### Step 1: Locate your Dockerfile in your Project Directory
+
+First, open the `Dockerfile` within your Airflow directory. When you initialized an Airflow project via the Astronomer CLI, the following files should have been automatically generated:
 
 ```
 .
@@ -21,7 +47,7 @@ First, open the `Dockerfile` within your Astronomer directory. When you initiali
 
 Depending on the OS distribution and version of Airflow you want to run, you'll want to reference the corresponding Astronomer Certified image in the FROM statement of your `Dockerfile`.
 
-### 2. Choose your new Astronomer Certified Image
+### Step 2: Choose your new Astronomer Certified Image
 
 Below you'll find a matrix of all Astronomer Certified images Depending on the Airflow version you'd like to run or upgrade to, copy one of the images below to your `Dockerfile` and proceed to Step 3.
 
@@ -42,24 +68,7 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 
 ## Step 3: Rebuild your Image
 
-### Local Development
-
-If you're developing locally, make sure to save your changes and issue the following from your command line:
-
-1. `$ astro dev stop`
-
-   This will stop all 3 running Docker containers for each of the necessary Airflow components (Webserver, Scheduler, Postgres).
-
-2. `$ astro dev start`
-
-   This will start those 3 Docker containers needed to run Airflow.
-
-### On Astronomer
-
-If you don't need to test this locally and just want to push to your Astronomer Enterprise installation, you can run:
-```sh
-$ astro deploy
-```
+If you're developing locally, make sure to save your changes before proceeding. Then, run `astro dev stop` followed by `astro dev start` to restart your 3 Airflow components (Scheduler, Webserver, Database).
 
 ## Step 4: Confirm your version in the Airflow UI
 
