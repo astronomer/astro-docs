@@ -78,7 +78,7 @@ cd /usr/local/airflow && mkdir dags
 
 ### C. Create a virtual environment
 
-To isolate the Astronomer Certified python modules from changes to the system, create a virtual environment using the following command:
+To isolate the Astronomer Core python modules from changes to the system, create a virtual environment using the following command:
 
 ```sh
 sudo -u astro python3 -m venv ~astro/airflow-venv
@@ -89,7 +89,7 @@ sudo -u astro python3 -m venv ~astro/airflow-venv
 Install the AC Python Package onto your machine by running:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[postgres]==1.10.10.*'
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==1.10.10.*'
 ```
 
 This command includes the `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies such as `[redis, crypto, aws, celery]` depending on your use case.
@@ -103,7 +103,7 @@ To use systemd as a process supervisor:
 1. Create a systemd unit file using the following command:
 
     ```sh
-    sudo -e /etc/systemd/system/astronomer-certified@.service
+    sudo -e /etc/systemd/system/astronomer-core@.service
     ```
 
 2. Using the text editor of your choice, add the following to the file you just created:
@@ -115,7 +115,7 @@ To use systemd as a process supervisor:
     Requires=network-online.target
 
     [Service]
-    EnvironmentFile=/etc/default/astronomer-certified
+    EnvironmentFile=/etc/default/astronomer-core
     User=astro
     Group=astro
     Type=simple
@@ -128,7 +128,7 @@ To use systemd as a process supervisor:
     WantedBy=multi-user.target
     ```
 
-3. Edit `/etc/default/astronomer-certified` to contain these Environment Variables and values:
+3. Edit `/etc/default/astronomer-core` to contain these Environment Variables and values:
 
    ```sh
    AIRFLOW_HOME=/usr/local/airflow/
@@ -140,7 +140,7 @@ To use systemd as a process supervisor:
 
 ### F. Configure Airflow for Database Access
 
-Airflow needs to be told where its metadata DB lives, as well as which user to connect as, by setting additional Environment Variables. To do so, add the following to your `/etc/default/astronomer-certified` file:
+Airflow needs to be told where its metadata DB lives, as well as which user to connect as, by setting additional Environment Variables. To do so, add the following to your `/etc/default/astronomer-core` file:
 
 For Local Executor:
 
@@ -164,7 +164,7 @@ The password you specify here should be the same one you specified when prompted
 
 #### Alternative setup options
 
-* Your Airflow user password is stored written in `/etc/default/astronomer-certified` (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as HashiCorp's Vault, you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
+* Your Airflow user password is stored written in `/etc/default/astronomer-core` (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as HashiCorp's Vault, you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
 
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
@@ -181,14 +181,14 @@ On the machine where you want to enable the Scheduler:
 1. Enable the Scheduler by running the following command:
 
     ```sh
-    sudo systemctl enable astronomer-certified@scheduler.service
+    sudo systemctl enable astronomer-core@scheduler.service
     ```
 
 
 2. Edit the override file for the machine by running the following command:
 
     ```sh
-    sudo systemctl edit astronomer-certified@scheduler.service
+    sudo systemctl edit astronomer-core@scheduler.service
     ```
 
 3. In the empty document that appears, add the following lines:
@@ -201,7 +201,7 @@ On the machine where you want to enable the Scheduler:
 4. Start the service by running:   
 
     ```sh
-    sudo systemctl start astronomer-certified@scheduler.service
+    sudo systemctl start astronomer-core@scheduler.service
     ```
 
 ## Step 4: Set Up the Webserver
@@ -211,13 +211,13 @@ On the machine where you'll be running the Webserver:
 1. Enable the Webserver by running the following:
 
     ```sh
-    sudo systemctl enable astronomer-certified@webserver.service
+    sudo systemctl enable astronomer-core@webserver.service
     ```
 
 2. Start the service by running the following:
 
     ```sh
-    sudo systemctl start astronomer-certified@webserver.service
+    sudo systemctl start astronomer-core@webserver.service
     ```
 
 >> **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
@@ -229,13 +229,13 @@ For each machine that you want to host a Worker:
 1. Enable the Worker service by running the following command:
 
    ```sh
-   sudo systemctl enable astronomer-certified@worker.service
+   sudo systemctl enable astronomer-core@worker.service
    ```
 
 2. Start the service by running the following command:
 
     ```sh
-    sudo systemctl start astronomer-certified@worker.service
+    sudo systemctl start astronomer-core@worker.service
     ```
 
 ## Step 6: Confirm the Installation
