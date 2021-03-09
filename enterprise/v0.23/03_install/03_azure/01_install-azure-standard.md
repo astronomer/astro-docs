@@ -13,6 +13,7 @@ To install Astronomer on AKS, you'll need access to the following tools and perm
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 * [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
 * SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
 * Permission to create and modify resources on AKS
@@ -43,7 +44,7 @@ The steps below will walk you through how to:
 
 You can view Microsoft Azure's Web Portal at https://portal.azure.com/.
 
-> Note: Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on AKS.
+> Note: Each version of Astronomer Enterprise is compatible with only a particular set of Kubernetes versions. For more information, refer to Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 
 ### Create an Azure Resource Group
 
