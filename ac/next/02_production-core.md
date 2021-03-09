@@ -30,7 +30,7 @@ You can run these components on one or multiple machines, though we recommend us
 
 ## Step 1: Set Up the Database
 
-This guide assumes that your database server is local to where you running these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
+This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
 
 To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. You should also understand the security implications before editing this file.
 
