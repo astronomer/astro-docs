@@ -15,7 +15,7 @@ For every major and minor version of Apache Airflow, our team produces two Astro
 - [A Debian-based Docker image](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
 - [A Python Wheel](https://pip.astronomer.io/simple/apache-airflow/)
 
-This quickstart focuses on the Astronomer Core Docker image, which is the recommended way to deploy the offering. For instructions on how to install the Python Wheel, read [Install via Python Wheel](/docs/ac/next/01_quickstart#install-via-python-wheel).
+This quickstart focuses on the Astronomer Core Docker image, which is the recommended way to deploy the offering. For instructions on how to install the Python Wheel, read [Install via Python Wheel](/docs/ac/next/quickstart#install-apache airflow-via-astronomer-core-python-wheel).
 
 For Astronomer's full collection of Docker images, reference either of our public Docker registries:
 
@@ -60,7 +60,7 @@ Astro CLI Version: 0.23.3
 Git Commit: c4fdeda96501ac9b1f3526c97a1c5c9b3f890d71
 ```
 
->**Note:** As of macOS Catalina, Apple [replaced bash with ZSH](https://www.theverge.com/2019/6/4/18651872/apple-macos-catalina-zsh-bash-shell-replacement-features) as the default shell. Our CLI install cURL command currently presents an incompatibility error with ZSH, sudo and the pipe syntax.
+> **Note:** As of macOS Catalina, Apple [replaced bash with ZSH](https://www.theverge.com/2019/6/4/18651872/apple-macos-catalina-zsh-bash-shell-replacement-features) as the default shell. Our CLI install cURL command currently presents an incompatibility error with ZSH, sudo and the pipe syntax.
 >
 > If you're running macOS Catalina and beyond, do the following:
 >
@@ -71,7 +71,7 @@ Git Commit: c4fdeda96501ac9b1f3526c97a1c5c9b3f890d71
 >    $ curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
 >    ```
 
-## Install Astronomer Core via Docker
+## Install Apache Airflow on Docker with Astronomer Core
 
 To install and run the Astronomer Core distribution, follow these steps:
 
@@ -132,22 +132,22 @@ To install and run the Astronomer Core distribution, follow these steps:
 
 That's all it takes! You're now ready to begin testing DAGs and Airflow features on your local machine.
 
-## Install via Python Wheel
+## Install Apache Airflow via Astronomer Core Python Wheel
 
 In addition to the Docker-based distribution, Astronomer Core is built as a Python Wheel available on PyPi. This distribution can be run locally via the same mechanisms used to run the Apache Airflow package.
 
 1. Run `export AIRFLOW_HOME=~/airflow` to give Astronomer Core a home root directory on your machine.
 
-2. Install Astronomer Certified using pip3. For example, to install Astronomer Certified for Airflow 2.0.0, you would run:
+2. To install Astronomer Core using `pip3`, run:
 
     ```sh
-    PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip3 install -U 'astronomer-certified==2.0.0.*'
+    PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip3 install -U 'astronomer-core==<airflow-version>'
     ```
 
-    To install a specific version of Astronomer Core, append the version tag via the following syntax::
+    To install Apache Airflow 2.0.0, for example, this command would be:
 
     ```sh
-    PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip3 install -U 'astronomer-certified==1.10.10-1'
+    PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip3 install -U 'astronomer-core==2.0.0.*'
     ```
 
 3. Run `airflow initdb` to build out your project directory and initialize a lightweight SQLite database for Airflow.
@@ -161,10 +161,9 @@ In addition to the Docker-based distribution, Astronomer Core is built as a Pyth
 Now that you have Astronomer Core running on your local machine, you might want to do one of the following:
 
 * Learn how to apply changes to an [Airflow project](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart#apply-changes-to-your-airflow-project)
-* Learn about Airflow from the [Apache documentation](https://airflow.apache.org/docs/apache-airflow/stable/index.html)
+* Learn about Airflow from official [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/index.html)
 * Discover best practices through [Airflow Guides](https://www.astronomer.io/guides/)
 * Set up Astronomer Core at production scale
-* Try out key AC and Airflow features using one of our Airflow guides
-* Learn more about what's in the AC image
+* Review Astronomer Core Docker image architecture
 
-If you want all of the features of AC, plus additional metrics, security, and customer support, consider exploring our Astronomer Cloud and Enterprise offerings.
+If you're interested in running Apache Airflow in production and at scale, [reach out to us](https://www.astronomer.io/get-astronomer).
