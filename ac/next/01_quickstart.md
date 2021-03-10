@@ -144,7 +144,7 @@ In addition to the Docker-based distribution, Astronomer Core is built as a Pyth
     PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip3 install -U 'astronomer-core==<airflow-version>'
     ```
 
-    To install Apache Airflow 2.0.0, for example, this command would be:
+    To install the latest patch version of Apache Airflow 2.0.0, for example, this command would be:
 
     ```sh
     PIP_EXTRA_INDEX_URL='https://pip.astronomer.io/simple' pip3 install -U 'astronomer-core==2.0.0.*'
