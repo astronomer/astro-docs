@@ -6,7 +6,7 @@ description: "Use automation tools to continuously deploy DAGs at production sca
 
 ## Overview
 
-When running Airflow at production scale, every machine running Airflow needs a copy of your DAG files. In addition, these DAG files all need to appear in the same folder. This guide will cover two popular methods for deploying DAGs across your machines:
+When running Airflow at production scale, every machine running Airflow needs a copy of your DAG files. In addition, these DAG files all need to appear in the same directory. This guide will cover two popular methods for deploying DAGs across your machines:
 
 - Using a cron job to regularly pull DAGs into your local directories from a central Git repository.
 - Adding DAGs directly to a Docker image and rebuilding the image whenever DAGs are updated. Note that this method works only for users running Airflow on Kubernetes.
