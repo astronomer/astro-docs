@@ -4,6 +4,8 @@ navTitle: "Deploy DAGs"
 description: "Use automation tools to continuously deploy DAGs at production scale."
 ---
 
+## Overview
+
 When running Airflow at production scale, every machine running Airflow needs a copy of your DAG files. In addition, these DAG files all need to appear in the same folder. This guide will cover two popular methods for deploying DAGs across your machines:
 
 - Using a cron job to regularly pull DAGs into your local directories from a central Git repository.
@@ -41,7 +43,7 @@ If you run Airflow in Docker, you can deploy DAGs via the [Astronomer Core Helm 
 1. Create a Helm repository using the following command:
 
     ```sh
-    $ helm repo add astronomer https://helm.astronomer.io
+    helm repo add astronomer https://helm.astronomer.io
     ```
 
 2. Install the Helm chart using the following command:
