@@ -139,10 +139,14 @@ $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --
 If you received a certificate from a private CA, follow these steps instead:
 
 1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
-```sh
-$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
-```
-> **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    ```sh
+    $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+    ```
+
+    > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
 
 2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 7. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
@@ -218,7 +222,7 @@ nginx:
   loadBalancerIP: ~
   #  Set to 'true' when deploying to a private EKS cluster
   privateLoadBalancer: false
-  
+
 #################################
 ### SMTP configuration
 #################################
