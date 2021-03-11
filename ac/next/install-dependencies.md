@@ -1,7 +1,7 @@
 ---
 title: "Install Dependencies in a Production Environment"
 navTitle: "Install Dependencies"
-description: "Learn how to instal OS-Level and Python-Level packages on Airflow."
+description: "Learn how to install OS-level and Python-level packages on Airflow."
 ---
 
 ## Overview
@@ -10,7 +10,7 @@ By default, the Astronomer Core (AC) Docker image includes several additional th
 
 If your DAGs need additional packages to run, you can add those packages either to your machine or to your Docker image.
 
-## Install Python-level and OS-level Packages on a Machine
+## Install Python-Level and OS-Level Packages on a Machine
 
 To build Python and OS-level packages into a machine running Airflow, run the following command:
 
@@ -20,7 +20,7 @@ sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.
 
 You can also create your own Python packages and install them on your environment using a Python wheel, or you can configure an environment variable to automatically add a Python directory to your Airflow project folder. For more information on this setup, read the [Apache Airflow documentation on managing modules](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/modules_management.html).
 
-## Install Python-level and OS-level Packages in Docker
+## Install Python-Level and OS-Level Packages in Docker
 
 If you installed AC locally using the [Quickstart] and the Astro CLI, you can add Python packages to your `requirements.txt` file and OS-level packages to your `packages.txt` file.
 
