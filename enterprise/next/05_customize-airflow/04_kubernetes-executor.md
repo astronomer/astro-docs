@@ -14,15 +14,15 @@ This enables the Executor to scale up and down based on how many Airflow tasks y
 - Service accounts
 - Airflow image
 
-Each pod is spun up according to a [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml). This template can be copied and modified for individual uses cases. For example, one Airflow task might require more GPUs than all other tasks; for this task alone, you can provision additional GPUs via a modified pod template.
+Each pod is spun up according to a [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml). This template can be copied and modified for individual use cases. For example, one Airflow task might require more GPUs than all other tasks; for this task alone, you can provision additional GPUs via a modified pod template.
 
-This guide explains how to configure the pod template and apply it to both Airflow Deployments and tasks. In addition, examples of how you might want to configure the pod template for given situations are included in a reference section.
+This guide explains how to configure the pod template and apply it to both Airflow Deployments and tasks. For more information on configuring specific pod template values, reference the [Kubernetes API documentation](https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#podspec-v1-core).
 
 Note that you must have an Airflow Deployment on Astronomer running with the Kubernetes Executor to follow these steps. For more information on configuring an Executor, read [Configure a Deployment](/docs/enterprise/next/deploy/configure-deployment)
 
 ## Configure the Kubernetes Executor Using an Existing Pod Template
 
-By default, Airflow Deployments on Astronomer use Astronomer's [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml) to construct each pod. If you're creating a new Deployment, you can simply modify the default pod template and apply that template to the Deployment or an individual task.
+By default, Airflow Deployments on Astronomer use a [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml) to construct each pod. If you're creating a new Deployment, you can simply modify the default pod template and apply that template to the Deployment or an individual task as described in the next two sections.
 
 If you need to update a pod template for an existing Deployment, we recommend pulling the template directly from the Deployment and editing that version instead. To do so:
 
@@ -54,11 +54,11 @@ If you need to update a pod template for an existing Deployment, we recommend pu
 
 5. Copy the template file's contents into a new local file.
 
-You now have a local version of your Deployment's pod template file. From here, you can modify the file and push it to your Deployment.
+You now have a local version of your Deployment's pod template file. From here, you can modify the file and push it to your Deployment as described in the next section.
 
 ## Add the Pod Template to a Deployment
 
-If you want your pod template to apply to all DAGs within a given Airflow Deployment, you can add teh pod template as an environment variable to the Deployment. To do this:
+If you want your pod template to apply to all DAGs within a given Airflow Deployment, you can add the pod template as an environment variable to the Deployment. To do this:
 
 1. Update your Dockerfile to include a line which copies the customized pod template into Docker image that's pushed whenever you deploy code. For instance, if your customized pod template file name is `new_pod_template.yaml`, the line would look like this:
 
