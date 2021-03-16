@@ -4,13 +4,35 @@ navTitle: "CI/CD"
 description: "Automate the deploy process to your Airflow Deployment by setting up a CI/CD pipeline with a Service Account on Astronomer."
 ---
 <!-- markdownlint-disable-file -->
-Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
-
-This guide will walk you through configuring your CI/CD pipeline on Astronomer Enterprise.
-
-For background and best practices on CI/CD, we recommend reading ["An Introduction to CI/CD Best Practices"](https://www.digitalocean.com/community/tutorials/an-introduction-to-ci-cd-best-practices) from DigitalOcean.
 
 ## Overview
+
+Astronomer's support for Service Accounts allows users to push code and deploy to an Airflow Deployment on Astronomer via a Continuous Integration/Continuous Delivery (CI/CD) tool of your choice.
+
+There are many benefits to deploying DAGs and other changes to Airflow via a CI/CD workflow. Specifically, you can:
+
+- Deploy new and updated DAGs in a way that streamlines the development process amongst team members.
+- Decrease the maintenance cost of integrating changes, allowing your team to quickly respond in case of an error or failure.
+- Enforce continuous, automating testing, which increases code quality and protects your DAGs in production.
+
+This guide will walk you through configuring a CI/CD pipeline on Astronomer.
+
+### Example CI/CD Workflow
+
+Consider an Airflow project hosted on GitHub and deployed to Astronomer. In this scenario, a set of `dev` and `main` branches of an Astronomer project are hosted on a single GitHub repository, and `dev` and `prod` Airflow Deployments are hosted on an Astronomer Workspace.
+
+Using CI/CD, you can automatically deploy DAGs to your Airflow Deployment on Astronomer by pushing or merging code to a corresponding branch in GitHub. The general setup would look something like this:
+
+1. Create two Airflow Deployments within your Astronomer Workspace, one for `dev` and one for `prod`.
+2. Create a repository in GitHub that hosts project code for all Airflow Deployments within your Astronomer Workspace.
+3. In your GitHub code repository, create a `dev` branch off of your `main` branch.
+4. Configure your CI/CD tool to deploy to your `dev` Airflow Deployment whenever you push to your `dev` branch, and to deploy to your `prod` Airflow Deployment whenever you merge your `dev` branch into `main`.
+
+That would look something like this:
+
+![CI/CD Workflow Diagram](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-flow.png)
+
+### CI/CD on Astronomer
 
 Automating the deploy process to Astronomer starts with creating a Service Account, which will assume a user role and some set of permissions to your Workspace or Deployment.
 
@@ -20,21 +42,21 @@ From there, you'll write a script that allows your Service Account to do the fol
 2. Authenticate to a Docker Registry
 3. Push your Image to that Docker Registry
 
-From there, a webhook triggers an update to your Airflow Deployment. At its core, the Astronomer CLI does the equivalent of the above upon every manual `astro deploy`.
+From there, a webhook triggers an update to your Airflow Deployment using the CI/CD tool of your choice. At its core, the Astronomer CLI does the equivalent of the above upon every manual `$ astro deploy`.
 
-Read below for instructions on how to create a Service Account and what your CI/CD script should look like.
+The rest of this guide describes how to create a Service Account and what your CI/CD script should look like based on the tool you're using.
 
 ## Prerequisites
 
-Before we get started, make sure you:
+Before completing this setup, make sure you:
 
-- Have access to a running Airflow Deployment on either Astronomer Enterprise
-- Installed the [Astronomer CLI](https://github.com/astronomer/astro-cli)
-- Are familiar with your CI/CD tool of choice
+- Have access to a running Airflow Deployment on Astronomer.
+- Installed the [Astronomer CLI](https://github.com/astronomer/astro-cli).
+- Are familiar with your CI/CD tool of choice.
 
-## Create a Service Account
+## Step 1: Create a Service Account
 
-In order to authenticate your CI/CD pipeline to Astronomer's private Docker registry (or yours), you'll need to create a Service Account and grant it an appropriate set of permissions. You can do so via the Astronomer UI or CLI. Once created, you can always delete this Service Account at any time. In both cases, creating a Service Account will generate an API key that will be used for the CI/CD process.
+In order to authenticate your CI/CD pipeline to Astronomer's private Docker registry, you'll need to create a Service Account and grant it an appropriate set of permissions. You can do so via the Astronomer UI or CLI. Once created, you can always delete this Service Account at any time. In both cases, creating a Service Account will generate an API key that will be used for the CI/CD process.
 
 Note that you're able to create Service Accounts at the:
 
@@ -109,7 +131,7 @@ Once you've created your new Service Account, grab the API Key that was immediat
 
 ![Service Account](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-api-key.png)
 
-### Authenticate to Docker
+## Step 2: Authenticate and Push to Docker
 
 The first step of this pipeline will authenticate against the Docker registry that stores an individual Docker image for every code push or configuration change:
 
@@ -119,7 +141,7 @@ docker login registry.$${BASE_DOMAIN} -u _ -p $${API_KEY_SECRET}
 
 In this example:
 
-- `BASE_DOMAIN` = The domain at which your Enterprise platform is running
+- `BASEDOMAIN` = `gcp0001.us-east4.astronomer.io`
 - `API_KEY_SECRET` = The API Key that you got from the CLI or the UI and stored in your secret manager
 
 ### Building and Pushing an Image
@@ -128,8 +150,7 @@ Once you are authenticated you can build, tag and push your Airflow image to the
 
 #### Registry Address
 
-*Registry Address* tells Docker where to push images to. In the case of Astronomer Enterprise, your private registry located at `registry.${BASE_DOMAIN}`.
-
+*Registry Address* tells Docker where to push images to. On Astronomer Enterprise, your private registry located at `registry.${BASE_DOMAIN}`.
 
 #### Release Name
 
@@ -149,20 +170,69 @@ docker build -t registry.${BASE_DOMAIN}/${RELEASE_NAME}/airflow:ci-${DRONE_BUILD
 
 If you would like to see a more complete working example please visit our [full example using Drone-CI](https://github.com/astronomer/airflow-example-dags/blob/main/.drone.yml).
 
-## Configure Your CI/CD Pipeline
+## Step 3: Configure Your CI/CD Pipeline
 
 Depending on your CI/CD tool, configuration will be slightly different. This section will focus on outlining what needs to be accomplished, not the specifics of how.
 
-At its core, your CI/CD pipeline will be authenticating to the private registry installed with the platform, then building, tagging and pushing an image to that registry.
+At its core, your CI/CD pipeline will first authenticate to Astronomer's private registry and then build, tag and push your Docker Image to that registry.
 
-> **Note:** The base image is based on the version of Astronomer you are currently running.
+## Example Implementation
+
+The following setup is an example implementation of CI/CD using GitHub Actions. These steps cover both the implementation and the workflow necessary to create a fully functional CI/CD pipeline.
+
+1. Create a GitHub repository for an Astronomer project. Ensure your repo has a development branch and a main branch. In this example, the branches are named `dev` and `main`.
+2. [Create a Service Account](/docs/enterprise/v0.23/deploy/ci-cd#step-1-create-a-service-account) for your Astronomer Workspace.
+3. Follow instructions in [GitHub documentation](https://docs.github.com/en/actions/reference/encrypted-secrets) to add your Astronomer Service Account as a secret to your repository. In the example below, that secret is named `SERVICE_ACCOUNT_KEY`.
+4. Go to the Actions tab of your GitHub repo and create a new action with a `main.yml` file. To achieve the recommended workflow described in [Overview](/docs/cloud/deploy/ci-cd#overview), use the following action:
+
+    ```yaml
+    name: CI
+    on:
+      push:
+        branch: [dev, master]
+    jobs:
+      dev-push:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v1
+        - name: Push to registry
+          uses: elgohr/Publish-Docker-Github-Action@2.6
+          if: github.ref == 'refs/heads/dev'
+          with:
+              name: <dev-release-name>/airflow:ci-${{ github.sha }}
+              username: _
+              password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+              registry: registry.${BASE_DOMAIN}
+      prod-push:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v1
+        - name: Push to registry
+          uses: elgohr/Publish-Docker-Github-Action@2.6
+          if: github.ref == 'refs/heads/master'
+          with:
+              name: <prd-release-name>/airflow:ci-${{ github.sha }}
+              username: _
+              password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+              registry: registry.${BASE_DOMAIN}
+    ```
+
+    Ensure the branches match the names of the branches in your repository, and replace `<dev-release-name>` and `<prod-release-name>` with the respective release names of your development and production Airflow Deployments on Astronomer.
+
+5. Test the GitHub Action by making a change on your `dev` branch and committing that change. This should update your development Airflow Deployment on Astronomer, which you can confirm in the Astronomer UI. If that update was successful, try then merging `dev` into `master` to update your production Airflow Deployment. If both updates were successful, you now have a functioning, scalable CI/CD pipeline that can automatically deploy code to multiple Airflow Deployments.
+
+> **Note:** The prod-push action as defined here will run on any push to the `master` branch, including a pull request and merge from the `dev` branch as we recommend.
+>
+>To further restrict this to run only on a pull request, you can limit whether your users can push directly to the `master` branch within your repository or your CI tool, or you could modify the action to make it more limited.
+
+The following sections provide basic templates for configuring single CI/CD pipelines using popular CI/CD tools. Each template can be implemented to produce a simple CI/CD pipeline similar to the one above, but they can also be reconfigured to manage any number of branches or Deployments based on your needs.
 
 ## DroneCI
 
 ```yaml
 pipeline:
   build:
-    image: quay.io/astronomer/ap-airflow:1.10.12-buster
+    image: quay.io/astronomer/ap-build:latest
     commands:
       - docker build -t registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:ci-${DRONE_BUILD_NUMBER} .
     volumes:
@@ -172,7 +242,7 @@ pipeline:
       branch: [ master, release-* ]
 
   push:
-    image: quay.io/astronomer/ap-airflow:1.10.12-buster
+    image: quay.io/astronomer/ap-build:latest
     commands:
       - echo $${SERVICE_ACCOUNT_KEY}
       - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $${SERVICE_ACCOUNT_KEY}
@@ -223,7 +293,7 @@ jobs:
             pycodestyle .
   deploy:
     docker:
-      - image:  quay.io/astronomer/ap-airflow:1.10.12-buster
+      - image:  quay.io/astronomer/ap-build:latest
     steps:
       - checkout
       - setup_remote_docker:
@@ -280,7 +350,7 @@ pipeline {
 If you are using [Bitbucket](https://bitbucket.org/), this script should work (courtesy of our friends at [Das42](https://www.das42.com/))
 
 ```yaml
-image: quay.io/astronomer/ap-airflow:1.10.12-buster
+image: quay.io/astronomer/ap-build:latest
 
 pipelines:
   branches:
@@ -376,7 +446,7 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
- 
+
 variables:
 - group: Variable-Group
 - group: Key-Vault-Group
@@ -387,9 +457,3 @@ steps:
     docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $(DEPLOYMENT-SERVICE-ACCOUNT-KEY)
     docker push registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID
 ```
-
-### Video Tutorial
-
-Check out this video for a full walkthrough of this process:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8h9lXzGa4sQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
