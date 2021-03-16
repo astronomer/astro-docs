@@ -11,7 +11,7 @@ This guide describes the steps to install Astronomer Enterprise on Amazon Web Se
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
 * The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-* Kubernetes 1.16 or later
+* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference)
 * The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * The [OpenSSL CLI](https://www.openssl.org/docs/man1.0.2/man1/openssl.html)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
@@ -42,7 +42,7 @@ EKS is built off of Amazon's pre-existing EC2 service, so you can manage your Ku
 
 As you follow the guide linked above, keep in mind:
 
-* Astronomer currently supports Kubernetes versions 1.14, 1.15, 1.16 and 1.17 on EKS.
+* Each version of Astronomer Enterprise is compatible with only a particular set of Kubernetes versions. For more information, refer to Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 * We generally advise running the EKS control plane in a single security group. The worker nodes you spin up should have the same setup as the EKS control plane.
 * All security and access settings needed for your worker nodes should be configured in your Cloud Formation template.
 * If you create an EKS cluster from the UI, `kubectl` access will be limited to the user who created the cluster by default.
@@ -139,10 +139,14 @@ $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --
 If you received a certificate from a private CA, follow these steps instead:
 
 1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
-```sh
-$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
-```
-> **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    ```sh
+    $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+    ```
+
+    > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
 
 2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 7. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
@@ -214,8 +218,10 @@ global:
 ### Nginx configuration
 #################################
 nginx:
-  # IP address the nginx ingress should bind to
-  loadBalancerIP: ~
+  # IP address the nginx ingress should bind to
+  loadBalancerIP: ~
+  #  Set to 'true' when deploying to a private EKS cluster
+  privateLoadBalancer: false
 
 #################################
 ### SMTP configuration
