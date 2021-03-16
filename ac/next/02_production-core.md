@@ -1,12 +1,14 @@
 ---
-title: "Running Astronomer Core at Production Scale"
-navTitle: "Production Scale Installation"
-description: "Running the Astronomer Core distribution of Airflow at production scale."
+title: "Install Apache Airflow on a Virtual Machine"
+navTitle: "Install on a Virtual Machine"
+description: "Install Apache Airflow on one or more virtual machines with the Astronomer Core Python wheel."
 ---
 
 ## Overview
 
-This guide walks through all of the necessary steps to install Astronomer Core in a production environment via Python wheel. By the end of the setup, you'll be able to deploy and run Airflow across multiple machines.
+This guide walks through the necessary steps to install Apache Airflow via the Astronomer Core Python wheel on one or more Virtual Machines (VMs). By the end of the setup, you'll be able to deploy and run Airflow across multiple machines.
+
+If you haven't tested Airflow locally and would like to do so, refer to [Astronomer Core Quickstart](/docs/ac/next/01_quickstart).
 
 ## Prerequisites
 
@@ -16,8 +18,6 @@ First, ensure the OS-level packages listed below are installed on your machines.
 - python3
 - python3-dev (python3-devel for RHEL/CentOS)
 - gcc
-
-If you're Debian-based, run `$ apt get <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
 
 You also need a database that is reachable by all the machines that will be running this Airflow cluster. While this guide walks through the process for configuring a PostgreSQL database, Airflow is compatible with all of the following databases:
 
@@ -33,9 +33,9 @@ Lastly, you will need to run the following three Airflow components:
 
 You can run these components on one or multiple machines, though we recommend using multiple machines for a production environment.
 
-## Step 1: Set Up the Database
+## Step 1: Set Up Airflow's Metadata Database
 
-To set up a PostgreSQL Airflow meta database:
+In Airflow, the metadata database is responsible for keeping a record of all tasks across DAGs their corresponding status (queued, scheduled, running, success, failed, etc). To set up the metadata DB:
 
 1. Create a database user named `airflow`:
 
@@ -53,22 +53,22 @@ To set up a PostgreSQL Airflow meta database:
 
 This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
 
-> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. You should also understand the security implications before editing this file.
+> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. Before editing this file, take a moment to assess the security  implications of editing this file.
 >
-> If your database server is running on the same machine as your other Airflow components, you can change `peer` to `md5` to allow connections with username/password from the same machine.
+> If your database server is running on the same machine as your other Airflow components, you can change your authentication method from `peer` to `md5` in the same `pg_hba.conf` file to allow connections with a username/password from the same machine.
 
 ### Alternative setup: Use an existing database
 
 Instead of creating a new PostgreSQL database, you can use an existing database as long as the following are true:
 
 - The database is compatible with Airflow as described in Prerequisites.
-- You have a user named `airflow` with ownership access to the database.
+- A user named `airflow` has ownership access to the database.
 
 When you specify the `AIRFLOW__CORE__SQL_ALCHEMY_CONN` environment variable in step 2F, replace the connection URL with the appropriate URL for your database.
 
 ## Step 2: Configure Each Machine in Your System
 
-Each machine that will be running an Astronomer Core component (Scheduler, Webserver, or Worker) will need all of the following steps completed.
+Complete the steps below for each machine that will be running a core Apache Airflow component (Scheduler, Webserver, or Worker).
 
 ### A. Create a system user to run Airflow
 
@@ -100,17 +100,24 @@ sudo -u astro python3 -m venv ~astro/airflow-venv
 
 ### D. Install Astronomer Core
 
-Install the AC Python Package onto your machine by running:
+Install the AC Python wheel onto your machine by running:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==1.10.10.*'
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==<airflow-version>'
+```
+
+
+To install the latest patch version of Apache Airflow 2.0.0, for example, this command would be:
+
+```sh
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.0.x'
 ```
 
 This command includes the `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies such as `[redis, crypto, aws, celery]` depending on your use case.
 
 ### E. Configure a process supervisor
 
-To ensure that Airflow is always running when your machine is on, we recommend implementing a process supervisor. Systemd is used in this example, though any process supervisor will work here.
+To ensure that Airflow is always running when your machine is on, we recommend implementing a process supervisor. [Systemd](https://systemd.io/) is used in this example, though any process supervisor will work here.
 
 To use systemd as a process supervisor:
 
@@ -150,35 +157,35 @@ To use systemd as a process supervisor:
    PATH=$PATH:/home/astro/airflow-venv/bin
    ```
 
-   If you want to configure an environment variable that applies to all of your machines, you can instead place it in `airflow.cfg` in your Airflow home deployment step. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
+   When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure an environment variable that applies to all of your machines, you can instead place it in `airflow.cfg` in your Airflow home deployment step. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
 
 ### F. Configure Airflow for Database Access
 
-Airflow needs to be connected to the meta database and `airflow` user via Environment Variables. To do this, add the following to your `/etc/default/astronomer-core` file:
+To connect your Airflow environment to the metadata DB you created in Step 1, add the following Environment Variables to your `/etc/default/astronomer-core` file:
 
-For Local Executor:
+- For Local Executor:
 
-```
-AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:<your-user-password>@localhost/airflow
-AIRFLOW__WEBSERVER__BASE_URL=http://host:port
-AIRFLOW__CORE__EXECUTOR=LocalExecutor
-```
+    ```
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__WEBSERVER__BASE_URL=http://host:port
+    AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    ```
 
-For Celery Executor:
+- For Celery Executor:
 
-```
-AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:<your-user-password>@localhost/airflow
-AIRFLOW__WEBSERVER__BASE_URL=http://host:port
-AIRFLOW__CELERY__BROKER_URL=sqla+postgresql://airflow:<your-user-password>@localhost/airflow
-AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
-AIRFLOW__CORE__EXECUTOR=CeleryExecutor
-```
+    ```
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__WEBSERVER__BASE_URL=http://host:port
+    AIRFLOW__CELERY__BROKER_URL=sqla+postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+    ```
 
-The password you specify here should be the same one you specified when prompted by the `createuser` command in step 1. If your password contains `%`, `/`, or `@` then you will need to url-escape; replace `%` with `%25`, `/` with `%2F`, and `@` with `%40`.
+The password you specify here should be the same one you specified when prompted by the `createuser` command in Step 1. If your password contains `%`, `/`, or `@` then you will need to url-escape; replace `%` with `%25`, `/` with `%2F`, and `@` with `%40`.
 
-#### Alternative setup options
+#### Alternative setup: Database access
 
-* Your Airflow user password is stored written in `/etc/default/astronomer-core` (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as HashiCorp's Vault, you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
+* Your Airflow user password is stored in `/etc/default/astronomer-core` (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
 
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
@@ -271,6 +278,6 @@ If you want to further confirm that everything's working as intended, add this [
 This guide provided the minimum setup necessary to get Airflow running on multiple machines at scale. From here, you'll want to complete the following additional setup to make the most of Airflow:
 
 - Automate DAG deployment across your installation
-- Read how to upgrade to a new Astronomer Core version
+- Upgrade to a new version of Apache Airflow
 - Integrate an authentication system
-- Set up a destination for Airflow logs
+- Set up a destination for Airflow task logs
