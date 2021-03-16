@@ -50,6 +50,7 @@ If you run Airflow in Docker, you can deploy DAGs via the [Astronomer Core Helm 
 - A Dockerfile that pulls Astronomer Core's [Docker image](https://hub.docker.com/r/astronomerinc/ap-airflow)
 - A Kubernetes Cluster
 - The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/)
+- The Astronomer CLI
 - Helm
 - A Docker registry
 
@@ -101,6 +102,8 @@ If you run Airflow in Docker, you can deploy DAGs via the [Astronomer Core Helm 
     --set images.airflow.repository=etc/ap-airflow \
     --set images.airflow.tag=<your-image-tag>
     ```
+
+7. `cd` to your Airflow project folder and run `astro dev stop && astro dev start` to restart your Airflow services.
 
 With this method, you no longer need to store your DAG folder on each individual machine running Airflow. While baking DAGs into an image is a great way to keep all of the code for your project running in one place, it can be labor-intensive to rebuild your image each time you update a DAG.
 
