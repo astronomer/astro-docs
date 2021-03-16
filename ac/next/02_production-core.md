@@ -6,21 +6,26 @@ description: "Running the Astronomer Core distribution of Airflow at production 
 
 ## Overview
 
-This guide walks through all of the necessary steps to install Astronomer Core in a production environment. By the end of the setup, you'll be able to begin deploying and running Airflow across multiple machines.
+This guide walks through all of the necessary steps to install Astronomer Core in a production environment via Python wheel. By the end of the setup, you'll be able to deploy and run Airflow across multiple machines.
 
 ## Prerequisites
 
-Ensure the following linux packages are installed on your machines. Depending on your OS, you can run either `apt get <package>` or `yum install <package>` to install them:
+First, ensure the OS-level packages listed below are installed on your machines. If you're Debian-based, run `$ apt get <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
 
 - sudo
 - python3
 - python3-dev (python3-devel for RHEL/CentOS)
 - gcc
-- text editor of your choice (vi, vim, nano, etc…)
 
-You also need a PostgreSQL database that is reachable by all the machines that will be running this Airflow cluster.
+If you're Debian-based, run `$ apt get <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
 
-Lastly, you will need to run the three following Airflow components:
+You also need a database that is reachable by all the machines that will be running this Airflow cluster. While this guide walks through the process for configuring a PostgreSQL database, Airflow is compatible with all of the following databases:
+
+- PostgreSQL: 9.6, 10, 11, 12, 13
+- MySQL: 5.7, 8
+- SQLite: 3.15.0+
+
+Lastly, you will need to run the following three Airflow components:
 
 - Scheduler
 - Webserver
@@ -30,13 +35,7 @@ You can run these components on one or multiple machines, though we recommend us
 
 ## Step 1: Set Up the Database
 
-This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
-
-To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. You should also understand the security implications before editing this file.
-
-If your database server is running on the same machine as your other Airflow components, you can change `peer` to `md5` to allow connections with username/password from the same machine.
-
-To setup the PostgreSQL database:
+To set up a PostgreSQL Airflow meta database:
 
 1. Create a database user named `airflow`:
 
@@ -44,13 +43,28 @@ To setup the PostgreSQL database:
     sudo -u postgres createuser airflow -P
     ```
 
-    This will prompt you for a password; create one and make a note of it for later.
+    This will prompt you for a password. Create one, and make a note of it for later.
 
 2. Create a database named `airflow` and set the `airflow` user as the owner:
 
     ```sh
     sudo -u postgres createdb --owner airflow airflow
     ```
+
+This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
+
+> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. You should also understand the security implications before editing this file.
+>
+> If your database server is running on the same machine as your other Airflow components, you can change `peer` to `md5` to allow connections with username/password from the same machine.
+
+### Alternative setup: Use an existing database
+
+Instead of creating a new PostgreSQL database, you can use an existing database as long as the following are true:
+
+- The database is compatible with Airflow as described in Prerequisites.
+- You have a user named `airflow` with ownership access to the database.
+
+When you specify the `AIRFLOW__CORE__SQL_ALCHEMY_CONN` environment variable in step 2F, replace the connection URL with the appropriate URL for your database.
 
 ## Step 2: Configure Each Machine in Your System
 
@@ -74,7 +88,7 @@ echo 'export AIRFLOW_HOME=/usr/local/airflow' | sudo tee --append ~astro/.bashrc
 cd /usr/local/airflow && mkdir dags
 ```
 
->> **Note:** If you're running Airflow on multiple machines, each machine needs access to the same DAGs in order to successfully execute them. We recommend setting up automation pipelines for updating all of your DAG folders whenever a local folder is updated. For more information, read [Deploying DAGs].
+> **Note:** If you're running Airflow on multiple machines, each machine needs access to the same DAGs in order to successfully execute them. We recommend setting up automation pipelines for updating all of your DAG folders whenever a local folder is updated. For more information, read [Deploying DAGs].
 
 ### C. Create a virtual environment
 
@@ -96,7 +110,7 @@ This command includes the `[postgres]` dependency so that all libraries needed t
 
 ### E. Configure a process supervisor
 
-To have Airflow start at your machine's boot time and stay running, we recommend implementing a process supervisor. In this example systemd is used, though any process supervisor will work here.
+To ensure that Airflow is always running when your machine is on, we recommend implementing a process supervisor. Systemd is used in this example, though any process supervisor will work here.
 
 To use systemd as a process supervisor:
 
@@ -136,11 +150,11 @@ To use systemd as a process supervisor:
    PATH=$PATH:/home/astro/airflow-venv/bin
    ```
 
-   If you have a config setting that doesn't change from machine-to-machine or environment-to-environment, you can instead place it in `airflow.cfg` in your Airflow home deployment step.
+   If you want to configure an environment variable that applies to all of your machines, you can instead place it in `airflow.cfg` in your Airflow home deployment step. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
 
 ### F. Configure Airflow for Database Access
 
-Airflow needs to be told where its metadata DB lives, as well as which user to connect as, by setting additional Environment Variables. To do so, add the following to your `/etc/default/astronomer-core` file:
+Airflow needs to be connected to the meta database and `airflow` user via Environment Variables. To do this, add the following to your `/etc/default/astronomer-core` file:
 
 For Local Executor:
 
@@ -172,11 +186,11 @@ The password you specify here should be the same one you specified when prompted
 
     For more information on this feature, read [Integrating Airflow and Hashicorp Vault](/guides/airflow-and-hashicorp-vault).
 
-* In this example setup, the Environment Variables for the Celery Executor specify using the main database for communication. Alternatively, you could use [Redis](https://redis.io/) to take some of the load off of your main database.
+* In this example setup, the `AIRFLOW__CELERY__BROKER_URL` Environment Variable uses the main database for communication. To take some load off of your main database, we recommend using a dedicated message broker such as [Redis](https://redis.io/) and specifying that here instead.
 
 ## Step 3: Set Up the Scheduler
 
-On the machine where you want to enable the Scheduler:
+The Scheduler orchestrates the running of DAGs across your Airflow Environment. To get your Scheduler running:  
 
 1. Enable the Scheduler by running the following command:
 
@@ -206,7 +220,7 @@ On the machine where you want to enable the Scheduler:
 
 ## Step 4: Set Up the Webserver
 
-On the machine where you'll be running the Webserver:
+The Webserver is an Airflow core component that is responsible for rendering the Airflow UI. To configure it on its own machine, follow the steps below.
 
 1. Enable the Webserver by running the following:
 
@@ -214,11 +228,13 @@ On the machine where you'll be running the Webserver:
     sudo systemctl enable astronomer-core@webserver.service
     ```
 
-2. Start the service by running the following:
+2. Start the Webserver by running the following:
 
     ```sh
     sudo systemctl start astronomer-core@webserver.service
     ```
+
+You can now access the Airflow UI in a web browser via `http://host:port`.
 
 >> **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
@@ -238,9 +254,11 @@ For each machine that you want to host a Worker:
     sudo systemctl start astronomer-core@worker.service
     ```
 
+You now have the ability to run Airflow tasks within DAGs.
+
 ## Step 6: Confirm the Installation
 
-To confirm that the installation was successful, open http://host:port in your web browser. You should see the login screen for the Airflow UI.
+To confirm that the installation was successful, open `http://host:port` in your web browser. You should see the login screen for the Airflow UI.
 
 Log in with `admin` for both your user name and password. Afterwards, you should see the homepage for Airflow:
 
