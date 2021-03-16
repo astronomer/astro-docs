@@ -11,7 +11,6 @@ Whether you're running Airflow on virtual machines or in Docker, every node in y
 - Using a cron job to regularly pull DAGs into your local directories from a central Git repository.
 - Adding DAGs directly to a Docker image and rebuilding the image whenever DAGs are updated. To implement this method, Kubernetes is required.
 
-
 ## Deploy DAGs to Multiple Machines via Cron Job
 
 If you installed Airflow on a virtual machine, you can use a simple cron job, as well as open source file detection tools like `incron`, to pull new DAGs onto your Airflow machines on a regular basis and restart Airflow when necessary. This setup assumes that you:
