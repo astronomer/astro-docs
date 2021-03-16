@@ -236,7 +236,7 @@ The Webserver is an Airflow core component that is responsible for rendering the
 
 You can now access the Airflow UI in a web browser via `http://host:port`.
 
->> **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
+> **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
 ## Step 5: Set Up the Worker Machines
 
