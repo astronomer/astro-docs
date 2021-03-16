@@ -26,7 +26,7 @@ For each of your machines running Airflow:
 
 1. Open your DAGs directory and ensure that the folder is empty. If you followed the Installing at Production Scale guide, this folder would be `/usr/local/airflow`.
 
-2. Clone the Git repository holding your DAGs into the folder using `$ git clone`.
+2. Clone the Git repository holding your DAGs into the folder using `git clone`.
 
 3. As your `airflow` system user, run `crontab -e` to create a new cron job. You can specify an editor using the `EDITOR` environment variable (e.g. `env EDITOR=atom crontab -e`).
 
@@ -63,7 +63,7 @@ If you run Airflow in Docker, you can deploy DAGs via the [Astronomer Core Helm 
 2. Install the Helm chart using the following command:
 
     ```sh
-    $ helm install --name <your-release-name>
+    helm install --name <your-release-name>
     ```
 
     To find your release name for Airflow, you can run:
