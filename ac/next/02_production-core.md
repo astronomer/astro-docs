@@ -207,7 +207,6 @@ The Scheduler orchestrates the running of DAGs across your Airflow Environment. 
     sudo systemctl enable astronomer-core@scheduler.service
     ```
 
-
 2. Edit the override file for the machine by running the following command:
 
     ```sh
