@@ -444,20 +444,38 @@ jobs:
 
 This example uses [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/) to store secrets as variable groups that are then made available to the CI/CD pipeline running on [Azure Devops](https://azure.microsoft.com/en-us/services/devops/).
 
+To set up this workflow, make sure you have:
+
+- An Azure Key Vault.
+- Two Azure Variable Groups, one called `Variable-Group` and another called `Key-Vault-Group`.
+- At least 1 Linux agent installed on your host machine.
+
+For more information on configuring these components, read Azure's documentation:
+
+* [Key Vault Quickstart](https://docs.microsoft.com/en-us/azure/key-vault/general/quick-create-portal)
+* [Use a Variable Group](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=classic#use-a-variable-group)
+* [Self-hosted Linux agents](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops)
+
 ```yaml
 trigger:
 - main
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
 - group: Variable-Group
 - group: Key-Vault-Group
-steps:
-- script: |
+
+stages:
+- stage: build
+  jobs:
+  - job: run_build
+    pool:
+      vmImage: 'Ubuntu-latest'
+    steps:
+    - script: |
     echo "Building container.."
     docker build -t registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID .
     docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $(DEPLOYMENT-SERVICE-ACCOUNT-KEY)
     docker push registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID
 ```
+
+Replace the image tag details based on your registry and Airflow Deployment release name.
