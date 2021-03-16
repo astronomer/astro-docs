@@ -1,12 +1,12 @@
 ---
 title: "Deploy DAGs to Airflow"
 navTitle: "Deploy DAGs"
-description: "Use automation tools to continuously deploy DAGs at production scale."
+description: "Use automation tools to continuously deploy DAGs on both virtual machines and Docker."
 ---
 
 ## Overview
 
-When deploying Airflow at production scale, anything running Airflow, such as a virtual machine or a Docker image, needs a copy of your DAG files. In addition, these DAG files all need to appear in the same directory. This guide will cover two popular methods for deploying DAGs across your machines:
+Whether you're running Airflow on virtual machines or in Docker, every node in your Airflow cluster needs a copy of your DAG files. In addition, these DAG files all need to appear in the same directory. This guide will cover two popular methods for deploying DAGs across your machines:
 
 - Using a cron job to regularly pull DAGs into your local directories from a central Git repository.
 - Adding DAGs directly to a Docker image and rebuilding the image whenever DAGs are updated. To implement this method, Kubernetes is required.
@@ -14,7 +14,7 @@ When deploying Airflow at production scale, anything running Airflow, such as a 
 
 ## Deploy DAGs to Multiple Machines via Cron Job
 
-If you host your DAGs in a Git repository, you can use a simple cron job, as well as open source file detection tools like `incron` to pull new DAGs onto your Airflow machines on a regular basis and restart Airflow when necessary. This setup assumes that you:
+If you installed Airflow on a virtual machine, you can use a simple cron job, as well as open source file detection tools like `incron`, to pull new DAGs onto your Airflow machines on a regular basis and restart Airflow when necessary. This setup assumes that you:
 
 - Installed Airflow via Python wheel according to [Installing at Production Scale].
 - Host your DAGs in a Git repository.
