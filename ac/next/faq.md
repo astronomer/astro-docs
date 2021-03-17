@@ -6,31 +6,35 @@ description: "Answers to some of the common questions people have about Astronom
 
 ## What is Astronomer Core?
 
-Astronomer Core is an industry-scale extension of Apache Airflow's production Docker image. It combines Airflow’s extensibility and community-driven development with industry standards for security, reliability, and scale.
+Astronomer Core (AC) is an open source distribution of Apache Airflow built for teams ready to run Airflow both locally and at production scale.
 
-For each new release of the open source Airflow image, we rigorously test and build in new dependencies and features for the Astronomer Core equivalent. The result is an even more secure and scalable Airflow image.
+## What's the difference between AC and Apache Airflow?
 
-## What's the difference between Astronomer Core and Apache Airflow?
+AC is a distribution of Apache Airflow. It includes all of the features of Apache Airflow plus additional security features, bug fixes, and learning resources.
 
-Astronomer Core's Airflow image includes all of the features of Airflow's image, plus additional dependencies which ensure reliability and scalability. For a full list of differences, refer to the Astronomer product chart [link].
+## Why does Astronomer maintain AC instead of committing to the Apache Airflow image?
 
+While Apache Airflow and the community-developed image for it are useful resources for beginning to use Airflow, they don't have everything that's needed to run Airflow at production scale.
 
-## Why should I use Astronomer Core's image vs. Apache Airflow's image?
+Instead of adding more complexity and dependencies to the community-developed image, we wanted to provide another option for users who are ready to take the next step and scale up their Airflow environment.
 
-Astronomer Core extends Apache Airflow's image to make it more scalable and reliable to deploy data pipelines to the cloud, all while maintaining the open source functionality that makes the original great. The Astronomer Core image is consistently updated and supported by the Astronomer team; you'll be able to rely on regularly scheduled releases, patches, and deprecations.
+In addition, certain components of AC, such as the Astronomer CLI, represent Astronomer's own best practices for using Airflow. While we hope the Airflow community appreciates and uses the tools which represent our best practices, we don't want to impose those by building them directly into vanilla Airflow.
 
-## Can I run Astronomer Core using an open source Helm chart and Kubernetes?
+## How do I get started using AC?
+
+AC is distributed as both a Python wheel and a Docker image. Both of these distributions are open source and free to use. To get started, read our installation guides:
+
+- [Install via Python Wheel]
+- [Install via Docker image]
+
+## Why should I use Astronomer Core's Docker image vs. Apache Airflow's Docker image?
+
+Astronomer Core extends the vanilla Airflow image to make it more scalable and reliable. In addition, the Astronomer Core image is consistently updated and supported by the Astronomer team; you'll be able to rely on regularly scheduled releases, patches, and deprecations as you build your data pipelines in Airflow.
+
+## Can I run Astronomer Core on a Kubernetes Cluster?
 
 Astronomer's open source Helm chart can be used to configure Astronomer Core's Airflow image. You can use this Helm chart to configure settings for Airflow, such as your Airflow version and CPU limits.
 
-## How is Astronomer Core supported?
-
-TBD
-
-## How do I migrate from Apache Airflow to Astronomer Core?
-
-TBD
-
 ## Can I build on top of Astronomer Core?
 
-Astronomer Core has an open source license, meaning you can customize and extend the image for nonprofit purposes. For more information on extending the AC image, read TBD.
+Astronomer Core has an open source license, meaning you can customize and extend the image for nonprofit purposes. For more information on extending the AC image, read [Build Dependencies].
