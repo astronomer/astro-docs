@@ -141,7 +141,7 @@ docker login registry.$${BASE_DOMAIN} -u _ -p $${API_KEY_SECRET}
 
 In this example:
 
-- `BASEDOMAIN` = `gcp0001.us-east4.astronomer.io`
+- `BASE_DOMAIN` = The domain at which your Enterprise platform is running
 - `API_KEY_SECRET` = The API Key that you got from the CLI or the UI and stored in your secret manager
 
 ### Building and Pushing an Image
