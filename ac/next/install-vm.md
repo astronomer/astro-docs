@@ -126,9 +126,19 @@ To use systemd as a process supervisor:
 
     ```sh
     sudo -e /etc/systemd/system/astronomer-core@.service
-    ```
+    ```
 
-2. Using the text editor of your choice, add the following to the file you just created:
+2. Using a text editor, create a file called `astronomer-core` and edit it to contain these environment variables and values:
+
+    ```sh
+    AIRFLOW_HOME=/usr/local/airflow/
+    AIRFLOW__CORE__LOAD_EXAMPLES=False
+    PATH=$PATH:/home/astro/airflow-venv/bin
+    ```
+
+    When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
+
+3. Using the text editor of your choice, add the following to your systemd unit file:
 
     ```
     [Unit]
@@ -150,19 +160,9 @@ To use systemd as a process supervisor:
     WantedBy=multi-user.target
     ```
 
-3. Edit `/etc/default/astronomer-core` to contain these environment variables and values:
-
-    ```sh
-    AIRFLOW_HOME=/usr/local/airflow/
-    AIRFLOW__CORE__LOAD_EXAMPLES=False
-    PATH=$PATH:/home/astro/airflow-venv/bin
-    ```
-
-    When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
-
 ### F. Configure Airflow for Database Access
 
-To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `/etc/default/astronomer-core` file:
+To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `astronomer-core` file:
 
 - For Local Executor:
 
@@ -186,7 +186,7 @@ The password you specify here should be the same one you specified when prompted
 
 #### Alternative setup: Database access
 
-* Your Airflow user password is stored in `/etc/default/astronomer-core` (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
+* Your Airflow user password is stored in your `astronomer-core` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
 
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
@@ -247,7 +247,7 @@ You can now access the Airflow UI in a web browser via `http://host:port`.
 
 ## Step 5: Set Up the Worker Machines
 
-For each machine that you want to host a Worker:
+For each machine on which you want to host a Worker:
 
 1. Enable the Worker service by running the following command:
 
@@ -269,7 +269,15 @@ To confirm that the installation was successful, open `http://host:port` in your
 
 ![Empty Airflow UI](https://assets2.astronomer.io/main/docs/airflow-ui/installation-home.png)
 
-If you want to further confirm that everything's working as intended, add this [example DAG] to the DAG folder of every machine running Airflow and restart your Airflow services. When you reopen the Airflow UI, you should see the example DAG ready to run.
+If you want to further confirm that everything's working as intended, add this [example DAG] to the DAG folder of every machine running Airflow, then restart your Airflow services using the following commands:
+
+```
+sudo systemctl stop astronomer-core@webserver.service && sudo systemctl start astronomer-core@webserver.service
+sudo systemctl stop astronomer-core@scheduler.service && sudo systemctl start astronomer-core@scheduler.service
+sudo systemctl stop astronomer-core@worker.service && sudo systemctl start astronomer-core@worker.service
+```
+
+When you reopen the Airflow UI, you should see the example DAG ready to run.
 
 ## Next Steps
 
