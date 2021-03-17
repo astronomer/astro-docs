@@ -61,7 +61,7 @@ This guide assumes that your database server is local to where you run these com
 
 ### Alternative setup: Use an existing database
 
-Instead of creating a new PostgreSQL database, you can use an existing database as long as the following are true:
+Instead of creating a new PostgreSQL database, you can use an existing database as long as both of the following are true:
 
 - The database is compatible with Airflow as described in Prerequisites.
 - A user named `airflow` has ownership access to the database.
@@ -80,7 +80,7 @@ Airflow can run as any user, but for this setup we assume the user name `astro`.
 sudo useradd --shell=/bin/false --create-home astro
 ```
 
-### B. Create a project folder for Airflow
+### B. Create an Airflow project directory
 
 You also need to configure an AIRFLOW_HOME directory (not to be confused with the user's home directory) where you'll store your DAGs. We recommend using the path `/usr/local/airflow` as your project directory and `/usr/local/airflow/dags` as your DAG directory, but any path can be chosen as long as the `astro` user has write access to it. To do this, run the following commands:
 
@@ -94,7 +94,7 @@ cd /usr/local/airflow && mkdir dags
 
 ### C. Create a virtual environment
 
-To isolate the Astronomer Core python modules from changes to the system, create a virtual environment using the following command:
+To isolate the Astronomer Core Python modules from changes to the system, create a virtual environment using the following command:
 
 ```sh
 sudo -u astro python3 -m venv ~astro/airflow-venv
@@ -108,14 +108,13 @@ Install the AC Python wheel onto your machine by running:
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==<airflow-version>'
 ```
 
-
 To install the latest patch version of Apache Airflow 2.0.0, for example, this command would be:
 
 ```sh
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.0.x'
 ```
 
-This command includes the `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies such as `[redis, crypto, aws, celery]` depending on your use case.
+This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies after `postgres` in a comma-delimited list depending on your use case (for example: `[postgres, redis, crypto, aws, celery]`).
 
 ### E. Configure a process supervisor
 
@@ -151,19 +150,19 @@ To use systemd as a process supervisor:
     WantedBy=multi-user.target
     ```
 
-3. Edit `/etc/default/astronomer-core` to contain these Environment Variables and values:
+3. Edit `/etc/default/astronomer-core` to contain these environment variables and values:
 
-   ```sh
-   AIRFLOW_HOME=/usr/local/airflow/
-   AIRFLOW__CORE__LOAD_EXAMPLES=False
-   PATH=$PATH:/home/astro/airflow-venv/bin
-   ```
+    ```sh
+    AIRFLOW_HOME=/usr/local/airflow/
+    AIRFLOW__CORE__LOAD_EXAMPLES=False
+    PATH=$PATH:/home/astro/airflow-venv/bin
+    ```
 
-   When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure an environment variable that applies to all of your machines, you can instead place it in `airflow.cfg` in your Airflow home deployment step. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
+    When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
 
 ### F. Configure Airflow for Database Access
 
-To connect your Airflow environment to the metadata DB you created in Step 1, add the following Environment Variables to your `/etc/default/astronomer-core` file:
+To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `/etc/default/astronomer-core` file:
 
 - For Local Executor:
 
@@ -195,11 +194,11 @@ The password you specify here should be the same one you specified when prompted
 
     For more information on this feature, read [Integrating Airflow and Hashicorp Vault](/guides/airflow-and-hashicorp-vault).
 
-* In this example setup, the `AIRFLOW__CELERY__BROKER_URL` Environment Variable uses the main database for communication. To take some load off of your main database, we recommend using a dedicated message broker such as [Redis](https://redis.io/) and specifying that here instead.
+* In this example setup, the `AIRFLOW__CELERY__BROKER_URL` environment variable uses the main database for communication. To take some load off of your main database, we recommend using a dedicated message broker such as [Redis](https://redis.io/) and specifying that here instead.
 
 ## Step 3: Set Up the Scheduler
 
-The Scheduler orchestrates the running of DAGs across your Airflow Environment. To get your Scheduler running:  
+In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stable/scheduler.html) is responsible for reading from the metadata database to check on the status of each task and decides the order in which tasks should be completed. To get your Scheduler running:  
 
 1. Enable the Scheduler by running the following command:
 
@@ -266,13 +265,11 @@ You now have the ability to run Airflow tasks within DAGs.
 
 ## Step 6: Confirm the Installation
 
-To confirm that the installation was successful, open `http://host:port` in your web browser. You should see the login screen for the Airflow UI.
-
-Log in with `admin` for both your user name and password. Afterwards, you should see the homepage for Airflow:
+To confirm that the installation was successful, open `http://host:port` in your web browser. You should see the login screen for the Airflow UI. Log in with `admin` as both your user name and password. From there, you should see Airflow's primary 'DAGs' view:
 
 ![Empty Airflow UI](https://assets2.astronomer.io/main/docs/airflow-ui/installation-home.png)
 
-If you want to further confirm that everything's working as intended, add this [example DAG] to the DAG folder of every machine running Airflow and stop/start your Airflow services. When you reopen the Airflow UI, you should see the example DAG ready to run.
+If you want to further confirm that everything's working as intended, add this [example DAG] to the DAG folder of every machine running Airflow and restart your Airflow services. When you reopen the Airflow UI, you should see the example DAG ready to run.
 
 ## Next Steps
 
