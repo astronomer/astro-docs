@@ -114,7 +114,7 @@ To install the latest patch version of Apache Airflow 2.0.0, for example, this c
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.0.x'
 ```
 
-This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. You can add additional dependencies after `postgres` in a comma-delimited list depending on your use case (for example: `[postgres, redis, crypto, aws, celery]`).
+This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you are using a different database or require additional dependencies, specify those dependencies in a comma-delimited list (for example: `[mysql, redis, crypto, aws, celery]`). For a list of all optional dependencies, refer to the [AC pip index](https://pip.astronomer.io/simple/index.html).
 
 ### E. Configure a process supervisor
 
