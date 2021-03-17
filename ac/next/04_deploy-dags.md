@@ -23,11 +23,11 @@ If you installed Airflow on a virtual machine, you can use a simple cron job, as
 
 For each of your machines running Airflow:
 
-1. Open your DAGs directory and ensure that the folder is empty. If you followed the Installing at Production Scale guide, this folder would be `/usr/local/airflow`.
+1. `cd` to your local DAGs directory and ensure that the folder is empty. If you followed the Installing at Production Scale guide, this folder would be `/usr/local/airflow`.
 
-2. Clone the Git repository holding your DAGs into the folder using `git clone`.
+2. Clone your Git repository for DAGs into the folder using `git clone`.
 
-3. As your `airflow` system user, run `crontab -e` to create a new cron job. You can specify an editor using the `EDITOR` environment variable (e.g. `env EDITOR=atom crontab -e`).
+3. As your `airflow` system user, run `crontab -e` to create a new cron job. You can specify an editor using the `EDITOR` environment variable (for example, `env EDITOR=atom crontab -e`).
 
 4. Create a cron job that regularly pulls from your Git repository, then checks to see if any files were modified from the pull. For example, if you want to pull from GitHub to your `/usr/local/airflow` directory every 3 minutes, your cron job would look something like this:
 
@@ -44,9 +44,11 @@ Once you have this simple cron job saved, you can scale it and use tools such as
 
 ## Deploy DAGs on Kubernetes via Helm
 
-If you run Airflow in Docker, you can deploy DAGs via the [Astronomer Core Helm chart](https://github.com/astronomer/airflow-chart). This is also known as "baking in" DAGs because you're adding DAGs to the image itself.  To use this method, you'll need:
+If you run Airflow in Docker, the most efficient transition to a production-scale workflow is to deploy DAGs onto a Kubernetes environment via the [Astronomer Helm chart](https://github.com/astronomer/airflow-chart). With this setup, you build a custom Docker image that contains your DAGs, also known as "baking" DAGs into the image. This custom image is then pushed to your Docker registry and passed to each of your core Airflow components for execution.
 
-- A Dockerfile that pulls Astronomer Core's [Docker image](https://hub.docker.com/r/astronomerinc/ap-airflow)
+For this setup, you'll need:
+
+- A Dockerfile that pulls Astronomer Core's [Docker image](https://hub.docker.com/r/astronomerinc/docker-airflow)
 - A Kubernetes Cluster
 - The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/)
 - The Astronomer CLI
@@ -71,42 +73,33 @@ If you run Airflow in Docker, you can deploy DAGs via the [Astronomer Core Helm 
     kubectl get ns
     ```
 
-3. Edit your Dockerfile with the following minimum lines:
+3. Add the following line to your Dockerfile:
 
     ```
-    # Use a different tag to specify a supported Apache Airflow version
-    FROM quay.io/astronomer/ap-airflow:latest-onbuild
-
     COPY <your-dag-directory> ~astro/airflow-venv
     ```
 
 4. Build the Docker image using the following command:
 
     ```sh
-    docker build -t etc/ap-airflow:<your-image-tag>
-    ```
-
-    As a best practice, the image tag you specify here should indicate which version of Airflow you're using. To run Apache Airflow 2.0.1, for example, this command would be:
-
-    ```sh
-    docker build -t etc/ap-airflow:2.0.1
+    docker build -t etc/docker-airflow:<your-image-tag>
     ```
 
 5. Push the Dockerfile to your registry with the following command:
 
     ```sh
-    docker push etc/ap-airflow:<your-image-tag>
+    docker push etc/docker-airflow:<your-image-tag>
     ```
 
 6. Upgrade your image using the following Helm command:
 
     ```sh
     helm upgrade <your-release-name> . \
-    --set images.airflow.repository=etc/ap-airflow \
+    --set images.airflow.repository=etc/docker-airflow \
     --set images.airflow.tag=<your-image-tag>
     ```
 
-7. `cd` to your Airflow project folder and run `astro dev stop && astro dev start` to restart your Airflow services.
+7. Restart your Airflow services.
 
 With this method, you no longer need to store your DAG folder on each individual machine running Airflow. While baking DAGs into an image is a great way to keep all of the code for your project running in one place, it can be labor-intensive to rebuild your image each time you update a DAG.
 
