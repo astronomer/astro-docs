@@ -193,7 +193,7 @@ The following setup is an example implementation of CI/CD using GitHub Actions. 
     name: CI
     on:
       push:
-        branch: [dev, master]
+        branch: [dev, main]
     jobs:
       dev-push:
         runs-on: ubuntu-latest
@@ -213,9 +213,9 @@ The following setup is an example implementation of CI/CD using GitHub Actions. 
         - uses: actions/checkout@v1
         - name: Push to registry
           uses: elgohr/Publish-Docker-Github-Action@2.6
-          if: github.ref == 'refs/heads/master'
+          if: github.ref == 'refs/heads/main'
           with:
-              name: <prd-release-name>/airflow:ci-${{ github.sha }}
+              name: <prod-release-name>/airflow:ci-${{ github.sha }}
               username: _
               password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
               registry: registry.gcp0001.us-east4.astronomer.io
@@ -223,11 +223,11 @@ The following setup is an example implementation of CI/CD using GitHub Actions. 
 
     Ensure the branches match the names of the branches in your repository, and replace `<dev-release-name>` and `<prod-release-name>` with the respective release names of your development and production Airflow Deployments on Astronomer.
 
-5. Test the GitHub Action by making a change on your `dev` branch and committing that change. This should update your development Airflow Deployment on Astronomer, which you can confirm in the Astronomer UI. If that update was successful, try then merging `dev` into `master` to update your production Airflow Deployment. If both updates were successful, you now have a functioning, scalable CI/CD pipeline that can automatically deploy code to multiple Airflow Deployments.
+5. Test the GitHub Action by making a change on your `dev` branch and committing that change. This should update your development Airflow Deployment on Astronomer, which you can confirm in the Astronomer UI. If that update was successful, try then merging `dev` into `main` to update your production Airflow Deployment. If both updates were successful, you now have a functioning, scalable CI/CD pipeline that can automatically deploy code to multiple Airflow Deployments.
 
-> **Note:** The prod-push action as defined here will run on any push to the `master` branch, including a pull request and merge from the `dev` branch as we recommend.
+> **Note:** The prod-push action as defined here will run on any push to the `main` branch, including a pull request and merge from the `dev` branch as we recommend.
 >
->To further restrict this to run only on a pull request, you can limit whether your users can push directly to the `master` branch within your repository or your CI tool, or you could modify the action to make it more limited.
+>To further restrict this to run only on a pull request, you can limit whether your users can push directly to the `main` branch within your repository or your CI tool, or you could modify the action to make it more limited.
 
 The following sections provide basic templates for configuring single CI/CD pipelines using popular CI/CD tools. Each template can be implemented to produce a simple CI/CD pipeline similar to the one above, but they can also be reconfigured to manage any number of branches or Deployments based on your needs.
 
