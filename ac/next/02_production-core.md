@@ -33,11 +33,11 @@ Lastly, you will need to run the following three Airflow components:
 
 You can run these components on one or multiple machines, though we recommend using multiple machines for a production environment.
 
-> **Note:** MySQL 5.7 is compatible with Airflow 2.0, but it does NOT support the ability to run more than 1 Scheduler and is not recommended. If you'd like to leverage Airflow's new Highly-Available Scheduler, make sure you're running MySQL 8.0+.
+> **Note:** MySQL 5.7 is compatible with Airflow, but is not recommended for users running Airflow 2.0+, as it does not support the ability to run more than 1 Scheduler. If you'd like to leverage Airflow's new Highly-Available Scheduler, make sure you're running MySQL 8.0+.
 
 ## Step 1: Set Up Airflow's Metadata Database
 
-In Airflow, the metadata database is responsible for keeping a record of all tasks across DAGs their corresponding status (queued, scheduled, running, success, failed, etc). To set up the metadata DB:
+In Airflow, the metadata database is responsible for keeping a record of all tasks across DAGs and their corresponding status (queued, scheduled, running, success, failed, etc). To set up the metadata DB:
 
 1. Create a database user named `airflow`:
 
