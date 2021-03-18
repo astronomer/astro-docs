@@ -9,24 +9,21 @@ description: "A reference guide of every minimum package and process required to
 
 ## Environment Variables
 
-### Environment
 
 | Variable | Description | Default Value |
 |----------|-------------|---------------|
-| AIRFLOW__CORE__EXECUTOR|||
-| AIRFLOW__CORE__SQL_ALCHEMY_CONN|||
+| AIRFLOW__CORE__EXECUTOR| The method used for executing airflow tasks| CeleryExecutor |
+| AIRFLOW__CORE__SQL_ALCHEMY_CONN| The connection ID for your database | None |
 | AIRFLOW__CELERY__RESULT_BACKEND|||
 | AIRFLOW__CELERY__BROKER_URL|||
 | AIRFLOW__CORE__FERNET_KEY|||
 | AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION|||
-| AIRFLOW__CORE__LOAD_EXAMPLES|||
-| AIRFLOW__WEBSERVER__BASE_URL |||
-| AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD|||
-
-### Services
+| AIRFLOW__CORE__LOAD_EXAMPLES| Determines whether example DAGs are loaded when staring Airflow | True |
+| AIRFLOW_HOME | Filepath for your Airflow project directory | None |
+| AIRFLOW__WEBSERVER__BASE_URL | The URL used to access the Airflow UI | None |
 
 
-## Dependencies
+## Package Dependencies
 
 By default,
 
