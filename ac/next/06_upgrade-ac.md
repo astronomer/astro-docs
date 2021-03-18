@@ -1,16 +1,16 @@
 ---
-title: "Upgrade Astronomer Core"
-navTitle: "Upgrade Astronomer Core"
+title: "Upgrade Airflow via Astronomer Core"
+navTitle: "Upgrade Airflow"
 description: "Upgrade your Apache Airflow environment by installing the latest image from Astronomer Core."
 ---
 
 ## Overview
 
-A new version of the Astronomer Core image is released for every new version of Apache Airflow. We recommend regularly upgrading the Astronomer Core image to take advantage of new features and fixes.
+A new version of the Astronomer Core image is released for every new version of Apache Airflow. We recommend regularly upgrading your Astronomer Core image to take advantage of new features and fixes.
 
-Use this guide to upgrade Astronomer Core both either on a virtual machine or on Docker. For more information on Astronomer Core's release cycle, read our [Release Reference].
+Use this guide to upgrade your Airflow environment either on a virtual machine or on Docker. For more information on Astronomer Core's release cycle, read our [Release Reference].
 
->**Note:** Upgrading to Astronomer Core's image for Airflow 2.0 requires additional steps and precautions, as Airflow 2.0 introduces some breaking changes. If you're upgrading from a pre-2.0 image to a 2.0+ image, we recommend following the preparation steps in the Apache Airflow [Upgrading to Airflow 2.0 guide](https://airflow.apache.org/docs/apache-airflow/stable/upgrading-to-2.html).
+>**Note:** Upgrading to Airflow 2.0 requires additional steps and precautions. If you're upgrading from a pre-2.0 image to a 2.0+ image, we recommend following the preparation steps in the Apache Airflow [Upgrading to Airflow 2.0 guide](https://airflow.apache.org/docs/apache-airflow/stable/upgrading-to-2.html).
 
 ## Upgrade Astronomer Core via Python Package
 
