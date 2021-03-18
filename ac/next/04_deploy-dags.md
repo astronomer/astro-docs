@@ -88,20 +88,20 @@ Then, for every time that you update a DAG:
 1. Build the Docker image using the following command:
 
     ```sh
-    docker build -t path/to/file/docker-airflow:<your-image-tag>
+    docker build -t /path/to/file/docker-airflow:<your-image-tag>
     ```
 
 2. Push the Dockerfile to your registry with the following command:
 
     ```sh
-    docker push path/to/file/docker-airflow:<your-image-tag>
+    docker push /path/to/file/docker-airflow:<your-image-tag>
     ```
 
 3. Upgrade your Helm release using the following command:
 
     ```sh
     helm upgrade <your-release-name> . \
-    --set images.airflow.repository=path/to/file/docker-airflow \
+    --set images.airflow.repository=/path/to/file/docker-airflow \
     --set images.airflow.tag=<your-image-tag>
     ```
 
