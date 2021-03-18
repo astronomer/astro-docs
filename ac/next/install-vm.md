@@ -271,7 +271,7 @@ To confirm that the installation was successful, open `http://host:port` in your
 
 If you want to further confirm that everything's working as intended, add this [example DAG] to the DAG folder of every machine running Airflow, then restart your Airflow services using the following commands:
 
-```
+```sh
 sudo systemctl stop astronomer-core@webserver.service && sudo systemctl start astronomer-core@webserver.service
 sudo systemctl stop astronomer-core@scheduler.service && sudo systemctl start astronomer-core@scheduler.service
 sudo systemctl stop astronomer-core@worker.service && sudo systemctl start astronomer-core@worker.service
