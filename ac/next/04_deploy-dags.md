@@ -44,16 +44,20 @@ Once you have this simple cron job saved, you can scale it and use tools such as
 
 ## Deploy DAGs on Kubernetes via Helm
 
-If you run Airflow in Docker, the most efficient transition to a production-scale workflow is to deploy DAGs onto a Kubernetes environment via the [Astronomer Helm chart](https://github.com/astronomer/airflow-chart). With this setup, you build a custom Docker image that contains your DAGs, also known as "baking" DAGs into the image. This custom image is then pushed to your Docker registry and passed to each of your core Airflow components for execution.
+If you run Airflow in Docker, the most efficient transition to a production-scale workflow is to deploy DAGs onto a Kubernetes environment via the [Astronomer Helm chart](https://github.com/astronomer/airflow-chart), which is built off of the Apache Airflow Project's community chart to provide more extensibility.
+
+With this setup, you build a custom Docker image that contains your DAGs, also known as "baking" DAGs into the image. This custom image is then pushed to your Docker registry and passed to each of your core Airflow components for execution.
 
 For this setup, you'll need:
 
-- A Dockerfile that pulls Astronomer Core's [Docker image](https://hub.docker.com/r/astronomerinc/docker-airflow)
-- A Kubernetes Cluster
+- A Dockerfile that pulls Astronomer Core's [Docker image](https://github.com/astronomer/docker-airflow)
+- A Kubernetes Namespace
 - The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/)
 - The Astronomer CLI
 - Helm
 - A Docker registry
+
+First, get your environment ready for deployment:
 
 1. Create a Helm repository using the following command:
 
@@ -79,28 +83,30 @@ For this setup, you'll need:
     COPY <your-dag-directory> ~astro/airflow-venv
     ```
 
-4. Build the Docker image using the following command:
+Then, for every time that you update a DAG:
+
+1. Build the Docker image using the following command:
 
     ```sh
-    docker build -t etc/docker-airflow:<your-image-tag>
+    docker build -t path/to/file/docker-airflow:<your-image-tag>
     ```
 
-5. Push the Dockerfile to your registry with the following command:
+2. Push the Dockerfile to your registry with the following command:
 
     ```sh
-    docker push etc/docker-airflow:<your-image-tag>
+    docker push path/to/file/docker-airflow:<your-image-tag>
     ```
 
-6. Upgrade your image using the following Helm command:
+3. Upgrade your Helm release using the following command:
 
     ```sh
     helm upgrade <your-release-name> . \
-    --set images.airflow.repository=etc/docker-airflow \
+    --set images.airflow.repository=path/to/file/docker-airflow \
     --set images.airflow.tag=<your-image-tag>
     ```
 
-7. Restart your Airflow services.
+4. Restart your Airflow services.
 
-With this method, you no longer need to store your DAG folder on each individual machine running Airflow. While baking DAGs into an image is a great way to keep all of the code for your project running in one place, it can be labor-intensive to rebuild your image each time you update a DAG.
+When you bake your DAGs into a single Docker image and deploy that image to a Kubernetes environment using Helm, you don't need to install dependencies and store your DAGs on each individual machine running Airflow in the way you would on a VM.
 
-As a next step, we recommend hosting your DAG folder in a Git repository and implementing a CI/CD tool to automatically rebuild your image whenever code is pushed or merged to the repository.  
+However, needing to re-build your image every time you update a DAG file can be labor-intensive. As a next step, we recommend hosting your DAG folder in a Git repository and implementing a CI/CD tool to automatically rebuild your image whenever code is pushed or merged to the repository.  
