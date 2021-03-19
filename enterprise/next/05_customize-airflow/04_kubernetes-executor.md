@@ -1,7 +1,7 @@
 ---
 title: "Run the Kubernetes Executor on Astronomer"
 navTitle: "Kubernetes Executor"
-description: "How to run the Kubernetes Executor on Astronomer."
+description: "How to run and configure the Kubernetes Executor on Astronomer."
 ---
 
 ## Overview
