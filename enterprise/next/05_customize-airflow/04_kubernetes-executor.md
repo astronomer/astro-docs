@@ -56,7 +56,7 @@ You now have a local version of your Deployment's pod template file. From here, 
 
 ## Apply a Pod Template to a Deployment
 
-If to use your pod template for all DAGs within a given Airflow Deployment, you can add the pod template as an environment variable to the Deployment. To do so:
+If you want to use a pod template for all DAGs within a given Airflow Deployment, you can add the pod template to the Deployment as an environment variable. To do so:
 
 1. Update your Dockerfile to copy your customized pod template into your Docker image. For instance, if your customized pod template file name is `new_pod_template.yaml`, you would add the following line:
 
