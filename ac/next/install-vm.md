@@ -19,7 +19,7 @@ First, ensure the OS-level packages listed below are installed on your machines.
 - python3-dev (python3-devel for RHEL/CentOS)
 - gcc
 
-You also need a database that is reachable by all the machines that will be running this Airflow cluster. While this guide walks through the process for configuring a PostgreSQL database, Airflow is compatible with all of the following databases:
+You also need a database that is accessible to all the machines that will run your Airflow instance. While this guide walks through the process for configuring a PostgreSQL database, Airflow is compatible with all of the following databases:
 
 - PostgreSQL: 9.6, 10, 11, 12, 13
 - MySQL: 5.7, 8
@@ -82,7 +82,7 @@ sudo useradd --shell=/bin/false --create-home astro
 
 ### B. Create an Airflow project directory
 
-You also need to configure an AIRFLOW_HOME directory (not to be confused with the user's home directory) where you'll store your DAGs. We recommend using the path `/usr/local/airflow` as your project directory and `/usr/local/airflow/dags` as your DAG directory, but any path can be chosen as long as the `astro` user has write access to it. To do this, run the following commands:
+You also need to configure an `AIRFLOW_HOME` directory (not to be confused with the user's home directory) where you'll store your DAGs. We recommend using the path `/usr/local/airflow` as your project directory and `/usr/local/airflow/dags` as your DAG directory, but any path can be chosen as long as the `astro` user has write access to it. To do this, run the following commands:
 
 ```sh
 sudo install --owner=astro --group=astro -d /usr/local/airflow
@@ -94,11 +94,13 @@ cd /usr/local/airflow && mkdir dags
 
 ### C. Create a virtual environment
 
-To isolate the Astronomer Core Python modules from changes to the system, create a virtual environment using the following command:
+To isolate the Astronomer Core Python modules from changes to the system, create a virtual environment in a directory named `astro/airflow-venv` using the following command:
 
 ```sh
 sudo -u astro python3 -m venv ~astro/airflow-venv
 ```
+
+venv is a tool to create lightweight, isolated Python environments without affecting systemwide configuration. For more information, read [Python's venv documentation](https://docs.python.org/3/library/venv.html).
 
 ### D. Install Astronomer Core
 
@@ -114,18 +116,24 @@ To install the latest patch version of Apache Airflow 2.0.0, for example, this c
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.0.x'
 ```
 
-This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you are using a different database or require additional dependencies, specify those dependencies in a comma-delimited list (for example: `[mysql, redis, crypto, aws, celery]`). For a list of all optional dependencies, refer to the [AC pip index](https://pip.astronomer.io/simple/index.html).
+This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you are using a different database or require additional dependencies, specify those dependencies in a comma-delimited list:
+
+```
+astronomer-core[mysql, redis, crypto, aws, celery]==2.0.0.x
+```
+
+For a list of all optional dependencies, refer to the [AC pip index](https://pip.astronomer.io/simple/index.html).
 
 ### E. Configure a process supervisor
 
-To ensure that Airflow is always running when your machine is on, we recommend implementing a process supervisor. [Systemd](https://systemd.io/) is used in this example, though any process supervisor will work here.
+To ensure that Airflow is always running when your machine is on, we recommend implementing a process supervisor. [Systemd](https://systemd.io/) is used in this example, though any process supervisor works here.
 
 To use systemd as a process supervisor:
 
 1. Create a systemd unit file using the following command:
 
     ```sh
-    sudo -e /etc/systemd/system/astronomer-core@.service
+    sudo -e /path/to/file/systemd/system/astronomer-core@.service
     ```
 
 2. Using a text editor, create a file called `astronomer-core` and edit it to contain these environment variables and values:
@@ -138,7 +146,7 @@ To use systemd as a process supervisor:
 
     When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
 
-3. Using the text editor of your choice, add the following to your systemd unit file:
+3. Add the following to your systemd unit file:
 
     ```
     [Unit]
@@ -147,7 +155,7 @@ To use systemd as a process supervisor:
     Requires=network-online.target
 
     [Service]
-    EnvironmentFile=/etc/default/astronomer-core
+    EnvironmentFile=/path/to/file/default/astronomer-core
     User=astro
     Group=astro
     Type=simple
@@ -162,7 +170,7 @@ To use systemd as a process supervisor:
 
 ### F. Configure Airflow for Database Access
 
-To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `astronomer-core` file:
+To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `astronomer-core` file depending on your chosen [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
 
 - For Local Executor:
 
@@ -227,7 +235,7 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
 ## Step 4: Set Up the Webserver
 
-The Webserver is an Airflow core component that is responsible for rendering the Airflow UI. To configure it on its own machine, follow the steps below.
+[The Webserver](https://airflow.apache.org/docs/apache-airflow/stable/security/webserver.html) is a core Airflow component that is responsible for rendering the Airflow UI. To configure it on its own machine, follow the steps below.
 
 1. Enable the Webserver by running the following:
 
@@ -265,7 +273,7 @@ You now have the ability to run Airflow tasks within DAGs.
 
 ## Step 6: Confirm the Installation
 
-To confirm that the installation was successful, open `http://host:port` in your web browser. You should see the login screen for the Airflow UI. Log in with `admin` as both your user name and password. From there, you should see Airflow's primary 'DAGs' view:
+To confirm that you successfully installed Apache Airflow,, open `http://host:port` in your web browser. You should see the login screen for the Airflow UI. Log in with `admin` as both your user name and password. From there, you should see Airflow's primary 'DAGs' view:
 
 ![Empty Airflow UI](https://assets2.astronomer.io/main/docs/airflow-ui/installation-home.png)
 
@@ -277,7 +285,7 @@ sudo systemctl stop astronomer-core@scheduler.service && sudo systemctl start as
 sudo systemctl stop astronomer-core@worker.service && sudo systemctl start astronomer-core@worker.service
 ```
 
-When you reopen the Airflow UI, you should see the example DAG ready to run.
+When you refresh the Airflow UI, you should see the example DAG ready to run.
 
 ## Next Steps
 
