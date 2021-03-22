@@ -10,7 +10,7 @@ Astronomer Core is an open source distribution of Apache Airflow built for teams
 
 ## What's the difference between Astronomer Core and Apache Airflow?
 
-Astronomer Core includes all of the features of Apache Airflow, plus additional security features, bug fixes, and learning resources.
+Astronomer Core includes every feature in Apache Airflow, plus additional security features, bug fixes, and learning resources.
 
 ## How does Astronomer Core's image differ from the community-built Airflow image?
 
