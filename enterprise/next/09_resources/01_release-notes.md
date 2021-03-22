@@ -8,7 +8,7 @@ description: "Astronomer Enterprise release notes."
 
 Astronomer v0.23 is the latest available minor version in our long-term support (LTS) release model for Astronomer Enterprise.
 
-If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/stable/manage-astronomer/upgrade-to-0-23/). For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/upgrade-astronomer-patch/). 
+If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/stable/manage-astronomer/upgrade-to-0-23/). For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/upgrade-astronomer-patch/).
 
 We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](https://support.astronomer.io).
 
@@ -16,7 +16,32 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 ## Astronomer v0.23
 
-Latest Patch Release: **v0.23.9**
+Latest Patch Release: **v0.23.12**
+
+### v0.23.12
+
+Release Date: January 20, 2021
+
+#### Platform support for ingressAnnotations
+
+In Astronomer Enterprise 0.23, you can now configure the behavior of Ingress resources by specifying [annotations](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your `config.yaml` file. To do so, add annotations to the `ingressAnnotations` dictionary in your `config.yaml` file. Then, push the changes to your platform as described in [Apply a Config Change](/docs/enterprise/next/manage-astronomer/apply-platform-config).
+
+#### Platform support for disabling Alertmanager clustering
+
+In private networks, you might want to disable Alertmanager clustering to avoid failures due to a gossip protocol.
+
+#### Bug Fixes and Improvements
+
+- Values of Variables defined in Astronomer UI now properly reflect values in Kubernetes secret
+- Values for fluentd in `config.yaml` now properly concatenate in the resulting fluentd ConfigMap
+- Refactored and improved security for quay.io/astronomer images
+- Removed E2E testing from some images to improve security
+- Fixed the 0.23 upgrade script not working correctly with hyphenated Helm release names
+- Fixed CVEs in:
+    - `ap-db-boostrapper`
+    - `ap-registry`
+- BugFix: Airflow task logs not present in Airflow UI on IKS + 0.23.9 ([Source](https://github.com/astronomer/astronomer/pull/1023))
+- BugFix: Airflow task logs not present in Airflow UI on IKS + 0.23.9 ([Source](https://github.com/astronomer/astronomer/pull/1023))
 
 ### v0.23.9
 
