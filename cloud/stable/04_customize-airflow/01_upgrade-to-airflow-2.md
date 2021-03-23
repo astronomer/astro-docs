@@ -167,7 +167,7 @@ All Airflow 2.0 Operators and Extras are backwards compatible with both Airflow 
 2. Modify your Import Statements
 3. Add any extras if needed
 
-For more information, refer to [1.10.14 Backport Providers](https://airflow.apache.org/docs/apache-airflow/1.10.15/backport-providers.html) in Apache Airflow documentation or reference the collection of [Backport Providers in PyPi](https://pypi.org/search/?q=apache-airflow-backport-providers&o=).
+For more information, refer to [1.10.15 Backport Providers](https://airflow.apache.org/docs/apache-airflow/1.10.15/backport-providers.html) in Apache Airflow documentation or reference the collection of [Backport Providers in PyPi](https://pypi.org/search/?q=apache-airflow-backport-providers&o=).
 
 ### b. Modify Airflow DAGs
 
