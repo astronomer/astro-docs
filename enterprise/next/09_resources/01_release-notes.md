@@ -20,28 +20,33 @@ Latest Patch Release: **v0.23.12**
 
 ### v0.23.12
 
-Release Date: January 20, 2021
+Release Date: March 23, 2021
 
-#### Platform support for ingressAnnotations
+#### Platform Support for Ingress Annotations
 
-In Astronomer Enterprise 0.23, you can now configure the behavior of Ingress resources by specifying [annotations](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your `config.yaml` file. To do so, add annotations to the `ingressAnnotations` dictionary in your `config.yaml` file. Then, push the changes to your platform as described in [Apply a Config Change](/docs/enterprise/next/manage-astronomer/apply-platform-config).
+In Astronomer Enterprise 0.23, you can now configure the behavior of Ingress resources by specifying [annotations](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your `config.yaml` file. To do so, add annotations to the `ingressAnnotations` dictionary in your `config.yaml` file. Then, push the changes to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
-#### Platform support for disabling Alertmanager clustering
+#### Platform Support for Disabling Alertmanager Clustering
 
-In private networks, you might want to disable Alertmanager clustering to avoid failures due to a gossip protocol.
+In private networks, you might want to disable Alertmanager clustering to avoid failures due to a gossip protocol. To do so, you can now configure `alertmanager.disableClustering` in your `config.yaml` file and push the change to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 #### Bug Fixes and Improvements
 
-- Values of Variables defined in Astronomer UI now properly reflect values in Kubernetes secret
-- Values for fluentd in `config.yaml` now properly concatenate in the resulting fluentd ConfigMap
-- Refactored and improved security for quay.io/astronomer images
-- Removed E2E testing from some images to improve security
-- Fixed the 0.23 upgrade script not working correctly with hyphenated Helm release names
-- Fixed CVEs in:
+- Values of Variables defined in Astronomer UI now properly reflect values in Kubernetes secret.
+- Values for fluentd in `config.yaml` now properly concatenate in the resulting fluentd ConfigMap.
+- Network Load Balancer (NLB) is now the default AWS load balancer. Previously, the default was Classic Load Balancer.
+- Refactored and improved security for quay.io/astronomer images.
+- Removed E2E testing from some images to improve security.
+- BugFix: fixed CVEs in:
     - `ap-db-boostrapper`
     - `ap-registry`
-- BugFix: Airflow task logs not present in Airflow UI on IKS + 0.23.9 ([Source](https://github.com/astronomer/astronomer/pull/1023))
-- BugFix: Airflow task logs not present in Airflow UI on IKS + 0.23.9 ([Source](https://github.com/astronomer/astronomer/pull/1023))
+    - `ap-vendor/fluentd`
+- BugFix: Airflow task logs were not present in Airflow UI on IKS + 0.23.9. ([Source](https://github.com/astronomer/astronomer/pull/1023))
+- BugFix:  Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI doesn't force the fsGroup setting in the pod template. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
+- BugFix: Nginx ingress scraping only scraped one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
+- BugFix: Users with Deployment Editor role, regardless of their workspace permissions, are denied access to the Airflow UI endpoint. ([Source](https://github.com/astronomer/astronomer/pull/1010))
+- BugFix: Hyphenated Helm release names cause the 0.23 upgrade script to break. ([Source](https://github.com/astronomer/astronomer/pull/1026))
+- BugFix: New schedulers are unable to adopt running/orphaned pods (Kubernetes executor tasks) due to a permissions error. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
 
 ### v0.23.9
 
