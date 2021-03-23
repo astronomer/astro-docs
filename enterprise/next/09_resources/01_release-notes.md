@@ -38,13 +38,13 @@ In private networks, you might want to disable Alertmanager clustering to avoid 
 - Refactored and improved security for quay.io/astronomer images.
 - Removed E2E testing from some images to improve security.
 - BugFix: fixed CVEs in:
-    - `ap-db-boostrapper`
+    - `ap-db-bootstrapper`
     - `ap-registry`
     - `ap-vendor/fluentd`
 - BugFix: Airflow task logs were not present in Airflow UI on IKS + 0.23.9. ([Source](https://github.com/astronomer/astronomer/pull/1023))
 - BugFix:  Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI doesn't force the fsGroup setting in the pod template. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
 - BugFix: Nginx ingress scraping only scraped one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
-- BugFix: Users with Deployment Editor role, regardless of their workspace permissions, are denied access to the Airflow UI endpoint. ([Source](https://github.com/astronomer/astronomer/pull/1010))
+- BugFix: Users with the Deployment Editor role, regardless of their workspace permissions, are denied access to the Airflow UI endpoint. ([Source](https://github.com/astronomer/astronomer/pull/1010))
 - BugFix: Hyphenated Helm release names cause the 0.23 upgrade script to break. ([Source](https://github.com/astronomer/astronomer/pull/1026))
 - BugFix: New schedulers are unable to adopt running/orphaned pods (Kubernetes executor tasks) due to a permissions error. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
 
