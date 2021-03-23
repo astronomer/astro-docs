@@ -1,7 +1,7 @@
 ---
 title: "Astronomer Core Image Architecture"
-navTitle: "Image Architecture"
-description: "A reference guide of every minimum package and process required to run Astronomer Core."
+navTitle: "Image Reference"
+description: "A reference guide for the key components used to build Astronomer Core."
 ---
 
 ## Overview
