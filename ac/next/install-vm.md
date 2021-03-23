@@ -12,12 +12,15 @@ If you haven't tested Airflow locally and would like to do so, refer to [Astrono
 
 ## Prerequisites
 
-First, ensure the OS-level packages listed below are installed on your machines. If you're Debian-based, run `$ apt get <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
+First, ensure the OS-level packages listed below are installed on your machines. If you're Debian-based, run ` sudo apt-get <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
 
 - sudo
 - python3
 - python3-dev (python3-devel for RHEL/CentOS)
+- python3-venv
 - gcc
+- postgresql
+- systemd
 
 You also need a database that is accessible to all the machines that will run your Airflow instance. While this guide walks through the process for configuring a PostgreSQL database, Airflow is compatible with all of the following databases:
 
@@ -107,19 +110,19 @@ venv is a tool to create lightweight, isolated Python environments without affec
 Install the AC Python wheel onto your machine by running:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==<airflow-version>'
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==<airflow-version>' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-<airflow-version>/constraints-3.8.txt"
 ```
 
 To install the latest patch version of Apache Airflow 2.0.0, for example, this command would be:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.0.x'
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.0.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
 ```
 
 This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you are using a different database or require additional dependencies, specify those dependencies in a comma-delimited list:
 
 ```
-astronomer-core[mysql, redis, crypto, aws, celery]==2.0.0.x
+astronomer-core[mysql, redis, crypto, aws, celery]==2.0.0.*
 ```
 
 For a list of all optional dependencies, refer to the [AC pip index](https://pip.astronomer.io/simple/index.html).
