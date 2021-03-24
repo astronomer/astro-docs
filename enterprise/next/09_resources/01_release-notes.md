@@ -37,18 +37,18 @@ In private networks, you might want to disable Alertmanager clustering to avoid 
 - Refactored and improved security for platform images hosted on quay.io.
 - Removed E2E testing from some images to improve security.
 - BugFix: Addressed CVEs found in the following platform images:
-    - `ap-db-bootstrapper`
-    - `ap-registry`
-    - `ap-vendor/fluentd`
     - `ap-curator`
-    - `ap-grafana`
-    - `ap-nginx`
-    - `ap-nginx-es`
+    - `ap-db-bootstrapper`
     - `ap-elasticsearch`
     - `ap-fluentd`
+    - `ap-grafana`
     - `ap-kibana`
     - `ap-nats-server`
+    - `ap-nginx`
+    - `ap-nginx-es`
     - `ap-postgres-exporter`
+    - `ap-registry`
+    - `ap-vendor/fluentd`
 - BugFix: When two or more Fluentd parameters are set in Astronomer's `config.yaml` file, the resulting Fluentd configmap values were improperly concatenated. ([Source](https://github.com/astronomer/astronomer/pull/1031))
 - BugFix: The value for an Environment Variable that exists with the same name in 2+ Airflow Deployments renders incorrectly when navigating between those Deployments in the Astronomer UI.
 - BugFix: Airflow task logs were not present in Airflow UI on IKS + 0.23.9. ([Source](https://github.com/astronomer/astronomer/pull/1023))
