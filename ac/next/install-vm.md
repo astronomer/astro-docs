@@ -12,12 +12,13 @@ If you haven't tested Airflow locally and would like to do so, refer to [Astrono
 
 ## Prerequisites
 
-First, ensure the OS-level packages listed below are installed on your machines. If you're Debian-based, run ` sudo apt-get <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
+First, ensure the OS-level packages listed below are installed on your machines. If you're Debian-based, run ` sudo apt-get install <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
 
 - sudo
 - python3
 - python3-dev (python3-devel for RHEL/CentOS)
 - python3-venv
+- python3-psycopg2
 - gcc
 - postgresql
 - systemd
@@ -58,7 +59,7 @@ In Airflow, the metadata database is responsible for keeping a record of all tas
 
 This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
 
-> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgres/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. Before editing this file, take a moment to assess the security  implications of editing this file.
+> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgresqlsud/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. Before editing this file, take a moment to assess the security  implications of editing this file.
 >
 > If your database server is running on the same machine as your other Airflow components, you can change your authentication method from `peer` to `md5` in the same `pg_hba.conf` file to allow connections with a username/password from the same machine.
 
@@ -90,7 +91,7 @@ You also need to configure an `AIRFLOW_HOME` directory (not to be confused with 
 ```sh
 sudo install --owner=astro --group=astro -d /usr/local/airflow
 echo 'export AIRFLOW_HOME=/usr/local/airflow' | sudo tee --append ~astro/.bashrc
-cd /usr/local/airflow && mkdir dags
+cd /usr/local/airflow && sudo mkdir dags
 ```
 
 > **Note:** If you're running Airflow on multiple machines, each machine needs access to the same DAGs in order to successfully execute them. We recommend setting up automation pipelines for updating all of your DAG folders whenever a local folder is updated. For more information, read [Deploying DAGs].
@@ -158,7 +159,7 @@ To use systemd as a process supervisor:
     Requires=network-online.target
 
     [Service]
-    EnvironmentFile=/path/to/file/default/astronomer-core
+    EnvironmentFile=/etc/default/astronomer-core
     User=astro
     Group=astro
     Type=simple
@@ -179,7 +180,7 @@ To connect your Airflow environment to the metadata DB you created in Step 1, ad
 
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:<your-user-password>@localhost/airflow
-    AIRFLOW__WEBSERVER__BASE_URL=http://host:port
+    AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
     AIRFLOW__CORE__EXECUTOR=LocalExecutor
     ```
 
@@ -227,7 +228,7 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
     ```
     [Service]
-    ExecStartPre=/home/astro/airflow-venv/bin/airflow upgradedb
+    ExecStartPre=/home/astro/airflow-venv/bin/airflow db upgrade
     ```
 
 4. Start the service by running:   
