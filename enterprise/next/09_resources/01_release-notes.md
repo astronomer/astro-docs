@@ -32,21 +32,29 @@ In private networks, you might want to disable Alertmanager clustering to avoid 
 
 #### Bug Fixes and Improvements
 
-- Values of Variables defined in Astronomer UI now properly reflect values in Kubernetes secret.
-- Values for fluentd in `config.yaml` now properly concatenate in the resulting fluentd ConfigMap.
-- Network Load Balancer (NLB) is now the default AWS load balancer. Previously, the default was Classic Load Balancer.
-- Refactored and improved security for quay.io/astronomer images.
+
+- Added full support for the [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html). NLB is now the default for Astronomer environments on Amazon EKS. Previously, the default was the Classic Load Balancer.
+- Refactored and improved security for platform images hosted on quay.io.
 - Removed E2E testing from some images to improve security.
-- BugFix: fixed CVEs in:
+- BugFix: Addressed CVEs found in the following platform images:
     - `ap-db-bootstrapper`
     - `ap-registry`
     - `ap-vendor/fluentd`
+    - `ap-curator`
+    - `ap-grafana`
+    - `ap-nginx`
+    - `ap-nginx-es`
+    - `ap-elasticsearch`
+    - `ap-fluentd`
+    - `ap-kibana`
+    - `ap-nats-server`
+    - `ap-postgres-exporter`
+- BugFix: When two or more Fluentd parameters are set in Astronomer's `config.yaml` file, the resulting Fluentd configmap values were improperly concatenated. ([Source](https://github.com/astronomer/astronomer/pull/1031))
+- BugFix: The value for an Environment Variable that exists with the same name in 2+ Airflow Deployments renders incorrectly when navigating between those Deployments in the Astronomer UI.
 - BugFix: Airflow task logs were not present in Airflow UI on IKS + 0.23.9. ([Source](https://github.com/astronomer/astronomer/pull/1023))
-- BugFix:  Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI doesn't force the fsGroup setting in the pod template. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
-- BugFix: Nginx ingress scraping only scraped one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
-- BugFix: Users with the Deployment Editor role, regardless of their workspace permissions, are denied access to the Airflow UI endpoint. ([Source](https://github.com/astronomer/astronomer/pull/1010))
-- BugFix: Hyphenated Helm release names cause the 0.23 upgrade script to break. ([Source](https://github.com/astronomer/astronomer/pull/1026))
-- BugFix: New schedulers are unable to adopt running/orphaned pods (Kubernetes executor tasks) due to a permissions error. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
+- BugFix:  Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI doesn't force the fsGroup setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
+- BugFix: Nginx ingress scraping for Prometheus was configured with the `service` role, meaning it could only scrape and report metrics for one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
+- BugFix: New Airflow Schedulers are unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
 
 ### v0.23.9
 
