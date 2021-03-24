@@ -20,9 +20,6 @@ We have created guides for installing Astronomer on a number of Kubernetes envir
 * [Amazon Web Services EKS](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard/)
 * [Google Cloud Platform GKE](https://www.astronomer.io/docs/enterprise/stable/install/gcp/install-gcp-standard/)
 * [Microsoft Azure AKS](https://www.astronomer.io/docs/enterprise/stable/install/azure/install-azure-standard/)
-* [Openshift Kubernetes](https://www.astronomer.io/docs/enterprise/)
-* [Digital Ocean Kubernetes](https://www.astronomer.io/docs/enterprise/)
-* ["General" Kubernetes](https://www.astronomer.io/docs/enterprise/)
 
 ## Customizing Your Installation
 
