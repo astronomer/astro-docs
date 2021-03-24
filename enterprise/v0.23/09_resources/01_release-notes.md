@@ -26,6 +26,19 @@ In Astronomer Enterprise 0.23, you can now configure the behavior of Ingress res
 
 In private networks, you might want to disable Alertmanager clustering to avoid failures due to a gossip protocol. To do so, you can now configure `alertmanager.disableClustering` in your `config.yaml` file and push the change to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
+### Support for Airflow 1.10.15
+
+[Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14) was built to make the migration and testing process as easy as possible. [Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) was subsequently released with additional bug fixes and improvements, and is what we recommend as the latest "bridge" release to Airflow 2.0.
+
+Specifically, Airflow 1.10.15 includes the following changes:
+
+- Fix sync-perm to work correctly when update_fab_perms = False [(commit)](https://github.com/astronomer/airflow/commit/950028f93e1220d49629aea10dfbaf1173b8910b)
+- Pin SQLAlchemy to <1.4 due to breakage of sqlalchemy-utils [(commit)](https://github.com/astronomer/airflow/commit/331f0d23260a77212e7b15707e04bee02bdab1f2)
+- Enable DAG Serialization by default [(commit)](https://github.com/apache/airflow/commit/cd1961873783389ee51748f7f2a481900cce85b9)
+- Stop showing Import Errors for Plugins in Webserver [(commit)](https://github.com/apache/airflow/commit/a386fd542fe1c46bd3e345371eed10a9c230f690)
+- Add role-based authentication backend [(commit)](https://github.com/apache/airflow/commit/16461c3c8dcb1d1d2766844d32f3cdec31c89e69)
+- Show a "Warning" to Users with duplicate connections [(commit)](https://github.com/apache/airflow/commit/c037d48c9e383a6fd0b1b0d88407489d0ed02194)
+
 ### Minor improvements
 
 - Added full support for the [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html). NLB is now the default for Astronomer environments on Amazon EKS. Previously, the default was the Classic Load Balancer.
@@ -34,24 +47,12 @@ In private networks, you might want to disable Alertmanager clustering to avoid 
 
 ### Bug fixes
 
-- Addressed CVEs found in the following platform images:
-    - `ap-curator`
-    - `ap-db-bootstrapper`
-    - `ap-elasticsearch`
-    - `ap-fluentd`
-    - `ap-grafana`
-    - `ap-kibana`
-    - `ap-nats-server`
-    - `ap-nginx`
-    - `ap-nginx-es`
-    - `ap-postgres-exporter`
-    - `ap-registry`
-    - `ap-vendor/fluentd`
+- Addressed CVEs found in the following platform images: `ap-curator`, `ap-db-bootstrapper`, `ap-elasticsearch`, `ap-fluentd`, `ap-grafana`, `ap-kibana`, `ap-nats-server`, `ap-nginx`, `ap-nginx-es`, `ap-postgres-exporter`, `ap-registry`, and `ap-vendor/fluentd`.
 - When two or more Fluentd parameters are set in Astronomer's `config.yaml` file, the resulting Fluentd configmap values are now properly concatenated. ([Source](https://github.com/astronomer/astronomer/pull/1031))
 - The value for an Environment Variable that exists with the same name in 2+ Airflow Deployments now renders correctly when navigating between those Deployments in the Astronomer UI.
-- Airflow task logs are no longer missing in the Airflow UI on IKS + 0.23.9. ([Source](https://github.com/astronomer/astronomer/pull/1023))
+- Airflow task logs are no longer missing in the Airflow UI for users running Astronomer v0.23.9 on IKS. ([Source](https://github.com/astronomer/astronomer/pull/1023))
 - Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI now properly forces the `fsGroup` setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
-- Nginx ingress scraping for Prometheus now scrapes and report metrics for all pods at once, as opposed to one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
+- Nginx ingress scraping for Prometheus now scrapes and reports metrics for all `nginx` replicas in aggregate, as opposed to one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
 - Fixed an issue where Airflow Schedulers were unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
 
 ## v0.23.11

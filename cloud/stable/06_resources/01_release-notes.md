@@ -6,6 +6,36 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.23
 
+### v0.23.12
+
+Release Date: March 23, 2021
+
+#### Support for Airflow 1.10.15
+
+[Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14) was built to make the migration and testing process as easy as possible. [Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) was subsequently released with additional bug fixes and improvements, and is what we recommend as the latest "bridge" release to Airflow 2.0.
+
+Specifically, Airflow 1.10.15 includes the following changes:
+
+- Fix sync-perm to work correctly when update_fab_perms = False [(commit)](https://github.com/astronomer/airflow/commit/950028f93e1220d49629aea10dfbaf1173b8910b)
+- Pin SQLAlchemy to <1.4 due to breakage of sqlalchemy-utils [(commit)](https://github.com/astronomer/airflow/commit/331f0d23260a77212e7b15707e04bee02bdab1f2)
+- Enable DAG Serialization by default [(commit)](https://github.com/apache/airflow/commit/cd1961873783389ee51748f7f2a481900cce85b9)
+- Stop showing Import Errors for Plugins in Webserver [(commit)](https://github.com/apache/airflow/commit/a386fd542fe1c46bd3e345371eed10a9c230f690)
+- Add role-based authentication backend [(commit)](https://github.com/apache/airflow/commit/16461c3c8dcb1d1d2766844d32f3cdec31c89e69)
+- Show a "Warning" to Users with duplicate connections [(commit)](https://github.com/apache/airflow/commit/c037d48c9e383a6fd0b1b0d88407489d0ed02194)
+
+#### Minor improvements
+
+- Refactored and improved security for platform images hosted on quay.io.
+- Removed an `e2eTest` image that is no longer maintained from Astronomer's `default.yaml` file.
+
+#### Bug fixes
+
+- Addressed CVEs found in the following platform images: `ap-curator`, `ap-db-bootstrapper`, `ap-elasticsearch`, `ap-fluentd`, `ap-grafana`, `ap-kibana`, `ap-nats-server`, `ap-nginx`, `ap-nginx-es`, `ap-postgres-exporter`, `ap-registry`, and `ap-vendor/fluentd`.
+- The value for an Environment Variable that exists with the same name in 2+ Airflow Deployments now renders correctly when navigating between those Deployments in the Astronomer UI.
+- Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI now properly forces the `fsGroup` setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
+- Fixed an issue where Airflow Schedulers were unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
+
+
 ### v0.23.9
 
 Release Date: January 18, 2021
@@ -70,7 +100,7 @@ To get started, read [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.a
 
 #### Bug Fixes & Improvements
 
-- Raise Maximum Node Size to 24 vCPUs, 90 GB Memory/RAM (Read more in [Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing)) 
+- Raise Maximum Node Size to 24 vCPUs, 90 GB Memory/RAM (Read more in [Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing))
 - Add clear messaging to Astronomer UI around steps required to finalize Airflow upgrade
 - Opt-in users to **Email Alerts** by default
 - BugFix: `pod_mutation_hook` overrides commands for the KubernetesPodOperator pods if using KubernetesExecutor
