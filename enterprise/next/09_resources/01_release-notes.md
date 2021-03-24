@@ -14,48 +14,6 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 > **Note:** The perceived version gap between Astronomer Enterprise v0.16 and v0.23 is due to the nature of Astronomer's release schedule. To optimize for security and reliability, Astronomer Cloud releases are made available to Enterprise users only after they've passed a dedicated testing process. Astronomer Enterprise v0.23 includes _all_ changes made available on Astronomer Cloud between v0.16 and v0.23, in addition to Enterprise-only functionality.
 
-## Astronomer v0.23
-
-Latest Patch Release: **v0.23.12**
-
-### v0.23.12
-
-Release Date: March 23, 2021
-
-#### Platform Support for Ingress Annotations
-
-In Astronomer Enterprise 0.23, you can now configure the behavior of Ingress resources by specifying [annotations](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your `config.yaml` file. To do so, add annotations to the `ingressAnnotations` dictionary in your `config.yaml` file. Then, push the changes to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
-
-#### Platform Support for Disabling Alertmanager Clustering
-
-In private networks, you might want to disable Alertmanager clustering to avoid failures due to a gossip protocol. To do so, you can now configure `alertmanager.disableClustering` in your `config.yaml` file and push the change to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
-
-#### Bug Fixes and Improvements
-
-
-- Added full support for the [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html). NLB is now the default for Astronomer environments on Amazon EKS. Previously, the default was the Classic Load Balancer.
-- Refactored and improved security for platform images hosted on quay.io.
-- Removed E2E testing from some images to improve security.
-- BugFix: Addressed CVEs found in the following platform images:
-    - `ap-curator`
-    - `ap-db-bootstrapper`
-    - `ap-elasticsearch`
-    - `ap-fluentd`
-    - `ap-grafana`
-    - `ap-kibana`
-    - `ap-nats-server`
-    - `ap-nginx`
-    - `ap-nginx-es`
-    - `ap-postgres-exporter`
-    - `ap-registry`
-    - `ap-vendor/fluentd`
-- BugFix: When two or more Fluentd parameters are set in Astronomer's `config.yaml` file, the resulting Fluentd configmap values were improperly concatenated. ([Source](https://github.com/astronomer/astronomer/pull/1031))
-- BugFix: The value for an Environment Variable that exists with the same name in 2+ Airflow Deployments renders incorrectly when navigating between those Deployments in the Astronomer UI.
-- BugFix: Airflow task logs were not present in Airflow UI on IKS + 0.23.9. ([Source](https://github.com/astronomer/astronomer/pull/1023))
-- BugFix:  Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI doesn't force the fsGroup setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
-- BugFix: Nginx ingress scraping for Prometheus was configured with the `service` role, meaning it could only scrape and report metrics for one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
-- BugFix: New Airflow Schedulers are unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
-
 ### v0.23.9
 
 Release Date: January 20, 2021
