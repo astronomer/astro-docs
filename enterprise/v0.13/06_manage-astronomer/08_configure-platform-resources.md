@@ -42,7 +42,7 @@ To change something like the resources allocated to `astro-ui`, add the followin
 ####
 
 astronomer:
-  astro-ui:
+  astroUI:
     resources:
       requests:
         cpu: "200m"
