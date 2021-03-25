@@ -4,16 +4,19 @@ To install and run the Astronomer Certified distribution, ensure that Docker is 
 
         mkdir astronomer-certified && cd astronomer-certified
 
-2. Run the following command to initialize all of the necessary files you'll need to run the Airflow image locally:
+2. Run the following command to initialize all of the necessary files you'll need to run the AC image:
 
         touch .env packages.txt requirements.txt docker-compose.yml Dockerfile
 
 3. Add the the following to the `Dockerfile` to grab the latest Astronomer Certified image on build:
 
-        # For a Debian-based image
-        FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild
+    ```
+    # For a Debian-based image
+    FROM quay.io/astronomer/docker-airflow:latest
+    ```
 
-    Note that you can select which version you'd like to use via the tag appended to the image.
+    To pull from a specific version, replace `latest` in the image tag with your desired version. For a list of all image tags, refer to the [quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).  
+
 
 4. Add the following to the `docker-compose.yml` file:
 
