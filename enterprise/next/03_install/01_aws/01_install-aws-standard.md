@@ -223,7 +223,7 @@ nginx:
   #  Set to 'true' when deploying to a private EKS cluster
   privateLoadBalancer: false
   # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
-  ingressAnnotations: {}
+  ingressAnnotations: {service.beta.kubernetes.io/aws-load-balancer-type: nlb}
 
 #################################
 ### SMTP configuration
