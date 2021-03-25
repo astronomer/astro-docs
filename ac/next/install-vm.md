@@ -81,7 +81,7 @@ Complete the steps below for each machine that will be running a core Apache Air
 Airflow can run as any user, but for this setup we assume the user name `astro`. Run the following command to add this user to your machine:
 
 ```sh
-sudo useradd --shell=/bin/false --create-home astro
+sudo useradd --create-home astro
 ```
 
 ### B. Create an Airflow project directory
@@ -179,7 +179,7 @@ To connect your Airflow environment to the metadata DB you created in Step 1, ad
 - For Local Executor:
 
     ```
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
     AIRFLOW__CORE__EXECUTOR=LocalExecutor
     ```
@@ -187,10 +187,10 @@ To connect your Airflow environment to the metadata DB you created in Step 1, ad
 - For Celery Executor:
 
     ```
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__WEBSERVER__BASE_URL=http://host:port
-    AIRFLOW__CELERY__BROKER_URL=sqla+postgresql://airflow:<your-user-password>@localhost/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CELERY__BROKER_URL=sqla+postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__CORE__EXECUTOR=CeleryExecutor
     ```
 
