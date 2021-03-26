@@ -6,37 +6,37 @@ description: "Use automation tools to continuously deploy DAGs on both virtual m
 
 ## Overview
 
-Whether you're running Airflow on virtual machines or in Docker, every node in your Airflow cluster needs a copy of your DAG files. In addition, these DAG files all need to appear in the same directory. This guide will cover two popular methods for deploying DAGs across your machines:
+Whether you're running Apache Airflow on a virtual machine (VM) and/or within a containerized environment, every node in your Airflow instance needs a copy of your DAG files. In addition, these DAG files all need to appear in the same directory. This guide will cover two popular methods for deploying DAGs across your machines:
 
-- Deploy Airflow on Virtual Machines by using a cron job that pulls DAGs into your local directories from a central Git repository.
-- Deploy Airflow on Containers by building DAGs into a Docker image and rebuilding the image whenever DAGs are updated. To implement this method, Kubernetes and Helm are required.
+- Deploy Airflow on VMs by using a cron job that pulls DAGs into your local directories from a central Git repository.
+- Deploy Airflow on containers by building DAGs into a Docker image and rebuilding the image whenever DAG files are updated. To implement this method, Kubernetes and Helm are required.
 
-## Deploy DAGs to Multiple Machines via Cron Job
+## Deploy DAGs to Virtual Machines
 
-If you installed Airflow on a virtual machine, you can use a simple cron job, as well as open source file detection tools like `incron`, to regularly pull new DAGs onto your Airflow machines and restart Airflow when those DAG files are updated. This setup assumes that you:
+If you installed Airflow on a VM, you can use a cron job and an open source file detection tool like `incron` to regularly deploy new DAGs to your Airflow instance. This setup assumes that you:
 
-- Installed Airflow via Python wheel according to [Installing at Production Scale].
+- Installed Airflow via the Astronomer Core Python wheel according to [Install Apache Airflow on a Virtual Machine].
 - Host your DAGs in a Git repository.
 - Have a system user named `airflow`.
 - Have [incron](https://github.com/sschober/kqwait) installed on all machines running Airflow.
-- Are using a Debian-like OS.
+- Are using a Debian-based OS.
 
 For each of your machines running Airflow:
 
-1. `cd` to your local DAGs directory and ensure that the folder is empty. If you followed the Installing at Production Scale guide, this folder would be `/usr/local/airflow`.
+1. `cd` to your local DAGs directory and ensure that the folder is empty. If you followed the [Install Airflow on a Virtual Machine] guide, this folder would be `/usr/local/airflow/dags`.
 
-2. Clone your Git repository for DAGs into the folder using `git clone`.
+2. Clone the Git repository hosting your DAGs into `/usr/local/airflow/` using `git clone`.
 
-3. As your `airflow` system user, run `crontab -e` to create a new cron job. You can specify an editor using the `EDITOR` environment variable (for example, `env EDITOR=atom crontab -e`).
+3. As your `airflow` system user, run `crontab -e` to create a new cron job. You can specify a text editor using the `EDITOR` environment variable. If you use [Atom](https://atom.io/), for example, you can set `env EDITOR=atom crontab -e`.
 
-4. Create a cron job that regularly pulls from your Git repository, then checks to see if any files were modified from the pull. For example, if you want to pull from GitHub to your `/usr/local/airflow` directory every 3 minutes, your cron job would look something like this:
+4. Create a [cron job](https://crontab.guru/) that regularly pulls from your Git repository, then checks to see if any files were modified from the pull. For example, if you want to pull from GitHub to your `/usr/local/airflow` directory every 3 minutes, your cron job would look something like this:
 
     ```
-    * */3 * * * cd /usr/local/airflow && git pull
-    /usr/local/airflow IN_MODIFY systemctl restart airflow
+    */3 * * * * cd /usr/local/airflow && git pull
+    /usr/local/airflow IN_MODIFY sudo systemctl restart astronomer-core@scheduler.webservice && sudo systemctl restart astronomer-core@webserver.webservice && sudo systemctl restart astronomer-core@worker.webservice
     ```
 
-    If a file was modified from the pull, the cron job restarts Airflow and triggers a deploy to your Airflow environment with any updated DAGs.
+    If a file was modified from the pull, the cron job restarts your Airflow services and triggers a deploy with your latest set of DAG files.
 
 5. Run `systemctl start incron.service` to begin monitoring the DAG directory for changes.
 
@@ -44,9 +44,9 @@ Once you have this simple cron job saved, you can scale it and use tools such as
 
 ## Deploy DAGs on Kubernetes via Helm
 
-If you run Airflow in Docker, the most efficient transition to a production-scale workflow is to deploy DAGs onto a Kubernetes environment via the [Astronomer Helm chart](https://github.com/astronomer/airflow-chart), which is built off of the Apache Airflow Project's community chart to provide more extensibility.
+If you run Airflow with Docker, the most efficient transition to a production-scale workflow is to deploy DAGs onto a Kubernetes environment via the [Astronomer Helm chart](https://github.com/astronomer/airflow-chart), which is built off of the Apache Airflow Project's community chart to provide more extensibility.
 
-With this setup, you build a custom Docker image that contains your DAGs, also known as "baking" DAGs into the image. This custom image is then pushed to your Docker registry and passed to each of your core Airflow components for execution.
+With this setup, you build a custom Docker image that contains your DAGs, also known as "baking" DAGs into an image. This custom image is then pushed to your Docker registry and used in your Airflow containers.
 
 For this setup, you'll need:
 
@@ -68,10 +68,10 @@ First, get your environment ready for deployment:
 2. Install the Helm chart using the following command:
 
     ```sh
-    helm install --name <your-release-name>
+    helm install --name <your-airflow-namespace>
     ```
 
-    To find your release name for Airflow, you can run:
+    To find your Airflow namespace you can run:
 
     ```sh
     kubectl get ns
@@ -83,7 +83,7 @@ First, get your environment ready for deployment:
     COPY <your-dag-directory> ~astro/airflow-venv
     ```
 
-Then, for every time that you update a DAG:
+Then, for every time that you update your DAGs:
 
 1. Build the Docker image using the following command:
 
