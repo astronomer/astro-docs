@@ -114,16 +114,16 @@ Install the AC Python wheel onto your machine by running:
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==<airflow-version>' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-<airflow-version>/constraints-3.8.txt"
 ```
 
-To install the latest patch version of Apache Airflow 2.0.0, for example, this command would be:
+To install the latest patch version of Apache Airflow 2.0.1, for example, this command would be:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.0.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.1.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
 ```
 
 This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you are using a different database or require additional dependencies, specify those dependencies in a comma-delimited list:
 
 ```
-astronomer-core[mysql, redis, crypto, aws, celery]==2.0.0.*
+astronomer-core[mysql, redis, crypto, aws, celery]==2.0.1.*
 ```
 
 For a list of all optional dependencies, refer to the [AC pip index](https://pip.astronomer.io/simple/index.html).
@@ -137,10 +137,10 @@ To use systemd as a process supervisor:
 1. Create a systemd unit file using the following command:
 
     ```sh
-    sudo -e /path/to/file/systemd/system/astronomer-core@.service
+    sudo -e /etc/systemd/system/astronomer-core@.service
     ```
 
-2. Using a text editor, create a file called `astronomer-core` and edit it to contain these environment variables and values:
+2. Using a text editor, create a file called `env-vars` and edit it to contain these environment variables and values:
 
     ```sh
     AIRFLOW_HOME=/usr/local/airflow/
@@ -159,7 +159,7 @@ To use systemd as a process supervisor:
     Requires=network-online.target
 
     [Service]
-    EnvironmentFile=/etc/default/astronomer-core
+    EnvironmentFile=/etc/default/env-vars
     User=astro
     Group=astro
     Type=simple
@@ -174,7 +174,7 @@ To use systemd as a process supervisor:
 
 ### F. Configure Airflow for Database Access
 
-To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `astronomer-core` file depending on your chosen [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
+To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `env-vars` file depending on your chosen [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
 
 - For Local Executor:
 
@@ -189,16 +189,22 @@ To connect your Airflow environment to the metadata DB you created in Step 1, ad
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__WEBSERVER__BASE_URL=http://host:port
-    AIRFLOW__CELERY__BROKER_URL=sqla+postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CELERY__BROKER_URL=sqla+postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__CORE__EXECUTOR=CeleryExecutor
     ```
 
 The password you specify here should be the same one you specified when prompted by the `createuser` command in Step 1. If your password contains `%`, `/`, or `@` then you will need to url-escape; replace `%` with `%25`, `/` with `%2F`, and `@` with `%40`.
 
+When you've finished configuring environment variables, run the following command to add your environment variables to your `astro` user's shell environment:
+
+```sh
+echo 'set -a; source /etc/defaults/env-vars; set +a' | sudo tee --append ~astro/.bashrc
+```
+
 #### Alternative setup: Database access
 
-* Your Airflow user password is stored in your `astronomer-core` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
+* Your Airflow user password is stored in your `env-vars` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
 
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
@@ -253,7 +259,7 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
     sudo systemctl start astronomer-core@webserver.service
     ```
 
-You can now access the Airflow UI in a web browser via `http://host:port`.
+You can now access the Airflow UI in a web browser via `http://localhost:8080`.
 
 > **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
@@ -275,21 +281,33 @@ For each machine on which you want to host a Worker:
 
 You now have the ability to run Airflow tasks within DAGs.
 
-## Step 6: Confirm the Installation
+## Step 6: Create a User
 
-To confirm that you successfully installed Apache Airflow,, open `http://host:port` in your web browser. You should see the login screen for the Airflow UI. Log in with `admin` as both your user name and password. From there, you should see Airflow's primary 'DAGs' view:
+To log into the Airflow UI, you need to first create an Airflow user:
 
-![Empty Airflow UI](https://assets2.astronomer.io/main/docs/airflow-ui/installation-home.png)
+1. Switch to your system `astro` user using the following command:
 
-If you want to further confirm that everything's working as intended, add this [example DAG] to the DAG folder of every machine running Airflow, then restart your Airflow services using the following commands:
+    ```sh
+    sudo su astro /bin/bash
+    ```
 
-```sh
-sudo systemctl stop astronomer-core@webserver.service && sudo systemctl start astronomer-core@webserver.service
-sudo systemctl stop astronomer-core@scheduler.service && sudo systemctl start astronomer-core@scheduler.service
-sudo systemctl stop astronomer-core@worker.service && sudo systemctl start astronomer-core@worker.service
-```
+    All Airflow CLI commands must be run from your `astro` user.
 
-When you refresh the Airflow UI, you should see the example DAG ready to run.
+2. Create a new Admin Airflow user with the following command:
+
+    ```sh
+    airflow users create -e EMAIL -f FIRSTNAME -l LASTNAME -p PASSWORD -r Admin -u USERNAME
+    ```
+
+    When you access the Airflow UI, use this user information to log in for the first time.
+
+## Step 7: Confirm the Installation
+
+To confirm that you successfully installed Apache Airflow, open `http://localhost:8080` in your web browser. You should see the login screen for the Airflow UI.
+
+Log in with your `Admin` user. From there, you should see Airflow's primary 'DAGs' view:
+
+![Empty Airflow UI](https://assets2.astronomer.io/main/docs/airflow-ui/ac-install.png)
 
 ## Next Steps
 
