@@ -17,8 +17,7 @@ If you installed Airflow on a VM, you can use a cron job and an open source file
 
 - Installed Airflow via the Astronomer Core Python wheel according to [Install Apache Airflow on a Virtual Machine].
 - Host your DAGs in a Git repository.
-- Have a system user named `airflow`.
-- Have [incron](https://github.com/sschober/kqwait) installed on all machines running Airflow.
+- Have [incron](https://github.com/ar-/incron) installed on all machines running Airflow.
 - Are using a Debian-based OS.
 
 For each of your machines running Airflow:
