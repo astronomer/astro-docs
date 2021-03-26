@@ -15,7 +15,7 @@ Whether you're running Apache Airflow on a virtual machine (VM) and/or within a 
 
 If you installed Airflow on a VM, you can use a cron job and an open source file detection tool like `incron` to regularly deploy new DAGs to your Airflow instance. This setup assumes that you:
 
-- Installed Airflow via the Astronomer Core Python wheel according to [Install Apache Airflow on a Virtual Machine].
+- Manage your Airflow services using Systemd as described in [Install Apache Airflow on a Virtual Machine].
 - Host your DAGs in a Git repository.
 - Have [incron](https://github.com/ar-/incron) installed on all machines running Airflow.
 - Are using a Debian-based OS.
