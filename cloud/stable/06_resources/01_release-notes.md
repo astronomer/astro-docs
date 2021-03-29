@@ -23,11 +23,6 @@ Specifically, Airflow 1.10.15 includes the following changes:
 - Add role-based authentication backend [(commit)](https://github.com/apache/airflow/commit/16461c3c8dcb1d1d2766844d32f3cdec31c89e69)
 - Show a "Warning" to Users with duplicate connections [(commit)](https://github.com/apache/airflow/commit/c037d48c9e383a6fd0b1b0d88407489d0ed02194)
 
-#### Minor improvements
-
-- Refactored and improved security for platform images hosted on quay.io.
-- Removed an `e2eTest` image that is no longer maintained from Astronomer's `default.yaml` file.
-
 #### Bug fixes
 
 - Addressed CVEs found in the following platform images: `ap-curator`, `ap-db-bootstrapper`, `ap-elasticsearch`, `ap-fluentd`, `ap-grafana`, `ap-kibana`, `ap-nats-server`, `ap-nginx`, `ap-nginx-es`, `ap-postgres-exporter`, `ap-registry`, and `ap-vendor/fluentd`.

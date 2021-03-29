@@ -42,13 +42,6 @@ Specifically, Airflow 1.10.15 includes the following changes:
 - Fixed inability to import Airflow plugins on Python 3.8 [(commit)](https://github.com/apache/airflow/pull/12859)
 - Fixed Scheduler not acknowledging active runs properly [(commit)](https://github.com/apache/airflow/pull/13803)
 
-
-### Minor improvements
-
-- Added full support for the [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html). NLB is now the default for Astronomer environments on Amazon EKS. Previously, the default was the Classic Load Balancer.
-- Refactored and improved security for platform images hosted on quay.io.
-- Removed E2E testing from some images to improve security.
-
 ### Bug fixes
 
 - Addressed CVEs found in the following platform images: `ap-curator`, `ap-db-bootstrapper`, `ap-elasticsearch`, `ap-fluentd`, `ap-grafana`, `ap-kibana`, `ap-nats-server`, `ap-nginx`, `ap-nginx-es`, `ap-postgres-exporter`, `ap-registry`, and `ap-vendor/fluentd`.
