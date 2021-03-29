@@ -10,6 +10,22 @@ description: "Astronomer Cloud Release Notes."
 
 Release Date: March 30, 2021
 
+### Support for Airflow 2.0.1
+
+[Airflow 2.0.1](https://github.com/apache/airflow/releases/tag/2.0.1) brings key fixes and performance improvements to some of the new features that arrived with [Airflow 2.0](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/upgrade-to-airflow-2).
+
+Specifically, some of the changes in Airflow 2.0.1 include:
+
+- Fix User role permissions being added to custom roles [(#13856)](https://github.com/apache/airflow/pull/13856)
+- Remove permissions to read configurations for User and Viewer roles [(#14067)](https://github.com/apache/airflow/pull/14067)
+- Fix DB Migration for SQLite to upgrade to 2.0 [(#13921)](https://github.com/apache/airflow/pull/13921)
+- Stop creating duplicate DAG File Processors [(#13662)](https://github.com/apache/airflow/pull/13662)
+- Fix Scheduler failing if a task is removed at runtime [(#14057)](https://github.com/apache/airflow/pull/14057)
+- Disable row-level locking for MariaDB and MySQL <8 [(#14031)](https://github.com/apache/airflow/pull/14031)
+- Add `__repr__` for Executors [(#13753)](https://github.com/apache/airflow/pull/13753)
+- Add `queued_by_job_id` & `external_executor_id Columns` to BrowseTaskInstances view in the Airflow UI [(#13266)](https://github.com/apache/airflow/pull/13266)
+- Dispose connections when running tasks with os.fork & CeleryExecutor [(#13265)](https://github.com/apache/airflow/pull/13265)
+
 #### Support for Airflow 1.10.15
 
 [Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) comes with a suite of enhancements and bug fixes that follow [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14), which was released in December of 2020 to make the migration to [Airflow 2.0](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2) as easy as possible. If you haven't migrated to Airflow 2.0 yet, you _must_ upgrade to Airflow 1.10.14+ first.
