@@ -35,14 +35,6 @@ You also need a database that is accessible to all the machines that will run yo
 
 > **Note:** MySQL 5.7 is compatible with Airflow, but is not recommended for users running Airflow 2.0+, as it does not support the ability to run more than 1 Scheduler. If you'd like to leverage Airflow's new [Highly-Available Scheduler](https://www.astronomer.io/blog/airflow-2-scheduler), make sure you're running MySQL 8.0+.
 
-Lastly, you will need to run the following three Airflow components:
-
-- Scheduler
-- Webserver
-- Worker(s)
-
-You can run these components on one or multiple machines, though we recommend using multiple machines for a production environment.
-
 ## Step 1: Set Up Airflow's Metadata Database
 
 In Airflow, the metadata database is responsible for keeping a record of all tasks across DAGs and their corresponding status (queued, scheduled, running, success, failed, etc). To set up the metadata DB:
@@ -63,9 +55,7 @@ In Airflow, the metadata database is responsible for keeping a record of all tas
 
 This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
 
-> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgresqlsud/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. Before editing this file, take a moment to assess the security  implications of editing this file.
->
-> If your database server is running on the same machine as your other Airflow components, you can change your authentication method from `peer` to `md5` in the same `pg_hba.conf` file to allow connections with a username/password from the same machine.
+> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgresql/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. Before editing this file, take a moment to assess the security  implications of editing this file.
 
 ### Alternative setup: Use an existing database
 
