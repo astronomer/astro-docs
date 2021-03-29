@@ -194,7 +194,7 @@ The password you specify here should be the same one you specified when prompted
 When you've finished configuring environment variables, run the following command to add your environment variables to your `astro` user's shell environment:
 
 ```sh
-echo 'set -a; source /etc/defaults/env-vars; set +a' | sudo tee --append ~astro/.bashrc
+echo 'set -a; source /usr/local/airflow/env-vars; set +a' | sudo tee --append ~astro/.bashrc
 ```
 
 #### Alternative setup: Database access
