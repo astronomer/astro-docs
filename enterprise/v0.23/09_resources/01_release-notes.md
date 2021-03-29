@@ -16,7 +16,7 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 ## v0.23.12
 
-Release Date: March 23, 2021
+Release Date: March 30, 2021
 
 ### Platform Support for Ingress Annotations
 
@@ -28,7 +28,7 @@ In private networks, you might want to disable Alertmanager clustering to avoid 
 
 ### Support for Airflow 1.10.15
 
-[Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14) was built to make the migration and testing process as easy as possible. [Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) was subsequently released with additional bug fixes and improvements, and is what we recommend as the latest "bridge" release to Airflow 2.0.
+[Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) comes with a suite of enhancements and bug fixes that follow [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14), which was released in December of 2020 to make the migration to [Airflow 2.0](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/upgrade-to-airflow-2) as easy as possible. If you haven't migrated to Airflow 2.0 yet, you _must_ upgrade to Airflow 1.10.14+ first.
 
 Specifically, Airflow 1.10.15 includes the following changes:
 
