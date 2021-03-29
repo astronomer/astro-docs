@@ -6,13 +6,15 @@ description: "Install Apache Airflow on one or more virtual machines with the As
 
 ## Overview
 
-This guide walks through the necessary steps to install Apache Airflow via the Astronomer Core Python wheel on one or more Virtual Machines (VMs). By the end of the setup, you'll be able to deploy and run Airflow across multiple machines.
+This guide contains the complete setup steps for installing Apache Airflow via the Astronomer Core Python wheel on one or more Virtual Machines (VMs). By the end of the setup, you'll be able to deploy and run an Airflow instance across multiple machines.
+
+Note that this setup represents one possible configuration of Astronomer Core and uses optional tools such as systemd and PostgreSQL. After successfully starting Airflow for the first time, we recommend reviewing this configuration and adjusting it based on the functional requirements for your project.
 
 If you haven't tested Airflow locally and would like to do so, refer to [Astronomer Core Quickstart](/docs/ac/next/01_quickstart).
 
 ## Prerequisites
 
-First, ensure the OS-level packages listed below are installed on your machines. If you're Debian-based, run ` sudo apt-get install <package>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
+First, ensure the OS-level packages listed below are installed on your machines:
 
 - sudo
 - python3
@@ -23,11 +25,15 @@ First, ensure the OS-level packages listed below are installed on your machines.
 - postgresql
 - systemd
 
-You also need a database that is accessible to all the machines that will run your Airflow instance. While this guide walks through the process for configuring a PostgreSQL database, Airflow is compatible with all of the following databases:
+If you're Debian-based, run ` sudo apt-get install <package1> <package-2> ... <package-x>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
+
+You also need a database that is accessible to all the machines that will run your Airflow instance. This guide walks through the process for configuring a PostgreSQL database, but Airflow is compatible with all of the following databases:
 
 - PostgreSQL: 9.6, 10, 11, 12, 13
 - MySQL: 5.7, 8
 - SQLite: 3.15.0+
+
+> **Note:** MySQL 5.7 is compatible with Airflow, but is not recommended for users running Airflow 2.0+, as it does not support the ability to run more than 1 Scheduler. If you'd like to leverage Airflow's new [Highly-Available Scheduler](https://www.astronomer.io/blog/airflow-2-scheduler), make sure you're running MySQL 8.0+.
 
 Lastly, you will need to run the following three Airflow components:
 
@@ -36,8 +42,6 @@ Lastly, you will need to run the following three Airflow components:
 - Worker(s)
 
 You can run these components on one or multiple machines, though we recommend using multiple machines for a production environment.
-
-> **Note:** MySQL 5.7 is compatible with Airflow, but is not recommended for users running Airflow 2.0+, as it does not support the ability to run more than 1 Scheduler. If you'd like to leverage Airflow's new Highly-Available Scheduler, make sure you're running MySQL 8.0+.
 
 ## Step 1: Set Up Airflow's Metadata Database
 
@@ -91,7 +95,8 @@ You also need to configure an `AIRFLOW_HOME` directory (not to be confused with 
 ```sh
 sudo install --owner=astro --group=astro -d /usr/local/airflow
 echo 'export AIRFLOW_HOME=/usr/local/airflow' | sudo tee --append ~astro/.bashrc
-cd /usr/local/airflow && sudo mkdir dags
+cd /usr/local/airflow
+sudo mkdir dags
 ```
 
 > **Note:** If you're running Airflow on multiple machines, each machine needs access to the same DAGs in order to successfully execute them. We recommend setting up automation pipelines for updating all of your DAG folders whenever a local folder is updated. For more information, read [Deploying DAGs].
@@ -120,7 +125,7 @@ To install the latest patch version of Apache Airflow 2.0.1, for example, this c
 sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.1.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
 ```
 
-This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you are using a different database or require additional dependencies, specify those dependencies in a comma-delimited list:
+This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you want to use the Celery Executor or otherwise need extra functionality, specify additional dependencies in a comma-delimited list:
 
 ```
 astronomer-core[mysql, redis, crypto, aws, celery]==2.0.1.*
@@ -159,7 +164,7 @@ To use systemd as a process supervisor:
     Requires=network-online.target
 
     [Service]
-    EnvironmentFile=/etc/default/env-vars
+    EnvironmentFile=/usr/local/airflow/env-vars
     User=astro
     Group=astro
     Type=simple
@@ -188,7 +193,7 @@ To connect your Airflow environment to the metadata DB you created in Step 1, ad
 
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
-    AIRFLOW__WEBSERVER__BASE_URL=http://host:port
+    AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
     AIRFLOW__CELERY__BROKER_URL=sqla+postgresql://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__CORE__EXECUTOR=CeleryExecutor
