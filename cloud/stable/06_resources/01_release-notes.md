@@ -8,11 +8,11 @@ description: "Astronomer Cloud Release Notes."
 
 ### v0.23.12
 
-Release Date: March 23, 2021
+Release Date: March 30, 2021
 
 #### Support for Airflow 1.10.15
 
-[Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14) was built to make the migration and testing process as easy as possible. [Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) was subsequently released with additional bug fixes and improvements, and is what we recommend as the latest "bridge" release to Airflow 2.0.
+[Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) comes with a suite of enhancements and bug fixes that follow [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14), which was released in December of 2020 to make the migration to [Airflow 2.0](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2) as easy as possible. If you haven't migrated to Airflow 2.0 yet, you _must_ upgrade to Airflow 1.10.14+ first.
 
 Specifically, Airflow 1.10.15 includes the following changes:
 
@@ -23,6 +23,7 @@ Specifically, Airflow 1.10.15 includes the following changes:
 - Add role-based authentication backend [(commit)](https://github.com/apache/airflow/commit/16461c3c8dcb1d1d2766844d32f3cdec31c89e69)
 - Show a "Warning" to Users with duplicate connections [(commit)](https://github.com/apache/airflow/commit/c037d48c9e383a6fd0b1b0d88407489d0ed02194)
 
+For guidelines on how to upgrade to Airflow 1.10.15 on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions).
 #### Minor improvements
 
 - Refactored and improved security for platform images hosted on quay.io.
