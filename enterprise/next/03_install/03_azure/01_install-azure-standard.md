@@ -257,6 +257,8 @@ postgresql:
 nginx:
   # IP address the nginx ingress should bind to
   loadBalancerIP: ~
+  # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
+  ingressAnnotations: {}
 
 #################################
 ### SMTP configuration
