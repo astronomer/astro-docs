@@ -8,7 +8,7 @@ description: "A complete setup for getting Airflow running on Docker using Astro
 
 Running Airflow in Docker containers is a simple and effective way to manage and scale your project. The core Airflow components — the Webserver, Scheduler, and Workers — are each run in separate containers, meaning you can easily scale resource usage based on the computing requirements of your project.
 
-This guide contains all of the necessary setup to get Airflow running on Docker. This includes creating a local project directory, pulling an Astronomer Core image and `docker-compose` file, and spinning up your environment.
+This guide contains all of the necessary setup to get Airflow running on Docker. You'll create a local project directory, pull an Astronomer Core image and `docker-compose` file, and spin up your environment.
 
 ## Prerequisites
 
@@ -21,13 +21,17 @@ To install Apache Airflow on Docker, you need:
 
 To install and run the Astronomer Core distribution of Apache Airflow:
 
-1. Create new project directory for your Airflow project and `cd` into it.
+1. Create new project directory for your Airflow project and `cd` into it:
 
-        mkdir astronomer-core && cd astronomer-core
+    ```sh
+    mkdir astronomer-core && cd astronomer-core
+    ```
 
 2. Run the following command to initialize some of the key files you'll need to run Astronomer Core:
 
-        touch .env packages.txt requirements.txt Dockerfile
+    ```sh
+    touch .env packages.txt requirements.txt Dockerfile
+    ```
 
 3. Add the the following to the `Dockerfile` to grab the latest Astronomer Core image on build:
 
@@ -48,13 +52,13 @@ To install and run the Astronomer Core distribution of Apache Airflow:
     | Postgres/ Celery Executor |`curl -lfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-postgres-celery.yaml`|
     | Postgres/ Celery Executor |`curl -LfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-postgres-local.yaml` |
 
-    Your `docker-compose` file contains all of the connections and commands needed to start Airflow for the first time. Additionally, the `x-airflow-env` object is where you configure Airflow's environment variables. If you want to change a default configuration, such your Webserver port or your Airflow home directory, you need to first update this file and restart your Airflow environment.
+    Your `docker-compose` file contains all of the connections and commands needed to start Airflow for the first time. Additionally, the `x-airflow-env` object is where you configure Airflow's environment variables. If you want to change a default configuration, such as your Webserver port or your Airflow home directory, you need to first update this file and restart your Airflow environment.
 
-5. Run `docker-compose up` to spin up the local Airflow Scheduler, Webserver, and Postgres containers, as well as create some key objects in for running Airflow. The default user it creates will have `admin/admin` as a username and password.
+5. Run `docker-compose up` to spin up the local Airflow Scheduler, Webserver, and Metadata DB containers, as well as create some key objects for running Airflow. The default user created will have `admin/admin` as a username and password.
 
     By default, this command will run Airflow on your machine based on your `docker-compose` file. Containers for your Airflow Metadata Database, Airflow Webserver and Airflow Scheduler are spun up programmatically.
 
-6. To confirm the installation was successful, open `localhost:8080` in a web browser. You should be able to see the Airflow UI and successfully log in:
+6. To confirm the installation was successful, open `localhost:8080` in a web browser and log in as your default `admin`. If your setup was successful, you should see the Airflow home:
 
     ![Airflow home page](https://assets2.astronomer.io/main/docs/airflow-ui/ac-install.png)
 
@@ -64,7 +68,7 @@ To install and run the Astronomer Core distribution of Apache Airflow:
     docker ps
     ```
 
-    You should see a container for each Airflow service specified in your `docker-compose` file:
+    If your installation was successful, you should see a container for each Airflow service specified in your `docker-compose` file:
 
     ```
     CONTAINER ID   IMAGE                             COMMAND                  CREATED          STATUS          PORTS                                        NAMES
@@ -77,6 +81,7 @@ user@LocalMachine astronomer-core %
 ## Next Steps
 
 This guide provided the minimum setup necessary to get Airflow running on Docker at scale. From here, you'll want to complete the following additional setup to make the most of Airflow:
+
 - Automate DAG deployment across your installation
 - Upgrade to a new version of Apache Airflow
 - Integrate an authentication system
