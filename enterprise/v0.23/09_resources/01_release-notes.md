@@ -42,7 +42,7 @@ Specifically, Airflow 1.10.15 includes the following changes:
 - Fixed inability to import Airflow plugins on Python 3.8 [(commit)](https://github.com/apache/airflow/pull/12859)
 - Fixed Scheduler not acknowledging active runs properly [(commit)](https://github.com/apache/airflow/pull/13803)
 
-For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.15, check out the [Airflow Release](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html) or the corresponding [AC 1.10.5 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md).
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions). For more information on 1.10.15, check out the [Airflow Release](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html) or the corresponding [AC 1.10.5 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md).
 
 ### Bug fixes
 
