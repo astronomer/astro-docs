@@ -40,7 +40,7 @@ To install and run the Astronomer Core distribution of Apache Airflow:
     FROM quay.io/astronomer/docker-airflow:latest
     ```
 
-    To pull from a specific version, replace `latest` in the image tag with your desired version. For a list of all image tags, refer to the [quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).  
+    To pull from a specific version, replace `latest` in the image tag with the tag for your desired version. For a list of all image tags, refer to the [quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).  
 
 
 4. In your project folder, run one of the following commands to download a default `docker-compose` file based on the database and Airflow Executor you want to use:
