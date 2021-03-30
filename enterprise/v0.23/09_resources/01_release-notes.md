@@ -20,7 +20,9 @@ Release Date: March 30, 2021
 
 ### Platform Support for Ingress Annotations
 
-In Astronomer Enterprise 0.23, you can now configure the behavior of Ingress resources by specifying [annotations](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your `config.yaml` file. To do so, add annotations to the `ingressAnnotations` dictionary in your `config.yaml` file. Then, push the changes to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+In Astronomer Enterprise 0.23, you can now configure the behavior of Ingress resources by specifying [annotations](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your Astronomer Helm Chart. For example, you can now upgrade from the Classic Load Balancer to the Network Load Balancer on Amazon EKS by adding a single value to your Helm Chart.
+
+To do so, add annotations to the `ingressAnnotations` dictionary in your `config.yaml` file. Then, push the changes to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
 ### Platform Support for Disabling Alertmanager Clustering
 
