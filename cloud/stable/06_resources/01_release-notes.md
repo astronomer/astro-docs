@@ -23,7 +23,7 @@ Specifically, Airflow 1.10.15 includes the following changes:
 - Add role-based authentication backend [(commit)](https://github.com/apache/airflow/commit/16461c3c8dcb1d1d2766844d32f3cdec31c89e69)
 - Show a "Warning" to Users with duplicate connections [(commit)](https://github.com/apache/airflow/commit/c037d48c9e383a6fd0b1b0d88407489d0ed02194)
 
-For more information on upgrading to Airflow 1.10.15 on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions).
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.15, check out the [Airflow Release](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html) or the corresponding [AC 1.10.5 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md).
 
 #### Bug fixes
 
@@ -40,10 +40,7 @@ Release Date: February 11, 2021
 
 - BugFix: Connections, Pools, and Variables in `airflow_settings.yaml` not built into image via Astronomer CLI if Airflow 2.0 image (*Resolved in CLI v0.23.3*)
 - BugFix: Houston API does not pull latest available Airflow patch on deploy (e.g. Airflow `2.0.0-1` if Airflow `2.0.0-2` is available)
-- BugFix: A SysAdmin Service Account created via the Houston API does not have right to see all Workspaces and can only be seen by a SysAdmin user in the Workspace(s) they're a part of.
 - BugFix: Workspace Service Account suddenly only available as a Deployment Service account (Error: `Insufficient Permissions`)
-- BugFix: The Houston DB migration pod stuck in interactive mode on upgrade to Astronomer v0.23
-- BugFix: Upgrade from Airflow 2.0.0 to Airflow 2.0.1 via the Astronomer CLI fails
 
 ### v0.23.9
 
@@ -57,15 +54,17 @@ Release Date: December 16, 2020
 
 #### Platform Support for Airflow 2.0
 
-Astronomer now offers full support for [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0/). Already available for local development, Airflow 2.0 is a momentous open-source release that includes a refactored Scheduler, over 30 UI/UX improvements, a new REST API and much more.
+Astronomer now offers full support for [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0/), a momentous open-source release that includes a refactored Scheduler, over 30 UI/UX improvements, a new REST API, and much more.
 
-In support of Airflow 2.0, Astronomer v0.23 includes:
+In support for Airflow 2.0, Astronomer has:
 
-- Support for Multiple Schedulers
-- A mechanism to ensure that users migrate to Airflow 1.10.14 prior to upgrading to 2.0
-- Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/v0.23/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
+- Support for [Multiple Schedulers](https://www.astronomer.io/blog/airflow-2-scheduler) (*added in v0.22.3*)
 
-For local development guidelines, read [Get Started with Airflow 2.0](https://www.astronomer.io/guides/get-started-airflow-2).
+- A mechanism to ensure that users migrate to Airflow 1.10.14+ prior to upgrading to 2.0.0+ (*added in v0.23.5*)
+
+- Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/v0.23/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`) (*added in v0.23.5*)
+
+For guidelines on how to upgrade, read [Upgrade to Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2).
 
 #### Bug Fixes & Improvements
 
