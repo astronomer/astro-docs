@@ -10,22 +10,6 @@ description: "Astronomer Cloud Release Notes."
 
 Release Date: March 30, 2021
 
-### Support for Airflow 2.0.1
-
-[Airflow 2.0.1](https://github.com/apache/airflow/releases/tag/2.0.1) brings key fixes and performance improvements to some of the new features that arrived with [Airflow 2.0](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/upgrade-to-airflow-2).
-
-Specifically, some of the changes in Airflow 2.0.1 include:
-
-- Fix User role permissions being added to custom roles [(#13856)](https://github.com/apache/airflow/pull/13856)
-- Remove permissions to read configurations for User and Viewer roles [(#14067)](https://github.com/apache/airflow/pull/14067)
-- Fix DB Migration for SQLite to upgrade to 2.0 [(#13921)](https://github.com/apache/airflow/pull/13921)
-- Stop creating duplicate DAG File Processors [(#13662)](https://github.com/apache/airflow/pull/13662)
-- Fix Scheduler failing if a task is removed at runtime [(#14057)](https://github.com/apache/airflow/pull/14057)
-- Disable row-level locking for MariaDB and MySQL <8 [(#14031)](https://github.com/apache/airflow/pull/14031)
-- Add `__repr__` for Executors [(#13753)](https://github.com/apache/airflow/pull/13753)
-- Add `queued_by_job_id` & `external_executor_id Columns` to BrowseTaskInstances view in the Airflow UI [(#13266)](https://github.com/apache/airflow/pull/13266)
-- Dispose connections when running tasks with os.fork & CeleryExecutor [(#13265)](https://github.com/apache/airflow/pull/13265)
-
 #### Support for Airflow 1.10.15
 
 [Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) comes with a suite of enhancements and bug fixes that follow [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14), which was released in December of 2020 to make the migration to [Airflow 2.0](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2) as easy as possible. If you haven't migrated to Airflow 2.0 yet, you _must_ upgrade to Airflow 1.10.14+ first.
@@ -46,6 +30,19 @@ Specifically, Airflow 1.10.15 includes the following changes:
 - Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI now properly forces the `fsGroup` setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
 - Fixed an issue where Airflow Schedulers were unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
 
+## v0.23.11
+
+Release Date: February 11, 2021
+
+### Bug Fixes & Improvements
+
+- BugFix: Connections, Pools, and Variables in `airflow_settings.yaml` not built into image via Astronomer CLI if Airflow 2.0 image (*Resolved in CLI v0.23.3*)
+- BugFix: Houston API does not pull latest available Airflow patch on deploy (e.g. Airflow `2.0.0-1` if Airflow `2.0.0-2` is available)
+- BugFix: A SysAdmin Service Account created via the Houston API does not have right to see all Workspaces and can only be seen by a SysAdmin user in the Workspace(s) they're a part of.
+- BugFix: Workspace Service Account suddenly only available as a Deployment Service account (Error: `Insufficient Permissions`)
+- BugFix: The Houston DB migration pod stuck in interactive mode on upgrade to Astronomer v0.23
+- BugFix: Upgrade from Airflow 2.0.0 to Airflow 2.0.1 via the Astronomer CLI fails
+
 ### v0.23.9
 
 Release Date: January 18, 2021
@@ -55,6 +52,18 @@ This release was exclusively infrastructure maintenance for Astronomer Enterpris
 ### v0.23.6
 
 Release Date: December 16, 2020
+
+#### Platform Support for Airflow 2.0
+
+Astronomer now offers full support for [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0/). Already available for local development, Airflow 2.0 is a momentous open-source release that includes a refactored Scheduler, over 30 UI/UX improvements, a new REST API and much more.
+
+In support of Airflow 2.0, Astronomer v0.23 includes:
+
+- Support for Multiple Schedulers
+- A mechanism to ensure that users migrate to Airflow 1.10.14 prior to upgrading to 2.0
+- Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/v0.23/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`)
+
+For local development guidelines, read [Get Started with Airflow 2.0](https://www.astronomer.io/guides/get-started-airflow-2).
 
 #### Bug Fixes & Improvements
 
@@ -95,7 +104,7 @@ In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes su
 - [1.10.10-6](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
 - [1.10.7-16](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
 
-For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
+For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions).
 
 #### Improvements to Airflow 2.0 Upgrade Path
 
