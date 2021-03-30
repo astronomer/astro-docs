@@ -24,7 +24,6 @@ Read below for details.
 
 Astronomer Certified offers support for the following versions of Apache Airflow:
 
-- [Airflow 2.0.1](https://airflow.apache.org/docs/apache-airflow/2.0.1/changelog.html)
 - [Airflow 2.0.0](https://airflow.apache.org/blog/airflow-two-point-oh-is-here/)
 - [Airflow 1.10.15](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html)
 - [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14)
@@ -134,8 +133,6 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 | [1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild | N/A                                                           |
 | [1.10.15](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.15-buster-onbuild | N/A                                                           |
 | [2.0.0](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md)     | FROM quay.io/astronomer/ap-airflow:2.0.0-buster-onbuild   | N/A                                                           |
-| [2.0.1](https://github.com/astronomer/ap-airflow/blob/master/2.0.1/CHANGELOG.md)     | FROM quay.io/astronomer/ap-airflow:2.0.1-buster-onbuild   | N/A                                                           |
-
 
 > **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our Docker Registry due to a [recent change](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer/ap-airflow` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
 

@@ -29,8 +29,7 @@ It's worth noting that while the tables below reference the minimum compatible v
 | 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
 | 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
 | 1.10.15              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
-| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6             |
-| 2.0.1                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.7             |
+| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7     |
 
 For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/).
 
