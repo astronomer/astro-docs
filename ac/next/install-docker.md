@@ -1,14 +1,35 @@
-To install and run the Astronomer Certified distribution, ensure that Docker is running on your machine and follow the steps below:
+---
+title: "Install Apache Airflow on Docker"
+navtitle: "Install on Docker"
+description: "A complete setup for getting Airflow running on Docker using Astronomer Core."
+---
+
+## Overview
+
+Running Airflow in Docker containers is a simple and effective way to manage and scale your project. The core Airflow components — the Webserver, Scheduler, and Workers — are each run in separate containers, meaning you can easily scale resource usage based on the computing requirements of your project.
+
+This guide contains all of the necessary setup to get Airflow running on Docker. This includes creating a local project directory, pulling an Astronomer Core image and `docker-compose` file, and spinning up your environment.
+
+## Prerequisites
+
+To install Apache Airflow on Docker, you need:
+
+- [curl](https://curl.se/download.html)
+- [Docker](https://docs.docker.com/get-docker/)
+
+## Installation
+
+To install and run the Astronomer Core distribution of Apache Airflow:
 
 1. Create new project directory for your Airflow project and `cd` into it.
 
-        mkdir astronomer-certified && cd astronomer-certified
+        mkdir astronomer-core && cd astronomer-core
 
-2. Run the following command to initialize all of the necessary files you'll need to run the AC image:
+2. Run the following command to initialize some of the key files you'll need to run Astronomer Core:
 
-        touch .env packages.txt requirements.txt docker-compose.yml Dockerfile
+        touch .env packages.txt requirements.txt Dockerfile
 
-3. Add the the following to the `Dockerfile` to grab the latest Astronomer Certified image on build:
+3. Add the the following to the `Dockerfile` to grab the latest Astronomer Core image on build:
 
     ```
     # For a Debian-based image
@@ -18,69 +39,45 @@ To install and run the Astronomer Certified distribution, ensure that Docker is 
     To pull from a specific version, replace `latest` in the image tag with your desired version. For a list of all image tags, refer to the [quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).  
 
 
-4. Add the following to the `docker-compose.yml` file:
+4. In your project folder, run one of the following commands to download a default `docker-compose` file based on the database and Airflow Executor you want to use:
 
-    ```yaml
-    version: "3"
-     volumes:
-       postgres_data:
-         driver: local
-       airflow_logs:
-         driver: local
-     services:
-       postgres:
-         container_name: postgres
-         image: postgres:10.1-alpine
-         restart: unless-stopped
-         volumes:
-           - postgres_data:/var/lib/postgresql/data
-       scheduler:
-         container_name: scheduler
-         image: "local-airflow-dev"
-         build: .
-         command: >
-           bash -c "airflow upgradedb && airflow scheduler"
-         restart: unless-stopped
-         depends_on:
-           - postgres
-         environment:
-           AIRFLOW__CORE__EXECUTOR: LocalExecutor
-           AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://postgres:@postgres:5432
-           AIRFLOW__CORE__LOAD_EXAMPLES: "False"
-           # Do not reuse this key in production or anywhere outside your local laptop!
-           AIRFLOW__CORE__FERNET_KEY: "d6Vefz3G9U_ynXB3cr7y_Ak35tAHkEGAVxuz_B-jzWw="
-         volumes:
-           - ./dags:/usr/local/airflow/dags:ro
-           - ./plugins:/usr/local/airflow/plugins
-           - ./include:/usr/local/airflow/include
-           - airflow_logs:/usr/local/airflow/logs
-         env_file: .env
-       webserver:
-         container_name: webserver
+    | Configuration | Command |
+    |---------------|---------|
+    | MySQL/ Celery Executor |`curl -LfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-mysql-celery.yaml`|
+    | MySQL/ Local Executor |`curl -LfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-mysql-local.yaml`|
+    | Postgres/ Celery Executor |`curl -lfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-postgres-celery.yaml`|
+    | Postgres/ Celery Executor |`curl -LfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-postgres-local.yaml` |
 
-         image: "local-airflow-dev"
-         command: >
-           bash -c "airflow create_user -r Admin -u admin -e admin@example.com -f admin -l user -p admin && airflow webserver"
-         restart: unless-stopped
-         depends_on:
-           - scheduler
-           - postgres
-         environment:
-           AIRFLOW__CORE__EXECUTOR: LocalExecutor
-           AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://postgres:@postgres:5432
-           AIRFLOW__CORE__LOAD_EXAMPLES: "False"
-           AIRFLOW__CORE__FERNET_KEY: "d6Vefz3G9U_ynXB3cr7y_Ak35tAHkEGAVxuz_B-jzWw="
-           AIRFLOW__WEBSERVER__RBAC: "True"
-         ports:
-           - 8080:8080
-         volumes:
-           - ./dags:/usr/local/airflow/dags:ro
-           - ./plugins:/usr/local/airflow/plugins
-           - ./include:/usr/local/airflow/include
-           - airflow_logs:/usr/local/airflow/logs
-         env_file: .env
+    Your `docker-compose` file contains all of the connections and commands needed to start Airflow for the first time. Additionally, the `x-airflow-env` object is where you configure Airflow's environment variables. If you want to change a default configuration, such your Webserver port or your Airflow home directory, you need to first update this file and restart your Airflow environment.
+
+5. Run `docker-compose up` to spin up the local Airflow Scheduler, Webserver, and Postgres containers, as well as create some key objects in for running Airflow. The default user it creates will have `admin/admin` as a username and password.
+
+    By default, this command will run Airflow on your machine based on your `docker-compose` file. Containers for your Airflow Metadata Database, Airflow Webserver and Airflow Scheduler are spun up programmatically.
+
+6. To confirm the installation was successful, open `localhost:8080` in a web browser. You should be able to see the Airflow UI and successfully log in:
+
+    ![Airflow home page](https://assets2.astronomer.io/main/docs/airflow-ui/ac-install.png)
+
+    You can also confirm that all Airflow components are running with the following Docker CLI command:
+
+    ```sh
+    docker ps
     ```
 
-5. Run `docker-compose up` to spin up the local Airflow Scheduler, Webserver, and Postgres containers. The default user that gets created for Airflow will have `admin/admin` as a username and password.
+    You should see a container for each Airflow service specified in your `docker-compose` file:
 
-By default, the above will run Airflow on your machine using the Local Executor.  Containers for your Airflow Metadata Database, Airflow Webserver and Airflow Scheduler are spun up programmatically (this is the equivalent of running the `airflow initdb`, `airflow webserver` and `airflow scheduler` commands detailed in the next section).
+    ```
+    CONTAINER ID   IMAGE                             COMMAND                  CREATED          STATUS          PORTS                                        NAMES
+45dfd2f532fe   astronomer-core_569586/airflow:latest   "tini -- /entrypoint…"   13 seconds ago   Up 11 seconds   5555/tcp, 8793/tcp, 0.0.0.0:8080->8080/tcp   airflow2569586_webserver_1
+4fd455a109f8   astronomer-core_569586/airflow:latest   "tini -- /entrypoint…"   14 seconds ago   Up 12 seconds   5555/tcp, 8080/tcp, 8793/tcp                 airflow2569586_scheduler_1
+df802bb4c2ed   postgres:12.2                     "docker-entrypoint.s…"   3 weeks ago      Up 13 seconds   0.0.0.0:5432->5432/tcp                       airflow2569586_postgres_1
+user@LocalMachine astronomer-core %
+    ```
+
+## Next Steps
+
+This guide provided the minimum setup necessary to get Airflow running on Docker at scale. From here, you'll want to complete the following additional setup to make the most of Airflow:
+- Automate DAG deployment across your installation
+- Upgrade to a new version of Apache Airflow
+- Integrate an authentication system
+- Set up a destination for Airflow task logs
