@@ -59,9 +59,7 @@ Astronomer now offers full support for [Airflow 2.0](https://www.astronomer.io/b
 In support for Airflow 2.0, Astronomer has:
 
 - Support for [Multiple Schedulers](https://www.astronomer.io/blog/airflow-2-scheduler) (*added in v0.22.3*)
-
 - A mechanism to ensure that users migrate to Airflow 1.10.14+ prior to upgrading to 2.0.0+ (*added in v0.23.5*)
-
 - Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/v0.23/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`) (*added in v0.23.5*)
 
 For guidelines on how to upgrade, read [Upgrade to Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2).
