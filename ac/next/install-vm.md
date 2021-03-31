@@ -298,7 +298,7 @@ To log in to the Airflow UI, you need to first create an Airflow user:
 
     All Airflow CLI commands must be run from your `astro` user.
 
-2. Create a new Admin Airflow user with the following command:
+2. Create a new `admin` Airflow user with the following command:
 
     ```sh
     airflow users create -e EMAIL -f FIRSTNAME -l LASTNAME -p PASSWORD -r Admin -u USERNAME
@@ -308,7 +308,7 @@ To log in to the Airflow UI, you need to first create an Airflow user:
 
 To confirm that you successfully installed Apache Airflow, open `http://localhost:8080` in your web browser. You should see the login screen for the Airflow UI.
 
-Log in with your `Admin` user. From there, you should see Airflow's primary 'DAGs' view:
+Log in with your `admin` user. From there, you should see Airflow's primary 'DAGs' view:
 
 ![Empty Airflow UI](https://assets2.astronomer.io/main/docs/airflow-ui/ac-install.png)
 
