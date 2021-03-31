@@ -14,7 +14,7 @@ If you haven't tested Airflow locally and would like to do so, refer to [Astrono
 
 ## Prerequisites
 
-First, ensure the OS-level packages listed below are installed on your machines:
+First, ensure the the following OS-level packages are installed on your machines:
 
 - sudo
 - python3
@@ -25,7 +25,11 @@ First, ensure the OS-level packages listed below are installed on your machines:
 - postgresql
 - systemd
 
-If you're Debian-based, run `sudo apt-get install <package1> <package-2> ... <package-x>` to do so. If you're running RedHat Linux, run `yum install <package>`.
+If you're Debian-based, you can install these by running:
+
+```
+sudo apt-get install sudo python3 python3-dev python3-venv python3-psycopg2 gcc postgresql systemd
+```
 
 You also need a database that is accessible to all the machines that will run your Airflow instance. This guide walks through the process for configuring a PostgreSQL database, but Airflow is compatible with all of the following databases:
 
@@ -103,22 +107,30 @@ venv is a tool to create lightweight, isolated Python environments without affec
 
 ### D. Install Astronomer Core
 
-Install the AC Python wheel onto your machine by running:
+To install the AC Python wheel onto your machine, run one of the following commands depending on your chosen Airflow Version and [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
+
+- For Local Executor:
+
+    ```sh
+    sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==<airflow-version>' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-<airflow-version>/constraints-3.8.txt"
+    ```
+
+- For Celery Executor:
+
+    ```sh
+    sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres, celery, redis]==<airflow-version>' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-<airflow-version>/constraints-3.8.txt"
+    ```
+
+For example, to install the latest patch version of Apache Airflow 2.0.1 with support for the Celery executor, this command would be:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres, redis]==<airflow-version>' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-<airflow-version>/constraints-3.8.txt"
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres, celery, redis]==2.0.1.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
 ```
 
-To install the latest patch version of Apache Airflow 2.0.1, for example, this command would be:
-
-```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres, redis]==2.0.1.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
-```
-
-This command includes the optional `postgres` and `redis` dependencies so that all libraries for those tools are also installed. If you want to use the Celery Executor or otherwise need extra functionality, specify additional dependencies in a comma-delimited list:
+This command includes the optional `postgres`, `celery`, and `redis` dependencies so that all libraries for those tools are also installed. If your environment requires extra functionality, specify additional dependencies in a comma-delimited list:
 
 ```
-astronomer-core[mysql, redis, crypto, aws, celery]==2.0.1.*
+astronomer-core[mysql, redis, celery, crypto, aws]==2.0.1.*
 ```
 
 For a list of all optional dependencies, refer to the [AC pip index](https://pip.astronomer.io/simple/index.html).
@@ -135,7 +147,7 @@ To use systemd as a process supervisor:
     sudo -e /etc/systemd/system/astronomer-core@.service
     ```
 
-2. Using a text editor, create a file called `env-vars` and edit it to contain these environment variables and values:
+2. Using a text editor, create a file called `sys-config` and edit it to contain these environment variables and values:
 
     ```sh
     AIRFLOW_HOME=/usr/local/airflow/
@@ -143,9 +155,9 @@ To use systemd as a process supervisor:
     PATH=$PATH:/home/astro/airflow-venv/bin
     ```
 
-    If you want to configure environment variables for a single Airflow service, we recommend doing so in the `env-vars` file for the machine on which the service is running.
+    If you want to configure environment variables for a single Airflow service, we recommend doing so in the `sys-config` file for the machine on which the service is running.
 
-    When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file.  For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
+    > **Note:** When you run Airflow for the first time, a file called `airflow.cfg` is generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file.  For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
 
 3. Add the following to your systemd unit file:
 
@@ -156,7 +168,7 @@ To use systemd as a process supervisor:
     Requires=network-online.target
 
     [Service]
-    EnvironmentFile=/usr/local/airflow/env-vars
+    EnvironmentFile=/usr/local/airflow/sys-config
     User=astro
     Group=astro
     Type=simple
@@ -171,7 +183,7 @@ To use systemd as a process supervisor:
 
 ### F. Configure Airflow for Database Access
 
-To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `env-vars` file depending on your chosen [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
+To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `sys-config` file depending on your chosen [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
 
 - For Local Executor:
 
@@ -196,12 +208,12 @@ The password you specify here should be the same one you specified when prompted
 When you've finished configuring environment variables, run the following command to add your environment variables to your `astro` user's shell environment:
 
 ```sh
-echo 'set -a; source /usr/local/airflow/env-vars; set +a' | sudo tee --append ~astro/.bashrc
+echo 'set -a; source /usr/local/airflow/sys-config; set +a' | sudo tee --append ~astro/.bashrc
 ```
 
 #### Optional setup: Database access
 
-Your Airflow user password is stored in your `env-vars` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command to obtain the connection string when the service starts up. For example:
+Your Airflow user password is stored in your `sys-config` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command to obtain the connection string when the service starts up. For example:
 
 ```
 AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
