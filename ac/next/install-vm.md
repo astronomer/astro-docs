@@ -25,7 +25,7 @@ First, ensure the OS-level packages listed below are installed on your machines:
 - postgresql
 - systemd
 
-If you're Debian-based, run ` sudo apt-get install <package1> <package-2> ... <package-x>` to do so. If you're running RedHat Linux, run `$ yum install <package>`.
+If you're Debian-based, run `sudo apt-get install <package1> <package-2> ... <package-x>` to do so. If you're running RedHat Linux, run `yum install <package>`.
 
 You also need a database that is accessible to all the machines that will run your Airflow instance. This guide walks through the process for configuring a PostgreSQL database, but Airflow is compatible with all of the following databases:
 
@@ -64,7 +64,7 @@ Instead of creating a new PostgreSQL database, you can use an existing database 
 - The database is compatible with Airflow as described in Prerequisites.
 - A user named `airflow` has ownership access to the database.
 
-When you specify the `AIRFLOW__CORE__SQL_ALCHEMY_CONN` environment variable in step 2F, replace the connection URL with the appropriate URL for your database.
+When you specify the `AIRFLOW__CORE__SQL_ALCHEMY_CONN` environment variable in step 2F, replace the connection string with one that corresponds to your database.
 
 ## Step 2: Configure Each Machine in Your System
 
@@ -106,16 +106,16 @@ venv is a tool to create lightweight, isolated Python environments without affec
 Install the AC Python wheel onto your machine by running:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==<airflow-version>' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-<airflow-version>/constraints-3.8.txt"
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres, redis]==<airflow-version>' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-<airflow-version>/constraints-3.8.txt"
 ```
 
 To install the latest patch version of Apache Airflow 2.0.1, for example, this command would be:
 
 ```sh
-sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres]==2.0.1.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
+sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-core[postgres, redis]==2.0.1.*' --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt"
 ```
 
-This command includes the optional `[postgres]` dependency so that all libraries needed to use Postgres are also installed. If you want to use the Celery Executor or otherwise need extra functionality, specify additional dependencies in a comma-delimited list:
+This command includes the optional `postgres` and `redis` dependencies so that all libraries for those tools are also installed. If you want to use the Celery Executor or otherwise need extra functionality, specify additional dependencies in a comma-delimited list:
 
 ```
 astronomer-core[mysql, redis, crypto, aws, celery]==2.0.1.*
@@ -143,7 +143,9 @@ To use systemd as a process supervisor:
     PATH=$PATH:/home/astro/airflow-venv/bin
     ```
 
-    When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file. For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
+    If you want to configure environment variables for a single Airflow service, we recommend doing so in the `env-vars` file for the machine on which the service is running.
+
+    When you run Airflow for the first time, a file called `airflow.cfg` will be generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file.  For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
 
 3. Add the following to your systemd unit file:
 
@@ -184,7 +186,7 @@ To connect your Airflow environment to the metadata DB you created in Step 1, ad
     ```
     AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
-    AIRFLOW__CELERY__BROKER_URL=sqla+postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CELERY__BROKER_URL=redis://:@redis:6379/0/airflow:<your-user-password>@localhost/airflow
     AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
     AIRFLOW__CORE__EXECUTOR=CeleryExecutor
     ```
@@ -197,17 +199,15 @@ When you've finished configuring environment variables, run the following comman
 echo 'set -a; source /usr/local/airflow/env-vars; set +a' | sudo tee --append ~astro/.bashrc
 ```
 
-#### Alternative setup: Database access
+#### Optional setup: Database access
 
-* Your Airflow user password is stored in your `env-vars` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command that will be run (once, at service start up) to obtain the connection string. For example:
+Your Airflow user password is stored in your `env-vars` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command to obtain the connection string when the service starts up. For example:
 
-    ```
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
-    ```
+```
+AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
+```
 
-    For more information on this feature, read [Integrating Airflow and Hashicorp Vault](/guides/airflow-and-hashicorp-vault).
-
-* In this example setup, the `AIRFLOW__CELERY__BROKER_URL` environment variable uses the main database for communication. To take some load off of your main database, we recommend using a dedicated message broker such as [Redis](https://redis.io/) and specifying that here instead.
+For more information on this feature, read [Integrating Airflow and Hashicorp Vault](/guides/airflow-and-hashicorp-vault).
 
 ## Step 3: Set Up the Scheduler
 
@@ -225,7 +225,7 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
     sudo systemctl edit astronomer-core@scheduler.service
     ```
 
-3. In the empty document that appears, add the following lines:
+3. In the file generated by the command above, add the following lines:
 
     ```
     [Service]
@@ -254,8 +254,6 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
     sudo systemctl start astronomer-core@webserver.service
     ```
 
-You can now access the Airflow UI in a web browser via `http://localhost:8080`.
-
 > **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
 ## Step 5: Set Up the Worker Machines
@@ -283,7 +281,7 @@ To log into the Airflow UI, you need to first create an Airflow user:
 1. Switch to your system `astro` user using the following command:
 
     ```sh
-    sudo su astro /bin/bash
+    sudo -H su -u astro bash
     ```
 
     All Airflow CLI commands must be run from your `astro` user.
@@ -293,8 +291,6 @@ To log into the Airflow UI, you need to first create an Airflow user:
     ```sh
     airflow users create -e EMAIL -f FIRSTNAME -l LASTNAME -p PASSWORD -r Admin -u USERNAME
     ```
-
-    When you access the Airflow UI, use this user information to log in for the first time.
 
 ## Step 7: Confirm the Installation
 
