@@ -288,7 +288,7 @@ You now have the ability to run Airflow tasks within DAGs.
 
 ## Step 6: Create a User
 
-To log into the Airflow UI, you need to first create an Airflow user:
+To log in to the Airflow UI, you need to first create an Airflow user:
 
 1. Switch to your system `astro` user using the following command:
 
