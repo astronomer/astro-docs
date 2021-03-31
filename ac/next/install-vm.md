@@ -268,9 +268,9 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
 > **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
-## Step 5: Set Up the Worker Machines
+## Step 5: Set Up Workers (Celery Only)
 
-For each machine on which you want to host a Worker:
+Workers are an essential component for running Airflow with the Celery Executor. For each machine on which you want to host a Worker:
 
 1. Enable the Worker service by running the following command:
 
@@ -283,8 +283,6 @@ For each machine on which you want to host a Worker:
     ```sh
     sudo systemctl start astronomer-core@worker.service
     ```
-
-You now have the ability to run Airflow tasks within DAGs.
 
 ## Step 6: Create a User
 
