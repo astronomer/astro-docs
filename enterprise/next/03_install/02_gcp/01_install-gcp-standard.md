@@ -114,8 +114,10 @@ Helm is a package manager for Kubernetes. It allows you to easily deploy complex
 
 Create a namespace to host the core Astronomer Platform. If you are running through a standard installation, each Airflow deployment you provision will be created in a separate namespace that our platform will provision for you, this initial namespace will just contain the core Astronomer platform.
 
-```
-$ kubectl create namespace <my-namespace>
+```sh
+kubectl create secret generic astronomer-bootstrap \
+--from-literal connection="postgres://USERNAME:$PASSWORD@host:5432" \
+--namespace astronomer
 ```
 
 ## Step 4: Configure TLS
