@@ -20,7 +20,7 @@ Release Date: March 30, 2021
 
 ### Platform Support for Ingress Annotations
 
-In Astronomer Enterprise 0.23.12, you can now configure the behavior of Ingress resources by specifying an [annotation](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your Astronomer Helm Chart. For example, you can now upgrade from the Classic Load Balancer to the Network Load Balancer on Amazon EKS by adding the following to your [`config.yaml` file](https://github.com/astronomer/astronomer/blob/e4e5705df9b778a002a6fce2d53e5170292792ba/values.yaml#L202):
+With Astronomer Enterprise 0.23.12, you can now configure the behavior of Ingress resources by specifying an [annotation](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your Astronomer Helm Chart. For example, you can now upgrade from the Classic Load Balancer to the Network Load Balancer on Amazon EKS by adding the following to your [`config.yaml` file](https://github.com/astronomer/astronomer/blob/e4e5705df9b778a002a6fce2d53e5170292792ba/values.yaml#L202):
 
 ```
   ingressAnnotations: {service.beta.kubernetes.io/aws-load-balancer-type: nlb}
