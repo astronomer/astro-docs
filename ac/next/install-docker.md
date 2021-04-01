@@ -32,7 +32,7 @@ To install and run the Astronomer Core distribution of Apache Airflow:
 2. Run the following command to initialize some of the key files you'll need to run Astronomer Core:
 
     ```sh
-    touch .env packages.txt requirements.txt Dockerfile
+    touch .env packages.txt requirements.txt Dockerfile dags
     ```
 
     Docker references these files whenever your image is built:
@@ -41,6 +41,7 @@ To install and run the Astronomer Core distribution of Apache Airflow:
     - `packages.txt` stores Python-level dependencies.
     - `requirements.txt` stores OS-level dependencies.
     - `Dockerfile` pulls the Astronomer Core image from a Docker Registry.
+    - `dags` stores your Airflow DAGs.
 
 
 3. Add the following to your `Dockerfile` to pull the latest Astronomer Core Docker image:
@@ -61,7 +62,16 @@ To install and run the Astronomer Core distribution of Apache Airflow:
     | Postgres/ Local Executor |`curl -lfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-postgres-celery.yaml`|
     | Postgres/ Celery Executor |`curl -LfO https://raw.githubusercontent.com/astronomer/docker-airflow/main/docker-compose-postgres-local.yaml` |
 
-    This `docker-compose.yaml` file defines the services needed to start Airflow based on the Executor and database you selected. If you want to change a default configuration, such as your Webserver port or Airflow home directory, make sure to first update this file and restart your Airflow environment. To configure Airflow [environment variables](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html), for example, add them to the `x-airflow-env` object.
+    This `docker-compose.yaml` file defines the a few things beyond the Executor and database you selected:
+
+    - Airflow environment variables required for starting the environment
+    - A default Admin Airflow user
+    - Containers for the Airflow Scheduler, Webserver, and Metadata DB services
+    - Containers for Celery workers, Redis, and Flower (Celery Executor only)
+    - Airflow commands, such as `airflow upgrade db`, which run every time you restart your environment
+    - Volumes for Airflow DAGs and logs
+
+    If you want to change a default configuration, such as your Webserver port or Airflow home directory, make sure to first update this file and restart your Airflow environment. Similarly, to configure Airflow [environment variables](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html), add the variables to your `.env` file and restart your Airflow environment.
 
 5. Run `docker-compose up` to create isolated Docker containers for the Airflow Scheduler, Webserver, and Metadata DB. If you're running the Celery Executor, this command creates one container for each Celery worker.
 
