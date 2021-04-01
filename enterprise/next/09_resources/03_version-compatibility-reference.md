@@ -12,23 +12,24 @@ It's worth noting that while the tables below reference the minimum compatible v
 
 ## Astronomer Enterprise
 
-| Astronomer Platform  | Kubernetes       | Helm | Terraform   | Postgres | Astronomer Certified                             | Python        | Astronomer CLI |
-|----------------------|------------------|------|-------------|----------|--------------------------------------------------|---------------|----------------|
-| v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5| 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14        | 3.6, 3.7, 3.8 | 0.16           |
-| v0.23                | 1.16, 1.17, 1.18 | 3    | 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 2.0.0 | 3.6, 3.7, 3.8 | 0.23           |
+| Astronomer Platform  | Kubernetes       | Helm | Terraform   | Postgres | Astronomer Certified                                             | Python         | Astronomer CLI |
+|----------------------|------------------|------|-------------|----------|------------------------------------------------------------------|----------------|----------------|
+| v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5| 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14                        | 3.6, 3.7, 3.8  | 0.16           |
+| v0.23                | 1.16, 1.17, 1.18 | 3    | 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 1.10.15, 2.0.0        | 3.6, 3.7, 3.8  | 0.23           | 
 
-> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12, and Astronomer v0.16.15+ is required to run Astronomer Certified 1.10.14. For instructions on how to upgrade to an Astronomer v0.16 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer-patch).
+> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12, and Astronomer v0.16.15+ is required to run Astronomer Certified 1.10.14. For instructions on how to upgrade to an Astronomer v0.16 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/upgrade-astronomer-patch). As of Astronomer v0.23, the platform is compatible with all versions of Astronomer Certified.
 
 ## Astronomer Certified
 
 | Astronomer Certified | Postgres | MySQL     | Python        | System Distribution             | Airflow Helm Chart |
 | -------------------- | -------- | --------- | ------------- | ------------------------------- | ------------------ |
-| 1.10.5               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8| Alpine 3.10, Debian 10 (Buster) | Any                |
+| 1.10.5               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
 | 1.10.7               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
 | 1.10.10              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
 | 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
 | 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
-| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6             |
+| 1.10.15              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
+| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7     |
 
 For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/next/customize-airflow/manage-airflow-versions/).
 

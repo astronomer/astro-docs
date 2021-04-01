@@ -144,7 +144,7 @@ If you received a certificate from a private CA, follow the steps below instead:
     $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
     ```
 
-    > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services. 
+    > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
 
     > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
 
@@ -218,10 +218,12 @@ global:
 ### Nginx configuration
 #################################
 nginx:
-  # IP address the nginx ingress should bind to
+  # String IP address the nginx ingress should bind to
   loadBalancerIP: ~
   #  Set to 'true' when deploying to a private EKS cluster
   privateLoadBalancer: false
+  # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
+  ingressAnnotations: {service.beta.kubernetes.io/aws-load-balancer-type: nlb}
 
 #################################
 ### SMTP configuration
