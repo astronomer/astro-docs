@@ -112,7 +112,7 @@ Helm is a package manager for Kubernetes. It allows you to easily deploy complex
 
 ### Create a Kubernetes Namespace
 
-Create a namespace to host the core Astronomer Platform. If you are running through a standard installation, each Airflow deployment you provision will be created in a separate namespace that our platform will provision for you, this initial namespace will just contain the core Astronomer platform.
+Create a [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) to host the core Astronomer platform. Once the Astronomer platform is running, it generates separate, isolated namespaces for each Airflow Deployment that you create.
 
 ```sh
 kubectl create namespace astronomer
