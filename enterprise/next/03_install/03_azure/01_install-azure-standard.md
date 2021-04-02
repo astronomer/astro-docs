@@ -99,15 +99,13 @@ $ az aks get-credentials --resource-group <my_resource_group> --name <my_cluster
 
 ## Step 3: Create a Kubernetes Namespace
 
-Now that you have a base domain and an AKS cluster up and running, you'll need to create a namespace to host the core Astronomer Platform.
+Create a [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) called `astronomer` to host the core Astronomer platform:
 
-For standard installs, each Airflow Deployment provisioned on the platform will automatically be created within an additional, isolated namespace.
-
-The initial namespace we're creating below will just contain the core Astronomer platform.
-
-```bash
-$ kubectl create ns astronomer
+```sh
+kubectl create namespace astronomer
 ```
+
+Once Astronomer is running, each Airflow Deployment that you create will have its own isolated namespace.
 
 ## Step 4: Configure TLS
 
