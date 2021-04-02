@@ -106,7 +106,7 @@ Create a [namespace](https://kubernetes.io/docs/concepts/overview/working-with-o
 kubectl create namespace astronomer
 ```
 
-Once Astronomer is running, each Airflow Deployment that you create will have its own separate, isolated namespace.
+Once Astronomer is running, each Airflow Deployment that you create will have its own isolated namespace.
 
 ## Step 4: Configure TLS
 
