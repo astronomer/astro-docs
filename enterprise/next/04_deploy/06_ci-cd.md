@@ -369,7 +369,7 @@ pipelines:
             - docker
 ```
 
-## Gitlab
+## GitLab
 
 ```yaml
 astro_deploy:
@@ -384,6 +384,38 @@ astro_deploy:
     - docker push registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:CI-$CI_PIPELINE_IID
   only:
     - master
+```
+
+## Kaniko + GitLab
+
+You can use [kaniko](https://github.com/GoogleContainerTools/kaniko) to build container images from a Dockerfile without privileged root access. Coupled with GitLab's CI tool, this enables you to build container images without relying on a Docker daemon. For more information and configuration options, read the [GitLab documentation](https://docs.gitlab.com/ee/ci/docker/using_kaniko.html).
+
+>**Note:** This solution is currently incompatible with Astronomer's `onbuild` images. To use kaniko and GitLab for CI, your Dockerfile must pull from an Astronomer image without `onbuild`, such as `quay.io/astronomer/ap-airflow:2.0.0-buster`.
+
+### GitLab Deploy Authentication Token
+
+```json
+{"auths":{"https://harbor.domainname.com/":{"username":"<your-username>","password":"<your-password>","email":"<your-email>","auth":"<your token>"}}}
+```
+
+### Example CI Configuration
+
+```yaml
+image:
+  name: gcr.io/kaniko-project/executor:debug-edge
+  entrypoint: [""]
+
+deploy_development:
+  stage: deploy
+  image:
+      name: gcr.io/kaniko-project/executor:debug-edge
+      entrypoint: [""]
+  script:
+    - echo "Building image and pushing to Astronomer's private Docker registry"
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$REGISTRY_URL\":{\"username\":\"_\",\"password\":\"$PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - cat /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $REGISTRY_URL/$DEPLOYMENT_ID/airflow:CI-$CI_PIPELINE_IID -v debug
 ```
 
 ## AWS Codebuild
@@ -428,7 +460,7 @@ jobs:
     - name: Publish to Astronomer.io
       uses: elgohr/Publish-Docker-Github-Action@2.6
       with:
-        name: infrared-photon-7780/airflow:ci-${{ github.sha }}
+        name: infrared-photon-7780/airflow:ci-${{ github.run_number }}
         username: _
         password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         registry: registry.gcp0001.us-east4.astronomer.io
