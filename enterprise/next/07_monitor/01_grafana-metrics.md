@@ -140,9 +140,9 @@ This dashboard shows a set of resource and health-based metrics for individual D
 
 ### Key metrics
 
-**Deployment Status:** This metric appears in the **At a Glance** panel of the dashboard. It is a single value that indicates whether a Deployment is healthy or unhealthy.
+**Deployment Status:** This metric indicates whether the selected Deployment is "Healthy" or "Unhealthy", as determined by the state of the pods running within it.
 
-A Deployment's status is determined by whether all pods in an Airflow deployment are running. If any pods aren't running as expected, the Deployment's status becomes "Unhealthy".
+If any pod within an Airflow Deployment's namespace is not in a `Running` state, the Deployment is considered "Unhealthy".
 
 ## Fluentd
 
