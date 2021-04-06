@@ -47,26 +47,3 @@ jobs:
           check-modified-files-only: 'yes'
           base-branch: 'main'
           folder-path: './enterprise/next/, ./cloud/stable/, ./cloud/stable/ ./enterprise/next/'
-  spell-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@main
-      - name: Get file changes
-        id: get_file_changes
-        uses: trilom/file-changes-action@v1.2.3
-        with:
-          output: ' '
-      - name: Echo file changes
-        run: |
-          echo Changed files: ${{ steps.get_file_changes.outputs.files }}
-      - name: Check spelling
-        run: |
-          yarn install
-          for i in ${{ steps.get_file_changes.outputs.files }}
-          do 
-            if [[ $i == *".md"* ]]; then
-              echo $i
-              node_modules/.bin/mdspell $i -n -a --en-us -r
-            fi
-          done
