@@ -390,7 +390,7 @@ jobs:
     - name: Publish to Astronomer.io
       uses: elgohr/Publish-Docker-Github-Action@2.6
       with:
-        name: infrared-photon-7780/airflow:ci-${{ github.sha }}
+        name: infrared-photon-7780/airflow:ci-${{ github.run_number }}
         username: _
         password: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         registry: registry.gcp0001.us-east4.astronomer.io
