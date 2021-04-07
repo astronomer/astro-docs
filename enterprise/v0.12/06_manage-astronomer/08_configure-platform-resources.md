@@ -8,9 +8,9 @@ description: "A summary of how platform and Airflow deployment resources are cre
 
 By default, Astronomer needs around 10 CPUs and 44Gi of memory:
 
-| Pod                        | Request CPU  | Request Mem  | Limit CPU  | Limit Mem  | Storage |
+| Pod                     | Request CPU  | Request Mem  | Limit CPU  | Limit Mem  | Storage |
 |-------------------------|--------------|---|---|---|---|
-| `astro-ui`                 | 100m         | 256Mi  | 500m  | 1024Mi  | NA |
+| `astro-ui`              | 100m         | 256Mi  | 500m  | 1024Mi  | NA |
 | `houston`               | 250m         | 512Mi  | 800m  | 1024Mi  | NA |
 | `prisma`                | 250m         | 512Mi  | 500m  | 1024Mi  | NA |
 | `commander`             | 250m         | 512Mi  | 500m  | 1024Mi  | NA |

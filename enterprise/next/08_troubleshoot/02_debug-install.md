@@ -42,7 +42,7 @@ manageable-snail-kube-state-bf86885f-g46pp                 1/1     Running      
 manageable-snail-kubed-5b5d65dd9d-l7nds                    1/1     Running            2          1h
 manageable-snail-nginx-799d79ccf9-kfnzn                    1/1     Running            0          1h
 manageable-snail-nginx-default-backend-5cc4755696-vh5zq    1/1     Running            0          1h
-manageable-snail-astro-ui-7b9b9df4f9-pb99f                    1/1     Running            0          1h
+manageable-snail-astro-ui-7b9b9df4f9-pb99f                 1/1     Running            0          1h
 manageable-snail-prisma-6b5d944bdc-szn8f                   0/1     CrashLoopBackOff   20         1h
 manageable-snail-prometheus-0                              1/1     Running            0          1h
 manageable-snail-registry-0                                1/1     Running            0          1h
