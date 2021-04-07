@@ -316,7 +316,7 @@ astronomer-kube-state                ClusterIP      172.20.123.56    <none>     
 astronomer-kubed                     ClusterIP      172.20.4.200     <none>                                                                    443/TCP                                      24d
 astronomer-nginx                     LoadBalancer   172.20.54.142    ELB_ADDRESS.us-east-1.elb.amazonaws.com                                   80:31925/TCP,443:32461/TCP,10254:32424/TCP   24d
 astronomer-nginx-default-backend     ClusterIP      172.20.186.254   <none>                                                                    8080/TCP                                     24d
-astro-ui                     ClusterIP      172.20.186.166   <none>                                                                    8080/TCP                                     24d
+astronomer-astro-ui                  ClusterIP      172.20.186.166   <none>                                                                    8080/TCP                                     24d
 astronomer-prisma                    ClusterIP      172.20.144.188   <none>                                                                    4466/TCP                                     24d
 astronomer-prometheus                ClusterIP      172.20.72.196    <none>                                                                    9090/TCP                                     24d
 astronomer-registry                  ClusterIP      172.20.100.102   <none>                                                                    5000/TCP                                     24d
