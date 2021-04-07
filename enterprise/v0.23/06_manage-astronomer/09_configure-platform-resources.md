@@ -10,7 +10,7 @@ By default, Astronomer needs around 10 CPUs and 44Gi of memory:
 
 | Pod                              | Request CPU | Request Mem | Limit CPU | Limit Mem | Storage |
 | -------------------------------- | ----------- | ----------- | --------- | --------- | ------- |
-| `orbit`                          | 100m        | 256Mi       | 500m      | 1024Mi    | NA      |
+| `astro-ui`                       | 100m        | 256Mi       | 500m      | 1024Mi    | NA      |
 | `houston`                        | 250m        | 512Mi       | 800m      | 1024Mi    | NA      |
 | `prisma`                         | 250m        | 512Mi       | 500m      | 1024Mi    | NA      |
 | `commander`                      | 250m        | 512Mi       | 500m      | 1024Mi    | NA      |
@@ -35,15 +35,15 @@ By default, Astronomer needs around 10 CPUs and 44Gi of memory:
 
 You can change the request and limit of any of the components above in your `config.yaml` or in `values.yaml` (`config.yaml` will overwrite `values.yaml`).
 
-To change something like the resources allocated to `Orbit`, add the following fields to your `config.yaml`:
+To change something like the resources allocated to `astro-ui`, add the following fields to your `config.yaml`:
 
 ```
 #####
-#Changing Orbit CPU
+#Changing Astronomer UI CPU
 ####
 
 astronomer:
-  orbit:
+  astroUI:
     resources:
       requests:
         cpu: "200m"
