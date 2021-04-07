@@ -88,11 +88,11 @@ To install and run the Astronomer Core distribution of Apache Airflow:
     You should see a container for each Airflow service specified in your `docker-compose` file:
 
     ```
-    CONTAINER ID   IMAGE                             COMMAND                  CREATED          STATUS          PORTS                                        NAMES
-45dfd2f532fe   astronomer-core_569586/airflow:latest   "tini -- /entrypoint…"   13 seconds ago   Up 11 seconds   5555/tcp, 8793/tcp, 0.0.0.0:8080->8080/tcp   airflow2569586_webserver_1
-4fd455a109f8   astronomer-core_569586/airflow:latest   "tini -- /entrypoint…"   14 seconds ago   Up 12 seconds   5555/tcp, 8080/tcp, 8793/tcp                 airflow2569586_scheduler_1
-df802bb4c2ed   postgres:12.2                     "docker-entrypoint.s…"   3 weeks ago      Up 13 seconds   0.0.0.0:5432->5432/tcp                       airflow2569586_postgres_1
-user@LocalMachine astronomer-core %
+    CONTAINER ID   IMAGE                                   COMMAND                  CREATED          STATUS          PORTS                                        NAMES
+    45dfd2f532fe   astronomer-core_569586/airflow:latest   "tini -- /entrypoint…"   13 seconds ago   Up 11 seconds   5555/tcp, 8793/tcp, 0.0.0.0:8080->8080/tcp   airflow2569586_webserver_1
+    4fd455a109f8   astronomer-core_569586/airflow:latest   "tini -- /entrypoint…"   14 seconds ago   Up 12 seconds   5555/tcp, 8080/tcp, 8793/tcp                 airflow2569586_scheduler_1
+    df802bb4c2ed   postgres:12.2                           "docker-entrypoint.s…"   3 weeks ago      Up 13 seconds   0.0.0.0:5432->5432/tcp                       airflow2569586_postgres_1
+    user@LocalMachine astronomer-core %
     ```
 
 ## Next Steps
