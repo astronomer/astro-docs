@@ -38,11 +38,10 @@ To install and run the Astronomer Core distribution of Apache Airflow:
     Docker containerizes these files whenever your image is built:
 
     - `.env` stores Airflow environment variables.
-    - `packages.txt` stores Python-level dependencies.
-    - `requirements.txt` stores OS-level dependencies.
+    - `packages.txt` stores OS-level dependencies.
+    - `requirements.txt` stores Python-level dependencies.
     - `Dockerfile` pulls an Astronomer Core image from Astronomer's Docker registry. It can also include runtime commands and logic.
     - `dags` stores your Airflow DAGs.
-
 
 3. Add the following to your `Dockerfile` to pull the latest Astronomer Core Docker image:
 
@@ -53,7 +52,7 @@ To install and run the Astronomer Core distribution of Apache Airflow:
 
     When you create the Docker containers to run Airflow, this file pulls the latest Astronomer Core `onbuild` image ([source code](https://github.com/astronomer/ap-airflow/)) and creates a Docker image based on the logic within it. To specify a particular version of Apache Airflow and Astronomer Core, replace `latest` with the tag for your desired version. For a list of all image tags available, refer to [Astronomer on Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
 
-4. In your project folder, run one of the following commands to download a default `docker-compose.yaml` file based on the database and Airflow Executor you want to use:
+4. In your project folder, run one of the following commands to download a `docker-compose.yaml` file based on the database and Airflow Executor you want to use:
 
     | Configuration | Command |
     |---------------|---------|
