@@ -27,10 +27,10 @@ Once created, your Astronomer base domain will be linked to a variety of sub-ser
 
 For the base domain `astro.mydomain.com`, for example, here are some corresponding URLs that your users would be able to reach:
 
-* Astronomer UI: `app.astro.mydomain.com`
-* Airflow Deployments: `deployments.astro.mydomain.com/uniquely-generated-airflow-name/airflow`
-* Grafana Dashboard: `grafana.astro.mydomain.com`
-* Kibana Dashboard: `kibana.astro.mydomain.com`
+- Astronomer UI: `app.astro.mydomain.com`
+- Airflow Deployments: `deployments.astro.mydomain.com/deployment-release-name/airflow`
+- Grafana Dashboard: `grafana.astro.mydomain.com`
+- Kibana Dashboard: `kibana.astro.mydomain.com`
 
 For the full list of subdomains, see Step 4.
 
@@ -84,8 +84,8 @@ prometheus.BASEDOMAIN
 
 To obtain a TLS certificate, complete one of the following setup options:
 
-* **Option 1:** Obtain a TLS certificate from Let's Encrypt. We recommend this option for smaller organizations where your DNS administrator and Kubernetes cluster administrator are either the same person or on the same team.
-* **Option 2:** Request a TLS certificate from your organization's security team. We recommend this option for large organizations with their own  protocols for generating TLS certificates.
+- **Option 1:** Obtain a TLS certificate from Let's Encrypt. We recommend this option for smaller organizations where your DNS administrator and Kubernetes cluster administrator are either the same person or on the same team.
+- **Option 2:** Request a TLS certificate from your organization's security team. We recommend this option for large organizations with their own protocols for generating TLS certificates.
 
 ### Option 1: Create TLS certificates using Let's Encrypt
 
@@ -146,15 +146,38 @@ If you received a certificate from a private CA, follow these steps instead:
 
     > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
 
-2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 7. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
+2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 8. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
-## Step 6: Configure the Database
+## Step 6: Retrieve Your SMTP URI
+
+An SMTP service is required so that users can send and accept email invites to and from Astronomer. To integrate your SMTP service with Astronomer, make note of your SMTP service's URI and add it to your Helm chart in Step 8. In general, an SMTP URI will take the following form:
+
+```
+smtps://USERNAME:PASSWORD@HOST/?pool=true
+```
+
+The following table contains examples of what the URI will look like for some of the most popular SMTP services:
+
+| Provider          | Example SMTP URL                                                                               |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| AWS SES           | `smtp://AWS_SMTP_Username:AWS_SMTP_Password@email-smtp.us-east-1.amazonaws.com/?requireTLS=true` |
+| SendGrid          | `smtps://apikey:SG.sometoken@smtp.sendgrid.net:465/?pool=true`                                   |
+| Mailgun           | `smtps://xyz%40example.com:password@smtp.mailgun.org/?pool=true`                               |
+| Office365         | `smtp://xyz%40example.com:password@smtp.office365.com:587/?requireTLS=true`                   |
+| Custom SMTP-relay | `smtp://smtp-relay.example.com:25/?ignoreTLS=true`                                      |
+
+If your SMTP provider is not listed, refer to the provider's documentation for information on creating an SMTP URI.
+
+> **Note:** If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
+
+## Step 7: Configure the Database
 
 By default, Astronomer requires a central Postgres database that will act as the backend for Astronomer's Houston API and will host individual Metadata Databases for all Airflow Deployments spun up on the platform.
 
 While you're free to configure any database, most AWS users on Astronomer run [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). For production environments, we _strongly_ recommend a managed Postgres solution.
 
 > **Note:** If you're setting up a development environment, this step is optional. Astronomer can be configured to deploy the PostgreSQL helm chart as the backend database with the following set in your `config.yaml`:
+>
 > ```yml
 > global:
 >   postgresqlEnabled: true
@@ -170,14 +193,13 @@ kubectl create secret generic astronomer-bootstrap \
 
 > **Note:** We recommend using a [t2 medium](https://aws.amazon.com/rds/instance-types/) as the minimum RDS instance size.
 
-## Step 7: Configure your Helm Chart
+## Step 8: Configure your Helm Chart
 
 As a next step, create a file named `config.yaml` in an empty directory.
 
 For context, this `config.yaml` file will assume a set of default values for our platform that specify everything from user role definitions to the Airflow images you want to support. As you grow with Astronomer and want to customize the platform to better suit your team and use case, your `config.yaml` file is the best place to do so.
 
 In the newly created file, copy the example below and replace `baseDomain`, `private-root-ca`, `/etc/docker/certs.d`, `ssl.enabled`, and `smtpUrl` with your own values. For more example configuration files, go [here](https://github.com/astronomer/astronomer/tree/master/configs).
-
 
 ```yaml
 #################################
@@ -249,18 +271,9 @@ astronomer:
             enabled: true # Lets users authenticate with Google
 ```
 
- SMTP is required and will allow users to send and accept email invites to Astronomer. The SMTP URI will take the following form:
-
-```yml
-smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
-```
-
-> **Note:** If you are using Amazon SES, your URL will look like the following:
-`smtpUrl: smtp://USERNAME:PW@HOST/?requireTLS=true`. If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
-
 These are the minimum values you need to configure for installing Astronomer. For information on additional configuration, read [What's Next](https://www.astronomer.io/docs/enterprise/next/install/aws/install-aws-standard#whats-next).
 
-## Step 8: Install Astronomer
+## Step 9: Install Astronomer
 
 Now that you have an EKS cluster set up and your `config.yaml` file defined, you're ready to deploy all components of our platform.
 
@@ -286,7 +299,7 @@ This command will install the latest available patch version of Astronomer Enter
 
 Once you run the commands above, a set of Kubernetes pods will be generated in your namespace. These pods power the individual services required to run our platform, including the Astronomer UI and Houston API.
 
-## Step 9: Verify Pods are Up
+## Step 10: Verify Pods are Up
 
 To verify all pods are up and running, run:
 
@@ -341,7 +354,7 @@ astronomer-registry-0                                      1/1     Running      
 
 If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.23/troubleshoot/debug-install/).
 
-## Step 10: Configure DNS
+## Step 11: Configure DNS
 
 Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.
 
@@ -387,13 +400,13 @@ prometheus.astro.mydomain.com
 Example wildcard CNAME record:
 ![aws-elb](https://assets2.astronomer.io/main/docs/ee/route53.png)
 
-## Step 11: Verify You Can Access the Astronomer UI
+## Step 12: Verify You Can Access the Astronomer UI
 
 Go to `app.BASEDOMAIN` to see the Astronomer UI.
 
 Consider this your new Airflow control plane. From the Astronomer UI, you'll be able to both invite and manage users as well as create and monitor Airflow Deployments on the platform.
 
-## Step 12: Verify Your TLS Setup
+## Step 13: Verify Your TLS Setup
 
 To check if your TLS certificates were accepted, log in to the Astronomer UI. Then, go to `app.BASEDOMAIN/token` and run:
 
@@ -421,12 +434,14 @@ $ cp privateCA.pem /etc/docker/certs.d/
 ```
 
 Finally, try running `$ astro deploy` on a test deployment. Create a deployment in the Astronomer UI, then run:
+
 ```sh
 $ mkdir demo
 $ cd demo
 $ astro airflow init
 $ astro deploy -f
 ```
+
 Check the Airflow namespace. If pods are changing at all, then the Houston API trusts the registry.
 
 If you have Airflow pods in an `ImagePullBackoff` state, check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config) to add them after installation.
@@ -435,16 +450,16 @@ If you have Airflow pods in an `ImagePullBackoff` state, check the pod descripti
 
 To help you make the most of Astronomer Enterprise, check out the following additional resources:
 
-* [Renew TLS Certificates on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert/)
-* [Integrating an Auth System](/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system/)
-* [Configuring Platform Resources](/docs/enterprise/v0.23/manage-astronomer/configure-platform-resources/)
-* [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/)
+- [Renew TLS Certificates on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert/)
+- [Integrating an Auth System](/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system/)
+- [Configuring Platform Resources](/docs/enterprise/v0.23/manage-astronomer/configure-platform-resources/)
+- [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
 
 If you have any feedback or need help during this process and aren't in touch with our team already, a few resources to keep in mind:
 
-* [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
-* [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
+- [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
+- [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
 For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.23/resources/support/).
