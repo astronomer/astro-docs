@@ -4,7 +4,13 @@ navTitle: "Install on Kubernetes"
 description: "Install Apache Airflow on Kubernetes using the open source Astronomer Core image and Helm chart."
 ---
 
-This chart will bootstrap an [Airflow](https://github.com/astronomer/docker-airflow) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+## Overview
+
+Running Apache Airflow on Kubernetes allows you to easily manage resources across your Airflow environment. You can also configure your environment from a single YAML file using the [Helm](https://helm.sh) package manager.
+
+This guide provides setup steps for creating an [Airflow](https://github.com/astronomer/docker-airflow) Deployment on a [Kubernetes](http://kubernetes.io) cluster using the open source Astronomer Core Airflow image and Helm Chart.
+
+If you haven't tested Airflow locally and would like to do so, see the [Astronomer Core Quickstart](/docs/ac/next/01_quickstart).
 
 ## Prerequisites
 
@@ -13,7 +19,7 @@ To complete this setup, you need:
 - Docker
 - An accessible Docker registry
 - Kubernetes 1.12+
-- Helm 3
+- Helm 3 (you can also use Helm 2.11+, but the commands in this setup are written using Helm 3 syntax)
 - PV provisioner support in your underlying infrastructure
 
 ## Step 1: Create a Project Folder
@@ -111,7 +117,7 @@ The recommended workflow for deploying DAGs to Airflow on Kubernetes is to add D
 
 To bake DAGs into a Docker image:
 
-1. Add your DAGs to the `dags` folder in your project directory. The DAGs should be uncompiled `.py` files at the top level in the directory (as in, not in a `pycache` folder). If you need an example DAG to deploy, use the one in Astronomer's [GitHub repository](https://github.com/astronomer/docker-airflow/tree/main/dags). 
+1. Add your DAGs to the `dags` folder in your project directory. The DAGs should be uncompiled `.py` files at the top level in the directory (as in, not in a `pycache` folder). If you need an example DAG to deploy, use the one in Astronomer's [GitHub repository](https://github.com/astronomer/docker-airflow/tree/main/dags).
 2. In your Dockerfile, add the following lines:
 
     ```
