@@ -86,7 +86,7 @@ The first two commands deploy Airflow on your Kubernetes cluster in the default 
 
 In your project directory, run:
 
-```
+```sh
 curl -LfO https://raw.githubusercontent.com/astronomer/airflow-chart/master/values.yaml
 ```
 
