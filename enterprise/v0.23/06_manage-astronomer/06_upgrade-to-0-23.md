@@ -91,15 +91,7 @@ Then, run the following command for each pod you find:
 $ kubectl logs <your-pod-name>
 ```
 
-## Step 7: Clean Up Kubernetes Resources
-
-We recommend cleaning up any remaining Kubernetes resources after your upgrade. To do so, run the following command:
-
-```sh
-kubectl delete -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade-0.16-to-0.23.yaml
-```
-
-## Step 8: Confirm That the Upgrade Was Successful
+## Step 7: Confirm That the Upgrade Was Successful
 
 If the upgrade was successful, you should be able to:
 
@@ -110,6 +102,14 @@ If the upgrade was successful, you should be able to:
 * Successfully run `$ astro deploy` using the Astronomer CLI.
 * Open the Airflow UI for each of your Deployments
 * Access logs for your DAGs in the Airflow UI.
+
+## Step 8: Clean Up Kubernetes Resources
+
+We recommend cleaning up any remaining Kubernetes resources after your upgrade. To do so, run the following command:
+
+```sh
+kubectl delete -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade-0.16-to-0.23.yaml
+```
 
 ## Step 9: Upgrade the Astronomer CLI to v0.23
 
