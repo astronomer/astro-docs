@@ -14,6 +14,45 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 > **Note:** The perceived version gap between Astronomer Enterprise v0.16 and v0.23 is due to the nature of Astronomer's release schedule. To optimize for security and reliability, Astronomer Cloud releases are made available to Enterprise users only after they've passed a dedicated testing process. Astronomer Enterprise v0.23 includes _all_ changes made available on Astronomer Cloud between v0.16 and v0.23, in addition to Enterprise-only functionality.
 
+## v0.23.13
+
+Release Date: April 13, 2021
+
+### Zero Webserver Downtime for Airflow 2.0+ Deployments
+
+We're excited to announce that Astronomer v0.23.4 introduces zero Webserver downtime for Deployments running Airflow 2.0+. For users on these versions, the Webserver will no longer require a restart after a code push or configuration change. This is an automatic change that requires no configuration in your system.
+
+This change has a few effects:
+- The Airflow Webserver now requires less CPU and Memory
+- Increasing your total # of DAGs no longer requires proportionally increasing your Weberver resources.
+- Following `$ astro deploy`, users should see DAG changes reflected in the Airflow UI in real-time without an intermediary "Airflow is Starting Up" page.
+
+For context, this functionality is possible because Airflow 2.0 requires that [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, be enabled.
+
+> **Note:** If you use Webserver plugins, you _will_ need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
+> ```gql
+> mutation toggleWebserverReboot {
+>  toggleWebserverReboot (
+>    deploymentId: "ckij5u45d16501pbr0vdolqkr"
+>    reboot: false
+>       	)
+>  {
+>    id
+>    updatedAt
+>    }
+>  }
+> ```
+
+### Minor Improvements and Bug fixes
+
+- Added a new Helm value `pgbouncer.networkPolicies.enabled` so that organizations can exclusively enable a pgBouncer network policy. ([Source](https://github.com/astronomer/airflow-chart/pull/204))
+- Fixed an issue where Deployments showed an inaccurate image version tag in the Airflow UI. ([Source](https://github.com/astronomer/houston-api/pull/659))
+- Changed the default Airflow Deployment image to 2.0.0. ([Source](https://github.com/astronomer/airflow-chart/pull/198))
+- Upgraded the default pgbouncer and redis dependencies for new Airflow Deployments.([Source](https://github.com/astronomer/airflow-chart/pull/203))
+- Increased the storage capacity of volumes in Elasticsearch pods. ([Source](https://github.com/astronomer/google-environments/pull/258))
+- Fixed an issue where users would experience an error when upgrading their Airflow Helm chart from 0.15.7 to 0.18.6. ([Source](TBD))
+
+
 ## v0.23.12
 
 Release Date: March 30, 2021
