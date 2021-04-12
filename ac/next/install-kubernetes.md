@@ -4,7 +4,7 @@ navTitle: "Install on Kubernetes"
 description: "Install Apache Airflow on Kubernetes using the open source Astronomer Core image and Helm chart."
 ---
 
-This chart will bootstrap an [Airflow](https://github.com/astronomer/ap-airflow) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart will bootstrap an [Airflow](https://github.com/astronomer/docker-airflow) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
@@ -111,7 +111,7 @@ The recommended workflow for deploying DAGs to Airflow on Kubernetes is to add D
 
 To bake DAGs into a Docker image:
 
-1. Add your DAGs to the `dags` folder in your project directory. The DAGs should be uncompiled `.py` files at the top level in the directory (as in, not in a `pycache` folder).
+1. Add your DAGs to the `dags` folder in your project directory. The DAGs should be uncompiled `.py` files at the top level in the directory (as in, not in a `pycache` folder). If you need an example DAG to deploy, use the one in Astronomer's [GitHub repository](https://github.com/astronomer/docker-airflow/tree/main/dags). 
 2. In your Dockerfile, add the following lines:
 
     ```
@@ -120,7 +120,7 @@ To bake DAGs into a Docker image:
     COPY ./dags/ \${AIRFLOW_HOME}/dags
     ```
 
-    If you want to run a specific version of Airflow, replace `latest` with the image tag that corresponds to your desired version. For a list of all image tags, refer to the [Astronomer quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
+    If you want to run a specific version of Airflow, replace `latest` with the image tag that corresponds to your desired version. For a list of all image tags, refer to the [Astronomer quay.io repository](https://quay.io/repository/astronomer/docker-airflow?tab=tags).
 
 3. In your project directory, build a custom Docker image by running the following command:  
 
@@ -199,12 +199,12 @@ The following table lists the configurable parameters of the Helm chart and thei
 | `airflowVersion`                                      | Default Airflow image version                                                                             | `1.10.5`                                                          |    |
 | `executor`                                            | Airflow executor (eg SequentialExecutor, LocalExecutor, CeleryExecutor, KubernetesExecutor)               | `KubernetesExecutor`                                              |    |
 | `allowPodLaunching`                                   | Allow Airflow pods to talk to Kubernetes API to launch more pods                                          | `true`                                                            |    |
-| `defaultAirflowRepository`                            | Fallback Docker repository to pull Airflow image from                                                     | `quay.io/astronomer/ap-airflow`                                   |    |
+| `defaultAirflowRepository`                            | Fallback Docker repository to pull Airflow image from                                                     | `quay.io/astronomer/docker-airflow`                                   |    |
 | `defaultAirflowTag`                                   | Fallback Docker image tag to deploy. This image is also used to Run Database Migrations for Airflow.      | `1.10.7-alpine3.10`                                               |    |
-| `images.airflow.repository`                           | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-airflow`                                   |    |
+| `images.airflow.repository`                           | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/docker-airflow`                                   |    |
 | `images.airflow.tag`                                  | Docker image tag to pull image from. Update this to deploy a new custom image tag.                         | `~`                                                               |    |
 | `images.airflow.pullPolicy`                           | Pull policy for Airflow image                                                                              | `IfNotPresent`                                                    |    |
-| `images.flower.repository`                            | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-airflow`                                   |    |
+| `images.flower.repository`                            | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/docker-airflow`                                   |    |
 | `images.flower.tag`                                   | Docker image tag to pull image from. Update this to deploy a new custom image tag.                         | `~`                                                               |    |
 | `images.flower.pullPolicy`                            | PullPolicy for flower image                                                                               | `IfNotPresent`                                                    |    |
 | `images.statsd.repository`                            | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-statsd-exporter`                           |    |
