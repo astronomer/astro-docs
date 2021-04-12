@@ -297,7 +297,7 @@ This will ensure that you pull the latest from our Helm repository. Finally, run
 $ helm install -f config.yaml --version=0.23 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
-This command will install the latest available patch version of Astronomer Enterprise v0.23. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.23.x`. To install Astronomer Enterprise v0.23.9, for example, specify `--version=0.23.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.23/resources/release-notes/).
+This command will install the latest available patch version of Astronomer Enterprise v0.23. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.23.x`. To install Astronomer Enterprise v0.23.9, for example, specify `--version=0.23.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/stable/resources/release-notes/).
 
 Once you run the commands above, a set of Kubernetes pods will be generated in your namespace. These pods power the individual services required to run our platform, including the Astronomer UI and Houston API.
 
@@ -354,7 +354,7 @@ astronomer-prometheus-blackbox-exporter-65f6c5f456-szr4s   1/1     Running      
 astronomer-registry-0                                      1/1     Running             0          24m
 ```
 
-If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.23/troubleshoot/debug-install/).
+If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/stable/troubleshoot/debug-install/).
 
 ## Step 11: Configure DNS
 
@@ -446,16 +446,16 @@ $ astro deploy -f
 
 Check the Airflow namespace. If pods are changing at all, then the Houston API trusts the registry.
 
-If you have Airflow pods in an `ImagePullBackoff` state, check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config) to add them after installation.
+If you have Airflow pods in an `ImagePullBackoff` state, check the pod description. If you see an x509 error, ensure that you added the `privateCaCertsAddToHost` key-value pairs to your Helm chart. If you missed these during installation, follow the steps in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config) to add them after installation.
 
 ## What's Next
 
 To help you make the most of Astronomer Enterprise, check out the following additional resources:
 
-- [Renew TLS Certificates on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/renew-tls-cert/)
-- [Integrating an Auth System](/docs/enterprise/v0.23/manage-astronomer/integrate-auth-system/)
-- [Configuring Platform Resources](/docs/enterprise/v0.23/manage-astronomer/configure-platform-resources/)
-- [Managing Users on Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/)
+- [Renew TLS Certificates on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
+- [Integrating an Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
+- [Configuring Platform Resources](/docs/enterprise/stable/manage-astronomer/configure-platform-resources/)
+- [Managing Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/)
 
 ### Astronomer Support Team
 
@@ -464,4 +464,4 @@ If you have any feedback or need help during this process and aren't in touch wi
 - [Community Forum](https://forum.astronomer.io): General Airflow + Astronomer FAQs
 - [Astronomer Support Portal](https://support.astronomer.io/hc/en-us/): Platform or Airflow issues
 
-For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/v0.23/resources/support/).
+For detailed guidelines on reaching out to Astronomer Support, reference our guide [here](/docs/enterprise/stable/resources/support/).
