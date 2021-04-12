@@ -1,7 +1,7 @@
 ---
 title: "Install Apache Airflow on Kubernetes"
-navTitle: "Install on a Virtual Machine"
-description: "Install Apache Airflow on one or more virtual machines with the Astronomer Core Python wheel."
+navTitle: "Install on Kubernetes"
+description: "Install Apache Airflow on Kubernetes using the open source Astronomer Core image and Helm chart."
 ---
 
 This chart will bootstrap an [Airflow](https://github.com/astronomer/ap-airflow) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
