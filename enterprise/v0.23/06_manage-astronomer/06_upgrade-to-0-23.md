@@ -43,7 +43,7 @@ Minor version upgrades can be initiated only by a user with System Admin permiss
 
 You also need permission to create Kubernetes resources. To confirm you have those permissions, run the following commands:
 
-```
+```sh
 $ kubectl auth can-i create pods --namespace <your-astronomer-namespace>
 $ kubectl auth can-i create sa --namespace <your-astronomer-namespace>
 $ kubectl auth can-i create jobs --namespace <your-astronomer-namespace>
