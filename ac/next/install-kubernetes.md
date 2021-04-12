@@ -11,8 +11,10 @@ This chart will bootstrap an [Airflow](https://github.com/astronomer/ap-airflow)
 To complete this setup, you need:
 
 - Docker
+- An accessible Docker registry
 - Kubernetes 1.12+
 - Helm 3
+- PV provisioner support in your underlying infrastructure
 
 ## Step 1: Create a Project Folder
 
@@ -26,220 +28,193 @@ Kubernetes containerizes these files whenever your image is built:
 
 - `packages.txt` stores Python-level dependencies.
 - `requirements.txt` stores OS-level dependencies.
-- `Dockerfile` pulls an Astronomer Core image from Astronomer's Docker registry. It can also include runtime commands and logic.
+- `Dockerfile` pulls an Astronomer Core image from Astronomer's Docker registry. It can also include runtime commands and logic. In Airflow Deployments on Kubernetes, this file is used to create a custom Docker image that can be referenced from your Helm configuration.
 - `dags` stores your Airflow DAGs.
 
 ## Step 2: Install the Helm Chart
 
-To install this helm chart remotely, run:
+You have a few options when installing the Helm chart itself:
 
-```bash
-kubectl create namespace airflow
-helm repo add astronomer https://helm.astronomer.io
-helm install airflow --namespace airflow astronomer/airflow
+- To install this Helm chart remotely, run:
+
+    ```bash
+    kubectl create namespace airflow
+    helm repo add astronomer https://helm.astronomer.io
+    helm install airflow --namespace airflow astronomer/airflow
+    ```
+
+- To install this Helm chart repository from source, run:
+
+    ```bash
+    kubectl create namespace airflow
+    helm install --namespace airflow .
+    ```
+
+- To install this Helm chart with [KEDA](https://keda.sh/), run:
+
+    ```bash
+    $ helm repo add kedacore https://kedacore.github.io/charts
+    $ helm repo add astronomer https://helm.astronomer.io
+
+    $ helm repo update
+
+    $ kubectl create namespace keda
+
+    $ helm install keda \
+        --namespace keda kedacore/keda \
+        --version "v1.5.0"
+
+    $ kubectl create namespace airflow
+
+    $ helm install airflow \
+        --set executor=CeleryExecutor \
+        --set workers.keda.enabled=true \
+        --set workers.persistence.enabled=false \
+        --namespace airflow \
+        astronomer/airflow
+   ```
+
+The first two commands deploy Airflow on your Kubernetes cluster in the default configuration, while the third deploys Airflow with some configurations which are required for running KEDA. See the [Parameters](#parameters) section of this guide for additional parameters that can be configured during this installation.
+
+## Step 3: Import the Default Configuration File
+
+In your project directory, run:
+
+```
+curl -LfO https://raw.githubusercontent.com/astronomer/airflow-chart/master/values.yaml
 ```
 
-To install airflow with the KEDA autoscaler, run:
+This command imports a `values.yaml` file which you can use to update your Airflow configuration. The workflow for changing your Airflow configuration is as follows:
 
-```bash
-helm repo add kedacore https://kedacore.github.io/charts
-helm repo add astronomer https://helm.astronomer.io
+1. Update values in your local `values.yaml` file.
+2. Push those local changes to Airflow using the following command:
 
-helm repo update
+    ```
+    helm upgrade airflow -n airflow -f values.yaml astronomer/airflow       
+    ```
 
-kubectl create namespace keda
+    Alternatively, you can update individual values within the CLI:
 
-helm install keda \
-    --namespace keda kedacore/keda \
-    --version "v1.5.0"
+    ```
+    helm install --name my-release \
+      --set executor=CeleryExecutor \
+      --set enablePodLaunching=false .
+    ```
 
-kubectl create namespace airflow
+    We recommend this method only for testing or non-production environments. When deploying configurations to a production environment, maintaining a local `values.yaml` with your most recent configuration is a best practice.
 
-helm install airflow \
-    --set executor=CeleryExecutor \
-    --set workers.keda.enabled=true \
-    --set workers.persistence.enabled=false \
-    --namespace airflow \
-    astronomer/airflow
+If you want to see the current state of values in your Airflow Deployment, you can run `helm get values -n airflow [flags]`.
 
-```
+## Step 4: Customize the Airflow Docker Image
 
-To install this repository from source, run:
+The recommended workflow for deploying DAGs to Airflow on Kubernetes is to add DAGs directly to a customized version of the Astronomer Core Docker image. This process is also known as "baking" DAGs into the image.
 
-```bash
-kubectl create namespace airflow
-helm install --namespace airflow .
-```
+To bake DAGs into a Docker image:
 
-## Prerequisites
+1. Add your DAGs to the `dags` folder in your project directory. The DAGs should be uncompiled `.py` files at the top level in the directory (as in, not in a `pycache` folder).
+2. In your Dockerfile, add the following lines:
 
-- Kubernetes 1.12+
-- Helm 2.11+ or Helm 3.0+
-- PV provisioner support in the underlying infrastructure
+    ```
+    FROM quay.io/astronomer/docker-airflow:latest-onbuild
 
-## Installing the Chart
-To install the chart with the release name `my-release`:
+    COPY ./dags/ \${AIRFLOW_HOME}/dags
+    ```
 
-```bash
-helm install --name my-release .
-```
+    If you want to run a specific version of Airflow, replace `latest` with the image tag that corresponds to your desired version. For a list of all image tags, refer to the [Astronomer quay.io repository](https://quay.io/repository/astronomer/ap-airflow?tab=tags).
 
-The command deploys Airflow on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+3. In your project directory, build a custom Docker image by running the following command:  
 
-> **Tip**: List all releases using `helm list`
+    ```
+    docker build --tag <your-registry>/airflow:<your-tag> . -f Dockerfile
+    ```
 
-## Upgrading the Chart
-To upgrade the chart with the release name `my-release`:
+4. Push your custom image to an accessible  
+registry by running the following command:
 
-```bash
-helm upgrade --name my-release .
-```
+    ```
+    docker push <your-registry>/airflow:<your-tag>
+    ````
 
-## Uninstalling the Chart
+5. In your `values.yaml` file, update the following key-value pairs:
 
-To uninstall/delete the `my-release` deployment:
+    ```yaml
+    images:
+      airflow:
+        repository: <your-registry>/airflow
+        tag: <your-tag>
+        pullPolicy: IfNotPresent
+    ```
 
-```bash
-helm delete my-release
-```
+6. Upgrade your Helm chart using the following command:
 
-The command removes all the Kubernetes components associated with the chart and deletes the release.
+    ```bash
+    helm upgrade airflow -n airflow -f values.yaml astronomer/airflow       
+    ```
 
-## Updating DAGs
+7. If the upgrade was successful, the CLI should prompt you to run a command that looks something like the following:
 
-### Bake DAGs in Docker image
+    ```
+    kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow
+    ```
 
-The recommended way to update your DAGs with this chart is to build a new docker image with the  
-latest code (`docker build -t my-company/airflow:8a0da78 .`), push it to an accessible  
-registry (`docker push my-company/airflow:8a0da78`), then update the Airflow pods with that image:
+    This command gives your local computer access to Airflow's webserver, which is responsible for rendering the Airflow UI.
 
-```bash
-helm upgrade my-release . \
-  --set images.airflow.repository=my-company/airflow \
-  --set images.airflow.tag=8a0da78
-```
+8. Run the command suggested by the CLI and open `localhost:8080` in a web browser. If your connection was successful, you should see the Airflow login screen.
 
-### Deploying DAGs using `git-sync`
+9. Log in using `admin` for both your username and your password. Once you've successfully logged in, you should see the Airflow UI and your example DAG:
 
-`extraContainers`, `extraInitContainers`, `extraVolumes`, and `extraVolumeMounts` can be combined to deploy git-sync. The following example relies on `emptyDir` volumes and works with `KubernetesExecutor`.
+    ![Airflow UI Home Screen with example DAG](https://assets2.astronomer.io/main/docs/airflow-ui/ac-kubernetes.png)
 
-```yaml
-env:
-  - name: AIRFLOW__CORE__DAGS_FOLDER
-    value: /usr/local/airflow/dags/latest/airflow/example_dags
-scheduler:
-  extraInitContainers:
-    - name: init-gitsync
-      image: k8s.gcr.io/git-sync/git-sync:v3.2.2
-      imagePullPolicy: IfNotPresent
-      env:
-        - name: GIT_SYNC_REPO
-          value: https://github.com/apache/airflow.git
-        - name: GIT_SYNC_ROOT
-          value: /usr/local/airflow/dags
-        - name: GIT_SYNC_DEST
-          value: latest
-        - name: GIT_SYNC_ONE_TIME
-          value: "true"
-      volumeMounts:
-        - mountPath: /usr/local/airflow/dags
-          name: dags
-          readOnly: false
-  extraContainers:
-    - name: gitsync
-      image: k8s.gcr.io/git-sync/git-sync:v3.2.2
-      imagePullPolicy: IfNotPresent
-      env:
-        - name: GIT_SYNC_REPO
-          value: https://github.com/apache/airflow.git
-        - name: GIT_SYNC_ROOT
-          value: /usr/local/airflow/dags
-        - name: GIT_SYNC_DEST
-          value: latest
-        - name: GIT_SYNC_WAIT
-          value: "10"
-      volumeMounts:
-        - mountPath: /usr/local/airflow/dags
-          name: dags
-          readOnly: false
-  extraVolumeMounts:
-    - name: dags
-      mountPath: /usr/local/airflow/dags
-  extraVolumes:
-    - name: dags
-      emptyDir: {}
-workers:
-  extraInitContainers:
-    - name: gitsync
-      image: k8s.gcr.io/git-sync/git-sync:v3.2.2
-      imagePullPolicy: IfNotPresent
-      env:
-        - name: GIT_SYNC_REPO
-          value: https://github.com/apache/airflow.git
-        - name: GIT_SYNC_ROOT
-          value: /usr/local/airflow/dags
-        - name: GIT_SYNC_DEST
-          value: latest
-        - name: GIT_SYNC_ONE_TIME
-          value: "true"
-      volumeMounts:
-        - mountPath: /usr/local/airflow/dags
-          name: dags
-          readOnly: false
-  extraVolumeMounts:
-    - name: dags
-      mountPath: /usr/local/airflow/dags
-  extraVolumes:
-    - name: dags
-      emptyDir: {}
-```
+## Next Steps
 
-## Docker Images
+This guide provided a basic setup for running Airflow on Kubernetes using Helm. From here, you'll want to complete the following additional setup to make the most of Airflow:
 
-* The Airflow image that are referenced as the default values in this chart are generated from this repository: https://github.com/astronomer/ap-airflow.
-* Other non-airflow images used in this chart are generated from this repository: https://github.com/astronomer/ap-vendor.
+- Automate DAG deployment across your installation
+- Upgrade to a new version of Apache Airflow
+- Integrate an authentication system
+- Set up a destination for Airflow task logs
 
-## Parameters
+## Reference: Helm Configuration Options
 
-The following tables lists the configurable parameters of the Airflow chart and their default values.
+The following table lists the configurable parameters of the Helm chart and their default values.
 
 | Parameter                                             | Description                                                                                               | Default                                                           |    |
 |:------------------------------------------------------|:----------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------|:---|
-| `uid`                                                 | UID to run airflow pods under                                                                             | `nil`                                                             |    |
-| `gid`                                                 | GID to run airflow pods under                                                                             | `nil`                                                             |    |
+| `uid`                                                 | UID to run Airflow pods under                                                                             | `nil`                                                             |    |
+| `gid`                                                 | GID to run Airflow pods under                                                                             | `nil`                                                             |    |
 | `nodeSelector`                                        | Node labels for pod assignment                                                                            | `{}`                                                              |    |
 | `affinity`                                            | Affinity labels for pod assignment                                                                        | `{}`                                                              |    |
 | `tolerations`                                         | Toleration labels for pod assignment                                                                      | `[]`                                                              |    |
 | `labels`                                              | Common labels to add to all objects defined in this chart                                                 | `{}`                                                              |    |
 | `ingress.enabled`                                     | Enable Kubernetes Ingress support                                                                         | `false`                                                           |    |
 | `ingress.acme`                                        | Add acme annotations to Ingress object                                                                    | `false`                                                           |    |
-| `ingress.tlsSecretName`                               | Name of secret that contains a TLS secret                                                                 | `~`                                                               |    |
+| `ingress.tlsSecretName`                               | Name of Kubernetes secret that contains a TLS secret                                                                 | `~`                                                               |    |
 | `ingress.webserverAnnotations`                        | Annotations added to Webserver Ingress object                                                             | `{}`                                                              |    |
 | `ingress.flowerAnnotations`                           | Annotations added to Flower Ingress object                                                                | `{}`                                                              |    |
 | `ingress.baseDomain`                                  | Base domain for VHOSTs                                                                                    | `~`                                                               |    |
 | `ingress.auth.enabled`                                | Enable auth with Astronomer Platform                                                                      | `true`                                                            |    |
 | `networkPolicies.enabled`                             | Enable Network Policies to restrict traffic                                                               | `true`                                                            |    |
-| `airflowHome`                                         | Location of airflow home directory                                                                        | `/usr/local/airflow`                                              |    |
+| `airflowHome`                                         | Location of Airflow home directory                                                                        | `/usr/local/airflow`                                              |    |
 | `rbacEnabled`                                         | Deploy pods with Kubernetes RBAC enabled                                                                  | `true`                                                            |    |
 | `airflowVersion`                                      | Default Airflow image version                                                                             | `1.10.5`                                                          |    |
 | `executor`                                            | Airflow executor (eg SequentialExecutor, LocalExecutor, CeleryExecutor, KubernetesExecutor)               | `KubernetesExecutor`                                              |    |
-| `allowPodLaunching`                                   | Allow airflow pods to talk to Kubernetes API to launch more pods                                          | `true`                                                            |    |
-| `defaultAirflowRepository`                            | Fallback docker repository to pull airflow image from                                                     | `quay.io/astronomer/ap-airflow`                                   |    |
-| `defaultAirflowTag`                                   | Fallback docker image tag to deploy. This image is also used to Run Database Migrations for Airflow.      | `1.10.7-alpine3.10`                                               |    |
-| `images.airflow.repository`                           | Docker repository to pull image from. Update this to deploy a custom image                                | `quay.io/astronomer/ap-airflow`                                   |    |
-| `images.airflow.tag`                                  | Docker image tag to pull image from. Update this to deploy a new custom image tag                         | `~`                                                               |    |
-| `images.airflow.pullPolicy`                           | PullPolicy for airflow image                                                                              | `IfNotPresent`                                                    |    |
-| `images.flower.repository`                            | Docker repository to pull image from. Update this to deploy a custom image                                | `quay.io/astronomer/ap-airflow`                                   |    |
-| `images.flower.tag`                                   | Docker image tag to pull image from. Update this to deploy a new custom image tag                         | `~`                                                               |    |
+| `allowPodLaunching`                                   | Allow Airflow pods to talk to Kubernetes API to launch more pods                                          | `true`                                                            |    |
+| `defaultAirflowRepository`                            | Fallback Docker repository to pull Airflow image from                                                     | `quay.io/astronomer/ap-airflow`                                   |    |
+| `defaultAirflowTag`                                   | Fallback Docker image tag to deploy. This image is also used to Run Database Migrations for Airflow.      | `1.10.7-alpine3.10`                                               |    |
+| `images.airflow.repository`                           | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-airflow`                                   |    |
+| `images.airflow.tag`                                  | Docker image tag to pull image from. Update this to deploy a new custom image tag.                         | `~`                                                               |    |
+| `images.airflow.pullPolicy`                           | Pull policy for Airflow image                                                                              | `IfNotPresent`                                                    |    |
+| `images.flower.repository`                            | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-airflow`                                   |    |
+| `images.flower.tag`                                   | Docker image tag to pull image from. Update this to deploy a new custom image tag.                         | `~`                                                               |    |
 | `images.flower.pullPolicy`                            | PullPolicy for flower image                                                                               | `IfNotPresent`                                                    |    |
-| `images.statsd.repository`                            | Docker repository to pull image from. Update this to deploy a custom image                                | `quay.io/astronomer/ap-statsd-exporter`                           |    |
-| `images.statsd.tag`                                   | Docker image tag to pull image from. Update this to deploy a new custom image tag                         | `~`                                                               |    |
+| `images.statsd.repository`                            | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-statsd-exporter`                           |    |
+| `images.statsd.tag`                                   | Docker image tag to pull image from. Update this to deploy a new custom image tag.                         | `~`                                                               |    |
 | `images.statsd.pullPolicy`                            | PullPolicy for statsd-exporter image                                                                      | `IfNotPresent`                                                    |    |
-| `images.redis.repository`                             | Docker repository to pull image from. Update this to deploy a custom image                                | `quay.io/astronomer/ap-redis`                                     |    |
-| `images.redis.tag`                                    | Docker image tag to pull image from. Update this to deploy a new custom image tag                         | `~`                                                               |    |
+| `images.redis.repository`                             | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-redis`                                     |    |
+| `images.redis.tag`                                    | Docker image tag to pull image from. Update this to deploy a new custom image tag.                         | `~`                                                               |    |
 | `images.redis.pullPolicy`                             | PullPolicy for redis image                                                                                | `IfNotPresent`                                                    |    |
-| `images.pgbouncer.repository`                         | Docker repository to pull image from. Update this to deploy a custom image                                | `quay.io/astronomer/ap-pgbouncer`                                 |    |
-| `images.pgbouncer.tag`                                | Docker image tag to pull image from. Update this to deploy a new custom image tag                         | `~`                                                               |    |
+| `images.pgbouncer.repository`                         | Docker repository to pull image from. Update this to deploy a custom image.                                | `quay.io/astronomer/ap-pgbouncer`                                 |    |
+| `images.pgbouncer.tag`                                | Docker image tag to pull image from. Update this to deploy a new custom image tag.                         | `~`                                                               |    |
 | `images.pgbouncer.pullPolicy`                         | PullPolicy for pgbouncer image                                                                            | `IfNotPresent`                                                    |    |
 | `images.pgbouncerExporter.repository`                 | Docker repository to pull image from. Update this to deploy a custom image                                | `quay.io/astronomer/ap-pgbouncer-exporter`                        |    |
 | `images.pgbouncerExporter.tag`                        | Docker image tag to pull image from. Update this to deploy a new custom image tag                         | `~`                                                               |    |
@@ -258,8 +233,8 @@ The following tables lists the configurable parameters of the Airflow chart and 
 | `workers.keda.cooldownPeriod`                         | How often KEDA should wait before scaling down in seconds                                                 | `30`                                                              |    |
 | `workers.keda.maxReplicaCount`                        | Maximum number of Celery workers KEDA can scale to                                                        | `10`                                                              |    |
 | `workers.persistence.enabled`                         | Enable log persistence in workers via StatefulSet                                                         | `false`                                                           |    |
-| `workers.persistence.size`                            | Size of worker volumes if enabled                                                                         | `100Gi`                                                           |    |
-| `workers.persistence.storageClassName`                | StorageClass worker volumes should use if enabled                                                         | `default`                                                         |    |
+| `workers.persistence.size`                            | Size of worker volumes (if persistence is enabled)                                                                         | `100Gi`                                                           |    |
+| `workers.persistence.storageClassName`                | StorageClass worker volumes should use (if persistence is enabled)                                                         | `default`                                                         |    |
 | `workers.extraInitContainers`                         | Extra init containers for workers, including `pod_template_file`                                          | `[]`                                                              |    |
 | `workers.extraVolumes`                                | Extra volumes for workers, including `pod_template_file`                                                  | `[]`                                                              |    |
 | `workers.extraVolumeMounts`                           | Extra volume mounts for workers, including `pod_template_file`                                            | `[]`                                                              |    |
@@ -302,149 +277,6 @@ The following tables lists the configurable parameters of the Airflow chart and 
 | `webserver.resources.requests.cpu`                    | CPU Request of webserver                                                                                  | `~`                                                               |    |
 | `webserver.resources.requests.memory`                 | Memory Request of webserver                                                                               | `~`                                                               |    |
 | `webserver.jwtSigningCertificateSecretName`           | Name of secret to mount Airflow Webserver JWT singing certificate from                                    | `~`                                                               |    |
-| `webserver.defaultUser`                               | Optional default airflow user information                                                                 | `{}`                                                              |    |
+| `webserver.defaultUser`                               | Optional default Airflow user information                                                                 | `{}`                                                              |    |
 | `extraObjects`                                        | Extra K8s Objects to deploy (these are passed through `tpl`). More about [Extra Objects](#extra-objects). | `[]`                                                              |    |
 | `webserver.extraContainers`                           | Add additional containers to webserver pod(s)                                                             | `[]`                                                              |    |
-
-
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
-
-```bash
-helm install --name my-release \
-  --set executor=CeleryExecutor \
-  --set enablePodLaunching=false .
-```
-
-##  Autoscaling with KEDA
-
-KEDA stands for Kubernetes Event Driven Autoscaling. [KEDA](https://github.com/kedacore/keda) is a custom controller that allows users to create custom bindings
-to the Kubernetes [Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/).
-We've built an experimental scaler that allows users to create scalers based on postgreSQL queries. For the moment this exists
-on a separate branch, but will be merged upstream soon. To install our custom version of KEDA on your cluster, please run
-
-```bash
-helm repo add kedacore https://kedacore.github.io/charts
-
-helm repo update
-
-helm install \
-    --set image.keda=docker.io/kedacore/keda:1.2.0 \
-    --set image.metricsAdapter=docker.io/kedacore/keda-metrics-adapter:1.2.0 \
-    --namespace keda --name keda kedacore/keda
-```
-
-Once KEDA is installed (which should be pretty quick since there is only one pod). You can try out KEDA autoscaling
-on this chart by setting `workers.keda.enabled=true` your helm command or in the `values.yaml`.
-(Note: KEDA does not support StatefulSets so you need to set `worker.persistence.enabled` to `false`)
-
-```bash
-helm repo add astronomer https://helm.astronomer.io
-helm repo update
-
-kubectl create namespace airflow
-
-helm install airflow \
-    --set executor=CeleryExecutor \
-    --set workers.keda.enabled=true \
-    --set workers.persistence.enabled=false \
-    --namespace airflow \
-    astronomer/airflow
-```
-
-## Walkthrough using kind
-
-**Install kind, and create a cluster:**
-
-We recommend testing with Kubernetes 1.16+, example:
-
-```
-kind create cluster \
-  --image kindest/node:v1.18.15
-```
-
-Confirm it's up:
-
-```
-kubectl cluster-info --context kind-kind
-```
-
-**Add Astronomer's Helm repo:**
-
-```
-helm repo add astronomer https://helm.astronomer.io
-helm repo update
-```
-
-**Create namespace + install the chart:**
-
-```
-kubectl create namespace airflow
-helm install airflow -n airflow astronomer/airflow
-```
-
-It may take a few minutes. Confirm the pods are up:
-
-```
-kubectl get pods --all-namespaces
-helm list -n airflow
-```
-
-Run `kubectl port-forward svc/airflow-webserver 8080:8080 -n airflow`
-to port-forward the Airflow UI to http://localhost:8080/ to confirm Airflow is working.
-
-**Build a Docker image from your DAGs:**
-
-1. Start a project using [astro-cli](https://github.com/astronomer/astro-cli), which will generate a Dockerfile, and load your DAGs in. You can test locally before pushing to kind with `astro airflow start`.
-
-        mkdir my-airflow-project && cd my-airflow-project
-        astro dev init
-
-2. Then build the image:
-
-        docker build -t my-dags:0.0.1 .
-
-3. Load the image into kind:
-
-        kind load docker-image my-dags:0.0.1
-
-4. Upgrade Helm deployment:
-
-        helm upgrade airflow -n airflow \
-            --set images.airflow.repository=my-dags \
-            --set images.airflow.tag=0.0.1 \
-            astronomer/airflow
-
-## Extra Objects
-
-This chart can deploy extra Kubernetes objects (assuming the role used by Helm can manage them). For Astronomer Cloud and Enterprise, the role permissions can be found in the [Commander role](https://github.com/astronomer/astronomer/blob/master/charts/astronomer/templates/commander/commander-role.yaml).
-
-```yaml
-extraObjects:
-  - apiVersion: batch/v1beta1
-    kind: CronJob
-    metadata:
-      name: "{{ .Release.Name }}-somejob"
-    spec:
-      schedule: "*/10 * * * *"
-      concurrencyPolicy: Forbid
-      jobTemplate:
-        spec:
-          template:
-            spec:
-              containers:
-              - name: myjob
-                image: ubuntu
-                command:
-                - echo
-                args:
-                - hello
-              restartPolicy: OnFailure
-```
-
-## Contributing
-
-Check out [our contributing guide!](CONTRIBUTING.md)
-
-## License
-
-Apache 2.0 with Commons Clause
