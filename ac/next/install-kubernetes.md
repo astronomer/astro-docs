@@ -95,14 +95,14 @@ This command imports a `values.yaml` file which you can use to update your Airfl
 1. Update values in your local `values.yaml` file.
 2. Push those local changes to Airflow using the following command:
 
-    ```
+    ```sh
     helm upgrade airflow -n airflow -f values.yaml astronomer/airflow       
     ```
 
     Alternatively, you can update individual values within the CLI:
 
-    ```
-    helm install --name my-release \
+    ```sh
+    $ helm install --name my-release \
       --set executor=CeleryExecutor \
       --set enablePodLaunching=false .
     ```
@@ -120,7 +120,7 @@ To bake DAGs into a Docker image:
 1. Add your DAGs to the `dags` folder in your project directory. The DAGs should be uncompiled `.py` files at the top level in the directory (as in, not in a `pycache` folder). If you need an example DAG to deploy, use the one in Astronomer's [GitHub repository](https://github.com/astronomer/docker-airflow/tree/main/dags).
 2. In your Dockerfile, add the following lines:
 
-    ```
+    ```docker
     FROM quay.io/astronomer/docker-airflow:latest-onbuild
 
     COPY ./dags/ \${AIRFLOW_HOME}/dags
@@ -130,14 +130,14 @@ To bake DAGs into a Docker image:
 
 3. In your project directory, build a custom Docker image by running the following command:  
 
-    ```
+    ```sh
     docker build --tag <your-registry>/airflow:<your-tag> . -f Dockerfile
     ```
 
 4. Push your custom image to an accessible  
 registry by running the following command:
 
-    ```
+    ```sh
     docker push <your-registry>/airflow:<your-tag>
     ````
 
@@ -159,11 +159,11 @@ registry by running the following command:
 
 7. If the upgrade was successful, the CLI should prompt you to run a command that looks something like the following:
 
-    ```
+    ```sh
     kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow
     ```
 
-    This command gives your local computer access to Airflow's webserver, which is responsible for rendering the Airflow UI.
+    This command gives your local computer access to Airflow's webserver, which is the Airflow component responsible for rendering the Airflow UI.
 
 8. Run the command suggested by the CLI and open `localhost:8080` in a web browser. If your connection was successful, you should see the Airflow login screen.
 
