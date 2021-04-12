@@ -55,15 +55,13 @@ As you follow the guide linked above, keep in mind:
 
 ## Step 3: Create a Namespace
 
-Now that you have a base domain and an EKS cluster up and running, you'll need to create a namespace to host the core Astronomer Platform.
+Create a [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) called `astronomer` to host the core Astronomer platform:
 
-For standard installations, each Airflow Deployment provisioned on the platform will automatically be created within an additional, isolated namespace.
-
-The initial namespace we're creating below will just contain the core Astronomer platform.
-
-```bash
-$ kubectl create ns astronomer
+```sh
+kubectl create namespace astronomer
 ```
+
+Once Astronomer is running, each Airflow Deployment that you create will have its own isolated namespace.
 
 ## Step 4: Configure TLS
 
@@ -366,7 +364,7 @@ astronomer-kube-state                ClusterIP      172.20.123.56    <none>     
 astronomer-kubed                     ClusterIP      172.20.4.200     <none>                                                                    443/TCP                                      24d
 astronomer-nginx                     LoadBalancer   172.20.54.142    ELB_ADDRESS.us-east-1.elb.amazonaws.com                                   80:31925/TCP,443:32461/TCP,10254:32424/TCP   24d
 astronomer-nginx-default-backend     ClusterIP      172.20.186.254   <none>                                                                    8080/TCP                                     24d
-astronomer-orbit                     ClusterIP      172.20.186.166   <none>                                                                    8080/TCP                                     24d
+astronomer-astro-ui                     ClusterIP      172.20.186.166   <none>                                                                    8080/TCP                                     24d
 astronomer-prisma                    ClusterIP      172.20.144.188   <none>                                                                    4466/TCP                                     24d
 astronomer-prometheus                ClusterIP      172.20.72.196    <none>                                                                    9090/TCP                                     24d
 astronomer-registry                  ClusterIP      172.20.100.102   <none>                                                                    5000/TCP                                     24d
