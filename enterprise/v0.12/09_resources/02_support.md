@@ -30,7 +30,7 @@ On Astronomer's Support Portal, you can do two things:
 
 ### Create an Account
 
-To submit a request to Astronomer Support, first create an account on our [Support Portal](support.astronomer.io).
+To submit a request to Astronomer Support, first create an account on our [Support Portal](https://support.astronomer.io).
 
 If you're working with a team, make sure to create an account with your work email or a domain that the rest of your team shares. This will allow you to have visibility into support tickets across your team.
 

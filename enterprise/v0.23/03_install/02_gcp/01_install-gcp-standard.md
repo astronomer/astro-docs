@@ -12,6 +12,7 @@ To install Astronomer on GCP, you'll need access to the following tools and perm
 
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Google Cloud SDK](https://cloud.google.com/sdk/install)
+* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference)
 * [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
 * An SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
@@ -85,7 +86,7 @@ $ gcloud container clusters create [CLUSTER_NAME] --zone [COMPUTE_ZONE] --cluste
 
 A few important notes:
 
-- Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on GKE.
+- Each version of Astronomer Enterprise is compatible with only a particular set of Kubernetes versions. For more information, refer to Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 - We recommend using the [`n1-standard-8` machine type](https://cloud.google.com/compute/docs/machine-types#n1_standard_machine_types) with a minimum of 3 nodes (24 CPUs) as a starting point.
 - The Astronomer platform and all components within it will consume ~11 CPUs and ~40GB of memory as the default overhead, so we generally recommend using larger vs smaller nodes.
 - For more detailed instructions and a full list of optional flags, refer to GKE's ["Creating a Cluster"](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster).
@@ -99,11 +100,13 @@ Helm is a package manager for Kubernetes. It allows you to easily deploy complex
 
 ### Create a Kubernetes Namespace
 
-Create a namespace to host the core Astronomer Platform. If you are running through a standard installation, each Airflow deployment you provision will be created in a separate namespace that our platform will provision for you, this initial namespace will just contain the core Astronomer platform.
+Create a [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) called `astronomer` to host the core Astronomer platform:
 
+```sh
+kubectl create namespace astronomer
 ```
-$ kubectl create namespace <my-namespace>
-```
+
+Once Astronomer is running, each Airflow Deployment that you create will have its own isolated namespace.
 
 ## Step 4: Configure TLS
 
@@ -179,10 +182,15 @@ $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --
 If you received a certificate from a private CA, follow these steps instead:
 
 1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
-```sh
-$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
-```
-> **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    ```sh
+    $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+    ```
+
+    > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
+
 
 2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 7. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
@@ -254,6 +262,8 @@ global:
 nginx:
   # IP address the nginx ingress should bind to
   loadBalancerIP: ~
+  # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
+  ingressAnnotations: {}
 
 #################################
 ### SMTP configuration
@@ -352,7 +362,7 @@ newbie-norse-kibana-58bdf9bdb8-2j67t                   1/1     Running     0    
 newbie-norse-kube-state-549f45544f-mcv7m               1/1     Running     0          30m
 newbie-norse-nginx-7f6b5dfc9c-dm6tj                    1/1     Running     0          30m
 newbie-norse-nginx-default-backend-5ccdb9554d-5cm5q    1/1     Running     0          30m
-newbie-norse-orbit-d5585ccd8-h8zkr                     1/1     Running     0          30m
+newbie-norse-astro-ui-d5585ccd8-h8zkr                  1/1     Running     0          30m
 newbie-norse-prisma-699bd664bb-vbvlf                   1/1     Running     0          30m
 newbie-norse-prometheus-0                              1/1     Running     0          30m
 newbie-norse-registry-0                                1/1     Running     0          30m

@@ -21,7 +21,7 @@ A few use cases:
 
 **Note:** These are _not_ task-level logs that you'd find in the Airflow Web UI. Logs on Astronomer are not a replacement for task-level logging in the Airflow UI.
 
-### Pre-Requisites
+### Prerequisites
 
 To view logs on Astronomer, you'll need:
 
@@ -56,7 +56,3 @@ To adjust this filter, toggle the top right menu.
 On Astronomer, you can search for logs with a text string on the top left.
 
 ![Search Logs](https://assets2.astronomer.io/main/docs/logs/logs-search.png)
-
-## Local Logs
-
-For guidelines on how to tail logs locally via the CLI, check out [this doc](/docs/enterprise/stable/deploy/deployment-logs/).

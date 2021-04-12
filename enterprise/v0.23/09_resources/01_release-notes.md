@@ -1,5 +1,5 @@
 ---
-title: "Release Notes"
+title: "Astronomer v0.23 Release Notes"
 navTitle: "Release Notes"
 description: "Astronomer Enterprise release notes."
 ---
@@ -8,13 +8,59 @@ description: "Astronomer Enterprise release notes."
 
 Astronomer v0.23 is the latest available minor version in our long-term support (LTS) release model for Astronomer Enterprise.
 
-If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/v0.23/manage-astronomer/upgrade-to-0-23/). For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer-patch/). 
+If you're looking to upgrade to Astronomer v0.23 from Astronomer v0.16, refer to [Upgrade to Astronomer v0.23](/docs/enterprise/v0.23/manage-astronomer/upgrade-to-0-23/). For instructions on how to upgrade to a patch version within the Astronomer v0.23 series, refer to [Upgrade to a Patch Version of Astronomer Enterprise](/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer-patch/).
 
 We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](https://support.astronomer.io).
 
 > **Note:** The perceived version gap between Astronomer Enterprise v0.16 and v0.23 is due to the nature of Astronomer's release schedule. To optimize for security and reliability, Astronomer Cloud releases are made available to Enterprise users only after they've passed a dedicated testing process. Astronomer Enterprise v0.23 includes _all_ changes made available on Astronomer Cloud between v0.16 and v0.23, in addition to Enterprise-only functionality.
 
-## Astronomer v0.23.11
+## v0.23.12
+
+Release Date: March 30, 2021
+
+### Platform Support for Ingress Annotations
+
+With Astronomer Enterprise 0.23.12, you can now configure the behavior of Ingress resources by specifying an [annotation](https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/) in your Astronomer Helm Chart. For example, you can now upgrade from the Classic Load Balancer to the [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) on Amazon EKS by adding the following to your [`config.yaml` file](https://github.com/astronomer/astronomer/blob/e4e5705df9b778a002a6fce2d53e5170292792ba/values.yaml#L202):
+
+```
+  ingressAnnotations: {service.beta.kubernetes.io/aws-load-balancer-type: nlb}
+```
+
+Then, push the changes to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+
+### Platform Support for Disabling Alertmanager Clustering
+
+In private networks, you might want to disable Alertmanager clustering to avoid failures due to a gossip protocol. To do so, you can now configure `alertmanager.disableClustering` in your `config.yaml` file and push the change to your platform as described in [Apply a Config Change](/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+
+### Support for Airflow 1.10.15
+
+[Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) comes with a suite of enhancements and bug fixes that follow [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14), which was released in December of 2020 to make the migration to [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0) as easy as possible. If you haven't migrated to Airflow 2.0 yet, you _must_ upgrade to Airflow 1.10.14+ first.
+
+Specifically, Airflow 1.10.15 includes the following changes:
+
+- Fix sync-perm to work correctly when update_fab_perms = False [(commit)](https://github.com/astronomer/airflow/commit/950028f93e1220d49629aea10dfbaf1173b8910b)
+- Pin SQLAlchemy to <1.4 due to breakage of sqlalchemy-utils [(commit)](https://github.com/astronomer/airflow/commit/331f0d23260a77212e7b15707e04bee02bdab1f2)
+- Enable DAG Serialization by default [(commit)](https://github.com/apache/airflow/commit/cd1961873783389ee51748f7f2a481900cce85b9)
+- Stop showing Import Errors for Plugins in Webserver [(commit)](https://github.com/apache/airflow/commit/a386fd542fe1c46bd3e345371eed10a9c230f690)
+- Add role-based authentication backend [(commit)](https://github.com/apache/airflow/commit/16461c3c8dcb1d1d2766844d32f3cdec31c89e69)
+- Show a "Warning" to Users with duplicate connections [(commit)](https://github.com/apache/airflow/commit/c037d48c9e383a6fd0b1b0d88407489d0ed02194)
+- `KubernetesExecutor` should accept images from `executor_config` [(commit)](https://github.com/apache/airflow/pull/13074)
+- Fixed inability to import Airflow plugins on Python 3.8 [(commit)](https://github.com/apache/airflow/pull/12859)
+- Fixed Scheduler not acknowledging active runs properly [(commit)](https://github.com/apache/airflow/pull/13803)
+
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions). For more information on 1.10.15, check out the [Airflow Release](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html) or the corresponding [AC 1.10.15 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/CHANGELOG.md).
+
+### Bug fixes
+
+- Addressed CVEs found in the following platform images: `ap-curator`, `ap-db-bootstrapper`, `ap-elasticsearch`, `ap-fluentd`, `ap-grafana`, `ap-kibana`, `ap-nats-server`, `ap-nginx`, `ap-nginx-es`, `ap-postgres-exporter`, `ap-registry`, and `ap-vendor/fluentd`.
+- When two or more Fluentd parameters are set in Astronomer's `config.yaml` file, the resulting Fluentd configmap values are now properly concatenated. ([Source](https://github.com/astronomer/astronomer/pull/1031))
+- The value for an Environment Variable that exists with the same name in 2+ Airflow Deployments now renders correctly when navigating between those Deployments in the Astronomer UI.
+- Airflow task logs are no longer missing in the Airflow UI for users running Astronomer v0.23.9 on IKS. ([Source](https://github.com/astronomer/astronomer/pull/1023))
+- Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI now properly forces the `fsGroup` setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
+- Nginx ingress scraping for Prometheus now scrapes and reports metrics for all `nginx` replicas in aggregate, as opposed to one pod at a time. ([Source](https://github.com/astronomer/astronomer/pull/1010))
+- Fixed an issue where Airflow Schedulers were unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
+
+## v0.23.11
 
 Release Date: February 11, 2021
 
