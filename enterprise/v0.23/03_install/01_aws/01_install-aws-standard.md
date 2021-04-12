@@ -28,7 +28,7 @@ Once created, your Astronomer base domain will be linked to a variety of sub-ser
 For the base domain `astro.mydomain.com`, for example, here are some corresponding URLs that your users would be able to reach:
 
 - Astronomer UI: `app.astro.mydomain.com`
-- Airflow Deployments: `deployments.astro.mydomain.com/udeployment-release-name/airflow`
+- Airflow Deployments: `deployments.astro.mydomain.com/deployment-release-name/airflow`
 - Grafana Dashboard: `grafana.astro.mydomain.com`
 - Kibana Dashboard: `kibana.astro.mydomain.com`
 
