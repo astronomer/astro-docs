@@ -10,16 +10,6 @@ This guide describes the steps to install Astronomer Enterprise on Amazon Web Se
 
 To install Astronomer on EKS, you'll need access to the following tools and permissions:
 
-<<<<<<< HEAD
-- The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-- Kubernetes 1.16 or later
-- The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- The [OpenSSL CLI](https://www.openssl.org/docs/man1.0.2/man1/openssl.html)
-- [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
-- An SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
-- Permission to create and modify resources on AWS
-- Permission to generate a certificate (not self-signed) that covers a defined set of subdomains
-=======
 * The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference)
 * The [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
@@ -28,7 +18,6 @@ To install Astronomer on EKS, you'll need access to the following tools and perm
 * An SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
 * Permission to create and modify resources on AWS
 * Permission to generate a certificate (not self-signed) that covers a defined set of subdomains
->>>>>>> 5dd5105bc6ade6e69ed913a410d672d365881ea0
 
 ## Step 1: Choose a Base Domain
 
@@ -39,7 +28,7 @@ Once created, your Astronomer base domain will be linked to a variety of sub-ser
 For the base domain `astro.mydomain.com`, for example, here are some corresponding URLs that your users would be able to reach:
 
 - Astronomer UI: `app.astro.mydomain.com`
-- Airflow Deployments: `deployments.astro.mydomain.com/uniquely-generated-airflow-name/airflow`
+- Airflow Deployments: `deployments.astro.mydomain.com/udeployment-release-name/airflow`
 - Grafana Dashboard: `grafana.astro.mydomain.com`
 - Kibana Dashboard: `kibana.astro.mydomain.com`
 
@@ -53,16 +42,6 @@ EKS is built off of Amazon's pre-existing EC2 service, so you can manage your Ku
 
 As you follow the guide linked above, keep in mind:
 
-<<<<<<< HEAD
-- Astronomer currently supports Kubernetes versions 1.14, 1.15, 1.16 and 1.17 on EKS.
-- We generally advise running the EKS control plane in a single security group. The worker nodes you spin up should have the same setup as the EKS control plane.
-- All security and access settings needed for your worker nodes should be configured in your Cloud Formation template.
-- If you create an EKS cluster from the UI, `kubectl` access will be limited to the user who created the cluster by default.
-  - To give more users `kubectl` access, you'll have to do so manually.
-  - [This post](https://web.archive.org/web/20190323035848/http://marcinkaszynski.com/2018/07/12/eks-auth.html) goes through how IAM plays with EKS.
-- Expect to see each of your underlying nodes in the EC2 console.
-  - Given Astronomer's default resource request of ~11 CPUs and ~40GB of memory, we recommend using either six m5.xlarge or three m5.2xlarge [instances](https://aws.amazon.com/ec2/instance-types/) for your cluster. To modify Astronomer's default resource requests, see step 6.
-=======
 * Each version of Astronomer Enterprise is compatible with only a particular set of Kubernetes versions. For more information, refer to Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 * We generally advise running the EKS control plane in a single security group. The worker nodes you spin up should have the same setup as the EKS control plane.
 * All security and access settings needed for your worker nodes should be configured in your Cloud Formation template.
@@ -71,7 +50,6 @@ As you follow the guide linked above, keep in mind:
     * [This post](https://web.archive.org/web/20190323035848/http://marcinkaszynski.com/2018/07/12/eks-auth.html) goes through how IAM plays with EKS.
 * Expect to see each of your underlying nodes in the EC2 console.
     * Given Astronomer's default resource request of ~11 CPUs and ~40GB of memory, we recommend using either six m5.xlarge or three m5.2xlarge [instances](https://aws.amazon.com/ec2/instance-types/) for your cluster. To modify Astronomer's default resource requests, see step 6.
->>>>>>> 5dd5105bc6ade6e69ed913a410d672d365881ea0
 
 > **Note:** If you work with multiple Kubernetes environments, `kubectx` is an incredibly useful tool for quickly switching between Kubernetes clusters. Learn more [here](https://github.com/ahmetb/kubectx).
 
@@ -160,13 +138,6 @@ If you received a certificate from a private CA, follow these steps instead:
 
 1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
 
-<<<<<<< HEAD
-```sh
-$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
-```
-
-> **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
-=======
     ```sh
     $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
     ```
@@ -174,7 +145,6 @@ $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-cer
     > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
 
     > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
->>>>>>> 5dd5105bc6ade6e69ed913a410d672d365881ea0
 
 2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 8. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
@@ -186,7 +156,7 @@ An SMTP service is required so that users can send and accept email invites to a
 smtps://USERNAME:PASSWORD@HOST/?pool=true
 ```
 
-The following table contains examples of what the URI will look like for some of the most popular SMTP services. If your SMTP provider is not listed, refer to the provider's documentation for information on creating an SMTP URI:
+The following table contains examples of what the URI will look like for some of the most popular SMTP services:
 
 | Provider          | Example SMTP URL                                                                               |
 | ----------------- | ---------------------------------------------------------------------------------------------- |
@@ -195,6 +165,8 @@ The following table contains examples of what the URI will look like for some of
 | Mailgun           | `smtps://xyz%40example.com:password@smtp.mailgun.org/?pool=true`                               |
 | Office365         | `smtp://xyz%40example.com:password@smtp.office365.com:587/?requireTLS=true`                   |
 | Custom SMTP-relay | `smtp://smtp-relay.example.com:25/?ignoreTLS=true`                                      |
+
+If your SMTP provider is not listed, refer to the provider's documentation for information on creating an SMTP URI.
 
 > **Note:** If there are `/` or other escape characters in your username or password, you may need to [URL encode](https://www.urlencoder.org/) those characters.
 
