@@ -18,6 +18,7 @@ This change has a few effects:
 - The Airflow Webserver now requires less CPU and Memory.
 - Increasing your total # of DAGs no longer requires proportionally increasing your Webserver resources.
 - When you deploy code or configuration changes via `astro deploy`, these changes will appear in the Airflow UI in real time without an intermediary "Airflow is Starting Up" page.
+- The Webserver still restarts when you deploy code, but a "rolling restart" is applied so that the Webserver pod is slowly replaced by another instead of stopping entirely. 
 
 For context, this functionality is possible because Airflow 2.0 requires [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), which is an open source feature that makes the Webserver stateless.
 
