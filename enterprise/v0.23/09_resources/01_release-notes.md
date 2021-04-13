@@ -29,19 +29,7 @@ This change has a few effects:
 
 For context, this functionality is possible because Airflow 2.0 enables [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, by default.
 
-> **Note:** If you use Webserver plugins, you will need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
-> ```gql
-> mutation toggleWebserverReboot {
->  toggleWebserverReboot (
->    deploymentId: "ckij5u45d16501pbr0vdolqkr"
->    reboot: false
->       	)
->  {
->    id
->    updatedAt
->    }
->  }
-> ```
+> **Note:** If you use Webserver plugins, you might still see a downtime screen after making changes to these plugins. This is because a Webserver reboot is still required when updating plugins.
 
 ### Minor Improvements and Bug fixes
 
