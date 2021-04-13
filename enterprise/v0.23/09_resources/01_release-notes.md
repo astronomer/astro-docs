@@ -20,20 +20,20 @@ Release Date: April 13, 2021
 
 ### Zero Webserver Downtime for Airflow 2.0+ Deployments
 
-We're excited to announce that Astronomer v0.23.13 introduces zero Webserver downtime for Deployments running Airflow 2.0+. For users on these versions, the Webserver will no longer require a restart after a code push or configuration change. This is an automatic change that requires no configuration in your system.
+We're excited to announce that Astronomer v0.23.13 introduces zero Webserver downtime for Deployments running Airflow 2.0+. For users on these versions, the Webserver will no longer require a restart after a code push or configuration change. This feature is automatically enabled and requires no configuration in your system.
 
 This change has a few effects:
-- The Airflow Webserver now requires less CPU and Memory
+- The Airflow Webserver now requires less CPU and Memory.
 - Increasing your total # of DAGs no longer requires proportionally increasing your Webserver resources.
 - Following `$ astro deploy`, users will see DAG changes reflected in the Airflow UI in real-time without an intermediary "Airflow is Starting Up" page.
 
 For context, this functionality is possible because Airflow 2.0 enables [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, by default.
 
-> **Note:** If you use Webserver plugins, you will need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
+> **Note:** If you use Webserver plugins, you will need to manually restart the Airflow Webserver to apply a plugin change. To do so, [make an API call](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/houston-api) using our new mutation:
 > ```gql
 > mutation toggleWebserverReboot {
 >  toggleWebserverReboot (
->    deploymentId: "ckij5u45d16501pbr0vdolqkr"
+>    deploymentId: "<deployment-id>"
 >    reboot: false
 >       	)
 >  {
@@ -45,9 +45,9 @@ For context, this functionality is possible because Airflow 2.0 enables [DAG Ser
 
 ### Minor Improvements and Bug fixes
 
-- Added a new `pgbouncer.networkPolicies.enabled` Helm value so that organizations can exclusively enable a pgBouncer network policy. ([Source](https://github.com/astronomer/airflow-chart/pull/204))
+- Added a new `pgbouncer.networkPolicies.enabled` value to Astronomer's Airflow Helm Chart so that organizations can exclusively enable or disable a pgBouncer network policy. ([Source](https://github.com/astronomer/airflow-chart/pull/204))
 - Fixed an issue where Deployments showed an inaccurate image version tag in the Airflow UI. ([Source](https://github.com/astronomer/houston-api/pull/659))
-- Changed the default Airflow Deployment image to 2.0.0. ([Source](https://github.com/astronomer/airflow-chart/pull/198))
+- Changed the default Airflow Deployment image in Astronomer's Airflow Helm Chart to 2.0.0. ([Source](https://github.com/astronomer/airflow-chart/pull/198))
 - Upgraded the default pgbouncer and redis dependencies for new Airflow Deployments.([Source](https://github.com/astronomer/airflow-chart/pull/203))
 - Increased the storage capacity of volumes in Elasticsearch pods. ([Source](https://github.com/astronomer/google-environments/pull/258))
 - Fixed an issue where users would experience an error when upgrading their Airflow Helm chart from 0.15.7 to 0.18.6. ([Source](https://github.com/astronomer/astronomer/pull/1050))
