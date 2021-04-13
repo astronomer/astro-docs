@@ -6,6 +6,22 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.23
 
+### v0.23.13
+
+Release Date: April 13, 2021
+
+#### Zero Webserver Downtime for Airflow 2.0+ Deployments
+
+We're excited to announce that Astronomer v0.23.13 introduces zero Webserver downtime for Deployments running Airflow 2.0+. This feature is automatically enabled and requires no configuration in your system.
+
+This change has a few effects:
+- The Airflow Webserver now requires less CPU and Memory.
+- Increasing your total # of DAGs no longer requires proportionally increasing your Webserver resources.
+- When you deploy code or configuration changes via `astro deploy`, these changes will appear in the Airflow UI in real time without an intermediary "Airflow is Starting Up" page.
+- The Webserver still restarts when you deploy code, but a "rolling restart" is applied so that the Webserver pod is slowly replaced by another instead of stopping entirely.
+
+For context, this functionality is possible because Airflow 2.0 requires [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), which is an open source feature that makes the Webserver stateless.
+
 ### v0.23.12
 
 Release Date: March 30, 2021
@@ -32,7 +48,7 @@ For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade A
 - Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI now properly forces the `fsGroup` setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
 - Fixed an issue where Airflow Schedulers were unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
 
-## v0.23.11
+### v0.23.11
 
 Release Date: February 11, 2021
 
