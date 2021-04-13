@@ -35,7 +35,6 @@ For context, this functionality is possible because Airflow 2.0 enables [DAG Ser
 - Fixed an issue where Deployments showed an inaccurate image version tag in the Airflow UI.
 - Changed the default Airflow Deployment image in Astronomer's Airflow Helm Chart to 2.0.0.
 - Upgraded the default pgBouncer and redis dependencies for new Airflow Deployments.
-- Fixed an issue where users would experience an error when upgrading their Airflow Helm chart from 0.15.7 to 0.18.6.
 
 ## v0.23.12
 
