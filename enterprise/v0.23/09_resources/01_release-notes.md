@@ -25,9 +25,9 @@ We're excited to announce that Astronomer v0.23.13 introduces zero Webserver dow
 This change has a few effects:
 - The Airflow Webserver now requires less CPU and Memory
 - Increasing your total # of DAGs no longer requires proportionally increasing your Weberver resources.
-- Following `$ astro deploy`, users should see DAG changes reflected in the Airflow UI in real-time without an intermediary "Airflow is Starting Up" page.
+- Following `$ astro deploy`, users will see DAG changes reflected in the Airflow UI in real-time without an intermediary "Airflow is Starting Up" page.
 
-For context, this functionality is possible because Airflow 2.0 requires that [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, be enabled.
+For context, this functionality is possible because Airflow 2.0 enables [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, by default.
 
 > **Note:** If you use Webserver plugins, you will need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
 > ```gql
