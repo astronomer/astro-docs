@@ -29,7 +29,7 @@ This change has a few effects:
 
 For context, this functionality is possible because Airflow 2.0 requires that [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, be enabled.
 
-> **Note:** If you use Webserver plugins, you _will_ need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
+> **Note:** If you use Webserver plugins, you will need to manually restart the Airflow Webserver to apply a plugin change. To do so, make an API call using our new mutation:
 > ```gql
 > mutation toggleWebserverReboot {
 >  toggleWebserverReboot (
@@ -45,13 +45,12 @@ For context, this functionality is possible because Airflow 2.0 requires that [D
 
 ### Minor Improvements and Bug fixes
 
-- Added a new Helm value `pgbouncer.networkPolicies.enabled` so that organizations can exclusively enable a pgBouncer network policy. ([Source](https://github.com/astronomer/airflow-chart/pull/204))
+- Added a new `pgbouncer.networkPolicies.enabled` Helm value so that organizations can exclusively enable a pgBouncer network policy. ([Source](https://github.com/astronomer/airflow-chart/pull/204))
 - Fixed an issue where Deployments showed an inaccurate image version tag in the Airflow UI. ([Source](https://github.com/astronomer/houston-api/pull/659))
 - Changed the default Airflow Deployment image to 2.0.0. ([Source](https://github.com/astronomer/airflow-chart/pull/198))
 - Upgraded the default pgbouncer and redis dependencies for new Airflow Deployments.([Source](https://github.com/astronomer/airflow-chart/pull/203))
 - Increased the storage capacity of volumes in Elasticsearch pods. ([Source](https://github.com/astronomer/google-environments/pull/258))
-- Fixed an issue where users would experience an error when upgrading their Airflow Helm chart from 0.15.7 to 0.18.6. ([Source](TBD))
-
+- Fixed an issue where users would experience an error when upgrading their Airflow Helm chart from 0.15.7 to 0.18.6. ([Source](https://github.com/astronomer/astronomer/pull/1050))
 
 ## v0.23.12
 
