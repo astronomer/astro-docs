@@ -540,15 +540,15 @@ This command is most often used to restart a cluster when testing new DAGs or se
 
 ### Usage
 
-In your project directory, run `$ astro dev kill` to delete all data associated with your Airflow Deployment's Postgres metadata database. 
+In your project directory, run `$ astro dev kill` to delete all data associated with your Airflow Deployment's Postgres metadata database.
 
 ## astro dev logs
 
-Shows the output log for a locally running Airflow cluster. This command can only be used in a project directory.
+Shows logs for the Scheduler or Webserver in your local Airflow environment.
 
 ### Usage
 
-`$ astro dev logs <flags>`
+Run `$ astro dev logs <flags>` to start tracking logs for your Scheduler or Webserver in your CLI terminal window.
 
 ### Flags
 
@@ -560,7 +560,7 @@ Shows the output log for a locally running Airflow cluster. This command can onl
 
 ## astro dev ps
 
-Lists all locally running Airflow containers for an Airflow project. This command can only be used in a project directory.
+Lists all running Docker containers for your local Airflow environment. This command can only be used in a project directory and works similarly to `$ docker ps`.
 
 ### Usage
 
@@ -568,7 +568,7 @@ Lists all locally running Airflow containers for an Airflow project. This comman
 
 ## astro dev run
 
-Runs a single [Airflow command](https://airflow.apache.org/docs/apache-airflow/stable/cli-ref.html) on a locally running Airflow webserver.
+Runs a single [Airflow CLI command](https://airflow.apache.org/docs/apache-airflow/stable/cli-ref.html) on your local Airflow environment. This command only applies to local development and is not supported for Airflow Deployments on Astronomer.
 
 ### Usage
 
@@ -598,7 +598,7 @@ Initializes a local Airflow environment on your machine by creating a Docker con
 
 ## astro dev stop
 
-Stops all 3 running Docker containers on your local Airflow environment. Running this command followed by `$ astro dev start` is required to finalize changes to an existing Airflow project directory. This command does not prune mounted volumes and will preserve data associated with your local Postgres Metadata Database.
+Stops all 3 running Docker containers on your local Airflow environment. Running this command followed by `$ astro dev start` is required to push certain types of changes to your Airflow project. This command does not prune mounted volumes and will preserve data associated with your local Postgres Metadata Database.
 
 ### Usage
 
@@ -606,7 +606,7 @@ Stops all 3 running Docker containers on your local Airflow environment. Running
 
 ## astro dev upgrade-check
 
-Runs a script that checks whether all files in your local Airflow project are compatible with Airflow 2.0 by reviewing your DAG code, deployment-level configurations, and Environment Variables, as well as metadata from the Airflow Database. You must be on Airflow 1.0.14 and in a project directory to run this command.
+Runs a script that checks whether all files in your local Airflow project are compatible with Airflow 2.0 by reviewing your DAG code, deployment-level configurations, and Environment Variables, as well as metadata from the Airflow Database. You must be on Airflow 1.10.14+ and in your Airflow project directory to run this command.
 
 ### Usage
 
@@ -619,7 +619,7 @@ Runs a script that checks whether all files in your local Airflow project are co
 
 ## astro upgrade
 
-Checks for a newer version of the Astronomer CLI.
+Checks for the latest version of the Astronomer CLI, but does not perform the upgrade.
 
 ### Usage
 
