@@ -27,7 +27,7 @@ This change has a few effects:
 - Increasing your total # of DAGs no longer requires proportionally increasing your Webserver resources.
 - When users deploy code or configuration changes via `astro deploy`, they will see these changes reflected in the Airflow UI in real time without an intermediary "Airflow is Starting Up" page.
 
-For context, this functionality is possible because Airflow 2.0 enables [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), an open source feature that makes the Webserver stateless, by default.
+For context, this functionality is possible because Airflow 2.0 requires [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), which is an open source feature that makes the Webserver stateless.
 
 ### Minor Improvements and Bug fixes
 
