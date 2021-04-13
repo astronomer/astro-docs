@@ -36,7 +36,7 @@ For context, this functionality is possible because Airflow 2.0 requires [DAG Se
 - Fixed an issue where new Deployments did not pull latest patch version of the corresponding Astronomer Certified image.
 - Changed the default Airflow Deployment image in Astronomer's Airflow Helm Chart to 2.0.0. ([Source](https://github.com/astronomer/airflow-chart/pull/198))
 - Upgraded the default pgBouncer and redis dependencies for new Airflow Deployments. ([Source](https://github.com/astronomer/airflow-chart/pull/203))
-- Fixed an issue where the v0.23 upgrade script would experience an error when upgrading the Airflow Helm chart from 0.15.7 to 0.18.6. ([Source](https://github.com/astronomer/astronomer/pull/1050))
+- Fixed an issue where the v0.23 upgrade script would throw an error when upgrading the Postgres metadata DB. ([Source](https://github.com/astronomer/astronomer/pull/1050))
 
 ## v0.23.12
 
