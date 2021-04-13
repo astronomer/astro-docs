@@ -26,7 +26,7 @@ This change has a few effects:
 - The Airflow Webserver now requires less CPU and Memory.
 - Increasing your total # of DAGs no longer requires proportionally increasing your Webserver resources.
 - When you deploy code or configuration changes via `astro deploy`, these changes will appear in the Airflow UI in real time without an intermediary "Airflow is Starting Up" page.
-- The Webserver still restarts when you deploy code, but a "rolling restart" is applied so that the Webserver pod is slowly replaced by another instead of stopping entirely. 
+- The Webserver still restarts when you deploy code, but a "rolling restart" is applied so that the Webserver pod is slowly replaced by another instead of stopping entirely.
 
 For context, this functionality is possible because Airflow 2.0 requires [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), which is an open source feature that makes the Webserver stateless.
 
@@ -36,6 +36,7 @@ For context, this functionality is possible because Airflow 2.0 requires [DAG Se
 - Fixed an issue where new Deployments did not pull latest patch version of the corresponding Astronomer Certified image.
 - Changed the default Airflow Deployment image in Astronomer's Airflow Helm Chart to 2.0.0. ([Source](https://github.com/astronomer/airflow-chart/pull/198))
 - Upgraded the default pgBouncer and redis dependencies for new Airflow Deployments. ([Source](https://github.com/astronomer/airflow-chart/pull/203))
+- Fixed an issue where the v0.23 upgrade script would experience an error when upgrading the Airflow Helm chart from 0.15.7 to 0.18.6. ([Source](https://github.com/astronomer/astronomer/pull/1050))
 
 ## v0.23.12
 
