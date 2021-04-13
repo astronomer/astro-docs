@@ -20,7 +20,7 @@ Release Date: April 13, 2021
 
 ### Zero Webserver Downtime for Airflow 2.0+ Deployments
 
-We're excited to announce that Astronomer v0.23.4 introduces zero Webserver downtime for Deployments running Airflow 2.0+. For users on these versions, the Webserver will no longer require a restart after a code push or configuration change. This is an automatic change that requires no configuration in your system.
+We're excited to announce that Astronomer v0.23.13 introduces zero Webserver downtime for Deployments running Airflow 2.0+. For users on these versions, the Webserver will no longer require a restart after a code push or configuration change. This is an automatic change that requires no configuration in your system.
 
 This change has a few effects:
 - The Airflow Webserver now requires less CPU and Memory
