@@ -8,7 +8,7 @@ description: "How to upgrade the Astronomer Enterprise Platform."
 
 As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model.
 
-This guide walks through the process of upgrading your Astronomer Enterprise platform from 0.16.x to [v0.23](https://www.astronomer.io/docs/enterprise/0.23/resources/release-notes), which is the latest available LTS release.
+This guide walks through the process of upgrading your Astronomer Enterprise platform from 0.16.x to [v0.23](https://www.astronomer.io/docs/enterprise/v0.23/resources/release-notes), which is the latest available LTS release.
 
 A few important notes before you start:
 
