@@ -56,7 +56,7 @@ For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade A
 
 Release Date: February 11, 2021
 
-### Bug Fixes & Improvements
+#### Bug Fixes & Improvements
 
 - BugFix: Connections, Pools, and Variables in `airflow_settings.yaml` not built into image via Astronomer CLI if Airflow 2.0 image (*Resolved in CLI v0.23.3*)
 - BugFix: Houston API does not pull latest available Airflow patch on deploy (e.g. Airflow `2.0.0-1` if Airflow `2.0.0-2` is available)
@@ -66,7 +66,7 @@ Release Date: February 11, 2021
 
 Release Date: January 18, 2021
 
-This release was exclusively infrastructure maintenance for Astronomer Enterprise v0.23. Stay tuned for v0.24!
+This release was exclusively infrastructure maintenance for Astronomer Enterprise v0.23.
 
 ### v0.23.6
 
