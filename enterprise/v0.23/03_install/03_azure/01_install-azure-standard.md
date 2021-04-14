@@ -196,10 +196,10 @@ If you received a certificate from a private CA, follow these steps instead:
 If you're connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
 
 ```sh
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <your-namespace>
+$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@<HOST>:5432/<DATABASE>?sslmode=<mode>" --namespace <your-namespace>
 ```
 
-> **Note:** If you want to use Azure Database for PostgreSQL with Astronomer, you must use the [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) service.
+> **Note:** If you want to use Azure Database for PostgreSQL with Astronomer, you must use the [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) service. Azure Database for PostgreSQL enforces TLS/SSL, and requires connection to be in "require" mode.
 
 ## Step 7: Configure Your Helm Chart
 
@@ -247,6 +247,11 @@ postgresql:
     slaveReplicas: 2
     synchronousCommit: "on"
     numSynchronousReplicas: 1
+
+# SSL support for using SSL connections to encrypt client/server communication between database and Astronomer platform. Azure Database for PostgreSQL requires SSL to be enabled.
+  ssl:
+    enabled: true
+    mode: "require"
 
 #################################
 ### Nginx configuration
