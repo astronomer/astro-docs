@@ -366,7 +366,7 @@ Deletes a service account for a given Deployment.
 
 | Flag              | Value Type | Usage                                                                                                                                                                                           |
 | ----------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--deployment-id` | String     | The Airflow Deployment in which the service account is configured. Use this flag as an alternative to specifying `<your-service-account-id>`. To get this value, run `astro deployment list`. |
+| `--deployment-id`(Required) | String     | The Airflow Deployment in which the service account is configured. Use this flag as an alternative to specifying `<your-service-account-id>`. To get this value, run `astro deployment list`. |
 
 ### Related documentation
 
@@ -384,7 +384,7 @@ Run `astro deployment service-account get <service-account-id> --deployment-id=<
 
 | Flag              | Value Type | Usage                                                                                                                              |
 | ----------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `--deployment-id` | String     | The Deployment you're getting the service account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
+| `--deployment-id` (Required) | String     | The Deployment you're getting the service account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
 
 ### Related documentation
 
@@ -419,7 +419,7 @@ Run `astro deployment update <your-deployment-id> --cloud-role=<iam-arn> [flags]
 
 ## astro deployment user add
 
-Gives an existing Workspace user access to an Airflow Deployment within that Workspace. You must be a Deployment Admin to perform this action.
+Gives an existing user in a Workspace access to an Airflow Deployment within that Workspace. You must be a Deployment Admin for the given Deployment to complete this action.
 
 ### Usage
 
