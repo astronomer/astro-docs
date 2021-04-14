@@ -201,7 +201,7 @@ $ kubectl create secret generic astronomer-bootstrap --from-literal connection="
 
 > **Note:** If you want to use Azure Database for PostgreSQL with Astronomer, [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) service is recommended. 
 
-> **Note:** Flexible Server enforces TLS/SSL, and requires `sslmode` to be in "require" mode. Possible `sslmode` are: `disable`, `allow`, `prefer`, `require` (for Flexible Server), `verify-ca`, `verify-full`. 
+> **Note:** If provisioning Azure Database for PostgreSQL (Flexible Server), it enforces TLS/SSL, and requires `sslmode` to be in `require` mode. Possible `sslmode` are: `disable`, `allow`, `prefer`, `require` (for Flexible Server), `verify-ca`, `verify-full`. 
 
 ## Step 7: Configure Your Helm Chart
 
@@ -250,9 +250,9 @@ postgresql:
     synchronousCommit: "on"
     numSynchronousReplicas: 1
 
-# SSL support for using SSL connections to encrypt client/server communication between database and Astronomer platform. Azure Database for PostgreSQL - Flexible Server requires SSL to be enabled. Change the setting with respect to the database provisioned.
+# SSL support for using SSL connections to encrypt client/server communication between database and Astronomer platform. Enable SSL if provisioning Azure Database for PostgreSQL - Flexible Server as it enforces SSL. Change the setting with respect to the database provisioned.
   ssl:
-    enabled: true
+    enabled: false
     mode: "require"
 
 #################################
