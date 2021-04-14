@@ -8,65 +8,67 @@ description: "How to run and configure the Kubernetes Executor on Astronomer."
 
 The Kubernetes Executor relies on a fixed single Pod that dynamically delegates work and resources. For each task that needs to run, the Executor talks to the Kubernetes API to dynamically launch Pods which terminate when that task is completed.
 
-This enables the Executor to scale depending on how many Airflow tasks you're running at a given time. It also allows you to specifically configure the following for each individual Airflow task:
+This enables the Executor to scale depending on how many Airflow tasks you're running at a given time. It also means you can configure the following for each individual Airflow task:
 
 - Memory allocation
 - Service accounts
 - Airflow image
 
-To configure these settings for each pod, you configure a [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml). Read this guide to learn how to configure a pod template and apply it to both individual tasks and Airflow Deployments on Astronomer. For more information on configuring specific pod template values, reference the [Kubernetes API documentation](https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#podspec-v1-core).
+To configure these resources for each pod, you configure a [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml). Read this guide to learn how to configure a pod template and apply it to both Airflow Deployments and individual Airflow tasks. For more information on configuring pod template values, reference the [Kubernetes API documentation](https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#podspec-v1-core).
 
-Note that you must have an Airflow Deployment on Astronomer running with the Kubernetes Executor to follow these steps. For more information on configuring an Executor, read [Configure a Deployment](/docs/enterprise/next/deploy/configure-deployment)
+Note that you must have an Airflow Deployment on Astronomer running with the Kubernetes Executor to follow these steps. For more information on configuring an Executor, read [Configure a Deployment](/docs/enterprise/next/deploy/configure-deployment).
 
 ## Configure the Kubernetes Executor Using an Existing Pod Template
 
-By default, Airflow Deployments on Astronomer use a pod template to construct each pod. If you're creating a new Deployment, you can simply modify Astronomer's [default pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml) and apply it as described in the next two sections.
+By default, Airflow Deployments on Astronomer use a pod template to construct each pod. If you're creating a new Deployment, you can modify Astronomer's [default pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml) and apply it as described in the following two sections.
 
 If you need to update a pod template for an existing Deployment, we recommend pulling the template directly from the Deployment and editing that version instead. To do so:
 
 1. Run the following command to find the namespace (release-name) of your Airflow Deployment:
 
     ```sh
-    $ kubectl get ns
+    kubectl get ns
     ```
+
+    You can also find this information in the Astronomer UI under the **Deployments** tab of your Workspace menu.
 
 2. Run the following command to get pod names for the namespace:
 
     ```sh
-    $ kubectl get pods -n <your-namespace>
+    kubectl get pods -n <your-namespace>
     ```
 
     Note the name of the `scheduler` pod in this list.
 
-3. Run the following command to open the running pod.
+3. Run the following command to open the running pod:
 
     ```sh
-    $ kubectl exec -it <scheduler-pod-name> -n <your-namespace>
+    kubectl exec -it <scheduler-pod-name> -n <your-namespace>
     ```
 
 4. `cd` into the `pod_templates` folder, then run the following:
 
     ```sh
-    $ cat pod_template_file.yaml
+    cat pod_template_file.yaml
     ```
 
 5. Copy the template file's contents into a new local file.
 
-You now have a local version of your Deployment's pod template file. From here, you can modify the file and push it to your Deployment as described in the next section.
+You now have a local version of your Deployment's pod template file. From here, you can modify the file and push it to your Deployment as described in the following section.
 
 ## Apply a Pod Template to a Deployment
 
 If you want to use a pod template for all DAGs within a given Airflow Deployment, you can add the pod template to the Deployment as an environment variable. To do so:
 
-1. Update your Dockerfile to copy your customized pod template into your Docker image. For instance, if your customized pod template file name is `new_pod_template.yaml`, you would add the following line:
+1. Update your Dockerfile to copy your customized pod template into your Docker image. For instance, if your customized pod template file name is `pod_template.yaml`, you would add the following line:
 
     ```
-    COPY new_pod_template.yaml /tmp/new_pod_template.yaml
+    COPY pod_template.yaml /tmp/pod_template.yaml
     ```
 
     > **Note:** Depending on your configuration, you may also need to change your `USER` line to `root` in order to have the appropriate copy permissions.
 
-2. In the Astronomer UI, add the `AIRFLOW__KUBERNETES__POD_TEMPLATE_FILE` environment variable to your Deployment. Its value should be the directory path for the pod template in your Docker image. For this example, that would be `/tmp/new_pod_template.yaml`.
+2. In the Astronomer UI, add the `AIRFLOW__KUBERNETES__POD_TEMPLATE_FILE` environment variable to your Deployment. Its value should be the directory path for the pod template in your Docker image. In this example, the file path would be `/tmp/new_pod_template.yaml`.
 
 3. In your terminal, run `astro deploy -f` to deploy your code and rebuild your Docker image.
 
