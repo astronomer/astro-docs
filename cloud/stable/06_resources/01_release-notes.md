@@ -6,15 +6,83 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.23
 
+### v0.23.13
+
+Release Date: April 13, 2021
+
+#### Zero Webserver Downtime for Airflow 2.0+ Deployments
+
+We're excited to announce that Astronomer v0.23.13 introduces zero Webserver downtime for Deployments running Airflow 2.0+. This feature is automatically enabled and requires no configuration in your system.
+
+This change has a few effects:
+- The Airflow Webserver now requires less CPU and Memory.
+- Increasing your total # of DAGs no longer requires proportionally increasing your Webserver resources.
+- When you deploy code or configuration changes via `astro deploy`, these changes will appear in the Airflow UI in real time without an intermediary "Airflow is Starting Up" page.
+- The Webserver still restarts when you deploy code, but a "rolling restart" is applied so that the Webserver pod is slowly replaced by another instead of stopping entirely.
+
+For context, this functionality is possible because Airflow 2.0 requires [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), which is an open source feature that makes the Webserver stateless.
+
+#### Bug Fixes
+
+- Fixed an issue where new Deployments did not pull latest patch version of the corresponding Astronomer Certified image.
+
+### v0.23.12
+
+Release Date: March 30, 2021
+
+#### Support for Airflow 1.10.15
+
+[Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) comes with a suite of enhancements and bug fixes that follow [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14), which was released in December of 2020 to make the migration to [Airflow 2.0](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2) as easy as possible. If you haven't migrated to Airflow 2.0 yet, you _must_ upgrade to Airflow 1.10.14+ first.
+
+Specifically, Airflow 1.10.15 includes the following changes:
+
+- Fix sync-perm to work correctly when update_fab_perms = False [(commit)](https://github.com/astronomer/airflow/commit/950028f93e1220d49629aea10dfbaf1173b8910b)
+- Pin SQLAlchemy to <1.4 due to breakage of sqlalchemy-utils [(commit)](https://github.com/astronomer/airflow/commit/331f0d23260a77212e7b15707e04bee02bdab1f2)
+- Enable DAG Serialization by default [(commit)](https://github.com/apache/airflow/commit/cd1961873783389ee51748f7f2a481900cce85b9)
+- Stop showing Import Errors for Plugins in Webserver [(commit)](https://github.com/apache/airflow/commit/a386fd542fe1c46bd3e345371eed10a9c230f690)
+- Add role-based authentication backend [(commit)](https://github.com/apache/airflow/commit/16461c3c8dcb1d1d2766844d32f3cdec31c89e69)
+- Show a "Warning" to Users with duplicate connections [(commit)](https://github.com/apache/airflow/commit/c037d48c9e383a6fd0b1b0d88407489d0ed02194)
+
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.15, check out the [Airflow Release](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html) or the corresponding [AC 1.10.15 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/CHANGELOG.md).
+
+#### Bug Fixes
+
+- Addressed CVEs found in the following platform images: `ap-curator`, `ap-db-bootstrapper`, `ap-elasticsearch`, `ap-fluentd`, `ap-grafana`, `ap-kibana`, `ap-nats-server`, `ap-nginx`, `ap-nginx-es`, `ap-postgres-exporter`, `ap-registry`, and `ap-vendor/fluentd`.
+- The value for an Environment Variable that exists with the same name in 2+ Airflow Deployments now renders correctly when navigating between those Deployments in the Astronomer UI.
+- Setting `AIRFLOW__KUBERNETES__FS_GROUP:50000` in the Astronomer UI now properly forces the `fsGroup` setting in the pod template file. ([Source](https://github.com/astronomer/airflow-chart/pull/190))
+- Fixed an issue where Airflow Schedulers were unable to adopt running Kubernetes Executor tasks due to a permissions error, causing those tasks to be queued and then terminated. ([Source](https://github.com/astronomer/airflow-chart/pull/191))
+
+### v0.23.11
+
+Release Date: February 11, 2021
+
+#### Bug Fixes & Improvements
+
+- BugFix: Connections, Pools, and Variables in `airflow_settings.yaml` not built into image via Astronomer CLI if Airflow 2.0 image (*Resolved in CLI v0.23.3*)
+- BugFix: Houston API does not pull latest available Airflow patch on deploy (e.g. Airflow `2.0.0-1` if Airflow `2.0.0-2` is available)
+- BugFix: Workspace Service Account suddenly only available as a Deployment Service account (Error: `Insufficient Permissions`)
+
 ### v0.23.9
 
 Release Date: January 18, 2021
 
-This release was exclusively infrastructure maintenance for Astronomer Enterprise v0.23. Stay tuned for v0.24!
+This release was exclusively infrastructure maintenance for Astronomer Enterprise v0.23.
 
 ### v0.23.6
 
 Release Date: December 16, 2020
+
+#### Platform Support for Airflow 2.0
+
+Astronomer now offers full support for [Airflow 2.0](https://www.astronomer.io/blog/introducing-airflow-2-0/), a momentous open-source release that includes a refactored Scheduler, over 30 UI/UX improvements, a new REST API, and much more.
+
+In support for Airflow 2.0, Astronomer has:
+
+- Support for [Multiple Schedulers](https://www.astronomer.io/blog/airflow-2-scheduler) (*added in v0.22.3*)
+- A mechanism to ensure that users migrate to Airflow 1.10.14+ prior to upgrading to 2.0.0+ (*added in v0.23.5*)
+- Support for Airflow's ["upgrade check"](https://airflow.apache.org/docs/apache-airflow/v0.23/upgrade-check.html) in the Astronomer CLI (`$ astro dev upgrade-check`) (*added in v0.23.5*)
+
+For guidelines on how to upgrade, read [Upgrade to Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/cloud/stable/customize-airflow/upgrade-to-airflow-2).
 
 #### Bug Fixes & Improvements
 
@@ -55,7 +123,7 @@ In addition to support for Airflow 1.10.14, Astronomer v0.16.15 also includes su
 - [1.10.10-6](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md)
 - [1.10.7-16](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)
 
-For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions).
+For instructions on how to upgrade to the latest patch version of a release, refer to [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions).
 
 #### Improvements to Airflow 2.0 Upgrade Path
 
@@ -70,7 +138,7 @@ To get started, read [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.a
 
 #### Bug Fixes & Improvements
 
-- Raise Maximum Node Size to 24 vCPUs, 90 GB Memory/RAM (Read more in [Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing)) 
+- Raise Maximum Node Size to 24 vCPUs, 90 GB Memory/RAM (Read more in [Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing))
 - Add clear messaging to Astronomer UI around steps required to finalize Airflow upgrade
 - Opt-in users to **Email Alerts** by default
 - BugFix: `pod_mutation_hook` overrides commands for the KubernetesPodOperator pods if using KubernetesExecutor

@@ -49,7 +49,7 @@ singed-chimp-kube-state-78bd89bf47-m7nrm               1/1     Running   0      
 singed-chimp-kubed-5699fc79b4-9dz28                    1/1     Running   0          1h
 singed-chimp-nginx-5cbdf7967f-2q4dr                    1/1     Running   0          1h
 singed-chimp-nginx-default-backend-55788c586-2s9nl     1/1     Running   0          1h
-singed-chimp-orbit-748dfd5748-77v66                    1/1     Running   0          1h
+singed-chimp-astro-ui-748dfd5748-77v66                 1/1     Running   0          1h
 singed-chimp-prisma-6ddf8f6784-lfnfr                   1/1     Running   0          1h
 singed-chimp-prometheus-0                              1/1     Running   0          1h
 singed-chimp-registry-0                                1/1     Running   0          1h

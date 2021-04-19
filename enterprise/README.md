@@ -20,9 +20,6 @@ We have created guides for installing Astronomer on a number of Kubernetes envir
 * [Amazon Web Services EKS](https://www.astronomer.io/docs/enterprise/stable/install/aws/install-aws-standard/)
 * [Google Cloud Platform GKE](https://www.astronomer.io/docs/enterprise/stable/install/gcp/install-gcp-standard/)
 * [Microsoft Azure AKS](https://www.astronomer.io/docs/enterprise/stable/install/azure/install-azure-standard/)
-* [Openshift Kubernetes](https://www.astronomer.io/docs/enterprise/)
-* [Digital Ocean Kubernetes](https://www.astronomer.io/docs/enterprise/)
-* ["General" Kubernetes](https://www.astronomer.io/docs/enterprise/)
 
 ## Customizing Your Installation
 
@@ -54,13 +51,13 @@ Usage of Astronomer requires an [Astronomer Platform Enterprise Edition license]
 Astronomer Enterprise brings together best-of-class components into a complete "Managed Airflow on Kubernetes" system:
 
 * [Astro CLI](https://github.com/astronomer/astro-cli) - Command line tool for pushing deployments from your local machine to your workspaces running on Kubernetes. The CLI also provides the ability to launch a local stack via docker for local development and testing of DAGs, hooks and operators.
-* Orbit (React UI) - A modern web based interface to create manage workspaces and deployments. Through the UI you can scale up or down your resources per deployment, invite new users and monitor Airflow logs
+* Astronomer UI (React) - A modern web based interface to create manage workspaces and deployments. Through the UI you can scale up or down your resources per deployment, invite new users and monitor Airflow logs
 * Houston (GraphQL API) - The core GraphQL API layer to interact with your astronomer workspaces and deployments. Use GraphQL queries directly, or integrate with your CI/CD platform to automate Airflow deployments.
 * [Docker Registry](https://docs.docker.com/registry/) - Each Airflow deployment on your cluster will have it’s own set of required libraries and environment settings. Every time you create/update a deployment, a new docker image is built and pushed to a private registry created for your Astronomer platform. Kubernetes will pull from this registry when creating new pods.
 * Commander - the provisioning component of the Astronomer Platform. It is responsible for interacting with the underlying infrastructure layer. gRPC service to communicate between our API and Kubernetes
 * [Prometheus](https://prometheus.io/) - A monitoring platform used to collect metrics from StatsD. Prometheus collects Airflow metrics and pushes them to Granfana for visualization. Email alerts can also be setup to help quickly identify issues.
 * [Grafana](https://grafana.com/) - A web dashboard to help visualize and monitor Airflow metrics flowing in from Prometheus. Astronomer has pre-built plenty of dashboards to monitor your cluster or you can create your own custom dashboards to meet your needs.
-* [Alert Manager](https://prometheus.io/docs/alerting/alertmanager/) - Email alerts from Prometheus metrics. Enter emails for anyone you want to be alerted in the Orbit UI. These alerts can help notify you of issues on your cluster such as the Airflow Scheduler running slowly.
+* [Alert Manager](https://prometheus.io/docs/alerting/alertmanager/) - Email alerts from Prometheus metrics. Enter emails for anyone you want to be alerted in the Astronomer UI. These alerts can help notify you of issues on your cluster such as the Airflow Scheduler running slowly.
 * [NGINX](https://www.nginx.com/) - NGINX is used as an ingress controller to enforce authentication and direct traffic to the various services such as Airflow webserver, Grafana, Kibana etc. NGINX is also used to serve Airflow logs back up to the Airflow web UI from ElasticSearch.
 * [FluentD](https://www.fluentd.org/) - FluentD is a data collector that is used to collect and push the Airflow log data into ElasticSearch.
 * [Elasticsearch](https://github.com/elastic/elasticsearch) - A powerful search engine used to centralize and index logs from Airflow deployments.

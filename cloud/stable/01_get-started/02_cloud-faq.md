@@ -17,25 +17,30 @@ Astronomer Cloud is officially compatible with Airflow v1.10.5 and higher. For o
 
 We currently support the Celery, Local and Kubernetes Executors. You can switch between the three freely via the Astronomer UI.
 
-If you're not sure which Executor to use, we generally recommend starting off with the Local Executor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](/guides/airflow-executors-explained/) for a ful analysis on each.
+If you're not sure which Executor to use, we generally recommend starting off with the Local Executor and moving up from there once you see your deployment is in need of horizontal scaling. Check out [Airflow Executors: Explained](/guides/airflow-executors-explained/) for a full analysis on each.
 
 ## Networking
 
 ### How would I give Astronomer Cloud access to my VPC?
 
-To connect Astronomer Cloud to any database in your VPC, you'll just have to allowlist our Static IP: `35.245.140.149`
+To connect Astronomer Cloud to any database in your VPC, you'll have to allowlist the following Static IP Addresses:
 
-If you're allowlisting that IP on Amazon Redshift, check out [our VPC Access Doc](/docs/cloud/stable/manage-astronomer/vpc-access/).
+- `35.245.140.149`
+- `35.245.44.221`
+- `34.86.203.139`
+- `35.199.31.94`
+
+For more information, read [VPC Access Doc](/docs/cloud/stable/manage-astronomer/vpc-access/).
 
 ## Airflow Metadata Access
 
-### Will I have access to Airflow's underlying database for my deployment?
+### Can I access Airflow's underlying Metadata database for my Airflow Deployment?
 
-Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres Metadata Database hosted by Astronomer and isolated from all other Airflow Deployments. To access that database both on your local machine and Astronomer, check out our [Query the Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/) doc.
+Yes! Every Airflow Deployment on Astronomer Cloud has a corresponding Postgres Metadata Database hosted by Astronomer and isolated from all other Airflow Deployments. To access that database both on your local machine and Astronomer, check out [Access the Airflow Database](/docs/cloud/stable/customize-airflow/access-airflow-database/).
 
 ## Monitoring
 
-### What are my options for monitoring our deployments?
+### What are my options for monitoring an Airflow Deployment on Astronomer?
 
 Right now, your monitoring options for Cloud are:
 
@@ -63,13 +68,11 @@ As for the code itself, we’ve seen effective organization where external code 
 
 ### What authentication methods does Astronomer Cloud support?
 
-We offer authentication via Google, Github, and Local Username/Password.
-
-Once you've created a Workspace on Astronomer, you'll use that same method to authenticate to the Astronomer CLI.
+We offer authentication via Google, Github, and local username/password. Once you've created a Workspace on Astronomer with a given authentication method, you'll use that same method to authenticate to the Astronomer CLI.
 
 ### Where do I log in?
 
-After you [sign up for a trial](/trial/), you can head over to the [Astro UI](https://app.gcp0001.us-east4.astronomer.io/login) to login.
+After you [get in touch with us](https://astronomer.io/get-astronomer) and start a 14-day trial, you can head over to the [Astro UI](https://app.gcp0001.us-east4.astronomer.io/login) to login.
 
 ## Billing
 
@@ -79,4 +82,4 @@ Your first 14 days on Astronomer Cloud are entirely free of cost. When you creat
 
 After your first 14 days, you'll be required to input a payment method to continue usage. From there, we'll charge you based on exact resource usage per Airflow Deployment every 1st of the month, pro-rated for your first few weeks.
 
-If you want to cancel your account or trial and are having trouble accessing your Astronomer account,  please [reach out to us](https://support.astronomer.io).
+For more information, refer to [Cloud Pricing](https://www.astronomer.io/docs/cloud/stable/resources/pricing). If you want to cancel your account or trial and are having trouble accessing your Astronomer account,  please [reach out to us](https://support.astronomer.io).

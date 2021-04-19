@@ -18,90 +18,98 @@ Once you set up a TLS certificate for Astronomer, you'll need to establish a pro
 1. Install the Kubernetes Cert Manager by following [the official installation guide](https://cert-manager.io/docs/installation/kubernetes/).
 
 2. If you're running Astronomer on AWS, grant your nodes access to Route 53 by adding the following CloudFormation snippet to your nodes' Instance Profile (if you don't use AWS, complete whatever setup is necessary to authenticate Cert Manager to your DNS):
-```yaml
-Type: "AWS::IAM::Role"
-Properties:
-  RoleName: instance-profile-role
-  Policies:
-    - PolicyName: instance-profile-policy
-      PolicyDocument:
-        Version: '2012-10-17'
+
+    ```yaml
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: instance-profile-role
+      Policies:
+        - PolicyName: instance-profile-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: route53:GetChange
+                Resource: arn:aws:route53:::change/*
+              - Effect: Allow
+                Action:
+                  - route53:ChangeResourceRecordSets
+                  - route53:ListResourceRecordSets
+                # Use the second Resource format if you're updating this through the AWS UI
+                Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneIdLookup.HostedZoneId}
+              - Effect: Allow
+                Action: route53:ListHostedZonesByName
+                Resource: '*'
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
         Statement:
-          - Effect: Allow
-            Action: route53:GetChange
-            Resource: arn:aws:route53:::change/*
-          - Effect: Allow
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com"
             Action:
-              - route53:ChangeResourceRecordSets
-              - route53:ListResourceRecordSets
-            # Use the second Resource format if you're updating this through the AWS UI
-            Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneIdLookup.HostedZoneId}
-          - Effect: Allow
-            Action: route53:ListHostedZonesByName
-            Resource: '*'
-  AssumeRolePolicyDocument:
-    Version: "2012-10-17"
-    Statement:
-      - Effect: "Allow"
-        Principal:
-          Service:
-            - "ec2.amazonaws.com"
-        Action:
-          - "sts:AssumeRole"
-```
-For more information on how to complete this setup, refer to [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html).
+              - "sts:AssumeRole"
+    ```
+
+    For more information on how to complete this setup, refer to [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html).
 
 3. Create a "ClusterIssuer" resource that declares how requests for certificates will be fulfilled. To do so, first create a `clusterissuer.yaml` file with the following values:
-```yaml
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-    name: letsencrypt-prod
-spec:
-    acme:
-        email: <your-email>
-        server: https://acme-v02.api.letsencrypt.org/directory
-        privateKeySecretRef:
-            name: cert-manager-issuer-secret-key
-        solvers:
-        - selector: {}
-          dns01:
-            route53:
-                region: <your-server-region>
-```
-Then, create the ClusterIssuer by running the following command:
-```sh
-$ kubectl apply -f clusterissuer.yaml
-```
 
-4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create a `certificate.yaml` file, replacing `BASE_DOMAIN` with your own value:
-```yaml
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-    name: acme-crt
-spec:
-    secretName: astronomer-tls
-    dnsNames:
-        - BASE_DOMAIN
-        - app.BASE_DOMAIN
-        - deployments.BASE_DOMAIN
-        - registry.BASE_DOMAIN
-        - houston.BASE_DOMAIN
-        - grafana.BASE_DOMAIN
-        - kibana.BASE_DOMAIN
-        - install.BASE_DOMAIN
-        - prometheus.BASE_DOMAIN
-        - alertmanager.BASE_DOMAIN
-    issuerRef:
+    ```yaml
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
         name: letsencrypt-prod
-        kind: ClusterIssuer
-        group: cert-manager.io
-```
-Then, create the certificate by running the following command and waiting a few minutes:
-```sh
-$ kubectl apply -f certificate.yaml
-```
+    spec:
+        acme:
+            email: <your-email>
+            server: https://acme-v02.api.letsencrypt.org/directory
+            privateKeySecretRef:
+                name: cert-manager-issuer-secret-key
+            solvers:
+            - selector: {}
+              dns01:
+                 route53:
+                    region: <your-server-region>
+    ```
+
+    Then, create the ClusterIssuer by running the following command:
+
+    ```sh
+    $ kubectl apply -f clusterissuer.yaml
+    ```
+
+4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create a `certificate.yaml` file, replacing `BASE_DOMAIN` with yours:
+
+    ```yaml
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+        name: acme-crt
+    spec:
+        secretName: astronomer-tls
+        dnsNames:
+            - BASE_DOMAIN
+            - app.BASE_DOMAIN
+            - deployments.BASE_DOMAIN
+            - registry.BASE_DOMAIN
+            - houston.BASE_DOMAIN
+            - grafana.BASE_DOMAIN
+            - kibana.BASE_DOMAIN
+            - install.BASE_DOMAIN
+            - prometheus.BASE_DOMAIN
+            - alertmanager.BASE_DOMAIN
+        issuerRef:
+            name: letsencrypt-prod
+            kind: ClusterIssuer
+            group: cert-manager.io
+    ```
+
+    Then, create the certificate by running the following command and waiting a few minutes:
+
+    ```sh
+    $ kubectl apply -f certificate.yaml
+    ```
 
 5. Ensure that the certificate was created by running:
 ```sh
