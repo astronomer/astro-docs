@@ -197,10 +197,13 @@ If you received a certificate from a private CA, follow the steps below instead:
 If you're connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
 
 ```sh
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <your-namespace>
+$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@<HOST>:5432/<DATABASE>?sslmode=<mode>" --namespace <your-namespace>
 ```
 
-> **Note:** If you want to use Azure Database for PostgreSQL with Astronomer, you must use the [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) service.
+A few notes:
+- If you want to use Azure Database for PostgreSQL with Astronomer, [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) is recommended.
+- If you provision Azure Database for PostgreSQL - Flexible Server, it enforces TLS/SS and requires that you set `sslmode` to `require` in your `config.yaml` file. Possible values for `sslmode` are: `disable`, `allow`, `prefer`, `require` (for Flexible Server), `verify-ca`, `verify-full`. More guidelines in Step 6.
+- If you provision an external database, `postgresqlEnabled` should be set to `false` in Step 6.
 
 ## Step 6: Configure Your Helm Chart
 
@@ -248,6 +251,11 @@ postgresql:
     slaveReplicas: 2
     synchronousCommit: "on"
     numSynchronousReplicas: 1
+
+# SSL support for using SSL connections to encrypt client/server communication between database and Astronomer platform. Enable SSL if provisioning Azure Database for PostgreSQL - Flexible Server as it enforces SSL. Change the setting with respect to the database provisioned.
+  ssl:
+    enabled: false
+    mode: "require"
 
 #################################
 ### Nginx configuration
