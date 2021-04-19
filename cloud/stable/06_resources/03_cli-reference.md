@@ -651,7 +651,6 @@ Creates a new user on Astronomer. An invitation email will be sent to the email 
 ### Related documentation
 
 - [Manage Workspace Permissions on Astronomer](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/workspace-permissions)
-- [Manage Users on Astronomer Enterprise](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/manage-platform-users)
 
 ## astro version
 
