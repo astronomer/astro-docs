@@ -164,7 +164,7 @@ Use `astro completion <subcommand>` to generate autocompletion scripts, which ca
 
 ## astro config
 
-Modifies certain platform-level settings on Astronomer Enterprise without you needing to manually adjust settings in your `config.yaml` and apply them.
+Modifies certain platform-level settings on Astronomer Enterprise without you needing to manually adjust them in your `config.yaml` file.
 
 ### Usage
 
@@ -497,7 +497,7 @@ Updates a user's role in a given Deployment.
 
 ## astro dev
 
-This set of commands allow you to create and manage a local Airflow environment on your machine. Access to the Astronomer Platform is not required.
+This set of commands allow you to create and manage a local Airflow environment on your machine. Access to the Astronomer platform is not required.
 
 ### Usage
 
@@ -635,7 +635,7 @@ Checks for the latest version of the Astronomer CLI, but does not perform the up
 
 ## astro user create
 
-Creates a new user on Astronomer that's not associated with an existing Astronomer Workspace. An invitation email will be sent to the email address you specify. Once this user creates an account on Astronomer, they'll be able create a new Workspace and be a Workspace Admin within it.
+Creates a new user on Astronomer. An invitation email will be sent to the email address you specify. Once this user creates an account on Astronomer, they are able to join an existing Workspace or create a new Workspace.
 
 ### Usage
 
