@@ -578,7 +578,7 @@ Runs a single [Airflow CLI command](https://airflow.apache.org/docs/apache-airfl
 
 ### Related documentation
 
-- [Access to the Airflow CLI](https://www.astronomer.io/docs/enterprise/v0.16/develop/customize-image#access-to-the-airflow-cli)
+- [Access to the Airflow CLI](https://www.astronomer.io/docs/cloud/stable/develop/customize-image#access-to-the-airflow-cli)
 
 ## astro dev start
 
