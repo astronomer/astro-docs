@@ -117,7 +117,7 @@ Authenticates you to Astronomer.
 
 Run `astro auth <subcommand> <base-domain>` in your terminal to log in or out of your Astronomer platform. This is equivalent to using the login screen of the Astronomer UI.
 
-If you have access to more than one Astronomer platform, you'll have access to multiple `<base-domains>`. When switching between platforms, make sure to log out of one `<base domain>` before logging into another.
+If you have access to more than one Astronomer platform, each will have a unique `<base-domain>`. When switching between platforms, make sure to log out of one `<base domain>` before logging into another.
 
 ### Subcommands
 
@@ -194,7 +194,7 @@ The settings that you can update via the command line are:
 
 | Subcommand | Usage                                              |
 | ---------- | -------------------------------------------------- |
-| `get`      | Shows values for your current configuration.       |
+| `get`      | Show current values for the above configuration settings. |
 | `set`      | Updates a setting in your platform to a new value. |
 
 ### Related documentation
@@ -262,6 +262,7 @@ If you do not specify `--desired-airflow-version`, this command will output a li
 ### Related documentation
 
 - [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/stable/customize-airflow/manage-airflow-versions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
 
 ## astro deployment create
 
@@ -337,7 +338,7 @@ Creates a Deployment-level service account on Astronomer, which you can use to c
 
 ### Usage
 
-`astro deployment service-account create --deployment-id=<your-deployment-id> --label=<your-label> [flags]`
+`astro deployment service-account create --deployment-id=<your-deployment-id> --label=<your-service-account-label> [flags]`
 
 ### Flags
 
@@ -378,13 +379,13 @@ Shows the name, ID, and API key for each service account on a given Deployment.
 
 ### Usage
 
-Run `astro deployment service-account get <service-account-id> --deployment-id=<your-deployment-id>` to get information on a single service account within a Deployment. To see a list of all service accounts on a Deployment, run `astro deployment service-account get --deployment-id=<your-deployment-id>`.
+Run `astro deployment service-account get <service-account-id> --deployment-id=<your-deployment-id>` to get information on a single deployment-level service account. To see a list of all service accounts on a Deployment, run `astro deployment service-account get --deployment-id=<your-deployment-id>`.
 
 ### Flags
 
 | Flag              | Value Type | Usage                                                                                                                              |
 | ----------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `--deployment-id` (Required) | String     | The Deployment you're getting the service account from. Use this flag as an alternative to specifying `<your-service-account-id>`. |
+| `--deployment-id` (Required) | String     | `--deployment-id` (Required) | String     | The Deployment ID of the Deployment in which your service account is configured. |
 
 ### Related documentation
 
@@ -392,7 +393,7 @@ Run `astro deployment service-account get <service-account-id> --deployment-id=<
 
 ## astro deployment update
 
-This command appends an IAM role to the Webserver, Scheduler, and Worker pods within an Airflow Deployment on the platform. Only applicable to teams running Astronomer Enterprise on Amazon EKS.
+This command appends an IAM role to the Webserver, Scheduler, and Worker pods within an Airflow Deployment on the platform. Only applicable to teams running Astronomer Enterprise on Amazon EKS or Google GCP.
 
 ### Usage
 
@@ -423,7 +424,7 @@ Gives an existing user in a Workspace access to an Airflow Deployment within tha
 
 ### Usage
 
-`astro deployment user add --deployment-id=<user-deployment-id> --role<user-role> <user-email-address>`
+`astro deployment user add <user-email-address> --deployment-id=<user-deployment-id> --role<user-role>`
 
 ### Flags
 
@@ -452,11 +453,11 @@ Removes access to an Airflow Deployment for an existing Workspace user. To grant
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer Cloud](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/workspace-permissions)
 
 ## astro deployment user list
 
-Searches for users on a given Deployment. Use the optional flags to find specific users based on their name, email, or ID.
+Outputs a list of all Workspace users who have access to a given Deployment. Use the optional flags to list specific users based on their name, email, or ID.
 
 ### Usage
 
@@ -535,7 +536,7 @@ When you run this command, the following skeleton files are generated in your cu
 
 ## astro dev kill
 
-Kills a locally running Airflow cluster. Unlike `astro dev stop`, which only pauses running containers, `astro dev kill` will delete all data associated with your local Postgres metadata database, including Airflow Connections, logs, and task history.
+Forces running containers in your local Airflow environment to stop. Unlike `astro dev stop`, which only pauses running containers, `astro dev kill` will delete all data associated with your local Postgres metadata database, including Airflow Connections, logs, and task history.
 
 This command is most often used to restart a cluster when testing new DAGs or settings in a non-production environment. After using `astro dev kill`, you can restart your environment with `astro dev start`.
 
@@ -589,7 +590,7 @@ Initializes a local Airflow environment on your machine by creating a Docker con
 
 ### Usage
 
-`astro dev run [flags]`
+`astro dev start [flags]`
 
 ### Flags
 
@@ -599,7 +600,7 @@ Initializes a local Airflow environment on your machine by creating a Docker con
 
 ## astro dev stop
 
-Stops all 3 running Docker containers on your local Airflow environment. Running this command followed by `astro dev start` is required to push certain types of changes to your Airflow project. This command does not prune mounted volumes and will preserve data associated with your local Postgres Metadata Database.
+Stops all 3 running Docker containers on your local Airflow environment. Running this command followed by `astro dev start` is required to push certain types of changes to your Airflow project. Unlike `astro dev kill`, this command does not prune mounted volumes and will preserve data associated with your local Postgres Metadata Database.
 
 ### Usage
 
@@ -706,7 +707,7 @@ Run `astro workspace delete <your-workspace-id>` to delete a Workspace. Your Wor
 
 ## astro workspace list
 
-Generates a list of all Workspaces.
+Generates a list of all Workspaces that you have access to.
 
 ### Usage
 
@@ -728,9 +729,9 @@ Creates a service account for a given Workspace.
 
 | Flag                        | Value Type | Usage                                                                                                        |
 | --------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ |
-| `--category`                | String     | The Category for the service account. The default value is `default`.                                        |
 | `--workspace-id` (Required) | String     | The Workspace you're creating a service account for.                                                         |
 | `--label` (Required)        | String     | A label for the service account.                                                                             |
+| `--category`                | String     | The Category for the service account. The default value is `Not set`.                                        |
 | `role`                      | String     | The User Role for the service account. Can be `viewer`, `editor`, or `admin`. The default value is `viewer`. |
 | `--system-sa`               | Boolean    | Whether this service account is a System service account. Default value is `false`.                          |
 | `--user-id`                 | String     | The ID for the new service account.                                                                          |
@@ -812,7 +813,7 @@ At least one flag must be specified.
 
 ## astro workspace user add
 
-Creates a new user in your current Workspace.
+Creates a new user in your current Workspace. If the user has already authenticated to Astronomer, they will automatically be granted access to the Workspace. If the user does not have an account on Astronomer, they will receive an invitation to the platform via email.
 
 ### Usage
 
@@ -845,7 +846,7 @@ Removes an existing user from your current Workspace.
 
 ## astro workspace user list
 
-Searches for users in your current Workspace.
+Outputs a list of all users with access to your current Workspace.
 
 ### Usage
 
