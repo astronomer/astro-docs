@@ -137,4 +137,4 @@ You can delete an Airflow Deployment using the **Delete Deployment** button at t
 
 When you delete a Deployment, your Airflow Webserver, Scheduler, metadata database, and deploy history will be deleted, and you will lose any configurations set in the Airflow UI.
 
-> Note: If you give a Deployment a custom release name and delete the Deployment, that custom release name cannot normally be reused with any future Deployments. If you need to reuse a custom release name after deleting its respective Deployment, reach out to Astronomer support.
+> Note: If you give a Deployment a custom release name and delete the Deployment, that custom release name cannot normally be reused with any future Deployments. If you need to reuse a custom release name after deleting its respective Deployment, reach out to [Astronomer support](https://www.astronomer.io/docs/enterprise/v0.23/resources/support).
