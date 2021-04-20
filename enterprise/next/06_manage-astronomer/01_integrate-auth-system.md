@@ -112,13 +112,13 @@ Follow the steps below.
 
 2. In your Okta account, create a new web app for Astronomer.
 
-3. Set your `login redirect URI` to be `https://houston.BASEDOMAIN/v1/oauth/redirect/`, where the `BASEDOMAIN` is the domain at which you're hosting your Astronomer installation.
+3. In Okta, under **General Settings** > **Application**, set `Login redirect URIs` to `https://houston.BASEDOMAIN/v1/oauth/redirect/`, where `BASEDOMAIN` is the domain where you're hosting your Astronomer installation.
 
-4. Enable `Implicit (Hybrid)` Flow on the Okta application.
+4. Under **Allowed grant types**, select `Implicit (Hybrid)`.
 
 5. Save the `Client ID` generated for this Okta app for use in the next steps.
 
-6. Set your Initiate Login URI to `https://houston.BASEDOMAIN/v1/oauth/start?provider=okta`  (_Optional_).
+6. To ensure that an Okta tile appears, set `Initiate Login URI` to `https://houston.BASEDOMAIN/v1/oauth/start?provider=okta`  (_Optional_).
 
 ### Enable Okta in your config.yaml file
 
