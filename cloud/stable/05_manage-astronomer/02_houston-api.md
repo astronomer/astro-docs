@@ -135,18 +135,39 @@ In the output, you should see:
 
 Mutations make a change to your platform's underlying database. For some common examples, read below.
 
-### Delete a Deployment
+### Create a Deployment
 
-To delete a Deployment, you'll need:
+To create a Deployment, you'll need
 
 1. Permission (Workspace Admin)
-2. `deploymentUuid`
+2. A Workspace UUID
 
-#### Query for `deploymentUuid`
+Then, to create a Deployment, run the following:
 
-If you don't already have a `deploymentUuid`, first run the query in the "Query an Airflow Deployment" section above (which requires the `releaseName` or `WorkspaceUuid`).
+```gql
+mutation CreateDeployment {
+  createDeployment(
+    workspaceUuid: astro_workspace_uuid,
+    type:"airflow",
+    label:"Deployment Label",
+    config: {executor:"LocalExecutor"}
+)
+{
+  releaseName
+}
+}
+```
 
-With the `deploymentUuid`, run the following:
+### Delete a Deployment
+
+To create a user, you'll need:
+
+1. Workspace Admin privileges
+2. A Deployment UUID
+
+If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section above.
+
+Then, to delete a Deployment, run the following:
 
 ```gql
 mutation DeleteDeployment {
@@ -156,6 +177,43 @@ mutation DeleteDeployment {
     uuid
   }
 }
+```
+
+### Create a user
+
+To create a user, you'll need:
+
+1. Workspace Admin privileges
+2. A Deployment UUID
+
+If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section above.
+
+Then, to create a user, run the following:
+
+```graphql
+mutation AddDeploymentUser(
+		            $userId: <user-id>
+		            $email: <user-email>
+		            $deploymentId: <deployment-uuid>
+		            $role: <user-role>
+    	  ) {
+		            deploymentAddUserRole(
+			                  userId: $userId
+			                  email: $email
+			                  deploymentId: $deploymentId
+			                  role: $role
+		            ) {
+			                  id
+			                  user {
+			             	            username
+			                  }
+			                  role
+			                  deployment {
+				                        id
+				                        releaseName
+			                  }
+		            }            
+	        }
 ```
 
 ### Delete a User

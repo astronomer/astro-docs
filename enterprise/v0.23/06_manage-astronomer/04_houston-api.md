@@ -139,20 +139,41 @@ In the output, you should see:
 
 Mutations make a change to your platform's underlying database. For some common examples, read below.
 
+### Create a Deployment
+
+To create a Deployment, you'll need
+
+1. Workspace Admin permissions
+2. Your Workspace UUID
+
+Then, to create a Deployment, run the following:
+
+```gql
+mutation CreateDeployment {
+  createDeployment(
+    workspaceUuid: astro_workspace_uuid,
+    type:"airflow",
+    label:"Deployment Label",
+    config: {executor:"LocalExecutor"}
+)
+{
+  releaseName
+}
+}
+```
+
 ### Delete a Deployment
 
 To delete a Deployment, you'll need:
 
 1. Permission (SysAdmin or Workspace Admin)
-2. `deploymentUuid`
+2. A Deployment UUID
 
 > **Note:** For more information about the SysAdmin role, reference our ["User Management" doc](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/).
 
-#### Query for `deploymentUuid`
+If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section.
 
-If you don't already have a `deploymentUuid`, first run the query in the "Query an Airflow Deployment" section above (which requires the `releaseName` or `WorkspaceUuid`).
-
-With the `deploymentUuid`, run the following:
+Then, to delete a Deployment, run the following:
 
 ```gql
 mutation DeleteDeployment {
@@ -162,6 +183,43 @@ mutation DeleteDeployment {
     uuid
   }
 }
+```
+
+### Create a user
+
+To create a user, you'll need:
+
+1. Workspace Admin privileges
+2. A Deployment ID
+
+If you don't already have a Deployment ID, first run the query in the "Query an Airflow Deployment" section above.
+
+With the `deploymentId`, run the following:
+
+```graphql
+mutation AddDeploymentUser(
+		            $userId: <user-id>
+		            $email: <user-email>
+		            $deploymentId: <deployment-uuid>
+		            $role: <user-role>
+    	  ) {
+		            deploymentAddUserRole(
+			                  userId: $userId
+			                  email: $email
+			                  deploymentId: $deploymentId
+			                  role: $role
+		            ) {
+			                  id
+			                  user {
+			             	            username
+			                  }
+			                  role
+			                  deployment {
+				                        id
+				                        releaseName
+			                  }
+		            }            
+	        }
 ```
 
 ### Delete a User
@@ -229,6 +287,18 @@ mutation AddAdmin {
 ```
 
 If you're assigning a user a different System-Level Role, replace `SYSTEM_ADMIN` with either [`SYSTEM_VIEWER`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/next/reference/default.yaml#L246) or [`SYSTEM_EDITOR`](https://github.com/astronomer/docs/blob/082e949a7b5ac83ed7a933fca5bcf185b351dc39/enterprise/next/reference/default.yaml#L259) in the mutation above.
+
+### Create a service account
+
+You can create Deployment and Workspace-level accounts in the Astronomer UI as described in [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd). Alternatively, you can create platform-level service accounts programatically via the Houston API. To create a service account via the Houston API, run the following in your GraphQL Playground:
+
+```graphql
+mutation CreateSystemServiceAccount {
+  createSystemServiceAccount(label: "Your Label", role: SYSTEM_ADMIN) {
+     apiKey
+  }
+}
+```
 
 ## Custom Types
 
