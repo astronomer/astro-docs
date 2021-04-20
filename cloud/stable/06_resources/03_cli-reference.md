@@ -17,6 +17,7 @@ There are two ways to install any version of the Astronomer CLI:
 - [Homebrew](https://brew.sh/)
 - cURL
 
+For a detailed changelog of all Astronomer CLI versions, see [Releases in GitHub](https://github.com/astronomer/astro-cli/releases).
 > **Note:** Both methods only work for Unix (Linux+Mac) based systems. If you're running on Windows 10, follow [this guide](/docs/cloud/stable/develop/cli-install-windows-10/) to get set up with Docker for WSL.
 
 ### Prerequisites
