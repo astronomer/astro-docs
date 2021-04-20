@@ -151,7 +151,6 @@ Generates autocompletion scripts for Astronomer.
 Use `astro completion <subcommand>` to generate autocompletion scripts, which can be used to automate workflows on Astronomer that require multiple CLI commands.
 
 > **Note:** If you're running on MacOS, make sure to install [Bash Completion](https://github.com/scop/bash-completion) before creating autocompletion scripts. To do so via Homebrew, run:
-
     ```sh
     brew install bash-completion
     ```
