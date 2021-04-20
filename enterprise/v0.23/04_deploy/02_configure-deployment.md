@@ -130,3 +130,11 @@ These can include setting Airflow Parallelism, an SMTP service for Alerts, or a 
 Environment Variables can be set for your Airflow Deployment either in the **Variables** tab of the Astronomer UI or in your `Dockerfile`. If you're developing locally, they can also be added to a local `.env` file. For more information on configuring Environment Variables, read [Environment Variables on Astronomer](/docs/enterprise/v0.23/deploy/environment-variables/).
 
 > **Note**: Environment Variables are distinct from [Airflow Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html?highlight=variables) and [XComs](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html?highlight=xcom#concepts-xcom), which you can configure directly via the Airflow UI and are used for inter-task communication.
+
+## Delete a Deployment
+
+You can delete an Airflow Deployment using the **Delete Deployment** button at the bottom of the Deployment's **Settings** tab.
+
+When you delete a Deployment, your Airflow Webserver, Scheduler, metadata database, and deploy history will be deleted, and you will lose any configurations set in the Airflow UI.
+
+> Note: If you give a Deployment a custom release name and delete the Deployment, that custom release name cannot normally be reused with any future Deployments. If you need to reuse a custom release name after deleting its respective Deployment, reach out to Astronomer support.
