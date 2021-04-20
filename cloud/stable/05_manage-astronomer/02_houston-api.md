@@ -87,7 +87,7 @@ and can return any of the fields under `Type Details`:
 
 For instance, you can run the following:
 
-```gql
+```graphql
 query workspaceDeployments {
   workspaceDeployments(
     releaseName: "mathematical-probe-2087"
@@ -112,7 +112,7 @@ To view results, press the "Play" button in middle of the page and see them rend
 
 To query for information about a user on the platform (e.g. "When was this user created?" "Does this user exist?" "What roles do they have on any Workspace?"), run a variation of the following:
 
-```gql
+```graphql
 query User {
   users(user: { email: "<name@mycompany.com>"} )
   {
@@ -144,7 +144,7 @@ To create a Deployment, you'll need
 
 Then, in your GraphQL Playground, run the following:
 
-```gql
+```graphql
 mutation CreateDeployment {
   createDeployment(
     workspaceUuid: "astro_workspace_uuid",
@@ -169,7 +169,7 @@ If you don't already have a Deployment UUID, first run the query in the "Query a
 
 Then, in your GraphQL Playground, run the following:
 
-```gql
+```graphql
 mutation DeleteDeployment {
   deleteDeployment (
     deploymentUuid: "<DEPLOYMENTUUID>"
@@ -225,7 +225,7 @@ To delete a User, you'll need:
 
 With a `userUuid`, run the following:
 
-```gql
+```graphql
 mutation removeUser {
 	removeUser (
     userUuid: "<USERUUID>"
@@ -248,7 +248,7 @@ To run this mutation, you'll need:
 
 With the email address in question, run the following:
 
-```gql
+```graphql
 mutation verifyEmail {
 	verifyEmail (
     email: "<USERUUID>"
@@ -303,7 +303,7 @@ As input, you need:
 
 With that information, run the following:
 
-```gql
+```graphql
 mutation WorkspaceAddUser {
 	workspaceAddUser (
     workspaceUuid: "<WORKSPACEUUID>"
