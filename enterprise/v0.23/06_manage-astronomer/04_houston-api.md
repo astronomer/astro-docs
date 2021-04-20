@@ -171,7 +171,7 @@ To delete a Deployment, you'll need:
 
 > **Note:** For more information about the SysAdmin role, reference our ["User Management" doc](/docs/enterprise/v0.23/manage-astronomer/manage-platform-users/).
 
-If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section.
+If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section to retrieve it.
 
 Then, to delete a Deployment, run the following:
 
@@ -192,7 +192,7 @@ To create a user, you'll need:
 1. Workspace Admin privileges
 2. A Deployment ID
 
-If you don't already have a Deployment ID, first run the query in the "Query an Airflow Deployment" section above.
+If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section to retrieve it.
 
 With the `deploymentId`, run the following:
 
@@ -297,6 +297,31 @@ mutation CreateSystemServiceAccount {
   createSystemServiceAccount(label: "Your Label", role: SYSTEM_ADMIN) {
      apiKey
   }
+}
+```
+
+### Update environment variables
+
+To programmatically update environment variables, you'll need:
+
+1. A Deployment UUID
+2. A Deployment release name
+
+If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section to retrieve it.
+
+Then, in your GraphQL Playground, run the following:
+
+```graphql
+mutation updateDeploymentVariables {
+  updateDeploymentVariables(
+    deploymentUuid: "<id>"
+    releaseName: "<release-name>"
+    environmentVariables: [{
+      key: "keyname",
+      value: "value",
+      isSecret: false
+    }]
+  )
 }
 ```
 

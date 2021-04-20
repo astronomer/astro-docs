@@ -142,14 +142,14 @@ To create a Deployment, you'll need
 1. Permission (Workspace Admin)
 2. A Workspace UUID
 
-Then, to create a Deployment, run the following:
+Then, in your GraphQL Playground, run the following:
 
 ```gql
 mutation CreateDeployment {
   createDeployment(
-    workspaceUuid: astro_workspace_uuid,
-    type:"airflow",
-    label:"Deployment Label",
+    workspaceUuid: "astro_workspace_uuid",
+    type: "airflow",
+    label: "Deployment Label",
     config: {executor:"LocalExecutor"}
 )
 {
@@ -160,14 +160,14 @@ mutation CreateDeployment {
 
 ### Delete a Deployment
 
-To create a user, you'll need:
+To delete a Deployment, you'll need:
 
 1. Workspace Admin privileges
 2. A Deployment UUID
 
 If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section above.
 
-Then, to delete a Deployment, run the following:
+Then, in your GraphQL Playground, run the following:
 
 ```gql
 mutation DeleteDeployment {
@@ -188,13 +188,13 @@ To create a user, you'll need:
 
 If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section above.
 
-Then, to create a user, run the following:
+Then, in your GraphQL Playground, run the following:
 
 ```graphql
 mutation AddDeploymentUser(
 		            $userId: <user-id>
 		            $email: <user-email>
-		            $deploymentId: <deployment-uuid>
+		            $deploymentId: "<deployment-uuid>""
 		            $role: <user-role>
     	  ) {
 		            deploymentAddUserRole(
@@ -243,7 +243,7 @@ If a user on the platform has trouble verifying their email address upon signup,
 
 To run this mutation, you'll need:
 
-1. SysAdmin Permissions
+1. System Admin permissions
 2. User's email address
 
 With the email address in question, run the following:
@@ -257,6 +257,33 @@ mutation verifyEmail {
 ```
 
 > **Note:** To run this mutation, ensure that the user in question has already begun creating an account on the platform (i.e. the user has signed up and the platform has generated an "invite token" for that user).
+
+### Update environment variables
+
+To programmatically update environment variables, you'll need:
+
+1. A Deployment UUID
+2. A Deployment release name
+
+If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section to retrieve it.
+
+Then, in your GraphQL Playground, run the following:
+
+```graphql
+mutation updateDeploymentVariables {
+  updateDeploymentVariables(
+    deploymentUuid: "<id>"
+    releaseName: "<release-name>"
+    environmentVariables: [{
+      key: "keyname",
+      value: "value",
+      isSecret: false
+    }]
+  )
+}
+```
+
+If the environment variable hasn't been specified before, this mutation adds it to the Deployment. If the environment variable has already been specified, this mutation updates the existing value to be the value that you specified.
 
 ## Custom Types
 
