@@ -13,6 +13,7 @@ To install Astronomer on GCP, you'll need access to the following tools and perm
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Google Cloud SDK](https://cloud.google.com/sdk/install)
 * [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
 * An SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
 * Permission to create and modify resources on Google Cloud Platform
@@ -85,7 +86,7 @@ $ gcloud container clusters create [CLUSTER_NAME] --zone [COMPUTE_ZONE] --cluste
 
 A few important notes:
 
-- Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on GKE.
+- Each version of Astronomer Enterprise is compatible with only a particular set of Kubernetes versions. For more information, refer to Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 - We recommend using the [`n1-standard-8` machine type](https://cloud.google.com/compute/docs/machine-types#n1_standard_machine_types) with a minimum of 3 nodes (24 CPUs) as a starting point.
 - The Astronomer platform and all components within it will consume ~11 CPUs and ~40GB of memory as the default overhead, so we generally recommend using larger vs smaller nodes.
 - For more detailed instructions and a full list of optional flags, refer to GKE's ["Creating a Cluster"](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster).
@@ -111,11 +112,13 @@ Helm is a package manager for Kubernetes. It allows you to easily deploy complex
 
 ### Create a Kubernetes Namespace
 
-Create a namespace to host the core Astronomer Platform. If you are running through a standard installation, each Airflow deployment you provision will be created in a separate namespace that our platform will provision for you, this initial namespace will just contain the core Astronomer platform.
+Create a [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) called `astronomer` to host the core Astronomer platform:
 
+```sh
+kubectl create namespace astronomer
 ```
-$ kubectl create namespace <my-namespace>
-```
+
+Once Astronomer is running, each Airflow Deployment that you create will have its own isolated namespace.
 
 ## Step 4: Configure TLS
 
@@ -143,15 +146,18 @@ To obtain a TLS certificate, complete one of the following setups:
 
 ### Option 1: Create TLS certificates using Let's Encrypt
 
-Let's Encrypt is a free and secure service that provides TLS certificates which automatically renew every 90 days. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
+[Let's Encrypt](https://letsencrypt.org/) is a free and secure certificate authority (CA) service that provides TLS certificates that renew automatically every 90 days. Use this option if you are configuring Astronomer for a smaller organization without a dedicated security team.
 
-To set up TLS certificates this way, complete the setup in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt).
+To set up TLS certificates this way, follow the guidelines in [Automatically Renew TLS Certificates Using Let's Encrypt](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/renew-tls-cert#automatically-renew-tls-certificates-using-lets-encrypt).
 
 ### Option 2: Request a TLS certificate from your security team
 
-If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for the `BASEDOMAIN` your organization uses for Astronomer, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files: one for your encrypted certificate and one for your private key.
+If you're installing Astronomer for a large organization, you'll need to request a TLS certificate and private key from your enterprise security team. This certificate needs to be valid for the `BASEDOMAIN` your organization uses for Astronomer, as well as the subdomains listed at the beginning of Step 4. You should be given two `.pem` files:
 
-To confirm that your security team generated the correct certificate, run the following command using the openssl command line tool:
+- One for your encrypted certificate
+- One for your private key
+
+To confirm that your enterprise security team generated the correct certificate, run the following command using the `openssl` CLI:
 
 ```sh
 $ openssl x509 -in  <your-certificate-filepath> -text -noout
@@ -159,19 +165,43 @@ $ openssl x509 -in  <your-certificate-filepath> -text -noout
 
 This command will generate a report. If the `X509v3 Subject Alternative Name` section of this report includes either a single `*.BASEDOMAIN` wildcard domain or the subdomains listed at the beginning of Step 4, then the certificate creation was successful.
 
-Depending on your organization, you might receive either a globally trusted certificate or a certificate from a private certificate authority. If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
+Depending on your organization, you may receive either a globally trusted certificate or a certificate from a private CA. The certificate from your private CA may include a domain certificate, a root certificate, and/or intermediate certificates, all of which need to be in proper certificate order. To verify certificate order, follow the guidelines below.
+
+#### Verify certificate order (private CA only)
+
+To confirm that your certificate has the proper certificate order, first run the following command using the `openssl` CLI:
+
+```sh
+$ openssl crl2pkcs7 -nocrl -certfile <your-certificate-filepath> | openssl pkcs7 -print_certs -noout
+```
+
+This command will generate a report of all certificates included. Verify that the order of these certificates is as follows:
+
+1. Domain
+2. Intermediate (optional)
+3. Root
+
+If the order of all certificates is correct, read below for instructions on how to create a Kubernetes secret using your new root certificate.
+
+#### Create a Kubernetes secret
+
+If you received a globally trusted certificate, simply run the following command and proceed to Step 5:
 
 ```sh
 $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --key <your-private-key-filepath>
 ```
 
-If you received a certificate from a private certificate authority, complete the following setup instead:
+If you received a certificate from a private CA, follow the steps below instead:
 
-1. Add the root certificate provided by your security team to an Opaque Kubernetes secret in the Astronomer namespace using the following command:
-```sh
-$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
-```
-> **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
+
+    ```sh
+    $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+    ```
+
+    > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
 
 2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 6. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
@@ -243,6 +273,8 @@ global:
 nginx:
   # IP address the nginx ingress should bind to
   loadBalancerIP: ~
+  # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
+  ingressAnnotations: {}
 
 #################################
 ### SMTP configuration
@@ -288,16 +320,21 @@ First, run:
 $ helm repo add astronomer https://helm.astronomer.io/
 ```
 
-Now, run:
+Then, run:
 
-
+```sh
+$ helm repo update
 ```
-$ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
+
+This will ensure that you pull the latest from our Helm repository. Finally, run:
+
+```sh
+$ helm install -f config.yaml --version=0.23 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
-Replace <platform-version> above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+This command will install the latest available patch version of Astronomer Enterprise v0.23. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.23.x`. To install Astronomer Enterprise v0.23.9, for example, specify `--version=0.23.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/stable/resources/release-notes/).
 
-Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
+Once you run the commands above, a set of Kubernetes pods will be generated in your namespace. These pods power the individual services required to run our platform, including the Astronomer UI and Houston API.
 
 ## Step 8: Verify That All Pods Are Up
 
@@ -336,7 +373,7 @@ newbie-norse-kibana-58bdf9bdb8-2j67t                   1/1     Running     0    
 newbie-norse-kube-state-549f45544f-mcv7m               1/1     Running     0          30m
 newbie-norse-nginx-7f6b5dfc9c-dm6tj                    1/1     Running     0          30m
 newbie-norse-nginx-default-backend-5ccdb9554d-5cm5q    1/1     Running     0          30m
-newbie-norse-orbit-d5585ccd8-h8zkr                     1/1     Running     0          30m
+newbie-norse-astro-ui-d5585ccd8-h8zkr                  1/1     Running     0          30m
 newbie-norse-prisma-699bd664bb-vbvlf                   1/1     Running     0          30m
 newbie-norse-prometheus-0                              1/1     Running     0          30m
 newbie-norse-registry-0                                1/1     Running     0          30m
@@ -392,7 +429,7 @@ If you have Airflow pods in the state "ImagePullBackoff", check the pod descript
 
 To help you make the most of Astronomer Enterprise, check out the following additional resources:
 
-* [Renew TLS Certificates on Astronomer Enterprise]((/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
+* [Renew TLS Certificates on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/renew-tls-cert/)
 * [Integrating an Auth System](/docs/enterprise/stable/manage-astronomer/integrate-auth-system/)
 * [Configuring Platform Resources](/docs/enterprise/stable/manage-astronomer/configure-platform-resources/)
 * [Managing Users on Astronomer Enterprise](/docs/enterprise/stable/manage-astronomer/manage-platform-users/)

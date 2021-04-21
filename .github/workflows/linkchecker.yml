@@ -12,3 +12,4 @@ jobs:
         uses: ruzickap/action-my-broken-link-checker@v2
         with:
           url: https://astronomer.io
+          cmd_params: "--rate-limit=1" # Limiting rate for requests to GitHub pages

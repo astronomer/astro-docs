@@ -18,7 +18,7 @@ If you're an Astronomer user, you might use the Astronomer CLI to do the followi
 - Create Astronomer Service Accounts, Users and Deployments
 - Append annotations to your Deployment's Pods (_Enterprise only_)
 
-This guide will walk you through how to install the CLI, initalize an Astronomer project, and deploy to an Airflow instance on your local machine.
+This guide provides steps for installing the CLI, initializing an Astronomer project, and deploying to an Airflow instance on your local machine. For more information on specific CLI workflows and features, read the [Astronomer CLI Reference Guide](/docs/enterprise/v0.15/resources/cli-reference).
 
 ## Pre-Requisites
 
@@ -226,7 +226,7 @@ For example, an Airflow Connection can be added with:
 docker exec -it SCHEDULER_CONTAINER bash -c "airflow connections -a --conn_id test_three  --conn_type ' ' --conn_login etl --conn_password pw --conn_extra {"account":"blah"}"
 ```
 
-Refer to the native [Airflow CLI](https://airflow.apache.org/cli.html) for a list of all commands.
+Refer to the native [Airflow CLI](https://airflow.apache.org/docs/apache-airflow/stable/usage-cli.html) for a list of all commands.
 
 ## Additional Resources
 
@@ -235,10 +235,11 @@ For more information on our CLI specifically, feel free to reference:
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
 * [CLI README on GitHub](https://github.com/astronomer/astro-cli#astronomer-cli----)
 
-### Beyond the CLI
+## Next Steps
 
-If you're looking for guidance beyond the Astronomer CLI, we'd encourage you to reference some of the resources below:
+After installing and trying out the Astronomer CLI, we recommend reading through the following guides:
 
+* [Astronomer CLI Reference Guide](/docs/enterprise/v0.15/resources/cli-reference)
 * [Deploying to Astronomer](/docs/enterprise/v0.15/deploy/deploy-code/)
 * [Customizing your Image](/docs/enterprise/v0.15/develop/customize-image/)
 * [Manage Airflow Versions](/docs/enterprise/v0.15/customize-airflow/manage-airflow-versions/)

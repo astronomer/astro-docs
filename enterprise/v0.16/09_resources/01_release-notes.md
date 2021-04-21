@@ -8,7 +8,7 @@ description: "Astronomer Enterprise release notes."
 
 As of Astronomer v0.16, Astronomer releases will be made generally available to Enterprise customers on a quarterly basis as part of a long-term support (LTS) release model. Critical security and bug fixes will be regularly shipped as patch versions that follow LTS releases. Patch releases will be made available between quarterly LTS releases and require a simple upgrade process.
 
-For instructions on how to upgrade to a patch version, refer to ["Upgrade Astronomer"](/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer/).
+For instructions on how to upgrade to the latest v0.16 patch version of Astronomer, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer-patch). If you're interested in upgrading from Astronomer v0.16.x to the latest minor version of the platform, read [Upgrade to Astronomer Enterprise v0.23](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-to-0-23).
 
 We're committed to testing all quarterly Astronomer Enterprise versions for scale, reliability and security on EKS, GKE and AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](support.astronomer.io).
 
@@ -70,7 +70,7 @@ Release Date: November 16, 2020
 
 #### Bug Fixes & Improvements
 
-- BugFix: Typo in Pod Security Policy (PSP) for Private CA 
+- BugFix: Typo in Pod Security Policy (PSP) for Private CA
 
 ### v0.16.11
 
@@ -106,9 +106,9 @@ Astronomer v0.16.9 comes with support for [Airflow 1.10.12](https://airflow.apac
 Airflow 1.10.12 notably includes:
 
 - The ability to configure and launch pods via YAML files with the Kubernetes Executor and KubernetesPodOperator ([commit](https://github.com/apache/airflow/pull/6230))
-- A new `on_kill` method that ensures a KubernetesPodOperator task is killed when it's cleared in the Airflow UI ([commit]((https://github.com/apache/airflow/commit/ce94497cc) ))
-- Ability to define a custom XCom class ([commit]((https://github.com/apache/airflow/pull/8560)))
-- Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit]((https://github.com/apache/airflow/pull/9645)))
+- A new `on_kill` method that ensures a KubernetesPodOperator task is killed when it's cleared in the Airflow UI ([commit](https://github.com/apache/airflow/commit/ce94497cc))
+- Ability to define a custom XCom class ([commit](https://github.com/apache/airflow/pull/8560))
+- Support for grabbing Airflow configs with sensitive data from Secret Backends ([commit](https://github.com/apache/airflow/pull/9645))
 - Support for AirfowClusterPolicyViolation support in Airflow local settings ([commit](https://github.com/apache/airflow/pull/10282)).
 
 For a detailed breakdown of all changes, refer to the [AC 1.10.12 Changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md). For instructions on how to upgrade to 1.10.12 on Astronomer, refer to ["Airflow Versioning"](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions/).
@@ -217,7 +217,7 @@ These patch releases most notably include:
 
 - BugFix: Broken `/landing_times` view in the Airflow UI rendering with plain HTML ([commit](https://github.com/astronomer/airflow/commit/6567df3))
 - BugFix: Tighten restriction for `apache-airflow` in requirements.txt to allow users to install other packages with that prefix ([commit](https://github.com/astronomer/ap-airflow/commit/c2536db))
-- BugFix: Broken PapermillOperator ([commit](https://github.com/astronomer/astronomer-airflow-version-check/commit/811cc75) - 1.10.10 only).
+- BugFix: Broken PapermillOperator (1.10.10 only).
 
 To be notified of AC releases, feel free to [subscribe to our AC Newsletter](/downloads/). For information on how to upgrade Astronomer Certified versions, refer to our ["Manage Airflow Versions" doc](/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions/).
 

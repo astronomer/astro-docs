@@ -71,7 +71,7 @@ $ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 pymongo==3.7.2
 ```
 
-> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/stable/customize-airflow/manage-airflow-versions/).
+> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less compatibility issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/stable/customize-airflow/manage-airflow-versions/).
 
 ## Add Other Dependencies
 
@@ -126,7 +126,7 @@ For security reasons, the `airflow_settings.yaml` file is currently _only_ for l
 
 > **Note:** If you're interested in programmatically managing Airflow Connections, Variables or Environment Variables, we'd recommend integrating a ["Secret Backend"](/docs/enterprise/stable/customize-airflow/secrets-backend) to help you do so.
 
-### Add Airfow Connections, Pools, Variables
+### Add Airflow Connections, Pools, Variables
 
 By default, the `airflow_settings.yaml` file will be structured as following:
 
@@ -175,7 +175,7 @@ RUN ls
 
 ## Docker Compose Override
 
-The Astronomer CLI is built on top of [Docker Compose](https://docs.docker.com/compose/), a tool for defining and running multi-container Docker applications. If you're interested in overriding any of our CLI's default configurations ([found here](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go)), you're free to do so by adding a `docker-compose.override.yml` file to your Astronomer project directory. Any values in this file wil override default settings run upon every `$ astro dev start`.
+The Astronomer CLI is built on top of [Docker Compose](https://docs.docker.com/compose/), a tool for defining and running multi-container Docker applications. If you're interested in overriding any of our CLI's default configurations ([found here](https://github.com/astronomer/astro-cli/blob/main/airflow/include/composeyml.go)), you're free to do so by adding a `docker-compose.override.yml` file to your Astronomer project directory. Any values in this file will override default settings run upon every `$ astro dev start`.
 
 To add another volume mount for a directory named `custom_dependencies`, for example, add the following to your `docker-compose.override.yml`:
 
@@ -223,7 +223,7 @@ To add a connection, for example, you can run:
 docker exec -it SCHEDULER_CONTAINER bash -c "airflow connections -a --conn_id test_three  --conn_type ' ' --conn_login etl --conn_password pw --conn_extra {"account":"blah"}"
 ```
 
-Refer to the native [Airflow CLI](https://airflow.apache.org/cli.html) for a list of all commands.
+Refer to the native [Airflow CLI](https://airflow.apache.org/docs/apache-airflow/stable/usage-cli.html) for a list of all commands.
 
 ## Add Environment Variables Locally
 
@@ -246,7 +246,7 @@ Read below for guidelines.
 ### Prerequisites
 
 - The Astronomer CLI
-- An intialized Astronomer Airflow project and corresponding directory
+- An initialized Astronomer Airflow project and corresponding directory
 - An [SSH Key](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to your Private GitHub repo
 
 If you haven't initialized an Airflow Project on Astronomer (by running `$ astro dev init`), reference our [CLI Quickstart Guide](/docs/enterprise/stable/develop/cli-quickstart/).
@@ -257,7 +257,7 @@ If you haven't initialized an Airflow Project on Astronomer (by running `$ astro
 
 2. To the first line of that file, add a "FROM" statement that specifies the Airflow Image you want to run on Astronomer and ends with `AS stage`.
 
-If you're running the Debian-based Astronomer Certified image for Airflow 1.10.12, this would be:
+This setup assumes you're using a Debian-based Astronomer Certified image. With an Airflow 1.10.12 image, for example, this would be:
 
 ```
 FROM quay.io/astronomer/ap-airflow:1.10.12-buster AS stage1
@@ -267,7 +267,7 @@ For a list of all Airflow Images supported on Astronomer, refer to [Upgrade Apac
 
 > **Note:** Do NOT include `-onbuild` at the end of your Airflow Image as you typically would in your `Dockerfile`.
 
-3. Immediately below the `FROM...` line specified above, add the folllowing:
+3. Immediately below the `FROM...` line specified above, add the following:
 
 ```
 LABEL maintainer="Astronomer <humans@astronomer.io>"
@@ -277,7 +277,7 @@ LABEL io.astronomer.docker.build.number=$BUILD_NUMBER
 LABEL io.astronomer.docker.airflow.onbuild=true
 # Install Python and OS-Level Packages
 COPY packages.txt .
-RUN cat packages.txt | xargs apk add --no-cache
+RUN cat packages.txt | xargs apt-get install
 
 FROM stage1 AS stage2
 RUN mkdir -p /root/.ssh
@@ -285,7 +285,7 @@ ARG PRIVATE_RSA_KEY=""
 ENV PRIVATE_RSA_KEY=${PRIVATE_RSA_KEY}
 RUN echo "${PRIVATE_RSA_KEY}" >> /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
-RUN apk update && apk add openssh-client
+RUN apt-get update && apt-get install openssh-client
 RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts
 # Install Python Packages
 COPY requirements.txt .
@@ -305,6 +305,7 @@ A few notes:
 - If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
 - If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `# Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
+- If you're using an Alpine-based image, replace the expression `xargs apt-get install --no-cache` with `xargs apk add --no-cache`. Additionally, replace the expression `RUN apk update && apk add openssh-client` with `RUN apt-get update && apt-get install openssh-client`.
 
 ### Step 2. Build your Image
 
@@ -344,3 +345,33 @@ Now, let's push your new image to Astronomer.
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
 For more detail on the Astronomer deployment process, refer to [Deploy to Astronomer via the CLI](/docs/enterprise/stable/deploy/deploy-cli/).
+
+## Build with a Different Python Version
+
+While the Astronomer Certified (AC) Python Wheel supports Python versions 3.6, 3.7, and 3.8, AC Docker images have been tested and built only for Python 3.7.
+
+To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you need to create a custom version of the image, specify the `PYTHON_MAJOR_MINOR_VERSION` build argument, and push the custom image to an existing Docker registry. To do so:
+
+1. Using `docker build`, build a custom [Astronomer Certified Docker image](https://github.com/astronomer/ap-airflow) and specify `PYTHON_MAJOR_MINOR_VERSION` for the version of Python you'd like to support. For example, the command for building a custom Astronomer Certified image for Airflow 2.0.0 with Python 3.8 would look something like this:
+
+    ```sh
+    $ docker build --build-arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t <your-registry>/ap-airflow:<image-tag> https://github.com/astronomer/ap-airflow.git#master:2.0.0/buster
+    ```
+
+    We recommend using an image tag that indicates the image is using a different Python version, such as `2.0.0-buster-python3.8`.
+
+    > **Note:** To use a different version of Airflow, update the URL to point towards the desired Airflow version. For instance, if you're running Airflow 1.10.14, the GitHub URL here would be: `https://github.com/astronomer/ap-airflow.git#master:1.10.14/buster`
+
+2. Push the custom image to your Docker registry. Based on the example in the previous step, the command to do so would look something like this:
+
+    ```sh
+    $ docker push <your-registry>/ap-airflow:<image-tag>
+    ```
+
+3. Update the `FROM` line of your `Dockerfile` to reference the custom image. Based on the previous example, the line would read:
+
+    ```
+    FROM <your-registry>/ap-airflow:<image-tag>
+    ```
+
+> **Note:** Astronomer Certified Docker images for Apache Airflow 1.10.14+ are Debian-based only. To run Docker images based on Alpine-Linux for Airflow versions 1.10.7, 1.10.10, or 1.10.12, specify `alpine3.10` instead of `buster` in the GitHub URL.

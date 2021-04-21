@@ -221,15 +221,21 @@ First, run:
 $ helm repo add astronomer https://helm.astronomer.io/
 ```
 
-Now, run:
+Then, run:
 
+```sh
+$ helm repo update
 ```
-$ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
+
+This will ensure that you pull the latest from our Helm repository. Finally, run:
+
+```sh
+$ helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
-Replace `<platform-version>` above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/stable/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+This command will install the latest available patch version of Astronomer Enterprise v0.16. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.16.x`. To install Astronomer Enterprise v0.16.9, for example, specify `--version=0.16.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.16/resources/release-notes/).
 
-Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
+Once you run the commands above, a set of Kubernetes pods will be generated in your namespace. These pods power the individual services required to run our platform, including the Astronomer UI and Houston API.
 
 ## 8. Verify Pods are Up
 
@@ -310,7 +316,7 @@ astronomer-kube-state                ClusterIP      172.20.123.56    <none>     
 astronomer-kubed                     ClusterIP      172.20.4.200     <none>                                                                    443/TCP                                      24d
 astronomer-nginx                     LoadBalancer   172.20.54.142    ELB_ADDRESS.us-east-1.elb.amazonaws.com                                   80:31925/TCP,443:32461/TCP,10254:32424/TCP   24d
 astronomer-nginx-default-backend     ClusterIP      172.20.186.254   <none>                                                                    8080/TCP                                     24d
-astronomer-orbit                     ClusterIP      172.20.186.166   <none>                                                                    8080/TCP                                     24d
+astronomer-astro-ui                  ClusterIP      172.20.186.166   <none>                                                                    8080/TCP                                     24d
 astronomer-prisma                    ClusterIP      172.20.144.188   <none>                                                                    4466/TCP                                     24d
 astronomer-prometheus                ClusterIP      172.20.72.196    <none>                                                                    9090/TCP                                     24d
 astronomer-registry                  ClusterIP      172.20.100.102   <none>                                                                    5000/TCP                                     24d

@@ -226,7 +226,7 @@ For example, an Airflow Connection can be added with:
 docker exec -it SCHEDULER_CONTAINER bash -c "airflow connections -a --conn_id test_three  --conn_type ' ' --conn_login etl --conn_password pw --conn_extra {"account":"blah"}"
 ```
 
-Refer to the native [Airflow CLI](https://airflow.apache.org/cli.html) for a list of all commands.
+Refer to the native [Airflow CLI](https://airflow.apache.org/docs/apache-airflow/stable/usage-cli.html) for a list of all commands.
 
 ## Additional Resources
 

@@ -216,7 +216,7 @@ Set the following values in `config.yaml`:
 * `baseDomain: astro.mydomain.com`
 * `tlsSecret: astronomer-tls`
 * `loadBalancerIP: <my-static-ip>`
-* SMTP credentails as a houston config
+* SMTP credentials as a houston config
 
 Add the following line in the `nginx:` section:
 
@@ -289,16 +289,21 @@ First, run:
 $ helm repo add astronomer https://helm.astronomer.io/
 ```
 
-Now, run:
+Then, run:
 
-
+```sh
+$ helm repo update
 ```
-$ helm install astronomer -f config.yaml --version=<platform-version> astronomer/astronomer --namespace astronomer
+
+This will ensure that you pull the latest from our Helm repository. Finally, run:
+
+```sh
+$ helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
-Replace <platform-version> above with the version of the Astronomer platform you want to install in the format of `0.16.x`. For the latest version of Astronomer made generally available to Enterprise customers, refer to our ["Enterprise Release Notes"](/docs/enterprise/v0.16/resources/release-notes/). We recommend installing our latest as we regularly ship patch releases with bug and security fixes incorporated.
+This command will install the latest available patch version of Astronomer Enterprise v0.16. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.16.x`. To install Astronomer Enterprise v0.16.9, for example, specify `--version=0.16.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.16/resources/release-notes/).
 
-Running the commands above will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.
+Once you run the commands above, a set of Kubernetes pods will be generated in your namespace. These pods power the individual services required to run our platform, including the Astronomer UI and Houston API.
 
 ## 9. Verify all pods are up
 
@@ -337,7 +342,7 @@ newbie-norse-kibana-58bdf9bdb8-2j67t                   1/1     Running     0    
 newbie-norse-kube-state-549f45544f-mcv7m               1/1     Running     0          30m
 newbie-norse-nginx-7f6b5dfc9c-dm6tj                    1/1     Running     0          30m
 newbie-norse-nginx-default-backend-5ccdb9554d-5cm5q    1/1     Running     0          30m
-newbie-norse-orbit-d5585ccd8-h8zkr                     1/1     Running     0          30m
+newbie-norse-astro-ui-d5585ccd8-h8zkr                  1/1     Running     0          30m
 newbie-norse-prisma-699bd664bb-vbvlf                   1/1     Running     0          30m
 newbie-norse-prometheus-0                              1/1     Running     0          30m
 newbie-norse-registry-0                                1/1     Running     0          30m
@@ -345,7 +350,7 @@ newbie-norse-registry-0                                1/1     Running     0    
 
 If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.16/troubleshoot/debug-install/)
 
-## 10. Access Astronomer's Orbit UI
+## 10. Access the Astronomer UI
 
 Go to app.BASEDOMAIN to see the Astronomer UI.
 
