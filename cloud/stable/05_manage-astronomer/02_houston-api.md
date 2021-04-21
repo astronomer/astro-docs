@@ -38,10 +38,9 @@ To query our API, you must first authenticate as an Astronomer user.
 
 To authenticate,
 
-1. Grab an authentication token from the Astronomer UI (via https://app.BASEDOMAIN/token)
-2. Generate a Service Account Key from the Astronomer UI
-3. Expand the `HTTP Headers` section on the bottom left of the page
-4. Paste the token in the following format: `{"authorization": "TOKEN"}`
+1. In the Astronomer UI, acquire an API token via https://app.BASEDOMAIN/token. Alternatively, you can use the **API Key** of a [service account](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd#step-1-create-a-service-account).   
+3. Expand the `HTTP Headers` section on the bottom left of the page.
+4. Paste the API token you acquired from Step 1 in the following format: `{"authorization": "TOKEN"}`
 
 ![Headers](https://assets2.astronomer.io/main/docs/ee/headers.png)
 
