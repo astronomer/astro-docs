@@ -241,11 +241,6 @@ global:
 ### Nginx configuration
 #################################
 nginx:
-<<<<<<< HEAD
-  # IP address the nginx ingress should bind to
-  loadBalancerIP: ~
-  
-=======
   # String IP address the nginx ingress should bind to
   loadBalancerIP: ~
   #  Set to 'true' when deploying to a private EKS cluster
@@ -253,7 +248,6 @@ nginx:
   # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
   ingressAnnotations: {service.beta.kubernetes.io/aws-load-balancer-type: nlb}
 
->>>>>>> 8390c880acfe27e36a8c517efa48f026645c141c
 #################################
 ### SMTP configuration
 #################################
