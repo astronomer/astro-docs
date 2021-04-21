@@ -6,10 +6,10 @@ description: "Route common Airflow Deployment and platform alerts to your prefer
 
 ## Overview
 
-You can use two built-in alerting solutions for monitoring the health of your Astronomer platform:
+You can use two built-in alerting solutions for monitoring the health of Astronomer:
 
-- Deployment-level alerts notify you when the health of an Airflow Deployment is low or if any of Airflow's underlying components are underperforming, including the Airflow Scheduler.
-- Platform-level alerts notify you when a component of your Astronomer installation is unhealthy, such as Elasticsearch, Astronomer's Houston API, or your Docker Registry.
+- Deployment-level alerts, which notify you when the health of an Airflow Deployment is low or if any of Airflow's underlying components are underperforming, including the Airflow Scheduler.
+- Platform-level alerts, which notify you when a component of your Astronomer installation is unhealthy, such as Elasticsearch, Astronomer's Houston API, or your Docker Registry.
 
 These alerts fire based on metrics collected by Prometheus. If the conditions of an alert are met, [Prometheus Alertmanager](https://prometheus.io/docs/alerting/alertmanager) handles the process of sending the alert to the appropriate communication channel.
 
@@ -42,7 +42,7 @@ Alertmanager uses [receivers](https://prometheus.io/docs/alerting/latest/configu
 
 This Helm chart contains groups for each possible alert type based on `labels.tier` and `labels.severity`. Each receiver must be defined within at least one alert type in order to reveive notifications.
 
-For example, adding the following receiver to `receivers.platformCritical` would cause platform alerts with a `critical` severity to appear in a the `#astronomer_platform_alerts` Slack channel:
+For example, adding the following receiver to `receivers.platformCritical` would cause platform alerts with `critical` severity to appear in the `#astronomer_platform_alerts` Slack channel:
 
 ```yaml
 alertmanager:
@@ -76,15 +76,15 @@ alertmanager:
 
 For more information on building and configuring receivers, refer to [Prometheus documentation](https://prometheus.io/docs/alerting/configuration/).
 
-### Push alert receivers to your platform
+### Push alert receivers to Astronomer
 
-To add a new receiver to Astronomer, add your receiver configuration to your `config.yaml` file and push the changes to your installation as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). The receivers you add must be specified in the same order and format as they appear in the Alertmanager Helm chart. Once you push the alerts to your platform, they are automatically added to the [Alertmanager ConfigMap](#https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml).
+To add a new receiver to Astronomer, add your receiver configuration to your `config.yaml` file and push the changes to your installation as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config). The receivers you add must be specified in the same order and format as they appear in the Alertmanager Helm chart. Once you push the alerts to Astronomer, they are automatically added to the [Alertmanager ConfigMap](#https://github.com/astronomer/astronomer/blob/release-0.23/charts/alertmanager/templates/alertmanager-configmap.yaml).
 
 ## Create Custom Alerts
 
 In addition to subscribing to Astronomer's built-in alerts, you can also create custom alerts and push them to Astronomer.
 
-Platform and Deployment alerts are defined in YAML and pushed to your platform via the Prometheus Helm chart. For example, the following alert will fire if more than 2 Airflow Schedulers across the platform are not heartbeating for more than 5 minutes:
+Platform and Deployment alerts are defined in YAML and pushed to Astronomer via the Prometheus Helm chart. For example, the following alert will fire if more than 2 Airflow Schedulers across the platform are not heartbeating for more than 5 minutes:
 
 ```yaml
 prometheus:
@@ -104,9 +104,9 @@ prometheus:
           description: If more than 2 Airflow Schedulers are not heartbeating for more than 5 minutes, this alert fires.
 ```
 
-To push custom alerts to your platform, add them to the `AdditionalAlerts` section of your `config.yaml` file and push the file via Helm as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
+To push custom alerts to Astronomer, add them to the `AdditionalAlerts` section of your `config.yaml` file and push the file via Helm as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config).
 
-Once you've pushed the alert to your platform, make sure that you've configured receiver to subscribe to the alert. For more information, read [Subscribe to Alerts](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts#subscribe-to-alerts).
+Once you've pushed the alert to Astronomer, make sure that you've configured receiver to subscribe to the alert. For more information, read [Subscribe to Alerts](https://www.astronomer.io/docs/enterprise/v0.23/monitor/platform-alerts#subscribe-to-alerts).
 
 ## Reference: Common Alerts
 
