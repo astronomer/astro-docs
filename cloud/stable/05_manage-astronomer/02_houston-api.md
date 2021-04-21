@@ -146,7 +146,7 @@ Then, in your GraphQL Playground, run the following:
 ```graphql
 mutation CreateDeployment {
   createDeployment(
-    workspaceUuid: "astro_workspace_uuid",
+    workspaceUuid: "workspace_uuid",
     type: "airflow",
     label: "Deployment Label",
     config: {executor:"LocalExecutor"}
