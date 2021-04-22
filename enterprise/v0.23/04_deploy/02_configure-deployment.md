@@ -31,7 +31,8 @@ To create an Airflow Deployment on Astronomer:
   * **Executor**: We recommend starting with Local.
 
 3. Click **Create Deployment** and give the Deployment a few moments to spin up. Within a few seconds, you'll have access to the **Settings** page of your new Deployment:
-![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
+
+   ![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
 
 This tab is the best place to modify resources for your Deployment. Specifically, you can:
 
@@ -131,10 +132,32 @@ Environment Variables can be set for your Airflow Deployment either in the **Var
 
 > **Note**: Environment Variables are distinct from [Airflow Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html?highlight=variables) and [XComs](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html?highlight=xcom#concepts-xcom), which you can configure directly via the Airflow UI and are used for inter-task communication.
 
+## Customize Release Names
+
+To specify custom release names for Deployments, you first need to explicitly enable the feature on your Astronomer platform. To do so, ensure that the following value is set in your `config.yaml` file:
+
+```yaml
+astronomer:
+  houston:
+    config:
+      deployments:
+        manualReleaseNames: true # Allows you to set your release names
+```
+
+Then, push the updated `config.yaml` file to your installation as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).
+
+After applying this change, the  **Release Name** field in the Astronomer UI becomes configurable:
+
+![Custom Release Name Field](https://assets2.astronomer.io/main/docs/astronomer-ui/custom-release-name.png)
+
 ## Delete a Deployment
 
 You can delete an Airflow Deployment using the **Delete Deployment** button at the bottom of the Deployment's **Settings** tab.
 
 When you delete a Deployment, your Airflow Webserver, Scheduler, metadata database, and deploy history will be deleted, and you will lose any configurations set in the Airflow UI.
 
-> Note: If you give a Deployment a custom release name and delete the Deployment, that custom release name cannot normally be reused with any future Deployments. If you need to reuse a custom release name after deleting its respective Deployment, reach out to [Astronomer support](https://www.astronomer.io/docs/enterprise/v0.23/resources/support).
+In your Astronomer database, the corresponding `Deployment` record will be given a `deletedAt` value and continue to persist until permanently deleted.
+
+> Note: If you give a Deployment a custom release name, that custom release name cannot be reused to create another Airflow Deployment, including one in another Workspace.
+>
+> To reuse a custom release name that was previously given to a Deployment that has since been deleted via the Astronomer UI or CLI, you need to permanently delete its entry in both your Astronomer database and the Deployment's metadata database. For guidance, reach out to [Astronomer support](https://www.astronomer.io/docs/enterprise/v0.23/resources/support).
