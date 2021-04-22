@@ -188,42 +188,56 @@ mutation DeleteDeployment {
 }
 ```
 
-### Create a user
+### Create a Deployment user
 
-To create a user, you'll need:
+To create a Deployment user, you'll need:
 
 1. Workspace Admin privileges
 2. A Deployment ID
 
 If you don't already have a Deployment ID, run `astro deployment list` via the Astronomer CLI or follow the steps in the "Query an Airflow Deployment" section above.
 
-With the `deploymentId`, run the following:
+First, add the following to your GraphQL playground:
 
 ```graphql
 mutation AddDeploymentUser(
-		            $userId: <user-id>
-		            $email: <user-email>
-		            $deploymentId: <deployment-uuid>
-		            $role: <user-role>
-    	  ) {
-		            deploymentAddUserRole(
-			                  userId: $userId
-			                  email: $email
-			                  deploymentId: $deploymentId
-			                  role: $role
-		            ) {
-			                  id
-			                  user {
-			             	            username
-			                  }
-			                  role
-			                  deployment {
-				                        id
-				                        releaseName
-			                  }
-		            }            
-	        }
+		$userId: Id
+		$email: String!
+		$deploymentId: Id!
+		$role: Role!
+	) {
+		deploymentAddUserRole(
+			userId: $userId
+			email: $email
+			deploymentId: $deploymentId
+			role: $role
+		) {
+			id
+			user {
+				username
+			}
+			role
+			deployment {
+				id
+				releaseName
+			}
+		}
+	}
 ```
+
+Here, `<user-role>` can be `DEPLOYMENT_ADMIN`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_VIEWER`.
+
+Then, in the **Query Variables** tab, add the following:
+
+```graphql
+{
+  "role": "DEPLOYMENT_ADMIN",
+  "deploymentId": "<deploymentId>",
+  "email": "<email-address>"
+}
+```
+
+After you specify these variables, run the mutation.
 
 ### Delete a User
 
