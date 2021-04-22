@@ -134,7 +134,7 @@ Environment Variables can be set for your Airflow Deployment either in the **Var
 
 ## Customize Release Names
 
-To specify custom release names for Deployments, you first need to explicitly enable the feature on your Astronomer platform. To do so, ensure that the following value is set in your `config.yaml` file:
+To specify custom release names for Deployments, you first need to enable the feature on your Astronomer platform. To do so, set the following value in your `config.yaml` file:
 
 ```yaml
 astronomer:
@@ -146,7 +146,7 @@ astronomer:
 
 Then, push the updated `config.yaml` file to your installation as described in [Apply a Config Change](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).
 
-After applying this change, the  **Release Name** field in the Astronomer UI becomes configurable:
+After applying this change, the **Release Name** field in the Astronomer UI becomes configurable:
 
 ![Custom Release Name Field](https://assets2.astronomer.io/main/docs/astronomer-ui/custom-release-name.png)
 
