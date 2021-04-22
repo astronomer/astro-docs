@@ -22,16 +22,16 @@ To create an Airflow Deployment, you'll need:
 To create an Airflow Deployment on Astronomer:
 
 1. Log in to [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
-
 2. Use the **New Deployment** menu to configure the following:
 
-  * **Name**
-  * **Description** (Optional)
-  * **Airflow Version**: We recommend using the latest version.
-  * **Executor**: We recommend starting with Local.
+  - **Name**
+  - **Description** (Optional)
+  - **Airflow Version**: We recommend using the latest version.
+  - **Executor**: We recommend starting with Local.
 
 3. Click **Create Deployment** and give the Deployment a few moments to spin up. Within a few seconds, you'll have access to the **Settings** page of your new Deployment:
-![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
+
+    ![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
 
 This tab is the best place to modify resources for your Deployment. Specifically, you can:
 
@@ -132,3 +132,9 @@ These can include setting Airflow Parallelism, an SMTP service for Alerts, or a 
 Environment Variables can be set for your Airflow Deployment either in the **Variables** tab of the Astronomer UI or in your `Dockerfile`. If you're developing locally, they can also be added to a local `.env` file. For more information on configuring Environment Variables, read [Environment Variables on Astronomer](/docs/cloud/stable/deploy/environment-variables/).
 
 > **Note**: Environment Variables are distinct from [Airflow Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html?highlight=variables) and [XComs](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html?highlight=xcom#concepts-xcom), which you can configure directly via the Airflow UI and are used for inter-task communication.
+
+## Delete a Deployment
+
+You can delete an Airflow Deployment using the **Delete Deployment** button at the bottom of your Deployment's **Settings** tab.
+
+When you delete a Deployment, your Airflow Webserver, Scheduler, metadata database, and deploy history will be deleted, and you will lose any configurations set in the Airflow UI.
