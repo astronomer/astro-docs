@@ -38,9 +38,10 @@ To query our API, you must first authenticate as an Astronomer user.
 
 To authenticate,
 
-1. In the Astronomer UI, acquire an API token via https://app.BASEDOMAIN/token. Alternatively, you can use the **API Key** of a [service account](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd#step-1-create-a-service-account).   
+1. Go to https://app.gcp0001.us-east4.astronomer.io/token and copy the API token on the page. Alternatively, note the **API Key** of a [service account](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd#step-1-create-a-service-account).
+2. Open Astronomer's [Houston API GraphQL Playground](https://houston.gcp0001.us-east4.astronomer.io/v1).
 3. Expand the `HTTP Headers` section on the bottom left of the page.
-4. Paste the API token you acquired from Step 1 in the following format: `{"authorization": "TOKEN"}`
+4. Paste the API token you acquired from Step 1 in the following format: `{"authorization": "<api-token>"}`
 
 ![Headers](https://assets2.astronomer.io/main/docs/ee/headers.png)
 
@@ -136,7 +137,7 @@ Mutations make a change to your platform's underlying database. For some common 
 
 ### Create a Deployment
 
-To create a Deployment, you'll need
+To create a Deployment, you'll need:
 
 1. Permission (Workspace Admin)
 2. A Workspace UUID
@@ -146,10 +147,10 @@ Then, in your GraphQL Playground, run the following:
 ```graphql
 mutation CreateDeployment {
   createDeployment(
-    workspaceUuid: "workspace_uuid",
+    workspaceUuid: "<workspace_uuid>",
     type: "airflow",
-    label: "Deployment Label",
-    config: {executor:"LocalExecutor"}
+    label: "<deployment-label>",
+    config: {executor:"<airflow-executor>"}
 )
 {
   releaseName
@@ -157,21 +158,25 @@ mutation CreateDeployment {
 }
 ```
 
+Here, `<airflow-executor>` can be `LocalExecutor`, `CeleryExecutor`, or `KubernetesExecutor`.
+
+
+
 ### Delete a Deployment
 
 To delete a Deployment, you'll need:
 
 1. Workspace Admin privileges
-2. A Deployment UUID
+2. A Deployment ID
 
-If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section above.
+If you don't already have a Deployment ID, run `astro deployment list` via the Astronomer CLI or follow the steps in the "Query an Airflow Deployment" section above.
 
 Then, in your GraphQL Playground, run the following:
 
 ```graphql
 mutation DeleteDeployment {
   deleteDeployment (
-    deploymentUuid: "<DEPLOYMENTUUID>"
+    deploymentUuid: "<your-deployment-id>"
   ) {
     uuid
   }
@@ -183,9 +188,9 @@ mutation DeleteDeployment {
 To create a user, you'll need:
 
 1. Workspace Admin privileges
-2. A Deployment UUID
+2. A Deployment ID
 
-If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section above.
+If you don't already have a Deployment ID, run `astro deployment list` via the Astronomer CLI or follow the steps in the "Query an Airflow Deployment" section above.
 
 Then, in your GraphQL Playground, run the following:
 
@@ -261,10 +266,10 @@ mutation verifyEmail {
 
 To programmatically update environment variables, you'll need:
 
-1. A Deployment UUID
+1. A Deployment ID
 2. A Deployment release name
 
-If you don't already have a Deployment UUID, first run the query in the "Query an Airflow Deployment" section to retrieve it.
+If you don't already have a Deployment ID, run `astro deployment list` via the Astronomer CLI or follow the steps in the "Query an Airflow Deployment" section above.
 
 Then, in your GraphQL Playground, run the following:
 
