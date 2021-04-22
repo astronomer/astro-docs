@@ -24,10 +24,10 @@ To create an Airflow Deployment on Astronomer:
 1. Log in to your Astronomer platform at `app.BASEDOMAIN`, open your Workspace, and click **New Deployment**.
 2. Use the **New Deployment** menu to configure the following:
 
-  * **Name**
-  * **Description** (Optional)
-  * **Airflow Version**: We recommend using the latest version.
-  * **Executor**: We recommend starting with Local.
+    - **Name**
+    - **Description** (Optional)
+    - **Airflow Version**: We recommend using the latest version.
+    - **Executor**: We recommend starting with Local.
 
 3. Click **Create Deployment** and give the Deployment a few moments to spin up. Within a few seconds, you'll have access to the **Settings** page of your new Deployment:
 
