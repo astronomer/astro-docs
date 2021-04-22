@@ -140,27 +140,33 @@ Mutations make a change to your platform's underlying database. For some common 
 To create a Deployment, you'll need:
 
 1. Permission (Workspace Admin)
-2. A Workspace UUID
+2. A Workspace ID
+
+If you don't already have a Workspace ID, run `astro workspace list` via the Astronomer CLI.
 
 Then, in your GraphQL Playground, run the following:
 
 ```graphql
 mutation CreateDeployment {
   createDeployment(
-    workspaceUuid: "<workspace_uuid>",
+    workspaceUuid: "<workspace-id>",
     type: "airflow",
     label: "<deployment-label>",
-    config: {executor:"<airflow-executor>"}
-)
-{
-  releaseName
-}
+    config: {executor:"<airflow-executor>"},
+
+
+    )
+    {
+      id
+      config
+      releaseName
+      workspace{label}
+      roleBindings{id}
+    }
 }
 ```
 
 Here, `<airflow-executor>` can be `LocalExecutor`, `CeleryExecutor`, or `KubernetesExecutor`.
-
-
 
 ### Delete a Deployment
 
@@ -315,16 +321,18 @@ For example, take the "Add a User to a Workspace" mutation.
 
 As input, you need:
 
-1. A `workspaceUuid`
+1. A Workspace ID
 2. Email address of the user
 3. Role you'd like to designate that user (e.g. Workspace "Admin", "Editor" or "Viewer")
+
+If you don't already have a Workspace ID, run `astro workspace list` via the Astronomer CLI.
 
 With that information, run the following:
 
 ```graphql
 mutation WorkspaceAddUser {
 	workspaceAddUser (
-    workspaceUuid: "<WORKSPACEUUID>"
+    workspaceUuid: "<workspace-id>"
     email: "<email@mycompany.com>"
     role: WORKSPACE_ADMIN
   ) {
