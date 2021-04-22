@@ -22,7 +22,6 @@ To create an Airflow Deployment, you'll need:
 To create an Airflow Deployment on Astronomer:
 
 1. Log in to your Astronomer platform at `app.BASEDOMAIN`, open your Workspace, and click **New Deployment**.
-
 2. Use the **New Deployment** menu to configure the following:
 
   * **Name**
@@ -134,7 +133,9 @@ Environment Variables can be set for your Airflow Deployment either in the **Var
 
 ## Customize Release Names
 
-To specify custom release names for Deployments, you first need to enable the feature on your Astronomer platform. To do so, set the following value in your `config.yaml` file:
+An Airflow Deployment's release name on Astronomer is a unique, immutable identifier for that Deployment that corresponds to its Kubernetes namespace and that renders in Grafana, Kibana, and other platform-level monitoring tools. By default, release names are randomly generated in the following format: `noun-noun-<4-digit-number>`. For example: `elementary-zenith-7243`.
+
+To customize the release name for a Deployment as you're creating it, you first need to enable the feature on your Astronomer platform. To do so, set the following value in your `config.yaml` file:
 
 ```yaml
 astronomer:
@@ -160,4 +161,4 @@ In your Astronomer database, the corresponding `Deployment` record will be given
 
 > Note: If you give a Deployment a custom release name, that custom release name cannot be reused to create another Airflow Deployment, including one in another Workspace.
 >
-> To reuse a custom release name that was previously given to a Deployment that has since been deleted via the Astronomer UI or CLI, you need to permanently delete its entry in both your Astronomer database and the Deployment's metadata database. For guidance, reach out to [Astronomer support](https://www.astronomer.io/docs/enterprise/v0.23/resources/support).
+> To reuse a custom release name that was previously given to a Deployment that has since been deleted via the Astronomer UI or CLI, you need to permanently delete both the Deployment's metadata database and the Deployment's entry in your Astronomer database. For guidance, reach out to [Astronomer support](https://www.astronomer.io/docs/enterprise/v0.23/resources/support).

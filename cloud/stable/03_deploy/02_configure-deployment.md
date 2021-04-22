@@ -22,16 +22,16 @@ To create an Airflow Deployment, you'll need:
 To create an Airflow Deployment on Astronomer:
 
 1. Log in to [Astronomer Cloud](https://app.gcp0001.us-east4.astronomer.io/), open your Workspace, and click **New Deployment**.
-
 2. Use the **New Deployment** menu to configure the following:
 
-  * **Name**
-  * **Description** (Optional)
-  * **Airflow Version**: We recommend using the latest version.
-  * **Executor**: We recommend starting with Local.
+  - **Name**
+  - **Description** (Optional)
+  - **Airflow Version**: We recommend using the latest version.
+  - **Executor**: We recommend starting with Local.
 
 3. Click **Create Deployment** and give the Deployment a few moments to spin up. Within a few seconds, you'll have access to the **Settings** page of your new Deployment:
-![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
+
+    ![New Deployment Celery Dashboard](https://assets2.astronomer.io/main/docs/deploying-code/v0.23-new_deployment-dashboard.png)
 
 This tab is the best place to modify resources for your Deployment. Specifically, you can:
 
