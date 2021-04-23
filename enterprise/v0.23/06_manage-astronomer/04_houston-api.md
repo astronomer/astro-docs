@@ -335,16 +335,23 @@ If you don't already have a Deployment ID, run `astro deployment list` via the A
 Then, in your GraphQL Playground, run the following:
 
 ```graphql
-mutation updateDeploymentVariables {
+mutation UpdateDeploymentVariables {
   updateDeploymentVariables(
-    deploymentUuid: "<id>"
-    releaseName: "<release-name>"
-    environmentVariables: [{
-      key: "<keyname>",
-      value: "<value>",
-      isSecret: false
-    }]
-  )
+    deploymentUuid: "Deployment Id",
+  	releaseName: "release name",
+    environmentVariables: [
+      {key: "TEST",
+      value: "SOME_DATA",
+      isSecret: false},
+      {key: "TEST1",
+      value: "SOME_OTHER_DATA",
+      isSecret: true}
+    ]
+  ) {
+    key
+    value
+    isSecret
+  }
 }
 ```
 
