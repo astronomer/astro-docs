@@ -38,10 +38,10 @@ To query our API, you must first authenticate as an Astronomer user.
 
 To authenticate,
 
-1. Grab an authentication token from the Astronomer UI (via https://app.BASEDOMAIN/token)
-2. Generate a Service Account Key from the Astronomer UI
-3. Expand the `HTTP Headers` section on the bottom left of the page
-4. Paste the token in the following format: `{"authorization": "TOKEN"}`
+1. Go to https://app.gcp0001.us-east4.astronomer.io/token and copy the API token on the page. Alternatively, note the **API Key** of a [service account](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd#step-1-create-a-service-account).
+2. Open Astronomer's [Houston API GraphQL Playground](https://houston.gcp0001.us-east4.astronomer.io/v1).
+3. Expand the `HTTP Headers` section on the bottom left of the page.
+4. Paste the API token you acquired from Step 1 in the following format: `{"authorization": "<api-token>"}`
 
 ![Headers](https://assets2.astronomer.io/main/docs/ee/headers.png)
 
@@ -87,7 +87,7 @@ and can return any of the fields under `Type Details`:
 
 For instance, you can run the following:
 
-```gql
+```graphql
 query workspaceDeployments {
   workspaceDeployments(
     releaseName: "mathematical-probe-2087"
@@ -112,7 +112,7 @@ To view results, press the "Play" button in middle of the page and see them rend
 
 To query for information about a user on the platform (e.g. "When was this user created?" "Does this user exist?" "What roles do they have on any Workspace?"), run a variation of the following:
 
-```gql
+```graphql
 query User {
   users(user: { email: "<name@mycompany.com>"} )
   {
@@ -135,28 +135,110 @@ In the output, you should see:
 
 Mutations make a change to your platform's underlying database. For some common examples, read below.
 
+### Create a Deployment
+
+To create a Deployment, you'll need:
+
+1. Permission (Workspace Admin)
+2. A Workspace ID
+
+If you don't already have a Workspace ID, run `astro workspace list` via the Astronomer CLI.
+
+Then, in your GraphQL Playground, run the following:
+
+```graphql
+mutation CreateDeployment {
+  createDeployment(
+    workspaceUuid: "<workspace-id>",
+    type: "airflow",
+    label: "<deployment-label>",
+    config: {executor:"<airflow-executor>"},
+
+
+    )
+    {
+      id
+      config
+      releaseName
+      workspace{label}
+      roleBindings{id}
+    }
+}
+```
+
+Here, `<airflow-executor>` can be `LocalExecutor`, `CeleryExecutor`, or `KubernetesExecutor`.
+
 ### Delete a Deployment
 
 To delete a Deployment, you'll need:
 
-1. Permission (Workspace Admin)
-2. `deploymentUuid`
+1. Workspace Admin privileges
+2. A Deployment ID
 
-#### Query for `deploymentUuid`
+If you don't already have a Deployment ID, run `astro deployment list` via the Astronomer CLI or follow the steps in the "Query an Airflow Deployment" section above.
 
-If you don't already have a `deploymentUuid`, first run the query in the "Query an Airflow Deployment" section above (which requires the `releaseName` or `WorkspaceUuid`).
+Then, in your GraphQL Playground, run the following:
 
-With the `deploymentUuid`, run the following:
-
-```gql
+```graphql
 mutation DeleteDeployment {
   deleteDeployment (
-    deploymentUuid: "<DEPLOYMENTUUID>"
+    deploymentUuid: "<your-deployment-id>"
   ) {
     uuid
   }
 }
 ```
+
+### Create a Deployment user
+
+To create a Deployment user, you'll need:
+
+1. Workspace Admin privileges
+2. A Deployment ID
+
+If you don't already have a Deployment ID, run `astro deployment list` via the Astronomer CLI or follow the steps in the "Query an Airflow Deployment" section above.
+
+First, add the following to your GraphQL playground:
+
+```graphql
+mutation AddDeploymentUser(
+		$userId: Id
+		$email: String!
+		$deploymentId: Id!
+		$role: Role!
+	) {
+		deploymentAddUserRole(
+			userId: $userId
+			email: $email
+			deploymentId: $deploymentId
+			role: $role
+		) {
+			id
+			user {
+				username
+			}
+			role
+			deployment {
+				id
+				releaseName
+			}
+		}
+	}
+```
+
+Then, in the **Query Variables** tab, add the following:
+
+```graphql
+{
+  "role": "<user-role>",
+  "deploymentId": "<deploymentId>",
+  "email": "<email-address>"
+}
+```
+
+Here, `<user-role>` can be `DEPLOYMENT_ADMIN`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_VIEWER`.
+
+After you specify these variables, run the mutation.
 
 ### Delete a User
 
@@ -167,7 +249,7 @@ To delete a User, you'll need:
 
 With a `userUuid`, run the following:
 
-```gql
+```graphql
 mutation removeUser {
 	removeUser (
     userUuid: "<USERUUID>"
@@ -185,12 +267,12 @@ If a user on the platform has trouble verifying their email address upon signup,
 
 To run this mutation, you'll need:
 
-1. SysAdmin Permissions
+1. System Admin permissions
 2. User's email address
 
 With the email address in question, run the following:
 
-```gql
+```graphql
 mutation verifyEmail {
 	verifyEmail (
     email: "<USERUUID>"
@@ -199,6 +281,40 @@ mutation verifyEmail {
 ```
 
 > **Note:** To run this mutation, ensure that the user in question has already begun creating an account on the platform (i.e. the user has signed up and the platform has generated an "invite token" for that user).
+
+### Update environment variables
+
+To programmatically update environment variables, you'll need:
+
+1. A Deployment ID
+2. A Deployment release name
+
+If you don't already have a Deployment ID, run `astro deployment list` via the Astronomer CLI or follow the steps in the "Query an Airflow Deployment" section above.
+
+Then, in your GraphQL Playground, run the following:
+
+```graphql
+mutation UpdateDeploymentVariables {
+  updateDeploymentVariables(
+    deploymentUuid: "<deployment-id>",
+  	releaseName: "<deployment-release-name>",
+    environmentVariables: [
+      {key: "<environment-variable-1>",
+      value: "<environment-variable-value-1>",
+      isSecret: <true-or-false>},
+      {key: "<environment-variable-2>",
+      value: "<environment-variable-value-2>",
+      isSecret: <true-or-false>}
+    ]
+  ) {
+    key
+    value
+    isSecret
+  }
+}
+```
+
+If the environment variable hasn't been specified before, this mutation adds it to the Deployment. If the environment variable has already been specified, this mutation updates the existing value to be the value that you specified.
 
 ## Custom Types
 
@@ -212,16 +328,18 @@ For example, take the "Add a User to a Workspace" mutation.
 
 As input, you need:
 
-1. A `workspaceUuid`
+1. A Workspace ID
 2. Email address of the user
 3. Role you'd like to designate that user (e.g. Workspace "Admin", "Editor" or "Viewer")
 
+If you don't already have a Workspace ID, run `astro workspace list` via the Astronomer CLI.
+
 With that information, run the following:
 
-```gql
+```graphql
 mutation WorkspaceAddUser {
 	workspaceAddUser (
-    workspaceUuid: "<WORKSPACEUUID>"
+    workspaceUuid: "<workspace-id>"
     email: "<email@mycompany.com>"
     role: WORKSPACE_ADMIN
   ) {
