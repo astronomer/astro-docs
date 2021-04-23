@@ -235,13 +235,13 @@ Then, in the **Query Variables** tab, add the following:
 
 ```graphql
 {
-  "role": "DEPLOYMENT_ADMIN",
+  "role": "<user-role>",
   "deploymentId": "<deploymentId>",
   "email": "<email-address>"
 }
 ```
 
-Here, `role` can be `DEPLOYMENT_ADMIN`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_VIEWER`.
+Here, `<user-role>` can be `DEPLOYMENT_ADMIN`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_VIEWER`.
 
 After you specify these variables, run the mutation.
 
