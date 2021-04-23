@@ -43,7 +43,7 @@ To query our API, you must first authenticate as an Astronomer user.
 To authenticate:
 
 1. Go to https://app.BASEDOMAIN/token and copy the API token. Alternatively, note the **API Key** of a [service account](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd#step-1-create-a-service-account).
-2. Open Astronomer's [Houston API GraphQL Playground](https://houston.BASEDOMAIN/v1).
+2. Open Astronomer's Houston API GraphQL Playground at `https://houston.BASEDOMAIN/v1`.
 3. Expand the `HTTP Headers` section on the bottom left of the page.
 4. Paste the API token you acquired from Step 1 in the following format: `{"authorization": "<api-token>"}`
 
@@ -231,8 +231,6 @@ mutation AddDeploymentUser(
 	}
 ```
 
-Here, `<user-role>` can be `DEPLOYMENT_ADMIN`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_VIEWER`.
-
 Then, in the **Query Variables** tab, add the following:
 
 ```graphql
@@ -242,6 +240,8 @@ Then, in the **Query Variables** tab, add the following:
   "email": "<email-address>"
 }
 ```
+
+Here, `role` can be `DEPLOYMENT_ADMIN`, `DEPLOYMENT_EDITOR`, or `DEPLOYMENT_VIEWER`.
 
 After you specify these variables, run the mutation.
 
