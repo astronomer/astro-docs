@@ -43,7 +43,7 @@ To query our API, you must first authenticate as an Astronomer user.
 To authenticate:
 
 1. Go to https://app.BASEDOMAIN/token and copy the API token. Alternatively, note the **API Key** of a [service account](https://www.astronomer.io/docs/enterprise/v0.23/deploy/ci-cd#step-1-create-a-service-account).
-2. Open Astronomer's [Houston API GraphQL Playground](https://houston.gcp0001.us-east4.astronomer.io/v1).
+2. Open Astronomer's [Houston API GraphQL Playground](https://houston.BASEDOMAIN/v1).
 3. Expand the `HTTP Headers` section on the bottom left of the page.
 4. Paste the API token you acquired from Step 1 in the following format: `{"authorization": "<api-token>"}`
 
@@ -337,15 +337,15 @@ Then, in your GraphQL Playground, run the following:
 ```graphql
 mutation UpdateDeploymentVariables {
   updateDeploymentVariables(
-    deploymentUuid: "Deployment Id",
-  	releaseName: "release name",
+    deploymentUuid: "<deployment-id>",
+  	releaseName: "<deployment-release-name>",
     environmentVariables: [
-      {key: "TEST",
-      value: "SOME_DATA",
-      isSecret: false},
-      {key: "TEST1",
-      value: "SOME_OTHER_DATA",
-      isSecret: true}
+      {key: "<environment-variable-1>",
+      value: "<environment-variable-value-1>",
+      isSecret: <true-or-false>},
+      {key: "<environment-variable-2>",
+      value: "<environment-variable-value-2>",
+      isSecret: <true-or-false>}
     ]
   ) {
     key

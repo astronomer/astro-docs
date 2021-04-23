@@ -296,19 +296,19 @@ Then, in your GraphQL Playground, run the following:
 ```graphql
 mutation UpdateDeploymentVariables {
   updateDeploymentVariables(
-    deploymentUuid: "Deployment Id",
-  	releaseName: "release name",
+    deploymentUuid: "<deployment-id>",
+  	releaseName: "<deployment-release-name>",
     environmentVariables: [
-      {key: "TEST",
-      value: "SOME_DATA",
-      isSecret: false},
-      {key: "TEST1",
-      value: "SOME_OTHER_DATA",
-      isSecret: true}
+      {key: "<environment-variable-1>",
+      value: "<environment-variable-value-1>",
+      isSecret: <true-or-false>},
+      {key: "<environment-variable-2>",
+      value: "<environment-variable-value-2>",
+      isSecret: <true-or-false>}
     ]
   ) {
     key
-    values
+    value
     isSecret
   }
 }
