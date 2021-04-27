@@ -35,7 +35,7 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 
 Starting with Astronomer v0.23, you can upgrade to any version of Astronomer Certified regardless of your Astronomer platform version.
 
-As soon as a new version of Astronomer Certified is published, all corresponding Astronomer Certified images and tags will be available in the Astronomer UI and CLI within 24 hours.
+When a new version of Astronomer Certified is published, all corresponding Astronomer Certified images and tags will be available in the Astronomer UI and CLI within 24 hours.
 
 ## Step 1. Initialize the Upgrade Process
 
