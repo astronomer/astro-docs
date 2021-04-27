@@ -24,6 +24,7 @@ Read below for details.
 
 Astronomer Certified offers support for the following versions of Apache Airflow:
 
+- [Airflow 2.0.2](https://github.com/apache/airflow/releases/tag/2.0.2)
 - [Airflow 2.0.0](https://airflow.apache.org/blog/airflow-two-point-oh-is-here/)
 - [Airflow 1.10.15](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html)
 - [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14)
@@ -31,8 +32,6 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 - [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
-- [Airflow 2.0.0](https://github.com/apache/airflow/releases/tag/2.0.0)
-- [Airflow 2.0.2](https://github.com/apache/airflow/releases/tag/2.0.2)
 
 ## Step 1. Initialize the Upgrade Process
 
