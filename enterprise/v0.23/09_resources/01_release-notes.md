@@ -24,8 +24,8 @@ Astronomer Enterprise v0.23 now offers full support for [Airflow 2.0.2](hhttps:/
 
 - Gracefully handling missing `start_date` and `end_date` for DagRuns ([Source](https://github.com/apache/airflow/pull/14452))
 - Faster default role syncing during Webserver start ([Source](https://github.com/apache/airflow/pull/15017))
-- Speed up Webserver start when there are many DAGs ([Source](https://github.com/apache/airflow/pull/14993))
-- Bugfix: Plugins endpoint was unauthenticated ([Source](https://github.com/apache/airflow/pull/14570))
+- Increased Webserver start-up speed when there are many DAGs ([Source](https://github.com/apache/airflow/pull/14993))
+- Authenticated plugins endpoints ([Source](https://github.com/apache/airflow/pull/14570))
 
 For a full list of all changes, read the [Apache Airflow changelog](https://github.com/astronomer/airflow/releases/tag/v2.0.2%2Bastro.1).
 
