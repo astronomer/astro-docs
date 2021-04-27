@@ -41,7 +41,7 @@ For instructions on how to upgrade to the latest patch version of a release, rea
 ### Bug Fixes
 
 - Fixed an issue where IAM roles for service accounts ([IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)) would not connect to S3 back-end registries. ([Source](https://github.com/astronomer/astronomer/pull/1065))
-- Fixed an issue where a Deployment would not work correctly when using the Kubernetes Executor and the KubernetesPodOperator at the same time. ([Source](https://github.com/astronomer/astronomer/pull/1065))
+- Fixed an issue where a Deployment would not work correctly when using the Kubernetes Executor and the KubernetesPodOperator at the same time. ([Source](https://github.com/astronomer/astronomer/pull/1059))
 
 ## v0.23.13
 
