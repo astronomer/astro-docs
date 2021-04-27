@@ -17,7 +17,7 @@ For example, you can:
 
 To configure these settings, follow the steps below.
 
-> **Note:** If you're interested in upgrading to the latest Astronomer v0.23 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer-patch).
+> **Note:** If you're interested in upgrading Astronomer to a new patch version of the platform, read [Upgrade to a Patch Version](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/upgrade-astronomer-patch).
 
 ## Step 1: Open Your config.yaml File
 
@@ -35,32 +35,19 @@ When you have finished updating the key-value pairs, ensure that they have the s
 
 ## Step 3: Push Changes to Astronomer
 
-### 1. Identify your platform namespace and release name.
-
-Your platform release name can be found in your list of active namespaces. To show this list, run:
-
+1. Identify your platform namespace and release name. Your platform release name can be found in your list of active namespaces. To show this list, run:
 ```sh
 $ kubectl get ns
 ```
-
 To identify the value for your platform release name, run:
-
 ```sh
 $ helm ls -n <your-platform-namespace>
 ```
-
-### 2. Save your config.yaml file and run a helm upgrade.
-
-To do so, run:
-
+2. Save your config.yaml file and run a helm upgrade by running:
 ```sh
 $ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml -n <your-platform-namespace> --version=<your-platform-version>
 ```
-
-### 3. Confirm that the key-value pairs were successfully updated.
-
-To do so, run:
-
+3. Confirm that the key-value pairs were successfully updated by running:
 ```sh
 $ helm get values <your-platform-release-name> -n <your-platform-namespace>
 ```

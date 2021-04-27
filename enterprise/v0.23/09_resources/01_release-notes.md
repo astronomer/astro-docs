@@ -14,6 +14,30 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 > **Note:** The perceived version gap between Astronomer Enterprise v0.16 and v0.23 is due to the nature of Astronomer's release schedule. To optimize for security and reliability, Astronomer Cloud releases are made available to Enterprise users only after they've passed a dedicated testing process. Astronomer Enterprise v0.23 includes _all_ changes made available on Astronomer Cloud between v0.16 and v0.23, in addition to Enterprise-only functionality.
 
+## v0.23.13
+
+Release Date: April 13, 2021
+
+### Zero Webserver Downtime for Airflow 2.0+ Deployments
+
+We're excited to announce that Astronomer v0.23.13 introduces zero Webserver downtime for Deployments running Airflow 2.0+. This feature is automatically enabled and requires no configuration in your system.
+
+This change has a few effects:
+- The Airflow Webserver now requires less CPU and Memory.
+- Increasing your total # of DAGs no longer requires proportionally increasing your Webserver resources.
+- When you deploy code or configuration changes via `astro deploy`, these changes will appear in the Airflow UI in real time without an intermediary "Airflow is Starting Up" page.
+- The Webserver still restarts when you deploy code, but a "rolling restart" is applied so that the Webserver pod is slowly replaced by another instead of stopping entirely.
+
+For context, this functionality is possible because Airflow 2.0 requires [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), which is an open source feature that makes the Webserver stateless.
+
+### Minor Improvements and Bug fixes
+
+- Added a new `pgbouncer.networkPolicies.enabled` value to Astronomer's Airflow Helm Chart so that organizations can exclusively enable or disable a pgBouncer network policy (_Airflow Chart 0.19.0+_). ([Source](https://github.com/astronomer/airflow-chart/pull/204))
+- Fixed an issue where new Deployments did not pull latest patch version of the corresponding Astronomer Certified image.
+- Changed the default Airflow Deployment image in Astronomer's Airflow Helm Chart to 2.0.0. ([Source](https://github.com/astronomer/airflow-chart/pull/198))
+- Upgraded the default pgBouncer and redis dependencies for new Airflow Deployments. ([Source](https://github.com/astronomer/airflow-chart/pull/203))
+- Fixed an issue where the v0.23 upgrade script would fail when upgrading the Astronomer Postgres DB. ([Source](https://github.com/astronomer/astronomer/pull/1050))
+
 ## v0.23.12
 
 Release Date: March 30, 2021

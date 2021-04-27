@@ -17,7 +17,7 @@ If you're an Astronomer user, you might use the Astronomer CLI to do the followi
 - Deploy to an Airflow Deployment on Astronomer
 - Create Astronomer Service Accounts, Users and Deployments
 
-The guidelines below will walk you through how to install the CLI, initialize an Astronomer project, and deploy to an Airflow instance on your local machine.
+This guide provides steps for installing the CLI, initializing an Astronomer project, and deploying to an Airflow instance on your local machine. For more information on specific CLI workflows and features, read the [Astronomer CLI Reference Guide](/docs/cloud/stable/resources/cli-reference).
 
 ## Step 1: Install the Astronomer CLI
 
@@ -253,10 +253,11 @@ For more information on Astronomer and Astronomer CLI releases, refer to:
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
 * [Astronomer Release Notes](https://www.astronomer.io/docs/cloud/stable/resources/release-notes)
 
-## Beyond the Astronomer CLI
+## Next Steps
 
-Looking for additional next steps after installing the Astronomer CLI? We recommend reading through the following guides:
+After installing and trying out the Astronomer CLI, we recommend reading through the following guides:
 
+* [Astronomer CLI Reference Guide](/docs/cloud/stable/resources/cli-reference)
 * [Deploy to Astronomer](/docs/cloud/stable/deploy/deploy-cli/)
 * [Customize Your Image](/docs/cloud/stable/customize-airflow/customize-image/)
 * [Upgrade Apache Airflow on Astronomer](/docs/cloud/stable/customize-airflow/manage-airflow-versions/)
