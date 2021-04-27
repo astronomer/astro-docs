@@ -27,21 +27,13 @@ Astronomer Enterprise v0.23 now offers full support for [Airflow 2.0.2](hhttps:/
 - Increased Webserver start-up speed when there are many DAGs ([Source](https://github.com/apache/airflow/pull/14993))
 - Authenticated plugins endpoints ([Source](https://github.com/apache/airflow/pull/14570))
 
-For a full list of all changes, read the [Apache Airflow changelog](https://github.com/astronomer/airflow/releases/tag/v2.0.2%2Bastro.1).
-
-### Support for Latest Builds of Astronomer Certified
-
-The latest patch versions of existing Astronomer Certified images are now available on all Astronomer platforms on version 0.23.0 or greater:
-
-- [2.0.2-1](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/CHANGELOG.md)
-- [2.0.0-5](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md)
-
-For instructions on how to upgrade to the latest patch version of a release, read [Upgrade Airflow](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions).
+For a list of Astronomer-only changes, read the [Astronomer Certified changelog](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/CHANGELOG.md).
 
 ### Bug Fixes
 
+- Backported bug fixes from Airflow 2.0.2 to Astronomer Certified 2.0.0-5. ([Source](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md))
 - Fixed an issue where IAM roles for service accounts ([IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)) would not connect to S3 back-end registries. ([Source](https://github.com/astronomer/astronomer/pull/1065))
-- Fixed an issue where a Deployment would not work correctly when using the Kubernetes Executor and the KubernetesPodOperator at the same time. ([Source](https://github.com/astronomer/astronomer/pull/1059))
+- Fixed an issue where a Deployment would not have correctly labeled Kubernetes pods when using the Kubernetes Executor and the KubernetesPodOperator at the same time. ([Source](https://github.com/astronomer/astronomer/pull/1059))
 
 ## v0.23.13
 
