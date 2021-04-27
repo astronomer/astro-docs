@@ -20,7 +20,7 @@ Release Date: April 27, 2021
 
 ### Support for Airflow 2.0.2
 
-Astronomer Enterprise v0.23 now offers full support for [Airflow 2.0.2](hhttps://github.com/apache/airflow/releases/tag/2.0.2). Airflow 2.0.2 builds upon the success of Airflow 2.0.0 and 2.0.1 with more bug fixes and performance improvements, including:
+Astronomer Enterprise v0.23 now offers full support for [Airflow 2.0.2](https://github.com/apache/airflow/releases/tag/2.0.2). Airflow 2.0.2 builds upon the success of Airflow 2.0.0 and 2.0.1 with more bug fixes and performance improvements, including:
 
 - Gracefully handling missing `start_date` and `end_date` for DagRuns ([Source](https://github.com/apache/airflow/pull/14452))
 - Faster default role syncing during Webserver start ([Source](https://github.com/apache/airflow/pull/15017))
