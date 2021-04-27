@@ -33,7 +33,7 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
 
-Starting with Astronomer Enterprise v0.23, new versions of Astronomer Certified are automatically available and supported in the Astronomer UI and CLI within 24 hours of their publication. In other words, you don't have to upgrade Astronomer in oder to upgrade Airflow.
+Starting with Astronomer Enterprise v0.23, new versions of Astronomer Certified are automatically available and supported in the Astronomer UI and CLI within 24 hours of their publication. In other words, you don't have to upgrade Astronomer in order to upgrade Airflow.
 
 ## Step 1. Initialize the Upgrade Process
 
