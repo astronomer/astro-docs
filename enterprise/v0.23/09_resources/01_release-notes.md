@@ -27,11 +27,12 @@ Astronomer Enterprise v0.23 now offers full support for [Airflow 2.0.2](https://
 - Increased Webserver start-up speed when there are many DAGs ([Source](https://github.com/apache/airflow/pull/14993))
 - Authenticated plugins endpoints ([Source](https://github.com/apache/airflow/pull/14570))
 
-For a list of Astronomer-only changes, read the [Astronomer Certified changelog](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/CHANGELOG.md).
+For a list of Astronomer-only changes, read the [Astronomer Certified 2.0.2 changelog](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/CHANGELOG.md).
+
+In addition, some bug fixes from Airflow 2.0.2 have been backported to Astronomer Certified 2.0.0-5. ([Source](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md))
 
 ### Bug Fixes
 
-- Backported bug fixes from Airflow 2.0.2 to Astronomer Certified 2.0.0-5. ([Source](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md))
 - Fixed an issue where IAM roles for service accounts ([IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)) would not connect to S3 back-end registries. ([Source](https://github.com/astronomer/astronomer/pull/1065))
 - Fixed an issue where a Deployment would not have correctly labeled Kubernetes pods when using the Kubernetes Executor and the KubernetesPodOperator at the same time. ([Source](https://github.com/astronomer/astronomer/pull/1059))
 
