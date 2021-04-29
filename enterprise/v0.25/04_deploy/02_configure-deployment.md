@@ -161,7 +161,7 @@ Once you create a local Airflow project directory, this deployment method requir
 
 Alternatively, you can enable NFS Volume-based DAG deployment. In an NFS volume-based Deployment, you deploy DAGs to Airflow by adding them to an external NFS volume. Deploying to an NFS volume does not require rebuilding your Docker image, which makes this a good strategy for users who want to quickly or continuously deploy DAGs to Airflow.
 
-This method must be explicitly enabled on your platform, and it requires creating an external NFS volume and specifying the location of the volume in Astronomer. For more information, read [Deploy to an NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs)
+This method must be explicitly enabled on your platform. You must also create an external NFS volume and specify the location of the volume in Astronomer. For more information, read [Deploy to an NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs).
 
 ## Delete a Deployment
 
