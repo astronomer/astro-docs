@@ -58,23 +58,6 @@ Though it largely depends on your use case, we recommend the Local Executor for 
 
 For a detailed breakdown of each Executor, read Astronomer's [Airflow Executors Explained](https://www.astronomer.io/guides/airflow-executors-explained).
 
-## Configure DAG Deployment Mechanisms
-
-Astronomer supports two different methods for deploying DAGs to an Airflow Deployment:
-
-- Deploying DAGs in a Docker image
-- Deploying DAGs to an NFS Volume
-
-You can select your DAG deployment method using the **Mechanism** option in your Deployment configuration options.
-
-In an image-based Deployment, your DAGs are built directly into the Docker image that's used to run your Airflow Deployment. DAGs are rebuilt into the image each time you run `astro deploy` from the Astronomer CLI.
-
-Once you create a local project directory with your DAGs, this  method requires no additional setup. We recommend an image-based setup when getting started with Airflow.
-
-In an NFS volume-based Deployment, you add your DAGs to an external NFS volume. Deploying to an NFS volume does not require rebuilding your Docker image, which makes this a good strategy for users who want to quickly or continuously deploy DAGs to Airflow.
-
-This method must be explicitly enabled on your platform, and it requires creating an external NFS volume and specifying the location of the volume in Astronomer. For more information, read [Deploy to an NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs)
-
 ## Scale Core Resources
 
 Apache Airflow requires two primary components:
@@ -167,6 +150,18 @@ Then, push the updated `config.yaml` file to your installation as described in [
 After applying this change, the **Release Name** field in the Astronomer UI becomes configurable:
 
 ![Custom Release Name Field](https://assets2.astronomer.io/main/docs/astronomer-ui/custom-release-name.png)
+
+## Configure DAG Deployment Mechanisms
+
+Be default, Astronomer users can deploy DAGs from a local directory to an Airflow Deployment using the Astronomer CLI. This workflow is described in [Deploy via the CLI](/docs/enterprise/v0.25/deploy/deploy-cli).
+
+In an image-based Deployment, your DAGs are built directly into the Docker image that's used to run your Airflow Deployment. DAGs are rebuilt into the image each time you run `astro deploy` from the Astronomer CLI.
+
+Once you create a local Airflow project directory, this deployment method requires no additional setup. We recommend an image-based setup when getting started with Airflow.
+
+Alternatively, you can enable NFS Volume-based DAG deployment. In an NFS volume-based Deployment, you deploy DAGs to Airflow by adding them to an external NFS volume. Deploying to an NFS volume does not require rebuilding your Docker image, which makes this a good strategy for users who want to quickly or continuously deploy DAGs to Airflow.
+
+This method must be explicitly enabled on your platform, and it requires creating an external NFS volume and specifying the location of the volume in Astronomer. For more information, read [Deploy to an NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs)
 
 ## Delete a Deployment
 
