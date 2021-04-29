@@ -1,6 +1,6 @@
 ---
 title: "Deploy to Astronomer via the CLI"
-navTitle: "Deploy via the CLI"
+navTitle: "Deploy Code"
 description: "How to push code to your Airflow Deployment on Astronomer via the Astronomer CLI."
 ---
 
