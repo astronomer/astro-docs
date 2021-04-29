@@ -82,8 +82,6 @@ Astronomer exclusively deploys the code in your project and does not push any of
 
 For more information about what gets built into your image, read [Customize your Image](/docs/enterprise/v0.23/develop/customize-image/).
 
-> **Note:** For Airflow Deployments using an NFS volume-based method for DAG deployment, DAGs cannot be deployed via the CLI and must be added directly to the NFS volume. For more information, read [Deploy DAGs to an NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs).
-
 ## Next Steps: Organize Astronomer
 
 While the specific needs of your organization might require a slightly different structure than what's described here, these are some general best practices to consider when working with Astronomer:
