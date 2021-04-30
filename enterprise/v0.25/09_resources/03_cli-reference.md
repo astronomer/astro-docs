@@ -281,7 +281,7 @@ Run `astro deployment create <new-deployment-name> [flags]` to create a new Depl
 | `--cloud-role`      | String     | Append an AWS or GCP IAM role to your Airflow Deployment's Webserver, Scheduler, and Worker Pods.                                    |
 | `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`. If no executor is specified, then `celery` is used. |
 | `--release-name`    | String     | A custom release name for the Airflow Deployment. Applies only to Deployments on Astronomer Enterprise.                              |
-| `--dag-deployment-type` | String     | The DAG deployment method for the Deployment. Can be either `image` or `volume`. The default value is `image`.                                                               |
+| `--dag-deployment-type` | String     | The DAG deploy method for the Deployment. Can be either `image` or `volume`. The default value is `image`.                                                               |
 | `--nfs-location` | String     | The location for an NFS volume mount, specified as: `<IP>:/<path>`. Must be specified when `--dag-deployment-type=volume`. Input is automatically prepended with `nfs:/` - do not include this in your input.                                  |
 
 ### Related documentation
@@ -409,7 +409,7 @@ Run `astro deployment update <your-deployment-id> [flags]` to update a Deploymen
 | Flag           | Value Type | Usage                                                                                   |
 | -------------- | ---------- | --------------------------------------------------------------------------------------- |
 | `--cloud-role` | String     | The ARN for the IAM role.                                                               |
-| `--dag-deployment-type` | String     | The DAG deployment method for the Deployment. Can be either `image` or `volume`. The default value is `image`.                                                               |
+| `--dag-deployment-type` | String     | The DAG deploy method for the Deployment. Can be either `image` or `volume`. The default value is `image`.                                                               |
 | `--nfs-location` | String     | The location for an NFS volume mount, specified as: `<IP>:/<path>`. Must be specified when `--dag-deployment-type=volume`. Input is automatically prepended with `nfs:/` - do not include this in your input.                                  |
 | `label`        | String     | The label for the Deployment.                                                           |
 | `description`  | String     | The description for a Deployment.                                                       |
