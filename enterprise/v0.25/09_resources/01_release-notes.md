@@ -18,8 +18,14 @@ Release Date: April 27, 2021
 
 ### Support for NFS Volume-based DAG Deployment
 
-We are pleased to announce that you can now deploy DAGs via an external NFS volume. This new deployment method is an alternative to building DAGs directly into a Docker image.
+We are pleased to offer NFS volume-based DAG deployment on Astronomer. This new deployment method is an alternative to image-based DAG deployment.
 
 With NFS volume-based DAG deployment, you no longer need to rebuild your environment when deploying DAGs. When a DAG is added to an external NFS volume, it automatically appears in your Airflow Deployment a short time later. This new ability to continuously deploy DAGs without disruption makes it possible to achieve more with your Deployments.
 
 NFS volume-based DAG deployment must be explicitly enabled on your platform. You must also create an external NFS volume and specify the location of the volume in Astronomer. For more information, read [Deploy to an NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs).
+
+> **Note:** To take advantage of this feature, your Airflow Deployments must be running on Airflow 2.0 or greater. To upgrade your Deployments, ready [Upgrade to Airflow 2.0](docs/enterprise/stable/customize-airflow/upgrade-to-airflow-2).
+
+### Minor Improvements and Bug Fixes
+
+-

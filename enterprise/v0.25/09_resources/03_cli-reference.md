@@ -281,6 +281,8 @@ Run `astro deployment create <new-deployment-name> [flags]` to create a new Depl
 | `--cloud-role`      | String     | Append an AWS or GCP IAM role to your Airflow Deployment's Webserver, Scheduler, and Worker Pods.                                    |
 | `--executor`        | String     | The Executor type for the Deployment. Can be `local`, `celery`, or `kubernetes`. If no executor is specified, then `celery` is used. |
 | `--release-name`    | String     | A custom release name for the Airflow Deployment. Applies only to Deployments on Astronomer Enterprise.                              |
+| `--dag-deployment-type` | String     | The DAG deployment method for the Deployment. Can be either `image` or `volume`. The default value is `image`.                                                               |
+| `--nfs-location` | String     | The location for an NFS volume mount, specified as: `<IP>:/<path>`. Must be specified when `--dag-deployment-type=volume`. Input is automatically prepended with `nfs:/` - do not include this in your input.                                  |
 
 ### Related documentation
 
@@ -394,11 +396,11 @@ Run `astro deployment service-account get <service-account-id> --deployment-id=<
 
 ## astro deployment update
 
-This command appends an IAM role to the Webserver, Scheduler, and Worker pods within an Airflow Deployment on the platform. Only applicable to teams running Astronomer Enterprise on Amazon EKS or Google GCP.
+Updates various parts of an Airflow Deployment on Astronomer, including metadata, deployment methods, and Executor type. Can also be used to append IAM roles to the Webserver, Scheduler, and Worker pods for Deployments running on Amazon EKS or Google GCP.
 
 ### Usage
 
-Run `astro deployment update <your-deployment-id> --cloud-role=<iam-arn> [flags]` to append an IAM role to your Deployment. The Deployment ID can be found by running `astro deployment list`.
+Run `astro deployment update <your-deployment-id> [flags]` to update a Deployment. The Deployment ID can be found by running `astro deployment list`.
 
 > **Note:** Only the `--cloud-role` flag is specified with a `--`. Additional flags should be written without a leading `--`.
 
@@ -407,6 +409,8 @@ Run `astro deployment update <your-deployment-id> --cloud-role=<iam-arn> [flags]
 | Flag           | Value Type | Usage                                                                                   |
 | -------------- | ---------- | --------------------------------------------------------------------------------------- |
 | `--cloud-role` | String     | The ARN for the IAM role.                                                               |
+| `--dag-deployment-type` | String     | The DAG deployment method for the Deployment. Can be either `image` or `volume`. The default value is `image`.                                                               |
+| `--nfs-location` | String     | The location for an NFS volume mount, specified as: `<IP>:/<path>`. Must be specified when `--dag-deployment-type=volume`. Input is automatically prepended with `nfs:/` - do not include this in your input.                                  |
 | `label`        | String     | The label for the Deployment.                                                           |
 | `description`  | String     | The description for a Deployment.                                                       |
 | `version`      | String     | The Airflow version for the Deployment (e.g. `v2.0.0`).                                 |
@@ -415,9 +419,11 @@ Run `astro deployment update <your-deployment-id> --cloud-role=<iam-arn> [flags]
 | `type`         | String     | The type of Deployment. Can be either `airflow` or `flower`.                            |
 | `executor`     | String     | The Executor type for the Deployment. Can be either `local`, `kubernetes`, or `celery`. |
 
+
 ### Related documentation
 
 - [Integrate IAM Roles](https://www.astronomer.io/docs/enterprise/v0.32/customize-airflow/integrate-iam)
+- []
 
 ## astro deployment user add
 
@@ -878,7 +884,7 @@ Updates a user's role in your current Workspace.
 ### Flags
 
 | Flag | Value Type | Usage |
-| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- | |
+| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `--role` | String | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. If `--role` is not specified, the user is updated to `WORKSPACE_VIEWER` by default. |
 
 ### Related documentation

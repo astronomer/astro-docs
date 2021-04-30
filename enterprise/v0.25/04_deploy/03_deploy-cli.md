@@ -1,22 +1,24 @@
 ---
-title: "Deploy to Astronomer via the CLI"
-navTitle: "Deploy Code"
-description: "How to push code to your Airflow Deployment on Astronomer via the Astronomer CLI."
+title: "Deploy DAGs Using the Astronomer CLI"
+navTitle: "Deploy DAGs via CLI"
+description: "How to push DAGs to your Airflow Deployment on Astronomer using the Astronomer CLI."
 ---
 
 ## Overview
 
-If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy code to an Airflow Deployment on Astronomer Enterprise.
+If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy your DAGs to an Airflow Deployment on Astronomer.
 
-This guide provides the setup steps for deploying code to Astronomer using the Astronomer CLI.
+This guide provides the setup steps for deploying DAGs to Astronomer using the Astronomer CLI. In this workflow, DAGs are built directly into a Docker image and pushed to a given Airflow Deployment on Astronomer. 
 
-For those looking to automate the deploy process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/).
+For guidance on automating this process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/).
+
+Alternatively, you can configure an external NFS volume for DAG deployment, which does not require rebuilding your Docker image. For more information, read [Deploy DAGs to an NFS Volume](/docs/enterprise/v0.25/manage-astronomer/configure-nfs).
 
 > **Note:** We recommend that all users test their code locally via the Astronomer CLI before pushing it to an Airflow Deployment on Astronomer. For guidelines on developing locally, refer to [CLI Quickstart](/docs/enterprise/v0.25/develop/cli-quickstart/).
 
 ## Prerequisites
 
-In order to push up code to a Deployment on Astronomer, you must have:
+In order to push up DAGs to a Deployment on Astronomer, you must have:
 
 * [The Astronomer CLI](/docs/enterprise/v0.25/develop/cli-quickstart/) installed.
 * An Astronomer platform at `app.BASEDOMAIN`.
@@ -39,19 +41,19 @@ Before you deploy to Astronomer, make sure that the Airflow Deployment you'd lik
 To see the list of Workspaces you have access to, run:
 
 ```sh
-$ astro workspace list
+astro workspace list
 ```
 
 To switch between Workspaces, run:
 
 ```sh
-$ astro workspace switch
+astro workspace switch
 ```
 
 To see the list of Deployments within a particular Workspace, run:
 
 ```sh
-$ astro deployment list
+astro deployment list
 ```
 
 For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/enterprise/v0.25/develop/cli-quickstart/).
@@ -63,7 +65,7 @@ Finally, make sure you're in the correct Airflow project directory.
 When you're ready to deploy your DAGs, run:
 
 ```sh
-$ astro deploy
+astro deploy
 ```
 
 This command returns a list of Airflow Deployments available in your Workspace and prompts you to pick one.
@@ -76,13 +78,11 @@ To confirm that your deploy was successful, navigate to your Deployment in the A
 
 ### What gets deployed?
 
-Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on your Astronomer platform.
+Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on your Astronomer platform. This includes system-level dependencies, Python-level dependencies, DAGS, and your Dockerfile.
 
 Astronomer exclusively deploys the code in your project and does not push any of the metadata associated with your local Airflow environment, including task history and Airflow Connections or variables set locally in the Airflow UI.
 
 For more information about what gets built into your image, read [Customize your Image](/docs/enterprise/v0.25/develop/customize-image/).
-
-> **Note:** For Airflow Deployments using an NFS volume-based method for DAG deployment, DAGs cannot be deployed via the CLI and must be added directly to the NFS volume. For more information, read [Deploy DAGs to an NFS Volume](/docs/enterprise/v0.25/manage-astronomer/configure-nfs).
 
 ## Next Steps: Organize Astronomer
 
