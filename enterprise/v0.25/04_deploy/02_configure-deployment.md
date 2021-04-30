@@ -151,17 +151,17 @@ After applying this change, the **Release Name** field in the Astronomer UI beco
 
 ![Custom Release Name Field](https://assets2.astronomer.io/main/docs/astronomer-ui/custom-release-name.png)
 
-## Configure DAG Deployment Methods
+## DAG Deploy Methods
 
 By default, Astronomer users can deploy DAGs by building them directly into a Docker image and deploying the image using the Astronomer CLI. This workflow is described in [Deploy via the CLI](/docs/enterprise/v0.25/deploy/deploy-cli).
 
-In this image-based deployment, your DAGs are built directly into the Docker image that's used to run your Airflow Deployment. DAGs are rebuilt into the image each time you run `astro deploy` from the Astronomer CLI.
+In this image-based deploy, your DAGs are built directly into the Docker image that's used to run your Airflow Deployment. DAGs are rebuilt into the image each time you run `astro deploy` from the Astronomer CLI.
 
 Once you create a local Airflow project directory, this deployment method requires no additional setup. We recommend an image-based setup when getting started with Airflow.
 
-Alternatively, you can enable NFS Volume-based DAG deployment. In an NFS volume-based Deployment, you deploy DAGs to Airflow by adding them to an external NFS volume. Deploying to an NFS volume does not require rebuilding your Docker image, which makes this a good strategy for users who want to quickly or continuously deploy DAGs to Airflow.
+Alternatively, you can enable NFS volume-based DAG deployments. In an NFS volume-based deploy, you deploy DAGs to Airflow by adding them to an external NFS volume. Deploying to an NFS volume does not require rebuilding your Docker image, which makes this a good strategy for users who want to quickly or continuously deploy DAGs to Airflow.
 
-To use NFS volume-based deployment, you must first enable the feature on your platform and configure an external NFS volume. For more information, read [Deploy DAGs via NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs).
+To use NFS volume-based deploy, you must first enable the feature on your platform and configure an external NFS volume. For more information, read [Deploy DAGs via NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs).
 
 ## Delete a Deployment
 
