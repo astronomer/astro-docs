@@ -1,7 +1,7 @@
 ---
 title: "Deploy DAGs via NFS Volume"
-navTitle: "Deploy DAGs via NFS Volumes"
-description: "How to push DAGs to an Airflow Deployment on Astronomer using an external NFS Volume."
+navTitle: "Deploy DAGs via NFS Volume"
+description: "How to push DAGs to an Airflow Deployment on Astronomer using an external NFS volume."
 ---
 
 ## Overview
@@ -17,7 +17,7 @@ This guide provides the necessary setup for connecting an NFS volume to Astronom
 
 ## Enable NFS Volume Storage
 
-NFS Volume deployment must be explicitly enabled on Astronomer by a System Admin. To enable it, update your `config.yaml` file with the following values:
+NFS volume deployment must be explicitly enabled on Astronomer by a System Admin. To enable it, update your `config.yaml` file with the following values:
 
 ```yaml
 houston:
@@ -33,7 +33,7 @@ Once you have saved the file, push the configuration change to your platform as 
 
 Any NFS volume can be used for this step as long as it has:
 
-* A directory for DAGS.
+* A directory for DAGs.
 * Read access for a user with GID `50000` and UID `50000`.
 
 While you can use any NFS volume for this step, we recommend the following NFS solutions for each cloud:
@@ -55,4 +55,4 @@ Workspace editors can configure a new or existing Airflow Deployment to use a pr
 4. In the **NFS Location** field that appears, enter the location of your volume-based DAG directory as `<IP>:/<path>` (for example: `192.168.0.1:/path/to/your/dags`).
 5. Save your changes.
 
-> **Note:** NFS Volumes can also be configured via the Astronomer CLI. To do so, specify the `--nfs-location` flag when running [`astro deployment create`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-create) or [`astro deployment update`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-update).
+> **Note:** NFS volumes can also be configured via the Astronomer CLI. To do so, specify the `--nfs-location` flag when running [`astro deployment create`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-create) or [`astro deployment update`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-update).
