@@ -10,7 +10,7 @@ If you've used the Astronomer CLI to develop locally, you'll find it similarly e
 
 This guide provides the setup steps for deploying DAGs to Astronomer using the Astronomer CLI. In this workflow, DAGs are built directly into a Docker image and pushed to a given Airflow Deployment on Astronomer.
 
-For guidance on automating this process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/).
+For guidance on automating this process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/). To learn how to deploy other components to Astronomer, such as dependencies or custom images, read [Customize your Image](/docs/enterprise/v0.25/develop/customize-image/).
 
 Alternatively, you can configure an external NFS volume for DAG deploys. For more information, read [Deploy DAGs to an NFS Volume](/docs/enterprise/v0.25/manage-astronomer/configure-nfs).
 
