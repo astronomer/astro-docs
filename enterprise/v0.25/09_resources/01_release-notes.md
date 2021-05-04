@@ -16,7 +16,7 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 Release Date: April 27, 2021
 
-### Support for NFS Volume-based DAG Deployment
+### Support for NFS Volume-based DAG Deploys
 
 We are pleased to offer an NFS volume-based DAG deploy mechanism on Astronomer. This new deployment method is an alternative to image-based DAG deploys.
 
@@ -26,6 +26,6 @@ This feature must be explicitly enabled on your platform and requires the use of
 
 > **Note:** To take advantage of this feature, your Airflow Deployments must be running on Airflow 2.0 or greater. To upgrade your Deployments, read [Upgrade to Airflow 2.0](docs/enterprise/stable/customize-airflow/upgrade-to-airflow-2).
 
-### Minor Improvements and Bug Fixes
+### Bug Fixes
 
 - Fixed an issue where Grafana pods would not run properly when `global.ssl.mode` was set to `prefer`. ([Source](https://github.com/astronomer/astronomer/pull/1082))
