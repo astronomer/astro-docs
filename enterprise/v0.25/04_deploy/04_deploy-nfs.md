@@ -27,7 +27,7 @@ houston:
         nfsMountDagDeployment: true
 ```
 
-Once you have saved the file, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.23/manage-astronomer/apply-platform-config). This process needs to be completed only once per Astronomer installation.
+Once you have saved the file, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/apply-platform-config). This process needs to be completed only once per Astronomer installation.
 
 ## Provision an NFS Volume
 
