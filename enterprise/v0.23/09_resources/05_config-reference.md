@@ -167,3 +167,51 @@ Specifies various details about [readiness probes](https://kubernetes.io/docs/ta
 - initialDelaySeconds: The number of seconds to wait before starting readiness probes on a new container. Default value is `30`.
 - periodSeconds: How often to perform the readiness probe, in seconds. Default value is `10`.
 - failureThreshold: The number of times to retry a failing readiness probe before giving up and marking a pod as Unready. Default value is `10`.
+
+#### .Values.global.houston.regenerateCaEachUpgrade
+
+Specifies whether Houston regenerates its certificate authority every time you run `helm upgrade`. If this is set to `true`, then all users are logged out upon each use of `helm upgrade`. For Enterprise organizations, we recommend setting this to `true`.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| Boolean    | false           | [true, false]       | Low          |
+
+#### .Values.global.houston.backendSecretName
+
+The name of the secret for the backend Houston datastore.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| String    | ~           | Any     | High          |
+
+#### .Values.global.houston.backendSecretName
+
+The details of the connection to your backend Houston datastore, defined in key-value pairs. Possible keys are `user`, `pass`, `host`, `port`, and `db`.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| Key-value pairs    | {}           | N/A     | High          |
+
+#### .Values.global.houston.backendConnection
+
+The details of the connection to your backend Houston datastore, defined in key-value pairs. Possible keys are `user`, `pass`, `host`, `port`, and `db`.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| Key-value pairs    | {}           | N/A     | High     |
+
+#### .Values.global.houston.airflowBackendSecretName
+
+The details of the connection to your Airflow backend, defined in key-value pairs. Possible keys are `user`, `pass`,`host`, `port`, and `db`.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| Key-value pairs    | {}           | N/A     | High          |
+
+#### .Values.global.houston.airflowBackendConnection
+
+The details of the connection to your Airflow backend, defined in key-value pairs. Possible keys are `user`, `pass`,`host`, `port`, and `db`.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| Key-value pairs    | {}           | N/A     | High          |
