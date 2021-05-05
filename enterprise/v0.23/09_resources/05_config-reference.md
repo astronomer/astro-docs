@@ -109,6 +109,14 @@ Environment variables for running the Astronomer UI. Do not configure this setti
 | Key-value pairs       | [ ]             | N/A        | Low          |
 
 
+#### .Values.global.astroUI.maxUnavailable
+
+Specifies what percentage of pods are allowed to be unavailable during a rolling update of the service.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| Percentage (integer + `%`)     | 25%             | [0%, 1%, ... 100%]       | Low          |
+
 #### .Values.global.astroUI.resources
 
 Specifies CPU and memory usage limits and requests for the Astronomer UI. CPU usage is specified in megabytes, while memory usage is specified in mebibytes. For example:
@@ -134,4 +142,28 @@ The maximum number of connections allowed for Prisma.
 
 | Value Type | Default Value | Valid Values | Importance |
 | ---------- | ------------- | ------------ | ---------- |
-| Integer       | 5            | Any        | Low          |
+| Integer       | 5            | Any        | Low        |
+
+#### .Values.global.houston.maxUnavailable
+
+Specifies what percentage of pods are allowed to be unavailable during a rolling update of the service.
+
+| Value Type | Default Value | Valid Values | Importance |
+| ---------- | ------------- | ------------ | ---------- |
+| Percentage (integer + `%`)     | 25%             | [0%, 1%, ... 100%]       | Low          |
+
+#### .Values.global.houston.livenessProbe
+
+Specifies various details about [liveness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), which are used to determine when to restart a failing container. Use the following subvalues to configure liveness probes:
+
+- initialDelaySeconds: The number of seconds to wait before starting liveness probes on a new container. Default value is `30`.
+- periodSeconds: How often to perform the liveness probe, in seconds. Default value is `10`.
+- failureThreshold: The number of times to retry a failing liveness probe before giving up and restarting the container. Default value is `10`.
+
+#### .Values.global.houston.livenessProbe
+
+Specifies various details about [readiness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes), which are used to determine when a container is ready to start accepting traffic. Use the following subvalues to configure liveness probes:
+
+- initialDelaySeconds: The number of seconds to wait before starting readiness probes on a new container. Default value is `30`.
+- periodSeconds: How often to perform the readiness probe, in seconds. Default value is `10`.
+- failureThreshold: The number of times to retry a failing readiness probe before giving up and marking a pod as Unready. Default value is `10`.
