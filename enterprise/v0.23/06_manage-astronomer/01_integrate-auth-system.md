@@ -58,6 +58,47 @@ astronomer:
 
 Replace the values above with those of the provider of your choice. If you want to configure Azure AD, Okta or Auth0 read below for specific guidelines.
 
+## AWS Cognito
+
+### Create a user pool in Cognito
+
+Start by creating a user pool in Cognito. You can either review the default settings or step through them to customize.
+
+Make sure that you create an `App client`, which is the OpenID client configuration that we will use to authenticate against. You do not need to generate a client secret, as Astronomer is a public client that uses implicit flow.
+
+Once the pool and app client are created, head over to the `App integration` >`App client settings` tab and configure these settings:
+
+- Select an identity provider to use (either the built-in cognito user pool or a federated identity provider).
+- Set the callback URL parameter to `https://houston.BASEDOMAIN/v1/oauth/redirect/`.
+- Enable `Implicit grant` in `Allowed OAuth Flows`. Leave the other settings disabled.
+- Enable `email`, `openid`, and `profile` in `Allowed OAuth Scopes`.
+
+Then switch over to the `Domain name` tab and select a unique domain name to use for your hosted Cognito components.
+
+This should give you a minimally working user pool configuration.
+
+### Edit your Astronomer configuration
+
+Add the following values to your `config.yaml` file in the `astronomer/` directory:
+
+```yaml
+astronomer:
+  houston:
+    config:
+      auth:
+        openidConnect:
+          cognito:
+            enabled: true
+            clientId: <client_id>
+            discoveryUrl: https://cognito-idp.<AWS-REGION>.amazonaws.com/<COGNITO-POOL-ID>/.well-known/openid-configuration
+            authUrlParams:
+              response_type: token
+```
+
+Your Cognito pool ID can be found in the `General settings` tab of the Cognito portal. Your client ID is found in the `App clients` tab.
+
+Once you've saved your `config.yaml` file with these values, push it to your platform as described in [Apply a Config Change](/docs/enterprise/v0.23/manage-astronomer/apply-platform-config).
+
 ## Azure AD
 
 ### Register the Application via `App Registrations` on Azure
@@ -108,15 +149,17 @@ Follow the steps below.
 
 ### Okta Configuration
 
-1. Create an [Okta account](https://www.okta.com/) if you don't already have one you plan on using
+1. If you haven't already, create an [Okta account](https://www.okta.com/).
 
-2. Create a new web app in your Okta account for Astronomer
+2. In your Okta account, create a new web app for Astronomer.
 
-3. Set your `login redirect URI` to be `https://houston.BASEDOMAIN/v1/oauth/redirect/`, where the `BASEDOMAIN` is the domain at which you're hosting your Astronomer installation
+3. In Okta, under **General Settings** > **Application**, set `Login redirect URIs` to `https://houston.BASEDOMAIN/v1/oauth/redirect/`, where `BASEDOMAIN` is the domain where you're hosting your Astronomer installation.
 
-4. Enable `Implicit (Hybrid)` Flow on the Okta application
+4. Under **Allowed grant types**, select `Implicit (Hybrid)`.
 
-4. Save the `Client ID` generated for this Okta app for use in the next steps
+5. Save the `Client ID` generated for this Okta app for use in the next steps.
+
+6. To ensure that an Okta tile appears, set `Initiate Login URI` to `https://houston.BASEDOMAIN/v1/oauth/start?provider=okta`  (_Optional_).
 
 ### Enable Okta in your config.yaml file
 
