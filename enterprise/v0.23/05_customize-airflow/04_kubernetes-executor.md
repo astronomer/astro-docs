@@ -56,7 +56,7 @@ If you want to use a pod template for all DAGs within a given Airflow Deployment
 
 3. In your terminal, run `astro deploy -f` to deploy your code and rebuild your Docker image.
 
-4. To confirm that the deploy was successful, launch the Airflow UI for your Deployment, click into any single task, and click `K8s Pos Spec`. You should see the updates you made to the pod template in this specification.
+4. To confirm that the deploy was successful, launch the Airflow UI for your Deployment, click into any single task, and click `K8s Pod Spec`. You should see the updates you made to the pod template in this specification.
 
 ## Add the Pod Template to a Task
 
