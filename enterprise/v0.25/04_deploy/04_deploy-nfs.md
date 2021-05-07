@@ -31,16 +31,16 @@ Once you have saved the file, push the configuration change to your platform as 
 
 ## Provision an NFS Volume
 
-Any NFS volume can be used for this step as long as it has:
-
-* A directory for DAGs.
-* Read access for a user with GID `50000` and UID `50000`.
-
-While you can use any NFS volume for this step, we recommend the following NFS solutions for each cloud:
+While you can use any NFS volume for this step, we recommend using each support cloud provider's own NFS volume solution:
 
 * GCP: [Filestore](https://cloud.google.com/filestore/docs/creating-instances)
 * Azure: [File Storage](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-how-to-create-nfs-shares?tabs=azure-portal)
 * AWS: [EFS](https://docs.aws.amazon.com/efs/latest/ug/getting-started.html)
+
+For each NFS volume you provision for DAG deploys, you need to configure:
+
+* A directory for DAGs.
+* Read access for a user with GID `50000` and UID `50000`. For an example setup of this, read [Configuring Ip-based access control](https://cloud.google.com/filestore/docs/creating-instances#configuring_ip-based_access_control) in Google Cloud's documentation.
 
 ## Add an NFS Volume a Deployment
 
