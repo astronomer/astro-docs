@@ -6,7 +6,7 @@ description: "How to run and configure the Kubernetes Executor on Astronomer."
 
 ## Overview
 
-The Kubernetes Executor relies on a fixed single Pod that dynamically delegates work and resources. For each task that needs to run, the Executor talks to the Kubernetes API to dynamically launch Pods which terminate when that task is completed.
+Apache Airflow's [Kubernetes Executor](https://airflow.apache.org/docs/apache-airflow/stable/executor/kubernetes.html) relies on a fixed single Pod that dynamically delegates work and resources. For each task that needs to run, the Executor talks to the Kubernetes API to dynamically launch Pods which terminate when that task is completed.
 
 This enables the Executor to scale depending on how many Airflow tasks you're running at a given time. It also means you can configure the following for each individual Airflow task:
 
@@ -16,7 +16,7 @@ This enables the Executor to scale depending on how many Airflow tasks you're ru
 
 To configure these resources for each pod, you configure a [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml). Read this guide to learn how to configure a pod template and apply it to both Airflow Deployments and individual Airflow tasks. For more information on configuring pod template values, reference the [Kubernetes API documentation](https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#podspec-v1-core).
 
-Note that you must have an Airflow Deployment on Astronomer running with the Kubernetes Executor to follow these steps. For more information on configuring an Executor, read [Configure a Deployment](/docs/enterprise/v0.23/deploy/configure-deployment).
+Note that you must have an Airflow Deployment on Astronomer running with the Kubernetes Executor to follow this setup. For more information on configuring an Executor, read [Configure a Deployment](/docs/enterprise/v0.23/deploy/configure-deployment).
 
 ## Configure the Kubernetes Executor Using an Existing Pod Template
 
@@ -24,7 +24,7 @@ By default, Airflow Deployments on Astronomer use a pod template to construct ea
 
 If you need to update a pod template for an existing Deployment, we recommend pulling the template directly from the Deployment and editing that version instead. To do so:
 
-1. Run the following command to find the namespace (release-name) of your Airflow Deployment:
+1. Run the following command to find the namespace (release name) of your Airflow Deployment:
 
     ```sh
     kubectl get ns
@@ -51,6 +51,7 @@ If you want to use a pod template for all DAGs within a given Airflow Deployment
     ```
 
     > **Note:** Depending on your configuration, you may also need to change your `USER` line to `root` in order to have the appropriate copy permissions.
+
 2. In the Astronomer UI, add the `AIRFLOW__KUBERNETES__POD_TEMPLATE_FILE` environment variable to your Deployment. Its value should be the directory path for the pod template in your Docker image. In this example, the file path would be `/tmp/new_pod_template.yaml`.
 
 3. In your terminal, run `astro deploy -f` to deploy your code and rebuild your Docker image.
@@ -68,6 +69,7 @@ Some tasks require a more specific pod configuration than other tasks. For insta
     ```
 
     > **Note:** Depending on your configuration, you may also need to change your `USER` line to `root` in order to have the appropriate copy permissions.
+
 2. Add the Executor config to the task and specify your custom pod template. It should look something like this:
 
     ```py
@@ -82,4 +84,4 @@ Some tasks require a more specific pod configuration than other tasks. For insta
 
 3. In your terminal, run `astro deploy -f` to deploy your code and rebuild your Docker image.
 
-4. To confirm that the deploy was successful, launch the Airflow UI for your Deployment, click into any single task, and click `K8s Pos Spec`. You should see the updates you made to the pod template in this specification.
+4. To confirm that the deploy was successful, launch the Airflow UI for your Deployment, click into any single task, and click `K8s Pod Spec`. You should see the updates you made to the pod template in this specification.
