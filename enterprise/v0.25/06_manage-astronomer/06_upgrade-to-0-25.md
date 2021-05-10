@@ -21,17 +21,21 @@ Ensure that the following software is updated to the appropriate version:
 
 - **Kubernetes**: Your version must be greater than or equal to 1.14 and less than 1.19. If you need to upgrade Kubernetes, contact your cloud provider's support or your Kubernetes administrator.
 - **Airflow Images**: You must be using an Astronomer Certified Airflow image, and the version of your image must be 1.10.5 or greater. In addition, your image should be in the following format:
-```
-astronomerinc/ap-airflow:<airflow-version>-<build-number>-<distribution>-onbuild
-```
-For example, all of the following images would work for this upgrade:
-```sh
-astronomerinc/ap-airflow:1.10.12-1-alpine3.10-onbuild
-astronomerinc/ap-airflow:1.10.12-1-alpine3.10
-astronomerinc/ap-airflow:1.10.5-9-buster-onbuild
-astronomerinc/ap-airflow:1.10.5-9-buster
-```
-> **Note:** While `-onbuild` and `<build-number>` are optional, we recommend including them for most upgrades. If you have your own build, test, and publish workflows that are layered on top of the Astronomer Airflow images, then removing `<build-number>` is appropriate because images including `<build-number>` are immutable.
+
+    ```
+    quay.io/astronomer/ap-airflow:<airflow-version>-<build-number>-<distribution>-onbuild
+    ```
+
+    For example, all of the following images would work for this upgrade:
+
+    ```sh
+    quay.io/astronomer/ap-airflow:1.10.10-5-alpine3.10-onbuild
+    quay.io/astronomer/ap-airflow:2.0.0-3-buster-onbuild
+    quay.io/astronomer/ap-airflow:2.0.2-buster-onbuild
+    quay.io/astronomer/ap-airflow:1.10.5-9-buster
+    ```
+
+    > **Note:** While `-onbuild` and `<build-number>` are optional, we recommend including them for most upgrades. If you have your own build, test, and publish workflows that are layered on top of the Astronomer Airflow images, then removing `<build-number>` is appropriate because images including `<build-number>` are immutable.
 
 ## Step 2: Check Permissions
 
