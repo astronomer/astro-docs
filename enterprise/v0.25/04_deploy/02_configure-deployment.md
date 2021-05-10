@@ -174,7 +174,7 @@ For advanced teams who deploy DAG changes more frequently, Astronomer also suppo
 
 Using this mechanism, you can deploy DAGs to an Airflow Deployment on Astronomer by adding the corresponding Python files to a shared file system on your network. Compared to image-based deploys, NFS volume-based deploys limit downtime and enable continuous deployment.
 
-To use NFS volume-based deploys, you must first enable the feature at the platform level. For more information, read [Deploy DAGs via NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs).
+To deploy via NFS volumes, you must first enable the feature at the platform level. For more information, read [Deploy DAGs via NFS Volume](/docs/enterprise/v0.23/deploy/deploy-nfs).
 
 ## Delete a Deployment
 
