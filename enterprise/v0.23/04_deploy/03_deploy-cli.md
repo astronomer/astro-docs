@@ -8,7 +8,7 @@ description: "How to push code to your Airflow Deployment on Astronomer via the 
 
 If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy code to an Airflow Deployment on Astronomer Enterprise.
 
-This guide will walk you through the process of deploying code to Astronomer using the Astronomer CLI.
+This guide provides the setup steps for deploying code to Astronomer using the Astronomer CLI.
 
 For those looking to automate the deploy process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.23/deploy/ci-cd/).
 
@@ -76,7 +76,9 @@ To confirm that your deploy was successful, navigate to your Deployment in the A
 
 ### What gets deployed?
 
-Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on your Astronomer platform. Astronomer exclusively deploys the code in your project and does not push any of the metadata associated with your local Airflow environment, including task history and Airflow Connections or variables set locally in the Airflow UI.
+Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on your Astronomer platform.
+
+Astronomer exclusively deploys the code in your project and does not push any of the metadata associated with your local Airflow environment, including task history and Airflow Connections or variables set locally in the Airflow UI.
 
 For more information about what gets built into your image, read [Customize your Image](/docs/enterprise/v0.23/develop/customize-image/).
 
