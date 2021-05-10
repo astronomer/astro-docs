@@ -42,13 +42,13 @@ For each NFS volume you provision for DAG deploys, you need to configure:
 * A directory for DAGs.
 * Read access for a user with GID `50000` and UID `50000`. For an example setup of this, read [Configuring Ip-based access control](https://cloud.google.com/filestore/docs/creating-instances#configuring_ip-based_access_control) in Google Cloud's documentation.
 
-## Add an NFS Volume a Deployment
+## Add an NFS Volume to a Deployment
 
 Workspace editors can configure a new or existing Airflow Deployment to use a provisioned NFS volume for DAG deploys. From there, any member of your organization with write permissions to the NFS volume can deploy DAGs to the Deployment. To do so:
 
 1. In the Astronomer UI, create a new Airflow Deployment or open an existing one.
-2. Go to the **Mechanism** section of the Deployment's Settings page.
-3. Select **NFS Volume Mount**:
+2. Go to the **DAG Deployment** section of the Deployment's Settings page.
+3. For your **Mechanism**, select **NFS Volume Mount**:
 
     ![Custom Release Name Field](https://assets2.astronomer.io/main/docs/astronomer-ui/nfs.png)
 
