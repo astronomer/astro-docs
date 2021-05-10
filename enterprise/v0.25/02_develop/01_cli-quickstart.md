@@ -256,7 +256,7 @@ For more information on Astronomer and Astronomer CLI releases, refer to:
 After installing and trying out the Astronomer CLI, we recommend reading through the following guides:
 
 * [Astronomer CLI Reference Guide](/docs/enterprise/v0.25/resources/cli-reference)
-* [Deploy DAGs Using the Astronomer CLI](/docs/enterprise/v0.25/deploy/deploy-cli/)
+* [Deploy DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/deploy-cli/)
 * [Deploy DAGs via NFS Volume](/docs/enterprise/v0.25/deploy/deploy-nfs/)
 * [Customize Your Image](/docs/enterprise/v0.25/develop/customize-image/)
 * [Upgrade Apache Airflow on Astronomer](/docs/enterprise/v0.25/customize-airflow/manage-airflow-versions/)

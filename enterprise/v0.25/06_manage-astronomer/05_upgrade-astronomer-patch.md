@@ -63,9 +63,9 @@ Make sure to substitute the following 3 variables with your own values:
 #!/bin/bash
 set -xe
 
-RELEASE_NAME=replace-this
-NAMESPACE=replace-this
-ASTRO_VERSION=0.25.replace-patch-version
+RELEASE_NAME=<astronomer-platform-release-name>
+NAMESPACE=<astronomer-platform-namespace>
+ASTRO_VERSION=0.25.<astronomer-patch-version>
 
 helm3 repo add astronomer https://helm.astronomer.io
 helm3 repo update

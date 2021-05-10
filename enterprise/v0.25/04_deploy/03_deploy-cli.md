@@ -1,16 +1,16 @@
 ---
-title: "Deploy DAGs Using the Astronomer CLI"
+title: "Deploy DAGs via the Astronomer CLI"
 navTitle: "Deploy DAGs via CLI"
 description: "How to push DAGs to your Airflow Deployment on Astronomer using the Astronomer CLI."
 ---
 
 ## Overview
 
-If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy your DAGs to an Airflow Deployment on Astronomer.
+This guide provides the setup steps for deploying DAGs to Astronomer using the Astronomer CLI.
 
-This guide provides the setup steps for deploying DAGs to Astronomer using the Astronomer CLI. In this workflow, DAGs are built directly into a Docker image and pushed to a given Airflow Deployment on Astronomer.
+If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy your DAGs to an Airflow Deployment on Astronomer. The Astronomer CLI builds your DAGs into a Docker image alongside all other files in your Airflow project directory, including your Python and OS-level packages, your Dockerfile, and your plugins. The resulting image is then used to generate a set of Docker containers for each of Airflow's core components which can then be pushed to Astronomer.
 
-For guidance on automating this process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/). To learn how to deploy other components to Astronomer, such as dependencies or custom images, read [Customize your Image](/docs/enterprise/v0.25/develop/customize-image/).
+For guidance on automating this process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/). To learn how to add Python and OS-level packages or otherwise customize your Docker image, read [Customize your Image](/docs/enterprise/v0.25/develop/customize-image/).
 
 Alternatively, you can configure an external NFS volume for DAG deploys. For more information, read [Deploy DAGs to an NFS Volume](/docs/enterprise/v0.25/manage-astronomer/configure-nfs).
 
@@ -21,7 +21,7 @@ Alternatively, you can configure an external NFS volume for DAG deploys. For mor
 In order to push up DAGs to a Deployment on Astronomer, you must have:
 
 * [The Astronomer CLI](/docs/enterprise/v0.25/develop/cli-quickstart/) installed.
-* An Astronomer platform at `app.BASEDOMAIN`.
+* Access to an Astronomer platform at `https://app.BASEDOMAIN`.
 * An Astronomer [Workspace](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces) with at least one active [Airflow Deployment](https://www.astronomer.io/docs/enterprise/v0.25/deploy/configure-deployment).
 
 ## Step 1: Authenticate to Astronomer
@@ -29,7 +29,7 @@ In order to push up DAGs to a Deployment on Astronomer, you must have:
 To authenticate via the Astronomer CLI, run:
 
 ```sh
-$ astro auth login BASEDOMAIN
+astro auth login BASEDOMAIN
 ```
 
 ## Step 2: Confirm Your Workspace and Deployment
@@ -68,7 +68,7 @@ When you're ready to deploy your DAGs, run:
 astro deploy
 ```
 
-This command returns a list of Airflow Deployments available in your Workspace and prompts you to pick one.
+This command returns a list of Airflow Deployments available in your Workspace and prompts you to pick one. Once this command is executed, all files in your Airflow project directory are built into a new Docker image and Docker containers for all Airflow components are restarted.
 
 ## Step 4: Validate Your Changes
 
@@ -78,7 +78,7 @@ To confirm that your deploy was successful, navigate to your Deployment in the A
 
 ### What gets deployed?
 
-Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on your Astronomer platform. This includes system-level dependencies, Python-level dependencies, DAGS, and your Dockerfile.
+Everything in the project directory where you ran `$ astro dev init` is bundled into a Docker image and deployed to your Airflow Deployment on your Astronomer platform. This includes system-level dependencies, Python-level dependencies, DAGs, and your `Dockerfile`.
 
 Astronomer exclusively deploys the code in your project and does not push any of the metadata associated with your local Airflow environment, including task history and Airflow Connections or variables set locally in the Airflow UI.
 

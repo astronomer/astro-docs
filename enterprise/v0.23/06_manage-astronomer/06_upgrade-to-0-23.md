@@ -37,7 +37,7 @@ astronomerinc/ap-airflow:1.10.5-9-buster
 
 ## Step 2: Check Permissions
 
-Minor version upgrades can be initiated only by a user with System Admin permissions on Astronomer. To confirm you're an Astronomer SysAdmin, confirm that you have access to **System Admin** features in the in the Astronomer UI:
+Minor version upgrades can be initiated only by a user with System Admin permissions on Astronomer. To confirm you're an Astronomer SysAdmin, confirm that you have access to **System Admin** features in the Astronomer UI:
 
 ![Admin](https://assets2.astronomer.io/main/docs/enterprise_quickstart/admin_panel.png)
 
@@ -58,9 +58,11 @@ Backup your entire Astronomer database instance using your cloud provider's func
 ## Step 4: Check the Status of Your Kubernetes Pods
 
 Before you proceed with the upgrade, ensure that the Kubernetes Pods in your platform namespace are healthy. To do so, run:
+
 ```
 $ kubectl get pods -n <your-astronomer-namespace>
 ```
+
 All pods should be in either the `Running` or `Completed` state. If any of your pods are in a `CrashLoopBackOff` state or are otherwise unhealthy, make sure that's expected behavior before you proceed.
 
 ## Step 5: Switch to Your Default Namespace
@@ -95,7 +97,7 @@ $ kubectl logs <your-pod-name>
 
 If the upgrade was successful, you should be able to:
 
-* Log in to Astronomer at `astronomer.BASEDOMAIN`.
+* Log in to Astronomer at `https://app.BASEDOMAIN`.
 * See Workspaces and Airflow Deployments in the Astronomer UI.
 * Access the **Settings** tab for each of your Deployments in the Astronomer UI.
 * See metrics on the **Metrics** tab in the Astronomer UI.
