@@ -4,6 +4,16 @@ navTitle: "Release Notes"
 description: "Astronomer Cloud Release Notes."
 ---
 
+## Astronomer v0.25
+
+### v0.25.0
+
+Release Date: May 10, 2021
+
+#### Minor Improvements
+
+This release included features and bug fixes only for Astronomer Enterprise v0.25. For more information on these changes, read the [Enterprise release notes](docs/enterprise/v0.25/resources/release-notes).
+
 ## Astronomer v0.23
 
 ### v0.23.13
@@ -238,7 +248,7 @@ Release Date: October 22, 2020
 
 Release Date: October 15, 2020
 
-#### A New "Deploment Status" Framework
+#### A New "Deployment Status" Framework
 
 The biggest change to Astronomer Cloud in v0.21 is the introduction of a new `deploymentStatus` query that allows the platform to more reliably communicate the status of a _deploy_ and the overall health of your Airflow Deployment. We define a _deploy_ as the process that begins when a user triggers a change to an Airflow Deployment (e.g. a code push from the Astronomer CLI or the addition of an Environment Variable) and ends when that change is successfully passed and considered to be live.
 
