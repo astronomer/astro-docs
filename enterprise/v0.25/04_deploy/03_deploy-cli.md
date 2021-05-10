@@ -8,7 +8,7 @@ description: "How to push DAGs to your Airflow Deployment on Astronomer using th
 
 This guide provides the setup steps for deploying DAGs to Astronomer using the Astronomer CLI.
 
-If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy your DAGs to an Airflow Deployment on Astronomer. The Astronomer CLI builds your DAGs into a Docker image alongside all other files in your Airflow project directory, including your Python and OS-level packages, your Dockerfile, and your plugins. The resulting image is then used to generate a set of Docker containers for each of Airflow's core components which can then be pushed to Astronomer.
+If you've used the Astronomer CLI to develop locally, you'll find it similarly easy to deploy your DAGs to an Airflow Deployment on Astronomer. The Astronomer CLI builds your DAGs into a Docker image alongside all other files in your Airflow project directory, including your Python and OS-level packages, your Dockerfile, and your plugins. The resulting image is then used to generate a set of Docker containers for each of Airflow's core components.
 
 For guidance on automating this process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/). To learn how to add Python and OS-level packages or otherwise customize your Docker image, read [Customize your Image](/docs/enterprise/v0.25/develop/customize-image/).
 
