@@ -12,7 +12,7 @@ Release Date: May 11th, 2021
 
 #### Minor Improvements
 
-This release contains features and bug fixes only for Astronomer Enterprise v0.25. For more information about these changes, read the [Enterprise release notes](docs/enterprise/v0.25/resources/release-notes#v0250).
+This release contains features and bug fixes only for Astronomer Enterprise v0.25. For more information about these changes, read the [Enterprise release notes](docs/enterprise/v0.25/resources/release-notes).
 
 ## Astronomer v0.23
 
