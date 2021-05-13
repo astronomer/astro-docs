@@ -17,7 +17,7 @@ More specifically, this doc includes instructions for how to:
 - Add Environment Variables Locally
 - Build from a Private Repository
 
-> **Note:** The guidelines below assume that you've initialized a project on Astronomer via `$ astro dev init`. If you haven't done so already, refer to our ["CLI Quickstart" doc](/docs/enterprise/v0.23/develop/cli-quickstart/).
+> **Note:** The guidelines below assume that you've initialized a project on Astronomer via `$ astro dev init`. If you haven't done so already, refer to our ["CLI Quickstart" doc](/docs/enterprise/v0.25/develop/cli-quickstart/).
 
 ## Add Python and OS-level Packages
 
@@ -71,7 +71,7 @@ $ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 pymongo==3.7.2
 ```
 
-> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/).
+> **Note:** Astronomer Certified, Astronomer's distribution of Apache Airflow, is available both as a Debian and Alpine base. We strongly recommend using Debian, as it's much easier to install dependencies and often presents less incompatability issues than an Alpine Linux image. For details on both, refer to our [Airflow Versioning Doc](/docs/enterprise/v0.25/customize-airflow/manage-airflow-versions/).
 
 ## Add Other Dependencies
 
@@ -124,7 +124,7 @@ When you first initialize a new Airflow project on Astronomer, a file titled `ai
 
 For security reasons, the `airflow_settings.yaml` file is currently _only_ for local development and should not be used for pushing up code to Astronomer via `$ astro deploy`. For the same reason, we'd recommend adding this file to your `.gitignore`.
 
-> **Note:** If you're interested in programmatically managing Airflow Connections, Variables or Environment Variables, we'd recommend integrating a ["Secret Backend"](/docs/enterprise/v0.23/customize-airflow/secrets-backend) to help you do so.
+> **Note:** If you're interested in programmatically managing Airflow Connections, Variables or Environment Variables, we'd recommend integrating a ["Secret Backend"](/docs/enterprise/v0.25/customize-airflow/secrets-backend) to help you do so.
 
 ### Add Airfow Connections, Pools, Variables
 
@@ -211,7 +211,7 @@ drwxrwxr-x    2 1000     1000          4096 Oct  8 00:07 plugins
 -rw-r--r--    1 astro    astro         2338 Dec 30 17:21 unittests.cfg
 ```
 
-> **Note:** The Astronomer CLI does _not_ currently support overrides to Environment Variables. For more information on how to set, configure and customize those values, refer to our ["Environment Variables" doc](/docs/enterprise/v0.23/deploy/environment-variables/).
+> **Note:** The Astronomer CLI does _not_ currently support overrides to Environment Variables. For more information on how to set, configure and customize those values, refer to our ["Environment Variables" doc](/docs/enterprise/v0.25/deploy/environment-variables/).
 
 ## Access to the Airflow CLI
 
@@ -235,7 +235,7 @@ $ astro dev start --env .env
 
 > **Note:** This feature is limited to local development only. Whatever `.env` you use locally will _not_ be bundled up when you deploy to Astronomer.
 >
-> For more detail on how to add Environment Variables both locally and on Astronomer, refer to our [Environment Variables doc](/docs/enterprise/v0.23/deploy/environment-variables/).
+> For more detail on how to add Environment Variables both locally and on Astronomer, refer to our [Environment Variables doc](/docs/enterprise/v0.25/deploy/environment-variables/).
 
 ## Build from a Private Repository
 
@@ -249,7 +249,7 @@ Read below for guidelines.
 - An intialized Astronomer Airflow project and corresponding directory
 - An [SSH Key](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to your Private GitHub repo
 
-If you haven't initialized an Airflow Project on Astronomer (by running `$ astro dev init`), reference our [CLI Quickstart Guide](/docs/enterprise/v0.23/develop/cli-quickstart/).
+If you haven't initialized an Airflow Project on Astronomer (by running `$ astro dev init`), reference our [CLI Quickstart Guide](/docs/enterprise/v0.25/develop/cli-quickstart/).
 
 ### Step 1. Create a file called Dockerfile.build
 
@@ -263,7 +263,7 @@ If you're running the Debian-based Astronomer Certified image for Airflow 1.10.1
 FROM quay.io/astronomer/ap-airflow:1.10.12-buster AS stage1
 ```
 
-For a list of all Airflow Images supported on Astronomer, refer to [Upgrade Apache Airflow on Astronomer](/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/).
+For a list of all Airflow Images supported on Astronomer, refer to [Upgrade Apache Airflow on Astronomer](/docs/enterprise/v0.25/customize-airflow/manage-airflow-versions/).
 
 > **Note:** Do NOT include `-onbuild` at the end of your Airflow Image as you typically would in your `Dockerfile`.
 
@@ -293,7 +293,7 @@ RUN pip install --no-cache-dir -q -r requirements.txt
 
 FROM stage1 AS stage3
 # Copy requirements directory
-COPY --from=stage2 /usr/lib/python3.7/site-packages/ /usr/lib/python3.7/site-packages/
+COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
 COPY . .
 ```
 
@@ -304,7 +304,7 @@ A few notes:
 - Make sure to replace the first line of this file (`FROM`..) with your Airflow Image (Step 2 above)
 - If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
-- If you're running Python 3.8 on your machine, replace the reference to Python 3.7 under `# Copy requirements directory` with `/usr/lib/python3.8/site-packages/` above
+- If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `# Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
 
 ### Step 2. Build your Image
 
@@ -330,7 +330,7 @@ Now that we've built your custom image, let's reference that custom image in you
 FROM custom-<airflow-image>
 ```
 
-If you're running `quay.io/astronomer/ap-airflow:1.10.12-buster` as specified above, this line would read:
+If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
 
 ```
 FROM custom-ap-airflow:1.10.12-buster
@@ -343,7 +343,7 @@ Now, let's push your new image to Astronomer.
 - If you're developing locally, run `$ astro dev stop` > `$ astro dev start`
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
-For more detail on the Astronomer deployment process, refer to [Deploy to Astronomer via the CLI](/docs/enterprise/v0.23/deploy/deploy-cli/).
+For more detail on the Astronomer deployment process, refer to [Deploy to Astronomer via the CLI](/docs/enterprise/v0.25/deploy/deploy-cli/).
 
 ## Build with a Different Python Version
 
