@@ -220,13 +220,13 @@ This includes changing the Airflow image in your `Dockerfile` and adding Python 
 To rebuild your image after making a change to any of these files, first run the following command:
 
 ```
-$ astro dev stop
+astro dev stop
 ```
 
 Then, restart the Docker containers by running:
 
 ```
-$ astro dev start
+astro dev start
 ```
 
 > **Note:** When developing in a non-production environment, it's often necessary to fully reset your Docker containers and metadata DB for testing purposes. In these situations, use `astro dev kill` instead of `astro dev stop` when deploying code. For more information on `astro dev kill`, read its entry in the [CLI Reference Guide](https://www.astronomer.io/docs/enterprise/v0.23/resources/cli-reference#astro-dev-kill).
