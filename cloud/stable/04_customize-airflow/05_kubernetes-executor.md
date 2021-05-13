@@ -22,9 +22,9 @@ Note that you must have an Airflow Deployment on Astronomer running with the Kub
 
 If you want to use a pod template for all DAGs within a given Airflow Deployment, you can add a configured pod template to the Deployment as an environment variable. To do so:
 
-1. Create a copy of Astronomer's default [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml) and update the values as needed for your Deployment.
+1. Create a copy of Astronomer's default [pod template](https://github.com/astronomer/airflow-chart/blob/master/files/pod-template-file.yaml) and add it to your Airflow project directory. Update the values as needed for your Deployment.
 
-2. Update your Dockerfile to copy your configured pod template into your Docker image. For instance, if your customized pod template file name is `pod_template.yaml`, you would add the following line to your Dockerfile:
+2. Update your Dockerfile so that it copies your configured pod template into the Docker image for your Airflow Deployment. For instance, if your customized pod template file name is `pod_template.yaml`, you would add the following line to your Dockerfile:
 
     ```
     COPY pod_template.yaml /tmp/pod_template.yaml
