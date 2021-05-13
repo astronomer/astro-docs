@@ -201,7 +201,7 @@ $ kubectl create secret generic astronomer-bootstrap --from-literal connection="
 
 A few notes:
 - If you want to use Azure Database for PostgreSQL with Astronomer, [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) is recommended.
-- If you provision Azure Database for PostgreSQL - Flexible Server, it enforces TLS/SS and requires that you set `sslmode` to `require` in your `config.yaml` file. Possible values for `sslmode` are: `disable`, `allow`, `prefer`, `require` (for Flexible Server), `verify-ca`, `verify-full`. More guidelines in Step 7.
+- If you provision Azure Database for PostgreSQL - Flexible Server, it enforces TLS/SSL and requires that you set `sslmode` to `require` in your `config.yaml` file. Possible values for `sslmode` are: `disable`, `allow`, `prefer`, `require` (for Flexible Server), `verify-ca`, `verify-full`. More guidelines in Step 7.
 - If you provision an external database, `postgresqlEnabled` should be set to `false` in Step 7.
 
 ## Step 7: Configure Your Helm Chart
@@ -230,31 +230,32 @@ global:
 
   # Enable privateCaCerts only if your enterprise security team
   # generated a certificate from a private certificate authority.
-  privateCaCerts:
-  - private-root-ca
+  # privateCaCerts:
+  # - private-root-ca
 
   # Enable privateCaCertsAddToHost only when your nodes do not already
   # include the private CA in their docker trust store.
   # Most enterprises already have this configured,
   # and in that case 'enabled' should be false.
-  privateCaCertsAddToHost:
-    enabled: true
-    hostDirectory: /etc/docker/certs.d
-  # For development or proof-of-concept, you can use an in-cluster database
-  postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
+  # privateCaCertsAddToHost:
+  #   enabled: true
+  #   hostDirectory: /etc/docker/certs.d
 
-# Settings for database deployed on AKS cluster.
-postgresql:
-  replication:
-    enabled: true
-    slaveReplicas: 2
-    synchronousCommit: "on"
-    numSynchronousReplicas: 1
+  # For development or proof-of-concept, you can use an in-cluster database
+  postgresqlEnabled: false # Keep True if deploying a database on your AKS cluster.
 
 # SSL support for using SSL connections to encrypt client/server communication between database and Astronomer platform. Enable SSL if provisioning Azure Database for PostgreSQL - Flexible Server as it enforces SSL. Change the setting with respect to the database provisioned.
   ssl:
-    enabled: false
+    enabled: true
     mode: "require"
+
+# Settings for database deployed on AKS cluster.
+# postgresql:
+#  replication:
+#    enabled: true
+#    slaveReplicas: 2
+#    synchronousCommit: "on"
+#    numSynchronousReplicas: 1
 
 #################################
 ### Nginx configuration
