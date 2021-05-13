@@ -221,6 +221,8 @@ Then, restart the Docker containers by running:
 $ astro dev start
 ```
 
+> **Note:** When developing in a non-production environment, it's often necessary to fully reset your Docker containers and metadata DB for testing purposes. In these situations, use `astro dev kill` instead of `astro dev stop` when deploying code. For more information on `astro dev kill`, read its entry in the [CLI Reference Guide](https://www.astronomer.io/docs/enterprise/v0.25/resources/cli-reference#astro-dev-kill).
+
 ## Astronomer CLI and Platform Versioning
 
 For every minor version of Astronomer, a corresponding minor version of the Astronomer CLI is made available. To ensure that you can continue to develop locally and deploy successfully, you should always upgrade to the corresponding minor version of the Astronomer CLI when you upgrade to a new minor version of Astronomer. If you're on Astronomer v0.23+, for example, Astronomer CLI v0.23+ is required.
