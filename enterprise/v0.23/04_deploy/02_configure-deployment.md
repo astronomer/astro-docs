@@ -95,7 +95,7 @@ To increase the speed at which tasks are scheduled and ensure high-availability,
 
 ## Kubernetes Executor: Set Extra Capacity
 
-On Astronomer, resources required for the [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/kubepodoperator) or the [Kubernetes Executor](/docs/enterprise/0.23/customize-airflow/kubernetes-executor) are set as **Extra Capacity**.
+On Astronomer, resources required for the [KubernetesPodOperator](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/kubepodoperator) or the [Kubernetes Executor](/docs/enterprise/v0.23/customize-airflow/kubernetes-executor) are set as **Extra Capacity**.
 
 The Kubernetes Executor and KubernetesPodOperator each spin up an individual Kubernetes pod for each task that needs to be executed, then spin down the pod once that task is completed.
 
