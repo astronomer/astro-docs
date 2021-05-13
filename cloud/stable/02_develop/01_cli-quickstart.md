@@ -233,7 +233,7 @@ Then, restart the Docker containers by running:
 astro dev start
 ```
 
-> **Note:** When developing in a non-production environment, it's often necessary to fully reset your Docker containers and metadata DB for testing purposes. In these situations, use `astro dev kill` instead of `astro dev stop` when deploying code. For more information on `astro dev kill`, read its entry in the [CLI Reference Guide](https://www.astronomer.io/docs/cloud/stable/resources/cli-reference#astro-dev-kill).
+> **Note:** As you develop locally, it may be necessary to reset your Docker containers and metadata DB for testing purposes. To do so, run `astro dev kill` instead of `astro dev stop` when rebuilding your image. For more information on `astro dev kill`, read its entry in the [CLI Reference Guide](https://www.astronomer.io/docs/enterprise/v0.23/resources/cli-reference#astro-dev-kill).
 
 ## Astronomer CLI and Platform Versioning
 
