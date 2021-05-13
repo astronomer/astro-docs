@@ -33,6 +33,16 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
 
+Starting with Astronomer Enterprise v0.23, new versions of Astronomer Certified are automatically pulled into the Astronomer UI and CLI within 24 hours of their publication via a cron job that pulls from Astronomer's [update service](http://updates.astronomer.io/astronomer-certified). In other words, you don't have to upgrade Astronomer in order to upgrade Airflow.
+
+> **Note:** If you don't want to wait for new versions of Astronomer Certified to appear on their own, you can manually trigger the cron job with the following Kubernetes command:
+>
+>    ```sh    
+>    kubectl create job --namespace astronomer --from=cronjob/astronomer-houston-update-airflow-check airflow-update-check-first-run
+>    ```
+>
+>    If you get a message indicating that a job already exists, delete the job and rerun the command.
+
 ## Step 1. Initialize the Upgrade Process
 
 The first step to upgrading your Deployment to a higher version of Apache Airflow is to indicate your intent to do so via the Astronomer UI or CLI.
