@@ -82,7 +82,7 @@ kubectl config set-context --current --namespace=default
 Run the following command to begin the upgrade process:
 
 ```sh
-kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade-0.16-to-0.23.yaml
+kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/release-0.23/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade-0.16-to-0.23.yaml
 ```
 
 While your platform is upgrading, monitor your pods to ensure that no errors occur. To do so, first find the names of your pods by running the following command:
@@ -114,7 +114,7 @@ If the upgrade was successful, you should be able to:
 We recommend cleaning up any remaining Kubernetes resources after your upgrade. To do so, run the following command:
 
 ```sh
-kubectl delete -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade-0.16-to-0.23.yaml
+kubectl delete -f https://raw.githubusercontent.com/astronomer/astronomer/release-0.23/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/upgrade-0.16-to-0.23.yaml
 ```
 
 ## Step 9: Upgrade the Astronomer CLI to v0.23
@@ -141,7 +141,7 @@ If you encounter an issue during your upgrade that requires you to recover your 
 
 1. Apply the rollback automation script by running the following command:
 ```sh
-kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/master/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/rollback-0.16-to-0.23.yaml
+kubectl apply -f https://raw.githubusercontent.com/astronomer/astronomer/release-0.23/bin/migration-scripts/lts-to-lts/0.16-to-0.23/manifests/rollback-0.16-to-0.23.yaml
 ```
 This restores the platform database and the Helm state of the Astronomer Helm chart.
 
