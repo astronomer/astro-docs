@@ -259,7 +259,7 @@ After installing and trying out the Astronomer CLI, we recommend reading through
 
 * [Astronomer CLI Reference Guide](/docs/cloud/stable/resources/cli-reference)
 * [Deploy to Astronomer](/docs/cloud/stable/deploy/deploy-cli/)
-* [Customize Your Image](/docs/cloud/stable/customize-airflow/customize-image/)
+* [Customize Your Image](/docs/cloud/stable/develop/customize-image/)
 * [Upgrade Apache Airflow on Astronomer](/docs/cloud/stable/customize-airflow/manage-airflow-versions/)
 * [Deploy to Astronomer via CI/CD](/docs/cloud/stable/deploy/ci-cd/)
 
