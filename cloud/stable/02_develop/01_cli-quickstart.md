@@ -265,6 +265,12 @@ For more information on Astronomer and Astronomer CLI releases, refer to:
 * [CLI Release Changelog](https://github.com/astronomer/astro-cli/releases)
 * [Astronomer Release Notes](https://www.astronomer.io/docs/cloud/stable/resources/release-notes)
 
+## Video Tutorial
+
+Watch our video tutorial for a brief review of the workflows and concepts described in this quickstart:
+
+<iframe width="560" height="315" src="https://youtu.be/OihokE8u9D0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 ## Next Steps
 
 After installing and trying out the Astronomer CLI, we recommend reading through the following guides:
