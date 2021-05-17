@@ -269,7 +269,6 @@ Deployment Viewers _cannot_ deploy to, modify, or delete anything within an Airf
 
 ![Access Denied](https://assets2.astronomer.io/main/docs/astronomer-ui/access_denied.png)
 
-
 ## What's Next
 
 As an Astronomer Enterprise user, you're free to customize all user permissions at the platform-level. For more information, read:
