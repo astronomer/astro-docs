@@ -229,7 +229,7 @@ Then, restart the Docker containers by running:
 $ astro dev start
 ```
 
-> **Note:** As you develop locally, it may be necessary to reset your Docker containers and metadata DB for testing purposes. To do so, run [`astro dev kill`](/docs/enterprise/v0.25/resources/cli-reference#astro-dev-kill) instead of [`astro dev stop`](/docs/enterprise/v0.25/resources/cli-reference#astro-dev-stop) when rebuilding your image.
+> **Note:** As you develop locally, it may be necessary to reset your Docker containers and metadata DB for testing purposes. To do so, run [`astro dev kill`](/docs/enterprise/v0.25/resources/cli-reference#astro-dev-kill) instead of [`astro dev stop`](/docs/enterprise/v0.25/resources/cli-reference#astro-dev-stop) when rebuilding your image. This will delete all data associated with your local Postgres metadata database, including Airflow Connections, logs, and task history.
 
 ## Astronomer CLI and Platform Versioning
 
@@ -266,7 +266,8 @@ For more information on Astronomer and Astronomer CLI releases, refer to:
 After installing and trying out the Astronomer CLI, we recommend reading through the following guides:
 
 * [Astronomer CLI Reference Guide](/docs/enterprise/v0.25/resources/cli-reference)
-* [Deploy to Astronomer](/docs/enterprise/v0.25/deploy/deploy-cli/)
+* [Deploy DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/deploy-cli/)
+* [Deploy DAGs via NFS Volume](/docs/enterprise/v0.25/deploy/deploy-nfs/)
 * [Customize Your Image](/docs/enterprise/v0.25/develop/customize-image/)
 * [Upgrade Apache Airflow on Astronomer](/docs/enterprise/v0.25/customize-airflow/manage-airflow-versions/)
 * [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/)

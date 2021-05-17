@@ -229,7 +229,7 @@ Then, restart the Docker containers by running:
 astro dev start
 ```
 
-> **Note:** As you develop locally, it may be necessary to reset your Docker containers and metadata DB for testing purposes. To do so, run [`astro dev kill`](/docs/enterprise/v0.23/resources/cli-reference#astro-dev-kill) instead of [`astro dev stop`](/docs/enterprise/v0.23/resources/cli-reference#astro-dev-stop) when rebuilding your image.
+> **Note:** As you develop locally, it may be necessary to reset your Docker containers and metadata DB for testing purposes. To do so, run [`astro dev kill`](/docs/enterprise/v0.23/resources/cli-reference#astro-dev-kill) instead of [`astro dev stop`](/docs/enterprise/v0.23/resources/cli-reference#astro-dev-stop) when rebuilding your image. This will delete all data associated with your local Postgres metadata database, including Airflow Connections, logs, and task history.
 
 ## Astronomer CLI and Platform Versioning
 
