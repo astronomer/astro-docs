@@ -6,90 +6,104 @@ description: "A list of they key platform settings you can configure on Astronom
 
 ## Astronomer Global Configuration
 
-#### astronomer.airflowChartVersion
+The settings for Astronomer's global Kubernetes resource configuration are located under the `astronomer` key:
 
-The default Airflow chart version that will be installed when creating a new deployment in the system. This is also used to ensure all child airflow deployments are kept up to date and on the latest version.
+```yaml
+# This version number controls the default Airflow chart version that will be installed
+# when creating a new deployment in the system. This is also used to ensure all
+# child airflow deployments are kept up to date and on the latest version.
+airflowChartVersion: 0.19.0
 
-| Value Type | Default Value | Valid Values                                                                  | Importance |
-| ---------- | ------------- | ----------------------------------------------------------------------------- | ---------- |
-| Integer    | 0.19.0        | Any [released version](https://github.com/astronomer/airflow-chart/releases/) | High       |
+nodeSelector: {}
+affinity: {}
+tolerations: []
+```
 
-#### astronomer.nodeSelector
+### Parameters
 
-Specifies the Kubernetes clusters on which you run the Astronomer platform.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs     |  { }            | [Node values](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)            | Low          |
-
-
-#### astronomer.affinity
-
-Further specifies constraints for Kubernetes pods running the Astronomer platform.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs          | { }             | [Affinity values](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)            | Low          |
+| Parameter Name | Description | Valid Values | Default Value |
+|----------------|-------------|-------|----------------------|
+|`astronomer.airflowChartVersion`| The default Airflow chart version that will be installed when creating a new deployment in the system. This is also used to ensure all child Airflow Deployments are kept up to date and on the latest version. | Any released chart version | [Latest release version number](https://github.com/astronomer/airflow-chart) |
+|`astronomer.nodeSelector`| The Kubernetes clusters on which you run the Astronomer platform. |  [Node values](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)    | `{ }` |
+|`astronomer.affinity`| Further specifies constraints for Kubernetes pods running the Astronomer platform. | [Affinity values](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)    | `{ }` |
+|`astronomer.tolerations`| Specifies whether Kubernetes pods can schedule onto nodes with certain qualities. |  [Taint values](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)   | `[ ]` |
 
 
-#### astronomer.tolerations
+## Astronomer Images Configurations
 
-Specifies whether Kubernetes pods can schedule onto nodes with certain qualities.
+The settings Astronomer images to use on your platform are located under the `astronomer.images` key.
 
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs          | [ ]             | [Taint values](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)             | Low          |
+```yaml
+# Images for Astronomer
+images:
+  commander:
+    repository: quay.io/astronomer/ap-commander
+    tag: 0.25.0
+    pullPolicy: IfNotPresent
+  registry:
+    repository: quay.io/astronomer/ap-registry
+    tag: 3.13.7
+    pullPolicy: IfNotPresent
+  houston:
+    repository: quay.io/astronomer/ap-houston-api
+    tag: 0.25.5
+    pullPolicy: IfNotPresent
+  astroUI:
+    repository: quay.io/astronomer/ap-astro-ui
+    tag: 0.25.0
+    pullPolicy: IfNotPresent
+  dbBootstrapper:
+    repository: quay.io/astronomer/ap-db-bootstrapper
+    tag: 0.25.0
+    pullPolicy: IfNotPresent
+  cliInstall:
+    repository: quay.io/astronomer/ap-cli-install
+    tag: 0.13.1
+    pullPolicy: IfNotPresent
+```
+
+### Parameters
+
+| Parameter Name | Description | Valid Values | Default Value |
+|----------------|-------------|-------|----------------------|
+|`astronomer.images.commander.repository`| The repository for Astronomer's Commander service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.commander.tag`| The image tag for Astronomer's Commander service. |  Any available image tag    | `0.25.0`|
+|`astronomer.images.commander.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
+|`astronomer.images.registry.repository`| The repository for Astronomer's Registry service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.registry.tag`| The image tag for Astronomer's Registry service. |  Any available image tag    | `3.13.7`|
+|`astronomer.images.registry.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
+|`astronomer.images.houston.repository`| The repository for Astronomer's Houston service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.houston.tag`| The image tag for Astronomer's Houston service. |  Any available image tag    | `0.25.5`|
+|`astronomer.images.houston.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
+|`astronomer.images.astroUI.repository`| The repository for Astronomer's UI. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.astroUI.tag`| The image tag for Astronomer's UI. |  Any available image tag    | `0.25.0`|
+|`astronomer.images.astroUI.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
+|`astronomer.images.dbBootstrapper.repository`| The repository for Astronomer's dbBoostrapper service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.dbBootstrapper.tag`| The image tag for Astronomer's dbBoostrapper service. |  Any available image tag    | `0.25.0`|
+|`astronomer.images.dbBootstrapper.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
+|`astronomer.images.cliInstall.repository`| The repository for Astronomer's CLI service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.cliInstall.tag`| The image tag for Astronomer's CLI service. |  Any available image tag    | `0.13.1`|
+|`astronomer.images.cliInstall.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
 
 
-#### astronomer.images.commander
+## Astronomer UI Configuration
 
-Specifies image settings for Astronomer's Commander service. Each of the following subvalues must be configured:
+The configuration settings for the Astronomer UI are located in the `astronomer.astroUI` key.
 
-- `astronomer.images.commander.repository`: The repository from which you pull the image.
-- `astronomer.images.commander.tag`: The tag for the image you want to use.
-- `astronomer.images.commander.pullPolicy`: The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images.
-
-
-#### astronomer.images.registry
-
-Specifies image settings for Astronomer's Registry service. Each of the following subvalues must be configured:
-
-- `astronomer.images.registry.repository`: The repository from which you pull the image.
-- `astronomer.images.registry.tag`: The tag for the image you want to use.
-- `astronomer.images.registry.pullPolicy`: The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images.
-
-#### astronomer.images.houston
-
-Specifies image settings for Astronomer's Houston API service. Each of the following subvalues must be configured:
-
-- `astronomer.images.houston.repository`: The repository from which you pull the image.
-- `astronomer.images.houston.tag`: The tag for the image you want to use.
-- `astronomer.images.houston.pullPolicy`: The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images.
-
-#### astronomer.images.astroUI
-
-Specifies image settings for the Astronomer UI service. Each of the following subvalues must be configured:
-
-- `astronomer.images.AstroUI.repository`: The repository from which you pull the image.
-- `astronomer.images.AstroUI.tag`: The tag for the image you want to use.
-- `astronomer.images.AstroUI.pullPolicy`: The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images.
-
-#### astronomer.images.dbBootstrapper
-
-Specifies image settings for Astronomer's dbBootstrapper service. Each of the following subvalues must be configured:
-
-- `astronomer.images.dbBootstrapper.repository`: The repository from which you pull the image.
-- `astronomer.images.dbBootstrapper.tag`: The tag for the image you want to use.
-- `astronomer.images.dbBootstrapper.pullPolicy`: The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images.
-
-#### astronomer.images.cliInstall
-
-Specifies image settings for the Astronomer CLI service. Each of the following subvalues must be configured:
-
-- `astronomer.images.cliInstall.repository`: The repository from which you pull the image.
-- `astronomer.images.cliInstall.tag`: The tag for the image you want to use.
-- `astronomer.images.cliInstall.pullPolicy`: The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images.
-
+```yaml
+astroUI:
+  replicas: 2
+  env: []
+  # This only applies when replicas > 3
+  maxUnavailable: 25%
+  resources: {}
+  #  limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  #  requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+```
 
 #### astronomer.astroUI.replicas
 
