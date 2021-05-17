@@ -265,7 +265,6 @@ Deployment _Viewers_ are limited to read-only mode. They:
 - Can view the **Metrics** and **Logs** tab of the Astro UI
 - Can access the Airflow UI
 - Cannot deploy to, modify, or delete anything within an Airflow Deployment
-- Cannot view Airflow task logs
 
 Viewers _cannot_ push code to an Airflow Deployment or create Service Accounts to do so. Attempts to view logs, trigger DAGs, etc. will result in a `403` and an `Access is Denied` message.
 
