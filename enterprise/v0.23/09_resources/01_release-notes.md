@@ -14,6 +14,28 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 > **Note:** The perceived version gap between Astronomer Enterprise v0.16 and v0.23 is due to the nature of Astronomer's release schedule. To optimize for security and reliability, Astronomer Cloud releases are made available to Enterprise users only after they've passed a dedicated testing process. Astronomer Enterprise v0.23 includes _all_ changes made available on Astronomer Cloud between v0.16 and v0.23, in addition to Enterprise-only functionality.
 
+## v0.23.14
+
+Release Date: April 27, 2021
+
+### Support for Airflow 2.0.2
+
+Astronomer Enterprise v0.23 now offers full support for [Airflow 2.0.2](https://github.com/apache/airflow/releases/tag/2.0.2). Airflow 2.0.2 builds upon the success of Airflow 2.0.0 and 2.0.1 with more bug fixes and performance improvements, including:
+
+- Gracefully handling missing `start_date` and `end_date` for DagRuns ([Source](https://github.com/apache/airflow/pull/14452))
+- Faster default role syncing during Webserver start ([Source](https://github.com/apache/airflow/pull/15017))
+- Increased Webserver start-up speed when there are many DAGs ([Source](https://github.com/apache/airflow/pull/14993))
+- Authenticated plugins endpoints ([Source](https://github.com/apache/airflow/pull/14570))
+
+For a list of Astronomer-only changes, read the [Astronomer Certified 2.0.2 changelog](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/CHANGELOG.md).
+
+In addition, some bug fixes from Airflow 2.0.2 have been backported to Astronomer Certified 2.0.0-5. ([Source](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md))
+
+### Bug Fixes
+
+- Fixed an issue where IAM roles for service accounts ([IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)) would not connect to S3 back-end registries. ([Source](https://github.com/astronomer/astronomer/pull/1065))
+- Fixed an issue where a Deployment would not have correctly labeled Kubernetes pods when using the Kubernetes Executor and the KubernetesPodOperator at the same time. ([Source](https://github.com/astronomer/astronomer/pull/1059))
+
 ## v0.23.13
 
 Release Date: April 13, 2021
@@ -30,7 +52,7 @@ This change has a few effects:
 
 For context, this functionality is possible because Airflow 2.0 requires [DAG Serialization](https://airflow.apache.org/docs/apache-airflow/stable/dag-serialization.html), which is an open source feature that makes the Webserver stateless.
 
-### Minor Improvements and Bug fixes
+### Minor Improvements and Bug Fixes
 
 - Added a new `pgbouncer.networkPolicies.enabled` value to Astronomer's Airflow Helm Chart so that organizations can exclusively enable or disable a pgBouncer network policy (_Airflow Chart 0.19.0+_). ([Source](https://github.com/astronomer/airflow-chart/pull/204))
 - Fixed an issue where new Deployments did not pull latest patch version of the corresponding Astronomer Certified image.

@@ -15,9 +15,9 @@ It's worth noting that while the tables below reference the minimum compatible v
 | Astronomer Platform  | Kubernetes       | Helm | Terraform   | Postgres | Astronomer Certified                                             | Python         | Astronomer CLI |
 |----------------------|------------------|------|-------------|----------|------------------------------------------------------------------|----------------|----------------|
 | v0.16                | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5| 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14                        | 3.6, 3.7, 3.8  | 0.16           |
-| v0.23                | 1.16, 1.17, 1.18 | 3    | 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 1.10.15, 2.0.0        | 3.6, 3.7, 3.8  | 0.23           |
+| v0.23                | 1.16, 1.17, 1.18 | 3    | 0.13.5      | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 1.10.15, 2.0.0, 2.0.2        | 3.6, 3.7, 3.8  | 0.23           |
 
-> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12, and Astronomer v0.16.15+ is required to run Astronomer Certified 1.10.14. For instructions on how to upgrade to an Astronomer v0.16 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer-patch). As of Astronomer v0.23, the platform is compatible with all versions of Astronomer Certified. 
+> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12, and Astronomer v0.16.15+ is required to run Astronomer Certified 1.10.14. For instructions on how to upgrade to an Astronomer v0.16 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.16/manage-astronomer/upgrade-astronomer-patch). As of Astronomer v0.23, the platform is compatible with all versions of Astronomer Certified.
 
 ## Astronomer Certified
 
@@ -29,11 +29,12 @@ It's worth noting that while the tables below reference the minimum compatible v
 | 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                |
 | 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
 | 1.10.15              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                |
-| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7     |
+| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7, 0.19.0     |
+| 2.0.2                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7, 0.19.0     |
 
 For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/v0.16/customize-airflow/manage-airflow-versions/).
 
-> **Note:** While the Astronomer Certified Python Wheel supports Python versions 3.6, 3.7, and 3.8, Astronomer Certified Docker images have been tested and built only with Python 3.7. To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you can create a custom image with a different Python version specified. For more information, read [Change Python Versions](/docs/enterprise/v0.16/customize-image#build-with-a-different-python-version).
+> **Note:** While the Astronomer Certified Python Wheel supports Python versions 3.6, 3.7, and 3.8, Astronomer Certified Docker images have been tested and built only with Python 3.7. To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you can create a custom image with a different Python version specified. For more information, read [Change Python Versions](https://www.astronomer.io/docs/enterprise/v0.16/develop/customize-image#build-with-a-different-python-version).
 
 > **Note:** MySQL 5.7 is compatible with Airflow and Astronomer Certified 2.0 but it does NOT support the ability to run more than 1 Scheduler and is not recommended. If you'd like to leverage Airflow's new Highly-Available Scheduler, make sure you're running MySQL 8.0+.
 

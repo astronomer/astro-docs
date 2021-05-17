@@ -24,6 +24,7 @@ Read below for details.
 
 Astronomer Certified offers support for the following versions of Apache Airflow:
 
+- [Airflow 2.0.2](https://github.com/apache/airflow/releases/tag/2.0.2)
 - [Airflow 2.0.0](https://airflow.apache.org/blog/airflow-two-point-oh-is-here/)
 - [Airflow 1.10.15](https://airflow.apache.org/docs/apache-airflow/1.10.15/changelog.html)
 - [Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14)
@@ -31,6 +32,16 @@ Astronomer Certified offers support for the following versions of Apache Airflow
 - [Airflow 1.10.10](https://airflow.apache.org/blog/airflow-1.10.10/)
 - [Airflow 1.10.7](https://github.com/apache/airflow/releases/tag/1.10.7)
 - [Airflow 1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)
+
+Starting with Astronomer Enterprise v0.23, new versions of Astronomer Certified are automatically pulled into the Astronomer UI and CLI within 24 hours of their publication via a cron job that pulls from Astronomer's [update service](http://updates.astronomer.io/astronomer-certified). In other words, you don't have to upgrade Astronomer in order to upgrade Airflow.
+
+> **Note:** If you don't want to wait for new versions of Astronomer Certified to appear on their own, you can manually trigger the cron job with the following Kubernetes command:
+>
+>    ```sh    
+>    kubectl create job --namespace astronomer --from=cronjob/astronomer-houston-update-airflow-check airflow-update-check-first-run
+>    ```
+>
+>    If you get a message indicating that a job already exists, delete the job and rerun the command.
 
 ## Step 1. Initialize the Upgrade Process
 
@@ -124,7 +135,7 @@ Once you upgrade Airflow versions, you CANNOT downgrade to an earlier version. T
 
 For our platform's full collection of Docker Images, reference [Astronomer on Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags). For more information on Alpine and Debian as distinct system distributions, read the "Migrate from Alpine to Debian" section below.
 
-| Airflow Version                                                                      | Debian-based Image                                        | Alpine-based Image                                            | 
+| Airflow Version                                                                      | Debian-based Image                                        | Alpine-based Image                                            |
 | -------------------------------------------------------------------------------------| --------------------------------------------------------- | --------------------------------------------------------------|
 | [1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)   | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild  | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild  |
 | [1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)   | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild  | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild  |
@@ -133,6 +144,7 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 | [1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild | N/A                                                           |
 | [1.10.15](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.15-buster-onbuild | N/A                                                           |
 | [2.0.0](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/CHANGELOG.md)     | FROM quay.io/astronomer/ap-airflow:2.0.0-buster-onbuild   | N/A                                                           |
+| [2.0.2](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/CHANGELOG.md)     | FROM quay.io/astronomer/ap-airflow:2.0.2-buster-onbuild   | N/A                                                           |
 
 > **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our Docker Registry due to a [recent change](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer/ap-airflow` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
 
