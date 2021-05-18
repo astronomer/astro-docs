@@ -122,7 +122,7 @@ To ensure reliability and full access to features included in Astronomer Enterpr
 To upgrade to the latest available v0.25 version of the Astronomer CLI, run:
 
 ```sh
-curl -sSL https://install.astronomer.io | sudo bash -s -- v0.25
+curl -sSL https://install.astronomer.io | sudo bash -s -- v0.25.0
 ```
 
 To do so via Homebrew, run:
