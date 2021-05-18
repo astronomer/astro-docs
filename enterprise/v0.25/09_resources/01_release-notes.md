@@ -17,7 +17,8 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 Release Date: May 18, 2021
 
 ### Bug Fixes
-- Fixed an API issue that caused the migration script from Astronomer v0.23 to v0.25 to fail if NFS volume-based deployment mechanism not enabled
+
+- Fixed an API issue that caused the migration script from Astronomer v0.23 to v0.25 to fail if the NFS volume-based deployment mechanism was not enabled.
 
 ## v0.25.1
 
