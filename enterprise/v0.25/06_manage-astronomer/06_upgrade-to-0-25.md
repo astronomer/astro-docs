@@ -19,7 +19,7 @@ A few important notes before you start:
 
 Ensure that the following software is updated to the appropriate version:
 
-- **Kubernetes**: Your version must be greater than or equal to 1.14 and less than 1.19. If you need to upgrade Kubernetes, contact your cloud provider's support or your Kubernetes administrator.
+- **Kubernetes**: Your version must be greater than or equal to 1.16 and less than 1.19. If you need to upgrade Kubernetes, contact your cloud provider's support or your Kubernetes administrator.
 - **Airflow Images**: You must be using an Astronomer Certified Airflow image, and the version of your image must be 1.10.5 or greater. In addition, your image should be in the following format:
 
     ```
@@ -131,7 +131,7 @@ To do so via Homebrew, run:
 $ brew install astronomer/tap/astro@0.25
 ```
 
-Earlier versions of the Astronomer CLI are backwards incompatible with Astronomer v0.25. All team members within your organization must upgrade the Astronomer CLI individually before taking any further action on the platform or in a local Airflow environment. For a detailed breakdown of CLI changes between versions, refer to [Astronomer CLI releases](https://github.com/astronomer/astro-cli/releases). For detailed install guidelines and more information on the Astronomer CLI, refer to [Astronomer CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.25/develop/cli-quickstart).
+Earlier versions of the Astronomer CLI are incompatible with Astronomer v0.25. All team members within your organization must upgrade the Astronomer CLI individually before taking any further action on the platform or in a local Airflow environment. For a detailed breakdown of CLI changes between versions, refer to [Astronomer CLI releases](https://github.com/astronomer/astro-cli/releases). For detailed install guidelines and more information on the Astronomer CLI, refer to [Astronomer CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.25/develop/cli-quickstart).
 
 ## Roll Back to Enterprise v0.23
 
@@ -148,4 +148,10 @@ This restores the platform database and the Helm state of the Astronomer Helm ch
 3. Confirm that the rollback completed. To do so, watch your pods until they have stabilized; every pod in your Astronomer namespace should be `Running` with full readiness or `Completed`. You can check the status of your pods using the following command:
 ```sh
 $ watch kubectl get pods -n <your-astronomer-namespace>
+```
+
+We recommend cleaning up any remaining Kubernetes resources after your rollback. To do so, run the following command:
+
+```sh
+kubectl delete -f https://raw.githubusercontent.com/astronomer/astronomer/release-0.25/migrations/scripts/lts-to-lts/0.23-to-0.25/manifests/rollback-0.23-to-0.25.yaml
 ```
