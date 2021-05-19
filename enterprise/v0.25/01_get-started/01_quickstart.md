@@ -207,7 +207,7 @@ These views show logs and metrics across all Deployments running on your Astrono
 
 Watch our video tutorial for a brief review of the workflows and concepts described in this quickstart:
 
-<iframe width="560" height="315" src="https://youtu.be/OihokE8u9D0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OihokE8u9D0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## What's Next?
 
