@@ -27,7 +27,7 @@ In order to push up code to a Deployment on Astronomer, you must have:
 To authenticate via the Astronomer CLI, run:
 
 ```sh
-$ astro auth login BASEDOMAIN
+astro auth login BASEDOMAIN
 ```
 
 ## Step 2: Confirm Your Workspace and Deployment
@@ -39,19 +39,19 @@ Before you deploy to Astronomer, make sure that the Airflow Deployment you'd lik
 To see the list of Workspaces you have access to, run:
 
 ```sh
-$ astro workspace list
+astro workspace list
 ```
 
 To switch between Workspaces, run:
 
 ```sh
-$ astro workspace switch
+astro workspace switch
 ```
 
 To see the list of Deployments within a particular Workspace, run:
 
 ```sh
-$ astro deployment list
+astro deployment list
 ```
 
 For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/enterprise/v0.23/develop/cli-quickstart/).
@@ -63,7 +63,7 @@ Finally, make sure you're in the correct Airflow project directory.
 When you're ready to deploy your DAGs, run:
 
 ```sh
-$ astro deploy
+astro deploy
 ```
 
 This command returns a list of Airflow Deployments available in your Workspace and prompts you to pick one.

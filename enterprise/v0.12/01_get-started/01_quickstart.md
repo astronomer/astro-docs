@@ -133,11 +133,11 @@ You can use the Astronomer CLI to get started with a development environment.
 Navigate to the `hello-astro` project created before:
 
 ```
-$ /hello-astro$ ls
+/hello-astro$ ls
 airflow_settings.yaml  Dockerfile  packages.txt  requirements.txt
 dags                   include     plugins
 
-$ astro dev start
+astro dev start
 Env file ".env" found. Loading...
 Sending build context to Docker daemon  11.26kB
 Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
@@ -173,7 +173,7 @@ Navigate to `http://localhost:8080` in the browser to get to Airflow.
 The sample dag running from the CLI can now be deployed to Astronomer.
 
 ```
-$ astro auth login BASEDOMAIN
+astro auth login BASEDOMAIN
 ```
 where `BASEDOMAIN` is where your instance is running (Note: use the root base domain, not `app.BASEDOMAIN` or any of the other subdomains generated).
 

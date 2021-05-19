@@ -62,7 +62,7 @@ For standard installations, each Airflow Deployment provisioned on the platform 
 The initial namespace we're creating below will just contain the core Astronomer platform.
 
 ```bash
-$ kubectl create ns astronomer
+kubectl create ns astronomer
 ```
 
 ## 4. Configure SSL
@@ -95,13 +95,13 @@ Let's Encrypt is a free and secure service that provides automated SSL Certifica
 If you are on a Mac, run the following:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 If you are running Linux:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
@@ -218,19 +218,19 @@ Now that you have an EKS cluster set up and your `config.yaml` defined, you're r
 First, run:
 
 ```
-$ helm repo add astronomer https://helm.astronomer.io/
+helm repo add astronomer https://helm.astronomer.io/
 ```
 
 Then, run:
 
 ```sh
-$ helm repo update
+helm repo update
 ```
 
 This will ensure that you pull the latest from our Helm repository. Finally, run:
 
 ```sh
-$ helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
+helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
 This command will install the latest available patch version of Astronomer Enterprise v0.16. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.16.x`. To install Astronomer Enterprise v0.16.9, for example, specify `--version=0.16.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.16/resources/release-notes/).
@@ -242,13 +242,13 @@ Once you run the commands above, a set of Kubernetes pods will be generated in y
 To verify all pods are up and running, run:
 
 ```
-$ kubectl get pods --namespace <my-namespace>
+kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
 
 ```command
-$ kubectl get pods --namespace astronomer
+kubectl get pods --namespace astronomer
 
 NAME                                                       READY   STATUS              RESTARTS   AGE
 astronomer-alertmanager-0                                  1/1     Running             0          24m
@@ -300,7 +300,7 @@ Run `kubectl get svc -n astronomer` to view your ELB's CNAME, located under the 
 
 ```
 
-$ kubectl get svc -n astronomer
+kubectl get svc -n astronomer
 NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                                      AGE
 astronomer-alertmanager              ClusterIP      172.20.48.232    <none>                                                                    9093/TCP                                     24d
 astronomer-cli-install               ClusterIP      172.20.95.132    <none>                                                                    80/TCP                                       24d

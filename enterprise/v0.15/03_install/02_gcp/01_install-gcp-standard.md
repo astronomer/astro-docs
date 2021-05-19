@@ -51,24 +51,24 @@ Here are some examples of accessible services when we use the base domain `astro
 
 Login to your Google account with the `gcloud` CLI:
 ```
-$ gcloud auth login
+gcloud auth login
 ```
 
 Create a project:
 ```
-$ gcloud projects create [PROJECT_ID]
+gcloud projects create [PROJECT_ID]
 ```
 
 Confirm the project was successfully created:
 ```
-$ gcloud projects list
+gcloud projects list
 PROJECT_ID             NAME                PROJECT_NUMBER
 astronomer-project     astronomer-project  364686176109
 ```
 
 Configure the `gcloud` CLI for use with your new project:
 ```
-$ gcloud config set project [PROJECT_ID]
+gcloud config set project [PROJECT_ID]
 ```
 
 Set your preferred compute zone, which will have a compute region tied to it.
@@ -76,8 +76,8 @@ Set your preferred compute zone, which will have a compute region tied to it.
 You'll need this later on:
 
 ```
-$ gcloud compute zones list
-$ gcloud config set compute/zone [COMPUTE_ZONE]
+gcloud compute zones list
+gcloud config set compute/zone [COMPUTE_ZONE]
 ```
 
 ### Create a GKE Cluster
@@ -93,7 +93,7 @@ Create your Kubernetes cluster:
 > Note: You can choose the machine type to use, but we recommend using larger nodes vs smaller nodes.
 
 ```
-$ gcloud container clusters create [CLUSTER_NAME] --zone [COMPUTE_ZONE] --machine-type n1-standard-8 --enable-autoscaling --max-nodes 10 --min-nodes 3
+gcloud container clusters create [CLUSTER_NAME] --zone [COMPUTE_ZONE] --machine-type n1-standard-8 --enable-autoscaling --max-nodes 10 --min-nodes 3
 ```
 
 **Note:** If you work with multiple Kubernetes environments, `kubectx` is an incredibly useful tool for quickly switching between Kubernetes clusters. Learn more [here](https://github.com/ahmetb/kubectx).
@@ -103,12 +103,12 @@ $ gcloud container clusters create [CLUSTER_NAME] --zone [COMPUTE_ZONE] --machin
 
 Generate a static IP address:
 ```
-$ gcloud compute addresses create astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID]
+gcloud compute addresses create astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID]
 ```
 
 View your newly generated IP address and record the output for use later on:
 ```
-$ gcloud compute addresses describe astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID] --format 'value(address)'
+gcloud compute addresses describe astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID] --format 'value(address)'
 ```
 
 ## 4. Configure Helm with your GKE Cluster
@@ -120,7 +120,7 @@ Helm is a package manager for Kubernetes. It allows you to easily deploy complex
 Create a namespace to host the core Astronomer Platform. If you are running through a standard installation, each Airflow deployment you provision will be created in a seperate namespace that our platform will provision for you, this initial namespace will just contain the core Astronomer platform.
 
 ```
-$ kubectl create namespace <my-namespace>
+kubectl create namespace <my-namespace>
 ```
 
 ### Create a tiller Service Account
@@ -151,7 +151,7 @@ subjects:
 Run the following command to apply these configurations to your Kubernetes cluster:
 
 ```
-$ kubectl create -f rbac-config.yaml
+kubectl create -f rbac-config.yaml
 ```
 
 ### Deploy a tiller pod
@@ -159,13 +159,13 @@ $ kubectl create -f rbac-config.yaml
 Your Helm client communicates with your kubernetes cluster through a `tiller` pod.  To deploy your tiller, run:
 
 ```
-$ helm init --service-account tiller
+helm init --service-account tiller
 ```
 
 Confirm your `tiller` pod was deployed successfully:
 
 ```
-$ helm version
+helm version
 ```
 
 ## 5. SSL Configuration
@@ -195,13 +195,13 @@ You can also use a wildcard cert for yourdomain (e.g. `*.astro.BASEDOMAIN.com`).
 If you are on a Mac:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 If you are running Linux:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
@@ -247,15 +247,15 @@ Now that your Kubernetes cluster has been configured with all prerequisites, you
 Clone the Astronomer helm charts locally and checkout your desired branch:
 
 ```
-$ git clone https://github.com/astronomer/astronomer.git
-$ git checkout <branch-name>
+git clone https://github.com/astronomer/astronomer.git
+git checkout <branch-name>
 ```
 **Do not deploy off of the master branch. Be sure to check out the latest stable branch. Be sure to check out the latest `release-0.X` branch that can be found on our [CHANGELOG](https://github.com/astronomer/astronomer/blob/master/CHANGELOG.md)**
 
 Create your `config.yaml` by copying our `starter.yaml` template:
 
 ```
-$ cp ./configs/starter.yaml ./config.yaml
+cp ./configs/starter.yaml ./config.yaml
 ```
 
 Set the following values in `config.yaml`:
@@ -313,7 +313,7 @@ Check out our `Customizing Your Install` section for guidance on setting an [aut
 ## 8. Install Astronomer
 
 ```
-$ helm install -f config.yaml . --namespace <my-namespace>
+helm install -f config.yaml . --namespace <my-namespace>
 ```
 
 ## 9. Verify all pods are up
@@ -321,13 +321,13 @@ $ helm install -f config.yaml . --namespace <my-namespace>
 To verify all pods are up and running, run:
 
 ```
-$ kubectl get pods --namespace <my-namespace>
+kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
 
 ```
-$ kubectl get pods --namespace astronomer
+kubectl get pods --namespace astronomer
 NAME                                                    READY   STATUS      RESTARTS   AGE
 newbie-norse-alertmanager-0                            1/1     Running     0          30m
 newbie-norse-cli-install-565658b84d-bqkm9              1/1     Running     0          30m

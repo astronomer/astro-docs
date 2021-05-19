@@ -252,7 +252,7 @@ astro version
 This command will output something like the following:
 
 ```sh
-$ astro version
+astro version
 Astro CLI Version: 0.23.2
 Astro Server Version: 0.23.9
 Git Commit: 748ca2e9de1e51e9f48f9d85eb8315b023debc2f

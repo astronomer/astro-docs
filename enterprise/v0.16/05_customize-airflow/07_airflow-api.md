@@ -25,7 +25,7 @@ You can create a Service Account either via the Astronomer CLI or the Astronomer
 To create a Deployment-level Service account via the CLI, first run:
 
 ```
-$ astro deployment list
+astro deployment list
 ```
 
 This will output the list of Airflow Deployments you have access to and their corresponding Deployment ID.
@@ -33,7 +33,7 @@ This will output the list of Airflow Deployments you have access to and their co
 With that Deployment ID, run:
 
 ```
-$ astro deployment service-account create -d <deployment-id> --label <service-account-label> --role <deployment-role>
+astro deployment service-account create -d <deployment-id> --label <service-account-label> --role <deployment-role>
 ```
 
 ### Create a Service Account via the Astronomer UI
