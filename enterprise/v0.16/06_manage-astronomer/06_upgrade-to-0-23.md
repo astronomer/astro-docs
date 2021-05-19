@@ -118,7 +118,7 @@ To ensure reliability and full access to features included in Astronomer Enterpr
 To upgrade to the latest available v0.23 version of the Astronomer CLI, run:
 
 ```sh
-$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.23
+$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.23.0
 ```
 
 To do so via Homebrew, run:

@@ -21,7 +21,7 @@ A few important notes before you start:
 
 Ensure that the following software is updated to the appropriate version:
 
-- **Kubernetes**: Your version must be greater than or equal to 1.14 and less than 1.19. If you need to upgrade Kubernetes, contact your cloud provider's support or your Kubernetes administrator.
+- **Kubernetes**: Your version must be 1.16, 1.17, or 1.18. If you need to upgrade Kubernetes, contact your cloud provider's support or your Kubernetes administrator.
 - **Airflow Images**: You must be using an Astronomer Certified Airflow image, and the version of your image must be 1.10.5 or greater. In addition, your image should be in the following format:
 
     ```
@@ -124,7 +124,7 @@ To ensure reliability and full access to features included in Astronomer Enterpr
 To upgrade to the latest available v0.23 version of the Astronomer CLI, run:
 
 ```sh
-$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.23
+$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.23.0
 ```
 
 To do so via Homebrew, run:
