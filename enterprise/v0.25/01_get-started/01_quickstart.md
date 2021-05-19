@@ -161,27 +161,33 @@ For a production environment, you'll likely need to set resources and configure 
 You can now use Astronomer to start Airflow locally and deploy code. To do so:
 
 1. Go to the Airflow project directory you created in **Step 4** and run the following command:
-   ```sh
-   $ astro dev start
-   ```
-   This command spins up 3 Docker containers on your machine, each for a different Airflow component:
 
-   - **Postgres:** [Airflow's Metadata Database](/docs/enterprise/v0.25/customize-airflow/access-airflow-database/)
-   - **Webserver:** The Airflow component responsible for rendering the Airflow UI
-   - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
-   > **Note:** If you’re running the Astronomer CLI with the [buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature enabled in Docker, you may see an error (`buildkit not supported by daemon`). Learn more in [this forum post](https://forum.astronomer.io/t/buildkit-not-supported-by-daemon-error-command-docker-build-t-airflow-astro-bcb837-airflow-latest-failed-failed-to-execute-cmd-exit-status-1/857).
+    ```sh
+    $ astro dev start
+    ```
+
+    This command spins up 3 Docker containers on your machine, each for a different Airflow component:
+
+    - **Postgres:** [Airflow's Metadata Database](/docs/enterprise/v0.25/customize-airflow/access-airflow-database/)
+    - **Webserver:** The Airflow component responsible for rendering the Airflow UI
+    - **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
+
+    > **Note:** If you’re running the Astronomer CLI with the [buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/) feature enabled in Docker, you may see an error (`buildkit not supported by daemon`). Learn more in [this forum post](https://forum.astronomer.io/t/buildkit-not-supported-by-daemon-error-command-docker-build-t-airflow-astro-bcb837-airflow-latest-failed-failed-to-execute-cmd-exit-status-1/857).
 
 2. Verify that all 3 Docker containers were created by running the following command:
-   ```
-   $ docker ps
-   ```
-   > **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432. If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
+
+    ```
+    docker ps
+    ```
+
+    > **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432. If you already have either of those ports allocated, you can either [stop existing docker containers](https://forum.astronomer.io/t/docker-error-in-cli-bind-for-0-0-0-0-5432-failed-port-is-already-allocated/151) or [change the port](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
 
 3. Deploy the `example-dag` from `hello-astro` to Airflow by running the following command:
-   ```sh
-   $ astro deploy
-   ```
+
+    ```sh
+    astro deploy
+    ```
 
 4. Confirm the deploy was successful by going to your local Airflow instance at `http://localhost:8080`.
 
@@ -196,6 +202,12 @@ The **Metrics** tab only shows metrics for a given Deployment. If you are the fi
 ![Admin](https://assets2.astronomer.io/main/docs/enterprise_quickstart/admin_panel.png)
 
 These views show logs and metrics across all Deployments running on your Astronomer platform. To learn more about using Grafana, read [Metrics in Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.25/monitor/grafana-metrics). To learn more about using Kibana, read [Logging in Astronomer Enterprise](/docs/enterprise/v0.25/monitor/kibana-logging/).
+
+## Video Tutorial
+
+Watch our video tutorial for a brief review of the workflows and concepts described in this quickstart:
+
+<iframe width="560" height="315" src="https://youtu.be/OihokE8u9D0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## What's Next?
 
