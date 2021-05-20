@@ -22,18 +22,18 @@ It's worth noting that while the tables below reference the minimum compatible v
 
 ## Astronomer Certified
 
-| Astronomer Certified | Postgres | MySQL     | Python        | System Distribution             | Airflow Helm Chart     |
-| -------------------- | -------- | --------- | ------------- | ------------------------------- | ---------------------- |
-| 1.10.5               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    |
-| 1.10.7               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    |
-| 1.10.10              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    |
-| 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    |
-| 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                    |
-| 1.10.15              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                    |
-| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7, 0.19.0 |
-| 2.0.2                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7, 0.19.0 |
+| Astronomer Certified | Postgres | MySQL     | Python        | System Distribution             | Airflow Helm Chart     | Redis   | Celery |
+| -------------------- | -------- | --------- | ------------- | ------------------------------- | ---------------------- | --------|--------|
+| 1.10.5               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    | 6.2.1   | 4.4.7  |
+| 1.10.7               | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    | 6.2.1   | 4.4.7  |
+| 1.10.10              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    | 6.2.1   | 4.4.7  |
+| 1.10.12              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Alpine 3.10, Debian 10 (Buster) | Any                    | 6.2.1   | 4.4.7  |
+| 1.10.14              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                    | 6.2.1   | 4.4.7  |
+| 1.10.15              | 9.6+     | 5.7, 8.0+ | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | Any                    | 6.2.1   | 4.4.7  |
+| 2.0.0                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7, 0.19.0 | 6.2.1   | 4.4.7  |
+| 2.0.2                | 9.6+     | 8.0+      | 3.6, 3.7, 3.8 | Debian 10 (Buster)              | 0.18.6, 0.18.7, 0.19.0 | 6.2.1   | 4.4.7  |
 
-For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to our ["Manage Airflow Versions" doc](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/).
+For more detail on each version of Astronomer Certified and instructions on how to upgrade, refer to [Upgrade Apache Airflow](https://www.astronomer.io/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/).
 
 > **Note:** While the Astronomer Certified Python Wheel supports Python versions 3.6, 3.7, and 3.8, Astronomer Certified Docker images have been tested and built only with Python 3.7. To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you can create a custom image with a different Python version specified. For more information, read [Change Python Versions](https://www.astronomer.io/docs/enterprise/v0.23/develop/customize-image#build-with-a-different-python-version).
 
