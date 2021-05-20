@@ -69,19 +69,19 @@ images:
 |`astronomer.images.commander.repository`| The repository for Astronomer's Commander service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
 |`astronomer.images.commander.tag`| The image tag for Astronomer's Commander service. |  Any available image tag    | `0.25.0`|
 |`astronomer.images.commander.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
-|`astronomer.images.registry.repository`| The repository for Astronomer's Registry service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.registry.repository`| The repository for Astronomer's Registry service. | Any Docker repository | `quay.io/astronomer/ap-registry` |
 |`astronomer.images.registry.tag`| The image tag for Astronomer's Registry service. |  Any available image tag    | `3.13.7`|
 |`astronomer.images.registry.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
-|`astronomer.images.houston.repository`| The repository for Astronomer's Houston service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.houston.repository`| The repository for Astronomer's Houston service. | Any Docker repository | `quay.io/astronomer/ap-houston-api` |
 |`astronomer.images.houston.tag`| The image tag for Astronomer's Houston service. |  Any available image tag    | `0.25.5`|
 |`astronomer.images.houston.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
-|`astronomer.images.astroUI.repository`| The repository for Astronomer's UI. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.astroUI.repository`| The repository for Astronomer's UI. | Any Docker repository | `quay.io/astronomer/ap-astro-ui` |
 |`astronomer.images.astroUI.tag`| The image tag for Astronomer's UI. |  Any available image tag    | `0.25.0`|
 |`astronomer.images.astroUI.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
-|`astronomer.images.dbBootstrapper.repository`| The repository for Astronomer's dbBoostrapper service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.dbBootstrapper.repository`| The repository for Astronomer's dbBoostrapper service. | Any Docker repository | `quay.io/astronomer/ap-db-bootstrapper` |
 |`astronomer.images.dbBootstrapper.tag`| The image tag for Astronomer's dbBoostrapper service. |  Any available image tag    | `0.25.0`|
 |`astronomer.images.dbBootstrapper.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
-|`astronomer.images.cliInstall.repository`| The repository for Astronomer's CLI service. | Any Docker repository | `quay.io/astronomer/ap-commander` |
+|`astronomer.images.cliInstall.repository`| The repository for Astronomer's CLI service. | Any Docker repository | `quay.io/astronomer/ap-cli-install` |
 |`astronomer.images.cliInstall.tag`| The image tag for Astronomer's CLI service. |  Any available image tag    | `0.13.1`|
 |`astronomer.images.cliInstall.pullpolicy`| The [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for updating images. | A valid [pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images).  | `IfNotPresent` |
 
@@ -105,50 +105,18 @@ astroUI:
   #   memory: 128Mi
 ```
 
-#### astronomer.astroUI.replicas
+### Parameters
 
-The number of replica pods running for the Astronomer UI.
+| Parameter Name | Description | Valid Values | Default Value |
+|----------------|-------------|-------|----------------------|
+|`astronomer.astroUI.replicas`| The number of replica pods running for the Astronomer UI.
+ | Any integer > 0 | `2` |
+|`astronomer.astroUI.env`| Environment variables for running the Astronomer UI. **Do not configure this setting without guidance from Astronomer support.**
+ | N/A    | `[ ]`|
+|`astronomer.astroUI.maxUnavailable`| The percentage of pods that are allowed to be unavailable during a rolling update of the service.
+| Whole Percentages  | `25` |
+|`astronomer.astroUI.resources`| Specifies CPU and memory usage limits and requests for the Astronomer UI. | CPU usage is specified in megabytes, while memory usage is specified in mebibytes. | `{ }`] |
 
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Integer       | 2             | Any integer         | Low          |
-
-#### astronomer.astroUI.env
-
-Environment variables for running the Astronomer UI. Do not configure this setting without guidance from Astronomer support.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs       | []             | N/A        | Low          |
-
-
-#### astronomer.astroUI.maxUnavailable
-
-Specifies what percentage of pods are allowed to be unavailable during a rolling update of the service.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Percentage (integer + `%`)     | 25%             | [0%, 1%, ... 100%]       | Low          |
-
-#### astronomer.astroUI.resources
-
-Specifies CPU and memory usage limits and requests for the Astronomer UI. CPU usage is specified in megabytes, while memory usage is specified in mebibytes. For example:
-
-```yaml
-resources: {
-    limits:
-     cpu: 100m
-     memory: 128Mi
-    requests:
-     cpu: 100m
-     memory: 128Mi
-}
-```
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs       | { }             | See above for valid examples   | Medium          |
 
 #### astronomer.houston.prismaConnectionLimit
 
