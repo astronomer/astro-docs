@@ -29,11 +29,11 @@ To create a Service Account via the Astronomer UI:
    ![New Service Account](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-new-service-account.png)
 3. Give your Service Account a **Name**, **User Role**, and **Category** (_Optional_).
    > **Note:** In order for a Service Account to have permission to push code to your Airflow Deployment, it must have either the Editor or Admin role. For more information on Workspace roles, refer to [Roles and Permissions](/docs/cloud/stable/manage-astronomer/workspace-permissions/).
-   
+
    ![Name Service Account](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-name-service-account.png)
-   
+
 4. Save the API Key that was generated. Depending on your use case, you may want to store this key in an Environment Variable or secret management tool of choice.
-   
+
    ![Service Account](https://assets2.astronomer.io/main/docs/ci-cd/ci-cd-api-key.png)
 
 ### Create a Service Account via the Astronomer CLI
@@ -71,7 +71,7 @@ You can make requests via the method of your choosing. Below, we'll walk through
 
 ### Trigger DAG
 
-If you'd like to externally trigger a DAG run, you can start with a generic cURL command to Airflow's POST endpoint: 
+If you'd like to externally trigger a DAG run, you can start with a generic cURL command to Airflow's POST endpoint:
 
 ```
 POST /airflow/api/experimental/dags/<DAG_ID>/dag_runs
@@ -127,7 +127,7 @@ https://<AIRFLOW_DOMAIN>/api/experimental/dags/customer_health_score/dag_runs
 
 ### Get all Pools
 
-If you'd like to get all existing Pools from your Airflow Deployment, you can start with a generic Python command to Airflow's `GET` endpoint: 
+If you'd like to get all existing Pools from your Airflow Deployment, you can start with a generic Python command to Airflow's `GET` endpoint:
 
 ```
 GET /api/experimental/pools
@@ -184,6 +184,7 @@ curl -X GET \
 https://<AIRFLOW-DOMAIN>/airflow/api/v1/config \
 -H 'Authorization: <API-Key>' \
 -H 'Cache-Control: no-cache'
+-H "Accept:'application/json'"
 ```
 
 To run this, replace the following placeholder values:
