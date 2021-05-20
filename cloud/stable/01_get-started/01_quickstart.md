@@ -4,11 +4,13 @@ navTitle: "Quickstart"
 description: "Get started with Astronomer Cloud."
 ---
 
+## Overview
+
 Welcome to Astronomer.
 
 This guide will help you kick off your trial on Astronomer by walking you through a sample DAG deployment from start to finish.
 
-Whether you're exploring our Enterprise or Cloud offering, we've designed this to be a great way to become familiar with our platform.
+Whether you're exploring our Enterprise or Cloud offering, we've designed this quickstart to be a great way to become familiar with our platform.
 
 ## Step 1: Start Your Trial
 
@@ -280,6 +282,12 @@ Once you deploy to Astronomer, reopen the [Astronomer UI](https://app.gcp0001.us
 This links to your Deployment's Airflow UI, where you'll find your example DAG and all other DAGs in your project.
 
 For guidance on how to navigate the Airflow UI, refer to [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/ui.html).
+
+## Video Tutorial
+
+Watch our video tutorial for a brief review of the workflows and concepts described in this quickstart:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OihokE8u9D0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## What's Next?
 

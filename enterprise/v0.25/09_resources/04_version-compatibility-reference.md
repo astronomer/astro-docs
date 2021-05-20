@@ -12,12 +12,13 @@ It's worth noting that while the tables below reference the minimum compatible v
 
 ## Astronomer Enterprise
 
-| Astronomer Platform | Kubernetes       | Helm | Terraform    | Postgres | Astronomer Certified                                      | Python               | Astronomer CLI |
-| ------------------- | ---------------- | ---- | ------------ | -------- | --------------------------------------------------------- | -------------------- | ---------------|
-| v0.16               | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5 | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14                 | 3.6, 3.7, 3.8        | 0.16           |
+| Astronomer Platform | Kubernetes       | Helm | Terraform    | Postgres | Astronomer Certified                                             | Python        | Astronomer CLI |
+| ------------------- | ---------------- | ---- | ------------ | -------- | ---------------------------------------------------------------- | --------------| -------------- |
+| v0.16               | 1.16, 1.17, 1.18 | 3    | 0.12, 0.13.5 | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14                        | 3.6, 3.7, 3.8 | 0.16           |
 | v0.23               | 1.16, 1.17, 1.18 | 3    | 0.13.5       | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 1.10.15, 2.0.0, 2.0.2 | 3.6, 3.7, 3.8 | 0.23           |
+| v0.25               | 1.16, 1.17, 1.18 | 3    | 0.13.5       | 9.6+     | 1.10.5, 1.10.7, 1.10.10, 1.10.12, 1.10.14, 1.10.15, 2.0.0, 2.0.2 | 3.6, 3.7, 3.8 | 0.25           |
 
-> **Note:** Astronomer v0.16.9+ is required to run Astronomer Certified 1.10.12, and Astronomer v0.16.15+ is required to run Astronomer Certified 1.10.14. For instructions on how to upgrade to an Astronomer v0.16 patch version, read [Upgrade to a Patch Version of Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/upgrade-astronomer-patch). As of Astronomer v0.23, the platform is compatible with all versions of Astronomer Certified.
+> **Note:** On Astronomer v0.23+, new versions of Apache Airflow on Astronomer Certified are automatically made available in the Astronomer UI and CLI within 24 hours of their publication. For more information, refer to [Available Astronomer Certified Versions](https://www.astronomer.io/docs/enterprise/v0.25/customize-airflow/manage-airflow-versions#available-astronomer-certified-versions).
 
 ## Astronomer Certified
 

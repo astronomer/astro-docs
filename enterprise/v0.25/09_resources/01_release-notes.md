@@ -12,9 +12,17 @@ If you're looking to upgrade to Astronomer v0.25, refer to [Upgrade to Astronome
 
 We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](https://support.astronomer.io).
 
+## v0.25.2
+
+Release Date: May 18, 2021
+
+### Bug Fixes
+
+- Fixed an API issue that caused the migration script from Astronomer v0.23 to v0.25 to fail if the NFS volume-based deployment mechanism was not enabled.
+
 ## v0.25.1
 
-Release Date: May 11th, 2021
+Release Date: May 11, 2021
 
 ### Support for NFS Volume-based DAG Deploys
 

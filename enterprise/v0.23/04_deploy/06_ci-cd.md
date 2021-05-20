@@ -245,7 +245,7 @@ pipeline:
     image: quay.io/astronomer/ap-build:latest
     commands:
       - echo $${SERVICE_ACCOUNT_KEY}
-      - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $${SERVICE_ACCOUNT_KEY}
+      - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $SERVICE_ACCOUNT_KEY
       - docker push registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:ci-${DRONE_BUILD_NUMBER}
     secrets: [ SERVICE_ACCOUNT_KEY ]
     volumes:
@@ -331,7 +331,7 @@ pipeline {
        steps {
          script {
            sh 'docker build -t registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:ci-${BUILD_NUMBER} .'
-           sh 'docker login registry.gcp0001.us-east4.astronomer.io -u _ -p ${SERVICE_ACCOUNT_KEY}'
+           sh 'docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $SERVICE_ACCOUNT_KEY'
            sh 'docker push registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:ci-${BUILD_NUMBER}'
          }
        }
@@ -361,7 +361,7 @@ pipelines:
           script:
             - echo ${SERVICE_ACCOUNT_KEY}
             - docker build -t registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:ci-${BITBUCKET_BUILD_NUMBER}
-            - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p ${SERVICE_ACCOUNT_KEY}
+            - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $SERVICE_ACCOUNT_KEY
             - docker push registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:ci-${BITBUCKET_BUILD_NUMBER}
           services:
             - docker
@@ -380,7 +380,7 @@ astro_deploy:
   script:
     - echo "Building container.."
     - docker build -t registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:CI-$CI_PIPELINE_IID .
-    - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $${SERVICE_ACCOUNT_KEY}
+    - docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $SERVICE_ACCOUNT_KEY
     - docker push registry.gcp0001.us-east4.astronomer.io/infrared-photon-7780/airflow:CI-$CI_PIPELINE_IID
   only:
     - master
@@ -470,7 +470,7 @@ stages:
     - script: |
     echo "Building container.."
     docker build -t registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID .
-    docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $(DEPLOYMENT-SERVICE-ACCOUNT-KEY)
+    docker login registry.gcp0001.us-east4.astronomer.io -u _ -p $DEPLOYMENT-SERVICE-ACCOUNT-KEY
     docker push registry.gcp0001.us-east4.astronomer.io/extraterrestrial-aperature-9667/airflow:$CI_PIPELINE_ID
 ```
 
