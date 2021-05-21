@@ -55,4 +55,4 @@ Workspace editors can configure a new or existing Airflow Deployment to use a pr
 4. In the **NFS Location** field that appears, enter the location of your volume-based DAG directory as `<IP>:/<path>` (for example: `192.168.0.1:/path/to/your/dags`).
 5. Save your changes.
 
-> **Note:** NFS volumes can also be configured via the Astronomer CLI. To do so, specify the `--nfs-location` flag when running [`astro deployment create`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-create) or [`astro deployment update`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-update).
+> **Note:** NFS volumes can also be configured via the Astronomer CLI. To do so, specify the `--nfs-location` flag when running [`astro deployment create`](/docs/enterprise/v0.25/resources/cli-reference#astro-deployment-create) or [`astro deployment update`](/docs/enterprise/v0.25/resources/cli-reference#astro-deployment-update).

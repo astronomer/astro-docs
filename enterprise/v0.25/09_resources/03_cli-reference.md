@@ -19,7 +19,7 @@ There are two ways to install any version of the Astronomer CLI:
 
 For a detailed changelog of all Astronomer CLI versions, see [GitHub Releases](https://github.com/astronomer/astro-cli/releases).
 
-> **Note:** Both methods only work for Unix (Linux+Mac) based systems. If you're running on Windows 10, follow [this guide](/docs/enterprise/v0.32/develop/cli-install-windows-10/) to get set up with Docker for WSL.
+> **Note:** Both methods only work for Unix (Linux+Mac) based systems. If you're running on Windows 10, follow [this guide](/docs/enterprise/v0.25/develop/cli-install-windows-10/) to get set up with Docker for WSL.
 
 ### Prerequisites
 
@@ -200,7 +200,7 @@ The settings that you can update via the command line are:
 
 ### Related documentation
 
-- [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/apply-platform-config)
+- [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/apply-platform-config)
 
 ## astro deploy
 
@@ -227,7 +227,7 @@ If you run `astro deploy` without specifying `your-deployment-release-name`, the
 
 ### Related documentation
 
-- [Deploy to Astronomer via the CLI](https://www.astronomer.io/docs/enterprise/v0.32/deploy/deploy-cli)
+- [Deploy to Astronomer via the CLI](https://www.astronomer.io/docs/enterprise/v0.25/deploy/deploy-cli)
 
 ## astro deployment
 
@@ -241,7 +241,7 @@ When managing an existing Deployment using subcommands such as `delete` and `log
 
 ### Related documentation
 
-- [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
+- [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
 
 ## astro deployment airflow upgrade
 
@@ -249,7 +249,7 @@ Initializes the Airflow version upgrade process on any Airflow Deployment on Ast
 
 ### Usage
 
-Run `astro deployment airflow upgrade --deployment-id` to initialize the Airflow upgrade process. To finalize the Airflow upgrade process, complete all of the steps as described in [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/customize-airflow/manage-airflow-versions).
+Run `astro deployment airflow upgrade --deployment-id` to initialize the Airflow upgrade process. To finalize the Airflow upgrade process, complete all of the steps as described in [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/customize-airflow/manage-airflow-versions).
 
 If you do not specify `--desired-airflow-version`, this command will output a list of available versions of Airflow you can choose from and prompt you to pick one. The Astronomer CLI will only make available versions of Airflow that are higher than the version you're currently running in your `Dockerfile`.
 
@@ -262,8 +262,8 @@ If you do not specify `--desired-airflow-version`, this command will output a li
 
 ### Related documentation
 
-- [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/customize-airflow/manage-airflow-versions)
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Upgrade Apache Airflow on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/customize-airflow/manage-airflow-versions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro deployment create
 
@@ -286,8 +286,8 @@ Run `astro deployment create <new-deployment-name> [flags]` to create a new Depl
 
 ### Related documentation
 
-- [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Integrate IAM Roles](https://www.astronomer.io/docs/enterprise/v0.32/customize-airflow/integrate-iam)
+- [Configure an Airflow Deployment on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Integrate IAM Roles](https://www.astronomer.io/docs/enterprise/v0.25/customize-airflow/integrate-iam)
 
 ## astro deployment delete
 
@@ -333,7 +333,7 @@ You can run any of the following commands depending on which logs you want to st
 
 ### Related documentation
 
-- [Deployment Logs](https://www.astronomer.io/docs/enterprise/v0.32/deploy/deployment-logs)
+- [Deployment Logs](https://www.astronomer.io/docs/enterprise/v0.25/deploy/deployment-logs)
 
 ## astro deployment service-account create
 
@@ -356,7 +356,7 @@ Creates a Deployment-level service account on Astronomer, which you can use to c
 
 ### Related documentation
 
-- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.32/deploy/ci-cd)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.25/deploy/ci-cd)
 
 ## astro deployment service-account delete
 
@@ -374,7 +374,7 @@ Deletes a service account for a given Deployment.
 
 ### Related documentation
 
-- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.32/deploy/ci-cd)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.25/deploy/ci-cd)
 
 ## astro deployment service-account get
 
@@ -392,7 +392,7 @@ Run `astro deployment service-account get <service-account-id> --deployment-id=<
 
 ### Related documentation
 
-- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.32/deploy/ci-cd)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.25/deploy/ci-cd)
 
 ## astro deployment update
 
@@ -422,7 +422,7 @@ Run `astro deployment update <your-deployment-id> [flags]` to update a Deploymen
 
 ### Related documentation
 
-- [Integrate IAM Roles](https://www.astronomer.io/docs/enterprise/v0.32/customize-airflow/integrate-iam)
+- [Integrate IAM Roles](https://www.astronomer.io/docs/enterprise/v0.25/customize-airflow/integrate-iam)
 - []
 
 ## astro deployment user add
@@ -442,7 +442,7 @@ Gives an existing user in a Workspace access to an Airflow Deployment within tha
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro deployment user delete
 
@@ -460,7 +460,7 @@ Removes access to an Airflow Deployment for an existing Workspace user. To grant
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro deployment user list
 
@@ -481,7 +481,7 @@ Outputs a list of all Workspace users who have access to a given Deployment. Use
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro deployment user update
 
@@ -500,7 +500,7 @@ Updates a user's role in a given Deployment.
 
 ### Related documentation
 
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro dev
 
@@ -623,7 +623,7 @@ Runs a script that checks whether all files in your local Airflow project are co
 
 ### Related documentation
 
-- [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/customize-airflow/upgrade-to-airflow-2)
+- [Upgrade to Apache Airflow 2.0 on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/customize-airflow/upgrade-to-airflow-2)
 - [Running the Airflow Upgrade Check Package](https://airflow.apache.org/docs/apache-airflow/stable/upgrade-check.html#upgrade-check)
 
 ## astro upgrade
@@ -657,8 +657,8 @@ Creates a new user on Astronomer. An invitation email will be sent to the email 
 
 ### Related documentation
 
-- [Manage Workspace Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
-- [Manage Users on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/manage-platform-users)
+- [Manage Workspace Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
+- [Manage Users on Astronomer Enterprise](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/manage-platform-users)
 
 ## astro version
 
@@ -670,7 +670,7 @@ Run `astro version` to see both your CLI version and Astronomer platform version
 
 ### Related documentation
 
-- [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.32/develop/cli-quickstart)
+- [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.25/develop/cli-quickstart)
 
 ## astro workspace
 
@@ -698,7 +698,7 @@ Creates a new Workspace.
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
 
 ## astro workspace delete
 
@@ -710,7 +710,7 @@ Run `astro workspace delete <your-workspace-id>` to delete a Workspace. Your Wor
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
 
 ## astro workspace list
 
@@ -722,7 +722,7 @@ Run `astro workspace list` to see the name and Workspace ID for each Workspace t
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
 
 ## astro workspace service-account create
 
@@ -745,8 +745,8 @@ Creates a service account for a given Workspace.
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.32/deploy/ci-cd)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.25/deploy/ci-cd)
 
 ## astro workspace service-account delete
 
@@ -764,8 +764,8 @@ Deletes a service account for a given Workspace.
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.32/deploy/ci-cd)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.25/deploy/ci-cd)
 
 ## astro workspace service-account get
 
@@ -783,8 +783,8 @@ Run `astro deployment service-account get <service-account-id> --workspace-id=<y
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.32/deploy/ci-cd)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Deploy to Astronomer via CI/CD](https://www.astronomer.io/docs/enterprise/v0.25/deploy/ci-cd)
 
 ## astro workspace switch
 
@@ -816,7 +816,7 @@ At least one flag must be specified.
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
 
 ## astro workspace user add
 
@@ -835,8 +835,8 @@ Creates a new user in your current Workspace. If the user has already authentica
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro workspace user remove
 
@@ -848,8 +848,8 @@ Removes an existing user from your current Workspace.
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro workspace user list
 
@@ -870,8 +870,8 @@ Outputs a list of all users with access to your current Workspace.
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
 
 ## astro workspace user update
 
@@ -889,5 +889,5 @@ Updates a user's role in your current Workspace.
 
 ### Related documentation
 
-- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/deploy/manage-workspaces)
-- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.32/manage-astronomer/workspace-permissions)
+- [Manage Workspaces and Deployments on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/deploy/manage-workspaces)
+- [Manage User Permissions on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/workspace-permissions)
