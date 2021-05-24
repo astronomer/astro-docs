@@ -61,7 +61,7 @@ gcloud projects create [PROJECT_ID]
 
 Confirm the project was successfully created:
 ```
-gcloud projects list
+$ gcloud projects list
 PROJECT_ID             NAME                PROJECT_NUMBER
 astronomer-project     astronomer-project  364686176109
 ```
@@ -327,7 +327,7 @@ kubectl get pods --namespace <my-namespace>
 You should see something like this:
 
 ```
-kubectl get pods --namespace astronomer
+$ kubectl get pods --namespace astronomer
 NAME                                                    READY   STATUS      RESTARTS   AGE
 newbie-norse-alertmanager-0                            1/1     Running     0          30m
 newbie-norse-cli-install-565658b84d-bqkm9              1/1     Running     0          30m

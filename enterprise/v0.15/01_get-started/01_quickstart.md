@@ -137,7 +137,7 @@ Navigate to the `hello-astro` project created before:
 airflow_settings.yaml  Dockerfile  packages.txt  requirements.txt
 dags                   include     plugins
 
-astro dev start
+$ astro dev start
 Env file ".env" found. Loading...
 Sending build context to Docker daemon  11.26kB
 Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild

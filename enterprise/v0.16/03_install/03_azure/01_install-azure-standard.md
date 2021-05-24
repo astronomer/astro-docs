@@ -290,7 +290,7 @@ kubectl get pods --namespace <my-namespace>
 You should see something like this:
 
 ```command
-kubectl get pods --namespace astronomer
+$ kubectl get pods --namespace astronomer
 
 NAME                                                       READY   STATUS              RESTARTS   AGE
 astronomer-alertmanager-0                                  1/1     Running             0          24m
@@ -342,7 +342,7 @@ Run `kubectl get svc -n astronomer` to view your Load Balancer's External IP Add
 
 ```
 
-kubectl get svc -n astronomer
+$ kubectl get svc -n astronomer
 NAME                                          TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                      AGE
 astronomer-alertmanager                       ClusterIP      10.0.184.29    <none>          9093/TCP                                     6m48s
 astronomer-astro-ui                           ClusterIP      10.0.107.212   <none>          8080/TCP                                     6m48s

@@ -236,7 +236,7 @@ kubectl get pods
 You should see something like:
 
 ```
-kubectl get pods
+$ kubectl get pods
 NAME                                                READY   STATUS    RESTARTS   AGE
 quasaric-sun-9051-flower-7bbdf98d94-zxxjd           1/1     Running   0          93d
 quasaric-sun-9051-2346-pgbouncer-c997bbd9d-dgsjr    2/2     Running   0          2d

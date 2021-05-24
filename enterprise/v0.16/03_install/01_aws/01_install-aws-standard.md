@@ -248,7 +248,7 @@ kubectl get pods --namespace <my-namespace>
 You should see something like this:
 
 ```command
-kubectl get pods --namespace astronomer
+$ kubectl get pods --namespace astronomer
 
 NAME                                                       READY   STATUS              RESTARTS   AGE
 astronomer-alertmanager-0                                  1/1     Running             0          24m
@@ -300,7 +300,7 @@ Run `kubectl get svc -n astronomer` to view your ELB's CNAME, located under the 
 
 ```
 
-kubectl get svc -n astronomer
+$ kubectl get svc -n astronomer
 NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                                      AGE
 astronomer-alertmanager              ClusterIP      172.20.48.232    <none>                                                                    9093/TCP                                     24d
 astronomer-cli-install               ClusterIP      172.20.95.132    <none>                                                                    80/TCP                                       24d
