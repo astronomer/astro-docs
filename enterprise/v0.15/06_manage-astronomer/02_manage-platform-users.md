@@ -63,21 +63,21 @@ astronomer:
 To push the new configuration, run a platform upgrade from the `astronomer` repo:
 
 ```
-$ helm ls
+helm ls
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 For example, you might run:
 
 ```
-$ helm ls
+helm ls
 NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE
 calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.10.3     	astro
 
-$ helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
+helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
 ```
 
 ### User Roles on Astronomer
@@ -160,21 +160,21 @@ astronomer:
 Once you've made changes to your `config.yaml` file, trigger a platform upgrade from the `astronomer` repo by running:
 
 ```
-$ helm ls
+helm ls
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 For example, you might run:
 
 ```
-$ helm ls
+helm ls
 NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE
 calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.16.4     	astro
 
-$ helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
+helm upgrade calico-crab -f config.yaml --version=0.16.4 astronomer/astronomer -n calico-crab
 ```
 
 ## System Roles

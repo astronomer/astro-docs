@@ -38,7 +38,7 @@ The CLI installation process requires [Docker](https://www.docker.com/) (v18.09 
 To install the latest version of the Astronomer CLI via cURL, run:
 
 ```bash
-$ curl -ssl https://install.astronomer.io | sudo bash
+curl -ssl https://install.astronomer.io | sudo bash
 ```
 
 #### Install the CLI via Homebrew
@@ -46,7 +46,7 @@ $ curl -ssl https://install.astronomer.io | sudo bash
 To install the latest version of the Astronomer CLI via [Homebrew](https://brew.sh/), run:
 
 ```bash
-$ brew install astronomer/tap/astro
+brew install astronomer/tap/astro
 ```
 
 For more information on the Astronomer CLI, read [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.25/develop/cli-quickstart).
@@ -66,13 +66,13 @@ We have documentation for deploying Astronomer on:
 Using the Astronomer CLI, create an Airflow project to work from that lives on your local machine:
 
  ```sh
-$ mkdir <your-new-directory> && cd <your-new-directory>
+mkdir <your-new-directory> && cd <your-new-directory>
  ```
 
 Then, run:
 
 ```
-$ astro dev init
+astro dev init
 ```
 
 This will generate the following files:
@@ -134,7 +134,7 @@ For more information, read [Manage Workspaces and Deployments](/docs/enterprise/
 You can authenticate to Astronomer using the following command:
 
 ```sh
-$ astro auth login BASEDOMAIN
+astro auth login BASEDOMAIN
 ```
 
 You'll be prompted to authenticate and select the Workspace that you want to operate in.
@@ -163,7 +163,7 @@ You can now use Astronomer to start Airflow locally and deploy code. To do so:
 1. Go to the Airflow project directory you created in **Step 4** and run the following command:
 
     ```sh
-    $ astro dev start
+    astro dev start
     ```
 
     This command spins up 3 Docker containers on your machine, each for a different Airflow component:
@@ -176,7 +176,7 @@ You can now use Astronomer to start Airflow locally and deploy code. To do so:
 
 2. Verify that all 3 Docker containers were created by running the following command:
 
-    ```
+    ```sh
     docker ps
     ```
 

@@ -212,7 +212,7 @@ In addition to functionality already available in v0.16, v0.23 of the Astronomer
 Users running Astronomer Enterprise v0.23 MUST upgrade to the latest version of the Astronomer CLI. To do so, run:
 
 ```
-$ curl -sSL https://install.astronomer.io | sudo bash
+curl -sSL https://install.astronomer.io | sudo bash
 ```
 
 For detailed instructions, refer to [CLI Quickstart](https://www.astronomer.io/docs/enterprise/v0.23/develop/cli-quickstart). For a full reference of Astronomer CLI releases, go to the [Astronomer CLI GitHub repo](https://github.com/astronomer/astro-cli/releases).

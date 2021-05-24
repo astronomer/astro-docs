@@ -39,7 +39,7 @@ Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll ne
 1. Retrieve your EKS cluster with the following AWS CLI command:
 
     ```bash
-    $ aws eks list-clusters
+    aws eks list-clusters
     ```
 
     The output of this command should look something like this:
@@ -55,7 +55,7 @@ Before you can integrate IAM with an Airflow Deployment on Astronomer, you'll ne
 2. Retrieve and make note of your cluster's OIDC issuer URL with the following AWS CLI command:
 
     ```bash
-    $ aws eks describe-cluster --name <your-cluster> --query "cluster.identity.oidc.issuer" --output text
+    aws eks describe-cluster --name <your-cluster> --query "cluster.identity.oidc.issuer" --output text
     ```
 
     The output of this command should be a URL starting with `https://oidc.eks`.
@@ -219,19 +219,19 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
 1. To create a new Airflow Deployment with your IAM role attached, run the following Astronomer CLI command:
 
     ```sh
-    $ astro deployment create <deployment-name> --executor=celery --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
+    astro deployment create <deployment-name> --executor=celery --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
     ```
 
     Alternatively, to update an existing Airflow Deployment with your IAM role attached, run the following:
 
     ```sh
-    $ astro deployment update <deployment-name> --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
+    astro deployment update <deployment-name> --cloud-role=arn:aws:iam::<your-iam-id>:role/<your-role>
     ```
 
 2. Confirm the role was passed successfully to all Webserver, Scheduler and Worker pods within your Airflow Deployment by running the following command:
 
     ```bash
-    $ kubectl describe po <pod-name> -n <airflow-namespace>
+    kubectl describe po <pod-name> -n <airflow-namespace>
     ```
 
     You should see the following in your output:
@@ -252,21 +252,21 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
 1. Create a new cluster with Workload Identity enabled by running the following command:
 
     ```bash
-    $ gcloud container clusters create <cluster-name> \
+    gcloud container clusters create <cluster-name> \
       --workload-pool=<project-id>.svc.id.goog
     ```
 
     Alternatively, run the following to enable Workload Identity on an existing cluster:
 
     ```bash
-    $ gcloud container clusters update <cluster-name> \
+    gcloud container clusters update <cluster-name> \
       --workload-pool=<project-id>.svc.id.goog
     ```
 
 2. Configure your node pool to use Workload Identity by running the following command:
 
     ```bash
-    $ gcloud container node-pools update <nodepool-name> \
+    gcloud container node-pools update <nodepool-name> \
       --cluster=<cluster-name> \
       --workload-metadata=GKE_METADATA
     ```
@@ -276,7 +276,7 @@ In order to apply your IAM role to any Airflow Deployment on Astronomer, you'll 
 To create a GCP service account, run the following command:
 
 ```bash
-$ gcloud iam service-accounts create <gsa-name>
+gcloud iam service-accounts create <gsa-name>
 ```
 
 ### Step 3: Configure Astronomer
@@ -296,13 +296,13 @@ astronomer:
 1. Create an Airflow Deployment with your GCP service account attached by running the following command:
 
     ```bash
-    $ astro deployment create <deployment-name> --executor=celery --cloud-role=<gsa-name>@<project-id>.iam.gserviceaccount.com
+    astro deployment create <deployment-name> --executor=celery --cloud-role=<gsa-name>@<project-id>.iam.gserviceaccount.com
     ```
 
 2. Note the name of the Worker and Scheduler service accounts that appear when you run the following command:
 
     ```bash
-    $ kubectl get sa -n <your-airflow-namespace>
+    kubectl get sa -n <your-airflow-namespace>
     ```
 
 3. Create an IAM policy binding your Google and GKE service accounts by running the following command for both the Worker and Scheduler GKE service accounts you noted:
@@ -319,7 +319,7 @@ astronomer:
 1. Create an interactive session by running the following command:
 
     ```bash
-      $ kubectl run -it \
+      kubectl run -it \
       --image google/cloud-sdk:slim \
       --serviceaccount <worker-serviceaccount> \
       --namespace <your-airflow-namespace> \
@@ -329,7 +329,7 @@ astronomer:
 2. In the interactive session, confirm you're able to authenticate successfully via Workload Identity by running the following command:
 
     ```bash
-    $ gcloud auth list
+    gcloud auth list
     ```
 
     If Workload Identity is working, you should see a list of credentialed accounts related to your GCP service account.

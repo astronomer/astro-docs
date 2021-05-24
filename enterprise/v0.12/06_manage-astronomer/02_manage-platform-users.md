@@ -74,11 +74,11 @@ astronomer:
 To push the new configuration, run a platform upgrade from the `astronomer` repo:
 
 ```
-$ helm ls
+helm ls
 NAME                	REVISION	UPDATED                 	STATUS  	CHART                           	APP VERSION	NAMESPACE
 calico-crab         	4       	Fri Nov 22 09:36:51 2019	DEPLOYED	astronomer-platform-0.10.3-fix.1	0.10.3     	astro
 
-$ helm upgrade calico-crab -f config.yaml . --namespace astro
+helm upgrade calico-crab -f config.yaml . --namespace astro
 ```
 
 ## System Admins

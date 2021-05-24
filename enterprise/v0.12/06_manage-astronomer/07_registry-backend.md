@@ -93,17 +93,17 @@ astronomer:
 From here, find your platform release name and apply your changes.
 
 ```
-$ helm ls
+helm ls
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 For example, if you're running Astronomer v0.15.5 and your platform release name is `astronomer`, you might run:
 
 ```
-$ helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
+helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
 ```
 
 ## AWS S3
@@ -206,17 +206,17 @@ astronomer:
 From here, find your platform release name and apply your changes.
 
 ```
-$ helm ls
+helm ls
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 For example, if you're running Astronomer v0.15.5 and your platform release name is `astronomer`, you might run:
 
 ```
-$ helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
+helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
 ```
 
 ## Azure Blob Storage
@@ -254,15 +254,15 @@ astronomer:
 From here, find your platform release name and apply your changes.
 
 ```
-$ helm ls
+helm ls
 ```
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 For example, if you're running Astronomer v0.15.5 and your platform release name is `astronomer`, you might run:
 
 ```
-$ helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
+helm upgrade astronomer -f config.yaml --version=0.15.5 astronomer/astronomer -n astronomer
 ```

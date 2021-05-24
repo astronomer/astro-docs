@@ -34,22 +34,22 @@ A resource group is a collection of related resources for an Azure solution. You
 
 Login to your Azure account with the `az` CLI:
 ```
-$ az login
+az login
 ```
 
 Your active Azure subscriptions will print to your terminal.  Set your preferred Azure subscription:
 ```
-$ az account set --subscription <subscription_id>
+az account set --subscription <subscription_id>
 ```
 
 Confirm your preferred subscription is set:
 ```
-$ az account show
+az account show
 ```
 
 Create a resource group:
 ```
-$ az group create --location <location> --name <my_resource_group>
+az group create --location <location> --name <my_resource_group>
 ```
 *NOTE - For a list of available locations, run `az account list-locations`.*
 
@@ -59,7 +59,7 @@ You can choose the machine type to use, but we recommend using larger nodes vs s
 
 Create your Kubernetes cluster:
 ```
-$ az aks create --name <my_cluster_name> --resource-group <my_resource_group> --node-vm-size Standard_D8s_v3 --node-count 3
+az aks create --name <my_cluster_name> --resource-group <my_resource_group> --node-vm-size Standard_D8s_v3 --node-count 3
 ```
 
 You may need to increase your resource quota in order to provision these nodes.
@@ -71,19 +71,19 @@ You'll need to create a static IP address within your cluster's infrastructure r
 
 List the name of your cluster's infrastructure resource group:
 ```
-$ az aks show --resource-group <my-resource-group> --name <my_cluster_name> --query nodeResourceGroup -o tsv
+az aks show --resource-group <my-resource-group> --name <my_cluster_name> --query nodeResourceGroup -o tsv
 ```
 
 Create a static IP in your infrastructure resource group. Record the output for use later on:
 ```
-$ az network public-ip create --resource-group <infrastructure-resource-group-name> --name astro-ip --allocation-method static
+az network public-ip create --resource-group <infrastructure-resource-group-name> --name astro-ip --allocation-method static
 ```
 
 ### Authenticate with your AKS Cluster
 
 Run the following command to set your AKS cluster as current context in your kubeconfig. This will configure `kubectl` to point to your new AKS cluster:
 ```
-$ az aks get-credentials --resource-group <my_resource_group> --name <my_cluster_name>
+az aks get-credentials --resource-group <my_resource_group> --name <my_cluster_name>
 ```
 
 ## 4. Configure Helm with your AKS Cluster
@@ -92,7 +92,7 @@ Helm is a package manager for Kubernetes. It allows you to easily deploy complex
 Create a namespace to host the core Astronomer Platform. If you are running through a standard installation, each Airflow deployment you provision will be created in a seperate namespace that our platform will provision for you, this initial namespace will just contain the core Astronomer platform.
 
 ```
-$ kubectl create namespace <my-namespace>
+kubectl create namespace <my-namespace>
 ```
 
 ### Create a tiller Service Account
@@ -120,19 +120,19 @@ subjects:
 
 Run the following command to apply these configurations to your Kubernetes cluster:
 ```
-$ kubectl create -f rbac-config.yaml
+kubectl create -f rbac-config.yaml
 ```
 
 ### Deploy a tiller Pod
 
 Your Helm client communicates with your kubernetes cluster through a `tiller` pod.  To deploy your tiller, run:
 ```
-$ helm init --service-account tiller
+helm init --service-account tiller
 ```
 
 Confirm your `tiller` pod was deployed successfully:
 ```
-$ helm version
+helm version
 ```
 
 ## 5. Configure the Database
@@ -166,12 +166,12 @@ You'll need to obtain a wildcard SSL certificate for your domain (e.g. `*.astro.
 
 Linux:
 ```
-$ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.mydomain.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.mydomain.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 macOS:
 ```
-$ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.mydomain.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.mydomain.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
@@ -190,24 +190,24 @@ You'll need to create two Kubernetes secrets - one for the databases to be creat
 
 Set an environment variable `$PGPASSWORD` containing your PostgreSQL database password:
 ```
-$ export PGPASSWORD=$(kubectl get secret --namespace <my-namespace> <my-astro-db>-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode; echo)
+export PGPASSWORD=$(kubectl get secret --namespace <my-namespace> <my-astro-db>-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode; echo)
 ```
 
 Confirm your `$PGPASSWORD` variable is set properly:
 ```
-$ echo $PGPASSWORD
+echo $PGPASSWORD
 ```
 
 Create a Kubernetes secret named `astronomer-bootstrap` to hold your database connection string:
 ```
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://postgres:$PGPASSWORD@<my-astro-db>-postgresql.<my-namespace>.svc.cluster.local:5432" --namespace <my-namespace>
+kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://postgres:$PGPASSWORD@<my-astro-db>-postgresql.<my-namespace>.svc.cluster.local:5432" --namespace <my-namespace>
 ```
 
 ### Create TLS Secret
 
 Create a TLS secret named `astronomer-tls` using the previously generated SSL certificate files:
 ```
-$ sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.mydomain.com/privkey.pem --cert /etc/letsencrypt/live/astro.mydomain.com/fullchain.pem --namespace <my-namespace>
+sudo kubectl create secret tls astronomer-tls --key /etc/letsencrypt/live/astro.mydomain.com/privkey.pem --cert /etc/letsencrypt/live/astro.mydomain.com/fullchain.pem --namespace <my-namespace>
 ```
 **Note:** If you generated your certs using LetsEncrypt, you will need to run the command above as `sudo`
 
@@ -217,14 +217,14 @@ Now that your Kubernetes cluster has been configured with all prerequisites, you
 
 Clone the Astronomer helm charts locally and checkout your desired branch:
 ```
-$ git clone https://github.com/astronomer/astronomer.git
-$ git checkout <branch-name>
+git clone https://github.com/astronomer/astronomer.git
+git checkout <branch-name>
 ```
 **Do not deploy off of the master branch. Be sure to check out the latest stable branch. Be sure to check out the latest `release-0.X` branch that can be found on our [CHANGELOG](https://github.com/astronomer/astronomer/blob/master/CHANGELOG.md)**
 
 Create your `config.yaml` by copying our `starter.yaml` template:
 ```
-$ cp ./configs/starter.yaml ./config.yaml
+cp ./configs/starter.yaml ./config.yaml
 ```
 
 
@@ -274,7 +274,7 @@ smtpUrl: smtps://USERNAME:PW@HOST/?pool=true
 ## 9. Install Astronomer
 
 ```
-$ helm install -f config.yaml . --namespace <my-namespace>
+helm install -f config.yaml . --namespace <my-namespace>
 ```
 
 Check out our `Customizing Your Install` section for guidance on setting an [auth system](/docs/enterprise/v0.13/manage-astronomer/integrate-auth-system/) and [resource requests](https://www.astronomer.io/docs/enterprise/v0.13/manage-astronomer/configure-platform-resources/) in this `config.yaml`.
@@ -284,13 +284,13 @@ Check out our `Customizing Your Install` section for guidance on setting an [aut
 To verify all pods are up and running, run:
 
 ```
-$ kubectl get pods --namespace <my-namespace>
+kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
 
 ```
-$ kubectl get pods --namespace astronomer
+kubectl get pods --namespace astronomer
 NAME                                                    READY   STATUS      RESTARTS   AGE
 newbie-norse-alertmanager-0                            1/1     Running     0          30m
 newbie-norse-cli-install-565658b84d-bqkm9              1/1     Running     0          30m

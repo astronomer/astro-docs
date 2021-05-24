@@ -110,7 +110,7 @@ With the connection information above, you should also be able to connect to the
 Using [`psql`](https://www.postgresql.org/docs/9.3/app-psql.html), a terminal-based front-end to PostgreSQL, run:
 
 ```
-$ psql -h localhost -U postgres -p 5432 -W
+psql -h localhost -U postgres -p 5432 -W
 ```
 
 When prompted, enter the password from the Connection Object above to access the database.
@@ -120,7 +120,7 @@ Alternatively, you can also connect to the DB via the Postgres container itself 
 To do so, run:
 
 ```
-    $ docker exec -it <postgres_container_id> /bin/bash
+    docker exec -it <postgres_container_id> /bin/bash
     psql -U postgres
 ```
     

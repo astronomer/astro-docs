@@ -55,7 +55,7 @@ There are two ways to install the Astronomer CLI:
 To install the latest version of the Astronomer CLI via cURL, run:
 
 ```bash
-$ curl -ssl https://install.astronomer.io | sudo bash
+curl -ssl https://install.astronomer.io | sudo bash
 ```
 
 ### Install the CLI via Homebrew
@@ -63,7 +63,7 @@ $ curl -ssl https://install.astronomer.io | sudo bash
 To install the latest version of the Astronomer CLI via [Homebrew](https://brew.sh/), run:
 
 ```bash
-$ brew install astronomer/tap/astro
+brew install astronomer/tap/astro
 ```
 
 For detailed guidelines, read [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
@@ -97,7 +97,7 @@ For a comprehensive list of recommended and required changes specific to your ex
 To run the Airflow 2.0 upgrade check script, run:
 
 ```
-$ astro dev upgrade-check
+astro dev upgrade-check
 ```
 
 This command will automatically install the latest version of the `apache-airflow-upgrade-check` package at runtime and output results from the corresponding Airflow CLI command. It is only supported locally.

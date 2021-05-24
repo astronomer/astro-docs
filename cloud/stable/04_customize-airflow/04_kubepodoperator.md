@@ -192,7 +192,7 @@ Two preliminary notes:
 The command will look something like:
 
 ```
-$ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
 ```
 
 The output should be something like:
