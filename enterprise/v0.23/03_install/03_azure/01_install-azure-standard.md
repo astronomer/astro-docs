@@ -13,6 +13,7 @@ To install Astronomer on AKS, you'll need access to the following tools and perm
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 * [Kubernetes CLI (kubectl)](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* A compatible version of Kubernetes as described in Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/v0.23/resources/version-compatibility-reference)
 * [Helm v3.2.1](https://github.com/helm/helm/releases/tag/v3.2.1)
 * SMTP Service & Credentials (e.g. Mailgun, Sendgrid, etc.)
 * Permission to create and modify resources on AKS
@@ -43,7 +44,7 @@ The steps below will walk you through how to:
 
 You can view Microsoft Azure's Web Portal at https://portal.azure.com/.
 
-> Note: Astronomer currently supports Kubernetes versions 1.14, 1.15 and 1.16 on AKS.
+> Note: Each version of Astronomer Enterprise is compatible with only a particular set of Kubernetes versions. For more information, refer to Astronomer's [Version Compatibility Reference](https://www.astronomer.io/docs/enterprise/stable/resources/version-compatibility-reference).
 
 ### Create an Azure Resource Group
 
@@ -97,15 +98,13 @@ $ az aks get-credentials --resource-group <my_resource_group> --name <my_cluster
 
 ## Step 3: Create a Kubernetes Namespace
 
-Now that you have a base domain and an AKS cluster up and running, you'll need to create a namespace to host the core Astronomer Platform.
+Create a [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) called `astronomer` to host the core Astronomer platform:
 
-For standard installs, each Airflow Deployment provisioned on the platform will automatically be created within an additional, isolated namespace.
-
-The initial namespace we're creating below will just contain the core Astronomer platform.
-
-```bash
-$ kubectl create ns astronomer
+```sh
+kubectl create namespace astronomer
 ```
+
+Once Astronomer is running, each Airflow Deployment that you create will have its own isolated namespace.
 
 ## Step 4: Configure TLS
 
@@ -181,10 +180,14 @@ $ kubectl create secret tls astronomer-tls --cert <your-certificate-filepath> --
 If you received a certificate from a private CA, follow these steps instead:
 
 1. Add the root certificate provided by your security team to an [Opaque Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) in the Astronomer namespace by running the following command:
-```sh
-$ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
-```
-> **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    ```sh
+    $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-certificate-filepath>
+    ```
+
+    > **Note:** The root certificate which you specify here should be the certificate of the authority that signed the Astronomer certificate, rather than the Astronomer certificate itself. This is the same certificate you need to install with all clients to get them to trust your services.
+
+    > **Note:** The name of the secret file must be `cert.pem` for your certificate to be trusted properly.
 
 2. Note the value of `private-root-ca` for when you configure your Helm chart in Step 7. You'll need to additionally specify the `privateCaCerts` key-value pair with this value for that step.
 
@@ -193,10 +196,13 @@ $ kubectl create secret generic private-root-ca --from-file=cert.pem=./<your-cer
 If you're connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
 
 ```sh
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <your-namespace>
+$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@<HOST>:5432/<DATABASE>?sslmode=<mode>" --namespace <your-namespace>
 ```
 
-> **Note:** If you want to use Azure Database for PostgreSQL with Astronomer, you must use the [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) service.
+A few notes:
+- If you want to use Azure Database for PostgreSQL with Astronomer, [Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/) is recommended.
+- If you provision Azure Database for PostgreSQL - Flexible Server, it enforces TLS/SSL and requires that you set `sslmode` to `require` in your `config.yaml` file. Possible values for `sslmode` are: `disable`, `allow`, `prefer`, `require` (for Flexible Server), `verify-ca`, `verify-full`. More guidelines in Step 7.
+- If you provision an external database, `postgresqlEnabled` should be set to `false` in Step 7.
 
 ## Step 7: Configure Your Helm Chart
 
@@ -212,7 +218,11 @@ In the newly created file, copy the example below and replace `baseDomain`, `pri
 ### Astronomer global configuration
 #################################
 global:
-  # Base domain for all subdomains exposed through ingress
+  # Enables default values for Azure installations
+  azure:
+    enabled: true
+
+  # Base domain for all subdomains exposed through ingress
   baseDomain: astro.mydomain.com
 
   # Name of secret containing TLS certificate
@@ -220,26 +230,32 @@ global:
 
   # Enable privateCaCerts only if your enterprise security team
   # generated a certificate from a private certificate authority.
-  privateCaCerts:
-  - private-root-ca
+  # privateCaCerts:
+  # - private-root-ca
 
   # Enable privateCaCertsAddToHost only when your nodes do not already
   # include the private CA in their docker trust store.
   # Most enterprises already have this configured,
   # and in that case 'enabled' should be false.
-  privateCaCertsAddToHost:
-    enabled: true
-    hostDirectory: /etc/docker/certs.d
+  # privateCaCertsAddToHost:
+  #   enabled: true
+  #   hostDirectory: /etc/docker/certs.d
+
   # For development or proof-of-concept, you can use an in-cluster database
-  postgresqlEnabled: true # Keep True if deploying a database on your AKS cluster.
+  postgresqlEnabled: false # Keep True if deploying a database on your AKS cluster.
+
+# SSL support for using SSL connections to encrypt client/server communication between database and Astronomer platform. Enable SSL if provisioning Azure Database for PostgreSQL - Flexible Server as it enforces SSL. Change the setting with respect to the database provisioned.
+  ssl:
+    enabled: true
+    mode: "require"
 
 # Settings for database deployed on AKS cluster.
-postgresql:
-  replication:
-    enabled: true
-    slaveReplicas: 2
-    synchronousCommit: "on"
-    numSynchronousReplicas: 1
+# postgresql:
+#  replication:
+#    enabled: true
+#    slaveReplicas: 2
+#    synchronousCommit: "on"
+#    numSynchronousReplicas: 1
 
 #################################
 ### Nginx configuration
@@ -247,6 +263,8 @@ postgresql:
 nginx:
   # IP address the nginx ingress should bind to
   loadBalancerIP: ~
+  # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
+  ingressAnnotations: {}
 
 #################################
 ### SMTP configuration

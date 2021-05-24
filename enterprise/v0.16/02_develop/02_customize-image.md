@@ -297,7 +297,7 @@ RUN pip install --no-cache-dir -q -r requirements.txt
 
 FROM stage1 AS stage3
 # Copy requirements directory
-COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
+COPY --from=stage2 /usr/lib/python3.7/site-packages/ /usr/lib/python3.7/site-packages/
 COPY . .
 ```
 
@@ -308,7 +308,7 @@ A few notes:
 - Make sure to replace the first line of this file (`FROM`..) with your Airflow Image (Step 2 above)
 - If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
-- If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `# Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
+- If you're running Python 3.8 on your machine, replace the reference to Python 3.7 under `# Copy requirements directory` with `/usr/lib/python3.8/site-packages/` above
 
 ### 2. Build your Image
 
@@ -348,3 +348,33 @@ Now, let's push your new image to Astronomer.
 - If you're pushing up to Astronomer, you're free to deploy by running `$ astro deploy` or by triggering your CI/CD pipeline
 
 For more detail on the Astronomer deployment process, refer to our [Code Deployment doc](/docs/enterprise/v0.16/deploy/deploy-code/).
+
+## Build with a Different Python Version
+
+While the Astronomer Certified (AC) Python Wheel supports Python versions 3.6, 3.7, and 3.8, AC Docker images have been tested and built only for Python 3.7.
+
+To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you need to create a custom version of the image, specify the `PYTHON_MAJOR_MINOR_VERSION` build argument, and push the custom image to an existing Docker registry. To do so:
+
+1. Using `docker build`, build a custom [Astronomer Certified Docker image](https://github.com/astronomer/ap-airflow) and specify `PYTHON_MAJOR_MINOR_VERSION` for the version of Python you'd like to support. For example, the command for building a custom Astronomer Certified image for Airflow 1.10.10 with Python 3.8 would look something like this:
+
+    ```sh
+    $ docker build --build-arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t <your-registry>/ap-airflow:<image-tag> https://github.com/astronomer/ap-airflow.git#master:1.10.10/buster
+    ```
+
+    We recommend using an image tag that indicates the image is using a different Python version, such as `1.10.10-buster-python3.8`.
+
+    > **Note:** To use a different version of Airflow, update the URL to point towards the desired Airflow version. For instance, if you're running Airflow 1.10.14, the GitHub URL here would be: `https://github.com/astronomer/ap-airflow.git#master:1.10.14/buster`
+
+2. Push the custom image to your Docker registry. Based on the example in the previous step, the command to do so would look something like this:
+
+    ```sh
+    $ docker push <your-registry>/ap-airflow:<image-tag>
+    ```
+
+3. Update the `FROM` line of your `Dockerfile` to reference the custom image. Based on the previous example, the line would read:
+
+    ```
+    FROM <your-registry>/ap-airflow:<image-tag>
+    ```
+
+> **Note:** Astronomer Certified Docker images for Apache Airflow 1.10.14+ are Debian-based only. To run Docker images based on Alpine-Linux for Airflow versions 1.10.7, 1.10.10, or 1.10.12, specify `alpine3.10` instead of `buster` in the GitHub URL.
