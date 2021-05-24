@@ -8,7 +8,7 @@ description: "How to push DAGs to an Airflow Deployment on Astronomer using an e
 
 Starting in Astronomer Enterprise v0.25, you can use an external [Network File System (NFS) Volume](https://kubernetes.io/docs/concepts/storage/volumes/#nfs) to deploy DAGs to an Airflow Deployment on Astronomer.
 
-Unlike [deploying DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/deploy-cli.), deploying DAGs to an NFS volume, such as Azure File Storage or Google Cloud Filestore, does not require rebuilding a Docker image and restarting your underlying Airflow service. When a DAG is added to an NFS volume, it automatically appears in the Airflow UI without requiring additional action or causing downtime.
+Unlike [deploying DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/deploy-cli), deploying DAGs to an NFS volume, such as Azure File Storage or Google Cloud Filestore, does not require rebuilding a Docker image and restarting your underlying Airflow service. When a DAG is added to an NFS volume, it automatically appears in the Airflow UI without requiring additional action or causing downtime.
 
 This guide provides the necessary setup for connecting an NFS volume to Astronomer as a DAG deploy option. Some considerations before completing this setup:
 
@@ -55,4 +55,4 @@ Workspace editors can configure a new or existing Airflow Deployment to use a pr
 4. In the **NFS Location** field that appears, enter the location of your volume-based DAG directory as `<IP>:/<path>` (for example: `192.168.0.1:/path/to/your/dags`).
 5. Save your changes.
 
-> **Note:** NFS volumes can also be configured via the Astronomer CLI. To do so, specify the `--nfs-location` flag when running [`astro deployment create`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-create) or [`astro deployment update`](docs/enterprise/v0.25/resources/cli-reference#astro-deployment-update).
+> **Note:** NFS volumes can also be configured via the Astronomer CLI. To do so, specify the `--nfs-location` flag when running [`astro deployment create`](/docs/enterprise/v0.25/resources/cli-reference#astro-deployment-create) or [`astro deployment update`](/docs/enterprise/v0.25/resources/cli-reference#astro-deployment-update).

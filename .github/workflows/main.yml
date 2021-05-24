@@ -46,4 +46,3 @@ jobs:
           config-file: './mlc_config.json'
           check-modified-files-only: 'yes'
           base-branch: 'main'
-          folder-path: './enterprise/next/, ./cloud/stable/, ./cloud/stable/ ./enterprise/next/'

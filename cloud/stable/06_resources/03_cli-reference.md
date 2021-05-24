@@ -876,7 +876,7 @@ Updates a user's role in your current Workspace.
 ### Flags
 
 | Flag | Value Type | Usage |
-| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- | |
+| --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `--role` | String | The role you're updating the user to. Possible values are `WORKSPACE_VIEWER`, `WORKSPACE_EDITOR`, or `WORKSPACE_ADMIN`. If `--role` is not specified, the user is updated to `WORKSPACE_VIEWER` by default. |
 
 ### Related documentation
