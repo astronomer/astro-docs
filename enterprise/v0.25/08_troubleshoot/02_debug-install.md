@@ -12,7 +12,7 @@ If the Astronomer platform is not functioning after following the instructions i
 When deploying the base Astronomer platform, the only three pods that will connect directly to the database are Houston (API), Grafana, and Prisma. All other database connections will be created from Airflow deployments created on Astronomer.
 
 ```
-kubectl get pods -n astro-demo
+$ kubectl get pods -n astro-demo
 NAME                                                       READY   STATUS             RESTARTS   AGE
 manageable-snail-alertmanager-0                            1/1     Running            0          1h
 manageable-snail-cli-install-5b96bfdc-25nzs                1/1     Running            0          1h
@@ -92,7 +92,7 @@ If the connection times out here, there may be a networking issue.
 Check to make sure the `astronomer-bootstrap` secret created earlier, which contains the connection string to the database, does not contain any typos:
 
 ```
-kubectl get secrets -n astro-demo
+$ kubectl get secrets -n astro-demo
 NAME                                                   TYPE                                  DATA   AGE
 astronomer-bootstrap                                   Opaque                                1      33h
 astronomer-tls                                         kubernetes.io/tls                     2      44d
@@ -119,7 +119,7 @@ manageable-snail-registry-auth                         kubernetes.io/dockerconfi
 To decrypt the `astronomer-bootstrap` secret:
 
 ```
-kubectl get secret astronomer-bootstrap -o yaml
+$ kubectl get secret astronomer-bootstrap -o yaml
 apiVersion: v1
 data:
   connection: <encoded_value>
@@ -142,11 +142,11 @@ echo <encoded_value> | base64 --decode
 If there is indeed a typo, delete the secret, recreate it with the right value, and then delete all the pods in the namespace.
 
 ```
-kubectl delete secret astronomer-bootstrap -n astro-demo
+$ kubectl delete secret astronomer-bootstrap -n astro-demo
 secret/astronomer-bootstrap deleted
-kubectl create secret generic astronomer-bootstrap --from-literal connection="<your_connection_string>" --namespace <namespace>
+$ kubectl create secret generic astronomer-bootstrap --from-literal connection="<your_connection_string>" --namespace <namespace>
 secret/astronomer-bootstrap created
-kubectl delete --all pods --namespace <namespace>
+$ kubectl delete --all pods --namespace <namespace>
 ```
 
 Restarting the pods will force them to pick up the new value.

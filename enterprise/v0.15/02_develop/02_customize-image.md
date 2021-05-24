@@ -192,7 +192,7 @@ Make sure to specify `version: "2"` and mimic the format of the source code file
 When your image builds on `$ astro dev start`, any changes made within the `custom_dependencies` directory will be picked up automatically the same way they are with files in your `dags` directory:
 
 ```
-docker exec -it astronomer_project239673_scheduler_1 ls -al
+$ docker exec -it astronomer_project239673_scheduler_1 ls -al
 total 76
 drwxr-xr-x    1 astro    astro         4096 Dec 30 17:21 .
 drwxr-xr-x    1 root     root          4096 Dec 14  2018 ..

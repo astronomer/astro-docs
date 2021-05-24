@@ -338,7 +338,7 @@ kubectl get pods --namespace <my-namespace>
 You should see something like this:
 
 ```command
-kubectl get pods --namespace astronomer
+$ kubectl get pods --namespace astronomer
 
 NAME                                                       READY   STATUS              RESTARTS   AGE
 astronomer-alertmanager-0                                  1/1     Running             0          24m
@@ -389,7 +389,7 @@ Now that you've successfully installed Astronomer, a new Load Balancer will have
 Run `kubectl get svc -n astronomer` to view your Load Balancer's External IP Address, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
 
 ```
-kubectl get svc -n astronomer
+$ kubectl get svc -n astronomer
 NAME                                          TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                      AGE
 astronomer-alertmanager                       ClusterIP      10.0.184.29    <none>          9093/TCP                                     6m48s
 astronomer-astro-ui                           ClusterIP      10.0.107.212   <none>          8080/TCP                                     6m48s
@@ -458,16 +458,16 @@ astro auth login <your-astronomer-base-domain>
 If you can log in, then your Docker client trusts the registry. If Docker does not trust the Astronomer registry, run the following and restart Docker:
 
 ```
-mkdir -p /etc/docker/certs.d
-cp privateCA.pem /etc/docker/certs.d/
+$ mkdir -p /etc/docker/certs.d
+$ cp privateCA.pem /etc/docker/certs.d/
 ```
 
 Finally, try running `$ astro deploy` on a test deployment. Create a deployment in the Astronomer UI, then run:
 ```sh
-mkdir demo
-cd demo
-astro airflow init
-astro deploy -f
+$ mkdir demo
+$ cd demo
+$ astro dev init
+$ astro deploy -f
 ```
 Check the Airflow namespace. If pods are changing at all, then the Houston API trusts the registry.
 

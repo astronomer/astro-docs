@@ -131,6 +131,6 @@ kubectl delete secret astronomer-tls
 
 3. Restart your Houston, nginx, and registry pods to begin using the new certificate by running the following commands:
 ```sh
-kubectl rollout restart deployments -n <your-namespace>
-kubectl rollout restart statefulsets -n <your-namespace>
+$ kubectl rollout restart deployments -n <your-namespace>
+$ kubectl rollout restart statefulsets -n <your-namespace>
 ```
