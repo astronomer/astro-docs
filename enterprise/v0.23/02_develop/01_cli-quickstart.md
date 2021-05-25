@@ -242,7 +242,7 @@ While upgrading to a new minor version of Astronomer requires upgrading the Astr
 To check your working versions of Astronomer (`Astro Server Version`) and the Astronomer CLI (`Astro CLI`), run:
 
 ```sh
-$ astro version
+astro version
 ```
 
 This command will output something like the following:

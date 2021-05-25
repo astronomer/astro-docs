@@ -40,13 +40,13 @@ There are two ways to install any version of the Astronomer CLI:
 If you have Homebrew installed, run:
 
 ```sh
-$ brew install astronomer/tap/astro
+brew install astronomer/tap/astro
 ```
 
 To install a specific version of the Astro CLI, you'll have to specify `@major.minor.patch`. To install v0.13.1, for example, run:
 
 ```sh
-$ brew install astronomer/tap/astro@0.13.1
+brew install astronomer/tap/astro@0.13.1
 ```
 
 ### via cURL
@@ -54,13 +54,13 @@ $ brew install astronomer/tap/astro@0.13.1
 To install the latest version of our CLI, run:
 
 ```
-$ curl -sSL https://install.astronomer.io | sudo bash
+curl -sSL https://install.astronomer.io | sudo bash
 ```
 
 To install a specific version of the Astro CLI, specify `-s -- major.minor.patch` as a flag at the end of the curl command. To install v0.13.1, for example, run:
 
 ```
-$ curl -sSL https://install.astronomer.io | sudo bash -s -- v0.13.1
+curl -sSL https://install.astronomer.io | sudo bash -s -- v0.13.1
 ```
 
 #### MacOS Catalina Users
@@ -73,7 +73,7 @@ If you're running macOS Catalina and beyond, do the following:
 2. Run the following to install the CLI properly:
 
 ```
-$ curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
+curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
 ```
 
 ### Confirm the Install
@@ -81,7 +81,7 @@ $ curl -sSL https://install.astronomer.io | sudo bash -s < /dev/null
 To make sure that you have the Astro CLI installed on your machine and have a project to work from, run:
 
 ```bash
-$ astro version
+astro version
 ```
 
 If you're set up properly, you should see the version of the CLI you installed in the output:
@@ -126,7 +126,7 @@ Once the Astronomer CLI is installed, the next step is to initialize an Airflow 
 #### 1. Create a new directory on your machine
 
 ```
-$ mkdir <directory-name> && cd <directory-name>
+mkdir <directory-name> && cd <directory-name>
 ```
 
 This is what you should check into your version control tool.
@@ -134,7 +134,7 @@ This is what you should check into your version control tool.
 #### 2. Once you're in that project directory, run:
 
 ```
-$ astro dev init
+astro dev init
 ```
 
 This will generate a collection of files within your directory:
@@ -157,7 +157,7 @@ These files collectively make up the Docker image you'll then push to the Airflo
 To spin up a local Airflow Deployment on your machine, run:
 
 ```
-$ astro dev start
+astro dev start
 ```
 
 This command will spin up 3 Docker containers on your machine, each for a different Airflow component.
@@ -205,13 +205,13 @@ This includes changing the Airflow image in your `Dockerfile`, adding Python Pac
 #### 1. Stop your running Docker containers:
 
 ```
-$ astro dev stop
+astro dev stop
 ```
 
 #### 2. Restart those Docker containers:
 
 ```
-$ astro dev start
+astro dev start
 ```
 
 ## Access to the Airflow CLI

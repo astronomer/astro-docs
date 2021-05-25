@@ -40,13 +40,13 @@ When you have finished updating the key-value pairs, ensure that they have the s
 Your platform release name can be found in your list of active namespaces. To show this list, run:
 
 ```sh
-$ kubectl get ns
+kubectl get ns
 ```
 
 To identify the value for your platform release name, run:
 
 ```sh
-$ helm ls -n <your-platform-namespace>
+helm ls -n <your-platform-namespace>
 ```
 
 ### 2. Save your config.yaml file and run a helm upgrade.
@@ -54,7 +54,7 @@ $ helm ls -n <your-platform-namespace>
 To do so, run:
 
 ```sh
-$ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml -n <your-platform-namespace> --version=<your-platform-version>
+helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml -n <your-platform-namespace> --version=<your-platform-version>
 ```
 
 ### 3. Confirm that the key-value pairs were successfully updated.
@@ -62,5 +62,5 @@ $ helm upgrade <your-platform-release-name> astronomer/astronomer -f config.yaml
 To do so, run:
 
 ```sh
-$ helm get values <your-platform-release-name> -n <your-platform-namespace>
+helm get values <your-platform-release-name> -n <your-platform-namespace>
 ```

@@ -61,13 +61,13 @@ If you do not already have both, reference [Velero's documentation](https://vele
 If you need to create a backup on demand, run the following via the Velero CLI:
 
 ```
-$ velero backup create <BACKUP NAME>
+velero backup create <BACKUP NAME>
 ```
 
 By default, the command above makes disk snapshots of any persistent volumes. You can adjust the snapshots by specifying additional flags. To see available flags, run:
 
 ```
-$ velero backup create --help
+velero backup create --help
 ```
 
 Snapshots can be disabled with the option `--snapshot-volumes=false.`
@@ -79,7 +79,7 @@ Production environments should have scheduled backups enabled. The frequency of 
 We recommend that you start with at least daily backups and adjust the frequency from there as needed. To schedule a backup for a specific time, run:
 
 ```
-$ velero schedule create <SCHEDULE NAME> --schedule "0 1 * * *"
+velero schedule create <SCHEDULE NAME> --schedule "0 1 * * *"
 ```
 
 The command above will schedule a daily backup of the entire cluster at 1am UTC. Velero uses standard Unix cron syntax to specify the schedule frequency and occurrence.
@@ -137,7 +137,7 @@ To restore a previous version of a deployment that has NOT been deleted via the 
 1. Identify the Velero backup you intend to use by running:
 
     ```
-    $ velero backup get
+    velero backup get
     ```
 
 2. Identify the Kubernetes namespace in question, which corresponds to your Airflow Deployment’s “release name” and has your platform’s namespace (typically “astronomer”) prepended to the front.
@@ -147,7 +147,7 @@ To restore a previous version of a deployment that has NOT been deleted via the 
 3. Run:
 
     ```
-    $ velero restore create --from-backup <BACKUP NAME> --include-namespaces <NAMESPACE NAME>
+    velero restore create --from-backup <BACKUP NAME> --include-namespaces <NAMESPACE NAME>
     ```
 
 #### Deleted Airflow Deployment
@@ -159,31 +159,31 @@ Once that is complete, the Astronomer Database needs to be updated to mark that 
 1. Grab your database connection string (stored as a Kubernetes secret)
 
     ```
-    $ kubectl -n astronomer get secret  astronomer-houston-backend -o jsonpath='{.data.connection}' | base64 -D
+    kubectl -n astronomer get secret  astronomer-houston-backend -o jsonpath='{.data.connection}' | base64 -D
     ```
 
 2. To connect to the database, launch a container into your cluster with the Postgres client:
 
     ```
-    $ kubectl run pgclient -ti --image=postgres --restart=Never --image-pull-policy=Always -- bash
+    kubectl run pgclient -ti --image=postgres --restart=Never --image-pull-policy=Always -- bash
     ```
 
 3. Then run the following command to connect to the database:
 
     ```
-    $ psql <YOUR CONNECTION STRING>
+    psql <YOUR CONNECTION STRING>
     ```
 
     Example:
 
     ```
-    $ psql postgres://airflow:XXXXXXX@database1.cloud.com:5432/astronomer_houston
+    psql postgres://airflow:XXXXXXX@database1.cloud.com:5432/astronomer_houston
     ```
 
 4. Update the record for the deployment you wish to restore.
 
     ```
-    $ UPDATE houston$default."Deployment" SET "deletedAt" = NULL WHERE "releaseName" = '<YOUR RELEASE NAME>';
+    UPDATE houston$default."Deployment" SET "deletedAt" = NULL WHERE "releaseName" = '<YOUR RELEASE NAME>';
     ```
 
 Following these steps, the restored Airflow Deployment should render in the Astronomer UI with its corresponding Workspace. All associated pods should be running in the cluster.
@@ -197,7 +197,7 @@ In case your team ever needs to migrate to new infrastructure or your existing i
 3. Set the Velero backup storage location to `readonly` to prevent accidentally overwriting any backups by running:
 
 ```
-    $ kubectl patch backupstoragelocation <STORAGE LOCATION NAME> \
+    kubectl patch backupstoragelocation <STORAGE LOCATION NAME> \
     --namespace velero \
     --type merge \
     --patch '{"spec":{"accessMode":"ReadOnly"}}'
@@ -209,7 +209,7 @@ From here,
 2. Perform velero full cluster restore by running:
 
     ```
-    $ velero restore create --from-backup <BACKUP NAME>
+    velero restore create --from-backup <BACKUP NAME>
     ```
 
 3. If the database endpoint has changed (e.g. it has a new hostname), it needs to be provided to the platform.

@@ -42,16 +42,16 @@ To create a Deployment-level Service Account via the Astronomer CLI:
 
 1. Authenticate to the Astronomer CLI by running:
    ```
-   $ astro auth login gcp0001.us-east4.astronomer.io
+   astro auth login gcp0001.us-east4.astronomer.io
    ```
 2. Identify your Airflow Deployment's Deployment ID. To do so, run:
    ```
-   $ astro deployment list
+   astro deployment list
    ```
    This will output the list of Airflow Deployments you have access to and their corresponding Deployment ID.
 3. With that Deployment ID, run:
    ```
-   $ astro deployment service-account create -d <deployment-id> --label <service-account-label> --role <deployment-role>
+   astro deployment service-account create -d <deployment-id> --label <service-account-label> --role <deployment-role>
    ```
 4.  Save the API Key that was generated. Depending on your use case, you might want to store this key in an Environment Variable or secret management tool of choice.
 

@@ -59,20 +59,20 @@ You have a few options when installing the Helm chart itself:
 - To install this Helm chart with [KEDA](https://keda.sh/), run:
 
     ```bash
-    $ helm repo add kedacore https://kedacore.github.io/charts
-    $ helm repo add astronomer https://helm.astronomer.io
+    helm repo add kedacore https://kedacore.github.io/charts
+    helm repo add astronomer https://helm.astronomer.io
 
-    $ helm repo update
+    helm repo update
 
-    $ kubectl create namespace keda
+    kubectl create namespace keda
 
-    $ helm install keda \
+    helm install keda \
         --namespace keda kedacore/keda \
         --version "v1.5.0"
 
-    $ kubectl create namespace airflow
+    kubectl create namespace airflow
 
-    $ helm install airflow \
+    helm install airflow \
         --set executor=CeleryExecutor \
         --set workers.keda.enabled=true \
         --set workers.persistence.enabled=false \
@@ -102,7 +102,7 @@ This command imports a `values.yaml` file which you can use to update your Airfl
     Alternatively, you can update individual values within the CLI:
 
     ```sh
-    $ helm install --name my-release \
+    helm install --name my-release \
       --set executor=CeleryExecutor \
       --set enablePodLaunching=false .
     ```

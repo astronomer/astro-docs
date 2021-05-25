@@ -57,7 +57,7 @@ ENV AIRFLOW__CORE__DAG_CONCURRENCY=5
 To confirm that the Environment Variables you just set were applied to your Airflow Deployment locally, first run:
 
 ```
-$ docker ps
+docker ps
 ```
 
 This will output 3 Docker containers that were provisioned to run Airflow's 3 primary components on your machine: The Airflow Scheduler, Webserver and Postgres Metadata Database.
@@ -78,7 +78,7 @@ Dockerfile             airflow.cfg            airflow_settings.yaml  dags       
 Now, run:
 
 ```
-$ env
+env
 ```
 
 This should output all Environment Variables that are running locally, some of which are set by you and some of which are set by Astronomer by default.

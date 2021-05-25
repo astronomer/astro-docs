@@ -53,24 +53,24 @@ A resource group is a collection of related resources for an Azure solution. You
 Login to your Azure account with the `az` CLI:
 
 ```
-$ az login
+az login
 ```
 
 Your active Azure subscriptions will print to your terminal.  Set your preferred Azure subscription:
 
 ```
-$ az account set --subscription <subscription_id>
+az account set --subscription <subscription_id>
 ```
 
 Confirm your preferred subscription is set:
 
 ```
-$ az account show
+az account show
 ```
 
 Create a resource group:
 ```
-$ az group create --location <location> --name <my_resource_group>
+az group create --location <location> --name <my_resource_group>
 ```
 > **Note:** For a list of available locations, run `$ az account list-locations`.
 
@@ -81,7 +81,7 @@ You can choose the machine type to use, but we recommend using larger nodes vs s
 
 Create your Kubernetes cluster:
 ```
-$ az aks create --name <my_cluster_name> --resource-group <my_resource_group> --node-vm-size Standard_D8s_v3 --node-count 3
+az aks create --name <my_cluster_name> --resource-group <my_resource_group> --node-vm-size Standard_D8s_v3 --node-count 3
 ```
 
 You may need to increase your resource quota in order to provision these nodes.
@@ -93,7 +93,7 @@ You may need to increase your resource quota in order to provision these nodes.
 Run the following command to set your AKS cluster as current context in your kubeconfig. This will configure `kubectl` to point to your new AKS cluster:
 
 ```
-$ az aks get-credentials --resource-group <my_resource_group> --name <my_cluster_name>
+az aks get-credentials --resource-group <my_resource_group> --name <my_cluster_name>
 ```
 
 ## 3. Create a Kubernetes Namespace
@@ -105,7 +105,7 @@ For standard installs, each Airflow Deployment provisioned on the platform will 
 The initial namespace we're creating below will just contain the core Astronomer platform.
 
 ```bash
-$ kubectl create ns astronomer
+kubectl create ns astronomer
 ```
 
 ## 4. Configure SSL
@@ -138,13 +138,13 @@ Let's Encrypt is a free and secure service that provides automated SSL Certifica
 If you are on a Mac, run the following:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 If you are running Linux:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
@@ -156,7 +156,7 @@ Follow the on-screen prompts and create a TXT record through your DNS provider. 
 If you're connecting to an external database, you will need to create a secret named `astronomer-bootstrap` to hold your database connection string:
 
 ```
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <my-namespace>
+kubectl create secret generic astronomer-bootstrap --from-literal connection="postgres://<USERNAME>:<PASSWORD>@HOST:5432" --namespace <my-namespace>
 ```
 
 > **Note:** You cannot use the Azure Database offering with Astronomer v0.16 due to performance issues. You can skip this command and instead enable a production-ready PostgreSQL server on your AKS cluster in step 6.
@@ -260,19 +260,19 @@ Now that you have an AKS cluster set up and your `config.yaml` defined, you're r
 First, run:
 
 ```
-$ helm repo add astronomer https://helm.astronomer.io/
+helm repo add astronomer https://helm.astronomer.io/
 ```
 
 Then, run:
 
 ```sh
-$ helm repo update
+helm repo update
 ```
 
 This will ensure that you pull the latest from our Helm repository. Finally, run:
 
 ```sh
-$ helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
+helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
 This command will install the latest available patch version of Astronomer Enterprise v0.16. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.16.x`. To install Astronomer Enterprise v0.16.9, for example, specify `--version=0.16.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.16/resources/release-notes/).
@@ -284,7 +284,7 @@ Once you run the commands above, a set of Kubernetes pods will be generated in y
 To verify all pods are up and running, run:
 
 ```
-$ kubectl get pods --namespace <my-namespace>
+kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
