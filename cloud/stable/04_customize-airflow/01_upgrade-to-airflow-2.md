@@ -192,7 +192,8 @@ To upgrade to 2.0.0,
 ```dockerfile
 FROM quay.io/astronomer/ap-airflow:2.0.0-buster-onbuild
 ```
-3. Deploy to Astronomer via `$ astro deploy`
+3. Change all Backport Providers you were using in Step 4, replace them with actual Providers. Example: If you were using [Mongo Backport Provider](https://pypi.org/project/apache-airflow-backport-providers-mongo/) with `apache-airflow-backport-providers-mongo` in `requirements.txt`, replace it with `apache-airflow-providers-mongo`. The documentation for all the released providers is on [Airflow Doc Website](https://airflow.apache.org/docs/).
+4. Deploy to Astronomer via `$ astro deploy`
 
 Then, navigate to the Airflow UI to confirm that your upgrade was successful. For guidelines on how to deploy to Astronomer, read [Deploy to Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli). 
 
