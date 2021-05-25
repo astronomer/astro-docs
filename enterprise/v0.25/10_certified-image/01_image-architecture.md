@@ -14,7 +14,7 @@ This guide provides reference information for the key components of Astronomer C
 
 Astronomer Certified is distributed both as a Python wheel and a Docker image. These distributions vary slightly in scope and dependencies.
 
-The Python wheel is the "core" of Astronomer Certified. It is comprised of open source Airflow, plus bug fixes extend the support lifespan of each version.
+The Python wheel is the "core" of Astronomer Certified. It is composed of open source Airflow, plus bug fixes extend the support lifespan of each version.
 
 The Astronomer Certified Docker image is built from the Python wheel. In addition to the Python wheel's bug fixes, the Docker image includes dependencies for increasing the security and extensibility of Airflow.
 
@@ -44,9 +44,9 @@ Astronomer maintains two Docker images for each version: one with an `onbuild` t
 
 When an Airflow service is started, it checks a file for runtime environment variables.
 
-If you use the Astronomer Certified Docker image, these environment variables are defined in your Dockerfile. Environment variables in you Dockerfile can be overwritten with a runtime command, such as `docker run`.
+If you use the Astronomer Certified Docker image, these environment variables are defined in your Dockerfile. Environment variables in your Dockerfile can be overwritten with a runtime command, such as `docker run`.
 
-If you use the Astronomer Certified Python wheel, these environment variables are included in their own file called `astronomer-certified`. This is also where you define systemwide runtime variables for your Airflow Deployment.
+If you use the Astronomer Certified Python wheel, these environment variables are included in their own file called `astronomer-certified`. This is also where you define system-wide runtime variables for your Airflow Deployment.
 
 Astronomer Certified supports the same environment variables as Apache Airflow. For a list of all configurable environment variables, read the [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html).
 
