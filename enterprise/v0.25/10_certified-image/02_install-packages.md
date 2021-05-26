@@ -8,7 +8,7 @@ description: "Learn how to install OS-level and Python-level packages on Airflow
 
 By default, the Astronomer Certified Docker image is distributed with Python and OS-level packages to help users integrate with popular applications. Python-level packages are dependencies which Airflow uses, while OS-level packages are dependencies which the image's underlying Debian OS uses. For the full list of built-in packages, read [Astronomer Certified Image Architecture].
 
-Depending in your use case and distribution of Astronomer Certified, you might want to install additional packages to your environment. This guide provides steps for installing additional dependencies to both Astronomer's Docker image and Python wheel.
+Depending on your use case and distribution of Astronomer Certified, you might want to install additional packages to your environment. This guide provides steps for installing additional dependencies to both Astronomer's Docker image and Python wheel.
 
 ## Install Packages to the Docker Image
 
