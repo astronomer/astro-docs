@@ -20,14 +20,14 @@ Following a section that highlights the biggest features included in Airflow 2.0
 
 If you'd like to test Airflow 2.0 locally with the Astronomer CLI, first read [Get Started with Airflow 2.0](https://astronomer.io/guides/get-started-airflow-2).
 
-> **Note:** The recommendations around the upgrade process are largely written in collaboration with the Apache Airflow project and community, though there a few differences in steps on Astronomer that we've made sure to outline below.
+> **Note:** The recommendations around the upgrade process are largely written in collaboration with the Apache Airflow project and community, though there are a few differences in steps on Astronomer that we've made sure to outline below.
 
 ## Why Airflow 2.0
 
 Airflow 2.0 was built to be fast, reliable, and infinitely scalable. Among the hundreds of new features both large and small, Airflow 2.0 includes:
 
 - [Refactored Airflow Scheduler](https://airflow.apache.org/docs/apache-airflow/stable/scheduler.html#running-more-than-one-scheduler) for enhanced performance and high-availability.
-- [Full REST API](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html) that enables a lot of opportunity for automation.
+- [Full REST API](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html) that enables more opportunities for automation.
 - [Smart Sensors](https://airflow.apache.org/docs/apache-airflow/stable/smart-sensor.html) that execute as single, long-running tasks.
 - [TaskFlow API](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#taskflow-api) for a simpler way to pass information between tasks.
 - [Independent Providers](https://github.com/apache/airflow/tree/master/airflow/providers) for improved usability and a more agile release cadence.
@@ -86,7 +86,7 @@ FROM quay.io/astronomer/ap-airflow:1.10.15-buster-onbuild
 
 For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.15, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.15) or the corresponding [AC 1.10.15 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/CHANGELOG.md).
 
-> **Note:** Astronomer Certified exclusively supports a Debian-based Docker image for both Airflow 1.10.15 and 2.0. If you're currently running an Alpine-based AC image for an earlier version of Airflow, we recommend that you first test the corresponding Debian image for your current version. For example, if you're runnning an Alpine-based 1.10.12 image, try the Debian-based 1.10.12 image before you upgrade to 1.10.15.
+> **Note:** Astronomer Certified exclusively supports a Debian-based Docker image for both Airflow 1.10.15 and 2.0. If you're currently running an Alpine-based AC image for an earlier version of Airflow, we recommend that you first test the corresponding Debian image for your current version. For example, if you're running an Alpine-based 1.10.12 image, try the Debian-based 1.10.12 image before you upgrade to 1.10.15.
 
 ## Step 3: Run the Airflow Upgrade Check Script
 
