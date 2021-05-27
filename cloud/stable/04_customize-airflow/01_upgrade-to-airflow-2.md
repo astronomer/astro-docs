@@ -22,8 +22,6 @@ If you'd like to test Airflow 2.0 locally with the Astronomer CLI, first read [G
 
 > **Note:** The recommendations around the upgrade process are largely written in collaboration with the Apache Airflow project and community, though there a few differences in steps on Astronomer that we've made sure to outline below.
 
-> **Note:** Airflow 2.1.0 was published on May 21, 2021, and has a large number of bug fixes and exciting features. If you're not running on Airflow 2.0+ yet, we recommend upgrading from Airflow 1.10.14+ to Airflow 2.1 directly. For more information on the release, refer to the [Apache Airflow Changelog](https://airflow.apache.org/docs/apache-airflow/2.1.0/changelog.html) and the [Astronomer Certified Changelog](https://github.com/astronomer/ap-airflow/blob/master/2.1.0/CHANGELOG.md).
-
 ## Why Airflow 2.0
 
 Airflow 2.0 was built to be fast, reliable, and infinitely scalable. Among the hundreds of new features both large and small, Airflow 2.0 includes:
