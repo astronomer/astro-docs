@@ -22,7 +22,7 @@ If you'd like to test Airflow 2.0 locally with the Astronomer CLI, first read [G
 
 > **Note:** The recommendations around the upgrade process are largely written in collaboration with the Apache Airflow project and community, though there a few differences in steps on Astronomer that we've made sure to outline below.
 
-> **Note:** Airflow 2.1.0 was published on May 21, 2021, and has a large number of both bug fixes and exciting features. If you're not running on Airflow 2.0+ yet, we recommend upgrading from Airflow 1.10.14+ to Airflow 2.1 directly. For more information on the release, refer to the [Apache Airflow Changelog](https://airflow.apache.org/docs/apache-airflow/2.1.0/changelog.html) and the [Astronomer Certified Changelog](https://github.com/astronomer/ap-airflow/blob/master/2.1.0/CHANGELOG.md).
+> **Note:** Airflow 2.1.0 was published on May 21, 2021, and has a large number of bug fixes and exciting features. If you're not running on Airflow 2.0+ yet, we recommend upgrading from Airflow 1.10.14+ to Airflow 2.1 directly. For more information on the release, refer to the [Apache Airflow Changelog](https://airflow.apache.org/docs/apache-airflow/2.1.0/changelog.html) and the [Astronomer Certified Changelog](https://github.com/astronomer/ap-airflow/blob/master/2.1.0/CHANGELOG.md).
 
 ## Why Airflow 2.0
 
@@ -194,7 +194,7 @@ To upgrade to 2.0.0,
 ```dockerfile
 FROM quay.io/astronomer/ap-airflow:2.0.0-buster-onbuild
 ```
-3. Modify all Backport Providers you were using in Step 4 and replace them with fully supported [Provider Packages](https://airflow.apache.org/docs/apache-airflow-providers/index.html). For example, if you were using [Mongo Backport Provider](https://pypi.org/project/apache-airflow-backport-providers-mongo/), replace `apache-airflow-backport-providers-mongo` with `apache-airflow-providers-mongo` in your `requirements.txt` file. For more information, refer to [Airflow documentation on Provider Packages](https://airflow.apache.org/docs/apache-airflow-providers/index.html).
+3. Modify all Backport Providers you were using in Step 4 and replace them with fully supported [Provider Packages](https://airflow.apache.org/docs/apache-airflow-providers/index.html). For example, if you were using the [Mongo Backport Provider](https://pypi.org/project/apache-airflow-backport-providers-mongo/), replace `apache-airflow-backport-providers-mongo` with `apache-airflow-providers-mongo` in your `requirements.txt` file. For more information, refer to [Airflow documentation on Provider Packages](https://airflow.apache.org/docs/apache-airflow-providers/index.html).
 4. Deploy to Astronomer via `$ astro deploy`
 
 Then, navigate to the Airflow UI to confirm that your upgrade was successful. For guidelines on how to deploy to Astronomer, read [Deploy to Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli). 
