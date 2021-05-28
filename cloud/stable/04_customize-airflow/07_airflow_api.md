@@ -183,7 +183,7 @@ Here, your cURL request would look like the following:
 curl -X GET \
 https://<AIRFLOW-DOMAIN>/airflow/api/v1/config \
 -H 'Authorization: <API-Key>' \
--H 'Cache-Control: no-cache'
+-H 'Cache-Control: no-cache' \
 -H "Accept:'application/json'"
 ```
 
