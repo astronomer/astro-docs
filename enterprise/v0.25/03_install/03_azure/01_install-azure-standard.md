@@ -320,10 +320,10 @@ helm repo update
 This will ensure that you pull the latest from our Helm repository. Finally, run:
 
 ```sh
-helm install -f config.yaml --version=0.23 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
+helm install -f config.yaml --version=0.25 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
-This command will install the latest available patch version of Astronomer Enterprise v0.23. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.23.x`. To install Astronomer Enterprise v0.23.9, for example, specify `--version=0.23.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.25/resources/release-notes/).
+This command will install the latest available patch version of Astronomer Enterprise v0.25. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.25.x`. To install Astronomer Enterprise v0.25.9, for example, specify `--version=0.25.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.25/resources/release-notes/).
 
 Once you run the commands above, a set of Kubernetes pods will be generated in your namespace. These pods power the individual services required to run our platform, including the Astronomer UI and Houston API.
 
