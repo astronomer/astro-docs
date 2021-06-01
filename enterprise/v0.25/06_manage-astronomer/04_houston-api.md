@@ -282,7 +282,7 @@ mutation verifyEmail {
 	verifyEmail (
     email: "<USERUUID>"
   )
-{
+}
 ```
 
 > **Note:** To run this mutation, ensure that the user in question has already begun creating an account on the platform (i.e. the user has signed up and the platform has generated an "invite token" for that user).
