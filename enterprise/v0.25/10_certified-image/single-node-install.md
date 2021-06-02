@@ -8,7 +8,7 @@ description: "Install a simple Astronomer Certified environment on a single virt
 
 The Astronomer Certified Python wheel is a distribution of Apache Airflow maintained by Astronomer. While functionally identical to Apache Airflow, the Astronomer Certified Python wheel includes additional bug fixes and extended support as described in [Image Support].
 
-If you want to run Astronomer's distribution of Airflow without a cloud and without using Docker, you can install the Astronomer Certified Python wheel onto locally controlled virtual machines.
+If you want to run Astronomer's distribution of Airflow without a cloud and without using Docker, you can instead install the Astronomer Certified Python wheel on locally controlled virtual machines.
 
 This guide provides steps for installing the Python wheel onto a single virtual machine. By the end of the setup, you'll have a simple development environment for Airflow running on your local machine.
 
@@ -38,7 +38,7 @@ If you're Debian-based, you can install these by running:
 sudo apt-get install sudo python3 python3-dev python3-venv python3-psycopg2 gcc postgresql systemd
 ```
 
-You also need a database that is accessible to all the machines that will run your Airflow instance. This guide walks through the process for configuring a PostgreSQL database, but Airflow is compatible with all of the following databases:
+You also need a database on the machine that will run your Airflow instance. This guide walks through the process for configuring a PostgreSQL database, but Airflow is compatible with all of the following databases:
 
 - PostgreSQL: 9.6, 10, 11, 12, 13
 - MySQL: 5.7, 8
@@ -77,19 +77,15 @@ Instead of creating a new PostgreSQL database, you can use an existing database 
 
 When you specify the `AIRFLOW__CORE__SQL_ALCHEMY_CONN` environment variable in step 2F, replace the connection string with one that corresponds to your database.
 
-## Step 2: Configure Each Machine in Your System
+## Step 2: Create a System User to Run Airflow
 
-Complete the steps below for each machine that will be running a core Apache Airflow component (Scheduler, Webserver, or Worker).
-
-### A. Create a system user to run Airflow
-
-Airflow can run as any user, but for this setup we assume the user name `astro`. Run the following command to add this user to your machine:
+Airflow can run as any user, but for this setup we set up a new user called `astro`. Run the following command to add this user to your machine:
 
 ```sh
 sudo useradd --create-home astro
 ```
 
-### B. Create an Airflow project directory
+## Step 3: Create an Airflow Project Directory
 
 You also need to configure an `AIRFLOW_HOME` directory (not to be confused with the user's home directory) where you'll store your DAGs. We recommend using the path `/usr/local/airflow` as your project directory and `/usr/local/airflow/dags` as your DAG directory, but any path can be chosen as long as the `astro` user has write access to it. To do this, run the following commands:
 
@@ -100,9 +96,7 @@ cd /usr/local/airflow
 sudo mkdir dags
 ```
 
-> **Note:** If you're running Airflow on multiple machines, each machine needs access to the same DAGs in order to successfully execute them. We recommend setting up automation pipelines for updating all of your DAG folders whenever a local folder is updated. For more information, read [Deploying DAGs].
-
-### C. Create a virtual environment
+## Step 4: Create a Virtual Environment
 
 To isolate your Airflow components from changes to the system, create a virtual environment in a directory named `astro/airflow-venv` using the following command:
 
@@ -112,7 +106,7 @@ sudo -u astro python3 -m venv ~astro/airflow-venv
 
 venv is a tool to create lightweight, isolated Python environments without affecting systemwide configuration. For more information, read [Python's venv documentation](https://docs.python.org/3/library/venv.html).
 
-### D. Install Astronomer Certified
+## Step 5: Install Astronomer Certified
 
 To install the AC Python wheel onto your machine, run one of the following commands depending on your chosen Airflow Version and [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
 
@@ -142,7 +136,7 @@ astronomer-certified[mysql, redis, celery, crypto, aws]==2.0.1.*
 
 For a list of all optional dependencies, refer to the [AC pip index](https://pip.astronomer.io/simple/index.html).
 
-### E. Configure a process supervisor
+## Step 6: Configure a Process Supervisor
 
 To ensure that Airflow is always running when your machine is on, we recommend implementing a process supervisor. [Systemd](https://systemd.io/) is used in this example, though any process supervisor works here.
 
@@ -163,8 +157,6 @@ To use systemd as a process supervisor:
     ```
 
     If you want to configure environment variables for a single Airflow service, we recommend doing so in the `sys-config` file for the machine on which the service is running.
-
-    > **Note:** When you run Airflow for the first time, a file called `airflow.cfg` is generated in your `AIRFLOW_HOME` directory. If you want to configure environment variables that apply to all of your machines, we recommend specifying them in that `airflow.cfg` file.  For more information, read the Apache Airflow documentation on [Setting Configuration Options](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html).
 
 3. Add the following to your systemd unit file:
 
@@ -188,7 +180,7 @@ To use systemd as a process supervisor:
     WantedBy=multi-user.target
     ```
 
-### F. Configure Airflow for Database Access
+## Step 7: Configure Airflow for Database Access
 
 To connect your Airflow environment to the metadata DB you created in Step 1, add the following environment variables to your `sys-config` file depending on your chosen [Executor](https://www.astronomer.io/guides/airflow-executors-explained):
 
@@ -218,7 +210,7 @@ When you've finished configuring environment variables, run the following comman
 echo 'set -a; source /usr/local/airflow/sys-config; set +a' | sudo tee --append ~astro/.bashrc
 ```
 
-#### Optional setup: Database access
+### Optional setup: Database access
 
 Your Airflow user password is stored in your `sys-config` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command to obtain the connection string when the service starts up. For example:
 
@@ -228,7 +220,7 @@ AIRFLOW__CORE__SQL_ALCHEMY_CONN_CMD=vault kv get -field=dsn secret/airflow-db
 
 For more information on this feature, read [Integrating Airflow and Hashicorp Vault](/guides/airflow-and-hashicorp-vault).
 
-## Step 3: Set Up the Scheduler
+## Step 8: Set Up the Scheduler
 
 In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stable/scheduler.html) is responsible for reading from the metadata database to check on the status of each task and decides the order in which tasks should be completed. To get your Scheduler running:  
 
@@ -257,7 +249,7 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
     sudo systemctl start astronomer-certified@scheduler.service
     ```
 
-## Step 4: Set Up the Webserver
+## Step 9: Set Up the Webserver
 
 [The Webserver](https://airflow.apache.org/docs/apache-airflow/stable/security/webserver.html) is a core Airflow component that is responsible for rendering the Airflow UI. To configure it on its own machine, follow the steps below.
 
@@ -275,9 +267,9 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
 > **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
-## Step 5: Set Up Workers (Celery Only)
+## Step 10: Set Up Workers (Celery Only)
 
-Workers are an essential component for running Airflow with the Celery Executor. For each machine on which you want to host a Worker:
+Workers are an essential component for running Airflow with the Celery Executor. To set up Celery Workers on your machine:
 
 1. Enable the Worker service by running the following command:
 
@@ -291,7 +283,7 @@ Workers are an essential component for running Airflow with the Celery Executor.
     sudo systemctl start astronomer-certified@worker.service
     ```
 
-## Step 6: Create a User
+## Step 11: Create an Airflow User
 
 To log in to the Airflow UI, you need to first create an Airflow user:
 
@@ -309,7 +301,7 @@ To log in to the Airflow UI, you need to first create an Airflow user:
     airflow users create -e EMAIL -f FIRSTNAME -l LASTNAME -p PASSWORD -r Admin -u USERNAME
     ```
 
-## Step 7: Confirm the Installation
+## Step 12: Confirm the Installation
 
 To confirm that you successfully installed Apache Airflow, open `http://localhost:8080` in your web browser. You should see the login screen for the Airflow UI.
 
