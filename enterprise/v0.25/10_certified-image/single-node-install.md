@@ -1,7 +1,7 @@
 ---
 title: "Install Astronomer Certified on a Single Virtual Machine"
 navTitle: "Single Node Installation"
-description: "Install a test environment of Astronomer Certified on a single virtual machine."
+description: "Install a simple Astronomer Certified environment on a single virtual machine."
 ---
 
 ## Overview
