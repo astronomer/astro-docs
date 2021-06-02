@@ -54,7 +54,7 @@ If these are the only three pods that are not coming up as healthy, it is usuall
 Make sure that the Kubernetes cluster Astronomer is running on can connect to the database. One way to check this is to jump into an Astronomer pod and try connecting directly to the database:
 
 ```
-$ kubectl exec -it manageable-snail-houston-6fb7956994-2tngn /bin/sh -n astro-demo
+kubectl exec -it manageable-snail-houston-6fb7956994-2tngn /bin/sh -n astro-demo
 ```
 
 Once inside the pod, add the `postgresql` package:
@@ -92,7 +92,7 @@ If the connection times out here, there may be a networking issue.
 Check to make sure the `astronomer-bootstrap` secret created earlier, which contains the connection string to the database, does not contain any typos:
 
 ```
-$ kubectl get secrets -n astro-demo
+kubectl get secrets -n astro-demo
 NAME                                                   TYPE                                  DATA   AGE
 astronomer-bootstrap                                   Opaque                                1      33h
 astronomer-tls                                         kubernetes.io/tls                     2      44d
@@ -119,7 +119,7 @@ manageable-snail-registry-auth                         kubernetes.io/dockerconfi
 To decrypt the `astronomer-bootstrap` secret:
 
 ```
-$ kubectl get secret astronomer-bootstrap -o yaml
+kubectl get secret astronomer-bootstrap -o yaml
 apiVersion: v1
 data:
   connection: <encoded_value>
@@ -136,7 +136,7 @@ type: Opaque
 
 Now to see the secret in plaintext:
 ```
-$ echo <encoded_value> | base64 --decode
+echo <encoded_value> | base64 --decode
 ```
 
 If there is indeed a typo, delete the secret, recreate it with the right value, and then delete all the pods in the namespace.

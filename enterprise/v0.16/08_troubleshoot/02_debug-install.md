@@ -54,7 +54,7 @@ If these are the only three pods that are not coming up as healthy, it is usuall
 Make sure that the Kubernetes cluster Astronomer is running on can connect to the database. One way to check this is to jump into an Astronomer pod and try connecting directly to the database:
 
 ```
-$ kubectl exec -it manageable-snail-houston-6fb7956994-2tngn /bin/sh -n astro-demo
+kubectl exec -it manageable-snail-houston-6fb7956994-2tngn /bin/sh -n astro-demo
 ```
 
 Once inside the pod, add the `postgresql` package:
@@ -136,7 +136,7 @@ type: Opaque
 
 Now to see the secret in plaintext:
 ```
-$ echo <encoded_value> | base64 --decode
+echo <encoded_value> | base64 --decode
 ```
 
 If there is indeed a typo, delete the secret, recreate it with the right value, and then delete all the pods in the namespace.

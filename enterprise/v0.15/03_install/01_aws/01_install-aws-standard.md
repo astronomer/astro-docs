@@ -62,7 +62,7 @@ For standard installations, each Airflow Deployment provisioned on the platform 
 The initial namespace we're creating below will just contain the core Astronomer platform.
 
 ```bash
-$ kubectl create ns astronomer
+kubectl create ns astronomer
 ```
 
 ## 4. Configure SSL
@@ -95,13 +95,13 @@ Let's Encrypt is a free and secure service that provides automated SSL Certifica
 If you are on a Mac, run the following:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 If you are running Linux:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
@@ -197,10 +197,10 @@ Now that you have an EKS cluster set up and your `config.yaml` defined, you're r
 Run the following commands:
 
 ```
-$ helm repo add astronomer https://helm.astronomer.io/
+helm repo add astronomer https://helm.astronomer.io/
 ```
 ```
-$ helm install astronomer -f config.yaml --version=0.15.0 astronomer/astronomer --namespace astronomer
+helm install astronomer -f config.yaml --version=0.15.0 astronomer/astronomer --namespace astronomer
 ```
 
 This will generate a set of Kubernetes pods that will power the individual services required to run our platform, including the Astronomer UI, our Houston API, etc.

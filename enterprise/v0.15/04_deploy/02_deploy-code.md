@@ -73,7 +73,7 @@ astro auth login BASEDOMAIN
 Follow the authentication flow from there.
 
 ```
-$ astro auth login gcp0001.us-east4.astronomer.io
+astro auth login gcp0001.us-east4.astronomer.io
 ```
 
 ### Select your Workspace & Deployment

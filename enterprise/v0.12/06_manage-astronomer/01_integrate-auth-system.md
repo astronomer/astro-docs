@@ -53,7 +53,7 @@ astronomer:
 To apply the configuration:
 
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 **Note:** The `discoveryURL` includes the tenant ID in this example
@@ -157,11 +157,11 @@ astronomer:
 If you're already running Astronomer, list your deployment release names and upgrade your deployment:
 
 ```
-$ helm ls --namespace <your-namespace>
+helm ls --namespace <your-namespace>
 
 ```
 ```
-$ helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
+helm upgrade <platform-release-name> -f config.yaml --version=<platform-version> astronomer/astronomer -n <your-namespace>
 ```
 
 ## Running behind an HTTPS Proxy
