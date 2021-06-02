@@ -16,7 +16,13 @@ Astronomer Certified is distributed both as a Python wheel and a Debian-based Do
 
 The Python wheel is functionally identical to open source Apache Airflow. It additionally includes bug and security fixes which extend the support lifespan of each version.
 
-The Astronomer Certified Docker image is built from the Python wheel. In addition to the Python wheel's bug and security fixes, the Docker image includes dependencies for increasing the security and extensibility of Airflow.
+The Astronomer Certified Docker image is built from the Python wheel. In addition to 100% of open source Airflow functionality, the Astronomer Certified Docker image includes:
+
+- Performance and stability improvements, including critical bug fixes and CVE patches backported to all supported versions.
+- A robust testing suite that covers end-to-end performance, functionality, upgrade, and performance benchmarking for certified environments.
+- A built-in directory of example DAGs that leverage Airflow's most powerful features.
+- A collection of pre-installed Airflow provider packages.
+- Full compatibility with the Astronomer Platform.
 
 ![Diagram of AC distribution scheme](https://assets2.astronomer.io/main/docs/diagrams/ac-diagram.png)
 
