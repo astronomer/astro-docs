@@ -1,66 +1,64 @@
 ---
-title: "Astronomer Certified Architecture"
-navTitle: "Image Architecture"
-description: "Reference documentation for every component used to build Astronomer Certified."
+title: "Astronomer Certified Image Architecture"
+navTitle: "Docker Image Architecture"
+description: "Reference documentation for Astronomer's Docker image for Apache Airflow."
 ---
 
 ## Overview
 
-The Astronomer Certified image for Apache Airflow extends the community-developed Airflow image in a way that makes running Airflow more secure, reliable, and extensible. It is the default image for Airflow Deployments running on Astronomer.
+The Astronomer Certified Docker image for Apache Airflow extends the community-developed Airflow image in a way that makes running Airflow more secure, reliable, and extensible. It is the default image for Airflow Deployments on Astronomer.
 
-This guide provides reference information for the key components of Astronomer Certified, as well as information on its release and distribution.
+This guide provides reference information for the building blocks of Astronomer Certified, as well as information on its release and distribution.
 
 ## Distribution
 
-Astronomer Certified is distributed both as a Python wheel and a Docker image. These distributions vary slightly in scope and dependencies.
+Astronomer Certified is distributed both as a Python wheel and a Debian-based Docker image. These distributions vary slightly in scope and dependencies.
 
-The Python wheel is the "core" of Astronomer Certified. It is composed of open source Airflow, plus bug fixes extend the support lifespan of each version.
+The Python wheel is functionally identical to open source Apache Airflow. It additionally includes bug and security fixes which extend the support lifespan of each version.
 
-The Astronomer Certified Docker image is built from the Python wheel. In addition to the Python wheel's bug fixes, the Docker image includes dependencies for increasing the security and extensibility of Airflow.
+The Astronomer Certified Docker image is built from the Python wheel. In addition to the Python wheel's bug and security fixes, the Docker image includes dependencies for increasing the security and extensibility of Airflow.
 
 ![Diagram of AC distribution scheme](https://assets2.astronomer.io/main/docs/diagrams/ac-diagram.png)
 
-Every component of the Astronomer Certified Docker image is available as source code on [GitHub](https://github.com/astronomer/ap-airflow). Every supported version of the Astronomer Certified Python wheel is available at [pip.astronomer.io](https://pip.astronomer.io/simple/astronomer-certified/).
+Every supported version of the Astronomer Certified Python wheel is available at [pip.astronomer.io](https://pip.astronomer.io/simple/astronomer-certified/). The Dockerfiles for supported Astronomer Certified image can be found in the following repos:
 
-## Versioning
+- [Airflow 2.1.0](https://github.com/astronomer/ap-airflow/blob/master/2.1.0/buster/Dockerfile)
+- [Airflow 2.0.2](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/buster/Dockerfile)
+- [Airflow 2.0.0](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/buster/Dockerfile)
+- [Airflow 1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/buster/Dockerfile)
+- [Airflow 1.10.15](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/buster/Dockerfile)
+- [Airflow 1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/buster/Dockerfile)
+- [Airflow 1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/buster/Dockerfile)
+- [Airflow 1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/buster/Dockerfile)
 
-For each release of Apache Airflow, Astronomer releases a corresponding version of Astronomer Certified. For our Python wheel distribution, the release name is defined in the following syntax:
+## Image Requirements
 
-```
-astronomer-certified[dependencies]==2.0.1.*
-```
+Running Airflow on the Astronomer Certified Docker image requires specific versions for key system components.  
 
-In this example, the `*` will pull the latest Astronomer Certified patch release of Airflow 2.0.1. This version might include additional bug and security fixes not present in the corresponding open source version.
+- Python: 3.7, 3.8
+- Database: PostgreSQL (11, 12), MySQL (5.7, 8.0+)
+- System Distribution: Debian 10 (Buster)
 
-Astronomer Certified's Docker image is defined in the following syntax:
+These requirements are slightly different for running only the Python wheel. For the Python wheel, you can use:
 
-```
-quay.io/astronomer/ap-airflow:2.0.1-1-buster-onbuild
-```
+- Python: 3.7, 3.8
+- Database: PostgreSQL (9.6, 10, 11, 12, 13), MySQL (5.7, 8+), SQLite (3.15.0+)
+- System Distribution: Debian 10 (Buster)
 
-Astronomer maintains two Docker images for each version: one with an `onbuild` tag, and one without. If you plan on building additional dependencies and customizations into the image, we recommend pulling from the version without the `onbuild` tag.
+ For more information on running a Python wheel installation of Astronomer Certified, read [Single Node Installation].
 
 ## Environment Variables
 
 When an Airflow service is started, it checks a file for runtime environment variables.
 
-If you use the Astronomer Certified Docker image, these environment variables are defined in your Dockerfile. Environment variables in your Dockerfile can be overwritten with a runtime command, such as `docker run`.
-
-If you use the Astronomer Certified Python wheel, these environment variables are included in their own file called `astronomer-certified`. This is also where you define system-wide runtime variables for your Airflow Deployment.
+If you run the Astronomer Certified Docker image without the Astronomer platform, environment variables are defined in your Dockerfile. They can be overwritten with a runtime command, such as `docker run`. If you're running the Astronomer Certified Docker image with the Astronomer platform, you can configure environment variables directly from the UI as described in [Environment Variables](docs/enterprise/v0.25/deploy/environment-variables).
 
 Astronomer Certified supports the same environment variables as Apache Airflow. For a list of all configurable environment variables, read the [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html).
 
-The following table lists the essential environment variables used when running Airflow with Astronomer Certified. These environment variables should always be reviewed or overridden when completing a new installation:
+The following table lists the essential environment variables used when running Airflow with Astronomer Certified. Only environment variables explicitly defined in the Dockerfile are listed here; all other environment variables have the same default value as they have in OSS Airflow.
 
 | Variable                                        | Description                                                                   | Default Value                                     |
 | ----------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------- |
-| AIRFLOW__CELERY__RESULT_BACKEND                 | The Celery result backend (Celery Executor only).                             | db+postgresql://postgres:airflow@postgres/airflow |
-| AIRFLOW__CELERY__BROKER_URL                     | The URL for the DB message broker (Celery Executor only).                     | redis://redis:6379/0                              |
-| AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION | Determines whether DAGs are paused by default at creation.                    | True                                              |
-| AIRFLOW__CORE__EXECUTOR                    | The method used for executing airflow tasks.                                  | CeleryExecutor                                    |
-| AIRFLOW__CORE__FERNET_KEY                  | The secret key for saving connection passwords in the metadata DB.            | {FERNET_KEY}                                      |
-| AIRFLOW__CORE__LOAD_EXAMPLES               | Determines whether example DAGs are loaded when starting Airflow.             | True                                              |
-| AIRFLOW__CORE__SQL_ALCHEMY_CONN            | The connection ID for your metadata db.                                       | sqlite:///{AIRFLOW_HOME}/airflow.db               |
 | AIRFLOW_PIP_VERSION                             | The version of pip to use for installing Airflow and dependencies.            | 19.3.1                                            |
 | AIRFLOW_HOME                                    | Filepath for your Airflow project directory.                                  | usr/local/airflow                                 |
 | AIRFLOW__WEBSERVER__BASE_URL                    | The URL used to access the Airflow UI.                                        | http://localhost:8080                             |
@@ -119,8 +117,6 @@ The Astronomer Certified Docker image includes a number of OS-level dependencies
 Astronomer Certified includes a few packages that don't have a corresponding provider. These packages are used for basic system functions or optional Airflow functionality. The following list contains all extra packages built into Astronomer Certified by default:
 
 - async: Provides asynchronous workers for Gunicorn
-- dask: Adds support for the [Dask Executor](https://airflow.apache.org/docs/apache-airflow/stable/executor/dask.html)
-- ldap: Adds support for LDAP authentication
 - password: Adds support for user password hashing
 - statsd: Adds support for sending metrics to StatsD
 - virtualenv: Adds support for running Python tasks in local virtual environments
