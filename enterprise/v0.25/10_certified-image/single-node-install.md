@@ -1,14 +1,14 @@
 ---
 title: "Install Astronomer Certified on a Single Virtual Machine"
 navTitle: "Single Node Installation"
-description: "Install a simple Astronomer Certified environment on a single virtual machine."
+description: "Configure a simple Astronomer Certified environment on a single virtual machine."
 ---
 
 ## Overview
 
-The Astronomer Certified Python wheel is a distribution of Apache Airflow maintained by Astronomer. While functionally identical to Apache Airflow, the Astronomer Certified Python wheel includes additional bug fixes and extended support as described in [Image Support].
+The Astronomer Certified Python wheel is a distribution of Apache Airflow maintained by Astronomer. While functionally identical to Apache Airflow, the Astronomer Certified Python wheel includes additional bug and security fixes, as well as extended support from the Astronomer team as described in [Image Support].
 
-If you want to run Astronomer's distribution of Airflow without a cloud and without using Docker, you can instead install the Astronomer Certified Python wheel on locally controlled virtual machines.
+If you want to run Astronomer's distribution of Airflow without using Docker, you can install the Astronomer Certified Python wheel on either one or many virtual machines.
 
 This guide provides steps for installing the Python wheel onto a single virtual machine. By the end of the setup, you'll have a simple development environment for Airflow running on your local machine.
 
@@ -32,7 +32,7 @@ Once you've decided which machine you'll be installing Astronomer Certified on, 
 - postgresql
 - systemd
 
-If you're Debian-based, you can install these by running:
+If you're running on a Debian-based OS, you can install these with the following command:
 
 ```
 sudo apt-get install sudo python3 python3-dev python3-venv python3-psycopg2 gcc postgresql systemd
@@ -66,11 +66,9 @@ In Airflow, the metadata database is responsible for keeping a record of all tas
 
 This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
 
-> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgresql/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. Before editing this file, take a moment to assess the security  implications of editing this file.
+> **Note:** To make the database server accessible outside of your localhost, you may have to edit your [`/var/lib/postgresql/data/pg_hba.conf`](https://www.postgresql.org/docs/10/auth-pg-hba-conf.html) file and restart Postgres. Editing this file will vary for each individual database setup. Before editing this file, consider the security implications for your team.
 
-### Alternative setup: Use an existing database
-
-Instead of creating a new PostgreSQL database, you can use an existing database as long as both of the following are true:
+If you'd like to use an existing PostgreSQL database instead of creating a new one, you can do so as long as both of the following are true:
 
 - The database is compatible with Airflow as described in Prerequisites.
 - A user named `airflow` has ownership access to the database.
@@ -79,7 +77,7 @@ When you specify the `AIRFLOW__CORE__SQL_ALCHEMY_CONN` environment variable in s
 
 ## Step 2: Create a System User to Run Airflow
 
-Airflow can run as any user, but for this setup we set up a new user called `astro`. Run the following command to add this user to your machine:
+Airflow can run as any user, but for this setup we configure a new user called `astro`. Run the following command to add this user to your machine:
 
 ```sh
 sudo useradd --create-home astro
@@ -87,7 +85,7 @@ sudo useradd --create-home astro
 
 ## Step 3: Create an Airflow Project Directory
 
-You also need to configure an `AIRFLOW_HOME` directory (not to be confused with the user's home directory) where you'll store your DAGs. We recommend using the path `/usr/local/airflow` as your project directory and `/usr/local/airflow/dags` as your DAG directory, but any path can be chosen as long as the `astro` user has write access to it. To do this, run the following commands:
+You also need to configure an `AIRFLOW_HOME` directory (not to be confused with the user's home directory) where you'll store your DAGs and other necessary files. We recommend using the path `/usr/local/airflow` as your project directory and `/usr/local/airflow/dags` as your DAG directory, but any path can be chosen as long as the `astro` user has write access to it. To do this, run the following commands:
 
 ```sh
 sudo install --owner=astro --group=astro -d /usr/local/airflow
@@ -178,7 +176,7 @@ To use systemd as a process supervisor:
 
     [Install]
     WantedBy=multi-user.target
-    ```
+    ```
 
 ## Step 7: Configure Airflow for Database Access
 
@@ -210,7 +208,7 @@ When you've finished configuring environment variables, run the following comman
 echo 'set -a; source /usr/local/airflow/sys-config; set +a' | sudo tee --append ~astro/.bashrc
 ```
 
-### Optional setup: Database access
+### Optional: Configure a secret backend for database access
 
 Your Airflow user password is stored in your `sys-config` file (owned by `root:root` and `0600` permissions) on your nodes. If you'd rather use an existing credential store, such as [HashiCorp Vault](https://www.hashicorp.com/products/vault), you can instead specify a command to obtain the connection string when the service starts up. For example:
 
@@ -241,7 +239,9 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
     ```
     [Service]
     ExecStartPre=/home/astro/airflow-venv/bin/airflow db upgrade
-    ```
+    ```
+
+    > **Note** If your version of Airflow is <2.0, the command specified here will instead be `airflow upgradedb`.
 
 4. Start the service by running:   
 
@@ -293,7 +293,7 @@ To log in to the Airflow UI, you need to first create an Airflow user:
     sudo -H su -u astro bash
     ```
 
-    All Airflow CLI commands must be run from your `astro` user.
+    All [Airflow CLI commands](https://airflow.apache.org/docs/apache-airflow/stable/usage-cli.html) must be run from your `astro` user.
 
 2. Create a new `admin` Airflow user with the following command:
 
