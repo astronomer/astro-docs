@@ -33,7 +33,7 @@ apt-get install <your-os-package>=<version> -V
 To install a Python-level package, specify the package using a `RUN` directive with `pip install` instead. For example:
 
 ```
-FROM: quay.io/astronomer/ap-airflow:latest-onbuild
+FROM quay.io/astronomer/ap-airflow:2.1.0-buster-onbuild
 RUN pip install --no-cache-dir --user <your-python-package>
 ```
 
