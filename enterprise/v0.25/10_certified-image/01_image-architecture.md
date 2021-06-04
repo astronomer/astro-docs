@@ -14,11 +14,10 @@ This guide provides reference information for the building blocks of Astronomer 
 
 Astronomer Certified is distributed both as a Python wheel and a Debian-based Docker image. These distributions vary slightly in scope and dependencies.
 
-The Python wheel is functionally identical to open source Apache Airflow. It additionally includes bug and security fixes which extend the support lifespan of each version.
+The Python wheel and Docker image are functionally identical to open source Apache Airflow. Additionally, they both include performance and stability improvements, including critical bug fixes and security patches.
 
-The Astronomer Certified Docker image is built from the Python wheel. In addition to 100% of open source Airflow functionality, the Astronomer Certified Docker image includes:
+The Astronomer Certified Docker image is built from the Python wheel and incorporates additional logic that make it easier for users to both get started and run Airflow at scale. This includes:
 
-- Performance and stability improvements, including critical bug fixes and CVE patches backported to all supported versions.
 - A robust testing suite that covers end-to-end performance, functionality, upgrade, and performance benchmarking for certified environments.
 - A built-in directory of example DAGs that leverage Airflow's most powerful features.
 - A collection of pre-installed Airflow provider packages.
@@ -26,7 +25,7 @@ The Astronomer Certified Docker image is built from the Python wheel. In additio
 
 ![Diagram of AC distribution scheme](https://assets2.astronomer.io/main/docs/diagrams/ac-diagram.png)
 
-Every supported version of the Astronomer Certified Python wheel is available at [pip.astronomer.io](https://pip.astronomer.io/simple/astronomer-certified/). The Dockerfiles for supported Astronomer Certified image can be found in the following repos:
+Every supported version of the Astronomer Certified Python wheel is available at [pip.astronomer.io](https://pip.astronomer.io/simple/astronomer-certified/). The Dockerfiles for all supported Astronomer Certified images can be found in [Astronomer's `ap-airflow` GitHub repository](https://github.com/astronomer/ap-airflow):
 
 - [Airflow 2.1.0](https://github.com/astronomer/ap-airflow/blob/master/2.1.0/buster/Dockerfile)
 - [Airflow 2.0.2](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/buster/Dockerfile)
@@ -39,7 +38,7 @@ Every supported version of the Astronomer Certified Python wheel is available at
 
 ## Image Requirements
 
-Running Airflow on the Astronomer Certified Docker image requires specific versions for key system components.  
+Running Airflow with the Astronomer Certified Docker image requires specific versions for key system components.  
 
 - Python: 3.7, 3.8
 - Database: PostgreSQL (11, 12), MySQL (5.7, 8.0+)
@@ -55,9 +54,11 @@ These requirements are slightly different for running only the Python wheel. For
 
 ## Environment Variables
 
-When an Airflow service is started, it checks a file for runtime environment variables.
+When an Airflow service is started, it checks a file for runtime environment variables. These are equivalent to values defined in Airflow's `airflow.cfg` file.
 
-If you run the Astronomer Certified Docker image without the Astronomer platform, environment variables are defined in your Dockerfile. They can be overwritten with a runtime command, such as `docker run`. If you're running the Astronomer Certified Docker image with the Astronomer platform, you can configure environment variables directly from the UI as described in [Environment Variables](docs/enterprise/v0.25/deploy/environment-variables).
+If you run the Astronomer Certified Docker image without the Astronomer platform, environment variables are defined in your Dockerfile. They can be overwritten with a runtime command, such as `docker run`.
+
+If you're running the Astronomer Certified Docker image with the Astronomer platform, there are a few ways you can configure environment variables. For more information, read [Environment Variables](docs/enterprise/v0.25/deploy/environment-variables).
 
 Astronomer Certified supports the same environment variables as Apache Airflow. For a list of all configurable environment variables, read the [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html).
 
@@ -65,7 +66,7 @@ The following table lists the essential environment variables used when running 
 
 | Variable                                        | Description                                                                   | Default Value                                     |
 | ----------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------- |
-| AIRFLOW_PIP_VERSION                             | The version of pip to use for installing Airflow and dependencies.            | 19.3.1                                            |
+| AIRFLOW_PIP_VERSION                             | The version of pip that is used to install Python packages and Airflow itself.            | 19.3.1                                            |
 | AIRFLOW_HOME                                    | Filepath for your Airflow project directory.                                  | usr/local/airflow                                 |
 | AIRFLOW__WEBSERVER__BASE_URL                    | The URL used to access the Airflow UI.                                        | http://localhost:8080                             |
 | ASTRONOMER_USER                                 | The username for your Airflow user.                                           | astro                                             |
