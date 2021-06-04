@@ -68,31 +68,6 @@ sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.
 You can also create your own Python packages and install them into your Airflow environment via a Python wheel, or you can configure an environment variable to automatically add the packages to your Airflow project directory. For more information on this setup, read the [Apache Airflow documentation on managing modules](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/modules_management.html).
 
 
-## Install Packages via the Astronomer CLI
+## Install Packages via Astronomer
 
-If you set up a local Airflow environment as described in the [CLI Quickstart](docs/enterprise/v0.25/develop/cli-quickstart), you can add Python-level packages to your `requirements.txt` file and OS-level packages to your `packages.txt` file.
-
-To add the package, list the package name on its own line in the corresponding file. To install a particular version of any package, pin that version to the package name in the format of `<package-name>==<package-version>`. To install Pymongo 3.7.2, for example, add the following to your `requirements.txt` file:
-
-```
-pymongo==3.7.2
-```
-
-If you don't pin a package to a version, the latest version of the package that's publicly available will be installed by default.
-
-Once you've saved those packages to the appropriate `.txt` files, rebuild your image by running `astro dev stop`, followed by `astro dev start`. This process stops your running Docker containers and restarts them with your updated image.
-
-To confirm that a package was successfully installed:
-
-1. Run `docker ps` and retrieve the container ID of your Scheduler container.
-2. Run the following command:
-
-    ```
-    docker exec -it <scheduler-container-id> pip freeze | grep <package-name>
-    ```
-
-    If the package was successfully installed, you should see the following output:
-
-    ```
-    <package-name>==<version>
-    ```
+If you're deploying the Astronomer Certified Docker image via Astronomer CLI, there are alternative workflows for installing packages and other dependencies to your image. For more information, read [Customize Images](/docs/enterprise/v0.25/develop/customize-image).
