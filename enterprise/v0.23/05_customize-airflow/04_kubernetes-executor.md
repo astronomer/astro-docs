@@ -32,10 +32,10 @@ If you need to update a pod template for an existing Deployment, we recommend pu
 
     You can also find this information in the Astronomer UI under the **Deployments** tab of your Workspace menu.
 
-2. Run the following command to get the pod_template_spec for your release:
+2. Run the following command to get the `pod_template_spec` for your release:
 
     ```sh
-    kubectl exec deploy/<release-name>-scheduler -- cat pod_templates/pod_template_file.yaml > pod_template_file.yaml
+    kubectl exec deploy/<release-name>-scheduler -- cat pod_templates/pod_template_file.yaml > new_pod_template_file.yaml
     ```
 
 You now have a local version of your Deployment's pod template file. From here, you can modify the file and push it to your Deployment as described in the following section.
@@ -44,15 +44,15 @@ You now have a local version of your Deployment's pod template file. From here, 
 
 If you want to use a pod template for all DAGs within a given Airflow Deployment, you can add the pod template to the Deployment as an environment variable. To do so:
 
-1. Update your Dockerfile to copy your customized pod template into your Docker image. For instance, if your customized pod template file name is `pod_template.yaml`, you would add the following line to your Dockerfile:
+1. Update your Dockerfile to copy your customized pod template into your Docker image. For instance, if your customized pod template file name is `new_pod_template.yaml`, you would add the following line to your Dockerfile:
 
     ```
-    COPY pod_template.yaml /tmp/pod_template.yaml
+    COPY new_pod_template.yaml /tmp/copied_pod_template.yaml
     ```
 
     > **Note:** Depending on your configuration, you may also need to change your `USER` line to `root` in order to have the appropriate copy permissions.
 
-2. In the Astronomer UI, add the `AIRFLOW__KUBERNETES__POD_TEMPLATE_FILE` environment variable to your Deployment. Its value should be the directory path for the pod template in your Docker image. In this example, the file path would be `/tmp/new_pod_template.yaml`.
+2. In the Astronomer UI, add the `AIRFLOW__KUBERNETES__POD_TEMPLATE_FILE` environment variable to your Deployment. Its value should be the directory path for the pod template in your Docker image. In this example, the file path would be `/tmp/copied_pod_template.yaml`.
 
 3. In your terminal, run `astro deploy -f` to deploy your code and rebuild your Docker image.
 
@@ -65,7 +65,7 @@ Some tasks require a more specific pod configuration than other tasks. For insta
 1. Update your Dockerfile to copy your customized pod template into your Docker image. For instance, if your customized pod template file name is `new_pod_template.yaml`, you would add the following line:
 
     ```
-    COPY new_pod_template.yaml /tmp/new_pod_template.yaml
+    COPY new_pod_template.yaml /tmp/copied_pod_template.yaml
     ```
 
     > **Note:** Depending on your configuration, you may also need to change your `USER` line to `root` in order to have the appropriate copy permissions.
@@ -77,7 +77,7 @@ Some tasks require a more specific pod configuration than other tasks. For insta
         task_id="task_with_template",
         python_callable=do_something,
         executor_config={
-            "pod_template_file": "/tmp/new_pod_template.yaml",
+            "pod_template_file": "/tmp/copied_pod_template.yaml",
         },
     )
     ```
