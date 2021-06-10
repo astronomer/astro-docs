@@ -35,7 +35,7 @@ If you need to update a pod template for an existing Deployment, we recommend pu
 2. Run the following command to get the `pod_template_spec` for your release:
 
     ```sh
-    kubectl exec deploy/<release-name>-scheduler -- cat pod_templates/pod_template_file.yaml > new_pod_template_file.yaml
+    kubectl exec deploy/<release-name>-scheduler -- cat pod_templates/pod_template_file.yaml > new_pod_template.yaml
     ```
 
 You now have a local version of your Deployment's pod template file. From here, you can modify the file and push it to your Deployment as described in the following section.
