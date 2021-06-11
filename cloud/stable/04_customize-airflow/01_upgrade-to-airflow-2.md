@@ -1,38 +1,40 @@
 ---
-title: "Upgrade to Apache Airflow 2.0 on Astronomer"
-navTitle: "Upgrade to Airflow 2.0"
+title: "Upgrade to Apache Airflow 2.0+ on Astronomer"
+navTitle: "Upgrade to Airflow 2.0+"
 description: "How to prepare for and upgrade to Airflow 2.0 on Astronomer."
 ---
 
 ## Overview
 
-Apache Airflow 2.0 is a momentous open source release that we're thrilled to support. For those eager to learn more about Airflow 2.0 and upgrade an existing Airflow Deployment on Astronomer, read the guidelines below.
+Apache Airflow 2.0 was a momentous open source release published in December of 2020. As a significant followup to that release, Airflow 2.1 was published in May of 2021. We're thrilled to support both versions on Astronomer today. For those eager to learn more and upgrade an existing Airflow Deployment on Astronomer to Airflow 2.1, read the guidelines below.
 
 At a high-level, the recommended upgrade path is as follows:
 
 1. Install the latest version of the Astronomer CLI
-2. Migrate to Airflow 1.10.14
+2. Upgrade to Airflow 1.10.15
 3. Run the Airflow Upgrade Check Script
 4. Modify your DAGs, Configs, and Import Statements
-5. Upgrade to Airflow 2.0
+5. Upgrade to Airflow 2.1
 
 Following a section that highlights the biggest features included in Airflow 2.0, this doc will walk through each step listed above.
 
 If you'd like to test Airflow 2.0 locally with the Astronomer CLI, first read [Get Started with Airflow 2.0](https://astronomer.io/guides/get-started-airflow-2).
 
-> **Note:** The recommendations around the upgrade process are largely written in collaboration with the Apache Airflow project and community, though there a few differences in steps on Astronomer that we've made sure to outline below.
+> **Note:** The recommendations around the upgrade process are largely written in collaboration with the Apache Airflow project and community, though there are a few differences in steps on Astronomer that we've made sure to outline below.
 
 ## Why Airflow 2.0
 
-Airflow 2.0 is built to be fast, reliable, and infinitely scalable. Among the hundreds of new features both large and small, Airflow 2.0 includes:
+Airflow 2.0 was built to be fast, reliable, and infinitely scalable. Among the hundreds of new features both large and small, Airflow 2.0 includes:
 
 - [Refactored Airflow Scheduler](https://airflow.apache.org/docs/apache-airflow/stable/scheduler.html#running-more-than-one-scheduler) for enhanced performance and high-availability.
-- [Full REST API](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html) that enables a lot of opportunity for automation.
+- [Full REST API](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html) that enables more opportunities for automation.
 - [Smart Sensors](https://airflow.apache.org/docs/apache-airflow/stable/smart-sensor.html) that execute as single, long-running tasks.
 - [TaskFlow API](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#taskflow-api) for a simpler way to pass information between tasks.
 - [Independent Providers](https://github.com/apache/airflow/tree/master/airflow/providers) for improved usability and a more agile release cadence.
 - Simplified KubernetesExecutor for ultimate flexibility in configuration.
 - [UI/UX Improvements](https://github.com/apache/airflow/pull/11195) including a new Airflow UI and auto-refresh button in the **Graph** view.
+
+Airflow 2.1.0 was a strong subsequent release to Airflow 2.0. If you're not running on Airflow 2.0+ yet, we recommend upgrading from Airflow 1.10.15 to Airflow 2.1 directly. For more information on the release, refer to the [Apache Airflow Changelog](https://airflow.apache.org/docs/apache-airflow/2.1.0/changelog.html) and the [Astronomer Certified Changelog](https://github.com/astronomer/ap-airflow/blob/master/2.1.0/CHANGELOG.md).
 
 ### Airflow 2.0 Resources
 
@@ -55,7 +57,7 @@ There are two ways to install the Astronomer CLI:
 To install the latest version of the Astronomer CLI via cURL, run:
 
 ```bash
-$ curl -ssl https://install.astronomer.io | sudo bash
+curl -ssl https://install.astronomer.io | sudo bash
 ```
 
 ### Install the CLI via Homebrew
@@ -63,32 +65,32 @@ $ curl -ssl https://install.astronomer.io | sudo bash
 To install the latest version of the Astronomer CLI via [Homebrew](https://brew.sh/), run:
 
 ```bash
-$ brew install astronomer/tap/astro
+brew install astronomer/tap/astro
 ```
 
 For detailed guidelines, read [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
 
-## Step 2: Upgrade to Airflow 1.10.14
+## Step 2: Upgrade to Airflow 1.10.15
 
-Airflow 1.10.14, considered a "bridge" release to Airflow 2.0, was built to make the migration and testing process as easy as possible. On Astronomer, you MUST upgrade to an Astronomer Certified (AC) 1.10.14 image before upgrading to any 2.0 version.
+[Airflow 1.10.14](https://github.com/apache/airflow/releases/tag/1.10.14) was built to make the migration and testing process as easy as possible. [Airflow 1.10.15](https://github.com/apache/airflow/releases/tag/1.10.15) was subsequently released with additional bug fixes and improvements, and is what we recommend as the latest "bridge" release to Airflow 2.0+. On Astronomer, you MUST upgrade to an Astronomer Certified (AC) 1.10.14+ image before upgrading to any 2.0 version.
 
-To upgrade to 1.10.14,
+To upgrade to 1.10.15,
 
 1. Initialize the Airflow upgrade process via the Astronomer UI or CLI
-2. Add the AC 1.10.14 image (Debian-only) to your `Dockerfile`:
+2. Add the AC 1.10.15 image (Debian-only) to your `Dockerfile`:
 
 ```dockerfile
-FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild
+FROM quay.io/astronomer/ap-airflow:1.10.15-buster-onbuild
 ```
 3. Deploy to Astronomer via `$ astro deploy`
 
-For detailed guidelines on how to upgrade Airflow on Astronomer, read [“Manage Airflow Versions”](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.14, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.14) or the corresponding [AC 1.10.14 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md).
+For detailed guidelines on how to upgrade Airflow on Astronomer, read [Upgrade Airflow](https://www.astronomer.io/docs/cloud/stable/customize-airflow/manage-airflow-versions). For more information on 1.10.15, check out the [Airflow Release](https://github.com/apache/airflow/releases/tag/1.10.15) or the corresponding [AC 1.10.15 changelog](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/CHANGELOG.md).
 
-> **Note:** Astronomer Certified exclusively supports a Debian-based Docker image for both Airflow 1.10.14 and 2.0. If you're currently running an Alpine-based AC image for an earlier version of Airflow, we recommend that you first test the corresponding Debian image for your current version. For example, if you're runnning an Alpine-based 1.10.12 image, try the Debian-based 1.10.12 image before you upgrade to 1.10.14.
+> **Note:** Astronomer Certified exclusively supports a Debian-based Docker image for both Airflow 1.10.15 and 2.0. If you're currently running an Alpine-based AC image for an earlier version of Airflow, we recommend that you first test the corresponding Debian image for your current version. For example, if you're running an Alpine-based 1.10.12 image, try the Debian-based 1.10.12 image before you upgrade to 1.10.15.
 
 ## Step 3: Run the Airflow Upgrade Check Script
 
-Once you've upgraded to 1.10.14, you're ready to start making your DAGs and configurations Airflow 2.0-compatible. Most Airflow 2.0-compatible DAGs will work in Airflow 1.10.14, though not all.
+Once you've upgraded to 1.10.15, you're ready to start making your DAGs and configurations Airflow 2.0-compatible. Most Airflow 2.0-compatible DAGs will work in Airflow 1.10.15, though not all.
 
 For a comprehensive list of recommended and required changes specific to your existing project, run the Airflow upgrade check script via the Astronomer CLI. The script reviews your DAG code, deployment-level configuration and Environment Variables, as well as metadata from the Airflow Database.
 
@@ -97,7 +99,7 @@ For a comprehensive list of recommended and required changes specific to your ex
 To run the Airflow 2.0 upgrade check script, run:
 
 ```
-$ astro dev upgrade-check
+astro dev upgrade-check
 ```
 
 This command will automatically install the latest version of the `apache-airflow-upgrade-check` package at runtime and output results from the corresponding Airflow CLI command. It is only supported locally.
@@ -161,13 +163,13 @@ The next step is to review the results from Airflow's upgrade check script and m
 
 ### a. Import Operators from Backport Providers
 
-All Airflow 2.0 Operators and Extras are backwards compatible with Airflow 1.10.14. To transition to using these providers:
+All Airflow 2.0 Operators and Extras are backwards compatible with both Airflow 1.10.14 and Airflow 1.10.15. To transition to using these providers:
 
 1. Add all necessary providers in your `requirements.txt` file
 2. Modify your Import Statements
 3. Add any extras if needed
 
-For more information, refer to [1.10.14 Backport Providers](https://airflow.apache.org/docs/apache-airflow/1.10.14/backport-providers.html) in Apache Airflow documentation or reference the collection of [Backport Providers in PyPi](https://pypi.org/search/?q=apache-airflow-backport-providers&o=).
+For more information, refer to [1.10.15 Backport Providers](https://airflow.apache.org/docs/apache-airflow/1.10.15/backport-providers.html) in Apache Airflow documentation or reference the collection of [Backport Providers in PyPi](https://pypi.org/search/?q=apache-airflow-backport-providers&o=).
 
 ### b. Modify Airflow DAGs
 
@@ -180,19 +182,20 @@ Depending on how your DAGs are written today, you'll likely need to modify your 
 
 For more, refer to [Step 5: Upgrade Airflow DAGs](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/upgrading-to-2.html#step-5-upgrade-airflow-dags) in Apache Airflow documentation.
 
-## Step 5: Upgrade to Airflow 2.0
+## Step 5: Upgrade to Airflow 2.1
 
-If your DAGs and configurations pass the upgrade check script above, you're ready to officially upgrade to Airflow 2.0.0. The upgrade process itself is the same as any other on Astronomer.
+If your DAGs and configurations pass the upgrade check script above, you're ready to officially upgrade to Airflow 2.1.0. The upgrade process itself is the same as any other on Astronomer.
 
-To upgrade to 2.0.0,
+To upgrade to 2.1.0,
 
 1. Initialize the Airflow upgrade process via the Astronomer UI or CLI
-2. Add the AC 2.0.0 image (Debian-only) to your `Dockerfile`:
+2. Add the AC 2.1.0 image (Debian-only) to your `Dockerfile`:
 
 ```dockerfile
-FROM quay.io/astronomer/ap-airflow:2.0.0-buster-onbuild
+FROM quay.io/astronomer/ap-airflow:2.1.0-buster-onbuild
 ```
-3. Deploy to Astronomer via `$ astro deploy`
+3. Modify all Backport Providers you were using in Step 4 and replace them with fully supported [Provider Packages](https://airflow.apache.org/docs/apache-airflow-providers/index.html). For example, if you were using the [Mongo Backport Provider](https://pypi.org/project/apache-airflow-backport-providers-mongo/), replace `apache-airflow-backport-providers-mongo` with `apache-airflow-providers-mongo` in your `requirements.txt` file. For more information, refer to [Airflow documentation on Provider Packages](https://airflow.apache.org/docs/apache-airflow-providers/index.html).
+4. Deploy to Astronomer via `$ astro deploy`
 
 Then, navigate to the Airflow UI to confirm that your upgrade was successful. For guidelines on how to deploy to Astronomer, read [Deploy to Astronomer](https://www.astronomer.io/docs/cloud/stable/deploy/deploy-cli). 
 

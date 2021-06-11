@@ -76,7 +76,7 @@ Once you set up a TLS certificate for Astronomer, you'll need to establish a pro
     Then, create the ClusterIssuer by running the following command:
 
     ```sh
-    $ kubectl apply -f clusterissuer.yaml
+    kubectl apply -f clusterissuer.yaml
     ```
 
 4. Create a "Certificate" resource that declares the type of certificate you'll request from Let's Encrypt. To do so, first create a `certificate.yaml` file, replacing `BASE_DOMAIN` with yours:
@@ -108,12 +108,12 @@ Once you set up a TLS certificate for Astronomer, you'll need to establish a pro
     Then, create the certificate by running the following command and waiting a few minutes:
 
     ```sh
-    $ kubectl apply -f certificate.yaml
+    kubectl apply -f certificate.yaml
     ```
 
 5. Ensure that the certificate was created by running:
 ```sh
-$ kubectl get certificates
+kubectl get certificates
 ```
 
 ## Manually Renew TLS Certificates
@@ -123,7 +123,7 @@ Larger organizations with dedicated security teams will likely have their own pr
 1. Delete your current TLS certificate by running the following command:
 
     ```sh
-    $ kubectl delete secret astronomer-tls
+    kubectl delete secret astronomer-tls
     ```
 
 2. Follow the instructions for requesting a TLS certificate from your organization's security team as described in [Configure SSL](https://www.astronomer.io/docs/enterprise/v0.16/install/aws/install-aws-standard#4-configure-ssl). The linked guide is written for users installing Astronomer on AWS, but this step is the same regardless of which service you use.
@@ -131,6 +131,6 @@ Larger organizations with dedicated security teams will likely have their own pr
 3. Restart your Houston, nginx, and registry pods to begin using the new certificate by running the following commands:
 
     ```sh
-    $ kubectl rollout restart deployments -n <your-namespace>
-    $ kubectl rollout restart statefulsets -n <your-namespace>
+    kubectl rollout restart deployments -n <your-namespace>
+    kubectl rollout restart statefulsets -n <your-namespace>
     ```

@@ -4,11 +4,13 @@ navTitle: "Quickstart"
 description: "Get started with Astronomer Cloud."
 ---
 
+## Overview
+
 Welcome to Astronomer.
 
 This guide will help you kick off your trial on Astronomer by walking you through a sample DAG deployment from start to finish.
 
-Whether you're exploring our Enterprise or Cloud offering, we've designed this to be a great way to become familiar with our platform.
+Whether you're exploring our Enterprise or Cloud offering, we've designed this quickstart to be a great way to become familiar with our platform.
 
 ## Step 1: Start Your Trial
 
@@ -68,7 +70,7 @@ The CLI installation process requires [Docker](https://www.docker.com/) (v18.09 
 To install the latest version of the Astronomer CLI via cURL, run:
 
 ```bash
-$ curl -ssl https://install.astronomer.io | sudo bash
+curl -ssl https://install.astronomer.io | sudo bash
 ```
 
 #### Install the CLI via Homebrew
@@ -76,7 +78,7 @@ $ curl -ssl https://install.astronomer.io | sudo bash
 To install the latest version of the Astronomer CLI via [Homebrew](https://brew.sh/), run:
 
 ```bash
-$ brew install astronomer/tap/astro
+brew install astronomer/tap/astro
 ```
 
 For more information on the Astronomer CLI, read [CLI Quickstart](https://www.astronomer.io/docs/cloud/stable/develop/cli-quickstart).
@@ -86,7 +88,7 @@ For more information on the Astronomer CLI, read [CLI Quickstart](https://www.as
 Create a new project directory on your machine and `cd` to it:
 
 ```
-$ mkdir <directory-name> && cd <directory-name>
+mkdir <directory-name> && cd <directory-name>
 ```
 
 This project directory is where you'll store all the necessary files to build and deploy your Airflow image.
@@ -94,7 +96,7 @@ This project directory is where you'll store all the necessary files to build an
 In the project directory, run:
 
 ```
-$ astro dev init
+astro dev init
 ```
 
 This will generate the following files:
@@ -142,7 +144,7 @@ Now that you have the necessary files project directory, you're ready to push yo
 Run the following command:
 
 ```
-$ astro dev start
+astro dev start
 ```
 
 This command spins up 3 Docker containers on your machine, each for a different Airflow component:
@@ -154,7 +156,7 @@ This command spins up 3 Docker containers on your machine, each for a different 
 You should see the following output:
 
 ```
-$ astro dev start
+astro dev start
 Env file ".env" found. Loading...
 Sending build context to Docker daemon  10.75kB
 Step 1/1 : FROM quay.io/astronomer/ap-airflow:latest-onbuild
@@ -185,7 +187,7 @@ The default credentials are admin:admin
 To verify that all 3 Docker containers were created, run:
 
 ```
-$ docker ps
+docker ps
 ```
 
 > **Note**: Running `$ astro dev start` will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432.
@@ -244,7 +246,7 @@ If you don't have the correct permissions, reach out to someone on your team. Fo
 To authenticate via the Astronomer CLI, run:
 
 ```
-$ astro auth login gcp0001.us-east4.astronomer.io
+astro auth login gcp0001.us-east4.astronomer.io
 ```
 
 If you created your account with a username and password, you'll be prompted to enter them directly in your terminal. If you did so via GitHub or Google OAuth, you'll be prompted to grab a temporary token from https://app.gcp0001.us-east4.astronomer.io/token.
@@ -256,7 +258,7 @@ If you created your account with a username and password, you'll be prompted to 
 Before you deploy to Astronomer, make sure you're in the correct Workspace by running:
 
 ```
-$ astro workspace list
+astro workspace list
 ```
 
 For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/cloud/stable/develop/cli-quickstart/).
@@ -266,7 +268,7 @@ For more specific CLI guidelines and commands, read [CLI Quickstart](/docs/cloud
 When you're ready to deploy your DAGs, run:
 
 ```
-$ astro deploy
+astro deploy
 ```
 
 This command will return a list of Airflow Deployments available in your Workspace and prompt you to pick one.
@@ -281,6 +283,12 @@ This links to your Deployment's Airflow UI, where you'll find your example DAG a
 
 For guidance on how to navigate the Airflow UI, refer to [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/ui.html).
 
+## Video Tutorial
+
+Watch our video tutorial for a brief review of the workflows and concepts described in this quickstart:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OihokE8u9D0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 ## What's Next?
 
 Now that you're set up on Astronomer and familiar with our deployment flow, consider a few next steps:
@@ -294,10 +302,10 @@ A few tips for when you're developing locally:
 - If you make changes to your Dockerfile, `packages.txt` or `requirements.txt`, rebuild your image by running the following in sequence:
 
    ```
-   $ astro dev stop
+   astro dev stop
    ```
    ```
-   $ astro dev start
+   astro dev start
     ```
 
 ### Check out Your Logs

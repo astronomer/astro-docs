@@ -12,7 +12,7 @@ If the Astronomer platform is not functioning after following the instructions i
 When deploying the base Astronomer platform, the only three pods that will connect directly to the database are Houston (API), Grafana, and Prisma. All other database connections will be created from Airflow deployments created on Astronomer.
 
 ```
-$ kubectl get pods -n astro-demo
+kubectl get pods -n astro-demo
 NAME                                                       READY   STATUS             RESTARTS   AGE
 manageable-snail-alertmanager-0                            1/1     Running            0          1h
 manageable-snail-cli-install-5b96bfdc-25nzs                1/1     Running            0          1h
@@ -42,7 +42,7 @@ manageable-snail-kube-state-bf86885f-g46pp                 1/1     Running      
 manageable-snail-kubed-5b5d65dd9d-l7nds                    1/1     Running            2          1h
 manageable-snail-nginx-799d79ccf9-kfnzn                    1/1     Running            0          1h
 manageable-snail-nginx-default-backend-5cc4755696-vh5zq    1/1     Running            0          1h
-manageable-snail-orbit-7b9b9df4f9-pb99f                    1/1     Running            0          1h
+manageable-snail-astro-ui-7b9b9df4f9-pb99f                 1/1     Running            0          1h
 manageable-snail-prisma-6b5d944bdc-szn8f                   0/1     CrashLoopBackOff   20         1h
 manageable-snail-prometheus-0                              1/1     Running            0          1h
 manageable-snail-registry-0                                1/1     Running            0          1h
@@ -54,7 +54,7 @@ If these are the only three pods that are not coming up as healthy, it is usuall
 Make sure that the Kubernetes cluster Astronomer is running on can connect to the database. One way to check this is to jump into an Astronomer pod and try connecting directly to the database:
 
 ```
-$ kubectl exec -it manageable-snail-houston-6fb7956994-2tngn /bin/sh -n astro-demo
+kubectl exec -it manageable-snail-houston-6fb7956994-2tngn /bin/sh -n astro-demo
 ```
 
 Once inside the pod, add the `postgresql` package:
@@ -92,7 +92,7 @@ If the connection times out here, there may be a networking issue.
 Check to make sure the `astronomer-bootstrap` secret created earlier, which contains the connection string to the database, does not contain any typos:
 
 ```
-$ kubectl get secrets -n astro-demo
+kubectl get secrets -n astro-demo
 NAME                                                   TYPE                                  DATA   AGE
 astronomer-bootstrap                                   Opaque                                1      33h
 astronomer-tls                                         kubernetes.io/tls                     2      44d
@@ -119,7 +119,7 @@ manageable-snail-registry-auth                         kubernetes.io/dockerconfi
 To decrypt the `astronomer-bootstrap` secret:
 
 ```
-$ kubectl get secret astronomer-bootstrap -o yaml
+kubectl get secret astronomer-bootstrap -o yaml
 apiVersion: v1
 data:
   connection: <encoded_value>
@@ -136,17 +136,17 @@ type: Opaque
 
 Now to see the secret in plaintext:
 ```
-$ echo <encoded_value> | base64 --decode
+echo <encoded_value> | base64 --decode
 ```
 
 If there is indeed a typo, delete the secret, recreate it with the right value, and then delete all the pods in the namespace.
 
 ```
-$ kubectl delete secret astronomer-bootstrap -n astro-demo
+kubectl delete secret astronomer-bootstrap -n astro-demo
 secret/astronomer-bootstrap deleted
-$ kubectl create secret generic astronomer-bootstrap --from-literal connection="<your_connection_string>" --namespace <namespace>
+kubectl create secret generic astronomer-bootstrap --from-literal connection="<your_connection_string>" --namespace <namespace>
 secret/astronomer-bootstrap created
-$ kubectl delete --all pods --namespace <namespace>
+kubectl delete --all pods --namespace <namespace>
 ```
 
 Restarting the pods will force them to pick up the new value.

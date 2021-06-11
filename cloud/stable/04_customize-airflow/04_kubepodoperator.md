@@ -12,6 +12,8 @@ The KubernetesPodOperator enables task-level resource configuration and is optim
 
 At its core, the KubernetesPodOperator is built to run any docker image with Airflow regardless of the language it's written in. It's the next generation of the DockerOperator and is optimized to leverage Kubernetes functionality, allowing users to specify resource requests and pass Kubernetes specific parameters into the task.
 
+If you're using the Kubernetes Executor, you can also configure task-level Kubernetes resources using a pod template. For more information, read [Use a Pod Template in a Task](/docs/cloud/stable/customize-airflow/kubernetes-executor#use-a-pod-template-in-a-task).
+
 ## Pre-Requisites
 
 To run the KubernetesPodOperator on Astronomer, make sure you:
@@ -190,7 +192,7 @@ Two preliminary notes:
 The command will look something like:
 
 ```
-$ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
 ```
 
 The output should be something like:

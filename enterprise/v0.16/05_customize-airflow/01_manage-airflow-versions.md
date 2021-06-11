@@ -58,7 +58,7 @@ To initialize the Airflow upgrade process via the Astronomer CLI, first make sur
 Once authenticated, grab the `Deployment ID` of the Airflow Deployment you'd like to upgrade by running:
 
 ```
-$ astro deployment list
+astro deployment list
 ```
 
 You can expect the following output:
@@ -72,7 +72,7 @@ astro deployment list
 With that `Deployment ID`, run:
 
 ```
-$ astro deployment airflow upgrade --deployment-id=<deployment-id>
+astro deployment airflow upgrade --deployment-id=<deployment-id>
 ```
 
 This command will output a list of available versions of Airflow you can choose from and prompt you to pick one. For example, a user upgrading from Airflow 1.10.5 to Airflow 1.10.12 should see the following:
@@ -124,13 +124,13 @@ For our platform's full collection of Docker Images, reference [Astronomer on Qu
 
 | Airflow Version                                                                       | Debian-based Image                                        | Alpine-based Image                                            |
 | ------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------- |
-| [v1.10.5](https://github.com/astronomer/ap-airflow/blob/master/1.10.5/CHANGELOG.md)   | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild  | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild  |
+| [v1.10.5](https://github.com/apache/airflow/releases/tag/1.10.5)   | FROM quay.io/astronomer/ap-airflow:1.10.5-buster-onbuild  | FROM quay.io/astronomer/ap-airflow:1.10.5-alpine3.10-onbuild  |
 | [v1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/CHANGELOG.md)   | FROM quay.io/astronomer/ap-airflow:1.10.7-buster-onbuild  | FROM quay.io/astronomer/ap-airflow:1.10.7-alpine3.10-onbuild  |
 | [v1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.10-buster-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.10-alpine3.10-onbuild |
 | [v1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.12-buster-onbuild | FROM quay.io/astronomer/ap-airflow:1.10.12-alpine3.10-onbuild  |
 | [v1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/CHANGELOG.md) | FROM quay.io/astronomer/ap-airflow:1.10.14-buster-onbuild | N/A                                                           |
 
-> **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to Quay.io as our Docker Registry due to a [recent change](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
+> **Note:** We recently migrated from [DockerHub](https://hub.docker.com/r/astronomerinc/ap-airflow) to [Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags) as our Docker Registry due to a [recent change](https://www.docker.com/blog/what-you-need-to-know-about-upcoming-docker-hub-rate-limiting/) in DockerHub's rate limit policy. If you're using a legacy `astronomerinc/ap-airflow` image, replace it with a corresponding `quay.io/astronomer` image to avoid rate limiting errors from DockerHub when you deploy to Astronomer (e.g. `toomanyrequests: You have reached your pull rate limit`).
 
 ## Step 3: Rebuild your Image
 
@@ -150,7 +150,7 @@ If you're developing locally, make sure to save your changes and issue the follo
 
 If you don't need to test this locally and just want to push to your Astronomer Enterprise installation, you can run:
 ```sh
-$ astro deploy
+astro deploy
 ```
 
 ## Step 4: Confirm your version in the Airflow UI
@@ -245,7 +245,7 @@ If your image *does* build successfully, you're ready to push it to your Airflow
 To do so, trigger your [CI/CD process](https://www.astronomer.io/docs/enterprise/v0.16/deploy/ci-cd) or simply run:
 
 ```bash
- $ astro deploy
+ astro deploy
  ```
 
  For more information on deploying to Astronomer, refer to [Deploy to Astronomer via the CLI](https://www.astronomer.io/docs/enterprise/v0.16/deploy/deploy-cli).
@@ -261,13 +261,13 @@ Via the Astronomer UI, select **Cancel** next to **Airflow Version**.
 Via the Astronomer CLI, run:
 
 ```
-$ astro deployment airflow upgrade --cancel --deployment-id=<deployment-id>
+astro deployment airflow upgrade --cancel --deployment-id=<deployment-id>
 ```
 
 For example, if a user cancels an initialized upgrade from Airflow 1.10.7 to Airflow 1.10.12 via the CLI, they would see the following:
 
 ```bash
-$ astro deployment airflow upgrade --cancel --deployment-id=ckguogf6x0685ewxtebr4v04x
+astro deployment airflow upgrade --cancel --deployment-id=ckguogf6x0685ewxtebr4v04x
 
 Airflow upgrade process has been successfully canceled. Your Deployment was not interrupted and you are still running Airflow 1.10.7.
 ```

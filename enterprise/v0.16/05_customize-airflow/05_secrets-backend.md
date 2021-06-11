@@ -38,13 +38,13 @@ To start, you'll need to write an [Airflow connection URI](https://airflow.apach
 To write the connection to your Vault server as a key/value pair, run:
 
 ```
-$ vault kv put secret/connections/<your-connection> conn_uri=my-conn-type://my-login:my-password@my-host:5432
+vault kv put secret/connections/<your-connection> conn_uri=my-conn-type://my-login:my-password@my-host:5432
 ```
 
 This methodology should apply to any secret that is expressed as a Connection URI. For an SMTP connection, for example, this would look like the following:
 
 ```
-$ vault kv put secret/connections/smtp_default conn_uri=smtps://user:host@relay.example.com:465
+vault kv put secret/connections/smtp_default conn_uri=smtps://user:host@relay.example.com:465
 ```
 
 > **Note:** We recommend setting the path to `secret/connections/<your-connection>` to keep all of your Airflow connections organized in the `connections` directory of the mount point.
@@ -54,7 +54,7 @@ $ vault kv put secret/connections/smtp_default conn_uri=smtps://user:host@relay.
 To confirm that the secret was written successfully for the example above, run the following:
 
 ```
-$ vault kv gt secret/connections/<your-connection>
+vault kv gt secret/connections/<your-connection>
 ```
 
 For the SMTP example anove, the output would be:
@@ -157,7 +157,7 @@ You now should be able to see your connection information being pulled from Vaul
 While the above section required that you add your connection information as a `conn_uri` to Vault, you can also pull Airflow Variables from Vault. To do so, you'll need to add your variable to vault via the following syntax:
 
 ```
-   $  vault kv put airflow/variables/hello value=world
+   vault kv put airflow/variables/hello value=world
    ```
 
 This works because we set the `variables_path` in our `AIRFLOW__SECRETS__BACKEND_KWARGS` to be `variables`. You are welcome to change this path name if you'd prefer to access variables from a different Vault directory.
@@ -209,7 +209,7 @@ To do so, follow the steps below.
 
 This tells Airflow to look for connection information at the `airflow/connections/*` path in your SSM instance.
 
-If you're interested in further customizing what the interaction between Airflow and your SSM server looks like, learn more by reading [the full list of available kwargs for this integration](https://airflow.apache.org/docs/stable/_api/airflow/contrib/secrets/aws_systems_manager/index.html).
+If you're interested in further customizing what the interaction between Airflow and your SSM server looks like, learn more by reading [the full list of available kwargs for this integration](https://airflow.apache.org/docs/apache-airflow-providers-amazon/stable/_api/airflow/providers/amazon/aws/secrets/systems_manager/index.html).
 
 > **Note:** If you'd like to reference an AWS profile instead of connecting via Environment Variables, you can also [add the `profile` param to your kwargs](https://airflow.apache.org/docs/1.10.10/howto/use-alternative-secrets-backend.html).
 

@@ -51,12 +51,12 @@ Here are some examples of accessible services when we use the base domain `astro
 
 Login to your Google account with the `gcloud` CLI:
 ```
-$ gcloud auth login
+gcloud auth login
 ```
 
 Create a project:
 ```
-$ gcloud projects create [PROJECT_ID]
+gcloud projects create [PROJECT_ID]
 ```
 
 Confirm the project was successfully created:
@@ -68,7 +68,7 @@ astronomer-project     astronomer-project  364686176109
 
 Configure the `gcloud` CLI for use with your new project:
 ```
-$ gcloud config set project [PROJECT_ID]
+gcloud config set project [PROJECT_ID]
 ```
 
 Set your preferred compute zone, which will have a compute region tied to it.
@@ -76,8 +76,8 @@ Set your preferred compute zone, which will have a compute region tied to it.
 You'll need this later on:
 
 ```
-$ gcloud compute zones list
-$ gcloud config set compute/zone [COMPUTE_ZONE]
+gcloud compute zones list
+gcloud config set compute/zone [COMPUTE_ZONE]
 ```
 
 ### Create a GKE Cluster
@@ -89,7 +89,7 @@ First, enable the [Google Kubernetes Engine API](https://console.cloud.google.co
 Then, create a Kubernetes cluster via the `gcloud` CLI:
 
 ```
-$ gcloud container clusters create [CLUSTER_NAME] --zone [COMPUTE_ZONE] --cluster-version [VERSION] --machine-type n1-standard-8 --enable-autoscaling --max-nodes 10 --min-nodes 3
+gcloud container clusters create [CLUSTER_NAME] --zone [COMPUTE_ZONE] --cluster-version [VERSION] --machine-type n1-standard-8 --enable-autoscaling --max-nodes 10 --min-nodes 3
 ```
 
 A few important notes:
@@ -106,12 +106,12 @@ If you work with multiple Kubernetes environments, `kubectx` is an incredibly us
 
 Generate a static IP address:
 ```
-$ gcloud compute addresses create astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID]
+gcloud compute addresses create astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID]
 ```
 
 View your newly generated IP address and record the output for use later on:
 ```
-$ gcloud compute addresses describe astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID] --format 'value(address)'
+gcloud compute addresses describe astronomer-ip --region [COMPUTE_REGION] --project [PROJECT_ID] --format 'value(address)'
 ```
 
 ## 4. Configure Helm with your GKE Cluster
@@ -123,7 +123,7 @@ Helm is a package manager for Kubernetes. It allows you to easily deploy complex
 Create a namespace to host the core Astronomer Platform. If you are running through a standard installation, each Airflow deployment you provision will be created in a seperate namespace that our platform will provision for you, this initial namespace will just contain the core Astronomer platform.
 
 ```
-$ kubectl create namespace <my-namespace>
+kubectl create namespace <my-namespace>
 ```
 
 ## 5. SSL Configuration
@@ -153,13 +153,13 @@ You can also use a wildcard cert for yourdomain (e.g. `*.astro.BASEDOMAIN.com`).
 If you are on a Mac:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt1:/etc/letsencrypt -v /Users/<my-username>/<my-project>/letsencrypt2:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 If you are running Linux:
 
 ```bash
-$ docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+docker run -it --rm --name letsencrypt -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt certbot/certbot:latest certonly -d "*.astro.BASEDOMAIN.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 Follow the on-screen prompts and create a TXT record through your DNS provider. Wait a few minutes before continuing in your terminal.
@@ -286,19 +286,19 @@ Now that you have a GCP cluster set up and your `config.yaml` defined, you're re
 First, run:
 
 ```
-$ helm repo add astronomer https://helm.astronomer.io/
+helm repo add astronomer https://helm.astronomer.io/
 ```
 
 Then, run:
 
 ```sh
-$ helm repo update
+helm repo update
 ```
 
 This will ensure that you pull the latest from our Helm repository. Finally, run:
 
 ```sh
-$ helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
+helm install -f config.yaml --version=0.16 --namespace=<your-platform-namespace> <your-platform-release-name> astronomer/astronomer
 ```
 
 This command will install the latest available patch version of Astronomer Enterprise v0.16. To override latest and specify a patch, add it to the `--version=` flag in the format of `0.16.x`. To install Astronomer Enterprise v0.16.9, for example, specify `--version=0.16.9`. For information on all available patch versions, refer to [Enterprise Release Notes](/docs/enterprise/v0.16/resources/release-notes/).
@@ -310,7 +310,7 @@ Once you run the commands above, a set of Kubernetes pods will be generated in y
 To verify all pods are up and running, run:
 
 ```
-$ kubectl get pods --namespace <my-namespace>
+kubectl get pods --namespace <my-namespace>
 ```
 
 You should see something like this:
@@ -342,7 +342,7 @@ newbie-norse-kibana-58bdf9bdb8-2j67t                   1/1     Running     0    
 newbie-norse-kube-state-549f45544f-mcv7m               1/1     Running     0          30m
 newbie-norse-nginx-7f6b5dfc9c-dm6tj                    1/1     Running     0          30m
 newbie-norse-nginx-default-backend-5ccdb9554d-5cm5q    1/1     Running     0          30m
-newbie-norse-orbit-d5585ccd8-h8zkr                     1/1     Running     0          30m
+newbie-norse-astro-ui-d5585ccd8-h8zkr                  1/1     Running     0          30m
 newbie-norse-prisma-699bd664bb-vbvlf                   1/1     Running     0          30m
 newbie-norse-prometheus-0                              1/1     Running     0          30m
 newbie-norse-registry-0                                1/1     Running     0          30m
@@ -350,7 +350,7 @@ newbie-norse-registry-0                                1/1     Running     0    
 
 If you are seeing issues here, check out our [guide on debugging your installation](/docs/enterprise/v0.16/troubleshoot/debug-install/)
 
-## 10. Access Astronomer's Orbit UI
+## 10. Access the Astronomer UI
 
 Go to app.BASEDOMAIN to see the Astronomer UI.
 

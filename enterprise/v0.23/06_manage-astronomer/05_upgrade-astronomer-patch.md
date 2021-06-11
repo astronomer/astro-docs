@@ -36,7 +36,7 @@ First, ensure you have a copy of the `config.yaml` file of your platform namespa
 To do this, you can run:
 
 ```sh
-$ helm get values <your-platform-release-name> -n <your-platform-namespace>  > config.yaml
+helm get values <your-platform-release-name> -n <your-platform-namespace>  > config.yaml
 ```
 
 Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you see it.
@@ -46,7 +46,7 @@ Review this configuration and delete the line `"USER-SUPPLIED VALUES:"` if you s
 To verify the version of Astronomer you're currently operating with, run:
 
 ```sh
-$ helm list --all-namespaces | grep astronomer
+helm list --all-namespaces | grep astronomer
 ```
 
 ## Step 3: Run Astronomer's Patch Upgrade Script

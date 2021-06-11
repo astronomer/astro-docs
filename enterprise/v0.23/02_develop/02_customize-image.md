@@ -46,13 +46,13 @@ If you do _not_ pin a package to a version, the latest version of the package th
 Once you've saved those packages in your text editor or version control tool, rebuild your image by running:
 
 ```
-$ astro dev stop
+astro dev stop
 ```
 
 followed by
 
 ```
-$ astro dev start
+astro dev start
 ```
 
 This process stops your running Docker containers and restarts them with your updated image.
@@ -66,7 +66,7 @@ If you added `pymongo` to your `requirements.txt` file, for example, you can con
 3. Run the following:
 
 ```
-$ docker exec -it <scheduler-container-id> pip freeze | grep pymongo
+docker exec -it <scheduler-container-id> pip freeze | grep pymongo
 
 pymongo==3.7.2
 ```
@@ -192,7 +192,7 @@ Make sure to specify `version: "2"` and mimic the format of the source code file
 When your image builds on `$ astro dev start`, any changes made within the `custom_dependencies` directory will be picked up automatically the same way they are with files in your `dags` directory:
 
 ```
-$ docker exec -it astronomer_project239673_scheduler_1 ls -al
+docker exec -it astronomer_project239673_scheduler_1 ls -al
 total 76
 drwxr-xr-x    1 astro    astro         4096 Dec 30 17:21 .
 drwxr-xr-x    1 root     root          4096 Dec 14  2018 ..
@@ -230,7 +230,7 @@ Refer to the native [Airflow CLI](https://airflow.apache.org/docs/apache-airflow
 The Astronomer CLI comes with the ability to  bring in Environment Variables from a specified file by running `$ astro dev start` with an `--env` flag as seen below:
 
 ```
-$ astro dev start --env .env
+astro dev start --env .env
 ```
 
 > **Note:** This feature is limited to local development only. Whatever `.env` you use locally will _not_ be bundled up when you deploy to Astronomer.
@@ -293,7 +293,7 @@ RUN pip install --no-cache-dir -q -r requirements.txt
 
 FROM stage1 AS stage3
 # Copy requirements directory
-COPY --from=stage2 /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
+COPY --from=stage2 /usr/lib/python3.7/site-packages/ /usr/lib/python3.7/site-packages/
 COPY . .
 ```
 
@@ -304,7 +304,7 @@ A few notes:
 - Make sure to replace the first line of this file (`FROM`..) with your Airflow Image (Step 2 above)
 - If you don't want keys in this file to be pushed back up to your GitHub repo, consider adding this file to `.gitignore`
 - Make sure your custom OS-Level packages are in `packages.txt` and your Python packages in `requirements.txt` within your repo
-- If you're running Python 3.7 on your machine, replace the reference to Python 3.6 under `# Copy requirements directory` with `/usr/lib/python3.7/site-packages/` above
+- If you're running Python 3.8 on your machine, replace the reference to Python 3.7 under `# Copy requirements directory` with `/usr/lib/python3.8/site-packages/` above
 
 ### Step 2. Build your Image
 
@@ -313,13 +313,13 @@ Now, let's build a Docker image based on the requirements above that we'll then 
 Run the following in your terminal:
 
 ```
-$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-<airflow-image> .
+docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-<airflow-image> .
 ```
 
 If you have `quay.io/astronomer/ap-airflow:1.10.12-buster` in your `Dockerfile.build`, for example, this command would be:
 
 ```
-$ docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow:1.10.12-buster .
+docker build -f Dockerfile.build --build-arg PRIVATE_RSA_KEY="$(cat ~/.ssh/id_rsa)" -t custom-ap-airflow:1.10.12-buster .
 ```
 
 ### Step 3. Replace your Dockerfile
@@ -330,7 +330,7 @@ Now that we've built your custom image, let's reference that custom image in you
 FROM custom-<airflow-image>
 ```
 
-If you're running `quay.io/astronomer/ap-airflow:1.10.10-alpine3.10` as specified above, this line would read:
+If you're running `quay.io/astronomer/ap-airflow:1.10.12-buster` as specified above, this line would read:
 
 ```
 FROM custom-ap-airflow:1.10.12-buster
@@ -354,7 +354,7 @@ To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you need 
 1. Using `docker build`, build a custom [Astronomer Certified Docker image](https://github.com/astronomer/ap-airflow) and specify `PYTHON_MAJOR_MINOR_VERSION` for the version of Python you'd like to support. For example, the command for building a custom Astronomer Certified image for Airflow 2.0.0 with Python 3.8 would look something like this:
 
     ```sh
-    $ docker build --build-arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t <your-registry>/ap-airflow:<image-tag> https://github.com/astronomer/ap-airflow.git#master:2.0.0/buster
+    docker build --build-arg PYTHON_MAJOR_MINOR_VERSION=3.8 -t <your-registry>/ap-airflow:<image-tag> https://github.com/astronomer/ap-airflow.git#master:2.0.0/buster
     ```
 
     We recommend using an image tag that indicates the image is using a different Python version, such as `2.0.0-buster-python3.8`.
@@ -364,7 +364,7 @@ To run Astronomer Certified on Docker with Python versions 3.6 or 3.8, you need 
 2. Push the custom image to your Docker registry. Based on the example in the previous step, the command to do so would look something like this:
 
     ```sh
-    $ docker push <your-registry>/ap-airflow:<image-tag>
+    docker push <your-registry>/ap-airflow:<image-tag>
     ```
 
 3. Update the `FROM` line of your `Dockerfile` to reference the custom image. Based on the previous example, the line would read:
