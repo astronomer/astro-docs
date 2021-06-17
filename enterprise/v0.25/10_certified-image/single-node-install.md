@@ -21,6 +21,8 @@ For other possible Astronomer Certified installations, see the following guides:
 
 ## Prerequisites
 
+The machines where you install your Astronomer cluster must be Debian-based. CentOS and Windows Server are currently unsupported.
+
 Once you've decided which machine you'll be installing Astronomer Certified on, ensure that the following OS-level packages are installed on the machine:
 
 - sudo
