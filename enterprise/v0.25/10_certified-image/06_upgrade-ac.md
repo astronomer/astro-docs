@@ -43,7 +43,7 @@ For example, if you wanted to upgrade to the latest patch version of Airflow 2.1
 
     > **Note:** This command changes to `airflow db upgrade` in Airflow 2.0+. For more information on major changes in 2.0, read [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/upgrading-to-2.html#airflow-cli-changes-in-2-0).
 
-3. In a web browser, access the Airflow UI at http://host:8080 and click **About** > **Version**. Once there, you should see the correct Airflow version listed.
+3. In a web browser, access the Airflow UI at http://localhost:8080 and click **About** > **Version**. Once there, you should see the correct Airflow version listed.
 
     > **Note:** The URL listed above assumes your Webserver is at port 8080 (default). To change that default, read [this forum post](https://forum.astronomer.io/t/i-already-have-the-ports-that-the-cli-is-trying-to-use-8080-5432-occupied-can-i-change-the-ports-when-starting-a-project/48).
 
@@ -65,6 +65,6 @@ In your `Dockerfile`, replace the value in the existing `FROM` statement with th
 
 4. If you are using the Astronomer CLI, run `astro dev stop` followed by `astro dev start` to restart your 3 Airflow components (Scheduler, Webserver, and Database).
 
-    If you aren't using the Astronomer CLI, you manually stop all Airflow containers using `docker-compose down --volumes --rmi all`.
+    If you aren't using the Astronomer CLI, you can manually stop all Airflow containers using `docker-compose down --volumes --rmi all`.
 
 5. Open the Airflow UI and click **About** > **Version** to confirm that the upgrade was successful. If you're developing locally with the Astronomer CLI, the Airflow UI is available at `http://localhost:8080/`.
