@@ -21,7 +21,7 @@ For other possible Astronomer Certified installations, see the following guides:
 
 ## Prerequisites
 
-The machines where you install your Astronomer cluster must be Debian-based. CentOS and Windows Server are currently unsupported.
+The machines where you install Astronomer Certified must be Debian-based. CentOS and Windows Server are currently unsupported.
 
 Once you've decided which machine you'll be installing Astronomer Certified on, ensure that the following OS-level packages are installed on the machine:
 
@@ -92,7 +92,7 @@ You also need to configure an `AIRFLOW_HOME` directory (not to be confused with 
 ```sh
 sudo install --owner=astro --group=astro -d /usr/local/airflow
 echo 'export AIRFLOW_HOME=/usr/local/airflow' | sudo tee --append ~astro/.bashrc
-cd /usr/local/airflow
+cd ${AIRFLOW_HOME}
 sudo mkdir dags
 ```
 
@@ -148,10 +148,10 @@ To use systemd as a process supervisor:
     sudo -e /etc/systemd/system/astronomer-certified@.service
     ```
 
-2. Using a text editor, create and edit a file at `/usr/local/airflow/sys-config` to contain these environment variables and values:
+2. Using a text editor, create and edit a file at `${AIRFLOW_HOME}/sys-config` to contain these environment variables and values:
 
     ```sh
-    AIRFLOW_HOME=/usr/local/airflow/
+    AIRFLOW_HOME= ${AIRFLOW_HOME}
     AIRFLOW__CORE__LOAD_EXAMPLES=False
     PATH=$PATH:/home/astro/airflow-venv/bin
     ```
@@ -167,11 +167,11 @@ To use systemd as a process supervisor:
     Requires=network-online.target
 
     [Service]
-    EnvironmentFile=/usr/local/airflow/sys-config
+    EnvironmentFile=${AIRFLOW_HOME}/sys-config
     User=astro
     Group=astro
     Type=simple
-    WorkingDirectory=/usr/local/airflow/
+    WorkingDirectory=${AIRFLOW_HOME}
     ExecStart=/home/astro/airflow-venv/bin/airflow %i
     Restart=always
     RestartSec=5s
@@ -207,7 +207,7 @@ The password you specify here should be the same one you specified when prompted
 When you've finished configuring environment variables, run the following command to add your environment variables to your `astro` user's shell environment:
 
 ```sh
-echo 'set -a; source /usr/local/airflow/sys-config; set +a' | sudo tee --append ~astro/.bashrc
+echo 'set -a; source ${AIRFLOW_HOME}/sys-config; set +a' | sudo tee --append ~astro/.bashrc
 ```
 
 ### Optional: Configure a secret backend for database access
