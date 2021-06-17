@@ -1,23 +1,18 @@
 ---
-title: "Install Astronomer Certified on a Single Virtual Machine"
-navTitle: "Single Node Installation"
-description: "Configure a simple Apache Airflow environment with Astronomer Certified on a single virtual machine."
+title: "Install Astronomer Certified on a Virtual Machine"
+navTitle: "Install on a Virtual Machine"
+description: "Configure a simple Apache Airflow environment with Astronomer Certified on a virtual machine."
 ---
 
 ## Overview
 
-The Astronomer Certified Python wheel is a distribution of Apache Airflow maintained by Astronomer. While functionally identical to Apache Airflow, the Astronomer Certified Python wheel includes additional bug and security fixes, as well as extended support from the Astronomer team as described in [Image Support].
+The Astronomer Certified Python wheel is a distribution of Apache Airflow maintained by Astronomer. While functionally identical to Apache Airflow, the Astronomer Certified Python wheel includes additional bug and security fixes, as well as extended support from the Astronomer team.
 
 If you want to run Astronomer's distribution of Airflow without using Docker, you can install the Astronomer Certified Python wheel on either one or many virtual machines.
 
 This guide provides steps for installing the Python wheel onto a single virtual machine. By the end of the setup, you'll have a simple development environment for Airflow running on your local machine.
 
 Note that this setup represents one possible configuration of Astronomer Certified and uses optional tools such as systemd and PostgreSQL. After successfully starting Airflow for the first time, we recommend reviewing this configuration and adjusting it based on the functional requirements for your project.
-
-For other possible Astronomer Certified installations, see the following guides:
-
-- [Install Astronomer Certified on a Multi-Node Cluster]
-- [Install Astronomer Certified at Production Scale]
 
 ## Prerequisites
 
