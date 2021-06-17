@@ -1,7 +1,7 @@
 ---
 title: "Install Astronomer Certified on a Single Virtual Machine"
 navTitle: "Single Node Installation"
-description: "Configure a simple Astronomer Certified environment on a single virtual machine."
+description: "Configure a simple Apache Airflow environment with Astronomer Certified on a single virtual machine."
 ---
 
 ## Overview
@@ -25,7 +25,7 @@ Once you've decided which machine you'll be installing Astronomer Certified on, 
 
 - sudo
 - python3
-- python3-dev (python3-devel for RHEL/CentOS)
+- python3-dev
 - python3-venv
 - python3-psycopg2
 - gcc
@@ -38,7 +38,7 @@ If you're running on a Debian-based OS, you can install these with the following
 sudo apt-get install sudo python3 python3-dev python3-venv python3-psycopg2 gcc postgresql systemd
 ```
 
-You also need a database on the machine that will run your Airflow instance. This guide walks through the process for configuring a PostgreSQL database, but Airflow is compatible with all of the following databases:
+You also need a database on the machine that will run your Airflow instance. This guide walks through the process for configuring a PostgreSQL database, which is our recommended implementation, but Airflow is compatible with all of the following databases:
 
 - PostgreSQL: 9.6, 10, 11, 12, 13
 - MySQL: 5.7, 8
@@ -146,7 +146,7 @@ To use systemd as a process supervisor:
     sudo -e /etc/systemd/system/astronomer-certified@.service
     ```
 
-2. Using a text editor, create a file called `sys-config` and edit it to contain these environment variables and values:
+2. Using a text editor, create and edit a file at `/usr/local/airflow/sys-config` to contain these environment variables and values:
 
     ```sh
     AIRFLOW_HOME=/usr/local/airflow/
@@ -241,7 +241,7 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
     ExecStartPre=/home/astro/airflow-venv/bin/airflow db upgrade
     ```
 
-    > **Note** If your version of Airflow is <2.0, the command specified here will instead be `airflow upgradedb`.
+    > **Note** If you're running Airflow 1.10, the command specified here will instead be `airflow upgradedb`.
 
 4. Start the service by running:   
 
