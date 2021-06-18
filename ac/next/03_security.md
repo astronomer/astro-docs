@@ -11,7 +11,7 @@ This page is the source of truth for any CVE (Common Vulnerabilities and Exposur
 Currently, our officially supported Astronomer Certified images are listed in two places:
 
 - [Astronomer Downloads](/downloads/)
-- [Astronomer's Quay.io](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
+- [Astronomer's Docker Registry (Quay.io)](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
 
 If you run on Astronomer Cloud or Enterprise, you can refer to our [Airflow Versioning Doc](/docs/enterprise/stable/customize-airflow/manage-airflow-versions/) for detailed guidelines on how to upgrade between Airflow versions on the platform.
 

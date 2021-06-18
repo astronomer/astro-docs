@@ -6,14 +6,14 @@ description: "Common Vulnerabilities and Exposures identified within our Astrono
 
 ## Overview
 
-This page is the source of truth for any CVE (Common Vulnerabilities and Exposures) identified within any of our Astronomer Certified Images running Apache Airflow.
+This page is the source of truth for any Common Vulnerabilities and Exposures (CVEs) identified within any of our supported Astronomer Certified images for Apache Airflow.
 
-Currently, our officially supported Astronomer Certified images are listed in two places:
+Currently, all supported Astronomer Certified images are listed in two places:
 
 - [Astronomer Downloads](/downloads/)
 - [Astronomer's Docker Registry (Quay.io)](https://quay.io/repository/astronomer/ap-airflow?tab=tags)
 
-If you run on Astronomer Cloud or Enterprise, you can refer to our [Airflow Versioning Doc](/docs/enterprise/stable/customize-airflow/manage-airflow-versions/) for detailed guidelines on how to upgrade between Airflow versions on the platform.
+If you run on Astronomer Cloud or Enterprise, refer to [Upgrade Apache Airflow on Astronomer](/docs/enterprise/v0.23/customize-airflow/manage-airflow-versions/) for detailed guidelines on how to upgrade between Airflow versions on the platform.
 
 ## Reporting Vulnerabilities and Security Concerns
 
@@ -21,9 +21,9 @@ Vulnerability reports for Astronomer Certified should be sent to [security@astro
 
 When we receive a request, our dedicated security team will evaluate and validate it. If we confirm a vulnerability, we’ll allocate internal resources towards identifying and publishing a resolution in an updated image. The timeline within which vulnerabilities are addressed will depend on the severity level of the vulnerability and its impact.
 
-Once a resolution has been confirmed, we'll release it in the next major or minor Astronomer Certified image and publish details to this page in the section below.
+Once a resolution has been confirmed, we'll release it in the next major, minor, or patch Astronomer Certified image and publish details to this page in the section below.
 
-> **Note:** All other Airflow and product support requests should be directed to [Astronomer's Support Portal](support.astronomer.io), where our team's Airflow Engineers are ready to help.
+> **Note:** All other Airflow and product support requests should be directed to [Astronomer's Support Portal](https://support.astronomer.io), where our team's Airflow Engineers are ready to help.
 
 ## Previously Announced Vulnerabilities
 
