@@ -139,9 +139,9 @@ To use systemd as a process supervisor:
 
 1. Create a systemd unit file using the following command:
 
-   ```sh
-   sudo -e /etc/systemd/system/astronomer-certified@.service
-   ```
+    ```sh
+    sudo -e /etc/systemd/system/astronomer-certified@.service
+    ```
 
 2. Using a text editor, create and edit a file at `${AIRFLOW_HOME}/sys-config` to contain these environment variables and values:
 
