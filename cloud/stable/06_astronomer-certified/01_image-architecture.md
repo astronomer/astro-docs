@@ -16,9 +16,9 @@ Astronomer Certified is distributed both as a Python wheel and a Debian-based Do
 
 The Python wheel and Docker image are functionally identical to open source Apache Airflow. Additionally, they both include performance and stability improvements, including critical bug fixes and security patches.
 
-The Astronomer Certified Docker image is built from the Python wheel and incorporates additional logic that make it easier for users to both get started and run Airflow at scale. This includes:
+The Astronomer Certified Docker image is built from the Python wheel and incorporates additional logic that makes it easier for users to both get started and run Airflow at scale. This includes:
 
-- A robust testing suite that covers end-to-end performance, functionality, upgrade, and performance benchmarking for certified environments.
+- A robust testing suite that covers performance benchmarking and end-to-end functionality and upgrade testing for certified environments.
 - A built-in directory of example DAGs that leverage Airflow's most powerful features.
 - A collection of pre-installed Airflow provider packages.
 - Full compatibility with the Astronomer Platform.
@@ -40,17 +40,19 @@ Every supported version of the Astronomer Certified Python wheel is available at
 
 Running Airflow with the Astronomer Certified Docker image requires specific versions for key system components.  
 
-- Python: 3.7, 3.8
+- Python: 3.6, 3.7, 3.8
 - Database: PostgreSQL (11, 12), MySQL (5.7, 8.0+)
 - System Distribution: Debian 10 (Buster)
 
+> **Note:** While the Astronomer Certified Python Wheel supports Python versions 3.6, 3.7, and 3.8, Astronomer Certified Docker images have been tested and built only with Python 3.7. To run Astronomer Certified on Docker with Python 3.6 or 3.8, you can create a custom image with a different Python version specified. For more information, read [Change Python Versions](https://www.astronomer.io/docs/cloud/stable/develop/customize-image#build-with-a-different-python-version).
+
 These requirements are slightly different for running only the Python wheel. For the Python wheel, you can use:
 
-- Python: 3.7, 3.8
+- Python: 3.6, 3.7, 3.8
 - Database: PostgreSQL (9.6, 10, 11, 12, 13), MySQL (5.7, 8+), SQLite (3.15.0+)
 - System Distribution: Debian 10 (Buster)
 
- For more information on running a Python wheel installation of Astronomer Certified, read [Install on a Virtual Machine](/docs/enterprise/v0.25/astronomer-certified/single-node-installation).
+ For more information on running a Python wheel installation of Astronomer Certified, read [Install on a Virtual Machine](/docs/enterprise/stable/astronomer-certified/single-node-installation).
 
 ## Environment Variables
 
@@ -58,7 +60,7 @@ When an Airflow service is started, it checks a file for runtime environment var
 
 If you run the Astronomer Certified Docker image without the Astronomer platform, environment variables are defined in your Dockerfile. They can be overwritten with a runtime command, such as `docker run`.
 
-If you're running the Astronomer Certified Docker image with the Astronomer platform, there are a few ways you can configure environment variables. For more information, read [Environment Variables](docs/enterprise/v0.25/deploy/environment-variables).
+If you're running the Astronomer Certified Docker image with the Astronomer platform, there are a few ways you can configure environment variables. For more information, read [Environment Variables](docs/enterprise/stable/deploy/environment-variables).
 
 Astronomer Certified supports the same environment variables as Apache Airflow. For a list of all configurable environment variables, read the [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html).
 

@@ -67,7 +67,6 @@ sudo -u astro ~astro/airflow-venv/bin/pip install --extra-index-url=https://pip.
 
 You can also create your own Python packages and install them into your Airflow environment via a Python wheel, or you can configure an environment variable to automatically add the packages to your Airflow project directory. For more information on this setup, read the [Apache Airflow documentation on managing modules](http://apache-airflow-docs.s3-website.eu-central-1.amazonaws.com/docs/apache-airflow/latest/modules_management.html).
 
-
 ## Install Packages via Astronomer
 
 If you're deploying the Astronomer Certified Docker image via Astronomer CLI, there are alternative workflows for installing packages and other dependencies to your image. For more information, read [Customize Images](/docs/enterprise/v0.25/develop/customize-image).

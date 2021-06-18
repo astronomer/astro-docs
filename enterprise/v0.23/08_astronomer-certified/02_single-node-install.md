@@ -1,7 +1,7 @@
 ---
 title: "Install Astronomer Certified on a Virtual Machine"
 navTitle: "Install on a Virtual Machine"
-description: "Configure a simple Apache Airflow environment with Astronomer Certified on a virtual machine."
+description: "Configure a simple Apache Airflow environment with the Astronomer Certified Python wheel on a virtual machine."
 ---
 
 ## Overview
