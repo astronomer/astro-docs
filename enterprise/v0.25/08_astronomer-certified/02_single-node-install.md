@@ -147,8 +147,8 @@ To use systemd as a process supervisor:
 
     ```
     AIRFLOW_HOME= ${AIRFLOW_HOME}
-    AIRFLOW__CORE__LOAD_EXAMPLES=False
-    PATH=$PATH:/home/astro/airflow-venv/bin
+    AIRFLOW__CORE__LOAD_EXAMPLES=False
+    PATH=$PATH:/home/astro/airflow-venv/bin
     ```
 
     If you want to configure environment variables for a single Airflow service, we recommend doing so in the `sys-config` file for the machine on which the service is running.
