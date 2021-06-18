@@ -57,9 +57,9 @@ In Airflow, the metadata database is responsible for keeping a record of all tas
 
 2. Create a database named `airflow` and set the `airflow` user as the owner:
 
-   ```sh
-   sudo -u postgres createdb --owner airflow airflow
-   ```
+    ```sh
+    sudo -u postgres createdb --owner airflow airflow
+    ```
 
 This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
 
