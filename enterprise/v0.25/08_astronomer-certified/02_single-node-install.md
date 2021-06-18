@@ -139,41 +139,41 @@ To use systemd as a process supervisor:
 
 1. Create a systemd unit file using the following command:
 
-   ```sh
-   sudo -e /etc/systemd/system/astronomer-certified@.service
-   ```
+    ```sh
+    sudo -e /etc/systemd/system/astronomer-certified@.service
+    ```
 
 2. Using a text editor, create and edit a file at `${AIRFLOW_HOME}/sys-config` to contain these environment variables and values:
 
-   ```sh
-   AIRFLOW_HOME= ${AIRFLOW_HOME}
-   AIRFLOW__CORE__LOAD_EXAMPLES=False
-   PATH=$PATH:/home/astro/airflow-venv/bin
-   ```
+    ```
+    AIRFLOW_HOME= ${AIRFLOW_HOME}
+    AIRFLOW__CORE__LOAD_EXAMPLES=False
+    PATH=$PATH:/home/astro/airflow-venv/bin
+    ```
 
-   If you want to configure environment variables for a single Airflow service, we recommend doing so in the `sys-config` file for the machine on which the service is running.
+    If you want to configure environment variables for a single Airflow service, we recommend doing so in the `sys-config` file for the machine on which the service is running.
 
 3. Add the following to your systemd unit file:
 
-   ```
-   [Unit]
-   Description=Airflow %I daemon
-   After=network-online.target cloud-config.service
-   Requires=network-online.target
+    ```
+    [Unit]
+    Description=Airflow %I daemon
+    After=network-online.target cloud-config.service
+    Requires=network-online.target
 
-   [Service]
-   EnvironmentFile=${AIRFLOW_HOME}/sys-config
-   User=astro
-   Group=astro
-   Type=simple
-   WorkingDirectory=${AIRFLOW_HOME}
-   ExecStart=/home/astro/airflow-venv/bin/airflow %i
-   Restart=always
-   RestartSec=5s
+    [Service]
+    EnvironmentFile=${AIRFLOW_HOME}/sys-config
+    User=astro
+    Group=astro
+    Type=simple
+    WorkingDirectory=${AIRFLOW_HOME}
+    ExecStart=/home/astro/airflow-venv/bin/airflow %i
+    Restart=always
+    RestartSec=5s
 
-   [Install]
-   WantedBy=multi-user.target
-   ```
+    [Install]
+    WantedBy=multi-user.target
+    ```
 
 ## Step 7: Configure Airflow for Database Access
 
@@ -181,21 +181,21 @@ To connect your Airflow environment to the metadata DB you created in Step 1, ad
 
 - For Local Executor:
 
-   ```
-   AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
-   AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
-   AIRFLOW__CORE__EXECUTOR=LocalExecutor
-   ```
+    ```
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
+    AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    ```
 
 - For Celery Executor:
 
-   ```
-   AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
-   AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
-   AIRFLOW__CELERY__BROKER_URL=redis://:@redis:6379/0/airflow:<your-user-password>@localhost/airflow
-   AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
-   AIRFLOW__CORE__EXECUTOR=CeleryExecutor
-   ```
+    ```
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__WEBSERVER__BASE_URL=http://localhost:8080
+    AIRFLOW__CELERY__BROKER_URL=redis://:@redis:6379/0/airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:<your-user-password>@localhost/airflow
+    AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+    ```
 
 The password you specify here should be the same one you specified when prompted by the `createuser` command in Step 1. If your password contains `%`, `/`, or `@` then you will need to url-escape; replace `%` with `%25`, `/` with `%2F`, and `@` with `%40`.
 
@@ -221,30 +221,30 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
 1. Enable the Scheduler by running the following command:
 
-   ```sh
-   sudo systemctl enable astronomer-certified@scheduler.service
-   ```
+    ```sh
+    sudo systemctl enable astronomer-certified@scheduler.service
+    ```
 
 2. Edit the override file for the machine by running the following command:
 
-   ```sh
-   sudo systemctl edit astronomer-certified@scheduler.service
-   ```
+    ```sh
+    sudo systemctl edit astronomer-certified@scheduler.service
+    ```
 
 3. In the override file, add the following lines:
 
-   ```
-   [Service]
-   ExecStartPre=/home/astro/airflow-venv/bin/airflow db upgrade
-   ```
+    ```
+    [Service]
+    ExecStartPre=/home/astro/airflow-venv/bin/airflow db upgrade
+    ```
 
-   > **Note** If you're running Airflow 1.10, the command specified here will instead be `airflow upgradedb`.
+    > **Note** If you're running Airflow 1.10, the command specified here will instead be `airflow upgradedb`.
 
-4. Start the service by running:   
+4. Start the service by running:
 
-   ```sh
-   sudo systemctl start astronomer-certified@scheduler.service
-   ```
+    ```sh
+    sudo systemctl start astronomer-certified@scheduler.service
+    ```
 
 ## Step 9: Set Up the Webserver
 
@@ -252,15 +252,15 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
 1. Enable the Webserver by running the following:
 
-   ```sh
-   sudo systemctl enable astronomer-certified@webserver.service
-   ```
+    ```sh
+    sudo systemctl enable astronomer-certified@webserver.service
+    ```
 
 2. Start the Webserver by running the following:
 
-   ```sh
-   sudo systemctl start astronomer-certified@webserver.service
-   ```
+    ```sh
+    sudo systemctl start astronomer-certified@webserver.service
+    ```
 
 > **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
@@ -270,15 +270,15 @@ Workers are an essential component for running Airflow with the Celery Executor.
 
 1. Enable the Worker service by running the following command:
 
-   ```sh
-   sudo systemctl enable astronomer-certified@worker.service
-   ```
+    ```sh
+    sudo systemctl enable astronomer-certified@worker.service
+    ```
 
 2. Start the service by running the following command:
 
-   ```sh
-   sudo systemctl start astronomer-certified@worker.service
-   ```
+    ```sh
+    sudo systemctl start astronomer-certified@worker.service
+    ```
 
 ## Step 11: Create an Airflow User
 
