@@ -51,7 +51,7 @@ Then, for each machine running Airflow:
     pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[<dependencies>]==<version-number>' --upgrade
     ```
 
-For example, if you wanted to upgrade to the latest patch version of Airflow 2.1 while using a Postgres database, your command would look something like this:
+    For example, if you wanted to upgrade to the latest patch version of Airflow 2.1 while using a Postgres database, your command would look something like this:
 
     ```sh
     pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[postgres]==2.1.0.*' --upgrade
