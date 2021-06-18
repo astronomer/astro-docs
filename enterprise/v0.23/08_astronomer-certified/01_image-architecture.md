@@ -30,11 +30,11 @@ Every supported version of the Astronomer Certified Python wheel is available at
 - [Airflow 2.1.0](https://github.com/astronomer/ap-airflow/blob/master/2.1.0/buster/Dockerfile)
 - [Airflow 2.0.2](https://github.com/astronomer/ap-airflow/blob/master/2.0.2/buster/Dockerfile)
 - [Airflow 2.0.0](https://github.com/astronomer/ap-airflow/blob/master/2.0.0/buster/Dockerfile)
-- [Airflow 1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/buster/Dockerfile)
 - [Airflow 1.10.15](https://github.com/astronomer/ap-airflow/blob/master/1.10.15/buster/Dockerfile)
 - [Airflow 1.10.14](https://github.com/astronomer/ap-airflow/blob/master/1.10.14/buster/Dockerfile)
 - [Airflow 1.10.12](https://github.com/astronomer/ap-airflow/blob/master/1.10.12/buster/Dockerfile)
 - [Airflow 1.10.10](https://github.com/astronomer/ap-airflow/blob/master/1.10.10/buster/Dockerfile)
+- [Airflow 1.10.7](https://github.com/astronomer/ap-airflow/blob/master/1.10.7/buster/Dockerfile)
 
 ## Image Requirements
 
@@ -52,7 +52,7 @@ These requirements are slightly different for running only the Python wheel. For
 - Database: PostgreSQL (9.6, 10, 11, 12, 13), MySQL (5.7, 8+), SQLite (3.15.0+)
 - System Distribution: Debian 10 (Buster)
 
- For more information on running a Python wheel installation of Astronomer Certified, read [Install on a Virtual Machine](/docs/enterprise/v0.23/astronomer-certified/single-node-installation).
+ For more information on running a Python wheel installation of Astronomer Certified, read [Install on a Virtual Machine](/docs/enterprise/v0.23/astronomer-certified/single-node-install).
 
 ## Environment Variables
 
@@ -68,13 +68,13 @@ The following table lists the essential environment variables used when running 
 
 | Variable                                        | Description                                                                   | Default Value                                     |
 | ----------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------- |
-| AIRFLOW_PIP_VERSION                             | The version of pip that is used to install Python packages and Airflow itself.            | 19.3.1                                            |
-| AIRFLOW_HOME                                    | Filepath for your Airflow project directory.                                  | usr/local/airflow                                 |
-| AIRFLOW__WEBSERVER__BASE_URL                    | The URL used to access the Airflow UI.                                        | http://localhost:8080                             |
-| ASTRONOMER_USER                                 | The username for your Airflow user.                                           | astro                                             |
-| ASTRONOMER_UID                                  | The ID for your Airflow user.                                                 | 5000                                              |
-| PIP_NO_CACHE_DIR                                | Specifies whether to maintain copies of source files when installing via pip. | True                                              |
-| PYTHON_MAJOR_MINOR_VERSION                      | The version of Python to use for Airflow.                                     | 3.7                                               |
+| `AIRFLOW_PIP_VERSION`                             | The version of pip that is used to install Python packages and Airflow itself.            | 19.3.1                                            |
+| `AIRFLOW_HOME`                                    | Filepath for your Airflow project directory.                                  | usr/local/airflow                                 |
+| `AIRFLOW__WEBSERVER__BASE_URL`                    | The URL used to access the Airflow UI.                                        | http://localhost:8080                             |
+| `ASTRONOMER_USER`                                 | The username for your Airflow user.                                           | astro                                             |
+| `ASTRONOMER_UID `                                 | The ID for your Airflow user.                                                 | 5000                                              |
+| `PIP_NO_CACHE_DIR`                                | Specifies whether to maintain copies of source files when installing via pip. | True                                              |
+| `PYTHON_MAJOR_MINOR_VERSION`                      | The version of Python to use for Airflow.                                     | 3.7                                               |
 
 ## Provider Packages
 

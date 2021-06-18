@@ -22,7 +22,7 @@ If you're upgrading an Astronomer Certified environment running on Docker, all y
 
 2. Open the `Dockerfile` in your Airflow project directory.
 
-In your `Dockerfile`, replace the value in the existing `FROM` statement with the new Astronomer Certified Docker image you're upgrading to. For example, to upgrade to Airflow 2.1, your Dockerfile would include the following line:
+    In your `Dockerfile`, replace the value in the existing `FROM` statement with the new Astronomer Certified Docker image you're upgrading to. For example, to upgrade to Airflow 2.1, your Dockerfile would include the following line:
 
     ```
     FROM quay.io/astronomer/ap-airflow:2.1.0-buster-onbuild
@@ -51,7 +51,7 @@ Then, for each machine running Airflow:
     pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[<dependencies>]==<version-number>' --upgrade
     ```
 
-For example, if you wanted to upgrade to the latest patch version of Airflow 2.1 while using a Postgres database, your command would look something like this:
+    For example, if you wanted to upgrade to the latest patch version of Airflow 2.1 while using a Postgres database, your command would look something like this:
 
     ```sh
     pip install --extra-index-url=https://pip.astronomer.io/simple/ 'astronomer-certified[postgres]==2.1.0.*' --upgrade

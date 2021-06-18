@@ -49,17 +49,17 @@ In Airflow, the metadata database is responsible for keeping a record of all tas
 
 1. Create a database user named `airflow`:
 
-    ```sh
-    sudo -u postgres createuser airflow -P
-    ```
+    ```sh
+    sudo -u postgres createuser airflow -P
+    ```
 
     This will prompt you for a password. Create one, and make a note of it for later.
 
 2. Create a database named `airflow` and set the `airflow` user as the owner:
 
-    ```sh
-    sudo -u postgres createdb --owner airflow airflow
-    ```
+    ```sh
+    sudo -u postgres createdb --owner airflow airflow
+    ```
 
 This guide assumes that your database server is local to where you run these commands and that you're on a Debian-like OS. If your setup is different, you will need to tweak these commands.
 
@@ -139,40 +139,40 @@ To use systemd as a process supervisor:
 
 1. Create a systemd unit file using the following command:
 
-    ```sh
-    sudo -e /etc/systemd/system/astronomer-certified@.service
-    ```
+    ```sh
+    sudo -e /etc/systemd/system/astronomer-certified@.service
+    ```
 
 2. Using a text editor, create and edit a file at `${AIRFLOW_HOME}/sys-config` to contain these environment variables and values:
 
-    ```sh
-    AIRFLOW_HOME= ${AIRFLOW_HOME}
-    AIRFLOW__CORE__LOAD_EXAMPLES=False
-    PATH=$PATH:/home/astro/airflow-venv/bin
-    ```
+    ```
+    AIRFLOW_HOME= ${AIRFLOW_HOME}
+    AIRFLOW__CORE__LOAD_EXAMPLES=False
+    PATH=$PATH:/home/astro/airflow-venv/bin
+    ```
 
     If you want to configure environment variables for a single Airflow service, we recommend doing so in the `sys-config` file for the machine on which the service is running.
 
 3. Add the following to your systemd unit file:
 
-    ```
-    [Unit]
-    Description=Airflow %I daemon
-    After=network-online.target cloud-config.service
-    Requires=network-online.target
+    ```
+    [Unit]
+    Description=Airflow %I daemon
+    After=network-online.target cloud-config.service
+    Requires=network-online.target
 
-    [Service]
-    EnvironmentFile=${AIRFLOW_HOME}/sys-config
-    User=astro
-    Group=astro
-    Type=simple
-    WorkingDirectory=${AIRFLOW_HOME}
-    ExecStart=/home/astro/airflow-venv/bin/airflow %i
-    Restart=always
-    RestartSec=5s
+    [Service]
+    EnvironmentFile=${AIRFLOW_HOME}/sys-config
+    User=astro
+    Group=astro
+    Type=simple
+    WorkingDirectory=${AIRFLOW_HOME}
+    ExecStart=/home/astro/airflow-venv/bin/airflow %i
+    Restart=always
+    RestartSec=5s
 
-    [Install]
-    WantedBy=multi-user.target
+    [Install]
+    WantedBy=multi-user.target
     ```
 
 ## Step 7: Configure Airflow for Database Access
@@ -221,30 +221,30 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
 1. Enable the Scheduler by running the following command:
 
-    ```sh
-    sudo systemctl enable astronomer-certified@scheduler.service
-    ```
+    ```sh
+    sudo systemctl enable astronomer-certified@scheduler.service
+    ```
 
 2. Edit the override file for the machine by running the following command:
 
-    ```sh
-    sudo systemctl edit astronomer-certified@scheduler.service
-    ```
+    ```sh
+    sudo systemctl edit astronomer-certified@scheduler.service
+    ```
 
 3. In the override file, add the following lines:
 
-    ```
-    [Service]
-    ExecStartPre=/home/astro/airflow-venv/bin/airflow db upgrade
+    ```
+    [Service]
+    ExecStartPre=/home/astro/airflow-venv/bin/airflow db upgrade
     ```
 
     > **Note** If you're running Airflow 1.10, the command specified here will instead be `airflow upgradedb`.
 
-4. Start the service by running:   
+4. Start the service by running:
 
-    ```sh
-    sudo systemctl start astronomer-certified@scheduler.service
-    ```
+    ```sh
+    sudo systemctl start astronomer-certified@scheduler.service
+    ```
 
 ## Step 9: Set Up the Webserver
 
@@ -252,15 +252,15 @@ In Airflow, [the Scheduler](https://airflow.apache.org/docs/apache-airflow/stabl
 
 1. Enable the Webserver by running the following:
 
-    ```sh
-    sudo systemctl enable astronomer-certified@webserver.service
-    ```
+    ```sh
+    sudo systemctl enable astronomer-certified@webserver.service
+    ```
 
 2. Start the Webserver by running the following:
 
-    ```sh
-    sudo systemctl start astronomer-certified@webserver.service
-    ```
+    ```sh
+    sudo systemctl start astronomer-certified@webserver.service
+    ```
 
 > **Note:** For added security and stability, we recommend running the Webserver behind a reverse proxy and load balancer such as [nginx](https://www.nginx.com/). For more information on this feature, read the [Apache Airflow documentation](https://airflow.apache.org/docs/stable/howto/run-behind-proxy.html).
 
@@ -270,15 +270,15 @@ Workers are an essential component for running Airflow with the Celery Executor.
 
 1. Enable the Worker service by running the following command:
 
-   ```sh
-   sudo systemctl enable astronomer-certified@worker.service
-   ```
+    ```sh
+    sudo systemctl enable astronomer-certified@worker.service
+    ```
 
 2. Start the service by running the following command:
 
-    ```sh
-    sudo systemctl start astronomer-certified@worker.service
-    ```
+    ```sh
+    sudo systemctl start astronomer-certified@worker.service
+    ```
 
 ## Step 11: Create an Airflow User
 
@@ -286,17 +286,17 @@ To log in to the Airflow UI, you need to first create an Airflow user:
 
 1. Switch to your system `astro` user using the following command:
 
-    ```sh
-    sudo -H su -u astro bash
-    ```
+   ```sh
+   sudo -H su -u astro bash
+   ```
 
-    All [Airflow CLI commands](https://airflow.apache.org/docs/apache-airflow/stable/usage-cli.html) must be run from your `astro` user.
+   All [Airflow CLI commands](https://airflow.apache.org/docs/apache-airflow/stable/usage-cli.html) must be run from your `astro` user.
 
 2. Create a new `admin` Airflow user with the following command:
 
-    ```sh
-    airflow users create -e EMAIL -f FIRSTNAME -l LASTNAME -p PASSWORD -r Admin -u USERNAME
-    ```
+   ```sh
+   airflow users create -e EMAIL -f FIRSTNAME -l LASTNAME -p PASSWORD -r Admin -u USERNAME
+   ```
 
 ## Step 12: Confirm the Installation
 
