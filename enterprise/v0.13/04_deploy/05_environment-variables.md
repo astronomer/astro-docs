@@ -44,10 +44,10 @@ To add Environment Variables locally,
 2. Add your Environment Variables of choice to that `.env` file
 3. Rebuild your image to apply those changes by running `$ astro dev start --env .env`
 
-In your `.env` file, insert the value and key beginning with `ENV`, ensuring all-caps for all characters. For example:
+In your `.env` file, insert the value and key, ensuring all-caps for all characters. For example:
 
 ```
-ENV AIRFLOW__CORE__DAG_CONCURRENCY=5
+AIRFLOW__CORE__DAG_CONCURRENCY=5
 ```
 
 > **Note:** If your Environment Variables contain secrets you don't want to expose in plain-text, you may want to add your `.env` file to `.gitignore` if and when you deploy these changes to your version control tool.
