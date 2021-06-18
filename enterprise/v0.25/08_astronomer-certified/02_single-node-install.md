@@ -50,8 +50,8 @@ In Airflow, the metadata database is responsible for keeping a record of all tas
 1. Create a database user named `airflow`:
 
    ```sh
-   sudo -u postgres createuser airflow -P
-   ```
+   sudo -u postgres createuser airflow -P
+   ```
 
    This will prompt you for a password. Create one, and make a note of it for later.
 
