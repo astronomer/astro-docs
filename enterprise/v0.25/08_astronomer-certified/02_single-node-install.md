@@ -49,11 +49,11 @@ In Airflow, the metadata database is responsible for keeping a record of all tas
 
 1. Create a database user named `airflow`:
 
-   ```sh
-   sudo -u postgres createuser airflow -P
-   ```
+    ```sh
+    sudo -u postgres createuser airflow -P
+    ```
 
-   This will prompt you for a password. Create one, and make a note of it for later.
+    This will prompt you for a password. Create one, and make a note of it for later.
 
 2. Create a database named `airflow` and set the `airflow` user as the owner:
 
