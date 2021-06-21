@@ -1,6 +1,6 @@
 ---
 title: "Install Apache Airflow with Docker Compose"
-navtitle: "Install Airflow with Docker Compose"
+navTitle: "Install Airflow with Docker Compose"
 description: "A complete setup for creating a multi-container Apache Airflow application with Docker Compose and Astronomer Core."
 ---
 
