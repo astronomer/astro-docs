@@ -90,9 +90,9 @@ This command would look like this:
 ```
 curl -v -X POST
 https://AIRFLOW_DOMAIN/airflow/api/experimental/dags/<DAG_ID>/dag_runs
--H 'Authorization: <API_Key> ’
--H ‘Cache-Control: no-cache’
--H ‘content-type: application/json’ -d ‘{}’
+-H 'Authorization: <API_Key> '
+-H 'Cache-Control: no-cache'
+-H 'content-type: application/json' -d '{}'
 ```
 
 To run this, replace:
@@ -101,7 +101,7 @@ To run this, replace:
 - **DAG_ID**: Name of your DAG (_case-sensitive_)
 - **API_Key**: API Key from your Service Account
 
-This will successfully kick off a DAG run for your DAG with an `execution_date` value of `NOW()`, which is equivalent to clicking the “Play” button in the main "DAGs" view of the Airflow UI (Webserver).
+This will successfully kick off a DAG run for your DAG with an `execution_date` value of `NOW()`, which is equivalent to clicking the "Play" button in the main "DAGs" view of the Airflow UI (Webserver).
 
 > **Note:** Your request will have the same permissions as the role of the Service Account you created on Astronomer.
 
@@ -112,13 +112,13 @@ If you'd like to choose a specific `execution_date` (i.e. start timestamp) to ki
 The string needs to be in the following format (in UTC):
 
 ```
-“YYYY-mm-DDTHH:MM:SS”
+"YYYY-mm-DDTHH:MM:SS"
 ```
 
 For example:
 
 ```
-“2016-11-16T11:34:15”
+"2016-11-16T11:34:15"
 ```
 
 Here, your request becomes:
@@ -126,9 +126,9 @@ Here, your request becomes:
 ```
 curl -v -X POST
 https://AIRFLOW_DOMAIN/api/experimental/dags/customer_health_score/dag_runs
--H ‘Authorization: XXXX’
--H ‘Cache-Control: no-cache’
--H ‘content-type: application/json’ -d ‘{“execution_date”:“2019-03-05T08:30:00”}’
+-H 'Authorization: XXXX'
+-H 'Cache-Control: no-cache'
+-H 'content-type: application/json' -d '{"execution_date":"2019-03-05T08:30:00"}'
 ```
 
 ### Get all Pools
