@@ -20,7 +20,7 @@ The guidelines below will cover:
 
 Workspace and Deployment _Admins_ can invite and otherwise manage users both via the Astronomer UI and CLI. All users who have access to a Workspace must be assigned 1 of 3 Workspace roles, though deployment-level roles are not required.
 
-Read below for guidelines. 
+Read below for guidelines.
 
 ### Invite to Workspace
 
@@ -216,7 +216,7 @@ Below a Workspace _Admin_, an _Editor_:
 
 #### Workpace Viewer
 
-A Workspace _Viewer_ is limited to read-only mode. _Viewers_: 
+A Workspace _Viewer_ is limited to read-only mode. _Viewers_:
 
 - Can list users in a Workspace
 - Can view all Airflow Deployments in the Workspace
@@ -261,14 +261,12 @@ Behind _Admins_, a Deployment _Editor_:
 
 #### Deployment Viewer
 
-Deployment _Viewers_ are limited to read-only mode. They:
+Deployment _Viewers_ are limited to read-only mode. They can only:
 
-- Can view Deployment users
-- Can view the **Metrics** and **Logs** tab of the Astro UI
-- Can access the Airflow UI
-- Cannot deploy to, modify, or delete anything within an Airflow Deployment
-- Cannot view Airflow task logs
+- View Deployment users
+- View the **Metrics** and **Logs** tab of the Astro UI
+- View information about DAGs and tasks in the Airflow UI
 
-Viewers _cannot_ push code to an Airflow Deployment or create Service Accounts to do so. Attempts to view logs, trigger DAGs, etc. will result in a `403` and an `Access is Denied` message.
+Deployment Viewers cannot deploy to, modify, or delete anything within an Airflow Deployment. Additionally, they cannot create or use Service Accounts to do so. Attempts to modify a Deployment in any way will result in a `403` and an `Access is Denied` message.
 
 ![Access Denied](https://assets2.astronomer.io/main/docs/astronomer-ui/access_denied.png)
