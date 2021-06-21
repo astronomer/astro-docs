@@ -1,6 +1,6 @@
 ---
 title: "Astronomer Core Quickstart"
-navtitle: "Quickstart"
+navTitle: "Quickstart"
 description: "Get ready to run Apache Airflow on your local machine with Astronomer Core."
 ---
 

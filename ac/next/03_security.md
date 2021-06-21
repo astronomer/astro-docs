@@ -1,6 +1,6 @@
 ---
 title: "Astronomer Certified Security"
-navtitle: "Security"
+navTitle: "Security"
 description: "Common Vulnerabilities and Exposures identified within our Astronomer Certified Images."
 ---
 
