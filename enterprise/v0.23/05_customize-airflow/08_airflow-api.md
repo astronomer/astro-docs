@@ -81,9 +81,9 @@ The command for your request should look like this:
 ```
 curl -v -X POST
 https://<AIRFLOW-DOMAIN>/airflow/api/experimental/dags/<DAG-ID>/dag_runs
--H 'Authorization: <API-Key> ’
--H ‘Cache-Control: no-cache’
--H ‘content-type: application/json’ -d ‘{}’
+-H 'Authorization: <API-Key> '
+-H 'Cache-Control: no-cache'
+-H 'content-type: application/json' -d '{}'
 ```
 
 To run this, replace the following placeholder values:
@@ -92,7 +92,7 @@ To run this, replace the following placeholder values:
 - `<DAG-ID>`: Name of your DAG (_case-sensitive_)
 - `<API-Key>`: API Key from your Service Account
 
-This will trigger a DAG run for your desired DAG with an `execution_date` value of `NOW()`, which is equivalent to clicking the “Play” button in the main "DAGs" view of the Airflow UI.
+This will trigger a DAG run for your desired DAG with an `execution_date` value of `NOW()`, which is equivalent to clicking the "Play" button in the main "DAGs" view of the Airflow UI.
 
 > **Note:** Your request will have the same permissions as the role of the Service Account you created on Astronomer.
 
@@ -103,7 +103,7 @@ If you'd like to choose a specific `execution_date` (i.e. start timestamp) to tr
 The string needs to be in the following format (in UTC):
 
 ```
-“YYYY-MM-DDTHH:MM:SS”
+"YYYY-MM-DDTHH:MM:SS"
 ```
 
 Where, `YYYY`: Year, `MM`: Month, `DD`: Day, `HH`: Hour, `MM`: Minute, `SS`: Second.
@@ -111,7 +111,7 @@ Where, `YYYY`: Year, `MM`: Month, `DD`: Day, `HH`: Hour, `MM`: Minute, `SS`: Sec
 For example:
 
 ```
-“2019-11-16T11:34:00”
+"2019-11-16T11:34:00"
 ```
 
 Here, your request becomes:
@@ -119,9 +119,9 @@ Here, your request becomes:
 ```
 curl -v -X POST
 https://<AIRFLOW_DOMAIN>/api/experimental/dags/customer_health_score/dag_runs
--H ‘Authorization: <API-Key>’
--H ‘Cache-Control: no-cache’
--H ‘content-type: application/json’ -d ‘{“execution_date”:“2019-11-16T11:34:00”}’
+-H 'Authorization: <API-Key>'
+-H 'Cache-Control: no-cache'
+-H 'content-type: application/json' -d '{"execution_date":"2019-11-16T11:34:00"}'
 ```
 
 ### Get all Pools
