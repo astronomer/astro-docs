@@ -164,11 +164,11 @@ Use `astro completion <subcommand>` to generate autocompletion scripts, which ca
 
 ## astro config
 
-Modifies certain platform-level settings on Astronomer Enterprise without you needing to manually adjust them in your `config.yaml` file.
+Modifies certain platform-level settings on Astronomer Enterprise without needing to manually adjust them in your `config.yaml` file.
 
 ### Usage
 
-Run `astro config get` to list values for all settings in your `config.yaml` file. To update or override a value, run `astro config set <setting-name>:<value>`
+Run `astro config get <setting-name>` to list the value for a particular setting in your `config.yaml` file. To update or override a value, run `astro config set <setting-name> <value>`.
 
 The settings that you can update via the command line are:
 
@@ -199,7 +199,7 @@ The settings that you can update via the command line are:
 
 ### Related documentation
 
-- [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/cloud/stable/manage-astronomer/apply-platform-config)
+- [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/stable/manage-astronomer/apply-platform-config)
 
 ## astro deploy
 
