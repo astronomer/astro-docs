@@ -32,7 +32,7 @@ Then visit `localhost:9090` or `localhost:9093` on your computer.
 
 Alertmanager is the Astronomer platform component that manages alerts, including silencing, inhibiting, aggregating and sending out notifications via methods such as email, on-call notification systems, and chat platforms.
 
-You can [configure Alertmanager](https://prometheus.io/docs/alerting/configuration/) to send alerts to email, HipChat, PagerDuty, Pushover, Slack, OpsGenie, and more by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml). 
+You can [configure Alertmanager](https://prometheus.io/docs/alerting/configuration/) to send alerts to email, HipChat, PagerDuty, Pushover, Slack, OpsGenie, and more by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml).
 
 You can also configure Alertmanager's `route` block by editing the [Alertmanager ConfigMap](https://github.com/astronomer/astronomer/blob/master/charts/alertmanager/templates/alertmanager-configmap.yaml). The `route` block defines values such as `repeat_interval` (the interval at which alert notifications are sent). You can find more information on the `route` block [here](https://prometheus.io/docs/alerting/configuration/#route)
 
@@ -100,17 +100,20 @@ Admins can subscribe to these configured alerts by editing the [Alertmanager Con
 
 Example:
 
-```
+```yaml
 alertmanager:
   receivers:
+    # Configs for platform alerts
     platform:
-      slack_configs:
-      - api_url: https://hooks.slack.com/services/T02J89GPR/BDBSG6L1W/4Vm7zo542XYgvv3
-        channel: '#astronomer_platform_alerts'
-        text: |-
-          {{ range .Alerts }}{{ .Annotations.description }}
-          {{ end }}
-        title: '{{ .CommonAnnotations.summary }}'
+
+    platformCritical:
+        slack_configs:
+        - api_url: https://hooks.slack.com/services/T02J89GPR/BDBSG6L1W/4Vm7zo542XYgvv3
+          channel: '#astronomer_platform_alerts'
+          text: |-
+            {{ range .Alerts }}{{ .Annotations.description }}
+            {{ end }}
+          title: '{{ .CommonAnnotations.summary }}'
 ```
 
 You can read more about configuration options [here](https://prometheus.io/docs/alerting/configuration/).
