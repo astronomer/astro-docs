@@ -117,212 +117,132 @@ astroUI:
 | Whole Percentages  | `25` |
 |`astronomer.astroUI.resources`| Specifies CPU and memory usage limits and requests for the Astronomer UI. | CPU usage is specified in megabytes, while memory usage is specified in mebibytes. | `{ }`] |
 
-
-#### astronomer.houston.prismaConnectionLimit
-
-The maximum number of connections allowed for Prisma.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Integer       | 5            | Any        | Low        |
-
-#### astronomer.houston.maxUnavailable
-
-Specifies what percentage of pods are allowed to be unavailable during a rolling update of the service.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Percentage (integer + `%`)     | 25%             | [0%, 1%, ... 100%]       | Low          |
-
-#### astronomer.houston.livenessProbe
-
-Specifies various details about [liveness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), which are used to determine when to restart a failing container. Use the following subvalues to configure liveness probes:
-
-- initialDelaySeconds: The number of seconds to wait before starting liveness probes on a new container. Default value is `30`.
-- periodSeconds: How often to perform the liveness probe, in seconds. Default value is `10`.
-- failureThreshold: The number of times to retry a failing liveness probe before giving up and restarting the container. Default value is `10`.
-
-#### astronomer.houston.livenessProbe
-
-Specifies various details about [readiness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes), which are used to determine when a container is ready to start accepting traffic. Use the following subvalues to configure liveness probes:
-
-- initialDelaySeconds: The number of seconds to wait before starting readiness probes on a new container. Default value is `30`.
-- periodSeconds: How often to perform the readiness probe, in seconds. Default value is `10`.
-- failureThreshold: The number of times to retry a failing readiness probe before giving up and marking a pod as Unready. Default value is `10`.
-
-#### astronomer.houston.regenerateCaEachUpgrade
-
-Specifies whether Houston regenerates its certificate authority every time you run `helm upgrade`. If this is set to `true`, then all users are logged out upon each use of `helm upgrade`. For Enterprise organizations, we recommend setting this to `true`.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Boolean    | false           | [true, false]       | Low          |
-
-#### astronomer.houston.backendSecretName
-
-The name of the secret for the backend Houston datastore.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| String    | ~           | Any     | High          |
-
-#### astronomer.houston.backendSecretName
-
-The details of the connection to your backend Houston datastore, defined in key-value pairs. Possible keys are `user`, `pass`, `host`, `port`, and `db`.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs    | {}           | N/A     | High          |
-
-#### astronomer.houston.backendConnection
-
-The details of the connection to your backend Houston datastore, defined in key-value pairs. Possible keys are `user`, `pass`, `host`, `port`, and `db`.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs    | {}           | N/A     | High     |
-
-#### astronomer.houston.airflowBackendSecretName
-
-The details of the connection to your Airflow backend, defined in key-value pairs. Possible keys are `user`, `pass`,`host`, `port`, and `db`.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs    | ~           | N/A     | High          |
-
-#### astronomer.houston.airflowBackendConnection
-
-The details of the connection to your Airflow backend, defined in key-value pairs. Possible keys are `user`, `pass`,`host`, `port`, and `db`.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs    | {}           | N/A     | High          |
-
-#### astronomer.houston.jwtSigningKeySecretName
-
-The key for an optional secret name for signing JSON web tokens (JWTs). By default, Astronomer uses auto-generated, self-signed certificates.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| String    | ~           | N/A     | Low          |
-
-#### astronomer.houston.jwtSigningCertificateSecretName
-
-The certificate for an optional secret name for signing JSON web tokens (JWTs). By default, Astronomer uses auto-generated, self-signed certificates.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| String    | ~           | N/A     | Low          |
-
-#### astronomer.houston.env
-
-Environment variables for running Houston. Do not configure this setting without guidance from Astronomer support.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs       | []             | N/A        | Low          |
-
-#### astronomer.houston.secret
-
-A collection of generic Kubernetes secrets for Airflow environment variables. To create a generic secret name and key, run:
-
-```sh
-kubectl create secret generic <secret-name> --from-literal=connection=smtps://USERNAME:PW@HOST/?pool=true
-```
-
-Each secret needs the following configured:
-
-- `envName`: The Airflow environment variable.
-- `secretName`: The secret name.
-- `secretKey`: The secret key.
-
-Together, the each object in the configuration should look something like this.
-
-```yaml
-secret:
-- envName: "EMAIL__SMTP_URL"
-  secretName: "<secret-name>"
-  secretKey: "<connection>"
-```
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs       | []             | See above for valid examples        | Low          |
-
-#### astronomer.houston.resources
-
-Specifies CPU and memory usage limits and requests for Houston. CPU usage is specified in megabytes, while memory usage is specified in mebibytes. For example:
-
-```yaml
-resources: {
-    limits:
-     cpu: 100m
-     memory: 128Mi
-    requests:
-     cpu: 100m
-     memory: 128Mi
-}
-```
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs       | { }             | See above for valid examples   | Medium          |
-
-#### astronomer.houston.config
-
-System configuration values for Houston. Do not configure this setting without guidance from Astronomer support.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Key-value pairs       | {}             | N/A  | Low          |
-
-#### astronomer.houston.worker.enabled
-
-Specifies whether worker pods should connect to the NATS server.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Boolean     | true           | true/ false   | Low          |
-
-#### astronomer.houston.worker.replicas
-
-Specifies the number of replica pods for worker pods connecting to the NATS server.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Integer     | 2           |  Any integer   | Low          |
-
-
-#### astronomer.houston.upgradeDeployments.enabled
-
-Determines whether Deployments on your Astronomer platform are automatically upgraded to use the latest version of Astronomer's [Airflow Helm chart](https://github.com/astronomer/airflow-chart) after running `helm upgrade`. The latest version number for the Airflow Helm chart is pulled from `astronomer.airflowChartVersion`.
-
-If you want to deploy a configuration change that is intended to reconfigure something inside Airflow, then you should set this value to `true`. When set to true `true`, each Airflow Deployment will restart and upgrade to use the latest version of the Airflow chart.
-
-If this value is set to `false`, your Deployments' Airflow charts are not upgraded when you run `helm upgrade`.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Boolean     | true           |  [true, false]   | High          |
-
-
-#### astronomer.houston.upgradeDeployments.canary
-
-Determines whether non-canary Deployments are excluded from upgrading to the latest version of Astronomer's [Airflow Helm chart](https://github.com/astronomer/airflow-chart) after running `helm upgrade`. This value is only functional when `astronomer.houston.upgradeDeployments.enabled=true`.
-
-If `astronomer.houston.upgradeDeployments.canary` is set to `false`, all Deployments are upgraded to use the latest version of Astronomer's [Airflow Helm chart](https://github.com/astronomer/airflow-chart) after running `helm upgrade`. If it's set to `true`, only Deployments marked as `canary` are upgraded.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Boolean     | false           |  [true, false]   | Low          |
-
-
-#### astronomer.houston.expireDeployments
-
-Determines whether non-canary Deployments are excluded from upgrading to the latest version of Astronomer's [Airflow Helm chart](https://github.com/astronomer/airflow-chart) after running `helm upgrade`. This value is only functional when `astronomer.houston.upgradeDeployments.enabled=true`.
-
-If `astronomer.houston.upgradeDeployments.canary` is set to `false`, all Deployments are upgraded to use the latest version of Astronomer's [Airflow Helm chart](https://github.com/astronomer/airflow-chart) after running `helm upgrade`. If it's set to `true`, only Deployments marked as `canary` are upgraded.
-
-| Value Type | Default Value | Valid Values | Importance |
-| ---------- | ------------- | ------------ | ---------- |
-| Boolean     | false           |  [true, false]   | Low          |
+## Houston Configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| houston.airflowBackendConnection | object | `{}` |  |
+| houston.airflowBackendSecretName | string | `nil` |  |
+| houston.airflowReleasesConfig | string | `nil` |  |
+| houston.backendConnection | object | `{}` |  |
+| houston.backendSecretName | string | `nil` |  |
+| houston.cleanupDeployments.canary | bool | `false` |  |
+| houston.cleanupDeployments.dryRun | bool | `false` |  |
+| houston.cleanupDeployments.enabled | bool | `true` |  |
+| houston.cleanupDeployments.olderThan | int | `14` |  |
+| houston.cleanupDeployments.schedule | string | `"0 0 * * *"` |  |
+| houston.config | object | `{}` |  |
+| houston.env | list | `[]` |  |
+| houston.expireDeployments.canary | bool | `false` |  |
+| houston.expireDeployments.dryRun | bool | `false` |  |
+| houston.expireDeployments.enabled | bool | `false` |  |
+| houston.expireDeployments.schedule | string | `"0 0 * * *"` |  |
+| houston.jwtSigningCertificateSecretName | string | `nil` |  |
+| houston.jwtSigningKeySecretName | string | `nil` |  |
+| houston.livenessProbe.failureThreshold | int | `10` |  |
+| houston.livenessProbe.initialDelaySeconds | int | `30` |  |
+| houston.livenessProbe.periodSeconds | int | `10` |  |
+| houston.maxUnavailable | string | `"25%"` |  |
+| houston.prismaConnectionLimit | int | `5` |  |
+| houston.readinessProbe.failureThreshold | int | `10` |  |
+| houston.readinessProbe.initialDelaySeconds | int | `30` |  |
+| houston.readinessProbe.periodSeconds | int | `10` |  |
+| houston.regenerateCaEachUpgrade | bool | `false` |  |
+| houston.replicas | int | `2` |  |
+| houston.resources | object | `{}` |  |
+| houston.secret | list | `[]` |  |
+| houston.updateAirflowCheck.enabled | bool | `true` |  |
+| houston.updateAirflowCheck.schedule | string | `"0 0 * * *"` |  |
+| houston.updateAirflowCheck.url | string | `"https://updates.astronomer.io/astronomer-certified"` |  |
+| houston.updateCheck.enabled | bool | `true` |  |
+| houston.updateCheck.schedule | string | `"0 0 * * *"` |  |
+| houston.updateCheck.url | string | `"https://updates.astronomer.io/astronomer-platform"` |  |
+| houston.upgradeDeployments.canary | bool | `false` |  |
+| houston.upgradeDeployments.enabled | bool | `true` |  |
+| houston.worker.enabled | bool | `true` |  |
+| houston.worker.replicas | int | `2` |  |
+
+## Images
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| images.astroUI.pullPolicy | string | `"IfNotPresent"` |  |
+| images.astroUI.repository | string | `"quay.io/astronomer/ap-astro-ui"` |  |
+| images.astroUI.tag | string | `"0.25.2"` |  |
+| images.cliInstall.pullPolicy | string | `"IfNotPresent"` |  |
+| images.cliInstall.repository | string | `"quay.io/astronomer/ap-cli-install"` |  |
+| images.cliInstall.tag | string | `"0.13.1"` |  |
+| images.commander.pullPolicy | string | `"IfNotPresent"` |  |
+| images.commander.repository | string | `"quay.io/astronomer/ap-commander"` |  |
+| images.commander.tag | string | `"0.25.0"` |  |
+| images.dbBootstrapper.pullPolicy | string | `"IfNotPresent"` |  |
+| images.dbBootstrapper.repository | string | `"quay.io/astronomer/ap-db-bootstrapper"` |  |
+| images.dbBootstrapper.tag | string | `"0.25.0"` |  |
+| images.houston.pullPolicy | string | `"IfNotPresent"` |  |
+| images.houston.repository | string | `"quay.io/astronomer/ap-houston-api"` |  |
+| images.houston.tag | string | `"0.25.6"` |  |
+| images.registry.pullPolicy | string | `"IfNotPresent"` |  |
+| images.registry.repository | string | `"quay.io/astronomer/ap-registry"` |  |
+| images.registry.tag | string | `"3.13.7"` |  |
+
+## Install
+
+| install.cliVersion | string | `"0.20.0"` |  |
+| install.resources | object | `{}` |  |
+| nodeSelector | object | `{}` |  |
+
+## Ports
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ports.astroUIHTTP | int | `8080` |  |
+| ports.commanderGRPC | int | `50051` |  |
+| ports.commanderHTTP | int | `8880` |  |
+| ports.houstonHTTP | int | `8871` |  |
+| ports.installHTTP | int | `80` |  |
+| ports.prismaHTTP | int | `4466` |  |
+| ports.registryHTTP | int | `5000` |  |
+| ports.registryScrape | int | `5001` |  |
+
+## Prisma
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| prisma.env | list | `[]` |  |
+| prisma.podLabels | object | `{}` |  |
+| prisma.resources | object | `{}` |  |
+
+## Registry
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| registry.auth.connection | string | `nil` |  |
+| registry.auth.issuer | string | `"houston"` |  |
+| registry.auth.secretName | string | `nil` |  |
+| registry.auth.service | string | `"docker-registry"` |  |
+| registry.azure.accountkey | string | `nil` |  |
+| registry.azure.accountname | string | `nil` |  |
+| registry.azure.container | string | `nil` |  |
+| registry.azure.enabled | bool | `false` |  |
+| registry.azure.realm | string | `nil` |  |
+| registry.gcs.bucket | string | `nil` |  |
+| registry.gcs.chunksize | string | `"5242880"` |  |
+| registry.gcs.enabled | bool | `false` |  |
+| registry.gcs.keyfile | string | `"/var/gcs-keyfile/astronomer-gcs-keyfile"` |  |
+| registry.gcs.rootdirectory | string | `"/"` |  |
+| registry.gcs.useKeyfile | bool | `true` |  |
+| registry.persistence.enabled | bool | `true` |  |
+| registry.persistence.size | string | `"100Gi"` |  |
+| registry.persistence.storageClassName | string | `nil` |  |
+| registry.podLabels | object | `{}` |  |
+| registry.replicas | int | `1` |  |
+| registry.resources | object | `{}` |  |
+| registry.s3.accesskey | string | `nil` |  |
+| registry.s3.bucket | string | `nil` |  |
+| registry.s3.enabled | bool | `false` |  |
+| registry.s3.encrypt | bool | `false` |  |
+| registry.s3.keyid | string | `nil` |  |
+| registry.s3.region | string | `nil` |  |
+| registry.s3.rootdirectory | string | `nil` |  |
+| registry.s3.secretkey | string | `nil` |  |
+| tolerations | list | `[]` |  |
