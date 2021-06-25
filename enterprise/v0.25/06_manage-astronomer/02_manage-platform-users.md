@@ -20,6 +20,10 @@ When Astronomer Enterprise is first deployed, the first user to log in is grante
 
 On Astronomer, administrators have the option to either open the platform to public signups or limit account creation to users invited by others.
 
+> **Note:** New users appear under a System Admin's **Users** tab only after the new user has successfully logged in for the first time.
+
+> **Note:** It's possible to bypass the email verification process for inviting users through the Houston API. For more information, read [Sample Mutations](/docs/enterprise/v0.25/manage-astronomer/houston-api#sample-mutations).
+
 ### Enable Public Signups
 
 As noted above, public signups allow any user with access to the platform URL (the Astronomer UI) to create an account. If public signups are disabled, users that try to access Astronomer without an invitation from another user will be met with an error.

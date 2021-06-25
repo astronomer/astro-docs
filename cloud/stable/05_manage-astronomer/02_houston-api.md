@@ -282,6 +282,30 @@ mutation verifyEmail {
 
 > **Note:** To run this mutation, ensure that the user in question has already begun creating an account on the platform (i.e. the user has signed up and the platform has generated an "invite token" for that user).
 
+### Bypass User Invite Emails
+
+If you want to invite users to a Workspace without them needing to first verify the invite via email, you can configure a bypass. This can be useful if you're programmatically inviting many users at once to your platform.
+
+```graphql
+mutation workspaceAddUser(
+    $workspaceUuid: Uuid = "ckoipskl310476tbb4jvsznu4"
+    $email: String! = "aliotta343@gmail.com"
+    $role: Role! = WORKSPACE_EDITOR
+    $deploymentRoles: [DeploymentRoles!]
+    $bypassInvite: Boolean! = true
+  ) {
+    workspaceAddUser(
+      workspaceUuid: $workspaceUuid
+      email: $email
+      role: $role
+      deploymentRoles: $deploymentRoles
+      bypassInvite: $bypassInvite
+    ) {
+      id
+    }
+  }
+```
+
 ### Update environment variables
 
 To programmatically update environment variables, you'll need:
