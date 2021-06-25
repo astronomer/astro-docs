@@ -12,6 +12,26 @@ If you're looking to upgrade to Astronomer v0.25, refer to [Upgrade to Astronome
 
 We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](https://support.astronomer.io).
 
+## v0.25.3
+
+Release Date: June 25, 2021
+
+### Support for Kubernetes 1.19 and 1.2
+
+The Astronomer platform is now compatible with Kubernetes 1.19 and 1.2. Enterprise users can now configure their clusters to take advantage of the latest Kubernetes features as described in the [official documentation](https://kubernetes.io/blog/2020/12/08/kubernetes-1-20-release-announcement/).
+
+To learn more about what versions of key platform components are supported for any given release, read [Version Compatibility Reference](/docs/enterprise/v0.25/resources/version-compatibility-reference).
+
+### Minor Bug Fixes and Improvements
+
+- Added the ability to use non-RFC address spaces for Alertmanager.
+- Changed sidecar naming convention from `nginx` to `auth-proxy`.
+- Added `fsGroup` to the Webserver `securityContext` to enable [role assumption](https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html) for EKS 1.17.
+- Fixed an issue where private root CA's did not work due to an unmounted certificate.
+- Fixed broken links to Deployments in alert emails.
+- Fixed an issue where longer task execution logs did not appear in the Airflow UI.
+- Fixed a visual bug where non-Workspace Admins had access to a non-functional Invite Users button in the Astronomer UI.
+
 ## v0.25.2
 
 Release Date: May 18, 2021
