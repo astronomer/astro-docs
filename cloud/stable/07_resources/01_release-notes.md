@@ -6,6 +6,30 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.25
 
+### v0.25.3
+
+Release Date: June 28th, 2021
+
+## v0.25.3
+
+Release Date: June 25, 2021
+
+### Bypass User Invite Emails via Houston API
+
+The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field. When this field is set to true, users invited to a Workspace no longer need to first verify their email addresses before accessing the Workspace. This type of query can be useful to minimize friction when programmatically inviting many users to your platform. For more information, see [Sample Mutations](/docs/enterprise/v0.25/manage-astronomer/houston-api#sample-mutations).
+
+### Minor Improvements
+
+- Workspace Admins can now perform CRUD operations on any Deployment within their Workspace, even if they don't have Deployment Admin permissions for the given Deployment.
+- Changed the default Scheduler count for new Deployments to 2.
+
+### Bugfixes
+
+- Fixed broken links to Deployments in alert emails.
+- Fixed an issue where historical logs did not appear in the Astronomer UI.
+- Fixed an issue where long task execution logs did not appear in the Airflow UI.
+- Fixed a visual bug where users without Workspace Admin permissions had a non-functional Invite Users button in the Astronomer UI.
+
 ### v0.25.1
 
 Release Date: May 11th, 2021

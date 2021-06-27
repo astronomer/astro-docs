@@ -26,16 +26,24 @@ To learn more about what versions of key platform components are supported for a
 
 The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field. When this field is set to true, users invited to a Workspace no longer need to first verify their email addresses before accessing the Workspace. This type of query can be useful to minimize friction when programmatically inviting many users to your platform. For more information, see [Sample Mutations](/docs/enterprise/v0.25/manage-astronomer/houston-api#sample-mutations).
 
-### Minor Bug Fixes and Improvements
+### Minor Improvements
 
 - Workspace Admins can now perform CRUD operations on any Deployment within their Workspace, even if they don't have Deployment Admin permissions for the given Deployment.
 - Added the ability to use non-RFC address spaces for Alertmanager.
+- Added support for using Workload Identity to configure a GCP registry backend.
 - Changed sidecar naming convention from `nginx` to `auth-proxy`.
 - Added `fsGroup` to the Webserver `securityContext` to enable [role assumption](https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html) for EKS 1.17.
+- Changed the default Scheduler count for new Deployments to 2.
+- Improved the experience of installing the Astronomer Helm Chart via ArgoCD. For more information, read the [Astronomer Forum].
+
+### Bugfixes
+
 - Fixed an issue where private root CA's did not work due to an unmounted certificate.
 - Fixed broken links to Deployments in alert emails.
-- Fixed an issue where longer task execution logs did not appear in the Airflow UI.
-- Fixed a visual bug where non-Workspace Admins had access to a non-functional Invite Users button in the Astronomer UI.
+- Fixed an issue where historical logs did not appear in the Astronomer UI.
+- Fixed an issue where long task execution logs did not appear in the Airflow UI.
+- Fixed an issue where System Admins were unable to create Deployments.
+- Fixed a visual bug where users without Workspace Admin permissions had a non-functional Invite Users button in the Astronomer UI.
 
 ## v0.25.2
 
