@@ -289,7 +289,7 @@ mutation verifyEmail {
 
 ### Bypass User Email Verification
 
-If you don't need users to verify their email before joining a Workspace, you can configure a bypass. This can be useful if you're programmatically inviting many users at once to your platform.
+If you don't require users to verify their email before joining a Workspace, you can configure a bypass. This can be useful for minimizing friction when programmatically inviting many users to your platform.
 
 ```graphql
 mutation workspaceAddUser(
