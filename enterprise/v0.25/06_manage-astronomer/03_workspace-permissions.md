@@ -193,10 +193,11 @@ astro deployment user delete <email> --deployment-id=<deployment-id>
 
 Workspace _Admins_ are the highest-tiered role at the Workspace level. Admins:
 
-- Can manage users and their permissions in a Workspace
-- Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name)
-- Can create Airflow Deployments in the Workspace
-- Can perform CRUD operations on any Service Account in the Workspace
+- Can manage users and their permissions in a Workspace.
+- Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name).
+- Can perform CRUD operations on any Airflow Deployment within the Workspace.
+- Can create Airflow Deployments in the Workspace.
+- Can perform CRUD operations on any Service Account in the Workspace.
 
 Workspace _Admins_ do not automatically have CRUD access to all Airflow Deployments within it - they must either create or be added to those Deployments and will be held to the restrictions of their deployment-level role. For example, a Workspace _Admin_ could be a Deployment _Viewer_ and not have access to push code to that Deployment.
 

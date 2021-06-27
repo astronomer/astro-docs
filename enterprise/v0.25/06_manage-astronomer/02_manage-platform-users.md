@@ -22,7 +22,7 @@ On Astronomer, administrators have the option to either open the platform to pub
 
 > **Note:** New users appear under a System Admin's **Users** tab only after the new user has successfully logged in for the first time.
 
-> **Note:** It's possible to bypass the email verification process for inviting users through the Houston API. For more information, read [Sample Mutations](/docs/enterprise/v0.25/manage-astronomer/houston-api#sample-mutations).
+> **Note:** You can bypass the email verification process for new users through a Houston API mutation. For the format of this mutation, see [Sample Mutations](/docs/enterprise/v0.25/manage-astronomer/houston-api#sample-mutations).
 
 ### Enable Public Signups
 
