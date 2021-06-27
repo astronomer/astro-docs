@@ -63,7 +63,7 @@ If you do _not_ specify a role in this command, `WORKSPACE_VIEWER` will be set b
 
 #### Via Houston API
 
-Users with Workspace Admin privileges can use a Houston API mutation to programmatically invite users to a Workspace. Within the mutation query, they can configure the user's permissions, their login information, and whether they need to first verify their email before accessing the platform. For templates for adding Workspace users via mutation, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
+Users with Workspace Admin privileges can use Houston API mutations to programmatically invite users to a Workspace. Within the mutation query, they can configure a user's permissions, their login information, and whether they need to first verify their email before accessing the platform. For examples of adding Workspace users via mutation, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
 
 ### Invite to Deployment
 
@@ -197,12 +197,12 @@ astro deployment user delete <email> --deployment-id=<deployment-id>
 
 Workspace _Admins_ are the highest-tiered role at the Workspace level. Admins:
 
-- Can manage users and their permissions in a Workspace
-- Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name)
-- Can create Airflow Deployments in the Workspace
+- Can manage users and their permissions in a Workspace.
+- Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name).
+- Can create Airflow Deployments in the Workspace.
 - Can perform CRUD operations on any Airflow Deployment within the Workspace.
-- Can manage **Billing**
-- Can perform CRUD operations on any Service Account in the Workspace
+- Can manage **Billing**.
+- Can perform CRUD operations on any Service Account in the Workspace.
 
 Workspace _Admins_ do not automatically have CRUD access to all Airflow Deployments within it - they must either create or be added to those Deployments and will be held to the restrictions of their deployment-level role. For example, a Workspace _Admin_ could be a Deployment _Viewer_ and not have access to push code to that Deployment.
 
