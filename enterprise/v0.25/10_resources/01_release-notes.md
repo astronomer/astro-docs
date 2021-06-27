@@ -22,8 +22,13 @@ The Astronomer platform is now compatible with Kubernetes 1.19 and 1.2. Enterpri
 
 To learn more about what versions of key platform components are supported for any given release, read [Version Compatibility Reference](/docs/enterprise/v0.25/resources/version-compatibility-reference).
 
+### Bypass User Invite Emails via Houston API
+
+The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field. When this field is set to true, users invited to a Workspace no longer need to first verify their email addresses before accessing the Workspace. This type of query can be useful to minimize friction when programmatically inviting many users to your platform. For more information, see [Sample Mutations](/docs/enterprise/v0.25/manage-astronomer/houston-api#sample-mutations).
+
 ### Minor Bug Fixes and Improvements
 
+- Workspace Admins can now perform CRUD operations on any Deployment within their Workspace, even if they don't have Deployment Admin permissions for the given Deployment.
 - Added the ability to use non-RFC address spaces for Alertmanager.
 - Changed sidecar naming convention from `nginx` to `auth-proxy`.
 - Added `fsGroup` to the Webserver `securityContext` to enable [role assumption](https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html) for EKS 1.17.
