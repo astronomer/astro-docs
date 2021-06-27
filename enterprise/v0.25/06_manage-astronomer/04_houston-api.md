@@ -266,9 +266,9 @@ mutation removeUser {
 }
 ```
 
-### Verify Email
+### Verify User Email
 
-If a user on the platform has trouble verifying their email address upon signup, you can leverage the Playground to manually verify it.
+If a user on the platform has trouble verifying their email address upon signup, you can use the Playground to manually verify it.
 
 To run this mutation, you'll need:
 
@@ -286,6 +286,30 @@ mutation verifyEmail {
 ```
 
 > **Note:** To run this mutation, ensure that the user in question has already begun creating an account on the platform (i.e. the user has signed up and the platform has generated an "invite token" for that user).
+
+### Bypass User Email Verification
+
+If you don't need users to verify their email before joining a Workspace, you can configure a bypass. This can be useful if you're programmatically inviting many users at once to your platform.
+
+```graphql
+mutation workspaceAddUser(
+    $workspaceUuid: Uuid = "ckoipskl310476tbb4jvsznu4"
+    $email: String! = "aliotta343@gmail.com"
+    $role: Role! = WORKSPACE_EDITOR
+    $deploymentRoles: [DeploymentRoles!]
+    $bypassInvite: Boolean! = true
+  ) {
+    workspaceAddUser(
+      workspaceUuid: $workspaceUuid
+      email: $email
+      role: $role
+      deploymentRoles: $deploymentRoles
+      bypassInvite: $bypassInvite
+    ) {
+      id
+    }
+  }
+```
 
 ### Add a SysAdmin (_Enterprise Only_)
 

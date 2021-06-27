@@ -261,7 +261,7 @@ mutation removeUser {
 }
 ```
 
-### Verify Email
+### Verify User Email
 
 If a user on the platform has trouble verifying their email address upon signup, you can leverage the Playground to manually verify it.
 
@@ -284,7 +284,7 @@ mutation verifyEmail {
 
 ### Bypass User Email Verification
 
-If you want to invite users to a Workspace without them needing to first verify the invite via email, you can configure a bypass. This can be useful if you're programmatically inviting many users at once to your platform.
+If you don't need users to verify their email before joining a Workspace, you can configure a bypass for this step. This can be useful if you're programmatically inviting many users at once to your platform.
 
 ```graphql
 mutation workspaceAddUser(
