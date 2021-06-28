@@ -243,7 +243,7 @@ nginx:
   #  Set to 'true' when deploying to a private EKS cluster
   privateLoadBalancer: false
   # Dict of arbitrary annotations to add to the nginx ingress. For full configuration options, see https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
-  ingressAnnotations: {service.beta.kubernetes.io/aws-load-balancer-type: nlb}
+  ingressAnnotations: {service.beta.kubernetes.io/aws-load-balancer-type: nlb} # Change to 'elb' if your node group is private and doesn't utilize a NAT gateway
 
 #################################
 ### SMTP configuration
@@ -356,9 +356,9 @@ If you are seeing issues here, check out our [guide on debugging your installati
 
 ## Step 11: Configure DNS
 
-Now that you've successfully installed Astronomer, a new Elastic Load Balancer (ELB) will have spun up in your AWS account. This ELB routes incoming traffic to our NGINX ingress controller.
+Now that you've successfully installed Astronomer, a new load balancer will have spun up in your AWS account. This load balancer routes incoming traffic to our NGINX ingress controller.
 
-Run `$ kubectl get svc -n astronomer` to view your ELB's CNAME, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
+Run `$ kubectl get svc -n astronomer` to view your load balancer's CNAME, located under the `EXTERNAL-IP` column for the `astronomer-nginx` service.
 
 ```sh
 $ kubectl get svc -n astronomer
