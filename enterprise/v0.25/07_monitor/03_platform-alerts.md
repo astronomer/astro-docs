@@ -48,10 +48,9 @@ For example, adding the following receiver to `receivers.platformCritical` would
 alertmanager:
   receivers:
     # Configs for platform alerts
-    platform: {}
+    platform:
 
-    platformCritical: {
-      - name: platform-critical-receiver
+    platformCritical:
         slack_configs:
         - api_url: https://hooks.slack.com/services/T02J89GPR/BDBSG6L1W/4Vm7zo542XYgvv3
           channel: '#astronomer_platform_alerts'
@@ -59,7 +58,6 @@ alertmanager:
             {{ range .Alerts }}{{ .Annotations.description }}
             {{ end }}
           title: '{{ .CommonAnnotations.summary }}'
-    }
 ```
 
 By default, the Alertmanager Helm Chart includes alert objects for platform, critical platform, and Deployment alerts. To configure a receiver for a non-default alert type, such as Deployment alerts with high severity, add that receiver to the `customRoutes` list with the appropriate `match_re` and receiver configuration values. For example:
