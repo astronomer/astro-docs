@@ -128,6 +128,7 @@ The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field.
 
 - Added support for installing Astronomer via ArgoCD, which facilitates continuous delivery for Kubernetes applications. For more information, read the [Astronomer Forum].
 - Workspace Admins can now perform CRUD operations on any Deployment within their Workspace, even if they don't have Deployment Admin permissions for the given Deployment.
+- Prevented `NginxIngressHigh4XXRate` and `NginxIngressHigh5XXRate` alerts from over-firing during periods of low traffic.
 - Added the ability to use non-RFC address spaces for Alertmanager.
 - Added support for using Workload Identity to configure a GCP registry backend.
 - Changed sidecar naming convention from `nginx` to `auth-proxy`.
