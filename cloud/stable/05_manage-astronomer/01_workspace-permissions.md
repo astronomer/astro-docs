@@ -28,7 +28,7 @@ The ability to invite users to an Astronomer Workspace is limited to Workspace _
 
 A user who creates a Workspace is automatically granted the _Admin_ role for the Workspace and has the ability to create any number of Airflow Deployments within it. Every Workspace must have at least 1 Workspace _Admin_.
 
-#### via Astronomer UI
+#### Via Astronomer UI
 
 To invite a user to a Workspace via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to **Workspace** > **Users** > **Invite User**.
 
@@ -38,7 +38,7 @@ When a Workspace _Admin_ invites a user to a Workspace in which one or more Airf
 
 If a Workspace Admin invites a user to a Workspace that does _not_ have any Airflow Deployments within it, the **Deployment Roles** modal above will not appear.
 
-#### via Astronomer CLI
+#### Via Astronomer CLI
 
 To invite a user to a Workspace via the Astronomer CLI, run:
 
@@ -63,7 +63,7 @@ If you do _not_ specify a role in this command, `WORKSPACE_VIEWER` will be set b
 
 #### Via Houston API
 
-Users with Workspace Admin privileges can use Houston API mutations to programmatically invite users to a Workspace. Within the mutation query, they can configure a user's permissions, their login information, and whether they need to first verify their email before accessing the platform. For examples of adding Workspace users via mutation, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
+Users with Workspace Admin privileges can use Astronomer's Houston API to programmatically invite users to a Workspace. Within the mutation query, you can configure a user's permissions, login email address, and whether they need to verify their email before accessing the platform. For an example API request, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
 
 ### Invite to Deployment
 
@@ -203,8 +203,6 @@ Workspace _Admins_ are the highest-tiered role at the Workspace level. Admins:
 - Can perform CRUD operations on any Airflow Deployment within the Workspace.
 - Can manage **Billing**.
 - Can perform CRUD operations on any Service Account in the Workspace.
-
-Workspace _Admins_ do not automatically have CRUD access to all Airflow Deployments within it - they must either create or be added to those Deployments and will be held to the restrictions of their deployment-level role. For example, a Workspace _Admin_ could be a Deployment _Viewer_ and not have access to push code to that Deployment.
 
 Every Workspace must have at least 1 Workspace _Admin_.
 

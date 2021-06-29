@@ -289,14 +289,20 @@ mutation verifyEmail {
 
 ### Bypass User Email Verification
 
-If you don't require users to verify their email before joining a Workspace, you can configure a bypass. This can be useful for minimizing friction when programmatically inviting many users to your platform.
+If you don't need certain users to verify their email before joining a Workspace, you can configure a bypass when adding them to a Workspace. This can be useful for minimizing friction when programmatically inviting many users to your platform.
+
+To run this mutation, you'll need:
+
+- Workspace Admin permissions
+- A Workspace ID
+- The user's email address
+- The user's Workspace role
 
 ```graphql
 mutation workspaceAddUser(
-    $workspaceUuid: Uuid = "ckoipskl310476tbb4jvsznu4"
-    $email: String! = "aliotta343@gmail.com"
-    $role: Role! = WORKSPACE_EDITOR
-    $deploymentRoles: [DeploymentRoles!]
+    $workspaceUuid: Uuid = "<your-workspace-uuid>"
+    $email: String! = "<user-email-address>"
+    $role: Role! = <user-workspace-role>
     $bypassInvite: Boolean! = true
   ) {
     workspaceAddUser(
