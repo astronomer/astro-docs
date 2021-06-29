@@ -14,13 +14,111 @@ We're committed to testing all Astronomer Enterprise versions for scale, reliabi
 
 ## v0.25.3
 
-Release Date: June 25, 2021
+Release Date: June 30th, 2021
 
-### Support for Kubernetes 1.19 and 1.2
+### Improved OpenShift Support
 
-The Astronomer platform is now compatible with Kubernetes 1.19 and 1.2. Enterprise users can now configure their clusters to take advantage of the latest Kubernetes features as described in the [official documentation](https://kubernetes.io/blog/2020/12/08/kubernetes-1-20-release-announcement/).
+We've made several changes to make it easier for organizations already running OpenShift to implement the Astronomer platform. Most importantly, you can now use your any ingress controller for the Astronomer platform. To utilize this functionality, you need to complete the following setup:
 
-To learn more about what versions of key platform components are supported for any given release, read [Version Compatibility Reference](/docs/enterprise/v0.25/resources/version-compatibility-reference).
+- To have your ingress controller recognize your Astronomer certificate, annotate the Kubernetes secret containing your certificate:
+
+    ```sh
+    kubectl annotate secret/astronomer-tls kubed.appscode.com/sync="platform-release=astronomer"
+    ```
+
+- To enable OpenShift routes to bind the same hostname to multiple routes on different namespaces, you must patch your ingress operator:
+
+    ```sh
+    oc -n openshift-ingress-operator patch ingresscontroller/default --patch '{"spec":{"routeAdmission":{"namespaceOwnership":"InterNamespaceAllowed"}}}' --type=merge
+    ```
+
+- To connect Astronomer's backend services to your ingress controller, add an annotation to your network policy:
+
+    ```sh
+    kubectl label namespace/ingress-nginx network.openshift.io/policy-group=ingress
+    ```
+
+Once this setup is complete, you can configure the Astronomer via Helm to deploy an auth sidecar for running your own ingress controller. That configuration might look something like this:
+
+```yaml
+global:
+  baseDomain: <base-domain>
+  helmRepo: "https://pgvishnuram.github.io/airflow_sidecar_release"
+  tlsSecret: astronomer-tls
+  # disable nginx ingress
+  nginxEnabled: false
+  nodeExporterEnabled: false
+  sccEnabled: true
+  postgresqlEnabled: true
+  # Deploy auth sidecar to use custom ingress controller
+  authSidecar:
+    enabled: true
+    repository: nginxinc/nginx-unprivileged
+    tag: stable
+    pullPolicy: IfNotPresent
+    port: 8084
+    resources:
+      limits: {}
+      requests: {}
+    default_nginx_settings: |
+      internal;
+      proxy_pass_request_body     off;
+      proxy_set_header            Content-Length          "";
+      proxy_set_header            X-Forwarded-Proto       "";
+      proxy_set_header            X-Original-URL          https://$http_host$request_uri;
+      proxy_set_header            X-Original-Method       $request_method;
+      proxy_set_header            X-Real-IP               $remote_addr;
+      proxy_set_header            X-Forwarded-For         $remote_addr;
+      proxy_set_header            X-Auth-Request-Redirect $request_uri;
+      proxy_buffering             off;
+      proxy_buffer_size           4k;
+      proxy_buffers               4 4k;
+      proxy_request_buffering     on;
+      proxy_http_version          1.1;
+      proxy_ssl_server_name       on;
+      proxy_pass_request_headers  on;
+      client_max_body_size        1024m;
+    default_nginx_settings_location: |
+      auth_request     /auth;
+      auth_request_set $auth_status $upstream_status;
+      auth_request_set $auth_cookie $upstream_http_set_cookie;
+      add_header       Set-Cookie $auth_cookie;
+      auth_request_set $authHeader0 $upstream_http_authorization;
+      proxy_set_header 'authorization' $authHeader0;
+      auth_request_set $authHeader1 $upstream_http_username;
+      proxy_set_header 'username' $authHeader1;
+      auth_request_set $authHeader2 $upstream_http_email;
+      proxy_set_header 'email' $authHeader2;
+      error_page 401 = @401_auth_error;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'connection_upgrade';
+      proxy_set_header X-Real-IP              $remote_addr;
+      proxy_set_header X-Forwarded-For        $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_cache_bypass $http_upgrade;
+      proxy_set_header X-Original-Forwarded-For $http_x_forwarded_for;
+      proxy_connect_timeout                   15s;
+      proxy_send_timeout                      600s;
+      proxy_read_timeout                      600s;
+      proxy_buffering                         off;
+      proxy_buffer_size                       4k;
+      proxy_buffers                           4 4k;
+      proxy_max_temp_file_size                1024m;
+      proxy_request_buffering                 on;
+      proxy_http_version                      1.1;
+      proxy_cookie_domain                     off;
+      proxy_cookie_path                       off;
+      proxy_redirect                          off;
+
+  ## If we need to add any extra annotations below option can be used to
+  ## pass those values
+  extraAnnotations: {}
+  #kubernetes.io/ingress.class: "nginx"
+```
+
+### Support for Kubernetes 1.19 and 1.20
+
+The Astronomer platform is now compatible with Kubernetes 1.19 and 1.20. As an Enterprise user, you can now upgrade your clusters to either of these two versions and take advantage of the latest Kubernetes features. For more information, refer to [Kubernetes 1.20 release notes](https://kubernetes.io/blog/2020/12/08/kubernetes-1-20-release-announcement/).
 
 ### Bypass User Invite Emails via Houston API
 
@@ -28,21 +126,20 @@ The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field.
 
 ### Minor Improvements
 
+- Added support for installing Astronomer via ArgoCD, which facilitates continuous delivery for Kubernetes applications. For more information, read the [Astronomer Forum].
 - Workspace Admins can now perform CRUD operations on any Deployment within their Workspace, even if they don't have Deployment Admin permissions for the given Deployment.
 - Added the ability to use non-RFC address spaces for Alertmanager.
 - Added support for using Workload Identity to configure a GCP registry backend.
 - Changed sidecar naming convention from `nginx` to `auth-proxy`.
 - Added `fsGroup` to the Webserver `securityContext` to enable [role assumption](https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html) for EKS 1.17.
-- Changed the default Scheduler count for new Deployments to 2.
-- Improved the experience of installing the Astronomer Helm Chart via ArgoCD. For more information, read the [Astronomer Forum].
 
 ### Bugfixes
 
-- Fixed an issue where private root CA's did not work due to an unmounted certificate.
+- Fixed an issue where private root CAs did not work due to an unmounted certificate.
 - Fixed broken links to Deployments in alert emails.
 - Fixed an issue where historical logs did not appear in the Astronomer UI.
-- Fixed an issue where long task execution logs did not appear in the Airflow UI.
 - Fixed an issue where System Admins were unable to create Deployments.
+- Fixed a visual bug where some Deployments with only 1 Scheduler were shown has having 2 in the Astronomer UI.
 - Fixed a visual bug where users without Workspace Admin permissions had a non-functional Invite Users button in the Astronomer UI.
 
 ## v0.25.2
