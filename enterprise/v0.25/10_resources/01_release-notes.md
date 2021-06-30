@@ -22,7 +22,7 @@ You can now use any Ingress controller for your Astronomer platform. This is par
 
 To use your own Ingress controller, you need to configure a proxy sidecar for the controller. For example, configure an Ingress controller for OpenShift:
 
-1. Annotate the Kubernetes secret containing your certificate so that the Ingress controller recognizes your Astronomer certificate:
+1. Annotate the Kubernetes secret containing your certificate so that your Ingress controller recognizes your Astronomer certificate:
 
     ```sh
     kubectl annotate secret/astronomer-tls kubed.appscode.com/sync="platform-release=astronomer"
