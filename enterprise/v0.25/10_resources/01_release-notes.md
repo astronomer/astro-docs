@@ -18,7 +18,7 @@ Release Date: June 30th, 2021
 
 ### Support for Any Ingress Controller
 
-You can now use any Ingress controller for your Astronomer platform. This is particularly useful for organizations installing Astronomer onto platforms that favor a specific type of Ingress controller, such as OpenShift, or organizations that want to take advantage of any features not available in the NGINX Ingress controller.
+You can now use any Ingress controller for your Astronomer platform. This is particularly useful if you're installing Astronomer onto platforms like OpenShift, which favor a specific type of Ingress controller, or if you want to take advantage of any features not available through the default NGINX Ingress controller.
 
 To use your own Ingress controller, you need to configure a proxy sidecar for the controller. For example, configure an Ingress controller for OpenShift:
 
