@@ -8,23 +8,31 @@ description: "Astronomer Cloud Release Notes."
 
 ### v0.25.3
 
-Release Date: June 28th, 2021
+Release Date: June 30th, 2021
 
-### Bypass User Invite Emails via Houston API
+#### Bypass Email Verification for Users via Houston API
 
-The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field. When this field is set to true, users invited to a Workspace no longer need to first verify their email addresses before accessing the Workspace. This type of query can be useful to minimize friction when programmatically inviting many users to your platform. For more information, see [Sample Mutations](/docs/enterprise/v0.25/manage-astronomer/houston-api#sample-mutations).
+The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field. When this field is set to true, users invited to a Workspace no longer need to first verify their email addresses before accessing the Workspace. This type of query can be useful to minimize friction when programmatically inviting many users to Astronomer. For more information, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
 
-### Minor Improvements
+#### Minor Improvements
 
 - Workspace Admins can now perform CRUD operations on any Deployment within their Workspace, even if they don't have Deployment Admin permissions for the given Deployment.
 
-### Bugfixes
+#### Bugfixes
 
 - Fixed broken links to Deployments in alert emails.
 - Fixed an issue where historical logs did not appear in the Astronomer UI.
 - Fixed an issue where long task execution logs did not appear in the Airflow UI.
-- Fixed a visual bug where some Deployments with only 1 Scheduler were shown has having 2 in the Astronomer UI.
-- Fixed a visual bug where users without Workspace Admin permissions had a non-functional Invite Users button in the Astronomer UI.
+- Fixed a visual bug where some Deployments with only 1 Scheduler were shown as having 2 in the Astronomer UI.
+- Fixed a visual bug where users without Workspace Admin permissions had a non-functional **Invite Users** button in the Astronomer UI.
+
+### v.0.25.2
+
+Release Date: May 18th, 2021
+
+#### Minor Improvements
+
+This release contains features and bug fixes only for Astronomer Enterprise v0.25. For more information about these changes, read the [Enterprise release notes](docs/enterprise/v0.25/resources/release-notes).
 
 ### v0.25.1
 
