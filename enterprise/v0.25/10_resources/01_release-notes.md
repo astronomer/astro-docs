@@ -20,7 +20,9 @@ Release Date: June 30th, 2021
 
 You can now use any Ingress controller for your Astronomer platform. This is particularly useful if you're installing Astronomer onto platforms like OpenShift, which favor a specific type of Ingress controller, or if you want to take advantage of any features not available through the default NGINX Ingress controller.
 
-To use your own Ingress controller, you need to configure a proxy sidecar to run authentication tasks that are usually managed by the default NGINX Ingress controller. For example, to configure an Ingress controller for OpenShift:
+The default NGINX Ingress controller has two responsibilities: to be a reverse proxy and to tell your authorization server how to authorize incoming requests. To use your own Ingress controller, you need to disable Astronomer's default NGINX Ingress controller, set up your own Ingress controller to work with Astronomer's backend services, and enable `authSideCar` to authorize the incoming requests in place of the NGINX Ingress controller.
+
+For example, to use your own Ingress controller for OpenShift, you would need to:
 
 1. Annotate the Kubernetes secret containing your certificate so that your Ingress controller recognizes your Astronomer certificate:
 
@@ -34,7 +36,7 @@ To use your own Ingress controller, you need to configure a proxy sidecar to run
     oc -n openshift-ingress-operator patch ingresscontroller/default --patch '{"spec":{"routeAdmission":{"namespaceOwnership":"InterNamespaceAllowed"}}}' --type=merge
     ```
 
-3. Add an annotation to your network policy to connect Astronomer's backend services to your Ingress controller:
+3. Add an annotation to your network policy to connect to Astronomer's backend services from your Ingress controller:
 
     ```sh
     kubectl label namespace/ingress-nginx network.openshift.io/policy-group=ingress
@@ -47,13 +49,11 @@ To use your own Ingress controller, you need to configure a proxy sidecar to run
       baseDomain: <base-domain>
       helmRepo: "https://github.io/company-helm-repo"
       tlsSecret: astronomer-tls
-      # disable nginx ingress
-      nginxEnabled: false
+      nginxEnabled: false # Disable nginx ingress
       nodeExporterEnabled: false
-      sccEnabled: true
+      sccEnabled: true # Required for OpenShift
       postgresqlEnabled: true
-      # Deploy auth sidecar to use custom ingress controller
-      authSidecar:
+      authSidecar:  # Deploy auth sidecar to use different Ingress controller
         enabled: true
         repository: nginxinc/nginx-unprivileged
         tag: stable
@@ -112,7 +112,7 @@ To use your own Ingress controller, you need to configure a proxy sidecar to run
           proxy_cookie_path                       off;
           proxy_redirect                          off;
 
-      ## If we need to add any extra annotations below option can be used to
+      ## If you need to add any extra annotations, the below option can be used to
       ## pass those values
       extraAnnotations: {}
       #kubernetes.io/ingress.class: "nginx"
