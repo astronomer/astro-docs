@@ -22,7 +22,6 @@ The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field.
 
 - Fixed broken links to Deployments in alert emails.
 - Fixed an issue where historical logs did not appear in the Astronomer UI.
-- Fixed an issue where long task execution logs did not appear in the Airflow UI.
 - Fixed a visual bug where some Deployments with only 1 Scheduler were shown as having 2 in the Astronomer UI.
 - Fixed a visual bug where users without Workspace Admin permissions had a non-functional **Invite Users** button in the Astronomer UI.
 
