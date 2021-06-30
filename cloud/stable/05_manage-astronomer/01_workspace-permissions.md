@@ -20,7 +20,7 @@ The guidelines below will cover:
 
 Workspace and Deployment _Admins_ can invite and otherwise manage users both via the Astronomer UI and CLI. All users who have access to a Workspace must be assigned 1 of 3 Workspace roles, though deployment-level roles are not required.
 
-Read below for guidelines. 
+Read below for guidelines.
 
 ### Invite to Workspace
 
@@ -28,7 +28,7 @@ The ability to invite users to an Astronomer Workspace is limited to Workspace _
 
 A user who creates a Workspace is automatically granted the _Admin_ role for the Workspace and has the ability to create any number of Airflow Deployments within it. Every Workspace must have at least 1 Workspace _Admin_.
 
-#### via Astronomer UI
+#### Via Astronomer UI
 
 To invite a user to a Workspace via [the Astronomer UI](https://app.gcp0001.us-east4.astronomer.io/), navigate to **Workspace** > **Users** > **Invite User**.
 
@@ -38,7 +38,7 @@ When a Workspace _Admin_ invites a user to a Workspace in which one or more Airf
 
 If a Workspace Admin invites a user to a Workspace that does _not_ have any Airflow Deployments within it, the **Deployment Roles** modal above will not appear.
 
-#### via Astronomer CLI
+#### Via Astronomer CLI
 
 To invite a user to a Workspace via the Astronomer CLI, run:
 
@@ -60,6 +60,10 @@ To set a **Role**, add a flag in the following format:
 - `--WORKSPACE_ADMIN`
 
 If you do _not_ specify a role in this command, `WORKSPACE_VIEWER` will be set by default. In all cases where a user is invited to a Workspace and deployment-level role is not specified, no deployment-level role will be assumed.
+
+#### Via Houston API
+
+Users with Workspace Admin privileges can use Astronomer's Houston API to programmatically invite users to a Workspace. By running a variation of the `workspaceAddUser` mutation, you can configure a user's permissions, login email address, and whether they need to verify their email before accessing the platform. For an example API request, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
 
 ### Invite to Deployment
 
@@ -193,13 +197,12 @@ astro deployment user delete <email> --deployment-id=<deployment-id>
 
 Workspace _Admins_ are the highest-tiered role at the Workspace level. Admins:
 
-- Can manage users and their permissions in a Workspace
-- Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name)
-- Can create Airflow Deployments in the Workspace
-- Can manage **Billing**
-- Can perform CRUD operations on any Service Account in the Workspace
-
-Workspace _Admins_ do not automatically have CRUD access to all Airflow Deployments within it - they must either create or be added to those Deployments and will be held to the restrictions of their deployment-level role. For example, a Workspace _Admin_ could be a Deployment _Viewer_ and not have access to push code to that Deployment.
+- Can manage users and their permissions in a Workspace.
+- Can perform CRUD (create, read, update, delete) operations on the Workspace (e.g. delete the Workspace, change its name).
+- Can create Airflow Deployments in the Workspace.
+- Can perform CRUD operations on any Airflow Deployment within the Workspace.
+- Can manage **Billing**.
+- Can perform CRUD operations on any Service Account in the Workspace.
 
 Every Workspace must have at least 1 Workspace _Admin_.
 
@@ -216,7 +219,7 @@ Below a Workspace _Admin_, an _Editor_:
 
 #### Workpace Viewer
 
-A Workspace _Viewer_ is limited to read-only mode. _Viewers_: 
+A Workspace _Viewer_ is limited to read-only mode. _Viewers_:
 
 - Can list users in a Workspace
 - Can view all Airflow Deployments in the Workspace
