@@ -63,7 +63,7 @@ If you do _not_ specify a role in this command, `WORKSPACE_VIEWER` will be set b
 
 #### Via Houston API
 
-Users with Workspace Admin privileges can use Astronomer's Houston API to programmatically invite users to a Workspace. Within the mutation query, you can configure a user's permissions, login email address, and whether they need to verify their email before accessing the platform. For an example API request, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
+Users with Workspace Admin privileges can use Astronomer's Houston API to programmatically invite users to a Workspace. By running a variation of the `workspaceAddUser` mutation, you can configure a user's permissions, login email address, and whether they need to verify their email before accessing the platform. For an example API request, see [Sample Mutations](/docs/cloud/stable/manage-astronomer/houston-api#sample-mutations).
 
 ### Invite to Deployment
 
