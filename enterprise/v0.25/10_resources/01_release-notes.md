@@ -53,7 +53,7 @@ For example, to use your own Ingress controller for OpenShift, you would need to
       nodeExporterEnabled: false
       sccEnabled: true # Required for OpenShift
       postgresqlEnabled: true
-      authSidecar:  # Deploy auth sidecar to use different Ingress controller
+      authSidecar:  
         enabled: true
         repository: nginxinc/nginx-unprivileged
         tag: stable
