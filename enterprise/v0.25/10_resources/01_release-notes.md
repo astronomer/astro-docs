@@ -128,7 +128,7 @@ The Houston API `workspaceAddUser` mutation now includes a `bypassInvite` field.
 
 ### Minor Improvements
 
-- Added support for installing Astronomer via ArgoCD, which facilitates continuous delivery for Kubernetes applications. For more information, read the [Astronomer Forum](https://forum.astronomer.io/t/installing-astronomer-with-argocd/1335).
+- You can now specify values for `global.privateRegistry.user`, `global.privateRegistry.password`, and `global.astronomer.registry.secret` in `config.yaml`. By default, these values are randomly generated.
 - Workspace Admins can now perform CRUD operations on any Deployment within their Workspace, even if they don't have Deployment Admin permissions for the given Deployment.
 - Prevented `NginxIngressHigh4XXRate` and `NginxIngressHigh5XXRate` alerts from over-firing during periods of low traffic.
 - Added the ability to use non-RFC address spaces for Alertmanager.
