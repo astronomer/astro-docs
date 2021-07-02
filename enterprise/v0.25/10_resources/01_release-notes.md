@@ -12,6 +12,18 @@ If you're looking to upgrade to Astronomer v0.25, refer to [Upgrade to Astronome
 
 We're committed to testing all Astronomer Enterprise versions for scale, reliability and security on Amazon EKS, Google GKE and Azure AKS. If you have any questions or an issue to report, don't hesitate to [reach out to us](https://support.astronomer.io).
 
+## v0.25.4
+
+Release Date: July 2nd, 2021
+
+### Minor Improvements
+
+- Added support for installing Astronomer Enterprise via ArgoCD, which facilitates continuous delivery for Kubernetes applications. For more information, read the [Astronomer Forum](https://forum.astronomer.io/t/installing-astronomer-with-argocd/1341).
+
+### Bug fixes
+
+- Fixed an issue where Workspace Service Accounts lost access to Astronomer.
+
 ## v0.25.3
 
 Release Date: June 30th, 2021

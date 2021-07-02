@@ -6,6 +6,14 @@ description: "Astronomer Cloud Release Notes."
 
 ## Astronomer v0.25
 
+### v0.25.4
+
+Release Date: July 2nd, 2021
+
+#### Bug fixes
+
+- Fixed an issue where Workspace Service Accounts lost access to Astronomer.
+
 ### v0.25.3
 
 Release Date: June 30th, 2021
