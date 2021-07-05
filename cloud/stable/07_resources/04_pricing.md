@@ -35,20 +35,20 @@ Resource configurations are "live" as soon as you adjust the toggles on your web
 
 To track and measure allocation to each of these components, we introduce the concept of an Astronomer Unit (AU).
 
-| AU Count | CPU | GB of Memory | Monthly Price |
-|----------|-----|--------|-------|
-| 1 | 0.1 | .375 | $10 |
-| 10 | 1 | 3.75 | $100
+| AU Count | CPU | GB of Memory |
+|----------|-----|--------|
+| 1 | 0.1 | .375 |
+| 10 | 1 | 3.75 |
 
 When you spin up an Airflow Deployment, you'll find that it's pre-configured with default resource allocations. We've identified those levels to be effective baselines for the Local, Celery and Kubernetes Executors, respectively. Of course, you're free to adjust them at any time.
 
 See below for out-of-the-box configurations and corresponding AU count:
 
-| Executor   | PgBouncer & StatsD | Scheduler | Webserver | Celery Worker | Redis & Flower | Extra Capacity | Total AU | Monthly Cost |
-|------------|--------------------|-----------|-----------|---------------|----------------|----------------|----------|--------------|
-| Local | 4 | 10| 5 | N/A | N/A | N/A | 19 | $190 |
-| Celery | 4 | 10 | 5 | 10 | 4 | N/A | 33 | $330 |
-| Kubernetes | 4 | 10 | 5 | N/A | N/A | 10 | 19 - 29 | $190 - $290  |
+| Executor   | PgBouncer & StatsD | Scheduler | Webserver | Celery Worker | Redis & Flower | Extra Capacity | Total AU |
+|------------|--------------------|-----------|-----------|---------------|----------------|----------------|----------|
+| Local | 4 | 10| 5 | N/A | N/A | N/A | 19 |
+| Celery | 4 | 10 | 5 | 10 | 4 | N/A | 33 |
+| Kubernetes | 4 | 10 | 5 | N/A | N/A | 10 | 19 - 29 |
 
 > **Note**: The PgBouncer, StatsD, Redis, and Flower AU configs are static infrastructure minimums that cannot be changed.
 
@@ -91,15 +91,7 @@ On Astronomer Cloud, the node limits for any single task (based on Google's [n1-
 
 To calculate your Astronomer Cloud bill at the end of the month, we take a snapshot of your Airflow Deployment's resource allocations for every individual hour that your Airflow Deployment is running on our platform. At the end of the month, we aggregate the total AU hours for that billing cycle and convert it to a dollar amount.
 
-For example, the cost of running 1 Airflow Deployment on 25 AU for 1 day = (25) x (0.0137) x (24) = **$8.22**.
-
 > **Note:** Resources allocated to **Extra Capacity** are calculated and charged by the minute, not by the hour.
-
-## Not-for-Profit Discount
-
-If you're a not-for-profit interested in Astronomer, our team wants to support you and your mission. On Astronomer, all organizations with a 501(c)(3) status are eligible for a 20% discount across all product offerings.
-
-If you're interested and believe you might be eligible, reach out to us at humans@astronomer.io.
 
 ## Enterprise Pricing
 
