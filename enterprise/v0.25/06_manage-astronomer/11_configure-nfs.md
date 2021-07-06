@@ -13,7 +13,7 @@ Unlike [deploying DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/dep
 This guide provides the necessary setup for connecting an NFS volume to Astronomer as a DAG deploy option. Some considerations before completing this setup:
 
 - NFS volumes are used only for DAG deploys. To add dependencies or other requirements to your Deployment, you still need to set them in your `requirements.txt` and `packages.txt` files and rebuild your image via the CLI as described in [Customize Images](/docs/enterprise/v0.25/develop/customize-image).
-- DAGs must be deployed directly to NFS volumes. They cannot be deployed via the Astronomer CLI or an Astronomer service account.
+- DAGs must be deployed directly to NFS volumes. They cannot be deployed via the Astronomer CLI or an Astronomer service account. For an example of how to configure DAG deploys, see Step 6 of [Provision an NFS Volume (Amazon EFS)](/docs/enterprise/v0.25/manage-astronomer/configure-nfs).
 
 ## Provision an NFS Volume
 
@@ -30,7 +30,7 @@ For each NFS volume you provision for DAG deploys, you need to configure:
 
 See the following section for a complete setup for NFS Volume-based DAG deploys using Amazon EFS.
 
-## Configure an NFS Volume (Amazon EFS)
+## Provision an NFS Volume (Amazon EFS)
 
 Use this topic to configure and automate the process for moving DAGs from multiple repos into a single Amazon EFS storage system.
 
@@ -40,7 +40,7 @@ In this example setup, you use `kubectl cp` to copy DAGs from a git repository i
 
 To complete this setup, you need:
 
-- [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+- [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [helm](https://helm.sh/docs/intro/install/](https://helm.sh/docs/intro/install/)
 - Astronomer version 0.25.x or higher
@@ -79,7 +79,7 @@ Instead of adding extra permissions to the IAM role for the EKS worker nodes, be
 
 ### Step 2: Install an EFS CSI driver and EFS file system
 
-The EFS file system stores your Airflow code, while the EFS CSI driver manages communication between the EFS file system and your EKS cluster. To set up these components, follow the [Amazon documentation]((https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html).
+The EFS file system stores your Airflow code, while the EFS CSI driver manages communication between the EFS file system and your EKS cluster. To set up these components, follow the [Amazon documentation](https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html).
 
 ### Step 3: Enable NFS Volume Storage
 
