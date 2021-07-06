@@ -66,7 +66,7 @@ The total AU allocated to **Extra Capacity** represents the maximum possible res
 
 On Astronomer Cloud, you will only be charged for the CPU and Memory *actually used* by either your Kubernetes Executor or KubernetesPodOperator within the span of your billing period. The AU value you set for the slider represents the *maximum* AU our cluster has permission to provision within your Deployment's namespace, but you will not be charged for that maximum unless fully utilized.
 
-If you set your **Extra Capacity** slider to 30 AU but the Pods spun up within your billing period only required 20 AU total to execute all tasks, you will only be charged for 20 AU at the end of the month at our regular rate of $10/AU per month.
+If you set your **Extra Capacity** slider to 30 AU but the Pods spun up within your billing period only required 20 AU total to execute all tasks, you will only be charged for 20 AU at the end of the month at our regular rate.
 
 > **Note:** While **Extra Capacity** is dynamically priced, resources needed for the Scheduler, Webserver, PgBouncer & StatsD will remain fixed costs that are not affected by downtime/uptime.
 
