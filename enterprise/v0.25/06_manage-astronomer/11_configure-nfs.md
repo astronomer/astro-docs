@@ -41,8 +41,8 @@ In this example setup, you use `kubectl cp` to copy DAGs from a git repository i
 To complete this setup, you need:
 
 - [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-- [helm](https://helm.sh/docs/intro/install/](https://helm.sh/docs/intro/install/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- [helm](https://helm.sh/docs/intro/install/)
 - Astronomer version 0.25.x or higher
 
 ### Step 1: Create OIDC provider and link to your EKS instance
