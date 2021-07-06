@@ -12,8 +12,6 @@ If you've used the Astronomer CLI to develop locally, you'll find it similarly e
 
 For guidance on automating this process, refer to [Deploy to Astronomer via CI/CD](/docs/enterprise/v0.25/deploy/ci-cd/). To learn how to add Python and OS-level packages or otherwise customize your Docker image, read [Customize your Image](/docs/enterprise/v0.25/develop/customize-image/).
 
-Alternatively, you can configure an external NFS volume for DAG deploys. For more information, read [Deploy DAGs to an NFS Volume](/docs/enterprise/v0.25/manage-astronomer/deploy-nfs).
-
 > **Note:** We recommend that all users test their code locally via the Astronomer CLI before pushing it to an Airflow Deployment on Astronomer. For guidelines on developing locally, refer to [CLI Quickstart](/docs/enterprise/v0.25/develop/cli-quickstart/).
 
 ## Prerequisites
