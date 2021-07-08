@@ -12,8 +12,9 @@ Unlike [deploying DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/dep
 
 This guide provides the necessary setup for connecting an NFS volume to Astronomer as a DAG deploy option. Some considerations before completing this setup:
 
-- NFS volumes are used only for DAG deploys. To add dependencies or other requirements to your Deployment, you still need to set them in your `requirements.txt` and `packages.txt` files and rebuild your image via the CLI as described in [Customize Images](/docs/enterprise/v0.25/develop/customize-image).
-- DAGs must be deployed directly to NFS volumes. They cannot be deployed via the Astronomer CLI or an Astronomer service account.
+- You can configure NFS volumes only to deploy DAGs. To push dependencies or other requirements to your Airflow Deployment, you still need to update your `requirements.txt` and `packages.txt` files and deploy via either the [Astronomer CLI](docs/enterprise/v0.25/deploy/deploy-cli) or [CI/CD](docs/enterprise/v0.25/deploy/ci-cd). For more information on pushing code to your Airflow environment, read [Customize Images](/docs/enterprise/v0.25/develop/customize-image).
+- If you configure an NFS volume for an Airflow Deployment, you can't deploy DAGs via the Astronomer CLI or an Astronomer service account. These options are available only for Deployments configured with an image-based deploy mechanism.
+- You can configure NFS volumes only for Airflow Deployments running Airflow 2.0+.
 
 ## Enable NFS Volume Storage
 
