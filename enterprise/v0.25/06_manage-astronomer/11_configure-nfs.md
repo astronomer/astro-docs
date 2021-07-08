@@ -1,14 +1,14 @@
 ---
-title: "Enable NFS Volume DAG Deployments"
+title: "Configure NFS Volume-based DAG Deploys on Astronomer"
 navTitle: "Configure NFS Volumes"
-description: "How to set up an NFS volume for DAG deployment"
+description: "Set up NFS volume-based DAG deploys for Apache Airflow on Astronomer Enterprise."
 ---
 
 ## Overview
 
 Starting in Astronomer Enterprise v0.25, you can use an external [Network File System (NFS) Volume](https://kubernetes.io/docs/concepts/storage/volumes/#nfs) to deploy DAGs to an Airflow Deployment on Astronomer.
 
-Unlike [deploying DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/deploy-cli), deploying DAGs to an NFS volume, such as Azure File Storage or Google Cloud Filestore, does not require rebuilding a Docker image and restarting your underlying Airflow service. When a DAG is added to an NFS volume, it automatically appears in the Airflow UI without requiring additional action or causing downtime.
+Unlike [deploying DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/deploy-cli), deploying DAGs to an NFS volume, such as Azure File Storage or Google Cloud Filestore, does not require rebuilding a Docker image and restarting your underlying Airflow service. When a DAG is added to an NFS volume, it automatically appears in the Airflow UI without requiring additional action or causing downtime. This type of deployment is useful for larger organizations who want a clear separation between Airflow environment code and DAG code.
 
 This guide provides the necessary setup for connecting an NFS volume to Astronomer as a DAG deploy option. Some considerations before completing this setup:
 
