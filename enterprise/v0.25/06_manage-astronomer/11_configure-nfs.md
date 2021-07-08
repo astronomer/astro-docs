@@ -12,11 +12,15 @@ Unlike [deploying DAGs via the Astronomer CLI](/docs/enterprise/v0.25/deploy/dep
 
 This guide provides the necessary setup for connecting an NFS volume to Astronomer as a DAG deploy option. Some considerations before completing this setup:
 
-- You can configure NFS volumes only for Airflow Deployments running Airflow 2.0+.
-- You can use NFS volumes only for deploying DAGs. To push dependencies or other requirements to your Airflow Deployment, you still need to update your `requirements.txt` and `packages.txt` files and rebuild your image via the CLI as described in [Customize Images](/docs/enterprise/v0.25/develop/customize-image).
+- You can configure NFS volumes only to deploy DAGs. To push dependencies or other requirements to your Airflow Deployment, you still need to update your `requirements.txt` and `packages.txt` files and deploy via either the [Astronomer CLI](docs/enterprise/v0.25/deploy/deploy-cli) or [CI/CD](docs/enterprise/v0.25/deploy/ci-cd). For more information on pushing code to your Airflow environment, read [Customize Images](/docs/enterprise/v0.25/develop/customize-image).
 - If you configure an NFS volume for an Airflow Deployment, you can't deploy DAGs via the Astronomer CLI or an Astronomer service account. These options are available only for Deployments configured with an image-based deploy mechanism.
+- You can configure NFS volumes only for Airflow Deployments running Airflow 2.0+.
 
-## Provision an NFS Volume
+## Enable NFS
+
+The following will describe, at a high level, the steps required to enable NFS volume-based DAG deploys on Astronomer.
+
+### Step 1: Provision an NFS Volume
 
 While you can use any NFS volume for this step, we recommend using your cloud provider's primary NFS volume solution:
 
@@ -29,11 +33,40 @@ For each NFS volume you provision for DAG deploys, you need to configure:
 * A directory for DAGs.
 * (GCP Filestore only) Read access for a user with GID `50000` and UID `50000`. For an example setup of this, read [Configuring Ip-based access control](https://cloud.google.com/filestore/docs/creating-instances#configuring_ip-based_access_control) in Google Cloud's documentation.
 
-See the following section for a complete setup for NFS Volume-based DAG deploys using Amazon EFS.
+### Step 2: Enable NFS Volume Storage on Astronomer
 
-## Provision an NFS Volume (Amazon EFS)
+NFS volume deploys must be explicitly enabled on Astronomer by a System Admin. To enable it, update your `config.yaml` file with the following values:
 
-Use this topic to configure and automate the process for moving DAGs from multiple repos into a single Amazon EFS storage system.
+```yaml
+houston:
+  config:
+      deployments:
+        configureDagDeployment: true
+        nfsMountDagDeployment: true
+```
+
+Once you have saved the file, push the configuration change to your platform as described in [Apply a Platform Configuration Change on Astronomer](https://www.astronomer.io/docs/enterprise/v0.25/manage-astronomer/apply-platform-config). This process needs to be completed only once per Astronomer installation.
+
+### Step 3: Configure Astronomer Deployments
+
+For each Deployment you want to connect to your EFS file storage:
+
+1. In the Astronomer UI, create a new Airflow Deployment or open an existing one.
+2. Go to the **DAG Deployment** section of the Deployment's Settings page.
+3. For your **Mechanism**, select **NFS Volume Mount**:
+
+    ![Custom Release Name Field](https://assets2.astronomer.io/main/docs/astronomer-ui/nfs.png)
+
+4. In the **NFS Location** field that appears, enter the location of your volume-based DAG directory as `<IP>:/<path>` (for example: `192.168.0.1:/path/to/your/dags`).
+5. Save your changes.
+
+From here, you can deploy DAGs to Airflow by adding them to your NFS volume. Note that the actual deploy process will vary based on what configurations you have for both your cloud and your NFS solution.
+
+Read the following section for a complete example of implementing an NFS Volume using Amazon EFS.
+
+## Example Setup: Amazon EFS
+
+The following setup represents a production implementation of NFS Volumes on Astronomer. Use this example as a reference when implementing your own NFS Volume deploy systems.
 
 In this example setup, you use `kubectl cp` to copy DAGs from a git repository into an intermediary Kubernetes pod that shares the same NFS volume mount as an Airflow Deployment on Astronomer.
 
@@ -44,11 +77,11 @@ To complete this setup, you need:
 - [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [helm](https://helm.sh/docs/intro/install/)
-- Astronomer version 0.25.x or higher
+- Astronomer Enterprise v0.25.1+
 
 ### Step 1: Create OIDC provider and link to your EKS instance
 
-Instead of adding extra permissions to the IAM role for the EKS worker nodes, best practice is to leverage IAM Roles for Service Accounts (IRSA) so that services can communicate with AWS APIs directly.
+Instead of adding extra permissions to the IAM role for the EKS worker nodes, we recommend that you use IAM Roles for Service Accounts (IRSA) so that services can communicate with AWS APIs directly.
 
 1. Export environment variables specific to your installation:
 
@@ -57,17 +90,16 @@ Instead of adding extra permissions to the IAM role for the EKS worker nodes, be
     export CLUSTER_NAME=<your-cluster-name>
     ```
 
-2. Check if you have already have a linked OIDC Provider by running the following commands:
+2. Check if you already have a linked OIDC Provider by first running the following command:
 
-    ```bash
+    ```sh
     aws eks describe-cluster --name ${CLUSTER_NAME} --query "cluster.identity.oidc.issuer" --output text
+    ```
 
-    # copy last part of url from output
-    # for example,
-    # in the output: https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLED539D4633E53DE1B716D3041E
-    # copy "EXAMPLED539D4633E53DE1B716D3041E"
+    Copy the last part of the url from this output. For example, if the output was `https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLED539D4633E53DE1B716D3041E` you would copy `EXAMPLED539D4633E53DE1B716D3041E`. With this ID, run the following commands:
 
-    export ISSUER_ID=EXAMPLED539D4633E53DE1B716D3041E
+    ```sh
+    export ISSUER_ID=<example-ID>
 
     aws iam list-open-id-connect-providers | grep ${ISSUER_ID}
     ```
@@ -80,9 +112,9 @@ Instead of adding extra permissions to the IAM role for the EKS worker nodes, be
 
 ### Step 2: Install an EFS CSI driver and EFS file system
 
-The EFS file system stores your Airflow code, while the EFS CSI driver manages communication between the EFS file system and your EKS cluster. To set up these components, follow the [Amazon documentation](https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html).
+The EFS file system stores DAG code, while the EFS CSI driver manages communication between the EFS file system and your EKS cluster. To set up these components, follow the [Amazon documentation](https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html).
 
-### Step 3: Enable NFS Volume Storage
+### Step 3: Enable NFS Volume Storage on Astronomer
 
 NFS volume deploys must be explicitly enabled on Astronomer by a System Admin. To enable it, update your `config.yaml` file with the following values:
 
@@ -98,17 +130,16 @@ Once you have saved the file, push the configuration change to your platform as 
 
 ### Step 4: Configure Astronomer Deployments
 
-For each Deployment you want to connect to your EFS file storage:
+For each Airflow Deployment that you want to connect to your EFS file storage:
 
-1. In the Astronomer UI, create a new Airflow Deployment or open an existing one.
-2. Go to the **DAG Deployment** section of the Deployment's Settings page.
-3. For your **Mechanism**, select **NFS Volume Mount**:
+1. In the Astronomer UI, go to the **DAG Deployment** section of the Deployment's Settings page.
+2. For your **Mechanism**, select **NFS Volume Mount**:
 
     ![Custom Release Name Field](https://assets2.astronomer.io/main/docs/astronomer-ui/nfs.png)
 
-4. In the **NFS Location** field that appears, enter the location of your volume-based DAG directory as `<IP>:/<path>` (for example: `192.168.0.1:/path/to/your/dags`).
-5. Save your changes.
-6. Save the following as `efs-nfs.yaml`. Replace `<your-file-system-id>` with the EFS file-system-id and `< airflow-deployment-namespace>` with the namespace of your Airflow Deployment (typically `astronomer-<Astronomer-release-name>`).
+3. In the **NFS Location** field that appears, enter the location of your volume-based DAG directory as `<efs-file-system-id>.efs.<aws-region>.amazonaws.com:/`.
+4. Save your changes.
+5. Save the following as `efs-nfs.yaml`. Replace `<your-file-system-id>` with the EFS file-system-id and `<your-airflow-deployment-namespace>` with the namespace of your Airflow Deployment. This is typically `astronomer-<your-deployment-release-name>`.
 
     ```yaml
     apiVersion: v1
@@ -125,13 +156,13 @@ For each Deployment you want to connect to your EFS file storage:
       storageClassName: efs-sc
       csi:
         driver: efs.csi.aws.com
-        volumeHandle: {{ your file-system-id }}
+        volumeHandle: <your-file-system-id>
     ---
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
       name: nfs-sync
-      namespace: {{ airflow-deployment-namespace }}
+      namespace: <your-airflow-deployment-namespace>
     spec:
       accessModes:
         - ReadWriteMany
@@ -144,7 +175,7 @@ For each Deployment you want to connect to your EFS file storage:
     kind: Deployment
     metadata:
       name: nfs-sync
-      namespace: {{ airflow-deployment-namespace }}
+      namespace: <your-airflow-deployment-namespace>
     spec:
       replicas: 1
       selector:
@@ -176,7 +207,7 @@ For each Deployment you want to connect to your EFS file storage:
               claimName: nfs-sync
     ```
 
-6. Apply the manifest by running the following command:
+5. Apply the manifest by running the following command:
 
     ```sh
     kubectl apply -f efs-nfs.yaml
@@ -206,11 +237,11 @@ kubectl -n $NAMESPACE exec $POD -- rm -rf /dags/example-dag.py
 
 ### Step 6: Set up CI/CD
 
-The following setup is Astronomer's recommended minimum setup for deploying DAGs to an NFS Volume via CI/CD. You'll be configuring:
+At minimum, Astronomer recommends setting up the following for deploying DAGs to an NFS Volume via CI/CD:
 
-- An IAM user with the minimum required access for deploying DAGs.
-- A Kubernetes role for the IAM user.
-- An example CI/CD job.
+- An IAM user with the minimum required access for deploying DAGs
+- A Kubernetes role for the IAM user
+- An example CI/CD job
 
 Note that you will want to adjust the configurations that are specified here based on the specifics of your installation.
 
@@ -290,7 +321,7 @@ Note that you will want to adjust the configurations that are specified here bas
     eksctl create iamidentitymapping --cluster ${CLUSTER_NAME} --arn arn:aws:iam::${AWS_ACCOUNT_ID}:user/efs-nfs-sa --username efs-nfs-sa
     ```
 
-7. Configure a job in the CI/CD tool of your choice. We recommend using the job to package the code for your DAGs into .zip files and deploy the .zip files to your EFS file system. At a minimum, your job would be running the following commands:
+7. Configure a workflow with a CI/CD tool of your choice. For this example setup, we create a workflow that packages DAG files into `.zip` files and deploys the `.zip` files to your EFS file system. At a minimum, your CI workflow would be running the following commands:
 
     ```sh
     POD=$(kubectl -n $NAMESPACE get pod -l role=nfs-sync -o jsonpath="{.items[0].metadata.name}")
