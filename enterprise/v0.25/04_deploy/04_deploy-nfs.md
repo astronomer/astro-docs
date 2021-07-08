@@ -16,7 +16,6 @@ This guide provides the necessary setup for connecting an NFS volume to Astronom
 - If you configure an NFS volume for an Airflow Deployment, you can't deploy DAGs via the Astronomer CLI or an Astronomer service account. These options are available only for Deployments configured with an image-based deploy mechanism.
 - You can configure NFS volumes only for Airflow Deployments running Airflow 2.0+.
 
-
 ## Enable NFS Volume Storage
 
 NFS volume deploys must be explicitly enabled on Astronomer by a System Admin. To enable it, update your `config.yaml` file with the following values:
